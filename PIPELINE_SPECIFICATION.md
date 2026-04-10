@@ -1424,3 +1424,5 @@ VARIANCE:     =(S2-P{net})
 ---
 
 **END OF SPECIFICATION v1.0**
+
+<\!-- auto-commit hook smoke test 2026-04-10T14:10:20Z -->
