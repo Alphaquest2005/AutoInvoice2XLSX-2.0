@@ -131,3 +131,47 @@ def test_batch_dedups_identical_descriptions(counting_stub, tmp_path):
         f"Expected ≤60 LLM item-slots for 60 unique descriptions; "
         f"got {counting_stub.item_slots} (dedup is missing)"
     )
+
+
+def test_batch_resolves_category_lookup_without_llm(counting_stub, tmp_path):
+    """Parity with single path: batch Layer 2b must catch brand/category hits.
+
+    Items like "Polo Shirt, Male Uniform Polyester (Large, Navy)" don't appear
+    in the assessed DB, don't match any rule, and aren't in the JSON cache, but
+    they DO match CATEGORY_HS_CODES via keyword scoring. The single path picks
+    them up via lookup_hs_code_web's brand/category layers; the batch path must
+    do the same before resorting to an LLM call.
+
+    Regression guard: before WS-B3(d), these items dropped straight to the LLM
+    (wasting a call) and in mock mode ended up as UNKNOWN.
+    """
+    from classifier_batch import classify_items_batch  # type: ignore
+
+    items = [
+        {"description": "Polo Shirt, Male Uniform Polyester (Large, Navy)"},
+        {"description": "Polo Shirt, Female Uniform Polyester (Large, Navy)"},
+    ]
+
+    results = classify_items_batch(
+        items,
+        rules=[],
+        noise_words=set(),
+        config={"base_dir": str(tmp_path)},
+        gather_web_context=False,
+    )
+
+    assert len(results) == 2
+    for r in results:
+        assert r is not None
+        assert r.get("code") and r["code"] != "UNKNOWN", (
+            f"batch failed to classify category_lookup item: {r!r}"
+        )
+        assert r.get("source") in {"category_lookup", "brand_lookup"}, (
+            f"expected category/brand source, got {r.get('source')!r}"
+        )
+
+    # Critical: these items must NEVER reach the LLM — they're local-layer hits.
+    assert counting_stub.item_slots == 0, (
+        f"category_lookup items should resolve locally; "
+        f"got {counting_stub.item_slots} LLM item-slots"
+    )

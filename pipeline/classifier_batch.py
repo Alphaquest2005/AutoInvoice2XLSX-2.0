@@ -39,6 +39,7 @@ from classifier import (  # noqa: E402
     _save_to_cache,
     classify_item,
     lookup_assessed_classification,
+    lookup_hs_code_web,
     validate_and_correct_code,
 )
 
@@ -131,7 +132,7 @@ class BatchClassifier:
             batch_size: Number of items per LLM call (default 60).
         """
         self.config = config or {}
-        self.base_dir = self.config.get('base_dir', '.')
+        self.base_dir = self.config.get("base_dir", ".")
         self.batch_size = batch_size or self.DEFAULT_BATCH_SIZE
 
     def classify_batch(
@@ -168,6 +169,7 @@ class BatchClassifier:
         # Cheap no-op after the first call per process.
         try:
             from classification_db import ensure_db_seeded
+
             ensure_db_seeded(self.base_dir)
         except Exception as _e:
             logger.debug(f"[DB-SEED] ensure_db_seeded failed: {_e}")
@@ -184,16 +186,14 @@ class BatchClassifier:
 
             # Layer 0: Assessed
             assessed = lookup_assessed_classification(desc, self.base_dir)
-            if assessed and assessed.get('code') and assessed['code'] != 'UNKNOWN':
+            if assessed and assessed.get("code") and assessed["code"] != "UNKNOWN":
                 results[i] = assessed
                 continue
 
             # Layer 1: Rule-based
             if rules is not None:
-                rule_result = classify_item(
-                    desc, rules, noise_words or set(), self.base_dir
-                )
-                if rule_result and rule_result.get('code') and rule_result['code'] != 'UNKNOWN':
+                rule_result = classify_item(desc, rules, noise_words or set(), self.base_dir)
+                if rule_result and rule_result.get("code") and rule_result["code"] != "UNKNOWN":
                     results[i] = rule_result
                     continue
 
@@ -201,12 +201,30 @@ class BatchClassifier:
             search_terms = _extract_search_terms(desc)
             if search_terms:
                 cache_result = _check_lookup_cache(search_terms, self.base_dir)
-                if cache_result and cache_result.get('code') and cache_result['code'] != 'UNKNOWN':
-                    cache_result['code'] = validate_and_correct_code(
-                        cache_result['code'], self.base_dir
+                if cache_result and cache_result.get("code") and cache_result["code"] != "UNKNOWN":
+                    cache_result["code"] = validate_and_correct_code(
+                        cache_result["code"], self.base_dir
                     )
                     results[i] = cache_result
                     continue
+
+            # Layer 2b: Cheap in-memory brand_lookup + category_lookup (parity
+            # with single-path lookup_hs_code_web). We disable the web_verify
+            # and llm_classification config keys so lookup_hs_code_web returns
+            # immediately on a brand/category hit, or None — it never fires a
+            # web search or LLM call from inside this layer. The batch LLM
+            # (Layer 3) still owns all real LLM traffic.
+            local_lookup = lookup_hs_code_web(
+                desc,
+                config={
+                    "base_dir": self.base_dir,
+                    "web_verify": {"enabled": False},
+                    "llm_classification": {"enabled": False},
+                },
+            )
+            if local_lookup and local_lookup.get("code") and local_lookup["code"] != "UNKNOWN":
+                results[i] = local_lookup
+                continue
 
             # Needs LLM
             needs_llm.append((i, desc))
@@ -234,9 +252,7 @@ class BatchClassifier:
             key = normalize_description(desc) or desc.strip().lower()
             groups.setdefault(key, []).append((orig_idx, desc))
 
-        dedup_representatives: list[tuple[int, str]] = [
-            members[0] for members in groups.values()
-        ]
+        dedup_representatives: list[tuple[int, str]] = [members[0] for members in groups.values()]
 
         dedup_savings = len(needs_llm) - len(dedup_representatives)
         if dedup_savings > 0:
@@ -262,7 +278,7 @@ class BatchClassifier:
         # Split the deduped representatives into batches
         batches = []
         for batch_start in range(0, len(dedup_representatives), self.batch_size):
-            batch = dedup_representatives[batch_start:batch_start + self.batch_size]
+            batch = dedup_representatives[batch_start : batch_start + self.batch_size]
             batches.append(batch)
 
         total_calls = len(batches)
@@ -347,17 +363,15 @@ class BatchClassifier:
             if not isinstance(value, dict):
                 continue
 
-            code = str(value.get('code', '')).replace('.', '').replace(' ', '')
+            code = str(value.get("code", "")).replace(".", "").replace(" ", "")
             if len(code) != 8 or not code.isdigit():
-                logger.warning(
-                    f"[BATCH] Invalid code '{code}' for item {prompt_num}, skipping"
-                )
+                logger.warning(f"[BATCH] Invalid code '{code}' for item {prompt_num}, skipping")
                 continue
 
             # Validate against CET
             code = validate_and_correct_code(code, self.base_dir)
 
-            confidence = value.get('confidence', 0.75)
+            confidence = value.get("confidence", 0.75)
             if isinstance(confidence, str):
                 try:
                     confidence = float(confidence)
@@ -367,17 +381,16 @@ class BatchClassifier:
             # Reject low-confidence
             if confidence < 0.4:
                 logger.warning(
-                    f"[BATCH] Rejecting low-confidence ({confidence}) "
-                    f"for item {prompt_num}"
+                    f"[BATCH] Rejecting low-confidence ({confidence}) for item {prompt_num}"
                 )
                 continue
 
             classification = {
-                'code': code,
-                'category': value.get('category', 'LLM_CLASSIFIED'),
-                'confidence': confidence,
-                'source': 'batch_llm_classification',
-                'notes': value.get('reasoning', 'Classified by batch LLM'),
+                "code": code,
+                "category": value.get("category", "LLM_CLASSIFIED"),
+                "confidence": confidence,
+                "source": "batch_llm_classification",
+                "notes": value.get("reasoning", "Classified by batch LLM"),
             }
             classified[orig_idx] = classification
 
@@ -400,6 +413,7 @@ class BatchClassifier:
         # Try the shared LLM client first (has caching, retry, etc.)
         try:
             from core.llm_client import get_llm_client
+
             llm = get_llm_client()
             result = llm.call_json(
                 user_message=user_message,
@@ -425,46 +439,48 @@ class BatchClassifier:
             return None
 
         llm_settings = _load_llm_settings(self.base_dir)
-        api_key = llm_settings.get('api_key', '')
-        base_url = llm_settings.get('base_url', 'https://api.z.ai/api/anthropic')
-        model = llm_settings.get('model', 'glm-5')  # SSOT: src/autoinvoice/domain/models/settings.py
+        api_key = llm_settings.get("api_key", "")
+        base_url = llm_settings.get("base_url", "https://api.z.ai/api/anthropic")
+        model = llm_settings.get(
+            "model", "glm-5"
+        )  # SSOT: src/autoinvoice/domain/models/settings.py
 
         if not api_key:
             logger.warning("No API key for batch LLM classification")
             return None
 
         payload = {
-            'model': model,
-            'max_tokens': 8192,
-            'temperature': 0,
-            'system': _BATCH_SYSTEM_PROMPT,
-            'messages': [{'role': 'user', 'content': user_message}],
+            "model": model,
+            "max_tokens": 8192,
+            "temperature": 0,
+            "system": _BATCH_SYSTEM_PROMPT,
+            "messages": [{"role": "user", "content": user_message}],
         }
 
         api_endpoint = f"{base_url.rstrip('/')}/v1/messages"
-        body = json.dumps(payload).encode('utf-8')
+        body = json.dumps(payload).encode("utf-8")
 
         req = Request(
             api_endpoint,
             data=body,
             headers={
-                'Content-Type': 'application/json',
-                'x-api-key': api_key,
-                'anthropic-version': '2023-06-01',
+                "Content-Type": "application/json",
+                "x-api-key": api_key,
+                "anthropic-version": "2023-06-01",
             },
         )
 
         try:
             with urlopen(req, timeout=120) as response:
-                data = json.loads(response.read().decode('utf-8'))
+                data = json.loads(response.read().decode("utf-8"))
 
-            text = data.get('content', [{}])[0].get('text', '')
+            text = data.get("content", [{}])[0].get("text", "")
             if not text:
                 return None
 
             # Extract JSON from response
-            json_start = text.find('{')
-            json_end = text.rfind('}') + 1
+            json_start = text.find("{")
+            json_end = text.rfind("}") + 1
             if json_start >= 0 and json_end > json_start:
                 return json.loads(text[json_start:json_end])
 
@@ -477,24 +493,25 @@ class BatchClassifier:
     def _get_description(item: dict) -> str:
         """Extract the best description from an item dict."""
         return (
-            item.get('description', '')
-            or item.get('po_item_desc', '')
-            or item.get('supplier_item_desc', '')
+            item.get("description", "")
+            or item.get("po_item_desc", "")
+            or item.get("supplier_item_desc", "")
         )
 
     @staticmethod
     def _unknown_result() -> dict:
         """Return a standard UNKNOWN classification result."""
         return {
-            'code': 'UNKNOWN',
-            'category': 'UNCLASSIFIED',
-            'confidence': 0,
-            'source': 'none',
-            'notes': 'Could not classify',
+            "code": "UNKNOWN",
+            "category": "UNCLASSIFIED",
+            "confidence": 0,
+            "source": "none",
+            "notes": "Could not classify",
         }
 
 
 # ── Convenience function matching classify_with_llm() signature ─────────────
+
 
 def classify_items_batch(
     items: list[dict],
@@ -523,6 +540,8 @@ def classify_items_batch(
     """
     bc = BatchClassifier(config=config, batch_size=batch_size)
     return bc.classify_batch(
-        items, rules=rules, noise_words=noise_words,
+        items,
+        rules=rules,
+        noise_words=noise_words,
         gather_web_context=gather_web_context,
     )
