@@ -1,0 +1,3293 @@
+{
+  "key": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/documents/Fw_ CONTAINER DOCUMENTS FOR MARCH|limit=10",
+  "items": [
+    {
+      "description": "Sander/Polisher, Dual-Action 120V Female Thread",
+      "sku": "SHD/3100",
+      "quantity": 1.0,
+      "unit_cost": 137.45,
+      "total_cost": 137.45,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Buffing Pad Set, Compound Buff Magic 6.5\" 2 Pack",
+      "sku": "SHD/3151",
+      "quantity": 1.0,
+      "unit_cost": 18.18,
+      "total_cost": 18.18,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Pole Handle, 6' Telescopic Extension with Quick-Clip Female",
+      "sku": "SHD/833",
+      "quantity": 4.0,
+      "unit_cost": 28.06,
+      "total_cost": 112.24,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Clevis Pin Set, \u00d81/4 Grip Length:1\" 2 Pack",
+      "sku": "HDM/370241",
+      "quantity": 2.0,
+      "unit_cost": 4.61,
+      "total_cost": 9.22,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Snap Cap Set, for #10 & 12 Black 10 Pack",
+      "sku": "HDM/610221",
+      "quantity": 2.0,
+      "unit_cost": 3.26,
+      "total_cost": 6.52,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Insulation Sheet, IVF Thickness:1\" Sheet:32\" x54\"",
+      "sku": "SND/IVF1010MN32",
+      "quantity": 1.0,
+      "unit_cost": 82.84,
+      "total_cost": 82.84,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Insulation Tile, IVF Thickness:1\" Tile:12x12\" Silver",
+      "sku": "SND/IVF1010MPSF",
+      "quantity": 6.0,
+      "unit_cost": 6.38,
+      "total_cost": 38.28,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Battery Terminal Kit, Negative & Positive",
+      "sku": "SNS/50031700",
+      "quantity": 7.0,
+      "unit_cost": 10.31,
+      "total_cost": 72.17,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Oil Pump, for Lower Unit",
+      "sku": "SNS/50091461",
+      "quantity": 1.0,
+      "unit_cost": 5.41,
+      "total_cost": 5.41,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Hailer Horn, Loudhailer 5\" x 7\" 40W 4ohm",
+      "sku": "STD/240SW",
+      "quantity": 3.0,
+      "unit_cost": 45.5,
+      "total_cost": 136.5,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Ball Valve, Brass 1\" Non-Tapered Thread with Aluminum",
+      "sku": "SUA/408-1",
+      "quantity": 1.0,
+      "unit_cost": 16.9,
+      "total_cost": 16.9,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Handle, Stainless Steel for Ball Valve 3/4, 1\"",
+      "sku": "SUA/HAN406A-M-S",
+      "quantity": 2.0,
+      "unit_cost": 2.05,
+      "total_cost": 4.1,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Thimble, Stainless Steel for 1-1/8\" Rope",
+      "sku": "THI/S28",
+      "quantity": 3.0,
+      "unit_cost": 51.1,
+      "total_cost": 153.3,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Fouling Remover, Barnacle Buster Gal",
+      "sku": "TRC/1206-MG",
+      "quantity": 1.0,
+      "unit_cost": 64.31,
+      "total_cost": 64.31,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Descaler, Scale-Remover Concentrate Gal",
+      "sku": "TRC/1212-MG",
+      "quantity": 3.0,
+      "unit_cost": 60.89,
+      "total_cost": 182.67,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Tef Gel, 20cc/Syringe",
+      "sku": "ULT/TG-1",
+      "quantity": 2.0,
+      "unit_cost": 23.09,
+      "total_cost": 46.18,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Adapter, Quick Fitting 15mm to Female 1/2\" Bsp 2 Pack",
+      "sku": "WHA/WX1532",
+      "quantity": 1.0,
+      "unit_cost": 10.31,
+      "total_cost": 10.31,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Shackle, Twisted 10mm Self-Locking",
+      "sku": "WIC/1225",
+      "quantity": 1.0,
+      "unit_cost": 17.99,
+      "total_cost": 17.99,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Metal Shine, Stainless Clean&Passivation 250ml",
+      "sku": "WIC/WICHINOX",
+      "quantity": 4.0,
+      "unit_cost": 16.13,
+      "total_cost": 64.52,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Tray Liner, White for Metal Tray 11\" Depth:3\"",
+      "sku": "WPA/30062",
+      "quantity": 10.0,
+      "unit_cost": 0.51,
+      "total_cost": 5.1,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Outboard Oil, 4 Stroke SAE:10W-30 Qt YamaLube",
+      "sku": "YAM/LUB4STRKQT",
+      "quantity": 12.0,
+      "unit_cost": 7.55,
+      "total_cost": 90.6,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Jug, Gas Red Sq 2.5Gal Self-Vented Spout",
+      "sku": "SCP/07079",
+      "quantity": 2.0,
+      "unit_cost": 8.79,
+      "total_cost": 17.58,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Fuel Tank, Portble Red 3Gal",
+      "sku": "SCP/04158",
+      "quantity": 1.0,
+      "unit_cost": 32.93,
+      "total_cost": 32.93,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Primer Bulb, 5/16\" Fuel-Line",
+      "sku": "SCP/07494",
+      "quantity": 1.0,
+      "unit_cost": 6.94,
+      "total_cost": 6.94,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Trolling Skirt, 6\" Hot Pink 5 Pack",
+      "sku": "BNE/76164",
+      "quantity": 3.0,
+      "unit_cost": 5.06,
+      "total_cost": 15.18,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Angle Bracket, Stainless Steel 3\" x 3\" Pair",
+      "sku": "SDG/221315-1",
+      "quantity": 4.0,
+      "unit_cost": 7.98,
+      "total_cost": 31.92,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Rubber Mount, Body25x20 2Stud6x18mm Bobbin Type",
+      "sku": "AMC/120173",
+      "quantity": 1.0,
+      "unit_cost": 2.71,
+      "total_cost": 2.71,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Key Ring, Single Cork Ball",
+      "sku": "AAA/90070",
+      "quantity": 2.0,
+      "unit_cost": 1.98,
+      "total_cost": 3.96,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Ball Bearing Conditioner, McLube One Drop 0.5oz",
+      "sku": "MGE/7875",
+      "quantity": 3.0,
+      "unit_cost": 9.66,
+      "total_cost": 28.98,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Toilet, Marine Manual LT-1",
+      "sku": "NUO/11412",
+      "quantity": 1.0,
+      "unit_cost": 143.36,
+      "total_cost": 143.36,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Sleeve, Double Copper Size #4F8 1.12mm Black 25",
+      "sku": "AFW/J04F8B-A",
+      "quantity": 3.0,
+      "unit_cost": 2.01,
+      "total_cost": 6.03,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Hose, Garden 5/8\" x 25' White Drinking Water Safe",
+      "sku": "CMC/22783",
+      "quantity": 2.0,
+      "unit_cost": 13.88,
+      "total_cost": 27.76,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Snap Shackle, Trigger Length:102mm A4",
+      "sku": "BM/SNSH102",
+      "quantity": 3.0,
+      "unit_cost": 17.75,
+      "total_cost": 53.25,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Canvas Snap Set, Stud Screw #7 Length:3/8\" 6 Pack",
+      "sku": "HDM/560111",
+      "quantity": 2.0,
+      "unit_cost": 5.44,
+      "total_cost": 10.88,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Trolling Skirt, 9-1/2\" Purple/Black 2 Pack",
+      "sku": "BNE/79104",
+      "quantity": 7.0,
+      "unit_cost": 3.86,
+      "total_cost": 27.02,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Lure, Trolling Pro Minnow 5-1/4\" 5/8oz Chartreuse",
+      "sku": "EGL/LCHSIL514",
+      "quantity": 4.0,
+      "unit_cost": 5.03,
+      "total_cost": 20.12,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Cleaner, Disinfectant Sanitizing Release Unit",
+      "sku": "NUO/11865",
+      "quantity": 4.0,
+      "unit_cost": 5.16,
+      "total_cost": 20.64,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Sealant, SG20 Hi-Strength c737 White 300ml",
+      "sku": "SIK/SG20-C737WH",
+      "quantity": 3.0,
+      "unit_cost": 17.26,
+      "total_cost": 51.78,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Navigation Light, Solar Power Tri Colour",
+      "sku": "BM/NAVLIGHT-TRI",
+      "quantity": 3.0,
+      "unit_cost": 11.38,
+      "total_cost": 34.14,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Hook, Live Bait Needle Point Heavy Size 4 8Pk",
+      "sku": "EGL/L8PGH-4",
+      "quantity": 12.0,
+      "unit_cost": 1.09,
+      "total_cost": 13.08,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Reel, Cimarron Size 30",
+      "sku": "EGL/CIN-30",
+      "quantity": 1.0,
+      "unit_cost": 13.48,
+      "total_cost": 13.48,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Reel, Cimarron Size 50",
+      "sku": "EGL/CIN-50",
+      "quantity": 2.0,
+      "unit_cost": 15.76,
+      "total_cost": 31.52,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Padeye, Stainless Steel 33mm Round Base 2Holes",
+      "sku": "AAA/AM16-05",
+      "quantity": 5.0,
+      "unit_cost": 0.46,
+      "total_cost": 2.3,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Twisted Rope, Polyprop 1/2\" Yellow /F",
+      "sku": "SAN/F833H5",
+      "quantity": 600.0,
+      "unit_cost": 0.15,
+      "total_cost": 90.0,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Dock Line, 1/2\" (13mm) Nylon Braided Length:20' White",
+      "sku": "SAN/D611H8",
+      "quantity": 2.0,
+      "unit_cost": 4.38,
+      "total_cost": 8.76,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Bungee, Adjustable Strap 36\" Black",
+      "sku": "JDP/AS36BK",
+      "quantity": 1.0,
+      "unit_cost": 7.2,
+      "total_cost": 7.2,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Bilge Pump, Submersible Non-Automatic 01",
+      "sku": "SFL/SFBP1-G2000-01",
+      "quantity": 3.0,
+      "unit_cost": 22.69,
+      "total_cost": 68.07,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Bilge Pump, Submersible Automatic 13B Series",
+      "sku": "SFL/SFBP2-G800-13B",
+      "quantity": 2.0,
+      "unit_cost": 17.31,
+      "total_cost": 34.62,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Bilge Pump, Submersible Automatic 06 Series",
+      "sku": "SFL/SFBP1-G1100-06",
+      "quantity": 1.0,
+      "unit_cost": 21.03,
+      "total_cost": 21.03,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Float Switch, 02 Series 12V 18A Max",
+      "sku": "SFL/SFBS-18-02",
+      "quantity": 10.0,
+      "unit_cost": 9.48,
+      "total_cost": 94.8,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Treatment, K.O. Kills Odor Bio-Active 32oz",
+      "sku": "RAR/1PKO32",
+      "quantity": 1.0,
+      "unit_cost": 12.7,
+      "total_cost": 12.7,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Filter, Sea Water Hose Size:25/32/38mm",
+      "sku": "SFL/SF-SWF001",
+      "quantity": 1.0,
+      "unit_cost": 13.5,
+      "total_cost": 13.5,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Rotary Tool, Multimate",
+      "sku": "ALL/63553",
+      "quantity": 1.0,
+      "unit_cost": 28.21,
+      "total_cost": 28.21,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Planer, Trolling Stainless Steel #2",
+      "sku": "BNE/90002",
+      "quantity": 4.0,
+      "unit_cost": 9.34,
+      "total_cost": 37.36,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Float Switch, 05 Series Electromagnetic 25A Max",
+      "sku": "SFL/SFBS-25-05",
+      "quantity": 2.0,
+      "unit_cost": 18.06,
+      "total_cost": 36.12,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Hose Washdown Kit, 20\u2019 Hosecoil & Spray Nozzle",
+      "sku": "SFL/SFHW2-060-01",
+      "quantity": 1.0,
+      "unit_cost": 12.8,
+      "total_cost": 12.8,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Paddle, 2Blade Aluminum 20.6\" 2Pc",
+      "sku": "SFL/SFPD2-06/TA06-220-N2-Y",
+      "quantity": 2.0,
+      "unit_cost": 16.14,
+      "total_cost": 32.28,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Diaphragm Pump, Self-Priming 55 Series 12V",
+      "sku": "SFL/SFDP1-050-060-55",
+      "quantity": 2.0,
+      "unit_cost": 57.2,
+      "total_cost": 114.4,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Mat, Slip Stop 1 x 12' Cream",
+      "sku": "CMC/43278",
+      "quantity": 2.0,
+      "unit_cost": 4.58,
+      "total_cost": 9.16,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Solar Shower, 5Gal",
+      "sku": "CMC/51368",
+      "quantity": 1.0,
+      "unit_cost": 9.41,
+      "total_cost": 9.41,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Compass, with Bracket Mount 130mm",
+      "sku": "AAA/70032-WH",
+      "quantity": 2.0,
+      "unit_cost": 11.38,
+      "total_cost": 22.76,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Primer, Shawkocon Underwater Anti-Corrosive Gray",
+      "sku": "SEH/SH-984G",
+      "quantity": 1.0,
+      "unit_cost": 76.7,
+      "total_cost": 76.7,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Oil Change System, Series 02 12V 5A",
+      "sku": "SFL/SFOCS1-015-02",
+      "quantity": 1.0,
+      "unit_cost": 41.6,
+      "total_cost": 41.6,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Water Filter, Evo Premium",
+      "sku": "CMC/40631",
+      "quantity": 2.0,
+      "unit_cost": 59.05,
+      "total_cost": 118.1,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Monofilament Line Grand Slam 10lb Test 1/4lb",
+      "sku": "HSS/GSM-Q-10SB",
+      "quantity": 3.0,
+      "unit_cost": 7.95,
+      "total_cost": 23.85,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Monofilament, Grand Slam 20lb Test 1/4lb Spool",
+      "sku": "HSS/GSM-Q-20SB",
+      "quantity": 3.0,
+      "unit_cost": 7.91,
+      "total_cost": 23.73,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Monofilament, Grand Slam 30lb Test 1/4lb Spool",
+      "sku": "HSS/GSM-Q-30SB",
+      "quantity": 3.0,
+      "unit_cost": 7.91,
+      "total_cost": 23.73,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Monofilament, Grand Slam 25lb Test 1/4lb Spool",
+      "sku": "HSS/GSM-Q-25SB",
+      "quantity": 1.0,
+      "unit_cost": 7.91,
+      "total_cost": 7.91,
+      "_source_pdf": "bmgrn INV_SX_2026_007321.pdf"
+    },
+    {
+      "description": "Polo Shirt, Female Uniform Polyester (Large,",
+      "sku": "8BM/CL-POFUNI-PLS",
+      "quantity": 1.0,
+      "unit_cost": 14.8,
+      "total_cost": 14.8,
+      "_source_pdf": "bmgrn INV_SX_2026_007328.pdf"
+    },
+    {
+      "description": "Polo Shirt, Male Uniform Polyester (Large, Navy)",
+      "sku": "8BM/CL-POMUNI-PLS",
+      "quantity": 1.0,
+      "unit_cost": 14.35,
+      "total_cost": 14.35,
+      "_source_pdf": "bmgrn INV_SX_2026_007328.pdf"
+    },
+    {
+      "description": "Shackle, 5/8\" Galvanize 16mm",
+      "sku": "BM/SHG16B",
+      "quantity": 10.0,
+      "unit_cost": 1.85,
+      "total_cost": 18.5,
+      "_source_pdf": "bmgrn INV_SX_2026_008336.pdf"
+    },
+    {
+      "description": "Caliper, Labelled Budget Marine",
+      "sku": "8BM/PM-CALIP",
+      "quantity": 4.0,
+      "unit_cost": 1.94,
+      "total_cost": 7.76,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Key Ring, Float Orange Foam with BM Logo",
+      "sku": "8BM/PM-KYSVOR",
+      "quantity": 3.0,
+      "unit_cost": 3.19,
+      "total_cost": 9.57,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Switch Panel, 6Gang",
+      "sku": "AAA/10060",
+      "quantity": 1.0,
+      "unit_cost": 17.64,
+      "total_cost": 17.64,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Deck Footswitch, 150A Solid-Lid Black",
+      "sku": "AAA/10098",
+      "quantity": 2.0,
+      "unit_cost": 13.51,
+      "total_cost": 27.02,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Switch, Push Button Momentary Plastic Rubber-Cap SCR",
+      "sku": "AAA/10208",
+      "quantity": 3.0,
+      "unit_cost": 1.39,
+      "total_cost": 4.17,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Switch, Push Button SP Momentary Plastic SCR D22",
+      "sku": "AAA/10209",
+      "quantity": 1.0,
+      "unit_cost": 1.31,
+      "total_cost": 1.31,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Thru-Deck, for Cable:8mm 1-1/4\" Base Cpb",
+      "sku": "AAA/11594",
+      "quantity": 2.0,
+      "unit_cost": 3.76,
+      "total_cost": 7.52,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Clamshell Vent, Stainless Steel 2-1/8\"",
+      "sku": "AAA/13521",
+      "quantity": 1.0,
+      "unit_cost": 0.66,
+      "total_cost": 0.66,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Drain Plug, Brass Rubber \u00d81\" Expanding Flip-Top",
+      "sku": "AAA/40095",
+      "quantity": 1.0,
+      "unit_cost": 2.65,
+      "total_cost": 2.65,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Hatch Clamp, Flat 101mm Width 31mm Chrome Plated",
+      "sku": "AAA/50057",
+      "quantity": 1.0,
+      "unit_cost": 5.2,
+      "total_cost": 5.2,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Hasp Hinge, Stainless Steel Length:34 Open",
+      "sku": "AAA/50071",
+      "quantity": 7.0,
+      "unit_cost": 3.99,
+      "total_cost": 27.93,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Hinge, Flat Stainless Steel Length:37 Open Width:105mm",
+      "sku": "AAA/52573",
+      "quantity": 2.0,
+      "unit_cost": 2.89,
+      "total_cost": 5.78,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Hinge, Flat Stainless Steel Length:51 Open Width:44",
+      "sku": "AAA/52596",
+      "quantity": 3.0,
+      "unit_cost": 1.98,
+      "total_cost": 5.94,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Hatch Holder, Spring Stainless Steel Length:220mm",
+      "sku": "AAA/62509",
+      "quantity": 2.0,
+      "unit_cost": 3.95,
+      "total_cost": 7.9,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "VHF Holder, PVC Handheld White",
+      "sku": "AAA/63551",
+      "quantity": 1.0,
+      "unit_cost": 3.11,
+      "total_cost": 3.11,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Gas Spring, 5/16 Stainless Steel Length:12-20\" Fixed",
+      "sku": "AMR/750-8-40",
+      "quantity": 2.0,
+      "unit_cost": 38.68,
+      "total_cost": 77.36,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Ball Stud, 10mm Stainless Steel Thread:M6-100",
+      "sku": "AMR/BSSS-10M",
+      "quantity": 5.0,
+      "unit_cost": 1.53,
+      "total_cost": 7.65,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Water Treatment, No Chlorine Liquid 100ml",
+      "sku": "AQC/AQUACLEANL",
+      "quantity": 1.0,
+      "unit_cost": 13.91,
+      "total_cost": 13.91,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Marine Shine, with Abrasive 75ml/Tube",
+      "sku": "AUT/01-001190",
+      "quantity": 1.0,
+      "unit_cost": 5.91,
+      "total_cost": 5.91,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Snap Buckle, 1\" Black",
+      "sku": "BAI/A089BK",
+      "quantity": 1.0,
+      "unit_cost": 0.95,
+      "total_cost": 0.95,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Snap Buckle, 2\" Black",
+      "sku": "BAI/A099BK",
+      "quantity": 1.0,
+      "unit_cost": 1.65,
+      "total_cost": 1.65,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Stirrup Pump, for Bilge Length:24\" Thirsty-Mate",
+      "sku": "BEC/124PF",
+      "quantity": 1.0,
+      "unit_cost": 35.71,
+      "total_cost": 35.71,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Drink Holder, Recessed 2Step i\u00d83.56\" Dth:3.25\" White",
+      "sku": "BEC/GH43-W1",
+      "quantity": 5.0,
+      "unit_cost": 4.19,
+      "total_cost": 20.95,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Rags, Cotton White 1Lb Bag",
+      "sku": "BFF/10521",
+      "quantity": 7.0,
+      "unit_cost": 3.9,
+      "total_cost": 27.3,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Shackle, Twisted Pressed Pin\u00d8:08 Width 18",
+      "sku": "BLU/170008",
+      "quantity": 2.0,
+      "unit_cost": 5.54,
+      "total_cost": 11.08,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "U-Bolt, Stainless Steel Thread:M5 Height:67 L2:35mm",
+      "sku": "BLU/340535",
+      "quantity": 2.0,
+      "unit_cost": 4.73,
+      "total_cost": 9.46,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Jaw Slide, Stainless Steel Bimini 7/8\" Regular",
+      "sku": "BM/BFS102",
+      "quantity": 1.0,
+      "unit_cost": 4.71,
+      "total_cost": 4.71,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Cleat, Stainless Steel 6\" Hollow Base",
+      "sku": "BM/CLS06H",
+      "quantity": 1.0,
+      "unit_cost": 12.18,
+      "total_cost": 12.18,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Chain GrabHook, Eye Galvanize for 08mm 5/16\" Chain",
+      "sku": "BM/GHG08",
+      "quantity": 1.0,
+      "unit_cost": 1.31,
+      "total_cost": 1.31,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Spray Nozzle, Zinc Alloy Adjustable Brass Head",
+      "sku": "BM/MID30609",
+      "quantity": 1.0,
+      "unit_cost": 12.59,
+      "total_cost": 12.59,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Quick Link, Stainless Steel 08mm 19x59mm Threaded-",
+      "sku": "BM/QLS08",
+      "quantity": 3.0,
+      "unit_cost": 1.86,
+      "total_cost": 5.58,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "D-Ring, Stainless Steel Rod\u00d8:04 for Webbing Size",
+      "sku": "BM/RINGDS04X25",
+      "quantity": 2.0,
+      "unit_cost": 0.34,
+      "total_cost": 0.68,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Round Ring, Stainless Steel 06 x i\u00d8:50mm",
+      "sku": "BM/RINGOS06X50",
+      "quantity": 1.0,
+      "unit_cost": 1.68,
+      "total_cost": 1.68,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Shackle, 3/8\" Galvanize 10mm",
+      "sku": "BM/SHG10B",
+      "quantity": 1.0,
+      "unit_cost": 0.64,
+      "total_cost": 0.64,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Shackle, 5/8\" Pin\u00d819mm Galvanize Heavy Duty",
+      "sku": "BM/SHG16BHD",
+      "quantity": 1.0,
+      "unit_cost": 7.49,
+      "total_cost": 7.49,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Shackle, Bow 08mm Stainless Steel",
+      "sku": "BM/SHS08B",
+      "quantity": 20.0,
+      "unit_cost": 1.24,
+      "total_cost": 24.8,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Shackle, Bow 12mm Stainless Steel",
+      "sku": "BM/SHS12B",
+      "quantity": 5.0,
+      "unit_cost": 4.08,
+      "total_cost": 20.4,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Shackle, D 12mm Stainless Steel",
+      "sku": "BM/SHS12D",
+      "quantity": 5.0,
+      "unit_cost": 2.99,
+      "total_cost": 14.95,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Snap Hook with Swivel Flag Trigger-Lock 3/8\" Brass",
+      "sku": "BM/SNB10SF",
+      "quantity": 1.0,
+      "unit_cost": 3.38,
+      "total_cost": 3.38,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Snap Hook with Swivel Flag Trigger-Lock 1\" Brass",
+      "sku": "BM/SNB25SF",
+      "quantity": 1.0,
+      "unit_cost": 3.79,
+      "total_cost": 3.79,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Snap Hook, 140 X 12mm Stainless Steel",
+      "sku": "BM/SNS12",
+      "quantity": 5.0,
+      "unit_cost": 5.39,
+      "total_cost": 26.95,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Snap Hook, 140 X 12mm Stainless Steel with Eye",
+      "sku": "BM/SNS12E",
+      "quantity": 4.0,
+      "unit_cost": 7.06,
+      "total_cost": 28.24,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Swivel, Jaw/Eye Galvanize 12mm 1/2\"",
+      "sku": "BM/SWG12J",
+      "quantity": 2.0,
+      "unit_cost": 5.4,
+      "total_cost": 10.8,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Cable Clamp, 04mm-5/32\" Stainless Steel",
+      "sku": "BM/WCS04",
+      "quantity": 1.0,
+      "unit_cost": 1.64,
+      "total_cost": 1.64,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Skirt, Tuna Tail Double 5-1/2\" Purple/Black",
+      "sku": "BNE/05631",
+      "quantity": 3.0,
+      "unit_cost": 2.1,
+      "total_cost": 6.3,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Skirt, Tuna Tail Double 5-1/2\" Pink Blue/White",
+      "sku": "BNE/05633",
+      "quantity": 1.0,
+      "unit_cost": 2.1,
+      "total_cost": 2.1,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Dolphin Rig 5-1/2\" 1oz Squirrel Fish Orange",
+      "sku": "BNE/09093",
+      "quantity": 1.0,
+      "unit_cost": 4.36,
+      "total_cost": 4.36,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Trolling Skirt, 4-1/4\" Glow Chartreuse Red Pattern 5 Pack",
+      "sku": "BNE/14006",
+      "quantity": 1.0,
+      "unit_cost": 3.45,
+      "total_cost": 3.45,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Gatlin Jet 7\" PNK/BLU",
+      "sku": "BNE/63120",
+      "quantity": 1.0,
+      "unit_cost": 12.33,
+      "total_cost": 12.33,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Trolling Skirt, 3-1/2\" Blue/Yellow/Silver 10 Pack",
+      "sku": "BNE/73247",
+      "quantity": 1.0,
+      "unit_cost": 5.13,
+      "total_cost": 5.13,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Fan, Ultimate Permanent 12V Black",
+      "sku": "CAF/757DC-BBX",
+      "quantity": 1.0,
+      "unit_cost": 49.71,
+      "total_cost": 49.71,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Battery Charger, Portable 12V 20/10/2A 110V",
+      "sku": "CLO/4520",
+      "quantity": 2.0,
+      "unit_cost": 85.1,
+      "total_cost": 170.2,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "BBQ, Charcoal Stainless Steel Stow & Go",
+      "sku": "CMC/58110",
+      "quantity": 2.0,
+      "unit_cost": 212.11,
+      "total_cost": 424.22,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "BBQ, Propane Stainless Steel Profile 150sqIN",
+      "sku": "CMC/58121",
+      "quantity": 2.0,
+      "unit_cost": 236.33,
+      "total_cost": 472.66,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "BBQ, Propane Stainless Steel Stow N'Go 160SqIN with",
+      "sku": "CMC/58131",
+      "quantity": 1.0,
+      "unit_cost": 271.14,
+      "total_cost": 271.14,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Comfort Seat, Regular 100x48x8cm Dark Blue",
+      "sku": "CMF/C1101B",
+      "quantity": 2.0,
+      "unit_cost": 75.55,
+      "total_cost": 151.1,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Solenoid Switch, 24V 85A",
+      "sku": "COH/24063",
+      "quantity": 1.0,
+      "unit_cost": 32.33,
+      "total_cost": 32.33,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Toggle Switch, SPST MET BLD 25A D12",
+      "sku": "COH/55014",
+      "quantity": 4.0,
+      "unit_cost": 9.76,
+      "total_cost": 39.04,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Toggle Switch, DPDT (On)-Off-(On) MET SCR 25A D12",
+      "sku": "COH/55054",
+      "quantity": 1.0,
+      "unit_cost": 28.39,
+      "total_cost": 28.39,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Switch, Push Button SPST Momentary MET SCR 35A D16",
+      "sku": "COH/M490",
+      "quantity": 1.0,
+      "unit_cost": 22.54,
+      "total_cost": 22.54,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Toggle Switch, SPST MET Wire 10A D12",
+      "sku": "COH/M584",
+      "quantity": 2.0,
+      "unit_cost": 11.63,
+      "total_cost": 23.26,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Wax for Metal Collinite Pint",
+      "sku": "COI/850PT",
+      "quantity": 3.0,
+      "unit_cost": 8.98,
+      "total_cost": 26.94,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Degreaser, Electrical Lectra Clean 19oz Aerosol",
+      "sku": "CRC/02018",
+      "quantity": 1.0,
+      "unit_cost": 10.75,
+      "total_cost": 10.75,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Cleaner, Contact Quick-Dry Precision 11oz Aerosol",
+      "sku": "CRC/02130",
+      "quantity": 2.0,
+      "unit_cost": 6.4,
+      "total_cost": 12.8,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Grease, White Lithium Marine 10oz Aerosol",
+      "sku": "CRC/06037",
+      "quantity": 4.0,
+      "unit_cost": 5.0,
+      "total_cost": 20.0,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Cleaner, Carburetor & Choke 12oz Aerosol",
+      "sku": "CRC/06064",
+      "quantity": 6.0,
+      "unit_cost": 3.89,
+      "total_cost": 23.34,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Silicone Spray, Marine Heavy Duty 7.5oz Aerosol",
+      "sku": "CRC/06077",
+      "quantity": 2.0,
+      "unit_cost": 3.79,
+      "total_cost": 7.58,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Stirrup Pump, for Lower-Unit Fits Gallon-Cans 1oz",
+      "sku": "CRC/SL4344",
+      "quantity": 3.0,
+      "unit_cost": 9.26,
+      "total_cost": 27.78,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Dri-Dek Flooring Black 1'x1' Square Interlocking",
+      "sku": "DDC/BLACK",
+      "quantity": 4.0,
+      "unit_cost": 5.7,
+      "total_cost": 22.8,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Dri-Dek Flooring White 1'x1' Square Interlocking",
+      "sku": "DDC/WHITE",
+      "quantity": 3.0,
+      "unit_cost": 5.55,
+      "total_cost": 16.65,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Flashlight, 4LED Waterproof Floating with 3xAA",
+      "sku": "DOR/41-2510",
+      "quantity": 1.0,
+      "unit_cost": 8.61,
+      "total_cost": 8.61,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Stove, 2Burner/Oven/No Grill Stainless Steel",
+      "sku": "ENO/182340820785",
+      "quantity": 1.0,
+      "unit_cost": 825.4,
+      "total_cost": 825.4,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Varnish, Clear 1Lt",
+      "sku": "EPI/CLVAR",
+      "quantity": 1.0,
+      "unit_cost": 25.4,
+      "total_cost": 25.4,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Varnish, Clear 500ml",
+      "sku": "EPI/CLVAR500",
+      "quantity": 1.0,
+      "unit_cost": 14.13,
+      "total_cost": 14.13,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Mono U Paint, 3129 750ml Blue",
+      "sku": "EPI/MU3129",
+      "quantity": 2.0,
+      "unit_cost": 25.38,
+      "total_cost": 50.76,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Mono U Paint, White 750ml",
+      "sku": "EPI/MUWH",
+      "quantity": 1.0,
+      "unit_cost": 24.61,
+      "total_cost": 24.61,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Non-Skid Coating, Deck-1 750ml Cream",
+      "sku": "EPI/NONSK1",
+      "quantity": 3.0,
+      "unit_cost": 23.7,
+      "total_cost": 71.1,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Hex Head Bolt, Stainless Steel A2 M12 x 100",
+      "sku": "FAS/SHBM12X100",
+      "quantity": 25.0,
+      "unit_cost": 0.8,
+      "total_cost": 20.0,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Wing Nut, Stainless Steel A4 M05",
+      "sku": "FAS/SUWI05",
+      "quantity": 100.0,
+      "unit_cost": 0.11,
+      "total_cost": 11.0,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Threaded Rod, Stainless Steel A4 M16 x 1000mm Red-",
+      "sku": "FAS/STRM16",
+      "quantity": 10.0,
+      "unit_cost": 14.5,
+      "total_cost": 145.0,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Hose Splicer, Brass 1/4\"",
+      "sku": "FB/HS1/4",
+      "quantity": 1.0,
+      "unit_cost": 1.3,
+      "total_cost": 1.3,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Hose Barb, Hose:5/16\" Pipe:3/8Mpt Tapered Brass",
+      "sku": "FBT/H516P38M",
+      "quantity": 2.0,
+      "unit_cost": 1.81,
+      "total_cost": 3.62,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Pipe Nipple, Male Thread:3/8\" Length:3\" Tapered Brass",
+      "sku": "FBT/PN38X3",
+      "quantity": 1.0,
+      "unit_cost": 3.03,
+      "total_cost": 3.03,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Fender Cover Set, F2 Cylinder Single Ply Navy Blue Pair",
+      "sku": "FDS/F2SNV",
+      "quantity": 1.0,
+      "unit_cost": 10.41,
+      "total_cost": 10.41,
+      "_source_pdf": "bmgrn INV_SX_2026_008338.pdf"
+    },
+    {
+      "description": "Fender Cover Set, F3 Cylinder Single Ply Navy Blue Pair",
+      "sku": "FDS/F3SNV",
+      "quantity": 1.0,
+      "unit_cost": 13.33,
+      "total_cost": 13.33,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Flag, Aruba 20 x 30cm",
+      "sku": "FLG/ARU08",
+      "quantity": 1.0,
+      "unit_cost": 6.39,
+      "total_cost": 6.39,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Flag, Bonaire 20 x 30cm",
+      "sku": "FLG/BON08",
+      "quantity": 1.0,
+      "unit_cost": 6.88,
+      "total_cost": 6.88,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Flag, Curacao 20 x 30cm",
+      "sku": "FLG/CUR08",
+      "quantity": 1.0,
+      "unit_cost": 6.2,
+      "total_cost": 6.2,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Flag, British Red Ensign 30 x 45cm",
+      "sku": "FLG/GBR12",
+      "quantity": 1.0,
+      "unit_cost": 6.01,
+      "total_cost": 6.01,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Flag, Grenada 12 x 18\" Nylon",
+      "sku": "FLG/GRE12N",
+      "quantity": 3.0,
+      "unit_cost": 13.43,
+      "total_cost": 40.29,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Flag, Panama 20 x 30cm",
+      "sku": "FLG/PAN08",
+      "quantity": 1.0,
+      "unit_cost": 7.16,
+      "total_cost": 7.16,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Flag, St.Maarten 20 x 30cm",
+      "sku": "FLG/SMA08",
+      "quantity": 1.0,
+      "unit_cost": 7.16,
+      "total_cost": 7.16,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Hose Barb, Nylon 1/2\" Hose x 1/2Fpt",
+      "sku": "FNT/H12X12",
+      "quantity": 1.0,
+      "unit_cost": 1.69,
+      "total_cost": 1.69,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Tee, 1/2Fpt Nylon",
+      "sku": "FNT/T12",
+      "quantity": 1.0,
+      "unit_cost": 6.5,
+      "total_cost": 6.5,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Elbow, Male Thread:3/4Mptl Barb:3/4 Marelon",
+      "sku": "FSP/901001",
+      "quantity": 1.0,
+      "unit_cost": 3.16,
+      "total_cost": 3.16,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Elbow, Female Thread:1/2Fpt Barb:5/8 Marelon HECF8",
+      "sku": "FSP/901006",
+      "quantity": 1.0,
+      "unit_cost": 2.6,
+      "total_cost": 2.6,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Y-Valve, Marelon for Hose:1.5\" MF852",
+      "sku": "FSP/902000",
+      "quantity": 2.0,
+      "unit_cost": 43.39,
+      "total_cost": 86.78,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Vent Loop, Marelon 3/4\" MF842",
+      "sku": "FSP/903001",
+      "quantity": 2.0,
+      "unit_cost": 19.38,
+      "total_cost": 38.76,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Hose Barb, Marelon Tailpipe 1/4Mpt to Hose:1/2\"",
+      "sku": "FSP/910149",
+      "quantity": 1.0,
+      "unit_cost": 1.4,
+      "total_cost": 1.4,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Hose Barb, Marelon Tailpipe 1/2Mpt to Hose:3/4\"",
+      "sku": "FSP/910157",
+      "quantity": 2.0,
+      "unit_cost": 2.85,
+      "total_cost": 5.7,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Hose Barb, Marelon Tailpipe 3/4Mpt to Hose:3/4\"",
+      "sku": "FSP/910159",
+      "quantity": 2.0,
+      "unit_cost": 3.78,
+      "total_cost": 7.56,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Cleat, Marelon Length:165mm Hole-CtoC:43mm",
+      "sku": "FSP/941014",
+      "quantity": 2.0,
+      "unit_cost": 5.59,
+      "total_cost": 11.18,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Gasket Sheet, Neoprene:1/32\" P-302 Width 36\" /LF",
+      "sku": "GSK/N132",
+      "quantity": 1.0,
+      "unit_cost": 6.48,
+      "total_cost": 6.48,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Gasket Sheet, Paper:1/16\" P-165 8\" x 22\"/Sh",
+      "sku": "GSK/P116",
+      "quantity": 1.0,
+      "unit_cost": 18.01,
+      "total_cost": 18.01,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "HoseClamp, Stainless Steel 100mm",
+      "sku": "HCLAMP/100",
+      "quantity": 10.0,
+      "unit_cost": 2.75,
+      "total_cost": 27.5,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "HoseClamp, Heavy Duty Stainless Steel",
+      "sku": "HCLAMP/HD175187",
+      "quantity": 3.0,
+      "unit_cost": 4.88,
+      "total_cost": 14.64,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "HoseClamp, Stainless Steel Banding Kit",
+      "sku": "HCLAMP/MTK1",
+      "quantity": 1.0,
+      "unit_cost": 13.38,
+      "total_cost": 13.38,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Junction Box, Moisture resistant",
+      "sku": "HEL/002143031",
+      "quantity": 1.0,
+      "unit_cost": 13.39,
+      "total_cost": 13.39,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Tape, Electrical Vinyl Black 15mm x 10m",
+      "sku": "HEL/707869013",
+      "quantity": 5.0,
+      "unit_cost": 0.68,
+      "total_cost": 3.4,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Tie Down, Metal Kwik-Lok Web:1\" x 4' Black",
+      "sku": "IMC/F05343",
+      "quantity": 1.0,
+      "unit_cost": 9.73,
+      "total_cost": 9.73,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Tie Down, Plastic Buckle White Web:1.5\" x3.5' for Batt",
+      "sku": "IMC/F05351",
+      "quantity": 4.0,
+      "unit_cost": 8.54,
+      "total_cost": 34.16,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Chart, Grenadines: Carriacou To Grenada",
+      "sku": "IMR/B32",
+      "quantity": 1.0,
+      "unit_cost": 28.65,
+      "total_cost": 28.65,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Bilge Switch, Ultima Automatic 12/24V 20A",
+      "sku": "JOP/36303",
+      "quantity": 1.0,
+      "unit_cost": 31.73,
+      "total_cost": 31.73,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Solenoid Switchbox, 12V 3 Terminals 500-1700W",
+      "sku": "LOF/CB3M1712",
+      "quantity": 1.0,
+      "unit_cost": 56.64,
+      "total_cost": 56.64,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Grommet Kit, #1 In\u00d8:5/16\" Brass with Tool 24 Pack",
+      "sku": "LOR/1073A-1",
+      "quantity": 1.0,
+      "unit_cost": 7.64,
+      "total_cost": 7.64,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Canvas Snap Kit, Stud&Socket&Tool 6 Pack",
+      "sku": "LOR/1100",
+      "quantity": 1.0,
+      "unit_cost": 3.53,
+      "total_cost": 3.53,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Canvas Snap Set, Stud&Socket Refill 6 Pack",
+      "sku": "LOR/1100A",
+      "quantity": 9.0,
+      "unit_cost": 1.9,
+      "total_cost": 17.1,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Canvas Button Kit, TurnButton/2Hole&Eyelet 3 Pack",
+      "sku": "LOR/112KIT",
+      "quantity": 1.0,
+      "unit_cost": 5.83,
+      "total_cost": 5.83,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Canvas Button Kit, TurnButton/Prong&Eyelet 3 Pack",
+      "sku": "LOR/114KIT",
+      "quantity": 1.0,
+      "unit_cost": 5.83,
+      "total_cost": 5.83,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "[MAP/SET12_3] Chart Kit, Reg.12.3 WI& Martinique to Grenada",
+      "sku": "BM-$36",
+      "quantity": 2.0,
+      "unit_cost": 68.36,
+      "total_cost": 136.72,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Rust Remover, Spot Remover 8oz Finger Spray",
+      "sku": "MGC/RUSTREM-SP",
+      "quantity": 2.0,
+      "unit_cost": 8.69,
+      "total_cost": 17.38,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Drill Bit, Hi-Speed 5/64\" 2/Card",
+      "sku": "MIB/230271",
+      "quantity": 2.0,
+      "unit_cost": 0.88,
+      "total_cost": 1.76,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Drill Bit, Hi-Speed 7/64\" 2/Card",
+      "sku": "MIB/230431",
+      "quantity": 1.0,
+      "unit_cost": 1.06,
+      "total_cost": 1.06,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Drill Bit, Hi-Speed 1/8\" 2/Card",
+      "sku": "MIB/230511",
+      "quantity": 2.0,
+      "unit_cost": 1.16,
+      "total_cost": 2.32,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Drill Bit, Hi-Speed 9/64\" 2/Card",
+      "sku": "MIB/230781",
+      "quantity": 1.0,
+      "unit_cost": 1.16,
+      "total_cost": 1.16,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Drill Bit, Cobalt 05/64 5/64\" f Stainless Steel 1/Cd",
+      "sku": "MIB/248641",
+      "quantity": 2.0,
+      "unit_cost": 1.19,
+      "total_cost": 2.38,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Drill Bit, Cobalt 06/64 3/32\" f Stainless Steel 1/Cd",
+      "sku": "MIB/248721",
+      "quantity": 1.0,
+      "unit_cost": 1.28,
+      "total_cost": 1.28,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Drill Bit, Cobalt 07/64 7/64\" f Stainless Steel 1/Cd",
+      "sku": "MIB/248801",
+      "quantity": 2.0,
+      "unit_cost": 1.54,
+      "total_cost": 3.08,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Drill Bit, Cobalt 08/64 1/8\" f Stainless Steel 1/Cd",
+      "sku": "MIB/248991",
+      "quantity": 2.0,
+      "unit_cost": 1.7,
+      "total_cost": 3.4,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Drill Bit, Cobalt 09/64 9/64\" f Stainless Steel 1/Cd",
+      "sku": "MIB/249021",
+      "quantity": 2.0,
+      "unit_cost": 1.71,
+      "total_cost": 3.42,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Drill Bit, Cobalt 10/64 5/32\" f Stainless Steel 1/Cd",
+      "sku": "MIB/249101",
+      "quantity": 1.0,
+      "unit_cost": 1.8,
+      "total_cost": 1.8,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Drill Bit, Cobalt 12/64 3/16\" f Stainless Steel 1/Cd",
+      "sku": "MIB/249371",
+      "quantity": 1.0,
+      "unit_cost": 2.43,
+      "total_cost": 2.43,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Drill Bit, Cobalt 14/64 7/32\" f Stainless Steel 1/Cd",
+      "sku": "MIB/249531",
+      "quantity": 2.0,
+      "unit_cost": 3.04,
+      "total_cost": 6.08,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Drill Bit, Cobalt 16/64 1/4\" f Stainless Steel 1/Cd",
+      "sku": "MIB/249881",
+      "quantity": 1.0,
+      "unit_cost": 3.55,
+      "total_cost": 3.55,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Drill Bit, Cobalt 25/64 25/64\" Shank:3/8 f Stainless",
+      "sku": "MIB/250891",
+      "quantity": 1.0,
+      "unit_cost": 8.45,
+      "total_cost": 8.45,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Drill Bit, Cobalt 26/64 13/32\" Shank:3/8 f Stainless",
+      "sku": "MIB/250971",
+      "quantity": 1.0,
+      "unit_cost": 9.74,
+      "total_cost": 9.74,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Wire Brush, Cup 3\" Coarse",
+      "sku": "MIB/321231",
+      "quantity": 2.0,
+      "unit_cost": 3.86,
+      "total_cost": 7.72,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Sanding Disc, 6\" Grip G: 80 Royal Coarse-Cut",
+      "sku": "MIR/40622-080",
+      "quantity": 25.0,
+      "unit_cost": 1.09,
+      "total_cost": 27.25,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Splicing Kit",
+      "sku": "MRL/FAF000",
+      "quantity": 1.0,
+      "unit_cost": 62.69,
+      "total_cost": 62.69,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "8 Plait Rope, Polyester 3mm White per Foot",
+      "sku": "MRL/JA0052F",
+      "quantity": 656.0,
+      "unit_cost": 0.09,
+      "total_cost": 59.04,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Whipping Twine, Waxed Medium #4 0.8mm White",
+      "sku": "MRL/TAE001",
+      "quantity": 3.0,
+      "unit_cost": 3.19,
+      "total_cost": 9.57,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Whipping Twine, Waxed Medium #4 0.8mm Red",
+      "sku": "MRL/TAE002",
+      "quantity": 2.0,
+      "unit_cost": 3.56,
+      "total_cost": 7.12,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Hook, Sea Kirby 12 Ringed Eye Duratin 20 Pack",
+      "sku": "MTD/2330DT-12",
+      "quantity": 1.0,
+      "unit_cost": 0.7,
+      "total_cost": 0.7,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Hook, Sea Kirby 13 Ringed Eye Duratin 22 Pack",
+      "sku": "MTD/2330DT-13",
+      "quantity": 3.0,
+      "unit_cost": 0.74,
+      "total_cost": 2.22,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Hook, Sea Kirby 15 Ringed Eye Duratin 25 Pack",
+      "sku": "MTD/2330DT-15",
+      "quantity": 3.0,
+      "unit_cost": 0.71,
+      "total_cost": 2.13,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Hook, Sea Kirby 16 Ringed Eye Duratin 25 Pack",
+      "sku": "MTD/2330DT-16",
+      "quantity": 1.0,
+      "unit_cost": 0.71,
+      "total_cost": 0.71,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Hook, Sea Kirby 20 Ringed Eye Duratin 25 Pack",
+      "sku": "MTD/2330DT-20",
+      "quantity": 2.0,
+      "unit_cost": 0.71,
+      "total_cost": 1.42,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Hook, Sea Kirby 9 Ringed Eye Duratin 14 Pack",
+      "sku": "MTD/2330DT-9",
+      "quantity": 2.0,
+      "unit_cost": 0.7,
+      "total_cost": 1.4,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Hook, Beak 1 Ringed Eye Nickel 15 Pack",
+      "sku": "MTD/92259-1",
+      "quantity": 1.0,
+      "unit_cost": 0.93,
+      "total_cost": 0.93,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Pulley Nylon 14mm x 50mm",
+      "sku": "MTO/0132400",
+      "quantity": 1.0,
+      "unit_cost": 6.2,
+      "total_cost": 6.2,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Eyestrap, Stainless Steel Rod\u00d84mm Cntersunk-Hole-",
+      "sku": "MTO/2108011",
+      "quantity": 1.0,
+      "unit_cost": 0.94,
+      "total_cost": 0.94,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Pin, Quick Release \u00d8:6mm Grip Length:22mm",
+      "sku": "MTO/5460030",
+      "quantity": 4.0,
+      "unit_cost": 3.26,
+      "total_cost": 13.04,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Catch, Adjustable Pressure Length:60mm Brass",
+      "sku": "MTO/8421058",
+      "quantity": 2.0,
+      "unit_cost": 3.06,
+      "total_cost": 6.12,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Furling Leadblock, Inboard with Swivel 9x25mm",
+      "sku": "MTO/8621501",
+      "quantity": 2.0,
+      "unit_cost": 6.89,
+      "total_cost": 13.78,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Drain Socket, Brass Heavy Duty 3Screws-",
+      "sku": "MTO/8622401",
+      "quantity": 2.0,
+      "unit_cost": 7.4,
+      "total_cost": 14.8,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Hatch Clamp, Adjustable 82mm to 102mm Width",
+      "sku": "MTO/8623016",
+      "quantity": 2.0,
+      "unit_cost": 7.31,
+      "total_cost": 14.62,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Padeye, Folding Stainless Steel 8mm",
+      "sku": "MTO/8631415",
+      "quantity": 2.0,
+      "unit_cost": 5.3,
+      "total_cost": 10.6,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Hasp with Swivel Stainless Steel Length:70mm",
+      "sku": "MTO/8733017",
+      "quantity": 2.0,
+      "unit_cost": 5.3,
+      "total_cost": 10.6,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Base Stainless Steel Oval for Welding 2Screw-",
+      "sku": "MTO/8928252",
+      "quantity": 3.0,
+      "unit_cost": 2.9,
+      "total_cost": 8.7,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Ladder, 2+2Step Folding Stainless Steel",
+      "sku": "MTO/9016214",
+      "quantity": 1.0,
+      "unit_cost": 84.55,
+      "total_cost": 84.55,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Steering Wheel, Stainless Steel \u00d8:13.5\" 5Spokes at",
+      "sku": "MTO/9017201",
+      "quantity": 1.0,
+      "unit_cost": 55.46,
+      "total_cost": 55.46,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Lift Handle, Stainless Steel Round \u00d851mm",
+      "sku": "MTO/9021551",
+      "quantity": 2.0,
+      "unit_cost": 12.46,
+      "total_cost": 24.92,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Suction Cup, Single Vacuum Power \u00d8100mm",
+      "sku": "MTO/9136860",
+      "quantity": 1.0,
+      "unit_cost": 12.49,
+      "total_cost": 12.49,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Snap Shackle with Swivel Open-Jaw:16mm",
+      "sku": "MTO/S2478-0002",
+      "quantity": 1.0,
+      "unit_cost": 13.45,
+      "total_cost": 13.45,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Snap Shackle with Swivel Eye Length:70mm",
+      "sku": "MTO/S2482-0001",
+      "quantity": 1.0,
+      "unit_cost": 7.14,
+      "total_cost": 7.14,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "LED Bulb, Festoon42 6Led 10-35V WW 10W 80Lum",
+      "sku": "NAU/F42F6WW",
+      "quantity": 2.0,
+      "unit_cost": 7.68,
+      "total_cost": 15.36,
+      "_source_pdf": "bmgrn INV_SX_2026_008339.pdf"
+    },
+    {
+      "description": "Nicopress Sleeve, 03mm-1/8\"",
+      "sku": "NPS/03",
+      "quantity": 6.0,
+      "unit_cost": 0.43,
+      "total_cost": 2.58,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Inspection Hatch, Screw-Out White Plastic o\u00d8162mm",
+      "sku": "NUO/196434",
+      "quantity": 1.0,
+      "unit_cost": 5.19,
+      "total_cost": 5.19,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Stop Key, for Kill Switch Ring with Lanyard Yamaha",
+      "sku": "NUO/28141",
+      "quantity": 2.0,
+      "unit_cost": 4.04,
+      "total_cost": 8.08,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Shower Box, Recessed White Plastic Rectangle Housing",
+      "sku": "NUO/37214",
+      "quantity": 1.0,
+      "unit_cost": 6.33,
+      "total_cost": 6.33,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Drain Socket, White Plastic 2Screw-CtoC:40mm Oval",
+      "sku": "NUO/43462",
+      "quantity": 2.0,
+      "unit_cost": 1.41,
+      "total_cost": 2.82,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Drain Socket, White Plastic Round no-Screw to-Seal-in",
+      "sku": "NUO/43468",
+      "quantity": 1.0,
+      "unit_cost": 1.36,
+      "total_cost": 1.36,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Drain Socket, Black Plastic Round 4Screw-Circle\u00d832mm",
+      "sku": "NUO/43478",
+      "quantity": 2.0,
+      "unit_cost": 0.76,
+      "total_cost": 1.52,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Drain Tube, Black Plastic i\u00d824mm Length:65mm",
+      "sku": "NUO/43491",
+      "quantity": 1.0,
+      "unit_cost": 0.74,
+      "total_cost": 0.74,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Drain Housing, \u00d835mm Black Plastic CtoC:50mm Oval",
+      "sku": "NUO/43500",
+      "quantity": 1.0,
+      "unit_cost": 1.24,
+      "total_cost": 1.24,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Door Catch, Black Plastic",
+      "sku": "NUO/43791",
+      "quantity": 1.0,
+      "unit_cost": 0.55,
+      "total_cost": 0.55,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Inspection Hatch, Turn-Open White Plastic o\u00d8143mm",
+      "sku": "NUO/43909",
+      "quantity": 3.0,
+      "unit_cost": 3.04,
+      "total_cost": 9.12,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Inspection Hatch, Turn-Open White Plastic o\u00d8170mm",
+      "sku": "NUO/43918",
+      "quantity": 2.0,
+      "unit_cost": 4.2,
+      "total_cost": 8.4,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Hook, Sq Nylon for Shock Cord:6mm",
+      "sku": "NUO/44023",
+      "quantity": 1.0,
+      "unit_cost": 0.31,
+      "total_cost": 0.31,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Drain Plug, Black Plastic with Captive for #43462/68",
+      "sku": "NUO/45277",
+      "quantity": 3.0,
+      "unit_cost": 1.29,
+      "total_cost": 3.87,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Drain Plug, Black Plastic Rubber \u00d822mm Expanding",
+      "sku": "NUO/45306",
+      "quantity": 2.0,
+      "unit_cost": 1.94,
+      "total_cost": 3.88,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Drain Plug, Black Plastic Rubber \u00d835mm Expanding",
+      "sku": "NUO/45307",
+      "quantity": 1.0,
+      "unit_cost": 4.44,
+      "total_cost": 4.44,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Flare Assembly, 4 x 25mm Aerial Signals US Coast Guard",
+      "sku": "OLI/589",
+      "quantity": 1.0,
+      "unit_cost": 64.54,
+      "total_cost": 64.54,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Adapter, 2 Round Pin to 2 Flat/Round Socket",
+      "sku": "PHL/48-517",
+      "quantity": 2.0,
+      "unit_cost": 1.4,
+      "total_cost": 2.8,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Relay Socket, with Wiring Harness 12V",
+      "sku": "PHL/64-1217",
+      "quantity": 8.0,
+      "unit_cost": 2.33,
+      "total_cost": 18.64,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Vent Grill, Round 82 x 82mm Plastic White",
+      "sku": "PLA/12409",
+      "quantity": 3.0,
+      "unit_cost": 2.75,
+      "total_cost": 8.25,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Plug, Cigarette Lighter 12V 16A 20mm Male Black",
+      "sku": "PLA/13291",
+      "quantity": 1.0,
+      "unit_cost": 5.14,
+      "total_cost": 5.14,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Bucket, Plastic 10Lt Galvanize Handle with out Rope",
+      "sku": "PLA/14375",
+      "quantity": 3.0,
+      "unit_cost": 4.63,
+      "total_cost": 13.89,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Wood Plug Set, \u00d8:10-20mm Length:70mm 9 Pack",
+      "sku": "PLA/16323",
+      "quantity": 2.0,
+      "unit_cost": 5.73,
+      "total_cost": 11.46,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Padlock, Width:45mm Normal Hasp",
+      "sku": "PLA/17579",
+      "quantity": 1.0,
+      "unit_cost": 4.63,
+      "total_cost": 4.63,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Fender/Buoy, Raindrop 12x15\" White with Blake Eye",
+      "sku": "PLF/A-1WH",
+      "quantity": 1.0,
+      "unit_cost": 26.76,
+      "total_cost": 26.76,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Float, Purse Seine \u00d8186 Length:225 Center-Hole:35mm",
+      "sku": "PLF/AA265504",
+      "quantity": 1.0,
+      "unit_cost": 13.84,
+      "total_cost": 13.84,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Fender, 9x30\" White with DarkBlu Eye Ends Polyform Heavy",
+      "sku": "PLF/F-3WB",
+      "quantity": 1.0,
+      "unit_cost": 42.55,
+      "total_cost": 42.55,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Fender, 5.5x20\" FG3 with Rib White",
+      "sku": "PLF/G-3WH",
+      "quantity": 4.0,
+      "unit_cost": 12.65,
+      "total_cost": 50.6,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Glue, 2-Part Hypalon Adhesive 2990 250ml",
+      "sku": "POL/354415",
+      "quantity": 3.0,
+      "unit_cost": 23.2,
+      "total_cost": 69.6,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Filter Cartridge, 10\" x 2-1/2\" Sediments 5 Micron",
+      "sku": "PRE/FPMB5-978",
+      "quantity": 9.0,
+      "unit_cost": 5.29,
+      "total_cost": 47.61,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Grease, Dielectric Elec.Protection 3oz/Tube",
+      "sku": "PRM/22058",
+      "quantity": 1.0,
+      "unit_cost": 9.15,
+      "total_cost": 9.15,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Threadlocker, Hi Temperature Red 6ml/Tube",
+      "sku": "PRM/24026",
+      "quantity": 4.0,
+      "unit_cost": 4.15,
+      "total_cost": 16.6,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Threadlocker, Medium Strength Blue 6ml/Tube",
+      "sku": "PRM/24200",
+      "quantity": 2.0,
+      "unit_cost": 4.04,
+      "total_cost": 8.08,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Threadlocker, Hi-Strength Red Gel 5g/Tube",
+      "sku": "PRM/27005",
+      "quantity": 2.0,
+      "unit_cost": 3.9,
+      "total_cost": 7.8,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Threadlocker, Penetrating Grade Green 6ml/Tube",
+      "sku": "PRM/29000",
+      "quantity": 4.0,
+      "unit_cost": 7.53,
+      "total_cost": 30.12,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Thread Sealant, Hi Temperature 50ml/Tube",
+      "sku": "PRM/59235",
+      "quantity": 3.0,
+      "unit_cost": 9.31,
+      "total_cost": 27.93,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Rust Remover, Naval Jelly 8oz/Bottle",
+      "sku": "PRM/81756",
+      "quantity": 24.0,
+      "unit_cost": 4.59,
+      "total_cost": 110.16,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Repair Tape, Mylar Width 15cm Length:3m",
+      "sku": "PSP/P049803000",
+      "quantity": 3.0,
+      "unit_cost": 11.98,
+      "total_cost": 35.94,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Mast Collar Tape, White Width 10cm Length:1.5m",
+      "sku": "PSP/P059901001",
+      "quantity": 2.0,
+      "unit_cost": 15.85,
+      "total_cost": 31.7,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Mast Collar Tape, Black Width 10cm Length:1.5m",
+      "sku": "PSP/P059901002",
+      "quantity": 2.0,
+      "unit_cost": 17.44,
+      "total_cost": 34.88,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Double Side Tape, Foam Thickness:1mm Width",
+      "sku": "PSP/P081905020",
+      "quantity": 1.0,
+      "unit_cost": 10.04,
+      "total_cost": 10.04,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Roller Handle, for Mini:10cm Length:42cm",
+      "sku": "PVH/2340010",
+      "quantity": 2.0,
+      "unit_cost": 0.96,
+      "total_cost": 1.92,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Funnel, Fuel Filtering Water Rejecting 15GpM",
+      "sku": "RAC/RFF15C",
+      "quantity": 1.0,
+      "unit_cost": 74.18,
+      "total_cost": 74.18,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Funnel, Fuel Filtering Water Rejecting 3.9GpM",
+      "sku": "RAC/RFF3C",
+      "quantity": 4.0,
+      "unit_cost": 27.75,
+      "total_cost": 111.0,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Seal Kit, Service for 500",
+      "sku": "RAC/RK15211",
+      "quantity": 2.0,
+      "unit_cost": 33.23,
+      "total_cost": 66.46,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Edge Scraper, Double Edge:2.5\" Handle:7\"",
+      "sku": "RDV/3050",
+      "quantity": 1.0,
+      "unit_cost": 4.56,
+      "total_cost": 4.56,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Caulking Gun, Skeleton Medium Duty.1/10Gal",
+      "sku": "RDV/3986",
+      "quantity": 2.0,
+      "unit_cost": 4.16,
+      "total_cost": 8.32,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Paint Mixer, 1-5Gal Welded-Blade for use with Drill",
+      "sku": "RDV/4040",
+      "quantity": 14.0,
+      "unit_cost": 4.34,
+      "total_cost": 60.76,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Deck Fill, Diesel Stainless Steel Hose\u00d8:2\" Plug:Slot&Key",
+      "sku": "SDG/351331",
+      "quantity": 2.0,
+      "unit_cost": 46.39,
+      "total_cost": 92.78,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Adapter, Straight Quick-Clip Male to Threaded",
+      "sku": "SHD/101",
+      "quantity": 1.0,
+      "unit_cost": 6.53,
+      "total_cost": 6.53,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Sander/Polisher, Dual-Action 120V Female Thread",
+      "sku": "SHD/3100",
+      "quantity": 1.0,
+      "unit_cost": 137.45,
+      "total_cost": 137.45,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Pole Handle, Fix-Length:60\" with Quick-Clip Female",
+      "sku": "SHD/760",
+      "quantity": 2.0,
+      "unit_cost": 17.49,
+      "total_cost": 34.98,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Deck Brush, 6\" Soft Flag Yellow Bristle with Qck-Clip Male",
+      "sku": "SHD/960",
+      "quantity": 2.0,
+      "unit_cost": 24.96,
+      "total_cost": 49.92,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Deck Brush, 6\" Extra Soft Blue Bristles",
+      "sku": "SHD/970",
+      "quantity": 2.0,
+      "unit_cost": 27.18,
+      "total_cost": 54.36,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Waterstrainer, Ports:3/4Fem with #50Mesh Screen",
+      "sku": "SHU/253-220-01",
+      "quantity": 3.0,
+      "unit_cost": 34.28,
+      "total_cost": 102.84,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Clevis Pin, \u00d85/16 Grip Length:1.25\" 1 Pack",
+      "sku": "HDM/370371",
+      "quantity": 1.0,
+      "unit_cost": 3.99,
+      "total_cost": 3.99,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Canvas Snap Set, Stud Screw #8 Length:5/8\" 6 Pack",
+      "sku": "HDM/560121",
+      "quantity": 4.0,
+      "unit_cost": 5.68,
+      "total_cost": 22.72,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Snap Cap Set, for #6 & 8 White 10 Pack",
+      "sku": "HDM/610011",
+      "quantity": 1.0,
+      "unit_cost": 2.73,
+      "total_cost": 2.73,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Snap Cap Set, for #10 & 12 White 10 Pack",
+      "sku": "HDM/610121",
+      "quantity": 6.0,
+      "unit_cost": 3.24,
+      "total_cost": 19.44,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Snap Cap Set, for #10 & 12 Cream 10 Pack",
+      "sku": "HDM/610131",
+      "quantity": 4.0,
+      "unit_cost": 3.01,
+      "total_cost": 12.04,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Snap Cap Set, for #10 & 12 Black 10 Pack",
+      "sku": "HDM/610221",
+      "quantity": 2.0,
+      "unit_cost": 3.26,
+      "total_cost": 6.52,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Insulation Tile, IVF Thickness:1\" Tile:12x12\" Silver",
+      "sku": "SND/IVF1010MPSF",
+      "quantity": 1.0,
+      "unit_cost": 6.01,
+      "total_cost": 6.01,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Heat Cutter, 120V with Blade for Rope",
+      "sku": "SNS/50014090",
+      "quantity": 1.0,
+      "unit_cost": 51.38,
+      "total_cost": 51.38,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Navigation Light, Bow Stainless Steel Teardrop Side",
+      "sku": "SNS/50023887",
+      "quantity": 1.0,
+      "unit_cost": 38.69,
+      "total_cost": 38.69,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Battery Terminal Kit, Negative & Positive",
+      "sku": "SNS/50031700",
+      "quantity": 4.0,
+      "unit_cost": 10.31,
+      "total_cost": 41.24,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Mixing Bottle, for Oil-Mixture Measure",
+      "sku": "SNS/50091443",
+      "quantity": 3.0,
+      "unit_cost": 2.86,
+      "total_cost": 8.58,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Oil Pump, for Lower Unit",
+      "sku": "SNS/50091461",
+      "quantity": 2.0,
+      "unit_cost": 5.41,
+      "total_cost": 10.82,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Check Valve, Non-Return Spring-Type Brass 1\" Non-Tapered",
+      "sku": "SUA/372-1",
+      "quantity": 1.0,
+      "unit_cost": 11.74,
+      "total_cost": 11.74,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Ball Valve, Brass 1\" Non-Tapered Thread with Stainless",
+      "sku": "SUA/406A-1",
+      "quantity": 4.0,
+      "unit_cost": 42.51,
+      "total_cost": 170.04,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Ball Valve, Brass 1/2\" Non-Tapered Thread with",
+      "sku": "SUA/406A-1/2",
+      "quantity": 1.0,
+      "unit_cost": 17.7,
+      "total_cost": 17.7,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Ball Valve, Brass 1/2\" Non-Tapered Thread with",
+      "sku": "SUA/408-1/2",
+      "quantity": 3.0,
+      "unit_cost": 7.75,
+      "total_cost": 23.25,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Ball Valve, Brass 3/8\" Non-Tapered Thread with",
+      "sku": "SUA/408-3/8",
+      "quantity": 3.0,
+      "unit_cost": 6.66,
+      "total_cost": 19.98,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "3 Way-BallValve, 3/4\" Non-Tapered Thread Brass",
+      "sku": "SUA/408A-3/4",
+      "quantity": 1.0,
+      "unit_cost": 70.4,
+      "total_cost": 70.4,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Intake Strainer, Brass Thru-Hull:1\" Non-Tapered Thread",
+      "sku": "SUA/504-1",
+      "quantity": 1.0,
+      "unit_cost": 20.85,
+      "total_cost": 20.85,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Thimble, Galvanize 3.4\" for 16mm to 20mm Rope",
+      "sku": "THI/G20",
+      "quantity": 1.0,
+      "unit_cost": 2.44,
+      "total_cost": 2.44,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Thimble, Galvanize 7/8\" for 19mm to 22mm Rope",
+      "sku": "THI/G22",
+      "quantity": 2.0,
+      "unit_cost": 1.25,
+      "total_cost": 2.5,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Thimble, Stainless Steel for 06mm or 1/4\" Rope",
+      "sku": "THI/S06",
+      "quantity": 10.0,
+      "unit_cost": 0.24,
+      "total_cost": 2.4,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Thimble, Stainless Steel for 08mm or 5/16\" Rope",
+      "sku": "THI/S08",
+      "quantity": 10.0,
+      "unit_cost": 0.4,
+      "total_cost": 4.0,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Fouling Remover, Barnacle Buster Gal",
+      "sku": "TRC/1206-MG",
+      "quantity": 3.0,
+      "unit_cost": 64.31,
+      "total_cost": 192.93,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Descaler, Scale-Remover Concentrate Gal",
+      "sku": "TRC/1212-MG",
+      "quantity": 1.0,
+      "unit_cost": 60.89,
+      "total_cost": 60.89,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Ball Bearing, 15x35x11mm Single Radial 2Rubber Seal",
+      "sku": "UBL/15-35-11",
+      "quantity": 1.0,
+      "unit_cost": 9.19,
+      "total_cost": 9.19,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Ball Bearing, 30x55x13mm Single Radial 2Rubber Seal",
+      "sku": "UBL/30-55-13",
+      "quantity": 1.0,
+      "unit_cost": 13.59,
+      "total_cost": 13.59,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Deck Fill, Water Stainless Steel Hose\u00d8:2\" Plug:Slot",
+      "sku": "WAS/M8111-4-50W",
+      "quantity": 1.0,
+      "unit_cost": 22.53,
+      "total_cost": 22.53,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Lifeline Wire, Stainless Steel 7x7 06/09mm per Foot",
+      "sku": "WIRE/LL/6",
+      "quantity": 130.0,
+      "unit_cost": 1.2,
+      "total_cost": 156.0,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Manifold Wrap, Hi Temperature Fiberglass",
+      "sku": "WPA/20017",
+      "quantity": 1.0,
+      "unit_cost": 9.4,
+      "total_cost": 9.4,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Wire Brush, Brass Mini 1/2 x 1.5\" Wood-Handle Length:8\"",
+      "sku": "WPA/30072",
+      "quantity": 9.0,
+      "unit_cost": 0.7,
+      "total_cost": 6.3,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Gloves, Thick PVC Large Orange Cuff",
+      "sku": "WPA/60036",
+      "quantity": 2.0,
+      "unit_cost": 3.05,
+      "total_cost": 6.1,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Boathook, Aluminum Tube \u00d8:25mm Length:1.8m",
+      "sku": "NUO/50040",
+      "quantity": 1.0,
+      "unit_cost": 8.78,
+      "total_cost": 8.78,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Navigation Light, Built-in ABS White Frame Red Lens",
+      "sku": "OSC/1112911",
+      "quantity": 1.0,
+      "unit_cost": 12.81,
+      "total_cost": 12.81,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Navigation Light, Built-in ABS White Frame Green Lens",
+      "sku": "OSC/1112912",
+      "quantity": 1.0,
+      "unit_cost": 12.7,
+      "total_cost": 12.7,
+      "_source_pdf": "bmgrn INV_SX_2026_008340.pdf"
+    },
+    {
+      "description": "Paddle, with Black Palm-Grip L135cm Heavy Duty",
+      "sku": "NUO/50220",
+      "quantity": 1.0,
+      "unit_cost": 13.93,
+      "total_cost": 13.93,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Fuel Tank, Portble Red 6Gal with 1/4Npt-Port",
+      "sku": "SCP/04921",
+      "quantity": 2.0,
+      "unit_cost": 36.65,
+      "total_cost": 73.3,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Jug, Gas Red Sq 1.2Gal Self-Vented Spout",
+      "sku": "SCP/07081",
+      "quantity": 1.0,
+      "unit_cost": 6.56,
+      "total_cost": 6.56,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Jug, Water 5Gal Blue High Self-Vented Spool",
+      "sku": "SCP/04933",
+      "quantity": 15.0,
+      "unit_cost": 18.05,
+      "total_cost": 270.75,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Primer Bulb, 5/16\" Fuel-Line",
+      "sku": "SCP/07494",
+      "quantity": 5.0,
+      "unit_cost": 6.94,
+      "total_cost": 34.7,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Element, 2\u00b5 Cartridge Black for 900FG Diesel",
+      "sku": "RAC/2040V2",
+      "quantity": 2.0,
+      "unit_cost": 8.43,
+      "total_cost": 16.86,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Fan, Cabin Sirocco Gimbal 12/24V White",
+      "sku": "CAF/7010CA-WBX",
+      "quantity": 1.0,
+      "unit_cost": 115.85,
+      "total_cost": 115.85,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Lure, Bird 7\" Unrigged Blue/Pink",
+      "sku": "BNE/16430",
+      "quantity": 1.0,
+      "unit_cost": 22.26,
+      "total_cost": 22.26,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Fire Blankets",
+      "sku": "PLA/65757",
+      "quantity": 1.0,
+      "unit_cost": 24.26,
+      "total_cost": 24.26,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Rubber Mount, Body50x30 2Stud10x28mm Bobbin Type",
+      "sku": "AMC/120202",
+      "quantity": 3.0,
+      "unit_cost": 5.51,
+      "total_cost": 16.53,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Rubber Mount, Body60x36 2Stud10x28mm Bobbin Type",
+      "sku": "AMC/120072",
+      "quantity": 3.0,
+      "unit_cost": 7.48,
+      "total_cost": 22.44,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Rubber Mount, Body30x20 2Stud8x23 Stainless Steel",
+      "sku": "AMC/120305",
+      "quantity": 3.0,
+      "unit_cost": 6.25,
+      "total_cost": 18.75,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Rubber Mount, Body30x25 Female Thread:M8 Diabolo",
+      "sku": "AMC/129203",
+      "quantity": 3.0,
+      "unit_cost": 5.84,
+      "total_cost": 17.52,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Air Horn, with Small Cannister 3.5oz Non-Flam",
+      "sku": "SNS/50074035",
+      "quantity": 1.0,
+      "unit_cost": 11.53,
+      "total_cost": 11.53,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Ball Bearing Conditioner, McLube One Drop 0.5oz",
+      "sku": "MGE/7875",
+      "quantity": 1.0,
+      "unit_cost": 9.66,
+      "total_cost": 9.66,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Hose, Garden 5/8\" x 50' White Drinking Water Safe",
+      "sku": "CMC/22793",
+      "quantity": 2.0,
+      "unit_cost": 24.05,
+      "total_cost": 48.1,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Canvas Snap Set, Stud Screw #7 Length:3/8\" 6 Pack",
+      "sku": "HDM/560111",
+      "quantity": 5.0,
+      "unit_cost": 5.44,
+      "total_cost": 27.2,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Trolling Skirt, 9-1/2\" Purple/Black 2 Pack",
+      "sku": "BNE/79104",
+      "quantity": 1.0,
+      "unit_cost": 3.86,
+      "total_cost": 3.86,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Repair Kit, for PVC & Hypalon Final Fix",
+      "sku": "FFX/84326",
+      "quantity": 2.0,
+      "unit_cost": 61.44,
+      "total_cost": 122.88,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Bracket, Motor Rail Mount 22.8cm x 15cm White",
+      "sku": "NUO/10319",
+      "quantity": 1.0,
+      "unit_cost": 22.59,
+      "total_cost": 22.59,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Faucet, with Adjustable Spray & Shower Tube 150cm",
+      "sku": "NUO/99960",
+      "quantity": 3.0,
+      "unit_cost": 47.55,
+      "total_cost": 142.65,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Hinge, Polamide Semi-Oval 90x40x4.5mm Black",
+      "sku": "NUO/43683",
+      "quantity": 1.0,
+      "unit_cost": 1.93,
+      "total_cost": 1.93,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Hinge, Round Stainless Steel 74mm x 39mm 4Holes",
+      "sku": "AAA/52570",
+      "quantity": 4.0,
+      "unit_cost": 2.08,
+      "total_cost": 8.32,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Dry Lubricant, Sailkote McLube 8oz Aerosol",
+      "sku": "MGE/SAILKOTE",
+      "quantity": 2.0,
+      "unit_cost": 12.25,
+      "total_cost": 24.5,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Tarpaulin, 8' x 10' Heavy Duty Polyester White",
+      "sku": "TAR/HD8X10WH",
+      "quantity": 1.0,
+      "unit_cost": 7.15,
+      "total_cost": 7.15,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Relay, 4-Pin 12V 30A Cfg \"A\"",
+      "sku": "HEL/965400071",
+      "quantity": 1.0,
+      "unit_cost": 1.44,
+      "total_cost": 1.44,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Epoxy/Paint Remover, Semi Paste Qt",
+      "sku": "JAS/QJPR501SC",
+      "quantity": 2.0,
+      "unit_cost": 19.11,
+      "total_cost": 38.22,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Dyneema Rope, Kiteline SK99 1.5mm 30m/Rl Black",
+      "sku": "MRL/KL0372",
+      "quantity": 1.0,
+      "unit_cost": 16.71,
+      "total_cost": 16.71,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Navigation Light, Solar Power Tri Colour",
+      "sku": "BM/NAVLIGHT-TRI",
+      "quantity": 1.0,
+      "unit_cost": 11.38,
+      "total_cost": 11.38,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Hand Sanitizer, with BM Logo 1.8oz",
+      "sku": "8BM/SANITIZER-LOGO",
+      "quantity": 1.0,
+      "unit_cost": 2.57,
+      "total_cost": 2.57,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Reel, Cimarron Size 50",
+      "sku": "EGL/CIN-50",
+      "quantity": 2.0,
+      "unit_cost": 15.76,
+      "total_cost": 31.52,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Filter Cartridge",
+      "sku": "PRE/WPC5-975",
+      "quantity": 6.0,
+      "unit_cost": 14.71,
+      "total_cost": 88.26,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Padeye, Stainless Steel 33mm Round Base 2Holes",
+      "sku": "AAA/AM16-05",
+      "quantity": 1.0,
+      "unit_cost": 0.46,
+      "total_cost": 0.46,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "DoubleBraid Rope, Blue Ocean 14mm 200m Blue /F",
+      "sku": "MRL/KB4632F",
+      "quantity": 656.0,
+      "unit_cost": 1.2,
+      "total_cost": 787.2,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Bungee, Adjustable Strap 36\" Black",
+      "sku": "JDP/AS36BK",
+      "quantity": 1.0,
+      "unit_cost": 7.2,
+      "total_cost": 7.2,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Bilge Pump, Submersible Non-Automatic 01 Series",
+      "sku": "SFL/SFBP1-G1100-01",
+      "quantity": 4.0,
+      "unit_cost": 9.05,
+      "total_cost": 36.2,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Bilge Pump, Submersible Non-Automatic 01 Series",
+      "sku": "SFL/SFBP1-G2000-01",
+      "quantity": 6.0,
+      "unit_cost": 22.69,
+      "total_cost": 136.14,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Float Switch, 01 Series 12V 20A Max",
+      "sku": "SFL/SFBS-20-01",
+      "quantity": 8.0,
+      "unit_cost": 9.79,
+      "total_cost": 78.32,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Toilet Cleaner, C.P. Bowl & Drain 32oz",
+      "sku": "RAR/1PCP32",
+      "quantity": 1.0,
+      "unit_cost": 11.5,
+      "total_cost": 11.5,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Panel Switch, for Bilge Pump 3-Way 12/24V",
+      "sku": "SFL/SFSP-015-02",
+      "quantity": 5.0,
+      "unit_cost": 8.53,
+      "total_cost": 42.65,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Filter, Sea Water Hose Size:25/32/38mm",
+      "sku": "SFL/SF-SWF001",
+      "quantity": 2.0,
+      "unit_cost": 13.5,
+      "total_cost": 27.0,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "File/Rasp, 4 in 1 Rectangular",
+      "sku": "ALL/63201",
+      "quantity": 1.0,
+      "unit_cost": 2.56,
+      "total_cost": 2.56,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Alkaline Battery, Type:AAA 4 Pack",
+      "sku": "DOR/41-1624",
+      "quantity": 3.0,
+      "unit_cost": 2.85,
+      "total_cost": 8.55,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Alkaline Battery, Type:C 2 Pack",
+      "sku": "DOR/41-1632",
+      "quantity": 1.0,
+      "unit_cost": 2.8,
+      "total_cost": 2.8,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Alkaline Battery, Type:D 4 Pack",
+      "sku": "DOR/41-1621",
+      "quantity": 1.0,
+      "unit_cost": 5.85,
+      "total_cost": 5.85,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Diaphragm Pump, Self-Priming 55 Series 12V 15A",
+      "sku": "SFL/SFDP1-050-060-55",
+      "quantity": 1.0,
+      "unit_cost": 57.2,
+      "total_cost": 57.2,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Hose, White Nylon 10' 1/2\" x 1/2\"",
+      "sku": "SCV/10431",
+      "quantity": 1.0,
+      "unit_cost": 23.38,
+      "total_cost": 23.38,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Lubricant, Marelube TEF45 4oz Jar",
+      "sku": "FSP/770067",
+      "quantity": 1.0,
+      "unit_cost": 25.03,
+      "total_cost": 25.03,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Propeller Shaft Seal, Rubber 40mm Version A",
+      "sku": "OSC/5233040",
+      "quantity": 1.0,
+      "unit_cost": 77.5,
+      "total_cost": 77.5,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Solar Shower, 5Gal",
+      "sku": "CMC/51368",
+      "quantity": 1.0,
+      "unit_cost": 9.41,
+      "total_cost": 9.41,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Propeller Guard, for 9-25hp Plastic \u00d823cm",
+      "sku": "NUO/198165",
+      "quantity": 1.0,
+      "unit_cost": 137.0,
+      "total_cost": 137.0,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Drill Bit, Hi-Speed 3/8\" Reduced Shank 1/2\" 1/BL",
+      "sku": "MIB/289671",
+      "quantity": 2.0,
+      "unit_cost": 3.76,
+      "total_cost": 7.52,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Stop Key, Universal for Kill Switch with Lanyard",
+      "sku": "AAA/10284",
+      "quantity": 3.0,
+      "unit_cost": 2.9,
+      "total_cost": 8.7,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Circulation Pump, Centrifugal Magnetic 115V",
+      "sku": "SFL/SFCPA1-G500-01",
+      "quantity": 1.0,
+      "unit_cost": 88.58,
+      "total_cost": 88.58,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Sanding Disc, 5\" Grip G:320 42Hole Gold",
+      "sku": "MIR/235MF-320",
+      "quantity": 50.0,
+      "unit_cost": 0.4,
+      "total_cost": 20.0,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Navigation Light, Nemo LED Port/Starboard Blister Vertical",
+      "sku": "OSC/1147001",
+      "quantity": 1.0,
+      "unit_cost": 44.73,
+      "total_cost": 44.73,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Bilge Pump, Automatic Electronic Sensing 12V",
+      "sku": "SFL/SFBP1-G2000-13B",
+      "quantity": 1.0,
+      "unit_cost": 33.15,
+      "total_cost": 33.15,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Plug, Cigarette Lighter 20mm Flush Mount with 10A",
+      "sku": "MTO/8403001-10A",
+      "quantity": 2.0,
+      "unit_cost": 4.45,
+      "total_cost": 8.9,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Drill Bit, Hi-Speed 7/16\u201d",
+      "sku": "MIB/289241",
+      "quantity": 3.0,
+      "unit_cost": 3.05,
+      "total_cost": 9.15,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Padlock, Heavy Duty Stainless Steel Arc 50 mm",
+      "sku": "OSC/3802550",
+      "quantity": 3.0,
+      "unit_cost": 44.94,
+      "total_cost": 134.82,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Fuel Line Assembly, \u00d8:45mm Hose \u00d8:8mm\" L:3m with Small",
+      "sku": "NUO/45388",
+      "quantity": 2.0,
+      "unit_cost": 19.06,
+      "total_cost": 38.12,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Lithium Battery, Coin Cell Type:CR2032 3V 2 Pack",
+      "sku": "DOR/41-4102",
+      "quantity": 1.0,
+      "unit_cost": 1.33,
+      "total_cost": 1.33,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Spray Nozzle, Pistol Grip with Male Quick Connector",
+      "sku": "NUO/198132",
+      "quantity": 1.0,
+      "unit_cost": 7.43,
+      "total_cost": 7.43,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Strainer, In-Line with Large Mesh Filter for Hose\u2205:19mm",
+      "sku": "NUO/99755",
+      "quantity": 1.0,
+      "unit_cost": 8.48,
+      "total_cost": 8.48,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Pliers, Electricians Dual Jaw Precision",
+      "sku": "ALL/30589",
+      "quantity": 1.0,
+      "unit_cost": 14.83,
+      "total_cost": 14.83,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "[TCH/H3A0.38BK] HeatShrink Tubing, 3:1 Adhesive 3/8\" Length:48\" Black",
+      "sku": "BM-$66",
+      "quantity": 2.0,
+      "unit_cost": 4.71,
+      "total_cost": 9.42,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "[TCH/H3A0.38RD] HeatShrink Tubing, 3:1 Adhesive 3/8\" Length:48\" Red",
+      "sku": "BM-$67",
+      "quantity": 1.0,
+      "unit_cost": 5.1,
+      "total_cost": 5.1,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Solar Panel, Semi Flexible Mono 200W 1570 x 702 x",
+      "sku": "CRB/BS200-FT-ME",
+      "quantity": 3.0,
+      "unit_cost": 221.51,
+      "total_cost": 664.53,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Sanding Block, 2.75\"x16.5\" Multi-Hole Yellow",
+      "sku": "MIR/9116F",
+      "quantity": 1.0,
+      "unit_cost": 98.43,
+      "total_cost": 98.43,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Battery Terminal, Universal Zinc & Brass w/Isolator (Light",
+      "sku": "AAA/11527",
+      "quantity": 1.0,
+      "unit_cost": 3.88,
+      "total_cost": 3.88,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Anchor, Britany Type Galvanize 3.5kg 8Lb",
+      "sku": "ANR/CIM-BRI035",
+      "quantity": 4.0,
+      "unit_cost": 11.69,
+      "total_cost": 46.76,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Dry Bag, First Aid & Survival Kit 130Pc",
+      "sku": "DOR/41-3820",
+      "quantity": 1.0,
+      "unit_cost": 20.84,
+      "total_cost": 20.84,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Rod Rack, Plastic \u2300:38.1mm",
+      "sku": "AAA/54064",
+      "quantity": 3.0,
+      "unit_cost": 1.21,
+      "total_cost": 3.63,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Shackle, Bow 1-1/4\u201d Galvanize High Tensile Bolt",
+      "sku": "BM/CIM-SHG32BHT-BN",
+      "quantity": 1.0,
+      "unit_cost": 18.25,
+      "total_cost": 18.25,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Shackle, Bow 1-1/4\u201d Galvanize High Tensile WLL: 12,000",
+      "sku": "BM/SHG32BHT",
+      "quantity": 1.0,
+      "unit_cost": 16.29,
+      "total_cost": 16.29,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Padlock, Brass 40mm Wide, Long Shank H: 94mm & \u00f8:6mm",
+      "sku": "PLA/17580",
+      "quantity": 1.0,
+      "unit_cost": 5.04,
+      "total_cost": 5.04,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Ruck Case, R40 9.8 x 6.1 x 2.9\" Black",
+      "sku": "PEL/RKR400-0000-BLK",
+      "quantity": 1.0,
+      "unit_cost": 45.9,
+      "total_cost": 45.9,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Boat Hook, Telescopic 4.6 to 12\u2019 Aluminium Tube \u00f8:1-1/4\u201d",
+      "sku": "SDG/491036-1",
+      "quantity": 2.0,
+      "unit_cost": 78.99,
+      "total_cost": 157.98,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Trolling Skirt, 6\" Blue/White/Pink Belly 5 Pack",
+      "sku": "BNE/76123",
+      "quantity": 1.0,
+      "unit_cost": 5.13,
+      "total_cost": 5.13,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Trolling Skirt, 7 3/4\" Purple/Black 2 Pack",
+      "sku": "BNE/77104",
+      "quantity": 1.0,
+      "unit_cost": 3.21,
+      "total_cost": 3.21,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Trolling Skirt, 7-3/4\" Blue White Pink Belly 2 Pack",
+      "sku": "BNE/77123",
+      "quantity": 1.0,
+      "unit_cost": 3.23,
+      "total_cost": 3.23,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Lure, Baby Bird Unrigged 4-1/2\" Blue",
+      "sku": "BNE/55725",
+      "quantity": 1.0,
+      "unit_cost": 6.45,
+      "total_cost": 6.45,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Lure, Flying Bird Daisy Chain 4\" Blue Clear",
+      "sku": "BNE/55620",
+      "quantity": 1.0,
+      "unit_cost": 14.34,
+      "total_cost": 14.34,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    },
+    {
+      "description": "Connector, AquaStop (Water Stop) QC (F) to Hose",
+      "sku": "HZL/100-000-556",
+      "quantity": 4.0,
+      "unit_cost": 5.43,
+      "total_cost": 21.72,
+      "_source_pdf": "bmgrn INV_SX_2026_008341.pdf"
+    }
+  ]
+}

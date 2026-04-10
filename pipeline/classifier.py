@@ -1630,6 +1630,14 @@ def classify_item(description: str, rules: List[Dict], noise_words: set,
     All returned codes are validated against the CARICOM CET to ensure they are
     valid end-node codes with DUTY RATE, UNIT, and SITC REV 4 data.
     """
+    # WS-B4: lazily seed classifications.db on first classification.
+    # Cheap no-op after the first call per process.
+    try:
+        from classification_db import ensure_db_seeded
+        ensure_db_seeded(base_dir)
+    except Exception as _e:
+        logger.debug(f"[DB-SEED] ensure_db_seeded failed: {_e}")
+
     # ── Layer 0: Assessed classifications (customs-verified) ──
     assessed_result = lookup_assessed_classification(description, base_dir,
                                                       expected_chapter=expected_chapter)

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# ruff: noqa: E501
 """
 Batch Classification Strategy for CARICOM tariff codes.
 
@@ -20,10 +21,7 @@ Usage:
 import json
 import logging
 import os
-import re
 import sys
-import time
-from typing import Any, Dict, List, Optional, Tuple
 
 logger = logging.getLogger(__name__)
 
@@ -32,19 +30,17 @@ _pipeline_dir = os.path.dirname(os.path.abspath(__file__))
 if _pipeline_dir not in sys.path:
     sys.path.insert(0, _pipeline_dir)
 
-from classifier import (
-    classify_item,
-    validate_and_correct_code,
-    _build_classification_prompt,
-    _gather_web_context,
-    _extract_search_terms,
+from classification_db import normalize_description  # noqa: E402
+from classifier import (  # noqa: E402
     _check_lookup_cache,
-    _save_to_cache,
-    lookup_assessed_classification,
-    lookup_hs_code_web,
+    _extract_search_terms,
+    _gather_web_context,
     _load_llm_settings,
+    _save_to_cache,
+    classify_item,
+    lookup_assessed_classification,
+    validate_and_correct_code,
 )
-
 
 # ── The batch classification prompt ─────────────────────────────────────────
 # Mirrors _build_classification_prompt() but for multiple items at once.
@@ -86,7 +82,7 @@ CLASSIFICATION RULES (follow strictly):
 For EACH item, provide an 8-digit HS code, category label, confidence (0.0-1.0), and brief reasoning."""
 
 
-def _build_batch_user_message(items_with_context: List[Tuple[int, str, str]]) -> str:
+def _build_batch_user_message(items_with_context: list[tuple[int, str, str]]) -> str:
     """
     Build the user message for a batch classification call.
 
@@ -120,14 +116,19 @@ class BatchClassifier:
     so it can be used as a drop-in replacement.
     """
 
-    # Default batch size — balances context window usage vs API call count
-    DEFAULT_BATCH_SIZE = 25
+    # Default batch size — balances context window usage vs API call count.
+    # WS-B3(c): raised from 25 → 60. Claude Haiku / GLM-5 have >=200K context
+    # windows, and one classification line is ~60 tokens, so 60 items fits
+    # comfortably with headroom for web-context snippets. Halving the call
+    # count roughly halves per-invoice LLM latency when many items fall
+    # through to the LLM layer.
+    DEFAULT_BATCH_SIZE = 60
 
-    def __init__(self, config: Dict = None, batch_size: int = None):
+    def __init__(self, config: dict = None, batch_size: int = None):
         """
         Args:
             config: Pipeline config dict (needs 'base_dir' at minimum).
-            batch_size: Number of items per LLM call (default 25).
+            batch_size: Number of items per LLM call (default 60).
         """
         self.config = config or {}
         self.base_dir = self.config.get('base_dir', '.')
@@ -135,11 +136,11 @@ class BatchClassifier:
 
     def classify_batch(
         self,
-        items: List[Dict],
-        rules: List[Dict] = None,
+        items: list[dict],
+        rules: list[dict] = None,
         noise_words: set = None,
         gather_web_context: bool = True,
-    ) -> List[Dict]:
+    ) -> list[dict]:
         """
         Classify a list of items using batched LLM calls.
 
@@ -163,6 +164,14 @@ class BatchClassifier:
                'source': 'batch_llm_classification', 'notes': '...'}
             Items that could not be classified get code='UNKNOWN'.
         """
+        # WS-B4: lazily seed classifications.db on first batch classification.
+        # Cheap no-op after the first call per process.
+        try:
+            from classification_db import ensure_db_seeded
+            ensure_db_seeded(self.base_dir)
+        except Exception as _e:
+            logger.debug(f"[DB-SEED] ensure_db_seeded failed: {_e}")
+
         results = [None] * len(items)
         needs_llm = []  # (original_index, description) tuples
 
@@ -213,10 +222,36 @@ class BatchClassifier:
         )
 
         # ── Layer 3: Batch LLM classification ──
-        # Optionally gather web context for each item (can be slow)
-        web_contexts = {}
+        # WS-B3(a): dedup by normalized description before sending to LLM.
+        # We use classification_db.normalize_description — the same canonical
+        # normalization the SQLite cache layer uses. Collapsing exact
+        # duplicates before the LLM pays off on invoices with many similar
+        # SKUs (e.g. "Shirt Blue Small", "Shirt Blue Medium" … all normalize
+        # to "shirt blue"). Representatives are chosen as the first item in
+        # each group, and the classification is fanned back out to siblings.
+        groups: dict[str, list[tuple[int, str]]] = {}
+        for orig_idx, desc in needs_llm:
+            key = normalize_description(desc) or desc.strip().lower()
+            groups.setdefault(key, []).append((orig_idx, desc))
+
+        dedup_representatives: list[tuple[int, str]] = [
+            members[0] for members in groups.values()
+        ]
+
+        dedup_savings = len(needs_llm) - len(dedup_representatives)
+        if dedup_savings > 0:
+            logger.info(
+                f"[BATCH] Dedup: {len(needs_llm)} items → "
+                f"{len(dedup_representatives)} unique ({dedup_savings} duplicates skipped)"
+            )
+
+        # WS-B3(b): gather web context only for items that will actually
+        # hit the LLM (post-dedup). Items resolved by assessed/rules/cache
+        # never need a web fetch. Gather per-representative, not per-item,
+        # so duplicates inherit the context for free.
+        web_contexts: dict[int, str] = {}
         if gather_web_context:
-            for idx, desc in needs_llm:
+            for idx, desc in dedup_representatives:
                 try:
                     ctx = _gather_web_context(desc, self.config)
                     if ctx:
@@ -224,16 +259,16 @@ class BatchClassifier:
                 except Exception as e:
                     logger.debug(f"Web context failed for item {idx}: {e}")
 
-        # Split into batches
+        # Split the deduped representatives into batches
         batches = []
-        for batch_start in range(0, len(needs_llm), self.batch_size):
-            batch = needs_llm[batch_start:batch_start + self.batch_size]
+        for batch_start in range(0, len(dedup_representatives), self.batch_size):
+            batch = dedup_representatives[batch_start:batch_start + self.batch_size]
             batches.append(batch)
 
         total_calls = len(batches)
         logger.info(
-            f"[BATCH] Sending {len(needs_llm)} items in {total_calls} "
-            f"LLM calls (batch_size={self.batch_size})"
+            f"[BATCH] Sending {len(dedup_representatives)} unique items "
+            f"in {total_calls} LLM calls (batch_size={self.batch_size})"
         )
 
         for batch_num, batch in enumerate(batches, 1):
@@ -247,14 +282,29 @@ class BatchClassifier:
                 f"classified {len(batch_results)}/{len(batch)} items"
             )
 
+        # Fan out dedup'd classifications to all members of each group.
+        # Representatives whose LLM call succeeded have results[rep_idx] set;
+        # their dup siblings still have None. Copy the representative's
+        # result into each sibling so the final list is fully populated.
+        for _key, members in groups.items():
+            if len(members) < 2:
+                continue
+            rep_idx = members[0][0]
+            rep_result = results[rep_idx]
+            if rep_result is None:
+                continue  # representative failed; leave siblings as UNKNOWN
+            for sibling_idx, _sibling_desc in members[1:]:
+                # shallow-copy so downstream mutations don't bleed
+                results[sibling_idx] = dict(rep_result)
+
         # Fill any remaining None entries with UNKNOWN
         return [r if r else self._unknown_result() for r in results]
 
     def _classify_batch_llm(
         self,
-        batch: List[Tuple[int, str]],
-        web_contexts: Dict[int, str],
-    ) -> Dict[int, Dict]:
+        batch: list[tuple[int, str]],
+        web_contexts: dict[int, str],
+    ) -> dict[int, dict]:
         """
         Send a single batch of items to the LLM for classification.
 
@@ -332,7 +382,7 @@ class BatchClassifier:
             classified[orig_idx] = classification
 
             # Cache result for future runs
-            desc = dict(batch)[orig_idx] if orig_idx in dict(batch) else ""
+            desc = dict(batch).get(orig_idx, "")
             if desc:
                 search_terms = _extract_search_terms(desc)
                 if search_terms:
@@ -340,7 +390,7 @@ class BatchClassifier:
 
         return classified
 
-    def _call_llm(self, user_message: str) -> Optional[Dict]:
+    def _call_llm(self, user_message: str) -> dict | None:
         """
         Call the LLM API with the batch classification prompt.
 
@@ -366,10 +416,10 @@ class BatchClassifier:
         # Fallback: direct urllib call
         return self._call_llm_urllib(user_message)
 
-    def _call_llm_urllib(self, user_message: str) -> Optional[Dict]:
+    def _call_llm_urllib(self, user_message: str) -> dict | None:
         """Direct urllib LLM call (fallback when core.llm_client unavailable)."""
         try:
-            from urllib.request import urlopen, Request
+            from urllib.request import Request, urlopen
         except ImportError:
             logger.warning("urllib not available for batch LLM call")
             return None
@@ -424,7 +474,7 @@ class BatchClassifier:
         return None
 
     @staticmethod
-    def _get_description(item: Dict) -> str:
+    def _get_description(item: dict) -> str:
         """Extract the best description from an item dict."""
         return (
             item.get('description', '')
@@ -433,7 +483,7 @@ class BatchClassifier:
         )
 
     @staticmethod
-    def _unknown_result() -> Dict:
+    def _unknown_result() -> dict:
         """Return a standard UNKNOWN classification result."""
         return {
             'code': 'UNKNOWN',
@@ -447,13 +497,13 @@ class BatchClassifier:
 # ── Convenience function matching classify_with_llm() signature ─────────────
 
 def classify_items_batch(
-    items: List[Dict],
-    rules: List[Dict] = None,
+    items: list[dict],
+    rules: list[dict] = None,
     noise_words: set = None,
-    config: Dict = None,
-    batch_size: int = 25,
+    config: dict = None,
+    batch_size: int = None,
     gather_web_context: bool = True,
-) -> List[Dict]:
+) -> list[dict]:
     """
     Convenience function: classify a list of items using the batch strategy.
 
@@ -465,7 +515,7 @@ def classify_items_batch(
         rules: Classification rules list (from load_classification_rules()).
         noise_words: Noise words set (from load_classification_rules()).
         config: Pipeline config dict.
-        batch_size: Items per LLM call (default 25).
+        batch_size: Items per LLM call (default BatchClassifier.DEFAULT_BATCH_SIZE = 60).
         gather_web_context: Whether to gather web search context first.
 
     Returns:

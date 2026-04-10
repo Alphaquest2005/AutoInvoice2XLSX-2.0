@@ -44,6 +44,7 @@ markers = [
     "slow: marks tests that take >5s",
     "integration: marks integration tests needing real files",
     "bdd: marks BDD acceptance tests",
+    "requires_downloads: opt-in tests needing the WebSource Downloads corpus",
 ]
 
 [tool.coverage.run]

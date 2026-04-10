@@ -25,7 +25,6 @@ import re
 import sqlite3
 import sys
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple
 
 logger = logging.getLogger(__name__)
 
@@ -147,7 +146,9 @@ CREATE INDEX IF NOT EXISTS idx_cls_desc_norm ON classifications(description_norm
 CREATE INDEX IF NOT EXISTS idx_cls_tariff ON classifications(tariff_code);
 CREATE INDEX IF NOT EXISTS idx_cls_sku ON classifications(sku) WHERE sku IS NOT NULL;
 CREATE INDEX IF NOT EXISTS idx_cls_source ON classifications(source);
-CREATE INDEX IF NOT EXISTS idx_cls_active ON classifications(description_norm, is_active) WHERE is_active = 1;
+CREATE INDEX IF NOT EXISTS idx_cls_active
+    ON classifications(description_norm, is_active)
+    WHERE is_active = 1;
 
 CREATE INDEX IF NOT EXISTS idx_lookup_code ON description_lookup(tariff_code);
 
@@ -156,9 +157,13 @@ CREATE INDEX IF NOT EXISTS idx_shipment_bl ON shipments(bl_number);
 CREATE INDEX IF NOT EXISTS idx_si_shipment ON shipment_items(shipment_id);
 CREATE INDEX IF NOT EXISTS idx_si_sku ON shipment_items(sku) WHERE sku != '';
 CREATE INDEX IF NOT EXISTS idx_si_desc_norm ON shipment_items(description_norm);
-CREATE INDEX IF NOT EXISTS idx_si_code_changed ON shipment_items(code_changed) WHERE code_changed = 1;
+CREATE INDEX IF NOT EXISTS idx_si_code_changed
+    ON shipment_items(code_changed)
+    WHERE code_changed = 1;
 CREATE INDEX IF NOT EXISTS idx_si_pipeline_code ON shipment_items(pipeline_code);
-CREATE INDEX IF NOT EXISTS idx_si_officer_code ON shipment_items(officer_code) WHERE officer_code IS NOT NULL;
+CREATE INDEX IF NOT EXISTS idx_si_officer_code
+    ON shipment_items(officer_code)
+    WHERE officer_code IS NOT NULL;
 
 -- Views
 CREATE VIEW IF NOT EXISTS v_disagreements AS
@@ -265,6 +270,68 @@ def init_db(db_path: str):
     logger.info(f"Database initialized: {db_path}")
 
 
+# WS-B4: one-shot guard so the pipeline only seeds classifications.db once
+# per process, even if the classifier module is imported from multiple stages.
+_seed_checked: bool = False
+
+
+def ensure_db_seeded(base_dir: str = '.') -> None:
+    """Seed classifications.db from assessed_classifications.json if empty.
+
+    WS-B4: on first call per process, create the DB schema (if missing) and
+    run ``migrate_from_json`` when the ``classifications`` table is empty.
+    Subsequent calls are no-ops.
+
+    This is cheap and idempotent:
+      * If ``classifications.db`` exists and has any rows, we skip the
+        migration entirely (one ``COUNT(*)`` query).
+      * If the DB is missing or empty, we seed from the existing JSON files
+        using the already-tested :func:`migrate_from_json` path.
+
+    Safe to call from any stage that needs Layer-0 assessed data.
+    """
+    global _seed_checked
+    if _seed_checked:
+        return
+
+    db_path = get_db_path(base_dir)
+    try:
+        if not os.path.exists(db_path):
+            logger.info(
+                f"[DB-SEED] {db_path} missing — running migrate_from_json"
+            )
+            migrate_from_json(db_path, base_dir)
+            _seed_checked = True
+            return
+
+        # DB exists — check if populated
+        init_db(db_path)  # idempotent: ensures schema even on old DBs
+        conn = get_connection(db_path)
+        try:
+            row = conn.execute(
+                "SELECT COUNT(*) AS n FROM classifications WHERE is_active = 1"
+            ).fetchone()
+            n = row['n'] if row else 0
+        finally:
+            conn.close()
+
+        if n == 0:
+            logger.info(
+                f"[DB-SEED] {db_path} empty (0 active rows) — "
+                f"running migrate_from_json"
+            )
+            migrate_from_json(db_path, base_dir)
+        else:
+            logger.debug(
+                f"[DB-SEED] {db_path} already populated ({n} active rows)"
+            )
+    except Exception as e:
+        # Never fail the pipeline on seeding — classifier has JSON fallbacks
+        logger.warning(f"[DB-SEED] seeding failed: {e}")
+    finally:
+        _seed_checked = True
+
+
 # ── CRUD operations ───────────────────────────────────────────────────────────
 
 def upsert_classification(
@@ -365,12 +432,25 @@ def upsert_classification(
         conn.close()
 
 
-def lookup_classification(db_path: str, description: str) -> Optional[Dict]:
-    """Fast lookup by normalized description. Returns dict or None."""
+def lookup_classification(db_path: str, description: str) -> dict | None:
+    """Fast lookup by normalized description. Returns dict or None.
+
+    WS-B4: emits a DEBUG-level instrumentation log line per call so we can
+    observe cache layer hits and latencies from production runs without
+    changing call sites. Format:
+        [CACHE] layer=db hit=<bool> lat_ms=<float> desc='<first 40 chars>'
+    """
+    import time as _time
+
     desc_norm = normalize_description(description)
     if not desc_norm:
+        logger.debug(
+            f"[CACHE] layer=db hit=False lat_ms=0.0 desc='{description[:40]}' "
+            f"reason=empty_norm"
+        )
         return None
 
+    _t0 = _time.perf_counter()
     conn = get_connection(db_path)
     try:
         row = conn.execute(
@@ -379,7 +459,13 @@ def lookup_classification(db_path: str, description: str) -> Optional[Dict]:
             (desc_norm,)
         ).fetchone()
 
+        lat_ms = (_time.perf_counter() - _t0) * 1000.0
         if row:
+            logger.debug(
+                f"[CACHE] layer=db hit=True lat_ms={lat_ms:.2f} "
+                f"desc='{description[:40]}' code={row['tariff_code']} "
+                f"source={row['source']}"
+            )
             return {
                 'code': row['tariff_code'],
                 'category': row['category'],
@@ -388,19 +474,26 @@ def lookup_classification(db_path: str, description: str) -> Optional[Dict]:
                 'sample_desc': row['sample_desc'],
                 'notes': row['notes'],
             }
+        logger.debug(
+            f"[CACHE] layer=db hit=False lat_ms={lat_ms:.2f} "
+            f"desc='{description[:40]}'"
+        )
         return None
     finally:
         conn.close()
 
 
-def bulk_insert_classifications(db_path: str, records: List[Dict]) -> int:
+def bulk_insert_classifications(db_path: str, records: list[dict]) -> int:
     """Bulk insert classifications (for migration). Returns count inserted."""
     conn = get_connection(db_path)
     inserted = 0
     try:
         now = datetime.now().isoformat()
         for rec in records:
-            desc_norm = rec.get('description_norm') or normalize_description(rec.get('description', ''))
+            desc_norm = (
+                rec.get('description_norm')
+                or normalize_description(rec.get('description', ''))
+            )
             if not desc_norm or not rec.get('tariff_code'):
                 continue
 
@@ -477,7 +570,7 @@ def rebuild_lookup_table(db_path: str) -> int:
 
 # ── Shipment operations ───────────────────────────────────────────────────────
 
-def record_shipment(db_path: str, bl_number: str, items: List[Dict],
+def record_shipment(db_path: str, bl_number: str, items: list[dict],
                     consignee: str = '', supplier_name: str = '') -> int:
     """Record a shipment and its pipeline-classified items. Returns shipment_id."""
     conn = get_connection(db_path)
@@ -535,7 +628,7 @@ def record_shipment(db_path: str, bl_number: str, items: List[Dict],
 
 
 def import_officer_codes(db_path: str, shipment_id: int,
-                         officer_items: List[Dict]) -> Dict:
+                         officer_items: list[dict]) -> dict:
     """Import officer classifications from ASYCUDA XML and compute match status.
 
     officer_items: list of dicts with keys:
@@ -648,7 +741,7 @@ def import_officer_codes(db_path: str, shipment_id: int,
         conn.close()
 
 
-def get_comparison(db_path: str, bl_number: str) -> Dict:
+def get_comparison(db_path: str, bl_number: str) -> dict:
     """Get full comparison results for a shipment."""
     conn = get_connection(db_path)
     try:
@@ -676,7 +769,7 @@ def get_comparison(db_path: str, bl_number: str) -> Dict:
         conn.close()
 
 
-def get_stats(db_path: str) -> Dict:
+def get_stats(db_path: str) -> dict:
     """Get database statistics."""
     conn = get_connection(db_path)
     try:
@@ -715,7 +808,7 @@ def migrate_from_json(db_path: str, base_dir: str):
     assessed_path = os.path.join(base_dir, 'data', 'assessed_classifications.json')
     if os.path.exists(assessed_path):
         print(f"Loading assessed classifications from {os.path.basename(assessed_path)}...")
-        with open(assessed_path, 'r', encoding='utf-8') as f:
+        with open(assessed_path, encoding='utf-8') as f:
             assessed_data = json.load(f)
 
         entries = assessed_data.get('entries', assessed_data)
@@ -751,13 +844,16 @@ def migrate_from_json(db_path: str, base_dir: str):
     cache_path = os.path.join(base_dir, 'data', 'hs_lookup_cache.json')
     if os.path.exists(cache_path):
         print(f"\nLoading cache from {os.path.basename(cache_path)}...")
-        with open(cache_path, 'r', encoding='utf-8') as f:
+        with open(cache_path, encoding='utf-8') as f:
             cache_data = json.load(f)
 
         # Check which cache entries conflict with assessed data already in DB
         conn = get_connection(db_path)
         assessed_lookup = {}
-        for row in conn.execute("SELECT description_norm, tariff_code FROM classifications WHERE source = 'assessed_exact' AND is_active = 1"):
+        for row in conn.execute(
+            "SELECT description_norm, tariff_code FROM classifications "
+            "WHERE source = 'assessed_exact' AND is_active = 1"
+        ):
             assessed_lookup[row['description_norm']] = row['tariff_code']
         conn.close()
 
@@ -778,10 +874,12 @@ def migrate_from_json(db_path: str, base_dir: str):
                 continue
 
             # Check for heading-level conflict with assessed data
-            if desc_norm in assessed_lookup:
-                if code[:4] != assessed_lookup[desc_norm][:4]:
-                    skipped_conflict += 1
-                    continue
+            if (
+                desc_norm in assessed_lookup
+                and code[:4] != assessed_lookup[desc_norm][:4]
+            ):
+                skipped_conflict += 1
+                continue
 
             source = entry.get('source', 'web_search')
             is_verified = entry.get('verified_against_assessed', False)
