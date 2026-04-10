@@ -1,0 +1,185 @@
+# CARICOM Invoice Processing Pipeline Configuration
+# All pipeline behavior is controlled by this file
+
+pipeline:
+  name: "CARICOM Invoice Processing"
+  version: "1.0.0"
+  description: "Data-driven pipeline for invoice to customs declaration conversion"
+
+# Global settings
+settings:
+  cet_reference: "data/caricom_cet.xlsx"
+  output_template: "templates/POTemplate.xlsx"
+  learning_enabled: true
+  strict_validation: true
+  auto_open_output: true  # Auto-open XLSX file after pipeline completion
+  
+# Pipeline stages - executed in order
+stages:
+  # Stage 1: Extract data from PDF
+  - name: extract
+    enabled: true
+    type: script
+    script: pdf_extractor.py
+    config: extraction_patterns.yaml
+    input: "${input_file}"
+    output: "${work_dir}/extracted.json"
+    validation:
+      schema: extraction_schema.json
+      required_fields: [invoice_number, date, items, total]
+    on_failure: abort
+    
+  # Stage 2: Parse line items  
+  - name: parse
+    enabled: true
+    type: script
+    script: item_parser.py
+    config: parsing_rules.yaml
+    input: "${work_dir}/extracted.json"
+    output: "${work_dir}/parsed.json"
+    validation:
+      min_items: 1
+      required_per_item: [description, quantity, unit_cost, total_cost]
+    on_failure: abort
+    
+  # Stage 3: Classify items with tariff codes
+  - name: classify
+    enabled: true
+    type: rule_engine
+    rules: rules/classification_rules.json
+    word_analyzer: true
+    input: "${work_dir}/parsed.json"
+    output: "${work_dir}/classified.json"
+
+    # Fallback to LLM for unmatched items
+    fallback:
+      enabled: true
+      type: llm_call
+      prompt_template: prompts/classify_ambiguous.txt
+      confidence_threshold: 0.6
+      
+    # Web verification for low confidence
+    web_verify:
+      enabled: true
+      threshold: 0.7
+      sources: [flexport, freightamigo, customs_databases]
+      
+    validation:
+      all_items_classified: true
+      code_format: "^\\d{8}$"
+    on_failure: flag_for_review
+    
+  # Stage 4: Validate codes against CET
+  - name: validate_codes
+    enabled: true
+    type: validator
+    rules: rules/validation_rules.json
+    reference: "${settings.cet_reference}"
+    invalid_codes: rules/invalid_codes.json
+    input: "${work_dir}/classified.json"
+    output: "${work_dir}/validated.json"
+    
+    checks:
+      - code_exists_in_cet: true
+      - has_duty_rate: true
+      - has_unit: true
+      - has_sitc: true
+      - not_category_header: true
+      
+    auto_fix:
+      enabled: true
+      use_invalid_codes_mapping: true
+      
+    on_failure: flag_for_review
+    
+  # Stage 5: Group items by tariff code
+  - name: group
+    enabled: true
+    type: script
+    script: grouping_engine.py
+    config: config/grouping.yaml
+    input: "${work_dir}/validated.json"
+    output: "${work_dir}/grouped.json"
+    
+    options:
+      group_by: tariff_code
+      group_position: top
+      preserve_order: true
+      
+  # Stage 6: Generate Excel output
+  - name: generate_xlsx
+    enabled: true
+    type: script
+    script: xlsx_generator.py
+    template: "${settings.output_template}"
+    columns: config/columns.yaml
+    input: "${work_dir}/grouped.json"
+    output: "${output_file}"
+    
+    options:
+      recalculate_formulas: true
+      recalc_timeout: 60
+      
+  # Stage 7: Final validation
+  - name: verify
+    enabled: true
+    type: validator
+    input: "${output_file}"
+    
+    checks:
+      - name: variance_check
+        formula_label: "VARIANCE CHECK"
+        expected: 0.00
+        tolerance: 0.001
+        severity: error
+        
+      - name: group_verification
+        formula_label: "GROUP VERIFICATION"
+        expected: 0.00
+        tolerance: 0.001
+        severity: error
+        
+      - name: formula_errors
+        scan_for: ["#REF!", "#VALUE!", "#DIV/0!", "#NAME?", "#N/A"]
+        expected_count: 0
+        severity: error
+        
+      - name: structure_check
+        detail_rows_blank: [A, C, D]
+        group_rows_populated: [A, C, D, F]
+        severity: warning
+        
+    on_failure: report_and_continue
+    
+  # Stage 8: Learning (optional)
+  - name: learn
+    enabled: "${settings.learning_enabled}"
+    type: script
+    script: learning.py
+    corrections_db: data/corrections.json
+    rules_file: rules/classification_rules.json
+    input: "${output_file}"
+    
+    options:
+      record_classifications: true
+      extract_rules_threshold: 3
+      
+# Error handling
+error_handling:
+  max_retries: 2
+  retry_delay_seconds: 5
+  save_intermediate: true
+  intermediate_dir: "${work_dir}/intermediate"
+  
+# Logging
+logging:
+  level: INFO
+  file: "${work_dir}/pipeline.log"
+  include_timestamps: true
+  
+# Notifications (optional)
+notifications:
+  on_success:
+    enabled: false
+  on_failure:
+    enabled: false

@@ -1,0 +1,55 @@
+# Auto-generated format spec for unknown_i
+# Generated on 2026-03-17T08:40:03.988820
+# Will be promoted to formats/ on successful processing
+
+name: unknown_i
+version: "1.0"
+description: "Invoice format for unknown_i supplier with itemized list containing prices and multi-line descriptions."
+
+detect:
+  all_of:
+    - "By"
+  any_of:
+    - "i ens |"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'i\s+ens\s+\|\s*'
+    required: false
+  date:
+    patterns:
+      - '\d{4}-\d{2}-\d{2}'
+      - '\d{1,2}/\d{1,2}/\d{4}'
+  supplier_name:
+    value: "unknown_i"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - '\$\d+\.\d{2}'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^\$?([0-9]+\.?[0-9]*)$'
+    field_map:
+      unit_price: 1
+    types:
+      unit_price: currency
+    skip_patterns:
+      - '^By\s+'
+      - '^i\s+ens\s+\|'
+    generated_fields:
+      description: "Item {index}"
+      quantity: 1
+
+sections:
+  items_start:
+    - "i ens |"
+  items_end:
+    - ""
+
+validation:
+  min_items: 1

@@ -1,0 +1,88 @@
+# Ocean-Tamer Invoice Format Specification
+name: ocean_tamer
+version: "1.0"
+description: "Ocean-Tamer marine bean bag and furniture invoices"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  all_of:
+    - "Ocean-Tamer"
+  any_of:
+    - "Palmetto, FL"
+    - "ocean-tamer.com"
+    - "PACKING SLIP"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      # Header: "INVOICE # DATE TOTAL DUE..." / Data: "OT50448 02/04/2026 $2,950.22..."
+      - 'INVOICE\s*#.*?\n(OT\d+)'
+      - '\n(OT\d{4,})\s+'
+    required: true
+
+  date:
+    patterns:
+      - '\nOT\d+\s+(\d{2}/\d{2}/\d{4})'
+      - 'DATE\s*\n\S+\s+(\d{2}/\d{2}/\d{4})'
+
+  supplier_name:
+    value: "Ocean-Tamer Marine Bean Bags"
+
+  supplier_address:
+    value: "900 4th St W, Palmetto, FL 34221"
+
+  country_code:
+    value: "US"
+
+  total:
+    patterns:
+      - 'BALANCE\s*DUE\s*\$?([\d,]+\.\d{2})'
+      - 'TOTAL\s+\$?([\d,]+\.\d{2})\s*$'
+      - 'TOTAL\s*DUE\s*\$?([\d,]+\.\d{2})'
+    type: currency
+
+  subtotal:
+    patterns:
+      - 'SUBTOTAL\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+  shipping:
+    patterns:
+      - 'Fed-Ex Shipping.*?\d+\s+[\d.]+\s+([\d,]+\.\d{2})'
+    type: currency
+
+  other_cost:
+    patterns:
+      - 'Wire Transfer.*?\d+\s+[\d.]+\s+([\d,]+\.\d{2})'
+    type: currency
+
+# ─── Item Extraction ───────────────────────────────────────
+# Line format:
+#   SKU  Description  QTY  RATE  AMOUNT
+#   OTW-Large  Ocean-Tamer Wedge Large  4  89.97  359.88
+items:
+  strategy: line
+
+  line:
+    pattern: '^(OT[A-Z]-?\s*\S+)\s+(.+?)\s+(\d+)\s+([\d.]+)\s+([\d,]+\.\d{2})'
+    field_map:
+      sku: 1
+      description: 2
+      quantity: 3
+      unit_price: 4
+      total_cost: 5
+    types:
+      quantity: integer
+      unit_price: currency
+      total_cost: currency
+    skip_patterns:
+      - 'Fed-Ex Shipping'
+      - 'Wire Transfer'
+      - 'DEALER'
+      - 'PACKING SLIP'
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 1
+  require_total: false

@@ -1,0 +1,226 @@
+# Amazon Invoice Format Specification
+# All Amazon-specific parsing rules are isolated here
+# Changes here affect ONLY Amazon invoices
+
+name: amazon
+version: "1.0"
+description: "Amazon.com order invoices (print view)"
+
+# ─── Detection ─────────────────────────────────────────────
+# This format handles Amazon order details pages
+detect:
+  all_of:
+    - "Sold by:"
+    - "Items Ordered"
+  any_of:
+    - " of:"   # Quantity pattern: "1 of: Description"
+    - " of;"   # OCR misread: "1 of;" (semicolon instead of colon)
+
+# ─── OCR Normalization ─────────────────────────────────────
+# Applied BEFORE parsing, in order listed
+# These fix common OCR artifacts specific to Amazon printouts
+ocr_normalize:
+  - pattern: '(\d+)\s+(\d{2})(?=\s*[\}\)\|\s]*$)'
+    replace: '\1.\2'
+    description: "Fix space-separated prices: $39 99 → $39.99"
+
+  - pattern: '(USD\s+\d+),(\d{2})'
+    replace: '\1.\2'
+    description: "Fix OCR comma-as-decimal in USD amounts: USD 0,79 → USD 0.79"
+
+  - pattern: '\$(\d+),(\d{2})(?!\d)'
+    replace: '$\1.\2'
+    description: "Fix OCR comma-as-decimal in $ amounts: $0,79 → $0.79"
+
+  - pattern: '(\d+)\s+of;'
+    replace: '\1 of:'
+    description: "Fix OCR misread semicolon: 3 of; → 3 of:"
+
+  - pattern: '(\d+)\s+g&'
+    replace: '\1 of:'
+    description: "Fix OCR misread: 3 g& → 3 of: (common OCR corruption of 'of:')"
+
+  - pattern: '([Il])(?=\s+of[;:])'
+    replace: '1'
+    description: "Fix OCR misread quantity: I of: → 1 of:"
+
+  - pattern: '\s*[\}\)\|]+\s*$'
+    replace: ''
+    flags: multiline
+    description: "Remove trailing OCR noise from lines"
+
+# ─── Metadata Extraction ───────────────────────────────────
+# Each field tries patterns in order, first match wins
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order\s*#?\s*:?\s*(\d{3}-\d{7}-\d{7})'
+      - 'order\s*number[:\s]+(\d{3}-\d{7}-\d{7})'
+    required: true
+
+  date:
+    patterns:
+      - 'Order\s+[Pp]laced[:\s]+(\w+\s+\d{1,2},?\s+\d{4})'
+      - 'Order\s+[Dd]ate[:\s]+(\w+\s+\d{1,2},?\s+\d{4})'
+
+  supplier_name:
+    value: "Amazon.com"  # Static value, no pattern needed
+
+  country_code:
+    value: "US"
+
+  total:
+    patterns:
+      # USD format (primary)
+      - 'Grand\s+Total:\s*(?:USD\s+)?\$?([\d,]+\.\d{2})'
+      # XCD format: "Grand Total: XCD 1,518.83"
+      - 'Grand\s+Total:\s*XCD\s+([\d,]+\.\d{2})'
+      # Fallback
+      - 'Order\s+[Tt]otal:\s*(?:USD\s+)?\$?([\d,]+\.\d{2})'
+    type: currency
+
+  subtotal:
+    patterns:
+      # USD format (primary)
+      - 'Item\(s\)\s+Subtotal:\s*(?:USD\s+)?\$?([\d,]+\.\d{2})'
+      # XCD format: "Item(s) Subtotal: XCD 1,503.79"
+      - 'Item\(s\)\s+Subtotal:\s*XCD\s+([\d,]+\.\d{2})'
+    type: currency
+
+  tax:
+    patterns:
+      # USD format
+      - 'Estimated\s+tax[^:]*:\s*(?:USD\s+)?\$?([\d,]+\.\d{2})'
+      # Split-line: "Estimated tax to be $57.29\ncollected:" (amount before colon)
+      - 'Estimated\s+tax\s+to\s+be\s+\$?([\d,]+\.\d{2})'
+      # XCD format: "Estimated tax to be collected: XCD 0.00"
+      - 'Estimated\s+tax\s+to\s+be\s+collected:\s*XCD\s+([\d,]+\.\d{2})'
+      # Positional fallback: 4th USD value in payment block (subtotal, shipping, before-tax, TAX)
+      - 'USD\s+[\d,]+\.\d{2}\nUSD\s+[\d,]+\.\d{2}\n\nUSD\s+[\d,]+\.\d{2}\nUSD\s+([\d,]+\.\d{2})'
+    type: currency
+    default: 0
+
+  shipping:
+    patterns:
+      # USD format
+      - 'Shipping\s*(?:&|and)\s*Handling:\s*(?:USD\s+)?\$?([\d,]+\.\d{2})'
+      # XCD format: "Shipping & Handling: XCD 0.00"
+      - 'Shipping\s*(?:&|and)\s*Handling:\s*XCD\s+([\d,]+\.\d{2})'
+      # Positional fallback: 2nd USD value in payment block (subtotal, SHIPPING)
+      - 'USD\s+[\d,]+\.\d{2}\nUSD\s+([\d,]+\.\d{2})\n\nUSD'
+    type: currency
+
+  credits:
+    patterns:
+      - '(?:Your\s+)?Coupon\s+Savings\s*:?\s*-?(?:XCD\s+|USD\s+)?\$?([\d,]+\.\d{2})'
+      - 'Gift\s+Card\s+Amount\s*:?\s*-?(?:XCD\s+|USD\s+)?\$?([\d,]+\.\d{2})'
+      - 'Promoti(?:on|onal)\s+(?:Applied|Credit)\s*:?\s*-?(?:XCD\s+|USD\s+)?\$?([\d,]+\.\d{2})'
+    type: currency
+    aggregate: sum
+
+  other_cost:
+    patterns:
+      # XCD format: "Exchange rate guarantee fee:\nXCD 15.04" or "Exchange rate\nXCD 15.04\nguarantee fee:"
+      - 'Exchange\s+rate[^X]*XCD\s+([\d,]+\.\d{2})'
+      # USD format: "Exchange rate guarantee fee: USD 5.56"
+      - 'Exchange\s+rate\s+(?:guarantee\s+fee:?\s*)?(?:XCD|USD)\s+([\d,]+\.\d{2})'
+      # Fallback: just "guarantee fee: XCD 15.04"
+      - 'guarantee\s+fee:\s*(?:XCD|USD)\s+([\d,]+\.\d{2})'
+    type: currency
+    aggregate: sum
+
+  discount:
+    patterns:
+      # Supplier-specific percentage discounts: "eos 20% off: -$47.88"
+      - '\w+\s+\d+%\s+off\s*:?\s*-?(?:XCD\s+|USD\s+)?\$?([\d,]+\.\d{2})'
+      # Generic "discount" or "savings" lines
+      - '(?:Subscribe|Save)\s*(?:&|and)\s*Save\s*:?\s*-?(?:XCD\s+|USD\s+)?\$?([\d,]+\.\d{2})'
+    type: currency
+    aggregate: sum
+
+  free_shipping:
+    patterns:
+      - 'Free\s+Shipping\s*:?\s*-?(?:XCD\s+|USD\s+)?\$?([\d,]+\.\d{2})'
+    type: currency
+    aggregate: sum
+
+# ─── Item Extraction ───────────────────────────────────────
+items:
+  # Strategy: "block" = items span multiple lines with start/end markers
+  # Amazon OCR produces: "N of: Description..." possibly over multiple lines
+  # Then "Price" and "$XX.XX" on separate lines
+  # Also handles Order Details format: "Delivered [date]" block ending with price
+  strategy: block
+
+  block:
+    # Start pattern: either "N of:" (print view) OR "Delivered" (Order Details page)
+    start_pattern: '^\d+\s+of[;:]|Delivered\s+\w+'
+    # End pattern: standalone price line "$XX.XX"
+    end_pattern: '^\$[\d,]+(?:[.\s]\d{2})?$'
+
+    # Skip these lines within blocks
+    skip_patterns:
+      - '^Sold by:'
+      - '^Supplied by:'
+      - '^Condition:'
+      - '^Price$'
+      - '^Return '
+      - '^Shipping Address'
+      - '^Shipping Speed'
+      - '^FREE Shipping'
+      - '^Standard Shipping'
+      - '^\d+\s+NW\s+'
+      - '^MIAMI'
+      - '^United States'
+      - '^Shipped on '
+      - '^Items Ordered'
+      - '^https?://'
+      - '^\d+/\d+/\d+,\s+\d+:\d+'
+      - '^Amazon\.com\s*-\s*Order'
+      - 'C/o CaribConex'
+
+    # Field extraction from combined block text
+    fields:
+      sku:
+        generate: "AMZ-{index}"
+
+      quantity:
+        pattern: '^(\d+)\s+of[;:]'
+        type: integer
+        default: 1
+
+      description:
+        # Description is text after "N of:" up to price ([\s\S] matches newlines)
+        pattern: '^\d+\s+of[;:]\s+([\s\S]+?)(?:Price|\$)'
+        clean:
+          - pattern: '\s*[©\}\)\|\*#~]+\s*'
+            replace: ''
+          - pattern: '\s+'
+            replace: ' '
+
+      unit_price:
+        pattern: '\$([\d,]+(?:[.\s]\d{2})?)'
+        type: currency
+
+    types:
+      quantity: integer
+      unit_price: currency
+
+# ─── Section Markers ───────────────────────────────────────
+# Used to identify where items section starts/ends
+sections:
+  items_start:
+    - "Items Ordered"
+    - "Order Details"
+
+  items_end:
+    - "Payment information"
+    - "Payment method"
+    - "Conditions of Use"
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  # Sanity checks after parsing
+  min_items: 1
+  max_item_price: 10000
+  require_total: false  # Amazon sometimes doesn't show total clearly

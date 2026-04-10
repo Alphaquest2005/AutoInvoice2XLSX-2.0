@@ -1,0 +1,88 @@
+# FashionNova e-commerce invoice format v8
+# Column-based strategy - match product lines, extract Price/Qty from adjacent lines
+
+name: fashionnova_ecommerce_v8
+version: "1.0"
+description: "FashionNova invoice - column strategy for product with separate Price/Qty lines"
+
+detect:
+  all_of:
+    - "Order #"
+    - "Date Placed:"
+    - "Total"
+    - "Size:"
+    - "Qty"
+  any_of:
+    - "NEED HELP?"
+    - "Payment method:"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order #(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Date Placed:\s*([A-Za-z]+ \d{1,2}, \d{4})'
+  supplier_name:
+    value: "FashionNova"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Total\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: column
+  column:
+    # Match product name line, then look ahead for Price/Qty on following lines
+    main_pattern: '^[A-Z][A-Za-z0-9\s&\-]+$'
+    min_length: 10
+    skip_patterns:
+      - '^Order #'
+      - '^Date Placed:'
+      - '^Size:'
+      - '^Qty:'
+      - '^Price:'
+      - '^Subtotal'
+      - '^Total\s+\$?'
+      - '^Shipping'
+      - '^Discount'
+      - '^Payment method'
+      - '^Delivery Address'
+      - '^Billing Address'
+      - '^FASHION'
+      - '^Visit'
+      - '^Shop'
+      - '^Going Viral'
+      - '^\s*$'
+      - '^\$[\d,]+\.\d{2}$'
+    fields:
+      description:
+        source: matched_line
+        pattern: '^(?P<desc>.+)$'
+      unit_price:
+        source: "line_offset: 1"  # Next line
+        pattern: '^Price:\s*\$(?P<price>[\d,]+\.\d{2})$'
+        optional: false
+      quantity:
+        source: "line_offset: 3"  # 3 lines down
+        pattern: '^Qty:\s*(?P<qty>\d+)$'
+        optional: false
+    types:
+      quantity: integer
+      unit_price: currency
+    generated_fields:
+      sku: "FN-{index}"
+
+sections:
+  items_start:
+    - "Going Viral"
+  items_end:
+    - "Subtotal"
+    - "Delivery Address"
+
+validation:
+  min_items: 1
+  max_item_price: 500

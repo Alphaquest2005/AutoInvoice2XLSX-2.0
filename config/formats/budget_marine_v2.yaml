@@ -1,0 +1,55 @@
+name: budget_marine_v2
+version: "1.0"
+description: "Budget Marine chandlery invoices - promotional items without SKU brackets"
+priority: 140
+
+# Detection patterns - specifically for INV/SX promotional items
+detect:
+  all_of:
+    - "Budget Marine"
+    - "INV/SX/"
+  any_of:
+    - "Luggage tag"
+    - "Tumbler"
+    - "Towel"
+  none_of:
+    - "[EGL/"
+    - "[CER/"
+    - "[SFL/"
+    - "[F632"
+    - "PACKINGLIST"
+
+# Metadata extraction
+metadata:
+  invoice_number:
+    patterns:
+      - '(INV/SX/\d+/\d+)'
+    required: true
+  date:
+    patterns:
+      - '(\d{4}/\d{2}/\d{2})'
+  supplier_name:
+    value: "Budget Marine St. Maarten"
+  total:
+    patterns:
+      - 'Total\s+US\$\s*([\d,]+\.\d{2})'
+    type: currency
+
+# Item extraction - simple pattern for promotional items
+items:
+  strategy: line
+  
+  line:
+    # Format: Luggage tag 250.0 3.18 Normal Products [SX] US$ 795.00
+    pattern: '^([A-Za-z][A-Za-z\s]+?)\s+(\d+\.?\d*)\s+([\d.]+)\s+Normal\s+Products\s+\[SX\]\s+US\$\s*([\d,.]+)$'
+    field_map:
+      description: 1
+      quantity: 2
+      unit_price: 3
+      total_cost: 4
+    types:
+      quantity: float
+      unit_price: currency
+      total_cost: currency
+    generated_fields:
+      sku: "BM-${index}"

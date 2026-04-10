@@ -1,0 +1,147 @@
+# Shipment Processing Rules
+# These rules govern how BL documents are processed, freight is calculated,
+# and shipment emails are composed. Business rules as data, not code.
+version: "1.1"
+updated: "2026-03-02"
+
+# ─── BL Identification ────────────────────────────────────────────────
+# The destination/carrier BL (with freight charges) is the authoritative BL.
+# The shipper's source BL (e.g. TS 0750206) is NOT the actual BL.
+# Use the carrier BL number (e.g. TSCW18514431) as the waybill.
+bl_identification:
+  # Carrier BL patterns — these are the real BLs with freight data
+  carrier_bl_patterns:
+    - "TSCW\\d+"          # Tropical Shipping
+    - "KOCL\\d+"          # King Ocean
+    - "MAEU\\d+"          # Maersk
+    - "COSU\\d+"          # COSCO
+  # Source/shipper refs — NOT the destination BL, do NOT use as waybill
+  source_ref_patterns:
+    - "TS \\d+"           # Tropical Shipping shipper ref
+  # The waybill in _email_params.json must match a carrier_bl_pattern
+
+# ─── Freight Calculation ──────────────────────────────────────────────
+# Freight = Total USD on the BL minus the Landing charge.
+# Landing is a local destination charge, NOT part of CIF freight.
+freight_calculation:
+  formula: "total_usd - landing"
+  components:
+    include:
+      - ocean_freight
+      - bl_processing
+      - bunker_surcharge
+      - operational_service
+      - peak_season
+      - hazardous_cargo
+      - pallet_surcharge
+      - security_surcharge
+      - eei
+    exclude:
+      - landing           # Destination charge, NOT freight
+    total_field: total_usd
+  # The calculated freight goes into _email_params.json "freight" field
+  # and is allocated proportionally across invoices in Col T (Total Internal Freight)
+
+# ─── Country Code Rules ───────────────────────────────────────────────
+# CARICOM uses its own country codes, NOT ISO 3166.
+# These override ISO codes when generating XLSX and email params.
+country_codes:
+  # CARICOM code -> display name
+  QN: "St. Maarten"
+  GD: "Grenada"
+  TT: "Trinidad and Tobago"
+  BB: "Barbados"
+  JM: "Jamaica"
+  GY: "Guyana"
+  SR: "Suriname"
+  BZ: "Belize"
+  AG: "Antigua and Barbuda"
+  DM: "Dominica"
+  KN: "St. Kitts and Nevis"
+  LC: "St. Lucia"
+  VC: "St. Vincent and the Grenadines"
+  BS: "Bahamas"
+  HT: "Haiti"
+  US: "United States"
+
+  # ISO codes that differ from CARICOM codes
+  iso_to_caricom:
+    SX: "QN"             # Sint Maarten ISO -> CARICOM QN
+
+# ─── Carrier BL Format: Tropical Shipping ─────────────────────────────
+carriers:
+  tropical_shipping:
+    detect:
+      any_of:
+        - "TROPICAL SHIPPING"
+        - "TSCW"
+        - "TROPICAL OCEAN EXPRESS"
+    cost_line_items:
+      OCEAN FREIGHT: ocean_freight
+      TERMINAL HANDLING: terminal_handling
+      LANDING: landing
+      BILL OF LADING PROCESSING: bl_processing
+      ELECTRONIC EXPORT INFORMATION: eei
+      BUNKER SURCHARGE: bunker_surcharge
+      HAZARDOUS CARGO SURCHARGE: hazardous_cargo
+      OPERATIONAL SERVICE: operational_service
+      PEAK SEASON SURCHARGE: peak_season
+      PALLET SURCHARGE: pallet_surcharge
+      SECURITY SURCHARGE: security_surcharge
+      INSURANCE PREMIUM: insurance_premium
+      TOTAL USD: total_usd
+
+# ─── Weight Rules ─────────────────────────────────────────────────────
+# BL contains both LBS and KG columns. ALWAYS use KG, never LBS.
+# On Tropical Shipping BLs, LBS appears first, then KG on the next line.
+weight:
+  unit: kg                # ALWAYS kilograms, never pounds
+  # Example: BL shows "8034" (lbs) and "3644" (kg) — use 3644
+
+# ─── Attachment Rules ─────────────────────────────────────────────────
+# Only attach the carrier/destination BL, NOT the source/shipper BL.
+attachments:
+  include_bl: true
+  bl_type: carrier        # Only the carrier BL (with freight)
+  # The source BL (shipper's letter of instruction) is NOT attached
+
+# ─── Consignees ──────────────────────────────────────────────────────
+# Known consignees extracted from ASYCUDA XML declarations.
+# Key = ASYCUDA consignee code, value = name and address fields.
+consignees:
+  ID1991983GD:
+    name: "MACKESS COX"
+    address: "HOPE VALE, ST.GEORGE, G'DA"
+  "289533":
+    name: "BEAUTY EXPO INC."
+    address: "CARENAGE, ST.GEORGE"
+  "00717850002406":
+    name: "HILLS & VALLEY PHARMACEUTICALS"
+    address: "CHURCH STREET, HILLSBOROUGH, GRENADA"
+  "228920":
+    name: "MAAZ ENTERPRISE"
+    address: "WOODLANDS, ST. GEORGE'S"
+  DL16B1042275GD:
+    name: "KIM M.MANDERSON-MCQUILKIN"
+    address: "GOLF COURSE, ST.GEORGE"
+  "162319":
+    name: "JOSEPH N. BARTHOLOMEW"
+    address: "C/O INSIGHT BROKERAGE SERVICES, P.O.BOX 1394, ST.GEORGE"
+  DL02D1009264GD:
+    name: "ISMAIL PATEL"
+    address: "FREQUENTE, ST.GEORGE"
+  DL18D1039035GD:
+    name: "MAZ I. PATEL"
+    address: "FREQUENTE, ST.GEORGE, G'DA"
+  ID654992GD:
+    name: "DEANDRA SAMUEL"
+    address: "TOP HILL, CARRIACOU"
+  "2272410":
+    name: "MASA ASSIST"
+    address: "11 LE MARQUIS COMPLEX, GRAND ANSE, ST.GEORGE, G'DA"
+  "281982":
+    name: "ATLANTIC HEALTH PHARMACY"
+    address: "PARADE, ST.GEORGE, G'DA, W.I."
+  "251697":
+    name: "PAPER TRAIL GND"
+    address: "MARIAN, ST. GEORGE'S"

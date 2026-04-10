@@ -1,0 +1,54 @@
+# Auto-generated format spec for unknown_a
+# Generated on 2026-03-14T04:33:10.549198
+# Will be promoted to formats/ on successful processing
+
+name: unknown_a
+version: "1.0"
+description: "Unknown supplier invoice with landing charges and freight details"
+
+detect:
+  all_of:
+    - "INVOICE"
+    - "NO."
+  any_of:
+    - "TO LANDING CHARGES"
+    - "TO FREIGHT"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'NO\.\s*(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'DATE:\s*(\d{2}\.\d{2}\.\d{4})'
+  supplier_name:
+    value: "Unknown Supplier A"
+  country_code:
+    value: "GD"
+  total:
+    patterns:
+      - 'TOTAL DUE\s+([\d,]+\.?\d*)'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^TO\s+(.+?)\s+([\d,]+\.?\d*)\s*$'
+    field_map:
+      description: 1
+      unit_price: 2
+    types:
+      unit_price: currency
+    skip_patterns:
+      - '^03 PALLET'
+      - '^\s*$'
+
+sections:
+  items_start:
+    - "DESCRIPTION"
+  items_end:
+    - "TOTAL DUE"
+
+validation:
+  min_items: 1

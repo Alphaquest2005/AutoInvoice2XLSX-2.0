@@ -1,0 +1,65 @@
+# Auto-generated format spec for unknown_y
+# Generated on 2026-03-17T08:38:05.175486
+# Will be promoted to formats/ on successful processing
+
+name: unknown_y
+version: "1.0"
+description: "Web order details page with Order Number and Date ordered fields"
+
+detect:
+  all_of:
+    - "Order details"
+    - "Order Number"
+  any_of:
+    - "Date ordered"
+    - "ORDERED ITEMS"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order Number\s+([A-Z0-9\-]+)'
+    required: true
+  date:
+    patterns:
+      - 'Date ordered:\s*([0-9]{1,2}/[0-9]{1,2}/[0-9]{4})'
+  supplier_name:
+    value: "unknown_y"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Total[:\s]+\$?([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    # Price appears as "$XX.XX" on its own or preceded by OCR noise
+    # e.g. "@ NO LONGER AVAILABLE Yy ED) $29.99"
+    pattern: '\$([\d,]+\.\d{2})'
+    field_map:
+      unit_price: 1
+    types:
+      unit_price: currency
+    skip_patterns:
+      - '^Feedback'
+      - '^Click Here'
+      - '^Tracking:'
+      - '^Order status:'
+      - '\bTotal\b'
+      - '\bSubtotal\b'
+      - '\bShipping\b'
+      - '\bTax\b'
+    generated_fields:
+      quantity: 1
+      sku: "ITEM-{index}"
+
+sections:
+  items_start:
+    - "ORDERED ITEMS"
+  items_end:
+    - "Feedback"
+    - "My account"
+
+validation:
+  min_items: 1

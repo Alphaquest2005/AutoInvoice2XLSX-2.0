@@ -1,0 +1,136 @@
+# Absolute New York Invoice Format Specification
+# All Absolute-specific parsing rules are isolated here
+
+name: absolute
+version: "1.0"
+description: "Absolute New York cosmetics invoices"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  any_of:
+    - "ABSOLUTE NEW YORK"
+    - "Absolute New York"
+    - "Pinelawn Road"
+  all_of:
+    - "ITEM"
+    - "DESCRIPTION"
+
+# ─── OCR Normalization ─────────────────────────────────────
+ocr_normalize:
+  - pattern: '(\d+),(\d{3})'
+    replace: '\1\2'
+    description: "Remove thousands separator for parsing"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - 'Invoice\s*#?\s*:?\s*(\d+)'
+      - 'Invoice\s+(\d+)\s+Date'
+    required: true
+
+  date:
+    patterns:
+      - 'Invoice\s*Date\s*:?\s*(\d{1,2}/\d{1,2}/\d{2,4})'
+      - 'Date\s+(\d{1,2}/\d{1,2}/\d{2,4})'
+
+  supplier_name:
+    value: "Absolute New York"
+
+  supplier_address:
+    patterns:
+      - '(\d+\s+Pinelawn\s+Road.*?(?:NY|New York)\s+\d{5})'
+
+  country_code:
+    value: "US"
+
+  customer_name:
+    patterns:
+      - 'BILL\s*TO\s*:.*?\n\s*(.+?)(?:\s*\(\d+\)|\s{2,}|\n)'
+      - 'Sold\s+To\s*:\s*(.+?)(?:\s+Ship\s+To:|\n)'
+
+  customer_code:
+    patterns:
+      - 'BILL\s*TO\s*:.*?\n\s*.+?\s*\((\d+)\)'
+      - 'Customer\s+(\d+)'
+
+  shipped_via:
+    patterns:
+      - 'Shipped\s+Via\s*:?\s*(.+?)(?:\s{2,}|\n)'
+      - 'Ship\s+Via\b.*?\n\s*(.+?)(?:\s{2,}|\n)'
+
+  total:
+    patterns:
+      - 'Invoice\s+Total\s+([\d,]+\.\d{2})'
+      - 'Due\s+Amount\s+([\d,]+\.\d{2})'
+    type: currency
+
+  subtotal:
+    patterns:
+      - 'Sub\s*Total\s+([\d,]+\.\d{2})'
+    type: currency
+
+  discount:
+    patterns:
+      - 'Discount\s+([\d,]+\.\d{2})'
+    type: currency
+
+  freight:
+    patterns:
+      - 'Freight\s+Charge\s+([\d,]+\.\d{2})'
+      - 'Freight\s+([\d,]+\.\d{2})'
+    type: currency
+
+  credits:
+    patterns:
+      - 'Credit\s+Amount\s+([\d,]+\.\d{2})'
+    type: currency
+
+# ─── Item Extraction ───────────────────────────────────────
+items:
+  strategy: line
+
+  line:
+    # Format 1: ITEM # | DESCRIPTION | UNITS | UNIT PRICE | (EXT PRICE)
+    pattern: '^([A-Za-z][A-Za-z0-9\-_/\.]+)\s+(.+?)\s+(\d+)\s+([\d,]+\.\d{2})(?:\s+([\d,]+\.\d{2}))?\s*$'
+    field_map:
+      sku: 1
+      description: 2
+      quantity: 3
+      unit_price: 4
+      total_cost: 5
+    types:
+      quantity: integer
+      unit_price: currency
+      total_cost: currency
+
+  # Alternative format with line numbers
+  line_alt:
+    pattern: '^(\d+(?:\.\d+)?)\s+([A-Za-z0-9][A-Za-z0-9\-_/\.]*)\s+(\d+)Unit\s+(\d+)\s+([\d,]+\.\d+)Unit\s+([\d,]+\.\d{2})\s*$'
+    field_map:
+      line_number: 1
+      sku: 2
+      ordered: 3
+      quantity: 4
+      unit_price: 5
+      total_cost: 6
+
+# ─── Section Markers ───────────────────────────────────────
+sections:
+  items_start:
+    - "ITEM #"
+    - "ITEM"
+    - "Line"
+
+  items_end:
+    - "Carton Qty"
+    - "Sub Total"
+    - "Discount"
+    - "Freight Charge"
+    - "Invoice Total"
+    - "ABSOLUTE NEW YORK TERMS"
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 1
+  require_total: true

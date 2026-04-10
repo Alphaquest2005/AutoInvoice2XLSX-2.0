@@ -1,0 +1,71 @@
+name: west_marine
+version: "2.0"
+description: "West Marine Pro online store invoices"
+priority: 150  # Higher priority than seavenger (0)
+
+# Detection patterns - VERY specific to West Marine
+detect:
+  all_of:
+    - "WestMarinePro-Site"
+    - "WM Model"
+  any_of:
+    - "westmarine.com"
+    - "Sites-WestMarinePro"
+  none_of:
+    - "Goodsvalueamount"  # NOT a Seavenger invoice
+
+# Metadata extraction
+metadata:
+  invoice_number:
+    patterns:
+      - 'Invoice #\s*(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Invoice Date:\s*(\d{4}-\d{2}-\d{2})'
+  order_number:
+    patterns:
+      - 'Order #\s*(\d+)'
+  supplier_name:
+    value: "West Marine Pro"
+  supplier_address:
+    value: "PO Box 669336, Dallas, TX 75266-9336, USA"
+  customer_po:
+    patterns:
+      - 'Purchase Order:\s*(\S+)'
+  total:
+    patterns:
+      - 'INVOICE TOTAL:\s*\$?([\d,]+\.?\d*)'
+    type: currency
+  tax:
+    patterns:
+      - 'TAX:\s*\$?([\d,]+\.?\d*)'
+    type: currency
+
+# Item extraction - use line strategy
+# Raw text format: "28 1 11768462 FM-WCBC975 Element-Wtr Filter CB 5Mic 1G $31.99 $28.82 $28.82"
+items:
+  strategy: line
+  
+  line:
+    pattern: '(\d+)\s+(\d+)\s+(\d+)\s+([A-Z0-9\-]+)\s+(.+?)\s+\$([\d.]+)\s+\$([\d.]+)\s+\$([\d.]+)'
+    field_map:
+      ordered: 1
+      quantity: 2
+      wm_model: 3
+      sku: 4
+      description: 5
+      list_price: 6
+      unit_price: 7
+      total_cost: 8
+    types:
+      quantity: integer
+      unit_price: currency
+      total_cost: currency
+
+  exclude_patterns:
+    - "INVOICE TOTAL"
+    - "TAX:"
+    - "Chat Now"
+    - "Terms:"
+    - "Shipped Via:"

@@ -1,0 +1,66 @@
+{
+  "_comment": "CARICOM Document Type Definitions - controls XLSX output behavior",
+  "_version": "1.3",
+  "document_types": {
+    "4000-000": {
+      "description": "Standard Import Declaration",
+      "grouping": true,
+      "notes": "Items grouped by tariff code — group header row + detail rows per tariff"
+    },
+    "7400-000": {
+      "description": "Warehouse Entry",
+      "grouping": false,
+      "notes": "No grouping — one row per item, no group/detail pairs"
+    }
+  },
+  "supplementary_documents": {
+    "consolidation_report": {
+      "description": "Freight forwarder consolidation recap",
+      "precedence": 3,
+      "precedence_notes": "1=Bill of Lading, 2=Manifest, 3=Consolidation Report",
+      "provides": ["packages_per_invoice", "weight_per_invoice", "freight_per_invoice"],
+      "notes": "Maps package counts and freight charges to individual invoice numbers. Used to cross-reference invoices and detect missing documents."
+    }
+  },
+  "default": "4000-000",
+  "combine_entries_default": true,
+  "consignee_rules": [
+    {
+      "match": "budget marine",
+      "aliases": ["bm grenada", "bm st maarten", "bm sxm", "bmgrn", "bmgnd"],
+      "doc_type": "7400-000",
+      "combine_entries": false,
+      "consignee_name": "Budget Marine Grenada",
+      "consignee_code": "07290940003049",
+      "consignee_address": "True Blue Bay, St Georges, PO Box 3618, Grenada",
+      "notes": "Budget Marine uses Warehouse Entry (no grouping). Separate XLSX per invoice."
+    },
+    {
+      "match": "flip flop",
+      "aliases": ["reef"],
+      "doc_type": "4000-000",
+      "combine_entries": true,
+      "consignee_code": "",
+      "consignee_address": "St Georges, Grenada",
+      "notes": "Flip Flop (Reef shipments) — Standard Import Declaration"
+    },
+    {
+      "match": "naylor",
+      "aliases": ["richard naylor", "naylor, richard"],
+      "doc_type": "4000-000",
+      "combine_entries": true,
+      "consignee_code": "PERSONAL",
+      "consignee_address": "POINT VIEW RD, ST DAVID, GRENADA",
+      "notes": "Personal effects shipment for Richard Naylor"
+    },
+    {
+      "match": "terrie ann charles",
+      "aliases": ["terrie charles", "charles, terrie"],
+      "doc_type": "4000-000",
+      "combine_entries": true,
+      "consignee_code": "PERSONAL",
+      "consignee_address": "",
+      "notes": "Personal effects shipment for Terrie Ann Charles"
+    }
+  ]
+}

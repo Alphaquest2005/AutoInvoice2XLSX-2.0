@@ -1,0 +1,73 @@
+# Reef / The Rockport Group Invoice Format Specification
+name: reef
+version: "1.0"
+description: "Reef Lifestyle / The Rockport Group footwear invoices"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  any_of:
+    - "Reef Lifestyle"
+    - "Rockport"
+  all_of:
+    - "INVOICE NUMBER"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - 'INVOICE NUMBER\s*\n?\s*(\d+)'
+    required: true
+
+  date:
+    patterns:
+      - 'DATE\s*\n?.*?\n?\s*(\d{2}/\d{2}/\d{4})'
+
+  supplier_name:
+    patterns:
+      - '(Reef Lifestyle,?\s*LLC)'
+    fallback: "Reef Lifestyle, LLC"
+
+  supplier_address:
+    value: "480 Pleasant Street, Suite C-110, Watertown, MA 02472"
+
+  country_code:
+    value: "US"
+
+  total:
+    patterns:
+      - 'TOTAL \(USD\)\s+\$([\d,]+\.\d{2})'
+    type: currency
+
+  subtotal:
+    patterns:
+      - 'SUBTOTAL\s+\$([\d,]+\.\d{2})'
+    type: currency
+
+  shipping:
+    patterns:
+      - 'S&H Charges\s+([\d,]+\.\d{2})'
+    type: currency
+
+# ─── Item Extraction ───────────────────────────────────────
+items:
+  strategy: line
+
+  line:
+    # Format: "ARTICLE DESCRIPTION DELIVERY_NUM ORDER_QTY SHIPPED_QTY UNIT_PRICE LIST_PRICE NET_AMOUNT"
+    # Example: "CJ8550-090-M PHANTOM LUX 0089788328 2 2 36.80 40.00 73.60"
+    pattern: '^(\S+-\S+-\S+)\s+(.+?)\s+\d{10}\s+(\d+)\s+(\d+)\s+([\d.]+)\s+[\d.]+\s+([\d,]+\.\d{2})'
+    field_map:
+      sku: 1
+      description: 2
+      quantity: 4
+      unit_price: 5
+      total_cost: 6
+    types:
+      quantity: integer
+      unit_price: currency
+      total_cost: currency
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 1
+  require_total: true

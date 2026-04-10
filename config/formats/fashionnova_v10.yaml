@@ -1,0 +1,81 @@
+# FashionNova e-commerce invoice format v10
+# Price-first strategy: look for Price: pattern, then extract product from line above
+
+name: fashionnova_ecommerce_v10
+version: "1.0"
+description: "FashionNova invoice - price-first extraction (reverse lookup)"
+
+detect:
+  all_of:
+    - "Order #"
+    - "Date Placed:"
+    - "Total"
+    - "Size:"
+    - "Qty"
+  any_of:
+    - "NEED HELP?"
+    - "Payment method:"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order #(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Date Placed:\s*([A-Za-z]+ \d{1,2}, \d{4})'
+  supplier_name:
+    value: "FashionNova"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Total\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: pricefirst
+  pricefirst:
+    # Find Price: lines, extract product from line above and Qty from line below
+    price_pattern: '^Price:\s*\$(?P<price>[\d,]+\.\d{2})$'
+    skip_patterns:
+      - '^Order #'
+      - '^Date Placed:'
+      - '^Subtotal'
+      - '^Total\s+\$?'
+      - '^Shipping'
+      - '^Discount'
+      - '^Payment method'
+      - '^Delivery Address'
+      - '^Billing Address'
+      - '^FASHION'
+      - '^Visit'
+      - '^Shop'
+      - '^\s*$'
+      - '^Going Viral'
+      - '^Price:\s*\$0\.00'  # Skip zero prices (likely headers)
+    field_sources:
+      unit_price: 1  # From price_pattern group
+      description:
+        offset: -1  # Line BEFORE price line
+        min_length: 10
+        skip_if_contains: [':', 'Size', 'Qty', 'Price']
+      quantity:
+        offset: 2  # 2 lines AFTER price line (Price line is offset 0, Size is offset 1, Qty is offset 2)
+        pattern: '^Qty:\s*(?P<qty>\d+)$'
+    types:
+      unit_price: currency
+      quantity: integer
+    generated_fields:
+      sku: "FN-{index}"
+
+sections:
+  items_start:
+    - "Going Viral"
+  items_end:
+    - "Subtotal"
+    - "Delivery Address"
+
+validation:
+  min_items: 1
+  max_item_price: 500

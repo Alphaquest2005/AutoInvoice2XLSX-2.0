@@ -1,0 +1,62 @@
+name: leatherman
+version: "1.0"
+description: "Leatherman Tool Group multi-tools and accessories"
+
+# Detection patterns
+detect:
+  all_of: []
+  any_of:
+    - "Leatherman Tool Group"
+    - "leatherman.com"
+
+# Metadata extraction
+metadata:
+  invoice_number:
+    patterns:
+      - 'Invoice No\.\s*([A-Z]+\d+)'
+      - 'Order No\.\s*(\S+)'
+    required: true
+  date:
+    patterns:
+      - 'Invoice Date\s*(\d{1,2}/\d{1,2}/\d{4})'
+  supplier_name:
+    value: "Leatherman Tool Group Inc"
+  supplier_address:
+    value: "PO Box 20595, Portland, OR 97294-0595, USA"
+  total:
+    patterns:
+      - 'Total\s*([\d,]+\.\d{2})'
+    type: currency
+  shipping:
+    patterns:
+      - 'FREIGHT for carrier.*?([\d,]+\.\d{2})'
+      - 'FUEL for carrier.*?([\d,]+\.\d{2})'
+    type: currency
+    aggregate: sum
+
+# Item extraction
+items:
+  strategy: line
+  
+  line:
+    # Pattern: ItemNo Description CustomerItemNo Promotion Qty UM UnitPrice ExtDisc NetExtPrice
+    pattern: '^(\d+)\s+(.+?)\s+(\d+\.\d+)\s+(ea|EA|BG|PK)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)'
+    field_map:
+      sku: 1
+      description: 2
+      quantity: 3
+      uom: 4
+      unit_price: 5
+      discount: 6
+      total_cost: 7
+    types:
+      quantity: integer
+      unit_price: currency
+      total_cost: currency
+      
+  exclude_patterns:
+    - "Rate FREIGHT"
+    - "Rate FUEL"
+    - "Subtotal"
+    - "Remit To"
+    - "Currency"

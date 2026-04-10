@@ -1,0 +1,69 @@
+# Auto-generated format spec for monineautoparts
+# Generated on 2026-04-04T04:29:02.680256
+# Will be promoted to formats/ on successful processing
+
+name: monineautoparts
+version: "1.0"
+description: "Invoice format for Monine Auto Parts / ISW Trading Pty. Ltd."
+
+detect:
+  all_of:
+    - "MonineauToPARTs"
+    - "Commercial Invoice #:"
+  any_of:
+    - "ISW Trading Pty. Ltd."
+    - "onlineautoparts.com.au"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Commercial Invoice #:\s*([E0-9-]+)'
+    required: true
+  date:
+    patterns:
+      - 'Order Date:\s*(\d{2}/\d{2}/\d{4})'
+  supplier_name:
+    value: "Monine Auto Parts"
+  country_code:
+    value: "AU"
+  total:
+    patterns:
+      - 'invoice Total\s*\$AUD\s*([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^([A-Z0-9-]+)\s+(\d+)\s+(.+?)\s+\d+\s+year\s+\$([\d,]+\.\d{2})\s+\$([\d,]+\.\d{2})'
+    field_map:
+      sku: 1
+      quantity: 2
+      description: 3
+      unit_price: 4
+    types:
+      quantity: integer
+      unit_price: currency
+    skip_patterns:
+      - '^Item SKU'
+      - '^Line Item Total'
+      - '^Shipping'
+      - '^Insurance'
+      - '^Discount'
+      - '^Adjustments'
+      - '^Sub Total'
+      - '^Collected By'
+      - '^invoice Total'
+      - '^\(OAP'
+      - '^Warranty Info'
+    generated_fields:
+      warranty: "5 year"
+
+sections:
+  items_start:
+    - "Item Summary"
+  items_end:
+    - "Line Item Total"
+
+validation:
+  min_items: 1
+  max_item_price: 5000

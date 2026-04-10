@@ -1,0 +1,71 @@
+# Auto-generated format spec for bravo_lingerie_inc_invoice
+# Generated on 2026-04-06T11:48:05.947138
+# Will be promoted to formats/ on successful processing
+
+name: bravo_lingerie_inc_invoice
+version: "1.0"
+description: "Invoice format for Bravo Lingerie Inc with multi-page item tables and box weight annotations."
+
+detect:
+  all_of:
+    - "Bravo Lingerie Inc Invoice"
+    - "1500 S. Maple Ave."
+  any_of:
+    - "No Refunds or Exchange"
+    - "bravounderwear.com"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Date\s+Invoice\s+#\s+(?:\d{1,2}/\d{1,2}/\d{4})\s+(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Date\s+Invoice\s+#\s+(\d{1,2}/\d{1,2}/\d{4})'
+  supplier_name:
+    value: "Bravo Lingerie Inc"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Balance Due'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^([A-Z0-9][A-Z0-9\-\#\.\/\s]+?)\s+(\d+(?:\.\d+)?)\s+(\d+\.\d{2})\s+(\d+\.\d{2})\s*$'
+    field_map:
+      description: 1
+      quantity: 2
+      unit_price: 3
+      amount: 4
+    types:
+      quantity: decimal
+      unit_price: currency
+      amount: currency
+    skip_patterns:
+      - '^Item Description'
+      - '^Page\s+\d+'
+      - '^Bravo Lingerie Inc Invoice'
+      - '^1500 S\. Maple Ave\.'
+      - '^Los Angeles, CA'
+      - '^Phone #'
+      - '^E-mail'
+      - '^Web Site'
+      - '^Bill To'
+      - '^BOX BAG STORE'
+      - '^Rep Ship Via'
+      - '^No Refunds or Exchange'
+      - '^Paid'
+      - '^Balance Due'
+      - '\.{3,}BOX#\d+.*LBS$'
+
+sections:
+  items_start:
+    - "Item Description"
+  items_end:
+    - "No Refunds or Exchange"
+
+validation:
+  min_items: 1

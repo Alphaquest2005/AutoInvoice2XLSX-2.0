@@ -1,0 +1,152 @@
+# Generic Alibaba.com Marketplace Facilitator Invoice
+# Covers multiple stores: SZREBOW, ZBLED, etc.
+
+name: alibaba_marketplace_invoice
+version: "2.0"
+description: "Invoice format for any Alibaba.com marketplace facilitator invoice"
+priority: 10
+
+detect:
+  all_of:
+    - "Marketplace Facilitator"
+  any_of:
+    - "Alibaba.com"
+    - "alibaba.com"
+    - "Singapore E-Commerce"
+  priority: 5
+
+ocr_normalize:
+  - pattern: '(?<=\d);'
+    replace: ')'
+    description: "Fix OCR semicolon after number: 190.00; → 190.00)"
+  - pattern: 'Supplter'
+    replace: 'Supplier'
+    description: "Fix OCR: Supplter → Supplier"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Invoice No\.\s*[\n\s]+([A-Z0-9]+)'
+      - '(B[A-Z0-9]{15,})'
+      - '(BIOMZFL\d+)'
+      - '(BLOMZFL\d+)'
+    required: false
+  date:
+    patterns:
+      - '([A-Z][a-z]{2}\s[A-Z][a-z]{2}\s\d{1,2}\s\d{4})'
+      - '(\d{4}-\d{2}-\d{2})'
+  supplier_name:
+    patterns:
+      - 'Supplier name\s+(.+?)(?:\s+Customer|\s*$)'
+  country_code:
+    value: "SG"
+  total:
+    patterns:
+      - 'Total\s+\w+\s+of\s+Sales\s+Tax[^)]*\)\s*([\d,]+\.?\d*)'
+      - 'Total amount in (?:USD|CNY)\s*:?\s*[\d,.]+\s+([\d,.]+)[);]?\s*$'
+      - 'Total amount in (?:USD|CNY)\s*:?\s*([\d,.]+)[);]?\s*$'
+      - '([\d,.]+)[);]\s*$'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    # Multiple patterns to match Alibaba marketplace invoice formats
+    # OCR often produces artifacts: ) for table borders, } for |
+    patterns:
+      # Pattern: "1pc 183.69) 7.000 %" - qty and price on same line
+      - name: qty_price_tax
+        regex: '(\d+)\s*[Pp][Ce]\s+([\d,]+\.\d{2})[);]\s*[\d.]+\s*%'
+        field_map:
+          quantity: 1
+          unit_price: 2
+      # Pattern: "1pc Product Description..." then price on next line
+      - name: qty_desc_line
+        regex: '^(\d+)\s*[Pp][Ce]\s+(.+)
+
+sections:
+  items_start:
+    - "Transaction"
+    - "Delivery Address"
+    - "Sales Tax Rate"
+  items_end:
+    - "required by"
+    - "tax authorities"
+    - "Sub total"
+
+ocr_config:
+  dpi: 400
+  psm: 6
+  preprocessing: none
+
+validation:
+  min_items: 1
+  max_item_price: 5000
+
+        field_map:
+          quantity: 1
+          description: 2
+      # Pattern: Standalone price with closing paren: "183.69)"
+      - name: price_only
+        regex: '^([\d,]+\.\d{2})[);]\s*[\d.]+\s*%'
+        field_map:
+          unit_price: 1
+      # Pattern: Product description continuation line (indented or mid-sentence)
+      - name: desc_continuation
+        regex: '^[\(\[]?(.+?)(?:[\)\]]?)
+
+sections:
+  items_start:
+    - "Transaction"
+    - "Delivery Address"
+    - "Sales Tax Rate"
+  items_end:
+    - "required by"
+    - "tax authorities"
+    - "Sub total"
+
+ocr_config:
+  dpi: 400
+  psm: 6
+  preprocessing: none
+
+validation:
+  min_items: 1
+  max_item_price: 5000
+
+        field_map:
+          description: 1
+    default_quantity: 1
+    combine_consecutive: true
+    skip_patterns:
+      - '^Sub total'
+      - '^Total'
+      - 'Invoice No\.'
+      - 'required by'
+      - 'tax authorities'
+      - 'Quantity'
+      - '^\(CNY\)'
+      - '^\(USD\)'
+      - '^Sales Tax'
+    generated_fields:
+      quantity: 1
+      sku: "ALI-{index}"
+
+sections:
+  items_start:
+    - "Transaction"
+    - "Delivery Address"
+    - "Sales Tax Rate"
+  items_end:
+    - "required by"
+    - "tax authorities"
+    - "Sub total"
+
+ocr_config:
+  dpi: 400
+  psm: 6
+  preprocessing: none
+
+validation:
+  min_items: 1
+  max_item_price: 5000

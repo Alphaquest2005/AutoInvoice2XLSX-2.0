@@ -1,0 +1,116 @@
+# FashionNova Commercial Invoice Format
+# Handles scanned FashionNova invoices with "Order Number:" (not "Order #")
+# These are shipping invoices with item table including HS codes
+
+name: fashionnova_commercial
+version: "1.1"
+priority: 50
+description: "FashionNova commercial/shipping invoice with itemized table"
+
+ocr_normalize:
+  - pattern: '\|'
+    replace: ' '
+    description: "Remove OCR pipe noise from table borders"
+  - pattern: "[''`]"
+    replace: ''
+    description: "Remove OCR smart quotes noise"
+  - pattern: '[$](\d)\s'
+    replace: '$\1.00 '
+    description: "Fix truncated dollar amount: $6 → $6.00"
+  - pattern: '[$](\d)\s*$'
+    replace: '$\1.00'
+    flags: multiline
+    description: "Fix truncated dollar at end of line"
+  - pattern: '\s*[,.]\s*[$]'
+    replace: ' $'
+    description: "Fix OCR comma/period before dollar sign"
+  - pattern: '\s*[)]\s*[$]'
+    replace: ' $'
+    description: "Fix OCR paren before dollar sign"
+  - pattern: '\.\s*$'
+    replace: ''
+    flags: multiline
+    description: "Remove trailing OCR period/dot noise"
+  - pattern: '\s{2,}'
+    replace: ' '
+    description: "Collapse multiple spaces"
+
+detect:
+  all_of:
+    - "Order Number:"
+  any_of:
+    - "Fashion Nova"
+    - "FASHIONNOVA"
+    - "fashionnova.com"
+    - "Vernon, CA"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order Number:\s*(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Order Date/Time:\s*(.+?)(?:\s*-\s*\d{2}:\d{2})'
+  supplier_name:
+    value: "Fashion Nova"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Total Payment Amount:\s*\$?([\d,]+\.\d{2})'
+    type: currency
+  subtotal:
+    patterns:
+      - 'Product Full Price:\s*\$?([\d,]+\.\d{2})'
+    type: currency
+  tax:
+    patterns:
+      - 'Product Tax:\s*\$?([\d,]+\.\d{2})'
+    type: currency
+  discount:
+    patterns:
+      - 'Product Discount:\s*\$?([\d,]+\.\d{2})'
+    type: currency
+
+# Items span multiple lines: description wraps, price line has qty + dollar amounts
+items:
+  strategy: multiline
+  multiline:
+    # Price line: qty followed by dollar amounts ending with total
+    # "4 $15.99 $1.12 $0.00 $0.00 $17.11"
+    price_pattern: '\s+(\d+)\s+[$]([\d,]+\.\d{2})\s+[$][\d,]+\.\d{2}\s+[$][\d,]+\.\d{2}\s+[$][\d,]+\.\d{2}\s+[$]([\d,]+\.\d{2})\s*$'
+    field_map:
+      quantity: 1
+      unit_price: 2
+    types:
+      quantity: integer
+      unit_price: currency
+    min_description_length: 10
+    skip_patterns:
+      - '^Item\s+Description'
+      - '^Quantity'
+      - '^Amount'
+      - '^For Questions'
+      - '^www\.'
+      - '^Tracking'
+      - '^Payment Method'
+      - '^Shipping'
+      - '^Product'
+      - '^Total Payment'
+      - '^Visa'
+      - '^CC/'
+      - '^\d{4}-\d{2}-\d{2}'
+    generated_fields:
+      sku: "FN-{index}"
+
+sections:
+  items_start:
+    - "Harmonized"
+    - "Tax Code"
+  items_end:
+    - "For Questions"
+    - "fashionnova.com"
+
+validation:
+  min_items: 1

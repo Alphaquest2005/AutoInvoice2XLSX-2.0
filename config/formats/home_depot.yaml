@@ -1,0 +1,161 @@
+# Home Depot Receipt Format Specification
+# Handles scanned/photographed Home Depot register receipts
+# OCR quality varies — patterns must be forgiving
+
+name: home_depot
+version: "1.0"
+description: "Home Depot register receipt (scanned/photo)"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  any_of:
+    - "HOME DEPOT"
+    - "Home Depot"
+    - "HOMEDEPOT"
+    - "How doers"
+    - "get more done"
+    - "MASTERCARD"
+    - "MASTEK"
+
+# ─── OCR Normalization ─────────────────────────────────────
+ocr_normalize:
+  - pattern: '(\d+)\s+(\d{2})(?=\s*$)'
+    replace: '\1.\2'
+    flags: multiline
+    description: "Fix space-separated prices: 21 56 → 21.56"
+
+  - pattern: '\$(\d+),(\d{2})(?!\d)'
+    replace: '$\1.\2'
+    description: "Fix OCR comma-as-decimal"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - '(\d{4})\s+\d{2}\s+(\d{4,5})\s+\d{2}/\d{2}/\d{4}'
+      - '(\d{4})\s+\d{4,5}\s+(\d{4,5})\s+\d{2}/\d{2}/\d{2}'
+    transform: "HD-{1}-{2}"
+    required: false
+
+  date:
+    patterns:
+      - '(\d{2}/\d{2}/\d{4})'
+      - '(\d{2}/\d{2}/\d{2})\s+\d{1,2}[;:]\d{2}'
+      - '(\d{2}/\d{2}/\d{2})\s+'
+
+  supplier_name:
+    value: "Home Depot"
+
+  country_code:
+    value: "US"
+
+  total:
+    patterns:
+      # Must NOT match SUBTOTAL — use negative lookbehind
+      - '(?<!SUB)TOTAL\s+\$?([\d,]+\.\d{2})'
+      - '(?<!sub)total\s+\$?([\d,]+\.\d{2})'
+      - 'USD\$?\s*([\d,]+\.\d{2})'
+      - 'Us[Dd]\$?\s*([\d,]+\.\d{2})'
+      # OCR garbled: "Min 4353.20" → $353.20 (strip phantom leading digits)
+      # Take the TOTAL line's value even if garbled prefix
+      - 'Min\s+\d?([\d,]+\.\d{2})'
+    type: currency
+
+  subtotal:
+    patterns:
+      - 'SUBTOTAL\s+\$?([\d,]+\.\d{2})'
+      - 'SUB\w*TAL\s+\$?([\d,]+\.\d{2})'
+      - 'SUB\w*\s+\w*\s+[Tt]ax\s+([\d,]+\.\d{2})'
+      # Garbled: "#@!Tghal 431.64" → ignore the value, use total - tax instead
+      - '#@!T\w*\s+\d?([\d,]+\.\d{2})'
+      - 'SUBIOTAL\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+  tax:
+    patterns:
+      # Two-number line first: "SUBIOTAL SALES Tax 87.26 5.67" → capture 5.67
+      - '[Tt][Aa][XxKk]\s+[\d,]+\.\d{2}\s+([\d,]+\.\d{2})'
+      # Standard: "SALES TAX 22.69"
+      - 'SALES\s+TAX\s+\$?([\d,]+\.\d{2})'
+      # Garbled: "SLE Tak 21.56"
+      - 'SLE\s+[Tt]\w+\s+([\d,]+\.\d{2})'
+      # Fallback: any "tax" followed by a number
+      - '[Tt][Aa][XxKk]\s+([\d,]+\.\d{2})'
+    type: currency
+    default: 0
+
+# ─── Item Extraction ───────────────────────────────────────
+items:
+  # Match lines ending with a decimal price (XX.XX)
+  # OCR may garble UPC/description but prices are usually readable
+  strategy: line
+
+  line:
+    pattern: '(.+?)\s+([\d,]+\.\d{2})\s*$'
+    field_map:
+      description: 1
+      unit_price: 2
+    types:
+      unit_price: currency
+    generated_fields:
+      sku: "HD-{index}"
+    clean_fields:
+      description:
+        # Remove UPC-like leading digits
+        - pattern: '^\d{10,14}\s+'
+          replace: ''
+        # Remove tax codes
+        - pattern: '\s*<[A-Z,]+>\s*'
+          replace: ''
+        - pattern: '\s*[~=]+\s*$'
+          replace: ''
+        - pattern: '\s+'
+          replace: ' '
+        - pattern: '^\s+|\s+$'
+          replace: ''
+    skip_patterns:
+      # Skip subtotal/tax/total/payment lines
+      - 'SUB\s*TOTAL'
+      - 'SALES\s*TAX'
+      - 'TOTAL'
+      - 'MASTER'
+      - 'CASH'
+      - 'DEBIT'
+      - '#@!T'
+      - 'SLE\s+T'
+      - 'USD'
+      - 'UsLt'
+      - 'Auth'
+      - 'Chip\s+Read'
+      - 'AID\s+'
+      - 'RETURN'
+      - 'POLICY'
+      - 'Min\s+\d'
+      - 'HMSTE'
+
+# ─── Section Markers ───────────────────────────────────────
+sections:
+  items_start:
+    - "CASHIER"
+    - "SALE"
+    - "AM"
+    - "PM"
+
+  items_end:
+    - "SUBTOTAL"
+    - "SALES TAX"
+    - "Subfotal"
+    - "#@!T"
+    - "SUBIOTAL"
+
+# ─── Validation ────────────────────────────────────────────
+# ─── Balance ──────────────────────────────────────────────
+# OCR garbles item prices — use total - tax as authoritative subtotal
+# and adjust item prices to match
+balance_items: true
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 1
+  max_item_price: 10000
+  require_total: false

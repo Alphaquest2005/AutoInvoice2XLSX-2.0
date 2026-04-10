@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+.venv/
+venv/
+
+# Node
+node_modules/
+app/dist/
+app/dist-electron/
+app/out/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Runtime data
+data/*.db
+data/*.db-wal
+data/*.db-shm
+data/settings.json
+data/*.log
+data/*_cache.json
+workspace/output/*
+workspace/intermediate/*
+workspace/shipments/*
+workspace/documents/
+workspace/input/
+workspace/_system/
+
+# Test artifacts
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environment
+.env
+.env.local

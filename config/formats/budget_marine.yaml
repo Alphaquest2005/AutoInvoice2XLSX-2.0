@@ -1,0 +1,104 @@
+name: budget_marine
+version: "5.0"
+description: "Budget Marine chandlery invoices from St. Maarten"
+priority: 150
+
+# Detection patterns
+detect:
+  all_of:
+    - "Budget Marine"
+    - "INV/SX/"
+  any_of:
+    - "THE CARIBBEAN'S LEADING CHANDLERY"
+    - "Budget Marine St. Maarten"
+    - "TTHHEE CCAARRIIBBBBEEAANN"
+  none_of:
+    - "Goodsvalueamount"
+    - "PACKINGLIST"
+    - "PALLET LIST"
+    - "CARICOM"
+
+# OCR normalization: fix doubled characters from Budget Marine's PDF rendering
+ocr_normalize:
+  - pattern: 'TToottaall'
+    replace: 'Total'
+  - pattern: 'UUnnttaaxxeedd AAmmoouunntt'
+    replace: 'Untaxed Amount'
+  - pattern: 'IInnvvooiiccee DDaattee::'
+    replace: 'Invoice Date:'
+  - pattern: 'DDuuee DDaattee::'
+    replace: 'Due Date:'
+  - pattern: 'DDEESSCCRRIIPPTTIIOONN'
+    replace: 'DESCRIPTION'
+  - pattern: 'QQUUAANNTTIITTYY'
+    replace: 'QUANTITY'
+  - pattern: 'UUNNIITT PPRRIICCEE'
+    replace: 'UNIT PRICE'
+  - pattern: 'TTAAXXEESS'
+    replace: 'TAXES'
+  - pattern: 'AAMMOOUUNNTT'
+    replace: 'AMOUNT'
+  - pattern: 'SShhiippppiinngg AAddddrreessss::'
+    replace: 'Shipping Address:'
+
+# Metadata extraction
+metadata:
+  invoice_number:
+    patterns:
+      - 'Invoice\s+(INV/SX/\d+/\d+)'
+      - '(INV/SX/\d+/\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Invoice Date:\s*(\d{4}/\d{2}/\d{2})'
+      - '(\d{4}/\d{2}/\d{2})'
+  supplier_name:
+    value: "Budget Marine St. Maarten"
+  supplier_address:
+    value: "Waterfront Rd 25B, PO BOX 434, Cole Bay, Sint Maarten"
+  country_code:
+    value: "SX"
+  total:
+    patterns:
+      - 'Total\s+US\$\s*([\d,]+\.\d{2})'
+    type: currency
+  subtotal:
+    patterns:
+      - 'Untaxed Amount\s+US\$\s*([\d,]+\.\d{2})'
+    type: currency
+  tax:
+    patterns:
+      - 'Taxes\s+US\$\s*([\d,]+\.\d{2})'
+    type: currency
+
+# Item extraction - handle both SKU format and promotional items
+items:
+  strategy: line
+  
+  line:
+    # Matches two formats:
+    # 1. With SKU: [EGL/11050-004] Aerator, Piston Pump 3" x 5-1/4" 2.0 Units 8.16 Normal Products US$ 16.32
+    # 2. Without SKU: Luggage tag 250.0 3.18 Normal Products [SX] US$ 795.00
+    # Note: unit type word (Units, Linear, Foot, etc.) appears between quantity and unit_price
+    pattern: "(?:\\[(?!SX\\])([A-Z0-9/\\-]+)\\]\\s+)?(.+?)\\s+([\\d,]+\\.?\\d*)\\s+(?:[A-Za-z]+\\s+)?([\\d,.]+)\\s+Normal\\s+(?:Products\\s+)?(?:\\[SX\\]\\s+)?US.\\s*([\\d,.]+)"
+    field_map:
+      sku: 1
+      description: 2
+      quantity: 3
+      unit_price: 4
+      total_cost: 5
+    types:
+      quantity: float
+      unit_price: currency
+      total_cost: currency
+    generated_fields:
+      sku: "BM-${index}"
+
+sections:
+  items_start:
+    - "DESCRIPTION"
+  items_end:
+    - "Untaxed Amount"
+
+validation:
+  min_items: 1

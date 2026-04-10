@@ -1,0 +1,56 @@
+# Auto-generated format spec for unknown_65_00
+# Generated on 2026-04-06T11:32:09.456666
+# Will be promoted to formats/ on successful processing
+
+name: unknown_65_00
+version: "1.0"
+description: "Simple list format with unit price and extended price, followed by totals."
+
+detect:
+  all_of:
+    - "Total F.O.B"
+    - "Documents"
+  any_of: []
+
+metadata:
+  invoice_number:
+    patterns: []
+    required: false
+  date:
+    patterns: []
+    required: false
+  supplier_name:
+    value: "unknown_65_00"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'TOTAL\s+\$?([\d,]+\.?\d*)'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '\$?([\d,]+\.?\d*)\s+\$?([\d,]+\.?\d*)'
+    field_map:
+      unit_price: 1
+      total: 2
+    types:
+      unit_price: currency
+      total: currency
+    skip_patterns:
+      - '^Total F\.O\.B'
+      - '^Documents'
+      - '^TOTAL'
+    generated_fields:
+      quantity: 1
+      description: "Item {index}"
+
+sections:
+  items_start:
+    - "$"
+  items_end:
+    - "Total F.O.B"
+
+validation:
+  min_items: 1

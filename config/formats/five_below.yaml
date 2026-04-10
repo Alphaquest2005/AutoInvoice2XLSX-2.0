@@ -1,0 +1,79 @@
+# Five Below retail receipt format
+# Receipt-style invoice with items at $5 or less
+
+name: five_below
+version: "1.0"
+description: "Five Below retail store receipt"
+
+detect:
+  all_of:
+    - "Five Below"
+  any_of:
+    - "BASIC BASKET"
+    - "Subtotal"
+    - "08031"
+    - "Store:"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Trans:\s*(\d+)'
+      - 'Store:\s*(\d+)'
+    required: false
+  date:
+    patterns:
+      - 'Date:\s*(\d{1,2}/\d{1,2}/\d{4})'
+  supplier_name:
+    value: "Five Below"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - '(?<!Sub)Total\s+\$?([\d,]+\.\d{2})'
+    type: currency
+  subtotal:
+    patterns:
+      - 'Subtotal\s+\$?([\d,]+\.\d{2})'
+    type: currency
+  tax:
+    patterns:
+      - 'Sales Tax.*\$?([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^(.{10,}?)\s+\$(\d[\d,]*\.\d{2})\s*$'
+    field_map:
+      description: 1
+      unit_price: 2
+    types:
+      unit_price: currency
+    generated_fields:
+      quantity: 1
+      sku: "5B-{index}"
+    skip_patterns:
+      - '^Subtotal'
+      - '^Sales Tax'
+      - '^Total'
+      - '^Five Below'
+      - '^ENTRY'
+      - '^\s*$'
+
+sections:
+  items_start:
+    - "KINGS HIGHWAY"
+    - "Five Below"
+    - "08031"
+  items_end:
+    - "Subtotal"
+    - "Sales Tax"
+
+ocr_config:
+  dpi: 400
+  psm: 4
+  preprocessing: adaptive
+
+validation:
+  min_items: 1
+  max_item_price: 25

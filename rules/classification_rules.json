@@ -1,0 +1,3618 @@
+{
+  "_comment": "CARICOM Classification Rules - General product patterns, not brand-specific",
+  "_version": "2.0.0",
+  "_updated": "2026-02-10",
+  "rules": [
+    {
+      "id": "backpack_001",
+      "priority": 100,
+      "patterns": [
+        "BACKPACK",
+        "BACK PACK",
+        "RUCKSACK",
+        "SCHOOL BAG",
+        "BOOKBAG",
+        "BOOK BAG"
+      ],
+      "code": "42029200",
+      "category": "BAGS & LUGGAGE",
+      "confidence": 0.95,
+      "notes": "Chapter 42 - Articles of leather; saddlery and harness; travel goods, handbags"
+    },
+    {
+      "id": "handbag_001",
+      "priority": 99,
+      "patterns": [
+        "HANDBAG",
+        "HAND BAG",
+        "PURSE",
+        "TOTE BAG",
+        "SHOULDER BAG",
+        "CROSSBODY",
+        "MESSENGER BAG"
+      ],
+      "code": "42022200",
+      "category": "BAGS & LUGGAGE",
+      "confidence": 0.95
+    },
+    {
+      "id": "suitcase_001",
+      "priority": 98,
+      "patterns": [
+        "SUITCASE",
+        "LUGGAGE",
+        "TRAVEL BAG",
+        "DUFFLE BAG",
+        "DUFFEL BAG",
+        "CARRY ON",
+        "CARRY-ON"
+      ],
+      "code": "42021200",
+      "category": "BAGS & LUGGAGE",
+      "confidence": 0.95
+    },
+    {
+      "id": "shampoo_001",
+      "priority": 100,
+      "patterns": [
+        "SHAMPOO"
+      ],
+      "exclude": [
+        "DISPENSER",
+        "HOLDER",
+        "RACK",
+        "SHELF"
+      ],
+      "code": "33051000",
+      "category": "SHAMPOO",
+      "confidence": 0.95
+    },
+    {
+      "id": "conditioner_001",
+      "priority": 99,
+      "patterns": [
+        "CONDITIONER"
+      ],
+      "code": "33051000",
+      "category": "HAIR CARE",
+      "confidence": 0.95
+    },
+    {
+      "id": "body_wash_001",
+      "priority": 95,
+      "patterns": [
+        "BODY WASH",
+        "BODYWASH",
+        "SHOWER GEL",
+        "SHOWER CREAM",
+        "DOVE SHOWER ",
+        "SHOWER BATH",
+        "SHOWER WASH"
+      ],
+      "code": "34013000",
+      "category": "SOAP & BODY WASH",
+      "confidence": 0.95,
+      "notes": "Chapter 34 - Organic surface-active products for washing the skin"
+    },
+    {
+      "id": "liquid_soap_001",
+      "priority": 96,
+      "patterns": [
+        "HAND SOAP",
+        "LIQUID SOAP",
+        "HAND WASH",
+        "HANDWASH",
+        "FOAMING SOAP"
+      ],
+      "code": "34013000",
+      "category": "LIQUID SOAP",
+      "confidence": 0.95,
+      "notes": "Chapter 34 - Organic surface-active products for washing the skin (liquid form)"
+    },
+    {
+      "id": "soap_001",
+      "priority": 94,
+      "patterns": [
+        "SOAP",
+        "BAR SOAP"
+      ],
+      "code": "34011190",
+      "category": "SOAP",
+      "confidence": 0.9,
+      "notes": "Chapter 34 - Soap in bars/cakes. Lower priority so liquid soap rule matches first"
+    },
+    {
+      "id": "perfume_001",
+      "priority": 90,
+      "patterns": [
+        "PERFUME",
+        "EDP",
+        "EAU DE PARFUM",
+        "COLOGNE",
+        "EDT",
+        "EAU DE TOILETTE",
+        "FRAGRANCE"
+      ],
+      "code": "33030000",
+      "category": "PERFUMES & COLOGNES",
+      "confidence": 0.95
+    },
+    {
+      "id": "body_spray_001",
+      "priority": 89,
+      "patterns": [
+        "BODY SPRAY",
+        "BODY MIST",
+        "BODY SPLASH",
+        "VS SPLASH",
+        "SPLASH COLOGNE",
+        "FRAGRANCE MIST"
+      ],
+      "code": "33030090",
+      "category": "PERFUMES & BODY SPRAYS",
+      "confidence": 0.95,
+      "notes": "Chapter 33 - Perfumes, toilet waters, body splashes and fragrance mists"
+    },
+    {
+      "id": "deodorant_001",
+      "priority": 88,
+      "patterns": [
+        "DEODORANT",
+        "ANTIPERSPIRANT"
+      ],
+      "code": "33072000",
+      "category": "DEODORANTS",
+      "confidence": 0.95
+    },
+    {
+      "id": "lipstick_001",
+      "priority": 85,
+      "patterns": [
+        "LIPSTICK",
+        "LIP STICK"
+      ],
+      "code": "33041000",
+      "category": "LIP PRODUCTS",
+      "confidence": 0.95
+    },
+    {
+      "id": "lip_gloss_001",
+      "priority": 85,
+      "patterns": [
+        "LIP GLOSS",
+        "LIPGLOSS"
+      ],
+      "code": "33041000",
+      "category": "LIP PRODUCTS",
+      "confidence": 0.95
+    },
+    {
+      "id": "lip_liner_001",
+      "priority": 85,
+      "patterns": [
+        "LIP LINER",
+        "LIPLINER"
+      ],
+      "code": "33041000",
+      "category": "LIP PRODUCTS",
+      "confidence": 0.95
+    },
+    {
+      "id": "lip_balm_001",
+      "priority": 84,
+      "patterns": [
+        "LIP BALM",
+        "LIP SCRUB",
+        "LIP TREATMENT",
+        "LIP OIL",
+        "LIP PLUMPER",
+        "LIP TINT"
+      ],
+      "code": "33049900",
+      "category": "LIP CARE",
+      "confidence": 0.9
+    },
+    {
+      "id": "mascara_001",
+      "priority": 84,
+      "patterns": [
+        "MASCARA"
+      ],
+      "code": "33042000",
+      "category": "EYE MAKEUP",
+      "confidence": 0.95
+    },
+    {
+      "id": "eyeliner_001",
+      "priority": 84,
+      "patterns": [
+        "EYELINER",
+        "EYE LINER"
+      ],
+      "code": "33042000",
+      "category": "EYE MAKEUP",
+      "confidence": 0.95
+    },
+    {
+      "id": "eyeshadow_001",
+      "priority": 84,
+      "patterns": [
+        "EYESHADOW",
+        "EYE SHADOW"
+      ],
+      "code": "33042000",
+      "category": "EYE MAKEUP",
+      "confidence": 0.95
+    },
+    {
+      "id": "eyebrow_001",
+      "priority": 84,
+      "patterns": [
+        "EYEBROW",
+        "BROW GEL",
+        "BROW PENCIL",
+        "BROW MARKER",
+        "BROW POMADE"
+      ],
+      "code": "33042000",
+      "category": "EYE MAKEUP",
+      "confidence": 0.9
+    },
+    {
+      "id": "lash_001",
+      "priority": 84,
+      "patterns": [
+        "LASH",
+        "LASHES",
+        "FALSE LASH",
+        "EYELASH"
+      ],
+      "exclude": [
+        "LASH ADHESIVE",
+        "LASH GLUE",
+        "KIDS",
+        "BOYS",
+        "GIRLS",
+        "PANTS",
+        "SHIRT",
+        "COTTON",
+        "TODDLER",
+        "BABY",
+        "CHILDREN",
+        "CLOTHING"
+      ],
+      "code": "33042000",
+      "category": "EYE MAKEUP - LASHES",
+      "confidence": 0.9
+    },
+    {
+      "id": "lash_adhesive_001",
+      "priority": 85,
+      "patterns": [
+        "LASH ADHESIVE",
+        "LASH GLUE",
+        "EYELASH ADHESIVE",
+        "EYELASH GLUE"
+      ],
+      "code": "33042000",
+      "category": "EYE MAKEUP - LASH ADHESIVE",
+      "confidence": 0.95
+    },
+    {
+      "id": "nail_polish_001",
+      "priority": 83,
+      "patterns": [
+        "NAIL POLISH",
+        "NAIL LACQUER",
+        "GEL POLISH"
+      ],
+      "code": "33043000",
+      "category": "NAIL PRODUCTS",
+      "confidence": 0.95
+    },
+    {
+      "id": "nail_treatment_001",
+      "priority": 83,
+      "patterns": [
+        "NAIL REMOVER",
+        "NAIL STRENGTHENER",
+        "NAIL HARDENER",
+        "BASE COAT",
+        "TOP COAT"
+      ],
+      "code": "33043000",
+      "category": "NAIL PRODUCTS",
+      "confidence": 0.9
+    },
+    {
+      "id": "nail_tip_001",
+      "priority": 83,
+      "patterns": [
+        "NAIL TIP",
+        "ARTIFICIAL NAIL",
+        "PRESS ON NAIL",
+        "FAKE NAIL"
+      ],
+      "code": "39269000",
+      "category": "NAIL TIPS - PLASTIC",
+      "confidence": 0.9
+    },
+    {
+      "id": "foundation_001",
+      "priority": 82,
+      "patterns": [
+        "FOUNDATION"
+      ],
+      "code": "33049100",
+      "category": "FACE MAKEUP",
+      "confidence": 0.95
+    },
+    {
+      "id": "concealer_001",
+      "priority": 82,
+      "patterns": [
+        "CONCEALER"
+      ],
+      "code": "33049100",
+      "category": "FACE MAKEUP",
+      "confidence": 0.95
+    },
+    {
+      "id": "face_powder_001",
+      "priority": 82,
+      "patterns": [
+        "FACE POWDER",
+        "SETTING POWDER",
+        "COMPACT POWDER",
+        "LOOSE POWDER",
+        "PRESSED POWDER"
+      ],
+      "code": "33049100",
+      "category": "FACE MAKEUP",
+      "confidence": 0.95
+    },
+    {
+      "id": "blush_001",
+      "priority": 82,
+      "patterns": [
+        "BLUSH"
+      ],
+      "code": "33049100",
+      "category": "FACE MAKEUP",
+      "confidence": 0.9
+    },
+    {
+      "id": "bronzer_001",
+      "priority": 82,
+      "patterns": [
+        "BRONZER",
+        "BRONZING"
+      ],
+      "code": "33049100",
+      "category": "FACE MAKEUP",
+      "confidence": 0.9
+    },
+    {
+      "id": "highlighter_001",
+      "priority": 82,
+      "patterns": [
+        "HIGHLIGHTER"
+      ],
+      "exclude": [
+        "TEXT HIGHLIGHTER",
+        "MARKER"
+      ],
+      "code": "33049100",
+      "category": "FACE MAKEUP",
+      "confidence": 0.9
+    },
+    {
+      "id": "contour_001",
+      "priority": 82,
+      "patterns": [
+        "CONTOUR"
+      ],
+      "code": "33049100",
+      "category": "FACE MAKEUP",
+      "confidence": 0.9
+    },
+    {
+      "id": "primer_001",
+      "priority": 81,
+      "patterns": [
+        "PRIMER",
+        "FACE PRIMER"
+      ],
+      "exclude": [
+        "NAIL PRIMER",
+        "LASH PRIMER"
+      ],
+      "code": "33049900",
+      "category": "FACE MAKEUP",
+      "confidence": 0.9
+    },
+    {
+      "id": "setting_spray_001",
+      "priority": 81,
+      "patterns": [
+        "FIXING SPRAY",
+        "SETTING SPRAY",
+        "HYDRATING MIST",
+        "WATER MIST",
+        "FACE MIST"
+      ],
+      "code": "33049900",
+      "category": "FACE MAKEUP",
+      "confidence": 0.9
+    },
+    {
+      "id": "moisturizer_001",
+      "priority": 80,
+      "patterns": [
+        "MOISTURIZER",
+        "MOISTURISER",
+        "LOTION",
+        "BODY LOTION",
+        "HAND LOTION"
+      ],
+      "exclude": [
+        "WRAP LOTION",
+        "SETTING LOTION"
+      ],
+      "code": "33049900",
+      "category": "SKINCARE",
+      "confidence": 0.9
+    },
+    {
+      "id": "face_cream_001",
+      "priority": 80,
+      "patterns": [
+        "FACE CREAM",
+        "FACIAL CREAM",
+        "NIGHT CREAM",
+        "DAY CREAM",
+        "ANTI-AGING"
+      ],
+      "code": "33049900",
+      "category": "SKINCARE",
+      "confidence": 0.9
+    },
+    {
+      "id": "sunscreen_001",
+      "priority": 80,
+      "patterns": [
+        "SUNSCREEN",
+        "SPF",
+        "SUN BLOCK",
+        "SUNBLOCK"
+      ],
+      "code": "33049900",
+      "category": "SUNSCREEN",
+      "confidence": 0.95
+    },
+    {
+      "id": "cleanser_001",
+      "priority": 80,
+      "patterns": [
+        "CLEANSER",
+        "CLEANSING",
+        "MAKEUP REMOVER"
+      ],
+      "code": "33049900",
+      "category": "SKINCARE",
+      "confidence": 0.9
+    },
+    {
+      "id": "serum_001",
+      "priority": 80,
+      "patterns": [
+        "SERUM"
+      ],
+      "code": "33049900",
+      "category": "SKINCARE",
+      "confidence": 0.9
+    },
+    {
+      "id": "facial_mask_001",
+      "priority": 80,
+      "patterns": [
+        "FACE MASK",
+        "FACIAL MASK",
+        "SHEET MASK",
+        "PEEL OFF",
+        "CLAY MASK",
+        "BLACK MASK",
+        "CHARCOAL MASK"
+      ],
+      "exclude": [
+        "HAIR MASK"
+      ],
+      "code": "33049900",
+      "category": "SKINCARE",
+      "confidence": 0.9
+    },
+    {
+      "id": "eye_patch_001",
+      "priority": 79,
+      "patterns": [
+        "EYE PATCH",
+        "EYE PAD",
+        "UNDER EYE",
+        "NOSE STRIP",
+        "ACNE PATCH"
+      ],
+      "code": "33049900",
+      "category": "SKINCARE",
+      "confidence": 0.9
+    },
+    {
+      "id": "hair_gel_001",
+      "priority": 78,
+      "patterns": [
+        "HAIR GEL",
+        "STYLING GEL",
+        "EDGE GEL",
+        "EDGE CONTROL",
+        "WRAPP-IT",
+        "WRAP-IT"
+      ],
+      "code": "33059000",
+      "category": "HAIR STYLING",
+      "confidence": 0.9
+    },
+    {
+      "id": "hair_spray_001",
+      "priority": 78,
+      "patterns": [
+        "HAIR SPRAY",
+        "HAIRSPRAY"
+      ],
+      "code": "33059000",
+      "category": "HAIR STYLING",
+      "confidence": 0.9
+    },
+    {
+      "id": "hair_mousse_001",
+      "priority": 78,
+      "patterns": [
+        "MOUSSE",
+        "FOAM WRAP",
+        "WRAP LOTION",
+        "SETTING LOTION"
+      ],
+      "exclude": [
+        "CHOCOLATE"
+      ],
+      "code": "33059000",
+      "category": "HAIR STYLING",
+      "confidence": 0.85
+    },
+    {
+      "id": "nail_gel_001",
+      "priority": 90,
+      "patterns": [
+        "GEL UV-LED",
+        "UV-LED GEL",
+        "GEL POLISH",
+        "GELUX GEL",
+        "DIPPING GEL",
+        "BIOBUILDER",
+        "BLOOMING GEL",
+        "RUBBER TOP GEL",
+        "MATTE GEL FOR NAILS",
+        "LUXURY TOP GEL",
+        "GLASS FINISH FOR NAILS",
+        "FIBERGLASS BASE GEL",
+        "NAIL HARDENER",
+        "NAIL GROWTH FOR NAILS",
+        "KERATIN GEL NAIL",
+        "POLYMIA COVER",
+        "CRYSTAL UV-LED",
+        "GEL LINER FOR NAILS",
+        "ULTRA GLOSS TOP COAT",
+        "UV FINISH GEL",
+        "GEL PAINT",
+        "SUGAR GEL"
+      ],
+      "exclude": [
+        "LAMP",
+        "CURING"
+      ],
+      "code": "33043000",
+      "category": "NAIL PREPARATIONS",
+      "confidence": 0.95,
+      "notes": "Nail gels, gel polishes, nail treatments - manicure/pedicure preparations ch33"
+    },
+    {
+      "id": "acrylic_powder_nails_001",
+      "priority": 90,
+      "patterns": [
+        "ACRYLIC POWDER FOR NAILS",
+        "ACRYLIC COVER BEIGE",
+        "ACRYLIC COVER PINK",
+        "ACRYLIC COVER NUDE",
+        "COVER PINKISH ACRYLIC",
+        "ROSE GOLD ACRYLIC POWDER",
+        "YOSEMITE ACRYLIC POWDER",
+        "NUDE ACRYLIC POWDER",
+        "WHITE ACRYLIC POWDER FOR NAILS",
+        "PINK ACRYLIC POWDER FOR NAILS",
+        "CLEAR ACRYLIC POWDER FOR NAILS",
+        "FRUITY NAIL ART POWDER",
+        "LIQUID MONOMER FOR NAILS",
+        "NAIL PRIMER"
+      ],
+      "code": "33043000",
+      "category": "NAIL PREPARATIONS",
+      "confidence": 0.95,
+      "notes": "Acrylic nail powders, monomers, primers - manicure/pedicure preparations ch33"
+    },
+    {
+      "id": "nail_glue_001",
+      "priority": 90,
+      "patterns": [
+        "GEL GLUE ACTIVATOR",
+        "NAIL GEL GLUE",
+        "NAIL GLUE"
+      ],
+      "code": "33043000",
+      "category": "NAIL PREPARATIONS",
+      "confidence": 0.95,
+      "notes": "Nail adhesives used in manicure - classified as nail preparations ch33"
+    },
+    {
+      "id": "cosmetic_oil_001",
+      "priority": 78,
+      "patterns": [
+        "VIA NATURAL OIL",
+        "VIA MOROCCAN",
+        "ARGAN OIL",
+        "BLUE MAGIC COCONUT",
+        "BLUE MAGIC OLIVE",
+        "BLUE MAGIC SHEA",
+        "BLUE MAGIC CASTOR",
+        "GROWTH OIL",
+        "DOO GRO"
+      ],
+      "code": "33059000",
+      "category": "HAIR CARE",
+      "confidence": 0.95,
+      "notes": "Cosmetic/beauty oils for hair and body care, NOT food-grade crude oils (ch15)"
+    },
+    {
+      "id": "hair_oil_001",
+      "priority": 77,
+      "patterns": [
+        "HAIR OIL",
+        "HOT OIL",
+        "CHOLESTEROL",
+        "HAIR TREATMENT"
+      ],
+      "code": "33059000",
+      "category": "HAIR CARE",
+      "confidence": 0.9
+    },
+    {
+      "id": "wig_001",
+      "priority": 77,
+      "patterns": [
+        "WIG",
+        "LACE FRONT",
+        "FULL WIG",
+        "HALF WIG"
+      ],
+      "code": "67041100",
+      "category": "WIGS",
+      "confidence": 0.95
+    },
+    {
+      "id": "synthetic_hair_001",
+      "priority": 75,
+      "patterns": [
+        "BRAID",
+        "BRAIDING",
+        "WEAVE",
+        "WEAVING",
+        "EXTENSION",
+        "PONYTAIL"
+      ],
+      "exclude": [
+        "HUMAN HAIR"
+      ],
+      "code": "67041900",
+      "category": "SYNTHETIC HAIR",
+      "confidence": 0.9
+    },
+    {
+      "id": "human_hair_001",
+      "priority": 76,
+      "patterns": [
+        "HUMAN HAIR",
+        "REMI HAIR",
+        "REMY HAIR",
+        "VIRGIN HAIR"
+      ],
+      "code": "67042000",
+      "category": "HUMAN HAIR",
+      "confidence": 0.95
+    },
+    {
+      "id": "comb_001",
+      "priority": 78,
+      "patterns": [
+        "COMB",
+        "DETANGLER",
+        "PICK"
+      ],
+      "exclude": [
+        "HONEY",
+        "COMBINATION"
+      ],
+      "code": "96151110",
+      "category": "COMBS",
+      "confidence": 0.95
+    },
+    {
+      "id": "brush_001",
+      "priority": 77,
+      "patterns": [
+        "HAIR BRUSH",
+        "HAIRBRUSH",
+        "PADDLE BRUSH",
+        "ROUND BRUSH",
+        "VENT BRUSH"
+      ],
+      "code": "96039090",
+      "category": "BRUSHES",
+      "confidence": 0.9
+    },
+    {
+      "id": "hair_clip_001",
+      "priority": 78,
+      "patterns": [
+        "HAIR CLIP",
+        "CLAW CLIP",
+        "DUCK CLIP",
+        "SNAP CLIP",
+        "ALLIGATOR CLIP",
+        "CLIPS"
+      ],
+      "code": "96159010",
+      "category": "HAIR ACCESSORIES",
+      "confidence": 0.9
+    },
+    {
+      "id": "hair_pin_001",
+      "priority": 78,
+      "patterns": [
+        "HAIRPIN",
+        "HAIR PIN",
+        "BOBBY PIN",
+        "U PIN"
+      ],
+      "code": "96159010",
+      "category": "HAIR ACCESSORIES",
+      "confidence": 0.95
+    },
+    {
+      "id": "hair_band_001",
+      "priority": 78,
+      "patterns": [
+        "HEADBAND",
+        "ELASTIC BAND",
+        "SCRUNCHIE",
+        "HEAD WRAP",
+        "HAIR BAND"
+      ],
+      "code": "96159010",
+      "category": "HAIR ACCESSORIES",
+      "confidence": 0.9
+    },
+    {
+      "id": "hair_roller_001",
+      "priority": 77,
+      "patterns": [
+        "ROLLER",
+        "CURLER",
+        "FLEXI ROD",
+        "PERM ROD",
+        "PIPE CLEANER"
+      ],
+      "exclude": [
+        "CURLING IRON"
+      ],
+      "code": "96159010",
+      "category": "HAIR ROLLERS",
+      "confidence": 0.9
+    },
+    {
+      "id": "headwear_001",
+      "priority": 70,
+      "patterns": [
+        "SLEEP CAP",
+        "BONNET",
+        "DOME CAP",
+        "SATIN CAP",
+        "MESH CAP",
+        "SPANDEX CAP",
+        "DAY CAP",
+        "NIGHT CAP",
+        "MESH WRAP",
+        "OPEN WRAP",
+        "HAIR WRAP"
+      ],
+      "code": "65050000",
+      "category": "HEADWEAR",
+      "confidence": 0.9
+    },
+    {
+      "id": "flat_iron_001",
+      "priority": 80,
+      "patterns": [
+        "FLAT IRON",
+        "STRAIGHTENER",
+        "STRAIGHTENING IRON",
+        "STYLER"
+      ],
+      "code": "85163100",
+      "category": "ELECTRICAL APPLIANCES",
+      "confidence": 0.95
+    },
+    {
+      "id": "curling_iron_001",
+      "priority": 80,
+      "patterns": [
+        "CURLING IRON",
+        "CURLING WAND",
+        "BARREL IRON",
+        "TRIPLE BARREL"
+      ],
+      "code": "85163100",
+      "category": "ELECTRICAL APPLIANCES",
+      "confidence": 0.95
+    },
+    {
+      "id": "hair_dryer_001",
+      "priority": 80,
+      "patterns": [
+        "HAIR DRYER",
+        "BLOW DRYER",
+        "BLOWER",
+        "DRYER"
+      ],
+      "exclude": [
+        "NAIL DRYER"
+      ],
+      "code": "85163200",
+      "category": "ELECTRICAL APPLIANCES",
+      "confidence": 0.95
+    },
+    {
+      "id": "hair_clipper_001",
+      "priority": 80,
+      "patterns": [
+        "CLIPPER",
+        "TRIMMER",
+        "HAIR CLIPPER"
+      ],
+      "exclude": [
+        "NAIL CLIPPER"
+      ],
+      "code": "85102000",
+      "category": "ELECTRICAL APPLIANCES",
+      "confidence": 0.95
+    },
+    {
+      "id": "uv_lamp_001",
+      "priority": 84,
+      "patterns": [
+        "UV LAMP",
+        "LED LAMP",
+        "UV LED LAMP",
+        "NAIL LAMP",
+        "GEL LAMP"
+      ],
+      "exclude": [
+        "TABLE LAMP",
+        "DESK LAMP"
+      ],
+      "code": "85439000",
+      "category": "UV LAMPS",
+      "confidence": 0.9
+    },
+    {
+      "id": "fan_001",
+      "priority": 83,
+      "patterns": [
+        "TABLE FAN",
+        "DESK FAN",
+        "BEAUTY FAN",
+        "PORTABLE FAN"
+      ],
+      "code": "84145110",
+      "category": "FANS",
+      "confidence": 0.95
+    },
+    {
+      "id": "diffuser_001",
+      "priority": 85,
+      "patterns": [
+        "DIFFUSER",
+        "AROMA DIFFUSER",
+        "ULTRASONIC DIFFUSER"
+      ],
+      "code": "85437090",
+      "category": "DIFFUSERS",
+      "confidence": 0.95
+    },
+    {
+      "id": "wax_warmer_001",
+      "priority": 84,
+      "patterns": [
+        "WAX WARMER",
+        "WAX MELTER",
+        "OIL BURNER",
+        "ELECTRIC BURNER"
+      ],
+      "code": "85167900",
+      "category": "ELECTRO-THERMIC APPLIANCES",
+      "confidence": 0.95
+    },
+    {
+      "id": "charger_001",
+      "priority": 80,
+      "patterns": [
+        "CHARGING PAD",
+        "CHARGER",
+        "WIRELESS CHARGER",
+        "CHARGING DOCK",
+        "CHARGING STAND",
+        "CHARGING BASE"
+      ],
+      "code": "85044000",
+      "category": "ELECTRICAL APPLIANCES",
+      "confidence": 0.9,
+      "notes": "Battery chargers and charging pads - Chapter 85"
+    },
+    {
+      "id": "heating_stove_001",
+      "priority": 75,
+      "patterns": [
+        "STOVE",
+        "HEATER STOVE"
+      ],
+      "code": "73211110",
+      "category": "HEATING APPLIANCES",
+      "confidence": 0.85
+    },
+    {
+      "id": "razor_001",
+      "priority": 75,
+      "patterns": [
+        "RAZOR",
+        "HAIR CUTTER",
+        "SHAVER"
+      ],
+      "exclude": [
+        "RAZOR BLADE"
+      ],
+      "code": "82121000",
+      "category": "RAZORS",
+      "confidence": 0.9
+    },
+    {
+      "id": "razor_blade_001",
+      "priority": 74,
+      "patterns": [
+        "RAZOR BLADE",
+        "BLADE",
+        "SINGLE EDGE",
+        "DOUBLE EDGE"
+      ],
+      "code": "82121000",
+      "category": "RAZOR BLADES",
+      "confidence": 0.9
+    },
+    {
+      "id": "scissors_001",
+      "priority": 74,
+      "patterns": [
+        "SCISSORS",
+        "SHEAR",
+        "CUTTING SHEAR"
+      ],
+      "code": "82130090",
+      "category": "SCISSORS",
+      "confidence": 0.9
+    },
+    {
+      "id": "tweezer_001",
+      "priority": 73,
+      "patterns": [
+        "TWEEZER"
+      ],
+      "code": "82032000",
+      "category": "HAND TOOLS",
+      "confidence": 0.9
+    },
+    {
+      "id": "shaving_prep_001",
+      "priority": 85,
+      "patterns": [
+        "SHAVING GEL",
+        "SHAVE GEL",
+        "SHAVING CREAM",
+        "SHAVE CREAM",
+        "AFTERSHAVE",
+        "PRE-SHAVE"
+      ],
+      "code": "33072000",
+      "category": "SHAVING PREPARATIONS",
+      "confidence": 0.95
+    },
+    {
+      "id": "shaving_brush_001",
+      "priority": 73,
+      "patterns": [
+        "SHAVING BRUSH",
+        "BEARD BRUSH",
+        "BARBER BRUSH",
+        "NECK DUSTER",
+        "BEARD HANDLE",
+        "BEARD PALM"
+      ],
+      "code": "96039090",
+      "category": "BRUSHES",
+      "confidence": 0.9
+    },
+    {
+      "id": "makeup_brush_001",
+      "priority": 72,
+      "patterns": [
+        "MAKEUP BRUSH",
+        "MAKE-UP BRUSH",
+        "BRUSH SET",
+        "POWDER BRUSH",
+        "BLUSH BRUSH",
+        "CONTOUR BRUSH",
+        "SLANTED BRUSH"
+      ],
+      "code": "96034020",
+      "category": "COSMETIC BRUSHES",
+      "confidence": 0.9
+    },
+    {
+      "id": "makeup_sponge_001",
+      "priority": 72,
+      "patterns": [
+        "MAKEUP SPONGE",
+        "BEAUTY BLENDER",
+        "SPONGE"
+      ],
+      "code": "96034020",
+      "category": "COSMETIC TOOLS",
+      "confidence": 0.9
+    },
+    {
+      "id": "cotton_001",
+      "priority": 70,
+      "patterns": [
+        "COTTON BALL",
+        "COTTON PAD",
+        "COTTON SWAB",
+        "COTTON ROUND"
+      ],
+      "code": "56012210",
+      "category": "COTTON WADDING",
+      "confidence": 0.9
+    },
+    {
+      "id": "applicator_001",
+      "priority": 70,
+      "patterns": [
+        "APPLICATOR",
+        "MAKEUP APPLICATOR"
+      ],
+      "code": "56012290",
+      "category": "APPLICATORS",
+      "confidence": 0.9
+    },
+    {
+      "id": "bottle_001",
+      "priority": 70,
+      "patterns": [
+        "APPLICATOR BOTTLE",
+        "SPRAY BOTTLE",
+        "SQUEEZE BOTTLE",
+        "DISPENSER BOTTLE"
+      ],
+      "code": "39233010",
+      "category": "PLASTIC CONTAINERS",
+      "confidence": 0.9
+    },
+    {
+      "id": "water_sprayer_001",
+      "priority": 70,
+      "patterns": [
+        "WATER SPRAYER",
+        "MIST SPRAYER"
+      ],
+      "code": "96161000",
+      "category": "SPRAYERS",
+      "confidence": 0.9
+    },
+    {
+      "id": "powder_puff_001",
+      "priority": 70,
+      "patterns": [
+        "POWDER PUFF",
+        "PUFFER"
+      ],
+      "code": "96161000",
+      "category": "POWDER APPLICATORS",
+      "confidence": 0.9
+    },
+    {
+      "id": "glitter_001",
+      "priority": 70,
+      "patterns": [
+        "GLITTER",
+        "GILTTER"
+      ],
+      "code": "33049900",
+      "category": "COSMETICS",
+      "confidence": 0.85
+    },
+    {
+      "id": "shimmer_001",
+      "priority": 81,
+      "patterns": [
+        "SHIMMER MIST",
+        "SHIMMER OIL",
+        "SHIMMER BODY",
+        "BODY SHIMMER"
+      ],
+      "code": "33049900",
+      "category": "BODY SHIMMER",
+      "confidence": 0.9
+    },
+    {
+      "id": "incense_001",
+      "priority": 82,
+      "patterns": [
+        "INCENSE"
+      ],
+      "code": "33074100",
+      "category": "INCENSE",
+      "confidence": 0.95
+    },
+    {
+      "id": "air_freshener_001",
+      "priority": 81,
+      "patterns": [
+        "AIR FRESHENER",
+        "ROOM SPRAY"
+      ],
+      "code": "33074900",
+      "category": "AIR FRESHENERS",
+      "confidence": 0.9
+    },
+    {
+      "id": "essential_oil_001",
+      "priority": 80,
+      "patterns": [
+        "AROMATIC OIL",
+        "ESSENTIAL OIL",
+        "FRAGRANCE OIL"
+      ],
+      "code": "33074900",
+      "category": "AROMATIC OILS",
+      "confidence": 0.9
+    },
+    {
+      "id": "disinfectant_001",
+      "priority": 85,
+      "patterns": [
+        "DISINFECTANT",
+        "SANITIZER",
+        "ANTIBACTERIAL"
+      ],
+      "code": "38089400",
+      "category": "DISINFECTANTS",
+      "confidence": 0.95
+    },
+    {
+      "id": "glass_cleaner_001",
+      "priority": 84,
+      "patterns": [
+        "GLASS CLEANER",
+        "WINDOW CLEANER"
+      ],
+      "code": "34022000",
+      "category": "CLEANING PREPARATIONS",
+      "confidence": 0.95
+    },
+    {
+      "id": "drain_cleaner_001",
+      "priority": 84,
+      "patterns": [
+        "DRAIN CLEANER",
+        "PIPE CLEANER"
+      ],
+      "exclude": [
+        "CURLS"
+      ],
+      "code": "34029000",
+      "category": "CLEANING PREPARATIONS",
+      "confidence": 0.95
+    },
+    {
+      "id": "clipper_spray_001",
+      "priority": 75,
+      "patterns": [
+        "CLIPPER SPRAY",
+        "CLIPPER OIL",
+        "BLADE SPRAY",
+        "BLADE OIL"
+      ],
+      "code": "33079000",
+      "category": "COSMETIC PREPARATIONS",
+      "confidence": 0.9
+    },
+    {
+      "id": "barber_kit_001",
+      "priority": 70,
+      "patterns": [
+        "BARBER KIT",
+        "DETAILING KIT",
+        "CLIPPER KIT",
+        "GROOMING KIT"
+      ],
+      "code": "96159010",
+      "category": "HAIRDRESSING SETS",
+      "confidence": 0.9
+    },
+    {
+      "id": "sewing_kit_001",
+      "priority": 70,
+      "patterns": [
+        "SEWING KIT",
+        "NEEDLE KIT",
+        "THREAD KIT"
+      ],
+      "code": "96050000",
+      "category": "SEWING ARTICLES",
+      "confidence": 0.9
+    },
+    {
+      "id": "lace_sock_001",
+      "priority": 70,
+      "patterns": [
+        "LACE SOCK",
+        "ANKLE SOCK",
+        "SOCK"
+      ],
+      "exclude": [
+        "SOCKET"
+      ],
+      "code": "61159910",
+      "category": "HOSIERY",
+      "confidence": 0.9
+    },
+    {
+      "id": "tights_001",
+      "priority": 70,
+      "patterns": [
+        "TIGHTS",
+        "FISHNET",
+        "PANTYHOSE",
+        "PANTY HOSE",
+        "STOCKING"
+      ],
+      "code": "61152100",
+      "category": "HOSIERY",
+      "confidence": 0.9
+    },
+    {
+      "id": "jewelry_001",
+      "priority": 70,
+      "patterns": [
+        "EARRING",
+        "NECKLACE",
+        "BRACELET",
+        "PENDANT"
+      ],
+      "exclude": [
+        "HAIR RING"
+      ],
+      "code": "71171900",
+      "category": "IMITATION JEWELRY",
+      "confidence": 0.85
+    },
+    {
+      "id": "display_cardboard_001",
+      "priority": 79,
+      "patterns": [
+        "DISPLAY SHIPPER",
+        "FLOOR STAND",
+        "PDQ BOX",
+        "DISPLAY BOX"
+      ],
+      "code": "48191000",
+      "category": "CARDBOARD DISPLAYS",
+      "confidence": 0.9
+    },
+    {
+      "id": "display_metal_001",
+      "priority": 79,
+      "patterns": [
+        "DISPLAY RACK",
+        "METAL DISPLAY",
+        "METAL STAND"
+      ],
+      "code": "73269090",
+      "category": "METAL DISPLAYS",
+      "confidence": 0.9
+    },
+    {
+      "id": "tester_001",
+      "priority": 79,
+      "patterns": [
+        "TESTER",
+        "SAMPLE"
+      ],
+      "code": "39269000",
+      "category": "TESTER KITS",
+      "confidence": 0.85
+    },
+    {
+      "id": "foil_001",
+      "priority": 70,
+      "patterns": [
+        "FOIL"
+      ],
+      "exclude": [
+        "ALUMINUM FOIL WRAP"
+      ],
+      "code": "76071100",
+      "category": "ALUMINUM FOIL",
+      "confidence": 0.9
+    },
+    {
+      "id": "eyelash_case_001",
+      "priority": 70,
+      "patterns": [
+        "EYELASH STORAGE",
+        "LASH CASE",
+        "EYELASH CASE"
+      ],
+      "code": "39249000",
+      "category": "PLASTIC ARTICLES",
+      "confidence": 0.85
+    },
+    {
+      "id": "face_tape_001",
+      "priority": 70,
+      "patterns": [
+        "FACE TAPE",
+        "LIFT TAPE",
+        "NECK TAPE"
+      ],
+      "code": "39199000",
+      "category": "ADHESIVE TAPE",
+      "confidence": 0.85
+    },
+    {
+      "id": "eyelash_tool_001",
+      "priority": 70,
+      "patterns": [
+        "EYELASH APPLICATOR",
+        "LASH APPLICATOR",
+        "LASH CURLER",
+        "EYELASH CURLER"
+      ],
+      "code": "96034020",
+      "category": "COSMETIC TOOLS",
+      "confidence": 0.9
+    },
+    {
+      "id": "velcro_001",
+      "priority": 79,
+      "patterns": [
+        "VELCRO",
+        "MELTING BAND"
+      ],
+      "code": "39269000",
+      "category": "PLASTIC ACCESSORIES",
+      "confidence": 0.9
+    },
+    {
+      "id": "straightening_brush_001",
+      "priority": 79,
+      "patterns": [
+        "STRAIGHTENING BRUSH",
+        "ELECTRIC BRUSH",
+        "HOT BRUSH"
+      ],
+      "code": "85163100",
+      "category": "ELECTRICAL APPLIANCES",
+      "confidence": 0.9
+    },
+    {
+      "id": "foot_care_001",
+      "priority": 80,
+      "patterns": [
+        "FOOT CREAM",
+        "FOOT LOTION",
+        "HEEL BALM",
+        "FOOT SCRUB",
+        "FOOT MASK",
+        "FOOT FILE",
+        "PUMICE",
+        "MOISTURIZING FOOT"
+      ],
+      "code": "33049900",
+      "category": "FOOT CARE",
+      "confidence": 0.9
+    },
+    {
+      "id": "hand_care_001",
+      "priority": 80,
+      "patterns": [
+        "HAND CREAM",
+        "CUTICLE OIL",
+        "CUTICLE CREAM",
+        "HAND MASK"
+      ],
+      "code": "33049900",
+      "category": "HAND CARE",
+      "confidence": 0.9
+    },
+    {
+      "id": "body_scrub_001",
+      "priority": 80,
+      "patterns": [
+        "BODY SCRUB",
+        "SUGAR SCRUB",
+        "SALT SCRUB",
+        "EXFOLIANT",
+        "EXFOLIATOR"
+      ],
+      "code": "33049900",
+      "category": "BODY CARE",
+      "confidence": 0.9
+    },
+    {
+      "id": "body_oil_001",
+      "priority": 80,
+      "patterns": [
+        "BODY OIL",
+        "MASSAGE OIL"
+      ],
+      "code": "33049900",
+      "category": "BODY CARE",
+      "confidence": 0.9
+    },
+    {
+      "id": "body_butter_001",
+      "priority": 80,
+      "patterns": [
+        "BODY BUTTER",
+        "SHEA BUTTER"
+      ],
+      "code": "33049900",
+      "category": "BODY CARE",
+      "confidence": 0.9
+    },
+    {
+      "id": "hair_mask_001",
+      "priority": 78,
+      "patterns": [
+        "HAIR MASK",
+        "DEEP CONDITIONER",
+        "HAIR TREATMENT"
+      ],
+      "code": "33059000",
+      "category": "HAIR CARE",
+      "confidence": 0.9
+    },
+    {
+      "id": "leave_in_001",
+      "priority": 78,
+      "patterns": [
+        "LEAVE-IN",
+        "LEAVE IN",
+        "DETANGLING SPRAY"
+      ],
+      "code": "33059000",
+      "category": "HAIR CARE",
+      "confidence": 0.9
+    },
+    {
+      "id": "hair_serum_001",
+      "priority": 78,
+      "patterns": [
+        "HAIR SERUM",
+        "ANTI-FRIZZ",
+        "SHINE SERUM",
+        "HEAT PROTECTANT"
+      ],
+      "code": "33059000",
+      "category": "HAIR CARE",
+      "confidence": 0.9
+    },
+    {
+      "id": "nail_clipper_001",
+      "priority": 73,
+      "patterns": [
+        "NAIL CLIPPER",
+        "NAIL CUTTER",
+        "NAIL FILE",
+        "NAIL BUFFER",
+        "EMERY BOARD"
+      ],
+      "code": "82142000",
+      "category": "MANICURE TOOLS",
+      "confidence": 0.9
+    },
+    {
+      "id": "mirror_001",
+      "priority": 70,
+      "patterns": [
+        "MIRROR",
+        "COMPACT MIRROR",
+        "VANITY MIRROR",
+        "MAKEUP MIRROR"
+      ],
+      "code": "70099100",
+      "category": "MIRRORS",
+      "confidence": 0.9
+    },
+    {
+      "id": "bag_pouch_001",
+      "priority": 70,
+      "patterns": [
+        "MAKEUP BAG",
+        "COSMETIC BAG",
+        "TOILETRY BAG",
+        "POUCH"
+      ],
+      "code": "42029200",
+      "category": "BAGS",
+      "confidence": 0.85
+    },
+    {
+      "id": "marine_sandals_001",
+      "priority": 90,
+      "patterns": [
+        "SANDALS",
+        "FLIP FLOP",
+        "FLIP-FLOP",
+        "FANNING SLIDE",
+        "FANNING LOW",
+        "FANNING H2O",
+        "FANNING GUNMETAL",
+        "FANNING BLACK",
+        "FANNING BROWN",
+        "FANNING NAVY",
+        "FANNING VINTAGE",
+        "FANNING PRINTS",
+        "CUSHION PHANTOM",
+        "CUSHION BOUNCE",
+        "CUSHION BONZER",
+        "CUSHION VISTA",
+        "CUSHION COURT",
+        "CUSHION CLOUD",
+        "CUSHION BREEZE",
+        "PHANTOM NIAS",
+        "PHANTOM LUX",
+        "REEF SANTA ANA",
+        "REEF WATER VISTA",
+        "BLISS NIGHTS",
+        "OASIS SLIDE",
+        "THE RAGLAN",
+        "VISTA LUXE",
+        "CSHN PHANTOM"
+      ],
+      "code": "64029910",
+      "category": "FOOTWEAR",
+      "confidence": 0.95,
+      "notes": "Sandals, flip-flops, thong-type footwear. Includes Reef brand model names."
+    },
+    {
+      "id": "marine_block_001",
+      "priority": 85,
+      "patterns": [
+        "BLOCK, SINGLE",
+        "BLOCK, DOUBLE",
+        "BLOCK, FIDDLE",
+        "BLOCK, TRIPLE",
+        "SNATCH BLOCK",
+        "PULLEY"
+      ],
+      "code": "84831020",
+      "category": "MARINE HARDWARE",
+      "confidence": 0.9,
+      "notes": "Pulleys/blocks - transmission shaft components Chapter 84"
+    },
+    {
+      "id": "marine_winch_001",
+      "priority": 85,
+      "patterns": [
+        "WINCH",
+        "WINDLASS"
+      ],
+      "code": "84251100",
+      "category": "MARINE HARDWARE",
+      "confidence": 0.9,
+      "notes": "Winches/windlasses Chapter 84"
+    },
+    {
+      "id": "marine_shackle_001",
+      "priority": 80,
+      "patterns": [
+        "SHACKLE",
+        "SNAP SHACKLE",
+        "THIMBLE",
+        "SWIVEL",
+        "CLEVIS"
+      ],
+      "exclude": [
+        "BLOCK"
+      ],
+      "code": "73159000",
+      "category": "MARINE HARDWARE",
+      "confidence": 0.85,
+      "notes": "Chain and parts thereof - iron/steel Chapter 73"
+    },
+    {
+      "id": "marine_cleat_001",
+      "priority": 80,
+      "patterns": [
+        "CLEAT",
+        "CAM CLEAT"
+      ],
+      "exclude": [
+        "BLOCK"
+      ],
+      "code": "73259900",
+      "category": "MARINE HARDWARE",
+      "confidence": 0.85,
+      "notes": "Other cast articles of iron/steel Chapter 73"
+    },
+    {
+      "id": "marine_wire_001",
+      "priority": 85,
+      "patterns": [
+        "BATTERY WIRE",
+        "TINNED WIRE",
+        "MARINE WIRE",
+        "BOAT WIRE",
+        "PRIMARY WIRE",
+        "DUPLEX WIRE"
+      ],
+      "code": "85444200",
+      "category": "MARINE ELECTRICAL",
+      "confidence": 0.9,
+      "notes": "Electric conductors, insulated, for voltage <= 1000V Chapter 85"
+    },
+    {
+      "id": "marine_connector_001",
+      "priority": 85,
+      "patterns": [
+        "CONNECTOR",
+        "BUTT CONN",
+        "RING TERMINAL",
+        "HEAT SHRINK",
+        "TERMINAL",
+        "CRIMP"
+      ],
+      "exclude": [
+        "FUEL CONNECTOR"
+      ],
+      "code": "85369000",
+      "category": "MARINE ELECTRICAL",
+      "confidence": 0.85,
+      "notes": "Electrical connectors for voltage <= 1000V"
+    },
+    {
+      "id": "marine_battery_switch_001",
+      "priority": 86,
+      "patterns": [
+        "BATTERY SWITCH",
+        "DISCONNECT SWITCH",
+        "MASTER SWITCH"
+      ],
+      "code": "85362000",
+      "category": "MARINE ELECTRICAL",
+      "confidence": 0.9,
+      "notes": "Automatic circuit breakers/switches Chapter 85"
+    },
+    {
+      "id": "marine_plug_receptacle_001",
+      "priority": 85,
+      "patterns": [
+        "SHORE POWER",
+        "INLET",
+        "PLUG",
+        "RECEPTACLE",
+        "ADAPTER",
+        "SOCKET"
+      ],
+      "exclude": [
+        "SPARK PLUG",
+        "WRENCH SOCKET",
+        "SOCKET SET",
+        "SOCKET WRENCH"
+      ],
+      "code": "85366900",
+      "category": "MARINE ELECTRICAL",
+      "confidence": 0.85,
+      "notes": "Plugs and sockets for voltage <= 1000V"
+    },
+    {
+      "id": "marine_led_light_001",
+      "priority": 86,
+      "patterns": [
+        "UNDERWATER LIGHT",
+        "NAV LIGHT",
+        "NAVIGATION LIGHT",
+        "LED LIGHT",
+        "STERN LIGHT",
+        "BOW LIGHT",
+        "CABIN LIGHT",
+        "COURTESY LIGHT",
+        "SEABLAZE"
+      ],
+      "code": "94054000",
+      "category": "MARINE LIGHTING",
+      "confidence": 0.9,
+      "notes": "Other electric lamps and lighting fittings Chapter 94"
+    },
+    {
+      "id": "marine_bulb_001",
+      "priority": 82,
+      "patterns": [
+        "BULB",
+        "LAMP BULB",
+        "LED BULB"
+      ],
+      "exclude": [
+        "LAMP"
+      ],
+      "code": "85395000",
+      "category": "MARINE LIGHTING",
+      "confidence": 0.85,
+      "notes": "LED lamps Chapter 85"
+    },
+    {
+      "id": "marine_antenna_001",
+      "priority": 85,
+      "patterns": [
+        "ANTENNA",
+        "VHF ANTENNA",
+        "AIS ANTENNA",
+        "GPS ANTENNA"
+      ],
+      "code": "85291000",
+      "category": "MARINE ELECTRONICS",
+      "confidence": 0.9,
+      "notes": "Aerials/antennae Chapter 85"
+    },
+    {
+      "id": "marine_inverter_001",
+      "priority": 86,
+      "patterns": [
+        "INVERTER",
+        "INVERTER/CHARGER"
+      ],
+      "code": "85044000",
+      "category": "SOLAR & POWER",
+      "confidence": 0.9,
+      "notes": "Static converters (inverters) Chapter 85"
+    },
+    {
+      "id": "marine_charger_solar_001",
+      "priority": 86,
+      "patterns": [
+        "CHARGE CONTROLLER",
+        "MPPT",
+        "SOLAR CONTROLLER",
+        "SOLAR CHARGER",
+        "DC-DC CHARGER",
+        "BATTERY CHARGER",
+        "ORION"
+      ],
+      "exclude": [
+        "CHARGING PAD",
+        "WIRELESS CHARGER"
+      ],
+      "code": "85044000",
+      "category": "SOLAR & POWER",
+      "confidence": 0.9,
+      "notes": "Static converters/chargers Chapter 85"
+    },
+    {
+      "id": "marine_battery_monitor_001",
+      "priority": 85,
+      "patterns": [
+        "BATTERY MONITOR",
+        "BATTERY SENSE",
+        "SHUNT",
+        "BMV"
+      ],
+      "code": "90318000",
+      "category": "MARINE ELECTRONICS",
+      "confidence": 0.85,
+      "notes": "Measuring/checking instruments Chapter 90"
+    },
+    {
+      "id": "multimeter_001",
+      "priority": 85,
+      "patterns": [
+        "MULTIMETER",
+        "MULTI-METER",
+        "VOLTMETER",
+        "AMMETER"
+      ],
+      "code": "90303300",
+      "category": "MARINE ELECTRONICS",
+      "confidence": 0.9,
+      "notes": "Instruments for measuring voltage, current, resistance or power Chapter 90"
+    },
+    {
+      "id": "marine_bluetooth_dongle_001",
+      "priority": 83,
+      "patterns": [
+        "DONGLE",
+        "BLUETOOTH",
+        "VE DIRECT"
+      ],
+      "code": "85176200",
+      "category": "MARINE ELECTRONICS",
+      "confidence": 0.85,
+      "notes": "Machines for reception/transmission Chapter 85"
+    },
+    {
+      "id": "marine_paint_001",
+      "priority": 85,
+      "patterns": [
+        "PAINT",
+        "ANTIFOULING",
+        "ANTI-FOULING",
+        "BOTTOM PAINT",
+        "TOPSIDE",
+        "VARNISH",
+        "INTERLUX",
+        "INTERNATIONAL PAINT",
+        "SPRAY PAINT",
+        "PRIMER",
+        "ENAMEL"
+      ],
+      "code": "32089020",
+      "category": "MARINE PAINT",
+      "confidence": 0.9,
+      "notes": "Marine paints 3208.90.20 - Budget Marine is a yacht supplies shop, all paints classified as marine"
+    },
+    {
+      "id": "marine_stain_sealer_001",
+      "priority": 84,
+      "patterns": [
+        "SEALER",
+        "WOOD FINISH",
+        "CETOL",
+        "STAIN",
+        "TEAK OIL"
+      ],
+      "exclude": [
+        "STAINLESS"
+      ],
+      "code": "32091000",
+      "category": "MARINE PAINT",
+      "confidence": 0.85,
+      "notes": "Paints/varnishes based on acrylic/vinyl polymers Chapter 32"
+    },
+    {
+      "id": "marine_sealant_001",
+      "priority": 85,
+      "patterns": [
+        "SEALANT",
+        "SEALNT",
+        "ADHESIVE SEALANT",
+        "CAULK",
+        "3M 4000",
+        "3M 5200"
+      ],
+      "code": "32141000",
+      "category": "MARINE SEALANT",
+      "confidence": 0.9,
+      "notes": "Glaziers putty/sealants/caulking Chapter 32"
+    },
+    {
+      "id": "marine_cleaner_001",
+      "priority": 83,
+      "patterns": [
+        "BOAT WASH",
+        "BOAT CLEAN",
+        "HULL CLEANER",
+        "TEAK CLEANER",
+        "BLACK STREAK",
+        "PROTECTANT",
+        "VINYL CLEANER",
+        "FABRIC CLNR"
+      ],
+      "code": "34022000",
+      "category": "CLEANING PREPARATIONS",
+      "confidence": 0.85,
+      "notes": "Surface-active cleaning preparations Chapter 34"
+    },
+    {
+      "id": "marine_epoxy_001",
+      "priority": 83,
+      "patterns": [
+        "EPOXY",
+        "FIBERGLASS",
+        "RESIN",
+        "GELCOAT"
+      ],
+      "code": "32141000",
+      "category": "MARINE SEALANT",
+      "confidence": 0.85,
+      "notes": "Mastics/sealants Chapter 32"
+    },
+    {
+      "id": "marine_lubricant_001",
+      "priority": 82,
+      "patterns": [
+        "LUBRICANT",
+        "ANTI-SEIZE",
+        "GREASE",
+        "OIL 2-STROKE",
+        "OUTBOARD OIL",
+        "GEAR OIL",
+        "PENETRANT"
+      ],
+      "code": "27101900",
+      "category": "LUBRICANTS",
+      "confidence": 0.85,
+      "notes": "Lubricating preparations Chapter 27"
+    },
+    {
+      "id": "marine_spark_plug_001",
+      "priority": 85,
+      "patterns": [
+        "SPARK PLUG",
+        "NGK"
+      ],
+      "code": "85111000",
+      "category": "ENGINE PARTS",
+      "confidence": 0.9,
+      "notes": "Sparking plugs Chapter 85"
+    },
+    {
+      "id": "marine_outboard_parts_001",
+      "priority": 83,
+      "patterns": [
+        "IMPELLER",
+        "GASKET",
+        "ANODE",
+        "DIAPHRAGM",
+        "IGNITION COIL",
+        "WATER PUMP",
+        "THERMOSTAT"
+      ],
+      "code": "84099120",
+      "category": "ENGINE PARTS",
+      "confidence": 0.85,
+      "notes": "Parts for outboard motors Chapter 84"
+    },
+    {
+      "id": "marine_fuel_parts_001",
+      "priority": 83,
+      "patterns": [
+        "FUEL CONNECTOR",
+        "FUEL LINE",
+        "FUEL FILTER",
+        "FUEL TANK",
+        "FUEL HOSE"
+      ],
+      "code": "84099120",
+      "category": "ENGINE PARTS",
+      "confidence": 0.85,
+      "notes": "Parts for outboard motors Chapter 84"
+    },
+    {
+      "id": "marine_propeller_001",
+      "priority": 84,
+      "patterns": [
+        "PROPELLER",
+        "PROP NUT",
+        "COTTER PIN"
+      ],
+      "code": "84879000",
+      "category": "ENGINE PARTS",
+      "confidence": 0.85,
+      "notes": "Propellers for marine vessels Chapter 84"
+    },
+    {
+      "id": "marine_handle_clamp_001",
+      "priority": 80,
+      "patterns": [
+        "TRANSOM CLAMP",
+        "HANDLE,",
+        "TILLER"
+      ],
+      "code": "84099120",
+      "category": "ENGINE PARTS",
+      "confidence": 0.8,
+      "notes": "Parts for outboard motors"
+    },
+    {
+      "id": "marine_fishing_rod_001",
+      "priority": 85,
+      "patterns": [
+        "ROD,",
+        "FISHING ROD",
+        "SURF ROD",
+        "SPIN ROD",
+        "CASTING ROD"
+      ],
+      "code": "95071000",
+      "category": "FISHING TACKLE",
+      "confidence": 0.9,
+      "notes": "Fishing rods Chapter 95"
+    },
+    {
+      "id": "marine_fishing_reel_001",
+      "priority": 85,
+      "patterns": [
+        "REEL,",
+        "FISHING REEL",
+        "SPINNING REEL"
+      ],
+      "code": "95073000",
+      "category": "FISHING TACKLE",
+      "confidence": 0.9,
+      "notes": "Fishing reels Chapter 95"
+    },
+    {
+      "id": "marine_fishing_line_001",
+      "priority": 85,
+      "patterns": [
+        "LINE, J-BRAID",
+        "FISHING LINE",
+        "BRAIDED LINE",
+        "MONO LINE",
+        "LEADER"
+      ],
+      "code": "95079000",
+      "category": "FISHING TACKLE",
+      "confidence": 0.9,
+      "notes": "Other fishing tackle Chapter 95"
+    },
+    {
+      "id": "marine_rod_reel_combo_001",
+      "priority": 86,
+      "patterns": [
+        "ROD/REEL"
+      ],
+      "code": "95071000",
+      "category": "FISHING TACKLE",
+      "confidence": 0.85,
+      "notes": "Rod/reel combos classified by rod Chapter 95"
+    },
+    {
+      "id": "marine_grill_001",
+      "priority": 85,
+      "patterns": [
+        "GRILL",
+        "COOKING GRILL",
+        "BBQ",
+        "BARBECUE",
+        "CATALINA"
+      ],
+      "exclude": [
+        "GRILL BRUSH",
+        "VALVE",
+        "REGULATOR",
+        "BURNER",
+        "RADIANT PLATE",
+        "IGNITER",
+        "KNOB",
+        "HOSE"
+      ],
+      "code": "73211190",
+      "category": "COOKING APPLIANCES",
+      "confidence": 0.85,
+      "notes": "Cooking appliances for gas fuel Chapter 73 - complete units only, not parts"
+    },
+    {
+      "id": "marine_grill_parts_001",
+      "priority": 83,
+      "patterns": [
+        "BURNER,",
+        "RADIANT PLATE",
+        "CONTROL VALVE",
+        "VALVE, LPG",
+        "REGULATOR"
+      ],
+      "code": "73219000",
+      "category": "COOKING APPLIANCES",
+      "confidence": 0.85,
+      "notes": "Parts for cooking appliances Chapter 73"
+    },
+    {
+      "id": "marine_ss_tubing_001",
+      "priority": 83,
+      "patterns": [
+        "TUBING, STAINLESS",
+        "SS TUBING",
+        "STAINLESS TUBE",
+        "316 TUBING"
+      ],
+      "code": "73063000",
+      "category": "STAINLESS STEEL",
+      "confidence": 0.85,
+      "notes": "Stainless steel tubes/pipes Chapter 73"
+    },
+    {
+      "id": "marine_trim_001",
+      "priority": 82,
+      "patterns": [
+        "FLEXIBLE TRIM",
+        "TRIM,",
+        "RUB RAIL",
+        "FENDER"
+      ],
+      "exclude": [
+        "TRIM TAB"
+      ],
+      "code": "39209900",
+      "category": "PLASTIC ARTICLES",
+      "confidence": 0.85,
+      "notes": "Other plates/sheets of plastics Chapter 39"
+    },
+    {
+      "id": "marine_water_filter_001",
+      "priority": 84,
+      "patterns": [
+        "FILTER CARTRIDGE",
+        "WATER FILTER",
+        "CARBON FILTER"
+      ],
+      "code": "84219900",
+      "category": "FILTERING EQUIPMENT",
+      "confidence": 0.85,
+      "notes": "Filtering/purifying machinery parts Chapter 84"
+    },
+    {
+      "id": "marine_rope_001",
+      "priority": 82,
+      "patterns": [
+        "ROPE",
+        "LINE,",
+        "DOCK LINE",
+        "ANCHOR LINE",
+        "BRAID LINE"
+      ],
+      "exclude": [
+        "J-BRAID",
+        "FISHING"
+      ],
+      "code": "56074910",
+      "category": "CORDAGE",
+      "confidence": 0.85,
+      "notes": "Synthetic fiber cordage Chapter 56"
+    },
+    {
+      "id": "marine_tape_001",
+      "priority": 80,
+      "patterns": [
+        "ELECTRICAL TAPE",
+        "RIGGING TAPE",
+        "VINYL TAPE",
+        "SELF-FUSING"
+      ],
+      "code": "39191000",
+      "category": "ADHESIVE TAPE",
+      "confidence": 0.85,
+      "notes": "Self-adhesive plastic tape Chapter 39"
+    },
+    {
+      "id": "marine_fuse_breaker_001",
+      "priority": 84,
+      "patterns": [
+        "FUSE",
+        "CIRCUIT BREAKER",
+        "FUSE HOLDER",
+        "FUSE BLOCK",
+        "BREAKER"
+      ],
+      "code": "85361000",
+      "category": "MARINE ELECTRICAL",
+      "confidence": 0.85,
+      "notes": "Fuses and circuit breakers Chapter 85"
+    },
+    {
+      "id": "marine_switch_panel_001",
+      "priority": 83,
+      "patterns": [
+        "SWITCH PANEL",
+        "GANG SWITCH",
+        "ROCKER SWITCH",
+        "TOGGLE SWITCH",
+        "PANEL SWITCH"
+      ],
+      "code": "85365000",
+      "category": "MARINE ELECTRICAL",
+      "confidence": 0.85,
+      "notes": "Switches for voltage <= 1000V Chapter 85"
+    },
+    {
+      "id": "marine_bilge_pump_001",
+      "priority": 84,
+      "patterns": [
+        "BILGE PUMP",
+        "WATER PUMP",
+        "LIVEWELL PUMP",
+        "WASHDOWN PUMP"
+      ],
+      "exclude": [
+        "IMPELLER"
+      ],
+      "code": "84138100",
+      "category": "MARINE PUMPS",
+      "confidence": 0.85,
+      "notes": "Other pumps Chapter 84"
+    },
+    {
+      "id": "marine_hose_001",
+      "priority": 80,
+      "patterns": [
+        "HOSE",
+        "SANITATION HOSE",
+        "BILGE HOSE",
+        "EXHAUST HOSE"
+      ],
+      "exclude": [
+        "HOSE CLAMP"
+      ],
+      "code": "39173900",
+      "category": "HOSES & PIPES",
+      "confidence": 0.85,
+      "notes": "Other flexible plastic tubes Chapter 39"
+    },
+    {
+      "id": "marine_hose_clamp_001",
+      "priority": 80,
+      "patterns": [
+        "HOSE CLAMP",
+        "CLAMP"
+      ],
+      "code": "73182900",
+      "category": "MARINE HARDWARE",
+      "confidence": 0.85,
+      "notes": "Threaded articles/clamps Chapter 73"
+    },
+    {
+      "id": "marine_zinc_anode_001",
+      "priority": 84,
+      "patterns": [
+        "ZINC",
+        "ZINC ANODE",
+        "SHAFT ZINC",
+        "HULL ZINC"
+      ],
+      "code": "79070090",
+      "category": "ZINC ARTICLES",
+      "confidence": 0.85,
+      "notes": "Zinc articles Chapter 79"
+    },
+    {
+      "id": "marine_ss_hardware_001",
+      "priority": 78,
+      "patterns": [
+        "BOLT",
+        "NUT",
+        "SCREW",
+        "WASHER",
+        "FASTENER"
+      ],
+      "code": "73181500",
+      "category": "FASTENERS",
+      "confidence": 0.85,
+      "notes": "Screws/bolts of iron/steel Chapter 73"
+    },
+    {
+      "id": "marine_polish_wax_001",
+      "priority": 82,
+      "patterns": [
+        "POLISH",
+        "WAX",
+        "RESTORER WAX",
+        "PREMIUM WAX",
+        "COMPOUND",
+        "RUBBING COMPOUND"
+      ],
+      "exclude": [
+        "NAIL POLISH"
+      ],
+      "code": "34053000",
+      "category": "POLISHES & WAXES",
+      "confidence": 0.85,
+      "notes": "Polishes/creams for bodywork Chapter 34"
+    },
+    {
+      "id": "marine_adhesive_001",
+      "priority": 82,
+      "patterns": [
+        "BONDING",
+        "COLD WELD",
+        "MARINE TEX",
+        "ADHESIVE",
+        "GLUE"
+      ],
+      "exclude": [
+        "LASH",
+        "EYELASH"
+      ],
+      "code": "35061000",
+      "category": "ADHESIVES",
+      "confidence": 0.85,
+      "notes": "Prepared glues/adhesives Chapter 35"
+    },
+    {
+      "id": "marine_flare_001",
+      "priority": 83,
+      "patterns": [
+        "FLARE",
+        "DISTRESS",
+        "SIGNAL KIT"
+      ],
+      "code": "36049000",
+      "category": "SIGNALING ARTICLES",
+      "confidence": 0.85,
+      "notes": "Signaling flares/distress signals Chapter 36"
+    },
+    {
+      "id": "marine_radio_001",
+      "priority": 84,
+      "patterns": [
+        "VHF RADIO",
+        "HANDHELD VHF",
+        "VHF HANDHELD",
+        "MARINE RADIO",
+        "TWO-WAY RADIO"
+      ],
+      "code": "85176200",
+      "category": "MARINE ELECTRONICS",
+      "confidence": 0.9,
+      "notes": "Radio communication apparatus Chapter 85"
+    },
+    {
+      "id": "marine_pump_001",
+      "priority": 82,
+      "patterns": [
+        "HAND PUMP",
+        "PRESSURE PUMP",
+        "DIAPHRAGM PUMP"
+      ],
+      "code": "84138100",
+      "category": "MARINE PUMPS",
+      "confidence": 0.85,
+      "notes": "Other pumps Chapter 84"
+    },
+    {
+      "id": "marine_inflatable_001",
+      "priority": 82,
+      "patterns": [
+        "TUBE AIRHEAD",
+        "TUBE SUPER",
+        "INFLATABLE",
+        "TOWABLE",
+        "TUBE,"
+      ],
+      "exclude": [
+        "TUBING"
+      ],
+      "code": "95062900",
+      "category": "WATER SPORTS",
+      "confidence": 0.85,
+      "notes": "Water sports equipment Chapter 95"
+    },
+    {
+      "id": "marine_wakeboard_001",
+      "priority": 82,
+      "patterns": [
+        "WAKE BOARD",
+        "WAKEBOARD",
+        "SKI ROPE",
+        "TOW ROPE",
+        "WAKE LINE"
+      ],
+      "code": "95062900",
+      "category": "WATER SPORTS",
+      "confidence": 0.85,
+      "notes": "Water sports equipment Chapter 95"
+    },
+    {
+      "id": "marine_pool_noodle_001",
+      "priority": 80,
+      "patterns": [
+        "NOODLE"
+      ],
+      "code": "95062900",
+      "category": "WATER SPORTS",
+      "confidence": 0.8,
+      "notes": "Water sports/pool accessories Chapter 95"
+    },
+    {
+      "id": "marine_sandpaper_001",
+      "priority": 80,
+      "patterns": [
+        "SAND PAPER",
+        "SANDPAPER",
+        "SANDING DISC",
+        "DISC PAD",
+        "BACKUP PAD",
+        "INTERFACE PAD",
+        "HOOKIT"
+      ],
+      "code": "68052000",
+      "category": "ABRASIVES",
+      "confidence": 0.85,
+      "notes": "Abrasive paper/cloth Chapter 68"
+    },
+    {
+      "id": "marine_brush_scrub_001",
+      "priority": 79,
+      "patterns": [
+        "SCRUB BRUSH",
+        "SCRUB BRSH",
+        "POLE BRUSH",
+        "WASH MITT",
+        "MICROFIBER"
+      ],
+      "code": "96039020",
+      "category": "BRUSHES & CLEANING",
+      "confidence": 0.85,
+      "notes": "Brushes for cleaning Chapter 96"
+    },
+    {
+      "id": "marine_tape_masking_001",
+      "priority": 80,
+      "patterns": [
+        "PAINTER",
+        "MASKING TAPE",
+        "2090"
+      ],
+      "code": "39191000",
+      "category": "ADHESIVE TAPE",
+      "confidence": 0.85,
+      "notes": "Self-adhesive tape Chapter 39"
+    },
+    {
+      "id": "marine_waterproof_001",
+      "priority": 81,
+      "patterns": [
+        "WATERPROOF",
+        "WATERPROOFNG",
+        "WATER REPEL"
+      ],
+      "code": "34029000",
+      "category": "CLEANING PREPARATIONS",
+      "confidence": 0.85,
+      "notes": "Waterproofing preparations Chapter 34"
+    },
+    {
+      "id": "marine_fuel_additive_001",
+      "priority": 82,
+      "patterns": [
+        "FUEL ADDITIVE",
+        "STAR TRON",
+        "FUEL STABIL",
+        "FUEL TREATMENT"
+      ],
+      "code": "38112100",
+      "category": "FUEL ADDITIVES",
+      "confidence": 0.85,
+      "notes": "Additives for lubricating oils Chapter 38"
+    },
+    {
+      "id": "marine_cleaner_spray_001",
+      "priority": 81,
+      "patterns": [
+        "ELECTRONIC CLNR",
+        "ELECTRONIC CLEAN",
+        "QUICK DRY",
+        "CONTACT CLEANER",
+        "CORROSION X",
+        "CORROSION INHIBIT"
+      ],
+      "code": "34022000",
+      "category": "CLEANING PREPARATIONS",
+      "confidence": 0.85,
+      "notes": "Cleaning preparations Chapter 34"
+    },
+    {
+      "id": "marine_repair_kit_001",
+      "priority": 80,
+      "patterns": [
+        "REPAIR KIT",
+        "VINYL REPAIR",
+        "PATCH KIT"
+      ],
+      "code": "39269000",
+      "category": "PLASTIC ARTICLES",
+      "confidence": 0.85,
+      "notes": "Repair kits - plastic articles Chapter 39"
+    },
+    {
+      "id": "marine_velcro_fastener_001",
+      "priority": 79,
+      "patterns": [
+        "FSTNR TAPE",
+        "FASTENER TAPE",
+        "HOOK AND LOOP",
+        "RECLOSABLE"
+      ],
+      "code": "58063200",
+      "category": "FASTENER TAPE",
+      "confidence": 0.85,
+      "notes": "Narrow woven/hook-and-loop fasteners Chapter 58"
+    },
+    {
+      "id": "packing_tape_001",
+      "priority": 95,
+      "patterns": [
+        "PACKING TAPE",
+        "SHIPPING TAPE",
+        "SEALING TAPE",
+        "BOX TAPE"
+      ],
+      "code": "39191000",
+      "category": "ADHESIVE TAPE",
+      "confidence": 0.95,
+      "notes": "Self-adhesive plastic tape in rolls Chapter 39"
+    },
+    {
+      "id": "marine_packing_001",
+      "priority": 80,
+      "patterns": [
+        "FLAX PACK",
+        "PACKING",
+        "SHAFT SEAL",
+        "TEFLON"
+      ],
+      "exclude": [
+        "PACKING TAPE",
+        "SHIPPING TAPE"
+      ],
+      "code": "84849000",
+      "category": "GASKETS & SEALS",
+      "confidence": 0.85,
+      "notes": "Gaskets/seals Chapter 84"
+    },
+    {
+      "id": "marine_respirator_001",
+      "priority": 80,
+      "patterns": [
+        "RESPIRATOR",
+        "MASK FILTER",
+        "PREFILTER",
+        "FILTER MASK",
+        "PREFLTR"
+      ],
+      "code": "90200000",
+      "category": "SAFETY EQUIPMENT",
+      "confidence": 0.85,
+      "notes": "Breathing appliances Chapter 90"
+    },
+    {
+      "id": "marine_snap_zipper_001",
+      "priority": 79,
+      "patterns": [
+        "SNAP",
+        "ZIPPER LUBE",
+        "SNAP STUD"
+      ],
+      "exclude": [
+        "SNAP SHACKLE"
+      ],
+      "code": "96061000",
+      "category": "FASTENERS",
+      "confidence": 0.8,
+      "notes": "Snap fasteners Chapter 96"
+    },
+    {
+      "id": "marine_cleaner_deck_001",
+      "priority": 82,
+      "patterns": [
+        "DECK CLEANER",
+        "DECK CLNER",
+        "NON-SKID",
+        "NON-SKD",
+        "TEAK CLEANER",
+        "INFLATABLE BOAT CLNER",
+        "CLNR PROT"
+      ],
+      "code": "34022000",
+      "category": "CLEANING PREPARATIONS",
+      "confidence": 0.85,
+      "notes": "Surface cleaning preparations Chapter 34"
+    },
+    {
+      "id": "marine_liq_tape_001",
+      "priority": 80,
+      "patterns": [
+        "LIQ ELEC TAPE",
+        "LIQUID TAPE",
+        "LIQUID ELECTRICAL"
+      ],
+      "code": "32141000",
+      "category": "MARINE SEALANT",
+      "confidence": 0.85,
+      "notes": "Liquid electrical tape / sealant Chapter 32"
+    },
+    {
+      "id": "marine_shock_treatment_001",
+      "priority": 79,
+      "patterns": [
+        "WATER SHOCK",
+        "SHOCK TREAT",
+        "WATER TREATMENT"
+      ],
+      "code": "38089400",
+      "category": "DISINFECTANTS",
+      "confidence": 0.85,
+      "notes": "Water treatment chemicals Chapter 38"
+    },
+    {
+      "id": "marine_cable_clam_001",
+      "priority": 84,
+      "patterns": [
+        "CABLECLAM",
+        "CABLE CLAM",
+        "THRU-DECK",
+        "CABLE-SEALING"
+      ],
+      "code": "39259000",
+      "category": "PLASTIC ARTICLES",
+      "confidence": 0.85,
+      "notes": "Cable sealing fittings, plastic articles Chapter 39"
+    },
+    {
+      "id": "marine_tinned_wire_002",
+      "priority": 86,
+      "patterns": [
+        "TINNED COPPER WIRE",
+        "WIRE, SINGLE TINNED",
+        "WIRE, TINNED FLAT",
+        "SAFETY DUPLEX CABLE",
+        "TRIPLEX CABLE",
+        "SINGLE TINNED"
+      ],
+      "code": "85444200",
+      "category": "MARINE ELECTRICAL",
+      "confidence": 0.9,
+      "notes": "Electric conductors, insulated, copper Chapter 85"
+    },
+    {
+      "id": "marine_coax_cable_001",
+      "priority": 85,
+      "patterns": [
+        "COAX",
+        "COAXIAL",
+        "RG-8",
+        "RG8X",
+        "RG-213"
+      ],
+      "code": "85442000",
+      "category": "MARINE ELECTRICAL",
+      "confidence": 0.9,
+      "notes": "Co-axial cable and conductors Chapter 85"
+    },
+    {
+      "id": "marine_cable_tie_001",
+      "priority": 84,
+      "patterns": [
+        "CABLE TIE",
+        "ZIP TIE",
+        "WIRE TIE"
+      ],
+      "code": "39269000",
+      "category": "PLASTIC ARTICLES",
+      "confidence": 0.85,
+      "notes": "Cable ties, plastic articles Chapter 39"
+    },
+    {
+      "id": "marine_busbar_001",
+      "priority": 85,
+      "patterns": [
+        "BUSBAR",
+        "BUS BAR"
+      ],
+      "code": "85389000",
+      "category": "MARINE ELECTRICAL",
+      "confidence": 0.85,
+      "notes": "Electrical distribution busbars Chapter 85"
+    },
+    {
+      "id": "marine_lug_001",
+      "priority": 85,
+      "patterns": [
+        "TINNED LUG",
+        "CRIMP LUG",
+        "CABLE LUG",
+        "LUG,"
+      ],
+      "code": "85369000",
+      "category": "MARINE ELECTRICAL",
+      "confidence": 0.85,
+      "notes": "Electrical cable lugs/terminals Chapter 85"
+    },
+    {
+      "id": "marine_crimp_tool_001",
+      "priority": 83,
+      "patterns": [
+        "CUT/STRIP",
+        "CRIMP TOOL",
+        "WIRE STRIPPER",
+        "CRIMPING TOOL",
+        "STRIP TOOL"
+      ],
+      "code": "82032000",
+      "category": "HAND TOOLS",
+      "confidence": 0.85,
+      "notes": "Pliers, pincers, wire strippers Chapter 82"
+    },
+    {
+      "id": "marine_relay_solenoid_001",
+      "priority": 84,
+      "patterns": [
+        "CHARGE RELAY",
+        "SOLENOID",
+        "SI SERIES",
+        "SI-SERIES"
+      ],
+      "code": "85364900",
+      "category": "MARINE ELECTRICAL",
+      "confidence": 0.85,
+      "notes": "Relays and solenoids Chapter 85"
+    },
+    {
+      "id": "marine_switch_002",
+      "priority": 84,
+      "patterns": [
+        "SWITCH CONTURA",
+        "CONTURA II",
+        "DPDT",
+        "SPDT",
+        "TOGGLE SWITCH",
+        "ROCKER SWITCH",
+        "STOP SWITCH",
+        "FOOTSWITCH",
+        "FOOT SWITCH"
+      ],
+      "code": "85365000",
+      "category": "MARINE ELECTRICAL",
+      "confidence": 0.85,
+      "notes": "Electrical switches Chapter 85"
+    },
+    {
+      "id": "marine_oring_001",
+      "priority": 82,
+      "patterns": [
+        "O-RING",
+        "O RING",
+        "O-SEAL",
+        "GASKET SET"
+      ],
+      "code": "40169300",
+      "category": "GASKETS & SEALS",
+      "confidence": 0.85,
+      "notes": "O-rings and gaskets, vulcanized rubber Chapter 40"
+    },
+    {
+      "id": "marine_bilge_cleaner_001",
+      "priority": 83,
+      "patterns": [
+        "BILGE CLEAN",
+        "BILGE CLNER"
+      ],
+      "code": "34022000",
+      "category": "CLEANING PREPARATIONS",
+      "confidence": 0.85,
+      "notes": "Cleaning preparations Chapter 34"
+    },
+    {
+      "id": "marine_scotchbrite_001",
+      "priority": 82,
+      "patterns": [
+        "SCTH BR PAD",
+        "SCOTCH-BRITE",
+        "SCOTCH BRITE",
+        "SCOURING PAD"
+      ],
+      "code": "68051000",
+      "category": "ABRASIVES",
+      "confidence": 0.85,
+      "notes": "Abrasive products on textile backing Chapter 68"
+    },
+    {
+      "id": "marine_gas_cartridge_001",
+      "priority": 83,
+      "patterns": [
+        "CARTRIDGE GAS",
+        "GAS/VAPOR",
+        "VAPOR CARTRIDGE",
+        "6006"
+      ],
+      "exclude": [
+        "FILTER CARTRIDGE"
+      ],
+      "code": "84219900",
+      "category": "SAFETY EQUIPMENT",
+      "confidence": 0.85,
+      "notes": "Gas/vapor filter cartridges for respirators Chapter 84"
+    },
+    {
+      "id": "marine_extending_handle_001",
+      "priority": 82,
+      "patterns": [
+        "EXTENDING HANDLE",
+        "EXTENSION POLE",
+        "TELESCOPIC HANDLE",
+        "BIG BOAT EXTENDING"
+      ],
+      "code": "76169990",
+      "category": "ALUMINUM ARTICLES",
+      "confidence": 0.85,
+      "notes": "Telescoping handles, aluminum articles Chapter 76"
+    },
+    {
+      "id": "marine_bottom_cleaner_001",
+      "priority": 83,
+      "patterns": [
+        "BOTTOM CLNER",
+        "BOTTOM CLEAN",
+        "HULL CLEAN"
+      ],
+      "code": "34022000",
+      "category": "CLEANING PREPARATIONS",
+      "confidence": 0.85,
+      "notes": "Hull/bottom cleaning preparations Chapter 34"
+    },
+    {
+      "id": "marine_compound_001",
+      "priority": 82,
+      "patterns": [
+        "CMPND",
+        "COMPOUND",
+        "CMPND PAD",
+        "BCKUP PD",
+        "BACKUP PAD",
+        "INTERFACE PAD",
+        "HKT PAD",
+        "PRFCT-IT",
+        "PRFCT IT",
+        "PERFECT IT",
+        "HVY CMPND"
+      ],
+      "code": "34053000",
+      "category": "POLISHES & WAXES",
+      "confidence": 0.85,
+      "notes": "Polishing compounds and pads Chapter 34"
+    },
+    {
+      "id": "marine_sanding_block_001",
+      "priority": 82,
+      "patterns": [
+        "HAND BLOCK",
+        "SANDING BLOCK",
+        "SAND BLOCK"
+      ],
+      "code": "68052000",
+      "category": "ABRASIVES",
+      "confidence": 0.85,
+      "notes": "Sanding blocks/hand pads Chapter 68"
+    },
+    {
+      "id": "marine_plastic_restore_001",
+      "priority": 82,
+      "patterns": [
+        "PLASTIC RSTORE",
+        "PLASTIC RESTORE",
+        "PLASTIC RESTORER"
+      ],
+      "code": "34053000",
+      "category": "POLISHES & WAXES",
+      "confidence": 0.85,
+      "notes": "Plastic restorer/polish Chapter 34"
+    },
+    {
+      "id": "marine_electric_tape_001",
+      "priority": 83,
+      "patterns": [
+        "ELECTRIC TAPE",
+        "ELECTRICAL TAPE",
+        "SCOTCH 3/4"
+      ],
+      "code": "85340000",
+      "category": "MARINE ELECTRICAL",
+      "confidence": 0.85,
+      "notes": "Insulating tape, electrical Chapter 85"
+    },
+    {
+      "id": "marine_bosun_chair_001",
+      "priority": 82,
+      "patterns": [
+        "BOSUN",
+        "BOATSWAIN",
+        "BOSUNS CHAIR"
+      ],
+      "code": "63079090",
+      "category": "MARINE HARDWARE",
+      "confidence": 0.85,
+      "notes": "Bosun's chairs - textile rigging articles Chapter 63"
+    },
+    {
+      "id": "marine_respirator_002",
+      "priority": 83,
+      "patterns": [
+        "RESPRTR",
+        "HALF/FCE"
+      ],
+      "code": "90200000",
+      "category": "SAFETY EQUIPMENT",
+      "confidence": 0.85,
+      "notes": "Respirators and gas masks Chapter 90"
+    },
+    {
+      "id": "marine_macerator_001",
+      "priority": 84,
+      "patterns": [
+        "MACERATOR",
+        "TOILET PUMP",
+        "QUIET FLUSH",
+        "QUIET-FLUSH"
+      ],
+      "code": "84138100",
+      "category": "MARINE PUMPS",
+      "confidence": 0.85,
+      "notes": "Macerator pumps for marine toilets Chapter 84"
+    },
+    {
+      "id": "toilet_paper_001",
+      "priority": 95,
+      "patterns": [
+        "TOILET PAPER",
+        "TOILET TISSUE",
+        "BATHROOM TISSUE",
+        "TOILET ROLL"
+      ],
+      "exclude": [
+        "HOLDER",
+        "DISPENSER",
+        "RACK",
+        "STAND"
+      ],
+      "code": "48181000",
+      "category": "PAPER PRODUCTS",
+      "confidence": 0.95,
+      "notes": "Toilet paper of cellulose wadding Chapter 48"
+    },
+    {
+      "id": "marine_toilet_parts_001",
+      "priority": 82,
+      "patterns": [
+        "TOILET",
+        "JOKER VALVE",
+        "BASE VALVE",
+        "SEAL HOUSING"
+      ],
+      "exclude": [
+        "TOILETRY",
+        "TOILET PAPER",
+        "TOILET TISSUE",
+        "TOILET ROLL",
+        "TOILET PAPER HOLDER",
+        "TOILET BRUSH",
+        "TOILET SEAT",
+        "TOILET RING",
+        "TOWEL RING"
+      ],
+      "code": "84249090",
+      "category": "MARINE SANITATION",
+      "confidence": 0.85,
+      "notes": "Marine toilet parts and service kits Chapter 84"
+    },
+    {
+      "id": "marine_check_valve_001",
+      "priority": 83,
+      "patterns": [
+        "CHECK VALVE",
+        "NON-RETURN"
+      ],
+      "code": "84813000",
+      "category": "VALVES",
+      "confidence": 0.85,
+      "notes": "Check valves/non-return valves Chapter 84"
+    },
+    {
+      "id": "multi_tool_001",
+      "priority": 90,
+      "patterns": [
+        "LEATHERMAN",
+        "MULTI-TOOL",
+        "MULTITOOL",
+        "MULTI TOOL"
+      ],
+      "code": "82055100",
+      "category": "HAND TOOLS",
+      "confidence": 0.9,
+      "notes": "Multi-tools/pliers combination hand tools Chapter 82"
+    },
+    {
+      "id": "glasses_strap_001",
+      "priority": 85,
+      "patterns": [
+        "GLASSES STRAP",
+        "SUNGLASS STRAP",
+        "EYEWEAR STRAP",
+        "CROAKIES",
+        "EYEGLASS RETAINER"
+      ],
+      "code": "63079090",
+      "category": "TEXTILE ARTICLES",
+      "confidence": 0.85,
+      "notes": "Glasses straps/retainers - made-up textile articles Chapter 63"
+    },
+    {
+      "id": "diving_mask_001",
+      "priority": 86,
+      "patterns": [
+        "DIVE MASK",
+        "DIVING MASK",
+        "SNORKEL MASK",
+        "MASK/SNORKEL",
+        "SWIM GOGGLES"
+      ],
+      "code": "90049000",
+      "category": "DIVING EQUIPMENT",
+      "confidence": 0.9,
+      "notes": "Diving/swimming goggles and masks Chapter 90"
+    },
+    {
+      "id": "snorkel_001",
+      "priority": 85,
+      "patterns": [
+        "SNORKEL"
+      ],
+      "exclude": [
+        "MASK"
+      ],
+      "code": "95062900",
+      "category": "WATER SPORTS",
+      "confidence": 0.85,
+      "notes": "Snorkels - water sports equipment Chapter 95"
+    },
+    {
+      "id": "speargun_001",
+      "priority": 85,
+      "patterns": [
+        "SPEAR HEAD",
+        "SPEARHEAD",
+        "SPEAR GUN",
+        "SPEARGUN",
+        "SPEAR SHAFT"
+      ],
+      "code": "95079000",
+      "category": "FISHING TACKLE",
+      "confidence": 0.85,
+      "notes": "Spearfishing equipment Chapter 95"
+    },
+    {
+      "id": "diving_fins_001",
+      "priority": 85,
+      "patterns": [
+        "FINS,",
+        "FIN STRAP",
+        "DIVE FIN",
+        "DIVING FIN",
+        "SWIM FIN"
+      ],
+      "code": "95062900",
+      "category": "WATER SPORTS",
+      "confidence": 0.85,
+      "notes": "Diving/swimming fins Chapter 95"
+    },
+    {
+      "id": "wetsuit_001",
+      "priority": 85,
+      "patterns": [
+        "WETSUIT",
+        "WET SUIT"
+      ],
+      "code": "40159000",
+      "category": "WATER SPORTS",
+      "confidence": 0.85,
+      "notes": "Wetsuits - vulcanized rubber articles Chapter 40"
+    },
+    {
+      "id": "zinc_spray_001",
+      "priority": 85,
+      "patterns": [
+        "GALVANIZING",
+        "ZINC SPRAY",
+        "ZINC FILM"
+      ],
+      "code": "32091000",
+      "category": "MARINE PAINT",
+      "confidence": 0.85,
+      "notes": "Zinc galvanizing spray coatings Chapter 32"
+    },
+    {
+      "id": "bed_frame_001",
+      "priority": 100,
+      "patterns": [
+        "BED FRAME",
+        "PLATFORM BED",
+        "BED HEADBOARD"
+      ],
+      "code": "94035000",
+      "category": "FURNITURE - WOODEN",
+      "confidence": 0.95,
+      "notes": "Chapter 94 - Furniture; wooden bedroom furniture including bed frames, headboards"
+    },
+    {
+      "id": "mattress_001",
+      "priority": 100,
+      "patterns": [
+        "MATTRESS",
+        "MEMORY FOAM MATTRESS",
+        "INNERSPRING MATTRESS"
+      ],
+      "code": "94042100",
+      "category": "MATTRESSES",
+      "confidence": 0.95,
+      "notes": "Chapter 94 - Mattresses; of cellular rubber or plastics (foam)"
+    },
+    {
+      "id": "tv_stand_001",
+      "priority": 100,
+      "patterns": [
+        "TV STAND",
+        "TV CONSOLE",
+        "ENTERTAINMENT CENTER",
+        "TV CABINET"
+      ],
+      "code": "94036090",
+      "category": "FURNITURE - WOODEN",
+      "confidence": 0.95,
+      "notes": "Chapter 94 - Furniture; wooden furniture for living room including TV stands, consoles"
+    },
+    {
+      "id": "microwave_oven_001",
+      "priority": 100,
+      "patterns": [
+        "MICROWAVE",
+        "MICROWAVE OVEN"
+      ],
+      "code": "85165000",
+      "category": "ELECTRICAL APPLIANCES",
+      "confidence": 0.95,
+      "notes": "Chapter 85 - Microwave ovens; electro-thermic appliances"
+    },
+    {
+      "id": "bath_rug_001",
+      "priority": 100,
+      "patterns": [
+        "BATH RUG",
+        "BATH MAT",
+        "BATHROOM RUG",
+        "BATHROOM MAT"
+      ],
+      "code": "57033000",
+      "category": "TEXTILES - FLOOR COVERINGS",
+      "confidence": 0.95,
+      "notes": "Chapter 57 - Carpets and other textile floor coverings; tufted"
+    },
+    {
+      "id": "shower_dispenser_001",
+      "priority": 100,
+      "patterns": [
+        "SHOWER DISPENSER",
+        "SHAMPOO DISPENSER",
+        "SOAP DISPENSER",
+        "CONDITIONER DISPENSER"
+      ],
+      "code": "39249000",
+      "category": "PLASTIC ARTICLES",
+      "confidence": 0.95,
+      "notes": "Chapter 39 - Plastic articles for household use; dispensers for bathroom"
+    },
+    {
+      "id": "insect_killer_001",
+      "priority": 100,
+      "patterns": [
+        "INSECT KILLER",
+        "BUG ZAPPER",
+        "INSECT ZAPPER",
+        "MOSQUITO KILLER"
+      ],
+      "code": "85437090",
+      "category": "ELECTRICAL EQUIPMENT",
+      "confidence": 0.95,
+      "notes": "Chapter 85 - Electrical machines and apparatus; ultraviolet insect killers"
+    },
+    {
+      "id": "curtain_rod_001",
+      "priority": 100,
+      "patterns": [
+        "CURTAIN ROD",
+        "SHOWER CURTAIN ROD"
+      ],
+      "code": "73269090",
+      "category": "METAL ARTICLES",
+      "confidence": 0.95,
+      "notes": "Chapter 73 - Iron or steel articles; curtain rods, household hardware"
+    },
+    {
+      "id": "baby_wipes_001",
+      "priority": 100,
+      "patterns": [
+        "BABY WIPES",
+        "WIPES",
+        "BABY WIPE"
+      ],
+      "code": "34011900",
+      "category": "SOAP & BODY WASH",
+      "confidence": 0.95,
+      "notes": "Chapter 34 - Baby wipes are soap-based cleaning products"
+    },
+    {
+      "id": "diapers_001",
+      "priority": 100,
+      "patterns": [
+        "DIAPERS",
+        "DIAPER",
+        "NAPPY",
+        "NAPPIES"
+      ],
+      "code": "96190029",
+      "category": "BABY CARE",
+      "confidence": 0.95,
+      "notes": "Chapter 96 - Diapers and similar baby sanitary products (CET 9619.00.29)"
+    },
+    {
+      "id": "sea_moss_supplement_001",
+      "priority": 100,
+      "patterns": [
+        "SEA MOSS",
+        "BLACK SEED OIL",
+        "ASHWAGANDHA",
+        "TURMERIC",
+        "BLADDERWRACK",
+        "BURDOCK",
+        "ELDERBERRY",
+        "MANUKA",
+        "DANDELION",
+        "YELLOW DOCK",
+        "IODINE",
+        "CHLOROPHYLL",
+        "ACV",
+        "SUPPLEMENT",
+        "MULTIVITAMIN",
+        "VITAMIN CAPSULE",
+        "VITAMIN TABLET",
+        "VITAMIN GUMM",
+        "VITAMIN SUPPLEMENT",
+        "MULTIVITAMIN",
+        "VITAMIN A ",
+        "VITAMIN C ",
+        "VITAMIN D",
+        "VITAMIN E CAPSULE",
+        "VITAMIN E TABLET",
+        "VITAMIN E GUMM",
+        "VITAMIN K",
+        "VITAMIN B COMPLEX",
+        "VITAMIN B12",
+        "VITAMIN B6"
+      ],
+      "code": "21069000",
+      "category": "FOOD SUPPLEMENTS",
+      "confidence": 0.95,
+      "notes": "Chapter 21 - Food supplements and herbal preparations"
+    },
+    {
+      "id": "boric_acid_suppository_001",
+      "priority": 100,
+      "patterns": [
+        "BORIC ACID",
+        "VAGINAL SUPPOSITORY",
+        "SUPPOSITORY",
+        "YEAST INFECTION"
+      ],
+      "code": "30049000",
+      "category": "PHARMACEUTICALS",
+      "confidence": 0.95,
+      "notes": "Chapter 30 - Medicaments for therapeutic or prophylactic uses"
+    },
+    {
+      "id": "body_wash_liquid_001",
+      "priority": 100,
+      "patterns": [
+        "BODY WASH",
+        "SHOWER GEL",
+        "ST. IVES"
+      ],
+      "code": "34013000",
+      "category": "SOAP & BODY WASH",
+      "confidence": 0.95,
+      "notes": "Chapter 34 - Organic surface-active products for washing the skin"
+    },
+    {
+      "id": "marine_safety_light_001",
+      "priority": 110,
+      "patterns": [
+        "SAFETY LIGHT",
+        "FLASHLIGHT",
+        "TORCH LIGHT",
+        "STROBE LIGHT",
+        "SIGNAL LIGHT",
+        "EMERGENCY LIGHT",
+        "LED LIGHT STICK",
+        "CYALUME",
+        "GLOW STICK"
+      ],
+      "exclude": [
+        "EYE",
+        "MASCARA",
+        "EYELASH",
+        "MAKEUP"
+      ],
+      "code": "85319000",
+      "category": "SIGNALING EQUIPMENT",
+      "confidence": 0.9,
+      "notes": "Safety/signal lights \u2014 Chapter 85 signaling equipment parts, NOT eye makeup"
+    },
+    {
+      "id": "marine_air_horn_001",
+      "priority": 110,
+      "patterns": [
+        "AIR HORN",
+        "HORN, AIR",
+        "FOG HORN",
+        "SIGNAL HORN",
+        "HORN CANISTER",
+        "HORN REFILL"
+      ],
+      "code": "92089000",
+      "category": "SIGNALING INSTRUMENTS",
+      "confidence": 0.9,
+      "notes": "Air/signal horns \u2014 Chapter 92 signaling instruments, NOT clothing"
+    },
+    {
+      "id": "marine_magnetic_tool_001",
+      "priority": 110,
+      "patterns": [
+        "MAGNETIC PICK UP",
+        "MAGNETIC PICK-UP",
+        "PICK UP TOOL",
+        "PICK-UP TOOL",
+        "MAGNETIC RETRIEVER",
+        "TELESCOPING MAGNET"
+      ],
+      "code": "82059000",
+      "category": "HAND TOOLS",
+      "confidence": 0.9,
+      "notes": "Magnetic pick-up tools \u2014 Chapter 82 hand tools, NOT combs"
+    },
+    {
+      "id": "marine_fishing_snap_001",
+      "priority": 110,
+      "patterns": [
+        "FISHING SNAP",
+        "SNAP SWIVEL",
+        "FISHING FLOAT",
+        "BOBBER",
+        "TROLLING FLOAT",
+        "FISHING SINKER",
+        "SPLIT SHOT",
+        "TROLLING SKIRT",
+        "FISHING LURE",
+        "JIG HEAD",
+        "SOFT BAIT",
+        "SWIM BAIT"
+      ],
+      "code": "95079000",
+      "category": "FISHING TACKLE",
+      "confidence": 0.9,
+      "notes": "Fishing accessories \u2014 Chapter 95 fishing tackle, NOT press-fasteners"
+    },
+    {
+      "id": "marine_paint_roller_001",
+      "priority": 110,
+      "patterns": [
+        "PAINT ROLLER",
+        "ROLLER COVER",
+        "ROLLER REFILL",
+        "ROLLER SLEEVE",
+        "ROLLER FRAME",
+        "ROLLER TRAY",
+        "PAINT TRAY"
+      ],
+      "code": "96034020",
+      "category": "PAINT ROLLERS",
+      "confidence": 0.9,
+      "notes": "Paint rollers/covers \u2014 Chapter 96 paint rollers, NOT hair rollers"
+    },
+    {
+      "id": "3d_printer_filament_001",
+      "priority": 95,
+      "patterns": [
+        "3D PRINTER FILAMENT",
+        "PLA FILAMENT",
+        "PETG FILAMENT",
+        "PRINTER FILAMENT",
+        "FILAMENT 1.75MM",
+        "FILAMENT SPOOL"
+      ],
+      "code": "39169000",
+      "category": "PLASTIC MONOFILAMENT",
+      "confidence": 0.95
+    },
+    {
+      "id": "3d_printer_filament_002",
+      "priority": 95,
+      "patterns": [
+        "DIMENSIONAL ACCURACY",
+        "FDM PRINTER",
+        "PLA FILAMENT",
+        "PETG FILAMENT",
+        "PRINTER FILAMENT",
+        "SPOOL",
+        "3D PRINTER FILAMENT"
+      ],
+      "code": "39169000",
+      "category": "PLASTIC MONOFILAMENT",
+      "confidence": 0.95
+    },
+    {
+      "id": "hair_color_001",
+      "priority": 85,
+      "patterns": [
+        "HAIR COLOR",
+        "HAIR COLOUR",
+        "SEMI PERMANENT.*COLOR",
+        "HAIR DYE",
+        "HAIR TINT",
+        "LIQ H/C"
+      ],
+      "code": "33059000",
+      "category": "HAIR COLOR",
+      "confidence": 0.95
+    },
+    {
+      "id": "hair_treatment_001",
+      "priority": 85,
+      "patterns": [
+        "HAIR FERTILIZER",
+        "HAIR TREATMENT",
+        "HAIR FOOD",
+        "HAIR GROWTH",
+        "HAIR CREAM",
+        "HAIR GREASE",
+        "HAIR LOTION",
+        "HAIR MAYONNAISE",
+        "HAIR MASK",
+        "SCALP TREATMENT"
+      ],
+      "code": "33059000",
+      "category": "HAIR TREATMENT",
+      "confidence": 0.95
+    },
+    {
+      "id": "braid_gel_001",
+      "priority": 80,
+      "patterns": [
+        "BRAID GEL",
+        "BRAID CREAM",
+        "BRAIDING GEL",
+        "BRAIDING CREAM",
+        "BRAID WAX",
+        "LOCK GEL",
+        "LOCKS GEL",
+        "TWIST.*GEL",
+        "EDGE GEL"
+      ],
+      "code": "33059000",
+      "category": "HAIR STYLING",
+      "confidence": 0.95
+    },
+    {
+      "id": "ear_piercing_001",
+      "priority": 85,
+      "patterns": [
+        "EAR PIERCING",
+        "PIERCING INSTRUMENT",
+        "PIERCING KIT",
+        "PIERCING STUD",
+        "STERILIZED STUD",
+        "CAFLON.*STUD",
+        "CAFLON.*KIT",
+        "CAFLON.*INSTRUMENT",
+        "CAFLON.*PEN",
+        "CAFLON.*MARKER",
+        "CAFLON.*SOLUTION",
+        "CAFLON.*WIPE"
+      ],
+      "code": "90189000",
+      "category": "EAR PIERCING SUPPLIES",
+      "confidence": 0.95
+    }
+  ],
+  "chapter_determination": {
+    "cleaning_over_cosmetics": {
+      "description": "Cleaning products go to Chapter 34, NOT Chapter 33",
+      "indicators": [
+        "surfactant",
+        "cleans",
+        "wash",
+        "soap"
+      ],
+      "chapter": 34,
+      "not_chapter": 33
+    },
+    "disinfectants_chemical": {
+      "description": "Disinfectants are chemical products",
+      "indicators": [
+        "kills germs",
+        "disinfects",
+        "sanitizes"
+      ],
+      "chapter": 38,
+      "not_chapter": 33
+    }
+  },
+  "word_analysis": {
+    "noise_words": [
+      "ML",
+      "OZ",
+      "FL",
+      "GM",
+      "KG",
+      "PK",
+      "PC",
+      "DZ",
+      "CS",
+      "DS",
+      "BLACK",
+      "BROWN",
+      "BLONDE",
+      "RED",
+      "BLUE",
+      "WHITE",
+      "PINK",
+      "GOLD",
+      "SILVER",
+      "NEW",
+      "FORMULA",
+      "IMPROVED",
+      "ORIGINAL",
+      "PACK",
+      "SET",
+      "ASST",
+      "ASSORTED",
+      "SMALL",
+      "MEDIUM",
+      "LARGE",
+      "JUMBO",
+      "MINI",
+      "PLUS",
+      "XL",
+      "XXL"
+    ]
+  }
+}

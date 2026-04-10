@@ -1,0 +1,118 @@
+# Walid Magnate S.A. Invoice Format Specification
+# Panama-based fragrance/perfume distributor
+# Format: Spanish invoice with tabular line items
+
+name: walid_magnate
+version: "1.0"
+description: "Walid Magnate S.A. Panama fragrance distributor invoices"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  all_of:
+    - "WALID MAGNATE"
+    - "F A C T U R A"
+  any_of:
+    - "No Pedido:"
+    - "No Factura:"
+    - "CLIENTE:"
+
+# ─── OCR Normalization ─────────────────────────────────────
+ocr_normalize:
+  - pattern: '(\d+)\s+(\d{2})(?=\s*[\}\)\|\s]*$)'
+    replace: '\1.\2'
+    description: "Fix space-separated decimals"
+
+  - pattern: '(\d+),(\d{3})'
+    replace: '\1\2'
+    description: "Remove thousands separator"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - 'No\s+Factura\s*:\s*(\d+)'
+      - 'No\s+Pedido\s*:\s*(\d+/\d+)'
+    required: true
+
+  date:
+    patterns:
+      - 'Fecha\s+Pedido\s*:\s*(\d{2}/\d{2}/\d{4})'
+      - 'Fecha\s+Vencim\s*:\s*(\d{2}/\d{2}/\d{4})'
+    required: true
+
+  supplier_name:
+    value: "WALID MAGNATE, S. A."
+
+  supplier_address:
+    value: "Panama City, Panama"
+
+  country_code:
+    value: "PA"
+
+  customer_name:
+    patterns:
+      - 'CLIENTE\s*:\s*(.+)'
+
+  shipping_address:
+    patterns:
+      - 'Consignado\s+a\s*:\s*(.+?)(?=Forma de pago)'
+
+  total:
+    patterns:
+      - 'GRAN\s+TOTAL\s+US\$\s*:\s*([\d,]+\.?\d*)'
+      - 'SUBTOTAL\s+US\$\s*:\s*([\d,]+\.?\d*)'
+      - 'Total\s*:\s*\$?([\d,]+\.?\d*)'
+      - 'Monto\s+Total\s*:\s*\$?([\d,]+\.?\d*)'
+    type: currency
+
+# ─── Item Extraction ───────────────────────────────────────
+items:
+  strategy: line
+
+  line:
+    # Format: Qty Reference Description Size [D/H] Price Total
+    # Example: 24 591872 LAT-PERFUMED SPRAY YARA MOI 200 ML D 1.5 5 37.20
+    # Example: 6 456065 LAT-LATTAFA RAED LUXE EDP SP 100 ML H 14.0 0 84.00
+    # Example: 6 AHP1900 AL HARAMAIN BELLE EDP SP 75 ML 15.0 0 90.00
+    pattern: '^(\d+)\s+(\d{6}|[A-Z]{3}\d{4})\s+(.+?)\s+(\d+\s*(?:ML|PZAS|pzas))\s+(?:([DHX])\s+)?([\d.]+)\s+(\d+)\s+([\d.]+)\s*$'
+    field_map:
+      quantity: 1
+      sku: 2
+      description: 3
+      size: 4
+      dh_code: 5
+      unit_price: 6
+      unknown: 7
+      total_cost: 8
+    types:
+      quantity: integer
+      unit_price: currency
+      total_cost: currency
+    clean_fields:
+      description:
+        - pattern: '\s+EDP\s+SP'
+          replace: ' EDP SPRAY'
+        - pattern: '\s+SP\s*$'
+          replace: ''
+        - pattern: '\s+ML$'
+          replace: ''
+
+# ─── Section Markers ───────────────────────────────────────
+sections:
+  items_start:
+    - "Cantidad"
+    - "Referencia"
+    - "Descripcion"
+    - "Precio"
+    - "Monto"
+
+  items_end:
+    - "Total"
+    - "Subtotal"
+    - "Forma de pago"
+    - "Derecho autor"
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 1
+  require_total: false

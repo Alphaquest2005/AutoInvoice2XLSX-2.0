@@ -1,0 +1,105 @@
+# Brunger Export Invoice Format Specification
+# Used by Magma Products, Taco Metals, and other suppliers
+# Special handling: PDF text often has NO spaces between item code and description
+name: brunger_export
+version: "1.1"
+description: "Brunger Export wholesale invoices (Magma, Taco, etc.)"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  any_of:
+    - "Brunger"
+    - "BRUNGER"
+    - "BrungerExport"
+  none_of:
+    - "HBL"
+    - "MBL:"
+    - "FMC#"
+    - "CARGO N.O.S"
+
+# ─── OCR Normalization ─────────────────────────────────────
+# Insert space between concatenated item code and description
+# Example: "10-264ControlValveRegulator" → "10-264 ControlValveRegulator"
+# Pattern matches item codes like 10-264, A10-220 where description starts with Upper+lower
+ocr_normalize:
+  - pattern: '(\d{1,3}-[\w-]+?)([A-Z][a-z])'
+    replace: '\1 \2'
+    description: "Insert space between item code and description (Mixed case)"
+
+  - pattern: '([A-Z]\d{1,3}-[\w-]+?)([A-Z][a-z])'
+    replace: '\1 \2'
+    description: "Handle item codes starting with letter (e.g., A10-220)"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - '#INV(\d+)'
+    required: true
+
+  date:
+    patterns:
+      - '(\d{2}/\d{2}/\d{4})'
+
+  supplier_name:
+    value: "Brunger Export"
+
+  supplier_address:
+    value: "4901 NW 17th Way, Suite 600, Fort Lauderdale, FL 33309"
+
+  country_code:
+    value: "US"
+
+  total:
+    patterns:
+      - '(?:^|\n)\s*Total\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+  subtotal:
+    patterns:
+      - 'Subtotal\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+  shipping:
+    patterns:
+      - 'ShippingCost\s+\$?([\d,]+\.\d{2})'
+      - 'Shipping\s*Cost\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+# ─── Item Extraction ───────────────────────────────────────
+items:
+  strategy: line
+
+  line:
+    # Format (spaces may or may not exist between code and description):
+    # "QTY UNIT QTY ITEM_CODE[+DESC] $RATE $AMOUNT ORIGIN"
+    # Examples:
+    #   6 EA 6 10-264ControlValveRegulator,Gas $32.99 $197.94 CN
+    #   2 RL 2 V30-1008W25-1FLEX-TRIMKIT,1/4" $45.72 $91.44 US
+    #   After normalize (if applicable): 6 EA 6 10-264 ControlValveRegulator,Gas $32.99 $197.94 CN
+    #
+    # Capture: qty(shipped), combined item+desc, rate, amount
+    # The SKU is extracted later by the PO matcher using price/qty matching
+    pattern: '(\d+)\s+(?:EA|RL|PC|PK|BX|CS|DZ|SET)\s+(\d+)\s+(.+?)\s+\$([\d,.]+)\s+\$([\d,]+\.\d{2})\s+([A-Z]{2})'
+    field_map:
+      quantity: 2
+      sku: 3
+      unit_price: 4
+      total_cost: 5
+    types:
+      quantity: integer
+      unit_price: currency
+      total_cost: currency
+
+# ─── Section Markers ───────────────────────────────────────
+sections:
+  items_start:
+    - "Ordered Units Quantity Item Rate Amount Origin"
+  items_end:
+    - "NAMEOFMFG"
+    - "Total:"
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 1
+  require_total: false

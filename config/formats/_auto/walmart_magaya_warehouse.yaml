@@ -1,0 +1,60 @@
+# Auto-generated format spec for walmart
+# Generated on 2026-02-13T10:40:10.178898
+# Will be promoted to formats/ on successful processing
+
+name: walmart_magaya_warehouse
+version: "1.0"
+description: "Walmart Warehouse Receipt via Magaya System"
+
+detect:
+  all_of:
+    - "Warehouse Receipt"
+    - "WALMART"
+  any_of:
+    - "Magaya"
+    - "tracking.magaya.com"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Receipt\s+#\s+(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Received On\s+(\w{3}/\d{2}/\d{4})'
+  supplier_name:
+    value: "Walmart"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Total\s+[\$]?([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^\d+\s+Box\s+[\d.]+x[\d.]+x[\d.]+in\s+(SP GENERAL CARGO)\s+([\d.]+)\s+lb'
+    field_map:
+      description: 1
+      weight: 2
+    types:
+      weight: float
+    skip_patterns:
+      - '^Pcs Package'
+      - '^St. Location'
+      - '^Qty Expiration'
+      - '^Tracking Details'
+      - '^https://'
+      - '^\d+/\d+/\d+,\s+\d+:\d+\s+(AM|PM)'
+    generated_fields:
+      sku: "WALMART-{index}"
+
+sections:
+  items_start:
+    - "Pcs Package Dimensions Description Weight Volume"
+  items_end:
+    - "Tracking Details"
+
+validation:
+  min_items: 1

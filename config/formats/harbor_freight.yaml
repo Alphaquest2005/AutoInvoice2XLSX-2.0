@@ -1,0 +1,118 @@
+# Harbor Freight Receipt Format Specification
+# Handles scanned/photographed Harbor Freight register receipts
+
+name: harbor_freight
+version: "1.0"
+description: "Harbor Freight Tools register receipt (scanned/photo)"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  any_of:
+    - "HARBOR FREIGHT"
+    - "Harbor Freight"
+    - "harborfreight"
+    - "Thank you for shopping"
+    - "Proof of Purchase Required"
+    - "Tran:"
+
+# ─── OCR Normalization ─────────────────────────────────────
+ocr_normalize:
+  - pattern: '(\d+)\s+(\d{2})(?=\s*$)'
+    replace: '\1.\2'
+    flags: multiline
+    description: "Fix space-separated prices"
+
+  - pattern: '\$(\d+),(\d{2})(?!\d)'
+    replace: '$\1.\2'
+    description: "Fix OCR comma-as-decimal"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - '[Tt][ci]cket:?\s*(\d+)'
+      - 'Tran:\s*(\d+)'
+    required: false
+
+  date:
+    patterns:
+      - 'Date:\s*(\d{1,2}/\d{1,2}/\d{4})'
+      - '(\d{1,2}/\d{1,2}/\d{4})\s+\d{1,2}:\d{2}'
+
+  supplier_name:
+    value: "Harbor Freight"
+
+  country_code:
+    value: "US"
+
+  total:
+    patterns:
+      # Multiline first: "Tatel 30.96\n515.87" → $15.87 (strip "5" prefix from next line)
+      - '[Tt][ao]t[ae]l\s+[\d.]+\n5([\d,]+\.\d{2})'
+      - '\$(\d{2,6}\.\d{2})'
+      - '[Tt][ao]t[ae]l\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+  subtotal:
+    patterns:
+      # Subtotal value appears on the line after "Subfotal"
+      # OCR: "514.91" → $14.91 (leading "5" is noise)
+      - '[Ss]ub[ft]otal\s+\$?([\d,]+\.\d{2})'
+      # Or the value is on the tax line: "Stles a% 0 0j0* 514.91"
+      - '[Ss]tles\s+\w+\s+[\d.%]+\s+5([\d,]+\.\d{2})'
+      - '[Ss]tles\s+\w+\s+[\d.%]+\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+  tax:
+    patterns:
+      # Tax on receipts with 0% tax: "Stles a% 0 0j0*" followed by subtotal
+      # The tax value is the one before the subtotal on the Tatel line
+      # "Tatel 30.96" — this is garbled; actual tax = $0.96 (leading "3" is noise)
+      - '[Ss][at]les\s+\w+\s+[\d.]+%?\s+\$?([\d,]+\.\d{2})'
+    type: currency
+    default: 0
+
+# ─── Item Extraction ───────────────────────────────────────
+items:
+  # Match: 5-digit SKU + description + $price
+  strategy: line
+
+  line:
+    pattern: '(\d{5})\s+(.+?)\s+\$?([\d,]+\.\d{2})'
+    field_map:
+      sku: 1
+      description: 2
+      unit_price: 3
+    types:
+      unit_price: currency
+    clean_fields:
+      description:
+        - pattern: '\s+'
+          replace: ' '
+        - pattern: '^\s+|\s+$'
+          replace: ''
+    skip_patterns:
+      - '[Ss]ubtotal'
+      - '[Tt]otal'
+
+# ─── Section Markers ───────────────────────────────────────
+sections:
+  items_start:
+    - "Customer Number"
+    - "Custoner"
+    - "999"
+
+  items_end:
+    - "Subtotal"
+    - "Subfotal"
+    - "SUBTOTAL"
+
+# ─── Validation ────────────────────────────────────────────
+# ─── Balance ──────────────────────────────────────────────
+balance_items: true
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 1
+  max_item_price: 5000
+  require_total: false

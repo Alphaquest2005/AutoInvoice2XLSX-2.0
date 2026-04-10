@@ -1,0 +1,70 @@
+# Auto-generated format spec for unknown_compact
+# Generated on 2026-04-04T00:42:28.117143
+# Will be promoted to formats/ on successful processing
+
+name: unknown_compact
+version: "1.0"
+description: "Compact invoice format with items on single lines containing price at end, mixed with multi-line descriptions."
+
+detect:
+  all_of:
+    - "Free returns within 90 days"
+    - "Item details"
+  any_of:
+    - "By @"
+    - "By"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order\s*[:#]?\s*(\d+)'
+      - 'Invoice\s*[:#]?\s*(\d+)'
+      - '#(\d{4,})'
+    required: false
+  date:
+    patterns:
+      - '\d{1,2}[/-]\d{1,2}[/-]\d{2,4}'
+      - '(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+\d{1,2},?\s+\d{4}'
+  supplier_name:
+    value: "unknown_compact"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Total[:\s]+\$?(\d+\.\d{2})'
+      - 'Grand Total[:\s]+\$?(\d+\.\d{2})'
+      - 'Amount Due[:\s]+\$?(\d+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^(.+?)\s+\$(\d+\.\d+)$'
+    field_map:
+      description: 1
+      unit_price: 2
+    types:
+      unit_price: currency
+    skip_patterns:
+      - '^Page \d+/\d+'
+      - '^Free returns'
+      - '^Item details'
+      - '^\s*$'
+      - '^\s*[a-zA-Z]+\s+[a-zA-Z]+\s*$'
+    generated_fields:
+      quantity: 1
+      sku: "ITEM-{index}"
+
+sections:
+  items_start:
+    - "Item details"
+    - "Order Details"
+    - "Compact Business Laptop Bag"
+  items_end:
+    - "Free returns"
+    - "Total"
+    - "Subtotal"
+
+validation:
+  min_items: 1
+  max_item_price: 10000

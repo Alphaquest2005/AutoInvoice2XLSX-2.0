@@ -1,0 +1,80 @@
+# Donovan Marine Invoice Format Specification
+# Note: "Donovan" does NOT appear in the PDF text
+# Detection uses address and layout markers instead
+name: donovan_marine
+version: "1.1"
+description: "Donovan Marine Inc. marine supply invoices"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  all_of:
+    - "AMOUNT DUE:"
+    - "Item ID"
+  any_of:
+    - "Shipped From: Fort Lauderdale"
+    - "Shipped From:"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - 'INVOICE\n(\d{7})'
+      - 'INVOICE\s+(\d{7})'
+    required: true
+
+  date:
+    patterns:
+      - '(\d{2}/\d{2}/\d{4})\s+\d{2}:'
+
+  supplier_name:
+    value: "Donovan Marine Inc. (GRE)"
+
+  country_code:
+    value: "US"
+
+  total:
+    patterns:
+      - 'AMOUNT DUE:\s*([\d,]+\.\d{2})'
+    type: currency
+
+# ─── Item Extraction ───────────────────────────────────────
+# Donovan items are on single lines:
+#   "qty_ord qty_ship 0 UOM catalog | short_code UOM unit_price ext_price"
+# Description is on the next line(s) but we don't need it for matching.
+items:
+  strategy: line
+
+  line:
+    # Match: qty_ord qty_ship 0 UOM [C ] catalog|code UOM price ext_price
+    # Standard:  10 10 0 EA 302961 | 90104 EA 15.46 154.60
+    # Parens:    20 20 0 RL 855506 | 09221 (7100272262) RL 5.27 105.40
+    # No pipe:   6 6 0 EA 7-6896 EA 7.13 42.78
+    # Multi-word: 4 4 0 EA 788003 | M37 31 USA EA 183.42 733.68
+    pattern: '^\d+\s+(\d+)\s+\d+\s+(?:EA|BX|PK|RL|QT|GL|BG|PT)\s+(?:C\s+)?(\S+?)(?:\s*\|\s*(.+?))?\s+(?:EA|BX|PK|RL|QT|GL|BG|PT)\s+([\d.]+)\s+([\d,]+\.\d{2})'
+    field_map:
+      quantity: 1
+      catalog_num: 2
+      sku: 3
+      unit_price: 4
+      total_cost: 5
+    types:
+      quantity: integer
+      unit_price: currency
+      total_cost: currency
+
+    skip_patterns:
+      - 'Ordered As:'
+
+# ─── Section Markers ───────────────────────────────────────
+sections:
+  items_start:
+    - "Item ID"
+
+  items_end:
+    - "ORIGINAL"
+    - "AMOUNT DUE:"
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 1
+  require_total: true

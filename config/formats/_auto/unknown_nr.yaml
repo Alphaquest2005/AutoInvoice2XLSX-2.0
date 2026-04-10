@@ -1,0 +1,68 @@
+# Auto-generated format spec for unknown_nr
+# Generated on 2026-04-06T10:36:01.422592
+# Will be promoted to formats/ on successful processing
+
+name: unknown_nr
+version: "1.0"
+description: "Invoice format for Importadores Y Exportadores with itemized lines including bulk, weight, and dimensions."
+
+detect:
+  all_of:
+    - "IMPORTADORES Y EXPORTADORES"
+    - "ZONA LIBRE DE COLON"
+  any_of:
+    - "R.U.C.: 11076-88-112130"
+    - "navin@navinzl.com"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order\s+Nr\.\s+(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Date\s+(\d{1,2}\s*-\s*[A-Za-z]{3}\s*-\s*\d{4})'
+  supplier_name:
+    value: "IMPORTADORES Y EXPORTADORES"
+  country_code:
+    value: "PA"
+  total:
+    patterns:
+      - 'TOTAL\s+\$\s*([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^\s*(\d+)\s+([A-Z0-9\-]+)\s+(.+?)\s+[\d\.]+\s+kg\s+[\d\.]+\s+f3\s+(DOZ|PZA|SET|ROLL)\s+([\d,]+\.?\d*)\s+([\d,]+\.?\d*)\s+([\d,]+\.?\d*)\s*$'
+    field_map:
+      sku: 2
+      description: 3
+      unit_of_measure: 4
+      quantity: 5
+      unit_price: 6
+      total_price: 7
+    types:
+      quantity: integer
+      unit_price: currency
+      total_price: currency
+    skip_patterns:
+      - '^Bulks Product Description'
+      - '^Monday,'
+      - '^Page \d+ of \d+'
+      - '^93 Bulks'
+      - '^SALIDA'
+      - '^Charges'
+      - '^Sub-Total'
+      - '^Discount'
+      - '^TOTAL'
+
+sections:
+  items_start:
+    - "Bulks Product Description"
+  items_end:
+    - "Sub-Total"
+
+validation:
+  min_items: 1
+  max_item_price: 10000

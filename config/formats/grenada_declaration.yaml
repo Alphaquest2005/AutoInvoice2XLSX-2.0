@@ -1,0 +1,119 @@
+name: grenada_declaration
+version: "1.0"
+description: "Grenada Simplified Declaration Form (scanned/photo)"
+
+# ─── Detection ─────────────────────────────────────
+detect:
+  any_of:
+    - "Simplified Declaration"
+    - "GRENada"
+    - "To be Used Only"
+  all_of:
+    - "WARNING:"
+    - "Consignee:"
+    - "NAYLOR"
+
+# ─── Metadata Extraction ─────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - "Man Reg Number:\\s*(\\d+/\\d+)"
+    value: "GRE-{matched}"
+    required: false
+    
+  date:
+    patterns:
+      - "(\\d{1,2}/\\d{4})"
+      
+  supplier_name:
+    value: "NAYLOR, RICHard"
+    
+  country_code:
+    value: "GD"
+    
+  total:
+    patterns:
+      - "Customs Value\\s*\\$?([\\d,]+\\.\\d{2})"
+    type: currency
+    
+  freight:
+    patterns:
+      - "Freight\\s*\\$?([\\d.]+\\.\\d{2})"
+    type: currency
+    
+  tax:
+    patterns:
+      - "(\\d+\\.\\d+)%\\s*\\$?([\\d,]+\\.\\d{2})"
+    type: currency
+    default: 0
+    
+  discount:
+    patterns:
+      - "Discount\\s*\\$?([\\d,]+\\.\\d{2})"
+    type: currency
+    default: "0"
+    
+# ─── Item Extraction ───────────────────────────────────────
+items:
+  strategy: block
+  
+  block:
+    # Start pattern: "Man Reg Number" or "WayBill Number"
+    end_pattern: "^\\s*$"
+    # End pattern: "^Customs Value|^SUBtotal|DISCOUNT"
+    
+    skip_patterns:
+      - "Particulars of declaration"
+      - "WARNING: You can be prosecuted"
+      - "^For Official Use Only"
+    
+    fields:
+      sku:
+        pattern: "(\\d+)"
+        
+      description:
+        pattern: "Description of Goods\\s+(.+?)\\s+Customs Value\\s*(.+?)\\s*(.+?)\\s*Weight \\s+Supplementary"
+        clean:
+          - pattern: "\\s+"
+            replace: ""
+          - pattern: "\\s+"
+            replace: " "
+          - pattern: "^Particulars of declaration"
+            replace: ""
+          - pattern: "^Weight \\s+Supplementary"
+            replace: ""
+            
+      customs_value:
+        pattern: "Customs Value\\s*\\$?([\\d,]+\\.\\d{2})"
+        type: currency
+        
+      weight:
+        pattern: "Weight\\s*([\\d,.]+)"
+        type: number
+        
+      unit_price:
+        pattern: "Customs Value\\s*\\$?([\\d,]+\\.\\d{2})"
+        type: currency
+        
+      quantity:
+        default: 1
+        type: integer
+        
+    types:
+      quantity: integer
+      customs_value: currency
+      weight: number
+      unit_price: currency
+      quantity: integer
+
+# ─── Section Markers ─────────────────────────────────
+sections:
+  items_start:
+    - "Particulars of declaration"
+  items_end:
+    - "For Official Use Only"
+    
+# ─── Validation ──────────────────────────────────────
+validation:
+  min_items: 1
+  require_total: false

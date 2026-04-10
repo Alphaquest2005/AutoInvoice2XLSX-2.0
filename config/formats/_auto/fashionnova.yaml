@@ -1,0 +1,62 @@
+# Auto-generated format spec for fashionnova
+# Generated on 2026-03-17T08:42:07.098613
+# Will be promoted to formats/ on successful processing
+
+name: fashionnova
+version: "1.0"
+description: "Fashion Nova invoice format with itemized list including quantity, subtotal, tax, and total amount."
+
+detect:
+  all_of:
+    - "FASHIONNOVA"
+    - "Order Number:"
+    - "Tracking Information"
+  any_of:
+    - "Fashion Nova"
+    - "www.fashionnova.com"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order Number:\s+(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Order Date/Time:\s+([A-Za-z]+ \d{1,2}(?:st|nd|rd|th), \d{4})'
+  supplier_name:
+    value: "Fashion Nova"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Total Payment Amount:\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^(.+?)\s+(\d+)\s+\$[\d,]+\.\d{2}\s+\$[\d,]+\.\d{2}\s+\$[\d,]+\.\d{2}\s+\$[\d,]+\.\d{2}\s+\$([\d,]+\.\d{2})\s*$'
+    field_map:
+      description: 1
+      quantity: 2
+      total: 3
+    types:
+      quantity: integer
+      total: currency
+    skip_patterns:
+      - '^Item Description'
+      - '^Quantity'
+      - '^Amount'
+      - '^Total Subtotal'
+      - '^Tracking Number'
+      - '^Payment Method'
+      - '^For Questions'
+
+sections:
+  items_start:
+    - "Item Description"
+  items_end:
+    - "For Questions"
+
+validation:
+  min_items: 1

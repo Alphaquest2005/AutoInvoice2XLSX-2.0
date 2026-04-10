@@ -1,0 +1,351 @@
+# Invoice Format Definitions
+# ─────────────────────────────────────────────────────────────
+# The text_parser.py loads this file to detect and parse invoice formats.
+# To add support for a new supplier/format, add a new entry below.
+# The LLM agent can add new formats here — NO Python code changes needed.
+#
+# Each format needs:
+#   detect: list of strings that ALL must appear in the text to match
+#   metadata: regex patterns to extract invoice-level fields (group 1 = value)
+#   items: how to detect and parse line items
+#   page_markers: strings that indicate a page header (skip these lines)
+#   totals_markers: strings that indicate the totals section (stop parsing items)
+
+formats:
+
+  # ─── Format 1: Amazon Orders — Print-friendly order summary ─────────
+  - name: "amazon_order"
+    description: "Amazon.com order invoices/print view"
+    detect:
+      - "Order #"
+      - "Ship to"
+      - "Sold by:"
+      - "Supplied by:"
+    metadata:
+      invoice_number:
+        - 'Order\s*#?\s*:?\s*(\d{3}-\d{7}-\d{7})'
+        - 'Order\s+ID\s*:\s*(\d{3}-\d{7}-\d{7})'
+      invoice_date:
+        - 'Order\s+placed\s+(\w+\s+\d+,\s+\d{4})'
+        - '(\d{1,2}/\d{1,2}/\d{4})'
+      supplier_name:
+        - 'Sold\s+by:\s*(Amazon\.com)'
+      customer_name:
+        - 'Ship\s+to\s+(.+?)(?:\n|$)'
+      customer_address:
+        - 'Ship\s+to\s+.*?\n\s*(.+?)\n\s*(.+?)\n'
+      total:
+        - 'Grand\s+Total:\s*(?:XCD\s+)?([\d,]+\.\d{2})'
+        - 'Total\s*:\s*(?:XCD\s+)?([\d,]+\.\d{2})'
+      sub_total:
+        - 'Item\(s\)\s+Subtotal:\s*(?:XCD\s+)?([\d,]+\.\d{2})'
+      discount:
+        - 'Buy\s+Again\s+&\s+Save:\s*-XCD\s+([\d,]+\.\d{2})'
+        - 'Multibuy\s+Discount:\s*-XCD\s+([\d,]+\.\d{2})'
+      freight:
+        - 'Shipping\s+&\s+Handling:\s*XCD\s+([\d,]+\.\d{2})'
+    country_code: "US"
+    items:
+      # Amazon items are multi-line blocks with no header row
+      # Each item block:
+      #   "Delivered January 12" - skip
+      #   "Your package was delivered..." - skip
+      #   Product name (line 1)
+      #   Product details (line 2)
+      #   "Sold by: Amazon.com" - skip
+      #   "Supplied by: Other" - skip
+      #   Quantity (standalone number)
+      #   "Return or replace items:..." - skip
+      #   Price ($X.XX)
+      header_regex: '(?!)'  # No header row
+      line_regex: '^([A-Z][\w\s&\''\-]+)'  # Product name starts with capital letter
+      field_map:
+        description: 1
+      continuation_lines: true
+      # Custom parsing for Amazon multi-line items
+      multi_line_parser: "amazon"
+    page_markers:
+      - "Order Details"
+      - "Order Summary"
+      - "Conditions of Use"
+      - "Privacy Notice"
+      - "Back to top"
+    totals_markers:
+      - "Conditions of Use"
+      - "Privacy Notice"
+      - "Back to top"
+      - "Consumer Health Data"
+      - "Your Ads Privacy"
+
+  # ─── Format 2: Absolute New York — ITEM # DESCRIPTION UNITS ─────────
+  - name: "absolute_original"
+    description: "Absolute New York invoices with ITEM # / DESCRIPTION / UNITS columns"
+    detect:
+      - "ITEM #"
+      - "DESCRIPTION"
+      - "UNITS"
+      - "UNIT PRICE"
+    metadata:
+      invoice_number:
+        - 'Invoice\\s*#\\s*:\\s*(\\d+)'
+        - 'Invoice\\s+(\\d+)\\s+Date'
+      invoice_date:
+        - 'Invoice\\s*Date\\s*:\\s*(\\d+/\\d+/\\d+)'
+      supplier_name:
+        - '(ABSOLUTE\\s+NEW\\s+YORK)'
+      supplier_address:
+        - '(\\d+\\s+Pinelawn\\s+Road.*?(?:NY|New York)\\s+\\d{5})'
+      customer_name:
+        - 'BILL\\s*TO\\s*:.*?\\n\\s*(.+?)\\s*\\(\\d+\\)'
+      customer_code:
+        - 'BILL\\s*TO\\s*:.*?\\n\\s*.+?\\s*\\((\\d+)\\)'
+        - 'Customer\\s+(\\d+)'
+      customer_address:
+        - 'BILL\\s*TO\\s*:.*?\\n.*?\\n\\s*(.+?\\d{5})'
+      shipped_via:
+        - 'Shipped\\s+Via\\s*:?\\s*(.+?)(?:\\s{2,}|\\n)'
+      total:
+        - 'Invoice\\s+Total\\s+([\\d,]+\\.\\d{2})'
+        - 'Due\\s+Amount\\s+([\\d,]+\\.\\d{2})'
+      sub_total:
+        - 'Sub\\s*Total\\s+([\\d,]+\\.\\d{2})'
+      discount:
+        - 'Discount\\s+([\\d,]+\\.\\d{2})'
+      freight:
+        - 'Freight\\s+Charge\\s+([\\d,]+\\.\\d{2})'
+        - 'Freight\\s+([\\d,]+\\.\\d{2})'
+      credits:
+        - 'Credit\\s+Amount\\s+([\\d,]+\\.\\d{2})'
+    country_code: "US"
+    items:
+      header_regex: 'ITEM\\s*#\\s+DESCRIPTION\\s+UNITS'
+      line_regex: '^([A-Za-z][A-Za-z0-9\\-_/\\.]+)\\s+(.+?)\\s+(\\d+)\\s+([\\d,]+\\.\\d{2})(?:\\s+([\\d,]+\\.\\d{2}))?\\s*$'
+      field_map:
+        sku: 1
+        description: 2
+        quantity: 3
+        unit_price: 4
+        total: 5
+      upc_regex: '^UPC:\\s*(\\S+)'
+      continuation_lines: true
+    page_markers:
+      - "INVOICE"
+      - "Pinelawn Road"
+      - "Melville, NY"
+      - "Tel:"
+      - "Fax:"
+      - "BILL TO"
+      - "SHIP TO"
+      - "Customer #"
+      - "Order Date"
+      - "PREPAY:"
+      - "T/F"
+    totals_markers:
+      - "Carton Qty"
+      - "Sub Total"
+      - "Discount"
+      - "Freight Charge"
+      - "Invoice Total"
+      - "Bounce Fee"
+      - "Credit Amount"
+      - "Unpaid Balance"
+      - "Due Amount"
+      - "Packed by"
+      - "ABSOLUTE NEW YORK TERMS"
+      - "Freight "
+      - "Product "
+      - "Tax "
+      - "Payment Details"
+      - "Amount Due"
+      - "Shipping Method"
+
+  # ─── Format 3: Absolute New York — Line Item Ordered Shipped ────────
+  - name: "absolute_alt"
+    description: "Alternate Absolute New York format with Line/Item/Ordered/Shipped/Price/Extension"
+    detect:
+      - "Line"
+      - "Item"
+      - "Ordered"
+      - "Shipped"
+      - "Price"
+      - "Extension"
+    metadata:
+      invoice_number:
+        - 'Invoice\\s+(\\d+)\\s+Date'
+        - 'Invoice\\s*#?\\s*:?\\s*(\\d+)'
+      invoice_date:
+        - 'Date\\s+(\\d+/\\d+/\\d+)'
+        - 'Invoice\\s*Date\\s*:\\s*(\\d+/\\d+/\\d+)'
+      supplier_name:
+        - '(ABSOLUTE\\s+NEW\\s+YORK)'
+      customer_name:
+        - 'Sold\\s+To\\s*:\\s*(.+?)(?:\\s+Ship\\s+To:|\\n)'
+      customer_code:
+        - 'Customer\\s+(\\d+)'
+      shipped_via:
+        - '\\d+/\\d+/\\d+\\s+[\\w\\s]+?\\s{2,}(.+?)\\s+Page\\s+\\d+'
+        - 'Ship\\s+Via\\b.*?\\n\\s*(.+?)(?:\\s{2,}|\\n)'
+      total:
+        - 'Invoice\\s+Total\\s+([\\d,]+\\.\\d{2})'
+      sub_total:
+        - 'Sub\\s*Total\\s+([\\d,]+\\.\\d{2})'
+      discount:
+        - 'Discount\\s+([\\d,]+\\.\\d{2})'
+      freight:
+        - 'Freight\\s+Charge\\s+([\\d,]+\\.\\d{2})'
+        - 'Freight\\s+([\\d,]+\\.\\d{2})'
+    country_code: "US"
+    items:
+      header_regex: 'Line\\s+Item\\s+Ordered\\s+Shipped\\s+Price\\s+Extension'
+      line_regex: '^(\\d+(?:\\.\\d+)?)\\s+([A-Za-z0-9][A-Za-z0-9\\-_/\\.]*)\\s+(\\d+)Unit\\s+(\\d+)\\s+([\\d,]+\\.\\d+)Unit\\s+([\\d,]+\\.\\d{2})\\s*$'
+      field_map:
+        line_number: 1
+        sku: 2
+        ordered: 3
+        quantity: 4   # shipped qty
+        unit_price: 5
+        total: 6
+      upc_regex: '^UPC:\\s*(\\S+)'
+      continuation_lines: true
+      filter_zero_cost_subitems: true
+    page_markers:
+      - "Invoice"
+      - "Order "
+      - "Salesperson"
+      - "Sold To:"
+      - "Ship To:"
+      - "Ship Via"
+    totals_markers:
+      - "Carton Qty"
+      - "Sub Total"
+      - "Discount"
+      - "Freight Charge"
+      - "Invoice Total"
+      - "Freight "
+      - "Product "
+      - "Tax "
+      - "Payment Details"
+      - "Amount Due"
+
+  # ─── Format 4: Beauty 21 Cosmetics — NO. ITEM ITEM DESCRIPTION ─────
+  - name: "beauty21"
+    description: "Beauty 21 Cosmetics (LA Girl, LA Colors) invoices"
+    detect:
+      - "NO."
+      - "ITEM"
+      - "ITEM DESCRIPTION"
+      - "QTY"
+      - "UOM"
+      - "UNIT PRICE"
+      - "EXT. PRICE"
+    metadata:
+      invoice_number:
+        - 'Invoice\\s+No\\.?\\s*:?\\s*(\\S+)'
+      invoice_date:
+        - 'Invoice\\s+Date\\s*:?\\s*(\\d+/\\d+/\\d+)'
+      supplier_name:
+        - '(BEAUTY\\s+21\\s+COSMETICS,?\\s*INC\\.?)'
+        - '(LA\\s+GIRL,?\\s*INC\\.?)'
+      supplier_address:
+        - '(\\d+\\s+S\\.?\\s+Archibald\\s+Avenue)'
+      customer_name:
+        - 'BILL\\s+TO\\s*:\\s*\\n\\s*(.+?)(?:\\s{2,}|\\n)'
+      customer_code:
+        - 'Customer\\s+ID\\s*:\\s*(\\S+)'
+      shipped_via:
+        - 'SHIP\\s+VIA.*?\\n\\s*(.+?)(?:\\s{2,}|\\n)'
+      total:
+        - 'Invoice\\s+Total\\s*(?:\\(USD\\)\\s*)?:?\\s*([\\d,]+\\.\\d+)'
+        - 'Total\\s*:?\\s*([\\d,]+\\.\\d+)\\s*$'
+        - 'TOTAL\\s+([\\d,]+\\.\\d+)'
+      sub_total:
+        - 'Sub\\s*Total\\s*:?\\s*([\\d,]+\\.\\d+)'
+        - 'Sales\\s+Total\\s*:?\\s*([\\d,]+\\.\\d+)'
+      discount:
+        - 'Discount\\s+([\\d,]+\\.\\d{2})'
+      freight:
+        - 'Freight\\s+([\\d,]+\\.\\d{2})'
+    country_code: "US"
+    items:
+      header_regex: 'NO\\.\\s+ITEM\\s+ITEM\\s+DESCRIPTION\\s+QTY\\s+UOM\\s+UNIT\\s+PRICE\\s+EXT\\.\\s*PRICE'
+      line_regex: '^(\\d+)\\s+(\\S+)\\s+(.+?)\\s+(\\d+)\\s+\\S+\\s+([\\d,]+\\.\\d{4})\\s+([\\d,]+\\.\\d{4})\\s*$'
+      field_map:
+        line_number: 1
+        sku: 2
+        description: 3
+        quantity: 4
+        unit_price: 5
+        total: 6
+      upc_regex: '^UPC:\\s*(\\S+)'
+      continuation_lines: true
+      filter_zero_qty: true
+    page_markers:
+      - "BEAUTY 21 COSMETICS"
+      - "Archibald Avenue"
+      - "Ontario, California"
+      - "BILL TO:"
+      - "SHIP TO:"
+      - "CUSTOMER PO"
+      - "SHIP VIA"
+      - "lagirlusa.com"
+      - "lacolors.com"
+    totals_markers:
+      - "Sub Total"
+      - "Total"
+      - "Tax"
+      - "Freight"
+      - "Discount"
+      - "Balance Due"
+      - "Amount Due"
+      - "Payment"
+
+  # ─── Format 3: Star & Bee Beauty Distributor ─────────────────────
+  - name: "star_bee_beauty"
+    description: "Star & Bee Beauty Distributor invoices"
+    detect:
+      - "Star & Bee Beauty Distributor"
+      - "INVOICE"
+      - "ITEM NO."
+      - "QTY SHIP"
+    metadata:
+      invoice_number:
+        - 'INVOICE NO\.\s*INV\. DATE\s*CUST\. NO\.\s*\n\s*INVOICE\s*\n\s*(\d+)'
+        - 'INVOICE\s+(\d+)\s+\d{2}/\d{2}/\d{2}'
+      invoice_date:
+        - '(\d{2}/\d{2}/\d{2})'
+      supplier_name:
+        - '(Star & Bee Beauty Distributor Inc\.?)'
+      customer_name:
+        - 'B I L L\s+T O\s+S H I P\s+T O\s*\n\s*(\S+)'
+      total:
+        - 'AMOUNT DUE\s*\$?\s*([\d,]+\.\d{2})'
+        - 'TOTAL BEFORE DISCOUNT.*?\$\s*([\d,]+\.\d{2})'
+      discount:
+        - 'DISCOUNT\s*\$?\s*([\d,]+\.\d{2})'
+      freight:
+        - 'FREIGHT\s*([\d,]+\.\d{2})'
+    country_code: "US"
+    items:
+      header_regex: 'ITEM NO\.\s+Description\s+UNIT'
+      # Format: SKU DESCRIPTION UNIT [BACK_ORD] QTY UNIT_PRICE LINE_TOTAL
+      # The last 3 numbers are always: quantity, unit price, line total
+      line_regex: '^(\S+)\s+(.+?)\s+(?:DZ|EA|CS|DS|JAR|PC|SET|BOX|PKG|CTN|PK)\s+(?:[\d.]+\s+)?([\d.]+)\s+([\d.]+)\s+([\d.]+)\s*$'
+      field_map:
+        sku: 1
+        description: 2
+        quantity: 3
+        unit_price: 4
+        total: 5
+      continuation_lines: false
+      filter_zero_qty: true
+    page_markers:
+      - "Star & Bee Beauty Distributor Inc."
+      - "INVOICE NO."
+      - "B I L L T O"
+      - "S H I P T O"
+      - "Copy"
+    totals_markers:
+      - "TOTAL BEFORE DISCOUNT"
+      - "DISCOUNT"
+      - "FREIGHT"
+      - "AMOUNT DUE"

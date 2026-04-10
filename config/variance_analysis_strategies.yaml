@@ -1,0 +1,233 @@
+# Variance Analysis Strategies
+# A collection of methodologies for diagnosing invoice variance issues
+# The LLM should try these strategies in order when investigating variance discrepancies
+
+strategies:
+  - id: bundle_double_counting
+    name: "Bundle/Set Double-Counting Detection"
+    description: |
+      Detects when bundled items (starter kits, sets, displays) are being counted
+      separately from their individual component items, causing inflated totals.
+    trigger_conditions:
+      - "Variance is a positive amount (calculated > stated)"
+      - "SKU prefixes like ST-, DP-, TST-, T- are present"
+      - "Descriptions contain 'SET FOR', 'KIT FOR', 'STARTER KIT'"
+    methodology:
+      - step: 1
+        action: "Quantify the exact variance"
+        details: "Calculate: Sum of all extracted items - Invoice stated total"
+      - step: 2
+        action: "Identify potential bundle items by SKU prefix"
+        details: |
+          Look for items with prefixes:
+          - ST-* (Starter kits/sets)
+          - DP-* (Display units)
+          - TST-* (Tester sets)
+          - T-* (Individual testers)
+      - step: 3
+        action: "Calculate total cost of suspected bundle items"
+        details: "Sum the total_cost of all items matching bundle patterns"
+      - step: 4
+        action: "Compare bundle total to variance"
+        details: |
+          If bundle_total ≈ variance (within $1), bundles are the root cause.
+          The bundle items contain the same products as individual line items.
+      - step: 5
+        action: "Verify by exclusion"
+        details: |
+          Recalculate: (Sum of all items) - (Bundle items total)
+          This should equal the invoice stated total.
+    resolution: |
+      Mark bundle items as non-billable (billable: false) so they are
+      excluded from invoice total calculations while still appearing
+      in the spreadsheet for reference.
+    example:
+      variance: -876.00
+      bundle_items:
+        - "ST-MFHG: $38.40 (SET FOR HYDRA GLOW)"
+        - "ST-MLTN: $57.60 (SET FOR DEWY WATER LIP)"
+        - "ST-MNMG2: $307.20 (SET FOR MASTER GEL POLISH)"
+      bundle_total: 876.00
+      result: "Variance exactly matched bundle total - root cause confirmed"
+
+  - id: duplicate_sku_detection
+    name: "Duplicate SKU Detection"
+    description: |
+      Detects when the same SKU appears multiple times in the extracted data,
+      potentially from multi-page invoices or parsing errors.
+    trigger_conditions:
+      - "Variance is a positive amount"
+      - "Same SKU appears more than once with identical quantity"
+    methodology:
+      - step: 1
+        action: "Group items by SKU"
+        details: "Create a map of SKU -> list of occurrences"
+      - step: 2
+        action: "Identify exact duplicates"
+        details: "Find SKUs where same SKU + same quantity appears multiple times"
+      - step: 3
+        action: "Calculate duplicate cost"
+        details: "Sum the cost of all duplicate occurrences (excluding first)"
+      - step: 4
+        action: "Compare to variance"
+        details: "If duplicate_cost ≈ variance, duplicates are the root cause"
+    resolution: |
+      Deduplicate items during parsing or add duplicate detection
+      to mark subsequent occurrences as non-billable.
+
+  - id: page_header_extraction
+    name: "Page Header Re-extraction"
+    description: |
+      Detects when items from page headers are being extracted multiple times
+      across multi-page invoices.
+    trigger_conditions:
+      - "Invoice spans multiple pages"
+      - "Same items appear at regular intervals (page boundaries)"
+      - "Variance is a multiple of a repeating pattern"
+    methodology:
+      - step: 1
+        action: "Identify page count from source"
+        details: "Check for 'Page X of Y' patterns in the text"
+      - step: 2
+        action: "Look for repeating item patterns"
+        details: "Find items that appear exactly (page_count) times"
+      - step: 3
+        action: "Calculate if variance = item_cost × (page_count - 1)"
+        details: "Each extra occurrence adds to the variance"
+    resolution: |
+      Improve text parser to detect and skip page header repetitions.
+      Use page boundary markers to identify repeated content.
+
+  - id: calculation_mismatch
+    name: "Unit Price × Quantity Calculation Mismatch"
+    description: |
+      Detects when the extracted total_cost doesn't match unit_cost × quantity,
+      indicating parsing or rounding errors.
+    trigger_conditions:
+      - "Variance exists but no obvious duplicates or bundles"
+      - "Small variance amounts suggesting rounding issues"
+    methodology:
+      - step: 1
+        action: "For each item, calculate expected = unit_cost × quantity"
+        details: "Compare to the extracted total_cost"
+      - step: 2
+        action: "Sum all calculation mismatches"
+        details: "total_mismatch = Σ(|extracted_total - calculated_total|)"
+      - step: 3
+        action: "Compare to variance"
+        details: "If mismatch sum ≈ variance, calculation errors are the cause"
+    resolution: |
+      Recalculate total_cost as unit_cost × quantity during parsing.
+      Use the calculated value instead of extracted value.
+
+  - id: missing_items
+    name: "Missing Items Detection"
+    description: |
+      Detects when items from the source invoice are not present in the
+      extracted data, causing a negative variance (calculated < stated).
+    trigger_conditions:
+      - "Variance is a negative amount (calculated < stated)"
+      - "Item count in extraction seems low"
+    methodology:
+      - step: 1
+        action: "Count items in source text"
+        details: "Use regex to count item line patterns in original text"
+      - step: 2
+        action: "Compare to extracted item count"
+        details: "If source_count > extracted_count, items are missing"
+      - step: 3
+        action: "Identify missing items"
+        details: |
+          Parse source text independently and compare SKU lists.
+          Find SKUs in source but not in extracted data.
+      - step: 4
+        action: "Calculate missing items total"
+        details: "Sum the cost of items found in source but not extracted"
+    resolution: |
+      Improve text parser patterns to capture all item formats.
+      May need OCR or different extraction method for problematic pages.
+
+  - id: discount_freight_adjustment
+    name: "Discount/Freight/Adjustment Detection"
+    description: |
+      Detects when discounts, freight charges, or other adjustments
+      are not being properly accounted for.
+    trigger_conditions:
+      - "Invoice mentions discount, freight, shipping, or adjustments"
+      - "Variance doesn't match any item patterns"
+    methodology:
+      - step: 1
+        action: "Search source for adjustment keywords"
+        details: |
+          Look for: DISCOUNT, FREIGHT, SHIPPING, ADJUSTMENT,
+          CREDIT, REBATE, TAX, FEE, HANDLING
+      - step: 2
+        action: "Extract adjustment amounts"
+        details: "Parse the amounts associated with these keywords"
+      - step: 3
+        action: "Verify adjustments are in metadata"
+        details: "Check invoice_metadata.discount, .freight, etc."
+      - step: 4
+        action: "Calculate net with adjustments"
+        details: "subtotal + freight - discount = invoice_total"
+    resolution: |
+      Ensure text parser extracts all adjustment lines.
+      Add adjustment fields to invoice_metadata.
+
+  - id: currency_conversion
+    name: "Currency/Unit Conversion Issues"
+    description: |
+      Detects when currency or unit conversions are causing discrepancies.
+    trigger_conditions:
+      - "Multiple currencies mentioned in invoice"
+      - "Variance is a ratio of the total (e.g., 10%, 15%)"
+    methodology:
+      - step: 1
+        action: "Identify currencies in source"
+        details: "Look for USD, EUR, GBP, or currency symbols"
+      - step: 2
+        action: "Check for unit conversions"
+        details: "Dozen vs units, cases vs individual items"
+      - step: 3
+        action: "Calculate variance as percentage"
+        details: "variance_pct = variance / invoice_total × 100"
+      - step: 4
+        action: "Match to common conversion factors"
+        details: "12 (dozen), 6 (half-dozen), tax rates, etc."
+    resolution: |
+      Normalize all amounts to a single currency.
+      Convert unit quantities to individual items.
+
+# Order in which to try strategies (most common causes first)
+execution_order:
+  - bundle_double_counting
+  - duplicate_sku_detection
+  - missing_items
+  - discount_freight_adjustment
+  - calculation_mismatch
+  - page_header_extraction
+  - currency_conversion
+
+# Quick diagnostic checks to narrow down which strategy to use
+quick_diagnostics:
+  positive_variance:
+    description: "Calculated total > Invoice stated total"
+    likely_causes:
+      - bundle_double_counting
+      - duplicate_sku_detection
+      - page_header_extraction
+    first_check: "Look for ST-*, DP-*, TST-* prefixes in SKUs"
+
+  negative_variance:
+    description: "Calculated total < Invoice stated total"
+    likely_causes:
+      - missing_items
+      - discount_freight_adjustment
+    first_check: "Compare item count in source vs extracted"
+
+  small_variance:
+    description: "Variance < 1% of invoice total"
+    likely_causes:
+      - calculation_mismatch
+      - currency_conversion
+    first_check: "Verify unit_cost × quantity = total_cost for all items"

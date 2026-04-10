@@ -1,0 +1,62 @@
+# Auto-generated format spec for amazon
+# Generated on 2026-04-06T12:50:22.825505
+# Will be promoted to formats/ on successful processing
+
+name: amg_global_distribution
+version: "1.0"
+description: "AMG Global Distribution, Inc. invoice format with multi-page item tables"
+
+detect:
+  all_of:
+    - "AMG GLOBAL DISTRIBUTION, INC."
+  any_of:
+    - "Invoice Number:"
+    - "Item Code"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Invoice Number:\s*([A-Z0-9\-]+)'
+    required: true
+  date:
+    patterns:
+      - 'Invoice Date:\s*(\d{1,2}/\d{1,2}/\d{4})'
+  supplier_name:
+    value: "AMG GLOBAL DISTRIBUTION, INC."
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - '\s{3}(\d+\.\d{2})\s*$'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^([0-9\-]+EA)\s+(?:EA|PR|BG|CS)\s+\d+\s+(\d+)\s+\d+\s+\d+\s+([\d\.]+)\s+([\d\.]+)'
+    field_map:
+      sku: 1
+      quantity: 2
+      unit_price: 3
+      amount: 4
+    types:
+      quantity: integer
+      unit_price: currency
+      amount: currency
+    skip_patterns:
+      - '^Item Code'
+      - '^Unit Ordered'
+      - '^Page:'
+      - '^Continued'
+      - '^\s*$'
+      - 'Whse:'
+
+sections:
+  items_start:
+    - "Item Code"
+  items_end:
+    - "Continued"
+
+validation:
+  min_items: 1
+  max_item_price: 2000

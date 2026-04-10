@@ -1,0 +1,86 @@
+name: beautylicious_wholesale
+version: "1.0"
+description: "Invoice format for Beautylicious Wholesale - beauty supplies distributor in Jacksonville FL"
+
+detect:
+  all_of:
+    - "BEAUTYLICIOUS WHOLESALE"
+    - "4874 VICTOR STREET"
+  any_of:
+    - "JACKSONVILLE, FL 32207"
+    - "BEAUTYLICIOUS"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'INVOICE NO\.?:?\s*(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'DATE:?\s*(\d{1,2}/\d{1,2}/\d{4})'
+  supplier_name:
+    value: "Beautylicious Wholesale"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'TOTAL\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    # Two-line format: price line above, qty+description below
+    # e.g. "$9.00 $9.00\n1 1.5OZ VIA NATURAL OIL - COCONUT OIL"
+    # Note: [^\S\n]+ between qty and desc prevents \s+ matching newline
+    # (which would grab the next price line as description when qty is alone)
+    pattern: '^\$?([\d,]+\.\d{2})\s+\$?([\d,]+\.\d{2})\n(\d+)[^\S\n]+(.+?)$'
+    field_map:
+      unit_price: 1
+      amount: 2
+      quantity: 3
+      description: 4
+    types:
+      quantity: integer
+      unit_price: currency
+      amount: currency
+    # Alternate layout: description on line BEFORE prices, qty alone after
+    # e.g. "CREME OF NATURE PURE HONEY SCALP TREATMENT 8 OZ\n$2.35 $84.60\n36"
+    extra_patterns:
+      - pattern: '^([A-Z][A-Z &/''\-\(\)#.,0-9]+?)\n\$?([\d,]+\.\d{2})\s+\$?([\d,]+\.\d{2})\n(\d+)$'
+        field_map:
+          description: 1
+          unit_price: 2
+          amount: 3
+          quantity: 4
+    skip_patterns:
+      - '^QTY\s+DESCRIPTION'
+      - '^TOTAL'
+      - '^SHIPPING'
+      - '^PLEASE MAKE'
+      - '^Thank you'
+      - '^Page \d+'
+      - '^BILL TO'
+      - '^SHIP TO'
+      - '^BEAUTYLICIOUS'
+      - '^INVOICE'
+      - '^4874 VICTOR'
+      - '^JACKSONVILLE'
+      - '^TEL'
+      - '^DATE'
+      - '^DUE DATE'
+      - '^GRENADA'
+      - '^BEAUTY EXPO'
+      - "^ST\\. GEORGE"
+      - '^USA'
+
+sections:
+  items_start:
+    - "QTY DESCRIPTION UNIT PRICE AMOUNT"
+  items_end:
+    - "SHIPPING"
+    - "TOTAL"
+
+validation:
+  min_items: 1
+  max_item_price: 50000

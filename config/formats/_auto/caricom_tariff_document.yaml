@@ -1,0 +1,47 @@
+# Auto-generated format spec for unknown_revised
+# Generated on 2026-02-13T10:44:10.571311
+# Will be promoted to formats/ on successful processing
+
+name: caricom_tariff_document
+version: "1.0"
+description: "CARICOM Common External Tariff Document based on the Harmonized System (HS). Contains legal text, tables of contents, and lists of abbreviations rather than commercial transaction data."
+
+detect:
+  all_of:
+    - "COMMON EXTERNAL TARIFF"
+    - "CARIBBEAN COMMUNITY"
+    - "HARMONIZED COMMODITY"
+  any_of:
+    - "TABLE OF CONTENTS"
+    - "GENERAL NOTE"
+
+metadata:
+  supplier_name:
+    value: "CARIBBEAN COMMUNITY SECRETARIAT"
+  country_code:
+    value: "JM"
+  date:
+    patterns:
+      - '(\d{1,2}\s+\w+\s+\d{4})'
+  document_type:
+    value: "TARIFF_SCHEDULE"
+
+items:
+  strategy: none
+  line:
+    pattern: '^\s*$'
+    field_map:
+      description: 1
+    skip_patterns:
+      - '.*'
+      - '- .*'
+      - '^[A-Z]{2,}\s*-\s+.*'
+
+sections:
+  items_start:
+    - "ABBREVIATIONS AND SYMBOLS"
+  items_end:
+    - "GENERAL NOTE"
+
+validation:
+  min_items: 0

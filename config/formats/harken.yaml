@@ -1,0 +1,66 @@
+# Harken International Invoice Format Specification
+name: harken
+version: "1.0"
+description: "Harken International marine hardware invoices"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  any_of:
+    - "Harken"
+    - "HARKEN"
+  all_of:
+    - "TOTAL DUE (USD)"
+    - "Invoice Number"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - 'Invoice Number\s+(\S+)'
+    required: true
+
+  date:
+    patterns:
+      - 'Invoice date\s+(\S+)'
+
+  supplier_name:
+    value: "Harken International"
+
+  country_code:
+    value: "US"
+
+  total:
+    patterns:
+      - 'TOTAL DUE \(USD\)\s+([\d,]+\.\d{2})'
+    type: currency
+
+  shipping:
+    patterns:
+      - 'Freight\s+([\d,]+\.\d{2})'
+    type: currency
+
+# ─── Item Extraction ───────────────────────────────────────
+items:
+  strategy: line
+
+  line:
+    # Format: "ITEM_NUM DESCRIPTION QTY.00 EA UNIT_PRICE AMOUNT"
+    # Example: "HAR1234 Block Assembly 4.00 EA 25.50 102.00"
+    pattern: '^(\S+)\s+(.+?)\s+(\d+\.\d{2})\s+EA\s+([\d.]+)\s+([\d,]+\.\d{2})'
+    field_map:
+      sku: 1
+      description: 2
+      quantity: 3
+      unit_price: 4
+      total_cost: 5
+    types:
+      quantity: integer
+      unit_price: currency
+      total_cost: currency
+    skip_patterns:
+      - '^\d{4}\.\d{2}\.\d{4}'
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 1
+  require_total: true

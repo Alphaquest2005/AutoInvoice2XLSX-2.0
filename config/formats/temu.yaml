@@ -1,0 +1,182 @@
+# TEMU Invoice Format Specification
+# Parses TEMU order receipts
+
+name: temu
+version: "1.0"
+description: "TEMU order receipts"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  all_of:
+    - "Order Summary"
+  any_of:
+    - "Order ID:"
+    - "Order ID;"
+    - "TEMU"
+    - "PO-"
+    - "Item details"
+    - "Item detalls"
+
+# ─── OCR Normalization ─────────────────────────────────────
+ocr_normalize:
+  - pattern: 'Order ID;'
+    replace: 'Order ID:'
+    description: "Fix OCR semicolon: Order ID; → Order ID:"
+
+  - pattern: '(?i)item\(s\)\s+discount:\s*\w{2,5}$'
+    replace: 'Item(s) discount: $0.00'
+    flags: multiline
+    description: "Fix OCR garbled discount value"
+
+  - pattern: '(?i)Sales\s+te[xk]:'
+    replace: 'Sales tax:'
+    description: "Fix OCR: Sales tex/tek → Sales tax"
+
+  - pattern: '(?i)Ordor\s+total'
+    replace: 'Order total'
+    description: "Fix OCR: Ordor → Order"
+
+  - pattern: '(\d+)\s+(\d{2})(?=\s*$)'
+    replace: '\1.\2'
+    description: "Fix space-separated prices: $39 99 → $39.99"
+
+  - pattern: 'x\s*(\d+)'
+    replace: 'x\1'
+    description: "Normalize quantity: x 1 → x1"
+
+  - pattern: '(?i)\b([Il])pc\b'
+    replace: '1pc'
+    description: "Fix OCR misread quantity: Ipc/lpc → 1pc"
+
+  - pattern: '(?i)\b([Il])pairs?\b'
+    replace: '1pair'
+    description: "Fix OCR misread quantity: Ipair → 1pair"
+
+  - pattern: '(?i)Item\s+detal[il][ils]*\b'
+    replace: 'Item details'
+    description: "Fix OCR: Item detalis/detalls/detall → Item details"
+
+  - pattern: "(?m)^[\\u2018\\u2019\\u0027'\\-\\u2014\\\\\\s]+(?=\\d+\\s*(?:pcs?|pairs?|pack|pc)\\s)"
+    replace: ''
+    description: "Strip leading OCR junk before qty+unit item lines"
+
+  - pattern: "(?m)^[\\u2018\\u2019\\u0027'\\-\\u2014\\\\\\s]+(?=\\w{3}.{15,}\\$)"
+    replace: ''
+    description: "Strip leading OCR junk before description item lines"
+
+  - pattern: '(PO-\d{3}-\d+)\s+(\d+)'
+    replace: '\1\2'
+    description: "Fix OCR space in PO number: PO-211-1124525331 1353900 → PO-211-11245253311353900"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order\s*ID[:\s]+(PO-\d+-\d+)'
+      - '(PO-\d{3}-\d{10,})'
+    required: true
+
+  date:
+    patterns:
+      - 'Order\s+time[:\s]+(\w+\s+\d{1,2},?\s+\d{4})'
+      - '(\d{4}/\d{2}/\d{2})'
+
+  supplier_name:
+    value: "TEMU"
+
+  country_code:
+    value: "CN"
+
+  total:
+    patterns:
+      - 'Order\s+total[:\s]*\$?([\d,]+\.\d{2})'
+    type: currency
+
+  subtotal:
+    patterns:
+      - 'Subtotal[:\s]*\$?([\d,]+\.\d{2})'
+    type: currency
+
+  tax:
+    patterns:
+      - 'Sales\s+tax[:\s]*\$?([\d,]+\.\d{2})'
+    type: currency
+
+  shipping:
+    patterns:
+      - 'Shipping[:\s]*\$?([\d,]+\.\d{2})'
+      - 'Shipping[:\s]*FREE'
+    type: currency
+    default: 0
+
+  discount:
+    patterns:
+      - 'Item\(s\)\s+discount[:\s]*-?\$?([\d,]+\.\d{2})'
+      - 'discount[:\s]*-?\$?([\d,]+\.\d{2})'
+    type: currency
+
+# ─── Item Extraction ───────────────────────────────────────
+items:
+  # TEMU uses mixed layout - some items have price inline, some don't
+  # Use line-based extraction for items with inline prices
+  strategy: line
+
+  line:
+    # Pattern for items with price on same line - must start with qty or product name
+    # Examples:
+    #   "20pcs Premium HB Pencil Set... $3.49 x1"
+    #   "10pairs Pack - Ultra... $6.74"
+    # Must have at least 20 chars of description before price to avoid matching metadata
+    pattern: '^(\d+\s*(?:pcs?|pairs?|pack|pc)\s+.{15,}?|\w{3}.{20,}?)\s+\$([\d,]+\.\d{2})(?:\s*[x×]?(\d+))?'
+
+    field_map:
+      description: 1
+      unit_price: 2
+      quantity: 3
+
+    types:
+      quantity: integer
+      unit_price: currency
+
+    # Lines to skip (metadata, not items)
+    skip_patterns:
+      - '^Item\(s\)\s+total'
+      - '^Item\(s\)\s+discount'
+      - '^Subtotal'
+      - '^Shipping'
+      - '^Sales\s+tax'
+      - '^Order\s+total'
+      - '^Order\s+ID'
+      - '^Order\s+time'
+      - '^Free returns'
+      - '^\d+\..*return'
+      - '^\$\d'
+
+    clean_fields:
+      description:
+        - pattern: '\s*By\s+.*$'
+          replace: ''
+        - pattern: '^\d+\s*(?:pcs?|pairs?|pack|pc)\s+'
+          replace: ''
+        - pattern: '\s+'
+          replace: ' '
+
+    generated_fields:
+      sku: "TEMU-{index}"
+
+# ─── Section Markers ───────────────────────────────────────
+sections:
+  items_start:
+    - "Item details"
+    - "Item detail"
+    - "Item detall"
+
+  items_end:
+    - "Free returns"
+    - "Shipping address"
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 1
+  max_item_price: 10000
+  require_total: true

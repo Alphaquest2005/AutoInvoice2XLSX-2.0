@@ -1,0 +1,70 @@
+# Auto-generated format spec for unknown_4
+# Generated on 2026-03-17T03:37:26.032503
+# Will be promoted to formats/ on successful processing
+
+name: fashionnova
+version: "1.0"
+description: "FashionNova packing slip/invoice format"
+
+detect:
+  all_of:
+    - "FASHIONNOVA"
+    - "Order #"
+  any_of:
+    - "Shipping Methods"
+    - "Delivery Address"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order\s+#(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Date Placed:\s+([A-Za-z]{3}\s+\d{1,2}/\d{4})'
+  supplier_name:
+    value: "FashionNova"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Total\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '([A-Z][^$]+?)(?:Size:\s+[^\n]+\n)?(?:Oty[\s:]+(\d+)[\s\n]+)?\$([\d,]+\.\d{2})'
+    field_map:
+      description: 1
+      quantity: 2
+      unit_price: 3
+    types:
+      quantity: integer
+      unit_price: currency
+    skip_patterns:
+      - '^Total'
+      - '^Subtotal'
+      - '^Shipping'
+      - '^Tax'
+      - '^Discount'
+      - 'Order\s+#'
+      - 'Date Placed'
+      - 'Delivery Address'
+      - 'Billing Address'
+      - 'Shipping Methods'
+      - '^\s*$'
+      - '^\d+\s+FREE:'
+      - '^\d+\s+IPPING'
+    generated_fields:
+      sku: "FN-{index}"
+
+sections:
+  items_start:
+    - "Order #"
+  items_end:
+    - "Total"
+
+validation:
+  min_items: 1
+  max_item_price: 500

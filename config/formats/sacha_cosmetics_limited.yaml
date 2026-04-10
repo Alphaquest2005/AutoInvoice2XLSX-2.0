@@ -1,0 +1,65 @@
+# Auto-generated format spec for freeport__trinidad___tobago
+# Generated on 2026-04-06T12:58:45.913141
+# Will be promoted to formats/ on successful processing
+
+name: sacha_cosmetics_limited
+version: "1.0"
+description: "SACHA Cosmetics Limited Invoice Format"
+
+detect:
+  all_of:
+    - "SACHA Cosmetics Limited"
+    - "Reg. no.: S-601"
+  any_of:
+    - "VAT ID: 105249"
+    - "exports@sachacosmetics.com"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Invoice#\s+(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Date:\s+(\d{4}-\d{2}-\d{2})'
+  supplier_name:
+    value: "SACHA Cosmetics Limited"
+  country_code:
+    value: "TT"
+  total:
+    patterns:
+      - 'TOTAL\s+USD\s+([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^\s*(\d+)\s+([\d\w]+)\s+(SACHA\s+.+?)\s+\[\s*\]\s+([\d,]+\.\d{2})\s+([\d,]+\.\d{2})\s*$'
+    field_map:
+      quantity: 1
+      sku: 2
+      description: 3
+      unit_price: 4
+      total_price: 5
+    types:
+      quantity: integer
+      unit_price: currency
+      total_price: currency
+    skip_patterns:
+      - '^QTY\s+CODE'
+      - '^Authorized By'
+      - '^Date:\s+Date:'
+      - '^Created By'
+      - '^Received By'
+      - '^\s*\d+/\d+$'
+      - '^\s*$'
+
+sections:
+  items_start:
+    - "QTY CODE BRAND"
+  items_end:
+    - "Authorized By"
+
+validation:
+  min_items: 1
+  max_item_price: 10000

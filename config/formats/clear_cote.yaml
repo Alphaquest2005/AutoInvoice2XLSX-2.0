@@ -1,0 +1,65 @@
+# Clear Cote (Club Kit) Invoice Format Specification
+# OCR-scanned invoices — text quality varies
+name: clear_cote
+version: "1.0"
+description: "Clear Cote / Club Kit marine resin and fiberglass supply invoices"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  all_of:
+    - "ClearCote"
+  any_of:
+    - "Club Kit"
+    - "St. Petersburg"
+    - "PICK TICKET"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      # OCR often splits the 6-digit number across lines: "INVOICE NO. 207\n...07658"
+      # Only match a full 6-digit number; partial matches fall back to PDF filename
+      - 'INVOICE\s*(?:NO\.?)?\s*(\d{6})'
+    required: false
+
+  date:
+    patterns:
+      - '(\d{1,2}/\d{2}/\d{2,4})\s*\n.*DATE'
+      - 'DATE\s*\n?\s*(\d{1,2}/\d{2}/\d{2,4})'
+
+  supplier_name:
+    value: "Clear Cote"
+
+  supplier_address:
+    value: "4242 31st Street N, St. Petersburg, FL 33714"
+
+  country_code:
+    value: "US"
+
+  total:
+    patterns:
+      # OCR garbles BALANCE DUE — use the subtotal footer row values instead
+      # 207658: "2067.29 .00 .00 2067.29\n\nA | 2067.29" → match "A | 2067.29"
+      # 207657: "DEPOSIT\n\n-00 535.44" → match "-00 535.44"
+      - 'A\s*\|\s*([\d,]+\.\d{2})'
+      - '-\d+\s+([\d,]+\.\d{2})\s*$'
+    type: currency
+
+  shipping:
+    patterns:
+      - 'SHIPPING\s*&?\s*HANDLING\s*[\s|]*\$?([\d,]+\.\d{2})'
+    type: currency
+
+# ─── Item Extraction ───────────────────────────────────────
+# OCR text line format varies but follows:
+#   ORDERED SHIPPED BACK_ORDERED | U/M | ITEM_NO PRICE AMOUNT
+# e.g. "110.00 110.00 .00 | LB | 124264 1.3600"
+# Amount is on same line or after description lines
+# Because OCR quality is poor, items are matched by PO instead
+item_extraction:
+  strategy: none
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 0
+  require_total: false

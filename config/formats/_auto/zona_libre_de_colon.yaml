@@ -1,0 +1,68 @@
+# Auto-generated format spec for zona_libre_de_colon
+# Generated on 2026-04-06T10:37:51.400066
+# Will be promoted to formats/ on successful processing
+
+name: zona_libre_de_colon
+version: "1.0"
+description: "Invoice format for Zona Libre de Colon / Premier Electric (Japan) Corp."
+
+detect:
+  all_of:
+    - "ZONA LIBRE DE COLON"
+    - "REPUBLICA DE PANAMA"
+  any_of:
+    - "PREMIER ELECTRIC (JAPAN) CORP."
+    - "PREMIER MUNDO"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'INVOICE\s+#\s+(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'DATE:\s+(\d{1,2}/\d{1,2}/\d{4})'
+  supplier_name:
+    value: "Premier Electric (Japan) Corp."
+  country_code:
+    value: "PA"
+  total:
+    patterns:
+      - 'TOTAL\s+([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^\d+\s+([A-Z0-9\-\(\)]+)\s+(.+?)\s+(\d+\.\d{2})\s+(PCS|EA)\s+([\d,]+\.\d{2})\s+([\d,]+\.\d{2})\s*$'
+    field_map:
+      sku: 1
+      description: 2
+      quantity: 3
+      unit_price: 5
+    types:
+      quantity: decimal
+      unit_price: currency
+    skip_patterns:
+      - '^BOXES:'
+      - '^SUBTOTAL'
+      - '^VOLUME:'
+      - '^WEIGHT:'
+      - '^TOTAL'
+      - '^Date:'
+      - '^Time:'
+      - '^Page \d+ of \d+'
+      - '^- AC220V'
+      - 'C/WHEELS'
+      - 'W/ REMOTE CONTROL'
+    generated_fields:
+      product_code: "{sku}"
+
+sections:
+  items_start:
+    - "# Code Product"
+  items_end:
+    - "SUBTOTAL"
+
+validation:
+  min_items: 1

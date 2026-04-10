@@ -1,0 +1,65 @@
+# Auto-generated format spec for unknown_hide
+# Generated on 2026-02-13T10:42:37.327689
+# Will be promoted to formats/ on successful processing
+
+name: hide_order_summary
+version: "1.0"
+description: "Invoice format for Hide order summary emails"
+
+detect:
+  all_of:
+    - "Hide order summary"
+  any_of:
+    - "Total USD"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Hide order summary.*?""\s*\$?[\d.]+'
+    required: false
+  date:
+    patterns:
+      - '\d{1,2}/\d{1,2}/\d{2,4}'
+    required: false
+  supplier_name:
+    value: "Hide"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Total USD\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^(.*?)\s+\$?([\d,]+\.\d{2})\s*$'
+    field_map:
+      description: 1
+      unit_price: 2
+    types:
+      unit_price: currency
+    skip_patterns:
+      - '^Hide order summary'
+      - '^Subtotal'
+      - '^Shipping'
+      - '^Taxes'
+      - '^Total'
+      - '\(-\$[\d.]+\)'
+      - '^\d+$'
+      - '^[A-Z]$'
+      - '^@'
+      - '^<\)'
+      - '^C\)'
+    generated_fields:
+      sku: "HIDE-{index}"
+
+sections:
+  items_start:
+    - "Hide order summary"
+  items_end:
+    - "Subtotal"
+
+validation:
+  min_items: 1
+  max_item_price: 1000

@@ -1,0 +1,115 @@
+# Default/Generic Invoice Format Specification
+# Used as fallback when no specific format is detected
+# Uses broad patterns that work with many invoice types
+
+name: generic
+version: "1.0"
+description: "Generic invoice parser (fallback)"
+
+# ─── Detection ─────────────────────────────────────────────
+# This format has NO detection rules - it's used as fallback
+# when no other format matches
+detect: {}
+
+# ─── OCR Normalization ─────────────────────────────────────
+ocr_normalize:
+  - pattern: '(\d+)\s+(\d{2})(?=\s*$)'
+    replace: '\1.\2'
+    description: "Fix space-separated prices"
+
+  - pattern: '(\d+),(\d{3})'
+    replace: '\1\2'
+    description: "Remove thousands separator"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - 'Invoice\s*(?:#|No\.?|Number)\s*:?\s*([A-Z0-9][A-Z0-9\-]+)'
+      - 'Order\s*(?:#|No\.?|Number|ID)\s*:?\s*([A-Z0-9][A-Z0-9\-]+)'
+      - 'INV[-\s]?(\d+)'
+      - '(PO-[A-Z0-9\-]+)'
+
+  date:
+    patterns:
+      - 'Date\s*:?\s*(\d{1,2}[/\-]\d{1,2}[/\-]\d{2,4})'
+      - '(\d{4}-\d{2}-\d{2})'
+      - '(\d{2}/\d{2}/\d{4})'
+
+  total:
+    patterns:
+      - 'Grand\s+Total\s*:?\s*\$?([\d,]+\.\d{2})'
+      - 'Order\s+[Tt]otal\s*:?\s*\$?([\d,]+\.\d{2})'
+      - 'Invoice\s+Total\s*:?\s*\$?([\d,]+\.\d{2})'
+      - 'Amount\s+Due\s*:?\s*\$?([\d,]+\.\d{2})'
+      - 'Total\s*:?\s*\$?([\d,]+\.\d{2})'
+    type: currency
+
+  tax:
+    patterns:
+      - 'Sales\s+[Tt]ax\s*:?\s*\$?([\d,]+\.\d{2})'
+      - 'Tax\s*:?\s*\$?([\d,]+\.\d{2})'
+      - 'VAT\s*:?\s*\$?([\d,]+\.\d{2})'
+    type: currency
+
+  shipping:
+    patterns:
+      - 'Shipping\s*:?\s*\$?([\d,]+\.\d{2})'
+      - 'Freight\s*:?\s*\$?([\d,]+\.\d{2})'
+      - 'Delivery\s*:?\s*\$?([\d,]+\.\d{2})'
+    type: currency
+
+  discount:
+    patterns:
+      - 'Discount\s*:?\s*-?\$?([\d,]+\.\d{2})'
+      - 'Trade\s+Discount\s*:?\s*-?\$?([\d,]+\.\d{2})'
+    type: currency
+
+  credits:
+    patterns:
+      - '(?:Your\s+)?Coupon\s+Savings\s*:?\s*-?\$?([\d,]+\.\d{2})'
+      - 'Gift\s+Card\s+Amount\s*:?\s*-?\$?([\d,]+\.\d{2})'
+      - 'Promoti(?:on|onal)\s+(?:Code\s+)?(?:Savings|Discount|Credit|Applied)\s*:?\s*-?\$?([\d,]+\.\d{2})'
+      - 'Store\s+Credit\s*:?\s*-?\$?([\d,]+\.\d{2})'
+      - 'Reward[s]?\s+(?:Points?\s+)?(?:Applied|Redeemed)\s*:?\s*-?\$?([\d,]+\.\d{2})'
+      - 'Credit\s+Applied\s*:?\s*-?\$?([\d,]+\.\d{2})'
+    type: currency
+
+# ─── Item Extraction ───────────────────────────────────────
+items:
+  strategy: line
+
+  line:
+    # Generic pattern: Line# SKU Description Qty UnitPrice Total
+    pattern: '^(\d+)\s+(\S+)\s+(.+?)\s+(\d+)\s+[\$]?([\d,]+\.?\d*)\s+[\$]?([\d,]+\.?\d*)\s*$'
+    field_map:
+      line_number: 1
+      sku: 2
+      description: 3
+      quantity: 4
+      unit_price: 5
+      total_cost: 6
+    types:
+      quantity: integer
+      unit_price: currency
+      total_cost: currency
+
+# ─── Section Markers ───────────────────────────────────────
+sections:
+  items_start:
+    - "Item"
+    - "Description"
+    - "Product"
+    - "Qty"
+
+  items_end:
+    - "Subtotal"
+    - "Total"
+    - "Tax"
+    - "Shipping"
+    - "Payment"
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 0
+  require_total: false

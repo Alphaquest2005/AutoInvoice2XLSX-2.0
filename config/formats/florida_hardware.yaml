@@ -1,0 +1,71 @@
+# Florida Hardware LLC Invoice Format Specification
+name: florida_hardware
+version: "1.0"
+description: "Florida Hardware LLC wholesale supply invoices"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  all_of:
+    - "Florida Hardware"
+  any_of:
+    - "Jacksonville FL"
+    - "DISTRIBUTION CENTER"
+    - "TOTAL ORDER"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - 'INVOICE NUMBER\s+INVOICE TYPE\s*\n\s*(\d+)'
+      - 'INVOICE NUMBER\s*\n?\s*(\d+)'
+    required: true
+
+  date:
+    patterns:
+      - 'INVOICE DATE\s*\n\s*\d+\s+(\d{2}/\d{2}/\d{2,4})'
+      - 'PAGE NUMBER\s+INVOICE DATE\s*\n\s*\d+\s+(\d{2}/\d{2}/\d{2,4})'
+
+  supplier_name:
+    value: "Florida Hardware Company"
+
+  supplier_address:
+    value: "PO Box 6759, Jacksonville, FL 32236-6759"
+
+  country_code:
+    value: "US"
+
+  total:
+    patterns:
+      - 'TOTAL ORDER\s*\n.*\s([\d,]+\.\d{2})\s*$'
+    type: currency
+
+  shipping:
+    patterns:
+      - '^FREIGHT\s+\w+\s+\w+\s+\d+\s+[\d.]+\s+([\d,]+\.\d{2})'
+    type: currency
+
+# ─── Item Extraction ───────────────────────────────────────
+# Line format:
+#   DESCRIPTION  ITEM_CODE(8dig)  UM  S/CANCEL  QTY  PRICE  EXT_PRICE  Y/N
+items:
+  strategy: line
+
+  line:
+    pattern: '^(.+?)\s+(\d{8})\s+\w+\s+\w+\s+(\d+)\s+([\d.]+)\s+([\d,]+\.\d{2})\s+[YN]'
+    field_map:
+      description: 1
+      sku: 2
+      quantity: 3
+      unit_price: 4
+      total_cost: 5
+    types:
+      quantity: integer
+      unit_price: currency
+      total_cost: currency
+    skip_patterns:
+      - 'FREIGHT'
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 1
+  require_total: false

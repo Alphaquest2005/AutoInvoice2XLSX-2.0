@@ -1,0 +1,195 @@
+# Amazon Order Details Format Specification
+# Handles Amazon "Your Orders" / "Order Details" pages saved as PDF
+#
+# Item structure in the PDF:
+#   [Delivered March 23]              ← skip
+#   [Your package was delivered...]   ← skip
+#   Product Description Line 1
+#   Product Description Line 2       ← continuation
+#   Sold by: Amazon.com              ← skip
+#   6                                ← quantity (standalone or before "Return items")
+#   Supplied by: Other               ← skip
+#   Return items: Eligible...        ← skip (but may start with qty: "6 Return items:")
+#   $9.97                            ← end of block (price)
+
+name: amazon_order_details
+version: "3.0"
+description: "Amazon Order Details page (Your Orders / print view)"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  all_of:
+    - "Sold by:"
+  any_of:
+    - "Order #"
+    - "Order Details"
+    - "amazon.com"
+    - "Amazon.com"
+    - "Grand Total"
+
+# ─── OCR Normalization ─────────────────────────────────────
+ocr_normalize:
+  - pattern: '(\d+)\s+(\d{2})(?=\s*$)'
+    replace: '\1.\2'
+    flags: multiline
+    description: "Fix space-separated prices: $39 99 → $39.99"
+
+  - pattern: '\$([\d,]+),(\\d{2})(?!\d)'
+    replace: '$\1.\2'
+    description: "Fix OCR comma-as-decimal: $0,79 → $0.79"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order\s*#?\s*:?\s*(\d{3}-\d{7}-\d{7})'
+      - '(\d{3,4}-\d{7}-\d{7})'
+    required: false
+
+  date:
+    patterns:
+      - 'Order\s+[Pp]laced[:\s]+(\w+\s+\d{1,2},?\s+\d{4})'
+
+  supplier_name:
+    value: "Amazon.com"
+
+  country_code:
+    value: "US"
+
+  total:
+    patterns:
+      - 'Grand\s+Total:\s*(?:XCD|USD)?\s*\$?([\d,]+\.?\d{2})'
+    type: currency
+
+  subtotal:
+    patterns:
+      - 'Item\(s\)\s+Subtotal:\s*(?:XCD|USD)?\s*\$?([\d,]+\.?\d{2})'
+    type: currency
+
+  tax:
+    patterns:
+      - 'Estimated\s+tax\s+to\s+be\s+\$?([\d,]+\.?\d{2})'
+      - 'Estimated\s+tax[^:]*:\s*(?:XCD|USD)?\s*\$?([\d,]+\.?\d{2})'
+    type: currency
+    default: 0
+
+  shipping:
+    patterns:
+      - 'Shipping\s*(?:&|and)\s*Handling:\s*(?:XCD|USD)?\s*\$?([\d,]+\.?\d{2})'
+    type: currency
+
+  credits:
+    # Customer-induced credits (promo codes, store credits) → column U
+    patterns:
+      - 'Promotional\s+credit:\s*-?\$?([\d,]+\.?\d{2})'
+    type: currency
+    aggregate: sum
+
+  discount:
+    # Supplier-induced discounts (% off coupons) → column W
+    patterns:
+      - '(?:\w+\s+)?(?:\d+%?\s+)?off:\s*-?\$?([\d,]+\.?\d{2})'
+    type: currency
+    aggregate: sum
+
+  free_shipping:
+    # Free shipping credits → column W (deduction)
+    patterns:
+      - 'Free\s+Shipping:\s*-?\$?([\d,]+\.?\d{2})'
+    type: currency
+    aggregate: sum
+
+# ─── Item Extraction ───────────────────────────────────────
+# Uses block strategy: each item is a block from the first description line
+# to the $price line. Skip patterns filter out delivery/seller/metadata lines.
+items:
+  strategy: block
+
+  block:
+    # Block starts on any line beginning with a letter (product descriptions)
+    start_pattern: '^[A-Za-z]'
+    # Block ends on a standalone price line: $9.97
+    end_pattern: '^\$[\d,]+\.?\d{2}\s*$'
+    # Don't split blocks when continuation lines also start with a letter
+    no_mid_split: true
+
+    skip_patterns:
+      - 'Sold by:'
+      - 'Supplied by:'
+      - '^Delivered'
+      - '^Arriving'
+      - '^Your package'
+      - '^Package was'
+      - 'Order Details'
+      - 'Order Summary'
+      - 'Order placed'
+      - 'Order #'
+      - 'Ship to'
+      - 'Payment method'
+      - 'View related'
+      - '^https?://'
+      - 'Back to top'
+      - 'Conditions of'
+      - 'Privacy Notice'
+      - 'Consumer Health'
+      - 'Your Ads'
+      - '^\d{1,2}/\d{1,2}/\d{2}'
+      - '^©'
+      - 'Grand Total'
+      - 'Item\(s\) Subtotal'
+      - 'Total before'
+      - 'Estimated tax'
+      - '^collected:'
+      - 'American Express'
+      - 'ending in \d'
+      - 'United States'
+      - '^\d{4}\s+\w+\s+ST'
+
+    fields:
+      sku:
+        generate: "AMZ-{index}"
+
+      description:
+        # Match the first line of the block (product name start)
+        pattern: '^(.+)'
+        # Append subsequent lines until we hit qty, price, or "Return items"
+        include_continuation: true
+        continuation_stop:
+          - '^\d{1,3}$'
+          - '^\$'
+          - 'Return items'
+          - 'Eligible through'
+        clean:
+          - pattern: ',\s*$'
+            replace: ''
+
+      quantity:
+        # Qty as standalone number, or leading number before "Return items" (page break)
+        patterns:
+          - '^(\d{1,3})$'
+          - '^(\d{1,3})\s+Return items'
+        type: integer
+        default: 1
+
+      unit_price:
+        pattern: '\$([\d,]+\.?\d{2})'
+        type: currency
+
+    types:
+      quantity: integer
+      unit_price: currency
+
+# ─── Section Markers ───────────────────────────────────────
+# Start items after the order summary (Grand Total line)
+sections:
+  items_start:
+    - "Grand Total"
+  items_end:
+    - "Back to top"
+    - "Conditions of Use"
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 1
+  max_item_price: 10000
+  require_total: false

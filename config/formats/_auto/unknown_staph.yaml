@@ -1,0 +1,65 @@
+# Auto-generated format spec for unknown_staph
+# Generated on 2026-02-13T11:20:11.858555
+# Will be promoted to formats/ on successful processing
+
+name: unknown_staph
+version: "1.0"
+description: "Staph Infection Prevention & Treatment Plan for goats"
+
+detect:
+  all_of:
+    - "STAPH INFECTION"
+    - "PREVENTION & TREATMENT PLAN"
+  any_of:
+    - "IMPORTANT CONSIDERATIONS"
+    - "TREATMENT PLAN"
+
+metadata:
+  invoice_number:
+    value: "N/A"
+  date:
+    value: "N/A"
+  supplier_name:
+    value: "unknown_staph"
+  country_code:
+    value: "US"
+  total:
+    value: "0.00"
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^\s*(\d+)\.\s*(.*)$'
+    field_map:
+      step_number: 1
+      description: 2
+    types:
+      step_number: integer
+      description: text
+    skip_patterns:
+      - '^WHY DOES IT HAPPEN\?$'
+      - '^TREATMENT PLAN$'
+      - '^IMPORTANT CONSIDERATIONS$'
+      - '^THIS IS A COMMON PROBLEM TO HAVE$'
+      - '^THIS IS CONTAGIOUS TO YOU AND OTHER GOATS$'
+      - '^IF THIS IS A MILKING DOE'
+      - '^CLEANLINESS AND A DRY AREA'
+      - '^IT USUALLY DOESN’T AFFECT'
+      - '^IT CAN TAKE WEEKS TO CLEAR'
+      - '^WEAR GLOVES WHEN YOU ARE'
+      - '^MASTITIS CAN FORM FROM'
+      - '^WET AREAS AND LOTS OF RAINFALL'
+      - '^YOUR GOAT MAY HAVE A WEAKENED'
+      - '^A NEW GOAT TO THE HERD'
+    generated_fields:
+      sku: "STEP-{step_number}"
+
+sections:
+  items_start:
+    - "TREATMENT PLAN"
+  items_end:
+    - "CLEAN THE BEDDING"
+
+validation:
+  min_items: 1

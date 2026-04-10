@@ -1,0 +1,86 @@
+# Cala Marine Invoice Format Specification
+# Used by Lumitec, Daiwa, and other suppliers distributed through Cala Marine
+name: cala_marine
+version: "1.0"
+description: "Cala Marine distribution invoices (Lumitec, Daiwa, etc.)"
+
+# ─── Detection ─────────────────────────────────────────────
+# Must exclude Marinco invoices which contain "CALA Marine" as salesrep name
+detect:
+  any_of:
+    - "CALA MARINE"
+    - "Cala Marine"
+  none_of:
+    - "Navico"
+    - "MENOMONEE FALLS"
+    - "Navico Group"
+    - "HBL"
+    - "MBL:"
+    - "FMC#"
+    - "CARGO N.O.S"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - '\d{1,2}/\d{1,2}/\d{4}\s+(\d{5})\s*$'
+      - 'Invoice\s*#\s*(\d+)'
+    required: true
+
+  date:
+    patterns:
+      - '(\d{1,2}/\d{1,2}/\d{4})\s+\d{5}\s*$'
+      - 'Date\s*\n?\s*(\d+/\d+/\d+)'
+
+  supplier_name:
+    patterns:
+      - '^(.*?)\s*\n.*?Invoice #'
+    value: "Cala Marine"
+
+  supplier_address:
+    value: "13571 SW 135 Ave, Suite 201, Miami, FL 33186"
+
+  country_code:
+    value: "US"
+
+  total:
+    patterns:
+      - '(?:Total|Balance Due)\s*[-]?\s*USD\s*\$?([\d,]+\.\d{2})'
+    type: currency
+
+  shipping:
+    patterns:
+      - 'Inland Freight.*?([\d,]+\.\d{2})\s*$'
+    type: currency
+
+# ─── Item Extraction ───────────────────────────────────────
+items:
+  strategy: line
+
+  line:
+    # Format: "LINE# ITEM-CODE DESCRIPTION ORDER INV B/O RATE AMOUNT"
+    # Example: "1 101447- SeaBlazeX 2 LED Underwater Light - Bronze 2 2 0 168.00 336.00"
+    pattern: '^\d+\s+(\S+?)-?\s+(.+?)\s+(\d+)\s+(\d+)\s+(\d+)\s+([\d,.]+)\s+([\d,]+\.\d{2})'
+    field_map:
+      sku: 1
+      description: 2
+      quantity: 4
+      unit_price: 6
+      total_cost: 7
+    types:
+      quantity: integer
+      unit_price: currency
+      total_cost: currency
+    skip_patterns:
+      - 'Inland Freight'
+      - '^Freight'
+
+    clean_fields:
+      sku:
+        - pattern: '-$'
+          replace: ''
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 1
+  require_total: false

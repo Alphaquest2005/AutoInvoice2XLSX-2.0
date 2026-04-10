@@ -1,0 +1,46 @@
+{
+  "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
+  "appId": "com.insightsoftware.autoinvoice",
+  "productName": "AutoInvoice2XLSX",
+  "directories": {
+    "output": "../release",
+    "buildResources": "build"
+  },
+  "asar": true,
+  "win": {
+    "target": ["nsis"],
+    "icon": "build/icon.ico"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "installerIcon": "build/icon.ico",
+    "uninstallerIcon": "build/icon.ico"
+  },
+  "files": [
+    "dist/**/*",
+    "dist-electron/**/*"
+  ],
+  "extraResources": [
+    {
+      "from": "../pipeline",
+      "to": "pipeline",
+      "filter": ["**/*.py", "requirements.txt"]
+    },
+    {
+      "from": "../config",
+      "to": "config",
+      "filter": ["**/*"]
+    },
+    {
+      "from": "../rules",
+      "to": "rules",
+      "filter": ["**/*"]
+    },
+    {
+      "from": "../data",
+      "to": "data",
+      "filter": ["**/*"]
+    }
+  ]
+}

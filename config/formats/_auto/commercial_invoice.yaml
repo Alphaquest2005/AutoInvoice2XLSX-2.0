@@ -1,0 +1,63 @@
+# Auto-generated format spec for commercial_invoice
+# Generated on 2026-04-06T10:43:24.013488
+# Will be promoted to formats/ on successful processing
+
+name: commercial_invoice
+version: "1.0"
+description: "Commercial invoice for synthetic hair products with specific column layout"
+
+detect:
+  all_of:
+    - "COMMERCIAL INVOICE"
+    - "CLASS SYNTHETIC HAIR"
+  any_of:
+    - "SHIP VIA UPS"
+    - "Laiya Hair"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'INVOICE NUMBER#/\s+(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'DATE\s+(\d{4}\.\d{2}\.\d{2})'
+  supplier_name:
+    value: "Laiya Hair"
+  country_code:
+    value: "CN"
+  total:
+    patterns:
+      - 'TOTAL AMOUNT\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^([A-Za-z\s]+)\s+(\d+(?:inches)?)\s+(\d+g)\s+([a-z\s]+)\s+(\d+)\s+\$([\d.]+)\s+(\d+)'
+    field_map:
+      description: 1
+      length: 2
+      weight: 3
+      color: 4
+      quantity: 5
+      unit_price: 6
+      line_total: 7
+    types:
+      quantity: integer
+      unit_price: currency
+      line_total: currency
+    skip_patterns:
+      - '^ITEM length'
+      - '^QTY\s+250pcs'
+      - '^TOTAL\s+250PCS'
+
+sections:
+  items_start:
+    - "ITEM length"
+  items_end:
+    - "TOTAL 250PCS"
+
+validation:
+  min_items: 1
+  max_item_price: 100

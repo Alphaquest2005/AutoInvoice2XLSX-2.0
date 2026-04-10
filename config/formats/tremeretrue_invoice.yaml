@@ -1,0 +1,62 @@
+# Auto-generated format spec for unknown_s
+# Generated on 2026-04-04T00:01:31.066832
+# Will be promoted to formats/ on successful processing
+
+name: tremeretrue_invoice
+version: "1.0"
+description: "Invoice format for Tremeretrue/SA Natural View with specific layout and item lines."
+
+detect:
+  all_of:
+    - "TREMERETRUE"
+    - "tremeretrue.company.site"
+  any_of:
+    - "Order #"
+    - "Shipped via USPS"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order\s+#([A-Z0-9]+)'
+    required: true
+  date:
+    patterns:
+      - '([A-Z][a-z]{2}\s+\d{1,2},\s+\d{4},\s+\d{2}:\d{2}\s+[AP]M)'
+  supplier_name:
+    value: "Tremeretrue"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Items\s+\$[\d,]+\.\d{2}\s+Shipping\s+\$[\d,]+\.\d{2}\s+(?:Total\s+)?\$?([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^([A-Za-z0-9]+(?:\s+[A-Za-z0-9]+)*)\s+(\d+)\s+\$([\d,]+\.\d{2})$'
+    field_map:
+      description: 1
+      quantity: 2
+      unit_price: 3
+    types:
+      quantity: integer
+      unit_price: currency
+    skip_patterns:
+      - '^SKU\s+:'
+      - '^Items\s+\$'
+      - '^Shipping\s+\$'
+      - '^Total\s+\$'
+      - '^\s*$'
+    generated_fields:
+      sku: "TRU-{description}"
+
+sections:
+  items_start:
+    - "Order #"
+  items_end:
+    - "Items"
+
+validation:
+  min_items: 1
+  max_item_price: 10000

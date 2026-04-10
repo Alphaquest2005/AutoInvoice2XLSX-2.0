@@ -1,0 +1,60 @@
+name: xylem
+version: "11.0"
+description: "Xylem Flow Control marine pumps and equipment invoices"
+priority: 100  # Higher priority than seavenger (0)
+
+# Detection patterns - VERY specific to Xylem to override seavenger
+detect:
+  all_of:
+    - "Flow Control LLC"
+  any_of:
+    - "XYLEM PART NO"
+    - "Marine Division"
+  none_of:
+    - "Goodsvalueamount"  # NOT a Seavenger invoice
+
+# Metadata extraction
+metadata:
+  invoice_number:
+    patterns:
+      - 'INVOICE NO\.\s*(\d+)'
+      - 'Invoice.*?(\d{9,})'
+      - '(?:INVOICE\s+\d{1,2}/\d{1,2}/\d{2,4}\s+)(\d{8,})'
+      - '(\d{10})\s+\d{1,2}/\d{1,2}/\d{2}'
+    required: true
+  date:
+    patterns:
+      - 'INVOICE DATE\s*(\d{1,2}/\d{1,2}/\d{2})'
+      - '(\d{1,2}/\d{1,2}/\d{2})'
+  supplier_name:
+    value: "Xylem Flow Control"
+  supplier_address:
+    value: "100 Cummings Center Suite 535-N, Beverly, MA 01915, USA"
+  total:
+    patterns:
+      - 'INVOICE TOTAL.*?([\d,]+\.\d{2})'
+      - 'SUB TOTAL.*?([\d,]+\.\d{2})'
+    type: currency
+
+# Item extraction - use line strategy with generated descriptions
+# The invoice has 13 items but descriptions are on separate lines after prices
+items:
+  strategy: line
+  
+  line:
+    # Format: 1 18670-0943 2.00 2.00 EA 245.27 490.54
+    pattern: '^\s*(\d+)\s+([A-Z0-9\-]+)\s+([\d.]+)\s+([\d.]+)\s+EA\s+([\d.]+)\s+([\d.]+)'
+    field_map:
+      line_num: 1
+      sku: 2
+      ordered: 3
+      quantity: 4
+      unit_price: 5
+      total_cost: 6
+    types:
+      quantity: integer
+      unit_price: currency
+      total_cost: currency
+    # Generate description from SKU since description is on next line
+    generated_fields:
+      description: "Marine Pump/Part {sku}"

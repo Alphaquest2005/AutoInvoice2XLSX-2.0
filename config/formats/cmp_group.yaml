@@ -1,0 +1,78 @@
+name: cmp_group
+version: "12.0"
+description: "CMP Group Ltd / Martyr zinc anodes and marine hardware"
+
+# Detection patterns
+detect:
+  all_of: []
+  any_of:
+    - "CMP Group Ltd"
+    - "Martyr"
+    - "Invoice ID: IV"
+
+# Metadata extraction
+metadata:
+  invoice_number:
+    patterns:
+      - 'Invoice ID:\s*(IV\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Invoice Date:\s*(\d{2}/\d{2}/\d{4})'
+  supplier_name:
+    value: "CMP Group Ltd"
+  supplier_address:
+    value: "7733 Progress Way, Delta, BC V4G 1A3, Canada"
+  total:
+    patterns:
+      - 'TOTAL AMOUNT DUE:.*?([\d,]+\.\d{2})'
+      - 'SUB TOTAL:.*?([\d,]+\.\d{2})'
+    type: currency
+  shipping:
+    patterns:
+      - 'FREIGHT.*?\$([\d,]*\.?\d+)'
+    type: currency
+    aggregate: sum
+  tax:
+    patterns:
+      - 'Tariff Surcharge.*?\$?([\d,]*\.?\d+)'
+      - '\$?([\d,]*\.?\d+)\s*\n\s*_TARIFF'
+    type: currency
+    aggregate: sum
+
+# Item extraction - block strategy for multi-line format
+items:
+  strategy: block
+  
+  block:
+    # Each item is 2+ lines: first line has SKU and prices, next line has description
+    start_pattern: '^([A-Z][A-Z0-9]+)\s+(EA|PR|BG)\s+(\d+)\s+(\d+)\s+(\d+)\s+\$?([\d.]+)'
+    
+    fields:
+      sku:
+        pattern: '^([A-Z][A-Z0-9]+)\s+'
+        group: 1
+      quantity:
+        pattern: '(?:EA|PR|BG)\s+(\d+)\s+(\d+)'
+        group: 2
+        type: integer
+      unit_price:
+        pattern: 'EA\s+\d+\s+\d+\s+\d+\s+\$?([\d.]+)'
+        group: 1
+        type: currency
+      total_cost:
+        pattern: '\$([\d.]+)\s*$'
+        group: 1
+        type: currency
+      description:
+        # Get from next line (block handles this)
+        pattern: '^[A-Z][A-Z0-9]+\s+EA\s+.*?\n(.+)$'
+        group: 1
+        
+  exclude_patterns:
+    - "SUB TOTAL"
+    - "TOTAL AMOUNT"
+    - "FREIGHT"
+    - "_TARIFF"
+    - "Country of Origin"
+    - "HTS Code"

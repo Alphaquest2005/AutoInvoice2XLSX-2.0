@@ -1,0 +1,86 @@
+# Consolidation Recap / Freight Forwarder Consolidation Report
+# Parsed to extract per-invoice package counts, weights, and freight charges
+# Data precedence: below Bill of Lading, below Manifest (supplementary data source)
+
+name: consolidation_recap
+version: "1.0"
+description: "Freight forwarder consolidation report — maps packages/weight/freight to invoice numbers"
+
+# Detection: "CONSOLIDATION RECAP" is the unique header
+detect:
+  all_of:
+    - "CONSOLIDATION RECAP"
+  any_of:
+    - "HBL"
+    - "Box"
+    - "OCEAN"
+
+# Document classification
+document_type: consolidation_report
+skip_classification: true   # No tariff codes — this is a logistics document
+skip_xlsx_generation: true   # No XLSX output — data is merged into invoice results
+
+# Metadata extraction
+metadata:
+  waybill:
+    patterns:
+      - 'HBL(\d+)'
+      - 'HAWB[:\s]*(\S+)'
+    required: false
+
+  date:
+    patterns:
+      - 'CONSOLIDATION RECAP\s*\n\s*(\d{2}/\d{2}/\d{4})'
+      - '(\d{2}/\d{2}/\d{4})'
+
+  shipper:
+    patterns:
+      - 'OCEAN\n(.+)\n'
+      - 'CONSOLIDATION RECAP\n\d{2}/\d{2}/\d{4}\n(.+)'
+
+  consignee:
+    patterns:
+      - 'OCEAN\n.+\n(.+)'
+      # Fallback: line after shipper
+      - '\d{2}/\d{2}/\d{4}\n.+\n(.+)'
+
+  total_packages:
+    patterns:
+      - '(\d+)W/R\s+(\d+)'
+      - '\n(\d+)\s+[\d.]+\s+[\d.]+\s+\d+'
+    type: integer
+
+  total_weight:
+    patterns:
+      - '\d+W/R\s+\d+\s+([\d.]+)'
+    type: number
+
+  total_freight:
+    patterns:
+      - '\d+W/R\s+\d+\s+[\d.]+\s+[\d.]+\s+[\d,.]+\s+\d+\s+([\d,.]+)'
+    type: currency
+
+# Line item extraction — each line is a package group for an invoice
+items:
+  strategy: line
+
+  line:
+    # Pattern: tracking origin invoice_ref packages unit weight volume [value] P freight freight
+    # Invoice ref is truncated Amazon order# (###-#######-###) or other reference
+    pattern: '(\d{6})\s+\w+.*?CENTER\s+(\d{3}-\d{7}-\d{3,7})\s+(\d+)\s+\w+\s+([\d.]+)\s+([\d.]+)(?:\s+([\d,.]+))?\s+P\s+([\d,.]+)\s+([\d,.]+)'
+
+    field_map:
+      tracking_ref: 1
+      invoice_ref: 2
+      packages: 3
+      weight: 4
+      volume: 5
+      declared_value: 6
+      freight: 7
+
+    types:
+      packages: integer
+      weight: number
+      volume: number
+      declared_value: currency
+      freight: currency

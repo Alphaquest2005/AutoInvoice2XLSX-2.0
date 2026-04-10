@@ -1,0 +1,27 @@
+#!/bin/sh
+cd "$(git rev-parse --show-toplevel)"
+
+# Activate venv if present
+if [ -f .venv/bin/activate ]; then
+    . .venv/bin/activate
+fi
+
+echo "Running quality gates..."
+
+# Python lint
+echo "  Ruff check..."
+ruff check src/ tests/ || exit 1
+
+# Python format check
+echo "  Ruff format..."
+ruff format --check src/ tests/ || exit 1
+
+# Type check
+echo "  mypy..."
+mypy src/ || exit 1
+
+# Fast tests with coverage enforcement (domain layer only)
+echo "  pytest (fast + coverage)..."
+pytest -x -q tests/domain/ tests/bdd/ -m "not slow and not integration" --cov=src/autoinvoice/domain --cov-report=term-missing --cov-fail-under=85 || exit 1
+
+echo "All quality gates passed!"

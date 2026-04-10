@@ -1,0 +1,60 @@
+# Auto-generated format spec for unknown_staph
+# Generated on 2026-02-13T10:41:15.153088
+# Will be promoted to formats/ on successful processing
+
+name: staph_infection_treatment_plan
+version: "1.0"
+description: "Veterinary treatment plan document for Staph infection in goats"
+
+detect:
+  all_of:
+    - "STAPH INFECTION"
+    - "PREVENTION & TREATMENT PLAN"
+    - "TREATMENT PLAN"
+  any_of:
+    - "IMPORTANT CONSIDERATIONS"
+    - "WHY DOES IT HAPPEN?"
+
+metadata:
+  supplier_name:
+    value: "unknown_staph"
+  country_code:
+    value: "US"
+  title:
+    value: "Staph Infection Prevention & Treatment Plan"
+
+items:
+  strategy: line
+  line:
+    pattern: '^\s*(\d+)\.\s*(.*?)$'
+    field_map:
+      step_number: 1
+      description: 2
+    types:
+      step_number: integer
+    skip_patterns:
+      - '^WHY DOES IT HAPPEN\?$'
+      - '^TREATMENT PLAN$'
+      - '^IMPORTANT CONSIDERATIONS$'
+      - '^THIS IS A COMMON PROBLEM'
+      - '^CLEANLINESS AND A DRY AREA'
+      - '^MASTITIS CAN FORM'
+      - '^WET AREAS AND LOTS OF RAINFALL'
+      - '^YOUR GOAT MAY HAVE'
+      - '^A NEW GOAT TO THE HERD'
+      - '^IT USUALLY DOESN’T AFFECT'
+      - '^IT CAN TAKE WEEKS'
+      - '^WEAR GLOVES WHEN YOU'
+      - '^IF THIS IS A MILKING DOE'
+      - '^THIS IS CONTAGIOUS TO YOU'
+    generated_fields:
+      sku: "STEP-{step_number}"
+
+sections:
+  items_start:
+    - "TREATMENT PLAN"
+  items_end:
+    - "CLEAN THE BEDDING"
+
+validation:
+  min_items: 1

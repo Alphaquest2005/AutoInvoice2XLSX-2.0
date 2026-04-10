@@ -1,0 +1,64 @@
+# Auto-generated format spec for unknown_invoice
+# Generated on 2026-04-06T11:45:13.253160
+# Will be promoted to formats/ on successful processing
+
+name: tropical_vendors_inc
+version: "1.0"
+description: "Invoice format for Tropical Vendors, Inc. featuring multi-page item tables with UPC codes below descriptions."
+
+detect:
+  all_of:
+    - "Tropical Vendors, Inc."
+    - "P.O BOX 13670 San Juan, PR 00908-3670"
+  any_of:
+    - "Invoice Order No:"
+    - "www.tropicalvendors.com"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Invoice Order No:\s*[\r\n]+(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Invoice Date:\s*[\r\n]+(\d{1,2}/\d{1,2}/\d{4})'
+  supplier_name:
+    value: "Tropical Vendors, Inc."
+  country_code:
+    value: "PR"
+  total:
+    patterns:
+      - 'Invoice Balance:\s*([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^([A-Z0-9\-]+)\s+(.+?)\s+(\d+)\s+([\d,]+\.\d{4})\s+([\d,]+\.\d{2})\s*$'
+    field_map:
+      sku: 1
+      description: 2
+      quantity: 3
+      unit_price: 4
+      amount: 5
+    types:
+      quantity: integer
+      unit_price: currency
+      amount: currency
+    skip_patterns:
+      - '^Item Code'
+      - '^UPC'
+      - '^BCAliasItemNo'
+      - '^\s*\d{12,13}'  # Skip lines starting with just a UPC number
+      - '^¶'             # Skip lines starting with special characters
+      - '^Continued'     # Skip page footer
+      - '^Invoice Balance'
+
+sections:
+  items_start:
+    - "Item Code Description Shipped Price Amount"
+  items_end:
+    - "Invoice Balance"
+
+validation:
+  min_items: 1

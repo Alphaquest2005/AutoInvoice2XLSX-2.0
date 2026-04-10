@@ -1,0 +1,70 @@
+# Auto-generated format spec for terms___candi_be
+# Generated on 2026-04-04T17:15:30.459194
+# Will be promoted to formats/ on successful processing
+
+name: terms___candi_be
+version: "1.0"
+description: "PUMA order confirmation/invoice format with item details including Style Number, Color, Size, and Price."
+
+detect:
+  all_of:
+    - "Terms & Candi Be"
+    - "PUMA NORTH AMERICA, INC."
+  any_of:
+    - "SHIPPING & BILLING"
+    - "BACK TO ORDER HISTORY"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'WEB ID:\s*([\d\s]+)'
+    required: true
+  date:
+    patterns:
+      - '\d{1,2}/\d{1,2}/\d{4}'
+  supplier_name:
+    value: "PUMA"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Total Amount[^\$]+\$([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^(.+?)\s+Color:\s*(.+?)\s+Size:\s*([\d\.]+|[\w]+)\s+Style Number:\s*([\w_]+)\s+Quantity:\s*(\d+)\s+.*?\s+\$([\d,]+\.\d{2})'
+    field_map:
+      description: 1
+      color: 2
+      size: 3
+      sku: 4
+      quantity: 5
+      unit_price: 6
+    types:
+      quantity: integer
+      unit_price: currency
+    skip_patterns:
+      - '^Number Of Products'
+      - '^Total Amount'
+      - '^BACK TO ORDER'
+      - '^Shipping Address'
+      - '^Billing Address'
+      - '^Contact Info'
+      - '^Billing Method'
+      - '^Shipment Method'
+    generated_fields:
+      product_name: "{description}"
+
+sections:
+  items_start:
+    - "Multiflex"
+    - "Turin"
+  items_end:
+    - "Total Amount"
+    - "BACK TO ORDER HISTORY"
+
+validation:
+  min_items: 1
+  max_item_price: 500

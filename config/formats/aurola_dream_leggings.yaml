@@ -1,0 +1,72 @@
+# Auto-generated format spec for aurola_dream_leggings
+# Generated on 2026-04-03T23:55:22.518217
+# Will be promoted to formats/ on successful processing
+
+name: aurola_dream_leggings
+version: "1.0"
+description: "Invoice format for AUROLA Dream Leggings with multi-page item lists and email header metadata."
+
+detect:
+  all_of:
+    - "AUROLA Dream Leggings"
+    - "Order Code"
+  any_of:
+    - "Get in Touch"
+    - "From: AUROLA store"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order Code\s+(AU\d+)'
+      - 'Order from\s+(AU\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Date:\s+(\d{1,2}\s+\w+\s+\d{4})'
+  supplier_name:
+    value: "AUROLA"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Total Due\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^(.+?)\s+\/\s+(.+?)\s+\$([\d,]+\.\d{2})$'
+    field_map:
+      description: 1
+      size: 2
+      unit_price: 3
+    types:
+      unit_price: currency
+    skip_patterns:
+      - '^Subtotal'
+      - '^Shipping'
+      - '^Tax'
+      - '^Discount'
+      - '^Total Due'
+      - '^you saved'
+      - '^Order Code'
+      - '^Items Price'
+      - '^Billing Address'
+      - '^Shipping Method'
+      - '^Payment Method'
+      - '^Get in Touch'
+      - '^\s*$'
+      - '^From:'
+      - '^Subject:'
+      - '^To:'
+      - '^Date:'
+
+sections:
+  items_start:
+    - "Order Code"
+  items_end:
+    - "Subtotal"
+
+validation:
+  min_items: 1
+  max_item_price: 1000

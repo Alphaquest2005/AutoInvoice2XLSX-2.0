@@ -1,0 +1,78 @@
+# FashionNova e-commerce invoice format v18 (WORKING)
+# Use raw string for backslash in pattern
+
+name: fashionnova_ecommerce
+version: "18.0"
+description: "FashionNova invoice - raw string pattern for backslash"
+
+detect:
+  all_of:
+    - "Order #"
+    - "Date Placed:"
+    - "Total"
+    - "Size:"
+    - "Qty"
+  any_of:
+    - "NEED HELP?"
+    - "Payment method:"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order #(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Date Placed:\s*([A-Za-z]+ \d{1,2}, \d{4})'
+  supplier_name:
+    value: "FashionNova"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Total:\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    # Match product name lines - raw string avoids backslash issues
+    pattern: r'^(?P<description>[A-Z][A-Za-z0-9\s\-]+)$'
+    field_map:
+      description: 1
+    types:
+      description: string
+    skip_patterns:
+      - '^Order #'
+      - '^Date Placed:'
+      - '^Size:'
+      - '^Qty:'
+      - '^Price:'
+      - '^Subtotal'
+      - '^Total:\s+\$?'
+      - '^Shipping'
+      - '^Discount'
+      - '^Payment method'
+      - '^Delivery Address'
+      - '^Billing Address'
+      - '^FASHION'
+      - '^Visit'
+      - '^Shop'
+      - '^Going Viral'
+      - '^\s*$'
+      - '^\$[\d,]+\.\d{2}$'
+    generated_fields:
+      sku: "FN-{index}"
+      quantity: 1
+      unit_price: 0.0
+
+sections:
+  items_start:
+    - "Going Viral"
+  items_end:
+    - "Subtotal"
+    - "Delivery Address"
+
+validation:
+  min_items: 1
+  max_item_price: 500

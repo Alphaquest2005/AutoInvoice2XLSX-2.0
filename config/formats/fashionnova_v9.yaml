@@ -1,0 +1,88 @@
+# FashionNova e-commerce invoice format v9
+# Two-pass extraction: first pass finds product names, second pass extracts Price/Qty
+
+name: fashionnova_ecommerce_v9
+version: "1.0"
+description: "FashionNova invoice - two-pass extraction for product lines with separate Price/Qty"
+
+detect:
+  all_of:
+    - "Order #"
+    - "Date Placed:"
+    - "Total"
+    - "Size:"
+    - "Qty"
+  any_of:
+    - "NEED HELP?"
+    - "Payment method:"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order #(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Date Placed:\s*([A-Za-z]+ \d{1,2}, \d{4})'
+  supplier_name:
+    value: "FashionNova"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Total\s+\$?([\d,]+\.\\d{2})'
+    type: currency
+
+items:
+  strategy: twopass
+  twopass:
+    # Pass 1: Find product name lines (capitalized text, no colons, min length)
+    product_pattern: '^[A-Z][A-Za-z0-9\s&\-]+$'
+    min_product_length: 10
+    # Pass 2: Extract attributes from lines following each product
+    attributes:
+      unit_price:
+        offset: 1  # Line after product name
+        pattern: '^Price:\s*\$(?P<price>[\d,]+\.\\d{2})$'
+      quantity:
+        offset: 3  # 3 lines after product name
+        pattern: '^Qty:\s*(?P<qty>\d+)$'
+      size:
+        offset: 2  # 2 lines after product name
+        pattern: '^Size:\s*(?P<size>.+)$'
+        optional: true
+    skip_patterns:
+      - '^Order #'
+      - '^Date Placed:'
+      - '^Subtotal'
+      - '^Total\s+\$?'
+      - '^Shipping'
+      - '^Discount'
+      - '^Payment method'
+      - '^Delivery Address'
+      - '^Billing Address'
+      - '^FASHION'
+      - '^Visit'
+      - '^Shop'
+      - '^Going Viral'  # Section header
+      - '^\s*$'
+      - '^\$[\d,]+\.\\d{2}$'
+      - '^Price:'
+      - '^Qty:'
+      - '^Size:'
+    types:
+      quantity: integer
+      unit_price: currency
+    generated_fields:
+      sku: "FN-{index}"
+
+sections:
+  items_start:
+    - "Going Viral"
+  items_end:
+    - "Subtotal"
+    - "Delivery Address"
+
+validation:
+  min_items: 1
+  max_item_price: 500

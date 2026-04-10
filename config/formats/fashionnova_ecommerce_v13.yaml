@@ -1,0 +1,86 @@
+# FashionNova e-commerce invoice format v13
+# Simple line-based extraction - NO look_ahead (not supported)
+
+name: fashionnova_ecommerce_v13
+version: "13.0"
+description: "FashionNova invoice - simple line extraction without lookahead"
+
+detect:
+  all_of:
+    - "Order #"
+    - "Date Placed:"
+    - "Total"
+    - "Size:"
+    - "Qty"
+  any_of:
+    - "NEED HELP?"
+    - "Payment method:"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order #(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Date Placed:\s*([A-Za-z]+ \d{1,2}, \d{4})'
+  supplier_name:
+    value: "FashionNova"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Total\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: column
+  column:
+    # Match product lines that have Price: and Qty: nearby
+    # This will be handled by custom column parser
+    main_pattern: '^[A-Z][A-Za-z0-9\s\-]+$'
+    min_length: 10
+    skip_patterns:
+      - '^Order #'
+      - '^Date Placed:'
+      - '^Size:'
+      - '^Qty:'
+      - '^Price:'
+      - '^Subtotal'
+      - '^Total\s+\$?'
+      - '^Shipping'
+      - '^Discount'
+      - '^Payment method'
+      - '^Delivery Address'
+      - '^Billing Address'
+      - '^FASHION'
+      - '^Visit'
+      - '^Shop'
+      - '^Going Viral'
+      - '^\s*$'
+      - '^\$[\d,]+\.\d{2}$'
+    fields:
+      description:
+        position: 0
+      unit_price:
+        position: 1
+        pattern: '\$?([\d,]+\.\d{2})'
+      quantity:
+        position: 3
+        pattern: '(\d+)'
+    types:
+      unit_price: currency
+      quantity: integer
+    generated_fields:
+      sku: "FN-{index}"
+
+sections:
+  items_start:
+    - "Going Viral"
+  items_end:
+    - "Subtotal"
+    - "Delivery Address"
+
+validation:
+  min_items: 1
+  max_item_price: 500

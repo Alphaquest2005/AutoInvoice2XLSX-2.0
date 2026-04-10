@@ -1,0 +1,23 @@
+# Customs Office → Location of Goods mapping
+#
+# Office values come from the "Customs Office" field of the manifest or
+# Simplified Declaration PDF (extracted by supplier_resolver.py).
+# The corresponding location is used in the email's "Location of Goods" line.
+#
+# Both ASYCUDA codes (GDSGO) and full names (ST GEORGES) are supported.
+# Add new mappings here; no code changes required.
+
+# code → {location, office_code}
+# When the manifest uses a full name like "ST GEORGES", the system maps it
+# to both the location AND the canonical office code for the email.
+offices:
+  GDSGO: STG01
+  GDWBS: WebSource
+
+# Full name → office code mapping (ASYCUDA World Waybill uses full names)
+office_aliases:
+  ST GEORGES: GDSGO
+  ST. GEORGES: GDSGO
+  ST GEORGE'S: GDSGO
+  ST. GEORGE'S: GDSGO
+  WEBSOURCE: GDWBS

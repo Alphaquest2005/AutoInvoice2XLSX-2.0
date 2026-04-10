@@ -1,0 +1,61 @@
+# Auto-generated format spec for unknown_ss
+# Generated on 2026-04-04T00:35:40.710037
+# Will be promoted to formats/ on successful processing
+
+name: unknown_ss
+version: "1.0"
+description: "Invoice format for unknown_ss supplier with itemized product lines including prices and quantities."
+
+detect:
+  all_of:
+    - "By"
+  any_of:
+    - "x1"
+    - "x]"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Invoice[:\s]*([A-Z0-9-]+)'
+    required: false
+  date:
+    patterns:
+      - '\d{4}-\d{2}-\d{2}'
+      - '\d{2}/\d{2}/\d{4}'
+  supplier_name:
+    value: "unknown_ss"
+  country_code:
+    value: "CN"
+  total:
+    patterns:
+      - 'Total[:\s]*[$]?\s*([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '([A-Z][\w\s\-\.]+)\s+\$([\d,]+\.\d{2})'
+    field_map:
+      description: 1
+      unit_price: 2
+    types:
+      unit_price: currency
+    skip_patterns:
+      - '^By'
+      - '^Subtotal'
+      - '^Total'
+      - '^Shipping'
+      - '^Tax'
+    generated_fields:
+      sku: "SS-{index}"
+
+sections:
+  items_start:
+    - "Elegant"
+    - "Golden"
+  items_end:
+    - "Total"
+
+validation:
+  min_items: 1
+  max_item_price: 1000

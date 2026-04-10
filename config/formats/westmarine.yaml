@@ -1,0 +1,68 @@
+# West Marine Pro Invoice Format Specification
+name: westmarine
+version: "1.0"
+description: "West Marine Pro commercial/wholesale invoices"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  any_of:
+    - "West Marine"
+    - "WestMarine"
+  all_of:
+    - "INVOICE TOTAL"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      # Multi-line header: "Customer # Purchase Order: Order Date: Order # Invoice Date: Invoice #"
+      #                     "451185    07058           2026-01-16  23261667 2026-01-16    4003101"
+      - 'Customer #\s+Purchase Order:.*?Invoice #\s*\n\d+\s+\d+\s+\S+\s+\d+\s+\S+\s+(\d+)'
+    required: true
+
+  date:
+    patterns:
+      - 'Customer #\s+Purchase Order:.*?Invoice #\s*\n\d+\s+\d+\s+\S+\s+\d+\s+(\S+)\s+\d+'
+
+  supplier_name:
+    value: "West Marine Pro"
+
+  supplier_address:
+    value: "PO Box 669336, Dallas, TX 75266-9336"
+
+  country_code:
+    value: "US"
+
+  tax:
+    patterns:
+      - 'TAX:\s*\$([\d,]+\.\d{2})'
+    type: currency
+
+  total:
+    patterns:
+      - 'INVOICE TOTAL:\s*\$([\d,]+\.\d{2})'
+    type: currency
+
+# ─── Item Extraction ───────────────────────────────────────
+items:
+  strategy: line
+
+  line:
+    # Format: "QTY QTY_SHIPPED WM_MODEL MFG_PART# DESCRIPTION $LIST $NET $TOTAL"
+    # Example: "28 1 11768462 FM-WCBC975 Element-Wtr Filter CB 5Mic 1G $31.99 $28.82 $28.82"
+    pattern: '^(\d+)\s+(\d+)\s+(\d+)\s+(\S+)\s+(.+?)\s+\$([\d.]+)\s+\$([\d.]+)\s+\$([\d,]+\.\d{2})'
+    field_map:
+      quantity: 2
+      sku: 4
+      description: 5
+      unit_price: 7
+      total_cost: 8
+    types:
+      quantity: integer
+      unit_price: currency
+      total_cost: currency
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 1
+  require_total: true

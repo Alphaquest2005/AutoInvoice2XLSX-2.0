@@ -1,0 +1,96 @@
+# Raymarine / Teledyne FLIR Maritime Invoice Format Specification
+name: raymarine
+version: "1.0"
+description: "Raymarine / Teledyne FLIR Maritime marine electronics invoices"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  any_of:
+    - "Teledyne FLIR Maritime"
+    - "Raymarine"
+  none_of:
+    - "HBL"
+    - "MBL:"
+    - "FMC#"
+    - "CARGO N.O.S"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - 'INVOICE\s+(\d{10})'
+    required: true
+
+  date:
+    patterns:
+      - 'INVOICE DATE\s*\n\s*\S+\s+(\d{2}/\d{2}/\d{4})'
+      - 'INVOICE DATE\s*(\d{2}/\d{2}/\d{4})'
+
+  supplier_name:
+    value: "Raymarine, Inc."
+
+  supplier_address:
+    value: "110 Lowell Road, Hudson, NH 03051"
+
+  country_code:
+    value: "US"
+
+  total:
+    patterns:
+      - 'TOTAL INVOICE AMOUNT\s*\(USD\)\s*([\d,]+\.\d{2})'
+      - 'TOTAL\s+INVOICE\s+AMOUNT\s*\(?USD\)?\s*([\d,]+\.\d{2})'
+    type: currency
+
+  subtotal:
+    patterns:
+      - 'SUBTOTAL\s+([\d,]+\.\d{2})'
+    type: currency
+
+  shipping:
+    patterns:
+      - 'SHIPPING\s*&?\s*HANDLING\s+([\d,]+\.\d{2})'
+    type: currency
+
+  tax:
+    patterns:
+      - '\nTAX\s+([\d,]+\.\d{2})'
+    type: currency
+
+# ─── Item Extraction ───────────────────────────────────────
+# Line format:
+#   ITEM  PART  DESCRIPTION  QTY  UNIT  PRICE  AMOUNT
+#   10  A06036  Backbone Cable 5m  8  EA  45.16  361.28
+items:
+  strategy: line
+
+  line:
+    pattern: '^\d+\s+([A-Z0-9]+)\s+(.+?)\s+(\d+)\s+EA\s+([\d,.]+)\s+([\d,]+\.\d{2})'
+    field_map:
+      sku: 1
+      description: 2
+      quantity: 3
+      unit_price: 4
+      total_cost: 5
+    types:
+      quantity: integer
+      unit_price: currency
+      total_cost: currency
+    skip_patterns:
+      - '^Serial number'
+      - 'Label for'
+      - 'Packing box'
+
+# ─── Section Markers ───────────────────────────────────────
+sections:
+  items_start:
+    - "ITEM PART DESCRIPTION"
+    - "NUMBER (USD)"
+  items_end:
+    - "PLEASE REMIT"
+    - "SHIPPING & HANDLING"
+    - "Shipment Tracking"
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 1
+  require_total: true

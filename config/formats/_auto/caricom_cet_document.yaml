@@ -1,0 +1,54 @@
+# Auto-generated format spec for unknown_revised
+# Generated on 2026-02-13T11:32:39.053167
+# Will be promoted to formats/ on successful processing
+
+name: caricom_cet_document
+version: "1.0"
+description: "CARICOM Common External Tariff Document based on the HS 2017 Edition"
+
+detect:
+  all_of:
+    - "COMMON EXTERNAL TARIFF"
+    - "CARIBBEAN COMMUNITY"
+    - "HARMONIZED COMMODITY"
+  any_of:
+    - "COUNCIL FOR TRADE AND ECONOMIC DEVELOPMENT"
+    - "GENERAL NOTE"
+
+metadata:
+  supplier_name:
+    value: "CARIBBEAN COMMUNITY SECRETARIAT"
+  country_code:
+    value: "JM"
+  date:
+    patterns:
+      - '(\d{1,2}\s[A-Za-z]+\s\d{4})'
+  document_type:
+    value: "Tariff Schedule"
+
+items:
+  strategy: none
+  line:
+    pattern: '^(.*)$'
+    field_map:
+      description: 1
+    types:
+      description: string
+    skip_patterns:
+      - '^$'
+      - '^TABLE OF CONTENTS'
+      - '^PART II'
+      - '^LIST A'
+      - '^LIST C'
+      - '^LIST D'
+      - '^GENERAL NOTE'
+      - '^\d+\s*$'
+
+sections:
+  items_start:
+    - "TABLE OF CONTENTS"
+  items_end:
+    - "LIST A"
+
+validation:
+  min_items: 0

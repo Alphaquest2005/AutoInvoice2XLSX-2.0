@@ -1,0 +1,229 @@
+# Grouping Configuration for CARICOM Tariff Consolidation
+# Controls how items are grouped by tariff code
+#
+# This file is the SINGLE SOURCE OF TRUTH for grouping behavior.
+# The XLSX generator (bl_xlsx_generator.py) loads this file dynamically.
+
+version: "2.0.0"
+
+grouping:
+  # Primary grouping field
+  group_by: tariff_code
+
+  # Maintain original order of tariff codes as encountered
+  preserve_order: true
+
+  # Group row placement
+  group_position: top  # Group row at TOP of its items
+
+# Group row configuration
+group_row:
+  # Visual formatting
+  formatting:
+    fill_color: "D9E1F2"  # Light blue
+    fill_type: "solid"
+    font_bold: true
+    font_size: 11
+
+# Detail row configuration
+detail_row:
+  # Visual formatting
+  formatting:
+    font_bold: false
+    font_size: 10
+
+  # Columns that MUST be blank on detail rows
+  columns_blank:
+    - A  # Document Type
+    - C  # Invoice Number
+    - D  # Invoice Date
+    - AK # GroupBy
+
+# First group per invoice gets additional data
+# These columns are populated ONLY on the first group row of each invoice
+first_group_per_invoice:
+  additional_columns:
+    A:
+      value: "${document_type}"
+      description: "Document type on FIRST group row only"
+    S:
+      value: "${invoice_total}"
+      description: "Invoice total - FIRST group only"
+    T:
+      value: "${freight}"
+      description: "Freight cost"
+    U:
+      value: "${insurance_or_credits}"
+      description: "Insurance or customer-induced credits (x -1)"
+    V:
+      value: "${tax_plus_other_cost}"
+      description: "Other costs (tax + fees + SERVICE charges)"
+    W:
+      value: "${discount_plus_free_shipping}"
+      description: "Deductions/discounts + free_shipping"
+    X:
+      value: "${packages}"
+      default: 1
+      description: "Number of packages (updated later by BL parser)"
+    Z:
+      value: "${supplier_code}"
+      importance: "CRITICAL"
+      description: "Supplier code - PRODUCTION CRITICAL"
+    AA:
+      value: "${supplier_name}"
+    AB:
+      value: "${supplier_address}"
+    AC:
+      value: "${country_code}"
+      format: "2-letter ISO"
+
+# Totals section configuration
+# Labels are written in Column J (SupplierItemDescription, index 10)
+# Values are written in Columns P (TotalCost, index 16) and Q (Total, index 17)
+totals_section:
+  label_column: J   # Column where labels go (index 10)
+  value_column_P: P  # Column for P values (index 16)
+  value_column_Q: Q  # Column for Q values (index 17)
+
+  # Default font for totals rows
+  default_formatting:
+    font_bold: true
+    font_size: 11
+
+  # Structure of totals rows (in order)
+  rows:
+    - label: "SUBTOTAL (GROUPED)"
+      column_P: "={group_P_refs}"
+      column_Q: "={group_Q_refs}"
+      notes: "Use + operator: =P2+P15+P28, NOT comma"
+
+    - label: "SUBTOTAL (DETAILS)"
+      column_P: "=SUM(P{first_row}:P{last_data_row})-P{subtotal_grouped_row}"
+      column_Q: "=SUM(Q{first_row}:Q{last_data_row})-Q{subtotal_grouped_row}"
+
+    - label: "GROUP VERIFICATION"
+      column_P: "=P{subtotal_grouped_row}-P{subtotal_details_row}"
+      column_Q: "=Q{subtotal_grouped_row}-Q{subtotal_details_row}"
+      expected: 0.00
+      formatting:
+        font_color: "0000FF"  # Blue
+        font_bold: true
+      description: "MUST equal $0.00"
+
+    - type: blank_row
+
+    - label: "TOTAL INTERNAL FREIGHT"
+      column_P: "${freight_value}"
+      notes: "From first group row column T"
+
+    - label: "TOTAL INSURANCE"
+      column_P: "${insurance_value}"
+
+    - label: "TOTAL OTHER COST"
+      column_P: "${other_cost_value}"
+
+    - label: "TOTAL DEDUCTION"
+      column_P: "${deduction_value}"
+
+    - label: "ADJUSTMENTS"
+      column_P: "=(T{first_row}+U{first_row}+V{first_row}-W{first_row})"
+      column_Q: "=(T{first_row}+U{first_row}+V{first_row}-W{first_row})"
+      description: "Freight + Insurance + OtherCost - Deductions"
+
+    - type: blank_row
+
+    - label: "NET TOTAL"
+      column_P: "=P{subtotal_grouped_row}+P{adjustments_row}"
+      column_Q: "=Q{subtotal_grouped_row}+Q{adjustments_row}"
+
+    - label: "INVOICE TOTAL"
+      column_P: "=S{first_row}"
+      notes: "References InvoiceTotal cell (column S) on first group row"
+
+    - type: blank_row
+
+    - label: "VARIANCE CHECK"
+      column_P: "=S{first_row}-P{net_total_row}"
+      column_Q: "=S{first_row}-Q{net_total_row}"
+      expected: 0.00
+      formatting:
+        font_color: "FF0000"  # Red
+        font_bold: true
+      description: "MUST equal $0.00"
+
+# Ungrouped mode totals (for doc types like 7400-000 where grouping=false)
+ungrouped_totals_section:
+  label_column: J
+  rows:
+    - label: "SUBTOTAL"
+      column_P: "={all_P_refs}"
+
+    - label: "ADJUSTMENTS"
+      column_P: "=(T{first_row}+U{first_row}+V{first_row}-W{first_row})"
+
+    - label: "NET TOTAL"
+      column_P: "=(P{subtotal_row}+P{adjustments_row})"
+
+    - label: "VARIANCE CHECK"
+      column_P: "=(S{first_row}-P{net_total_row})"
+
+# Multi-invoice handling
+multi_invoice:
+  enabled: true
+  structure: "Inv1->SUBTOTAL->Inv2->SUBTOTAL->Grand"
+
+  per_invoice:
+    totals: true
+    variance_check: true
+
+  grand_section:
+    enabled: true
+    rows:
+      - label: "GRAND SUBTOTAL (GROUPED)"
+        column_P: "=SUM(all invoice subtotals)"
+
+      - label: "GRAND VARIANCE CHECK"
+        column_P: "=SUM(all invoice totals) - ${grand_subtotal}"
+        expected: 0.00
+
+# Category name generation
+category_names:
+  algorithm: "keyword_matching"
+
+  mappings:
+    "22021090": "BEVERAGES"
+    "33030090": "PERFUMES & FRAGRANCES"
+    "33041000": "LIP PRODUCTS"
+    "33042000": "EYE MAKEUP"
+    "33043000": "NAIL PRODUCTS"
+    "33049100": "FACE MAKEUP"
+    "33049910": "BODY LOTION & CREAM"
+    "33049990": "OTHER BEAUTY PRODUCTS"
+    "33051000": "SHAMPOO & CONDITIONER"
+    "33059010": "HAIR COLOR"
+    "33059090": "HAIR STYLING"
+    "33071000": "SHAVING OIL"
+    "33072000": "BODY SPRAYS & DEODORANTS"
+    "33074100": "INCENSE"
+    "33074900": "ROOM PERFUMING PREPARATIONS"
+    "34011190": "BODY WASH"
+    "34011910": "SOAP & BODY WASH"
+    "34022090": "CLEANING PREPARATIONS"
+    "38089490": "DISINFECTANTS"
+    "48191000": "CARDBOARD DISPLAYS"
+    "67041100": "WIGS"
+    "67041900": "SYNTHETIC HAIR"
+    "67042000": "HUMAN HAIR"
+    "71171910": "IMITATION JEWELRY"
+    "73269090": "METAL ARTICLES"
+    "84145110": "TABLE FANS"
+    "85109000": "ELECTRIC SHAVERS & CLIPPERS"
+    "85167900": "ELECTRO-THERMIC APPLIANCES"
+    "85437090": "ULTRASONIC DIFFUSERS"
+    "96151110": "COMBS"
+    "96159010": "HAIRPINS"
+    "96159090": "OTHER HAIR ACCESSORIES"
+
+  default: "PRODUCTS"
+
+  format: "${category_name} (${item_count} items)"

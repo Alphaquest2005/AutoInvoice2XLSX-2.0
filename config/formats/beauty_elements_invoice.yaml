@@ -1,0 +1,72 @@
+# Auto-generated format spec for ship_to_beauty_expo_inc_beauty
+# Generated on 2026-04-06T11:44:53.332582
+# Will be promoted to formats/ on successful processing
+
+name: beauty_elements_invoice
+version: "1.0"
+description: "Invoice format for Beauty Elements / Beauty Expo Inc featuring multi-page item lists with Qty Ord/Qty Ship columns."
+
+detect:
+  all_of:
+    - "BEAUTY EXPO INC"
+    - "Qty Ord"
+    - "Qty Ship"
+  any_of:
+    - "Sales Order #"
+    - "Shipping Method"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Invoice\s+#\s*([A-Z0-9]+)'
+    required: true
+  date:
+    patterns:
+      - 'Date\s+([0-9]{1,2}/[0-9]{2}/[0-9]{4})'
+  supplier_name:
+    value: "Beauty Elements"
+  country_code:
+    value: "GD"
+  total:
+    patterns:
+      - 'Total\s+([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^(Destiny .+?)\s+(\d+)\s+(\d+)\s+(?:PC|EA|BG|CS)\s+([\d,]+\.\d{2})\s+([\d,]+\.\d{2})'
+    field_map:
+      description: 1
+      quantity: 3
+      unit_price: 4
+      amount: 5
+    types:
+      quantity: integer
+      unit_price: currency
+      amount: currency
+    skip_patterns:
+      - '^Description'
+      - '^Qty Ord'
+      - '^Subtotal'
+      - '^Shipping Cost'
+      - '^Total\s+[\d,]'
+      - '^Current\s+1-30'
+      - '^Amount Due'
+      - '^BEEX27'
+      - '^Page\s+\d+'
+      - '^Return Policy'
+      - '^Payment Terms'
+      - '^Invoice\s*$'
+      - '^Acct\. No\.'
+
+sections:
+  items_start:
+    - "Qty Ord"
+    - "Qty Ship"
+  items_end:
+    - "Subtotal"
+
+validation:
+  min_items: 1
+  max_item_price: 100

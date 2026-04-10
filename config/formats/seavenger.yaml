@@ -1,0 +1,55 @@
+name: seavenger
+version: "1.1"
+description: "Seavenger/Moly/Budget Marine diving equipment invoices"
+
+# Detection patterns
+detect:
+  all_of:
+    - "Goodsvalueamount"
+  any_of:
+    - "SALES INVOICE"
+    - "BUDGET MARINE GRENADA"
+
+# Metadata extraction
+metadata:
+  invoice_number:
+    patterns:
+      - 'n\.\s*(\d{4}-\d{6})'
+      - 'Invoice.*?(\d{4}-\d{6})'
+    required: true
+  date:
+    patterns:
+      - 'Doc\.date\s*(\d{2}/\d{2}/\d{4})'
+      - '(\d{2}/\d{2}/\d{4})'
+  supplier_name:
+    value: "Cressi USA"
+  total:
+    patterns:
+      - 'Goodsvalueamount.*?([\d,]+\.\d{2})'
+      - 'Total.*?USD.*?([\d,]+\.\d{2})'
+    type: currency
+  free_shipping:
+    patterns:
+      - 'freeofcharge.*?-(\d+\.\d{2})\s+-\d+\.\d{2}'
+    type: currency
+
+# Item extraction
+# Line format: CODE DESCRIPTION ORD B/O SHIPPED UNITPRICE AMOUNT TAX
+# e.g. BZ170003 FINSTRAPforPALAUFINS 0 0 4 7.45 29.80 00
+items:
+  strategy: line
+
+  line:
+    pattern: '^([A-Z0-9]+)\s+(.+?)\s+(\d+)\s+(\d+)\s+(\d+)\s+(-?[\d.]+)\s+(-?[\d.]+)\s+(\d+)'
+    field_map:
+      sku: 1
+      description: 2
+      ordered: 3
+      backorder: 4
+      quantity: 5
+      unit_price: 6
+      total_cost: 7
+    types:
+      quantity: integer
+      unit_price: currency
+      total_cost: currency

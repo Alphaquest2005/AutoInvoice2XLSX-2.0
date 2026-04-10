@@ -1,0 +1,61 @@
+# Auto-generated format spec for unknown_rose
+# Generated on 2026-03-17T03:32:44.218665
+# Will be promoted to formats/ on successful processing
+
+name: unknown_rose
+version: "1.0"
+description: "Invoice format for unknown_rose with item descriptions followed by prices on separate lines"
+
+detect:
+  all_of:
+    - "Free returns within 90 days"
+    - "Free returns are available for you"
+
+metadata:
+  invoice_number:
+    patterns:
+      - '(\d+)/\d+$'
+    required: true
+  date:
+    patterns:
+      - '(\d{1,2}/\d{1,2}/\d{2,4})'
+  supplier_name:
+    value: "unknown_rose"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - '\$[\d,]+\.\d{2}'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    # Item lines: "Description text $11.47" or "2pcs Description $8.99"
+    pattern: '(?:^(\d+)\s*(?:pcs?|pairs?|pack)?\s+)?(.{15,}?)\s+\$([\d,]+\.\d{2})\s*$'
+    field_map:
+      quantity: 1
+      description: 2
+      unit_price: 3
+    types:
+      quantity: integer
+      unit_price: currency
+    generated_fields:
+      quantity: 1
+    skip_patterns:
+      - '^Free returns'
+      - '^Shipping address'
+      - '^Payment method'
+      - '^\s*$'
+
+sections:
+  items_start:
+    - "Item details"
+    - "Backpack"
+    - "Rose Golden"
+  items_end:
+    - "Free returns within 90 days"
+    - "Shipping address"
+
+validation:
+  min_items: 1

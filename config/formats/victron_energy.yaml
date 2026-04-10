@@ -1,0 +1,86 @@
+# Victron Energy B.V. Invoice Format Specification
+# European supplier - uses European number format (comma as decimal, dot as thousands)
+name: victron_energy
+version: "1.1"
+description: "Victron Energy B.V. solar and power equipment invoices"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  all_of:
+    - "Victron Energy"
+  any_of:
+    - "Invoice nr."
+    - "Invoice date"
+
+# ─── OCR Normalization ─────────────────────────────────────
+# Convert European number format to US format BEFORE parsing
+# European: 3.173,60 (dot=thousands, comma=decimal)
+# US:       3173.60  (comma=thousands, dot=decimal)
+ocr_normalize:
+  # Step 1: Remove dots used as thousands separators (dot followed by 3 digits then comma or space)
+  - pattern: '(\d)\.(\d{3}[,\s])'
+    replace: '\1\2'
+    description: "Remove European thousands separator dots: 3.173, → 3173,"
+
+  # Step 2: Replace comma decimals with dot decimals (2-digit decimal)
+  - pattern: '(\d),(\d{2})(?!\d)'
+    replace: '\1.\2'
+    description: "Convert European decimal comma to dot (2 places): 3173,60 → 3173.60"
+
+  # Step 3: Replace comma decimals with dot decimals (3-digit decimal, e.g., 28,800 = 28.800)
+  - pattern: '(\d),(\d{3})(?!\d)'
+    replace: '\1.\2'
+    description: "Convert European decimal comma to dot (3 places): 28,800 → 28.800"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - 'Invoice nr\.\s*:\s*(\d+)'
+    required: true
+
+  date:
+    patterns:
+      - 'Invoice date\s*:\s*(\S+)'
+
+  supplier_name:
+    value: "Victron Energy B.V."
+
+  country_code:
+    value: "NL"
+
+  total:
+    patterns:
+      # After ocr_normalize, "3.173,60 USD" becomes "3173.60 USD"
+      - 'Prepayment\s+[\d.]+\s+[\d.]+\s+([\d.]+)\s+USD'
+    type: currency
+
+  shipping:
+    patterns:
+      - 'Ordercosts\s+([\d.]+)\s+USD'
+    type: currency
+
+# ─── Item Extraction ───────────────────────────────────────
+items:
+  strategy: line
+
+  line:
+    # After ocr_normalize, European numbers are converted to US format
+    # Format: "NR QTY ARTICLE DESCRIPTION COUNTRY TARIFF PRICE_EACH TOTAL TOTAL_PAID USD"
+    # Example (after normalize): "1 2 SCC010010050R BlueSolar MPPT 75/10 Retail India 8504.40.95-80 28.800 57.60 57.60 USD"
+    pattern: '^\d+\s+(\d+)\s+(\S+)\s+(.+?)\s+(?:India|China|Malaysia|Netherlands|Hungary|Turkey|Thailand)\s+[\d.]+-[\d-]+\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+USD'
+    field_map:
+      quantity: 1
+      sku: 2
+      description: 3
+      unit_price: 4
+      total_cost: 6
+    types:
+      quantity: integer
+      unit_price: currency
+      total_cost: currency
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 1
+  require_total: false

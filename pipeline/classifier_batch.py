@@ -1,0 +1,478 @@
+#!/usr/bin/env python3
+"""
+Batch Classification Strategy for CARICOM tariff codes.
+
+Drop-in alternative to the single-item classify_with_llm() calls.
+Instead of 1 LLM call per item (or group), this sends batches of ~20-30
+items per LLM call, dramatically reducing API round-trips.
+
+Uses the SAME classification rules, prompts, and CET validation as
+pipeline/classifier.py — the only difference is batching.
+
+Usage:
+    from classifier_batch import BatchClassifier
+
+    bc = BatchClassifier(config={'base_dir': '.'})
+    results = bc.classify_batch(items)
+    # results is a list of dicts in the same format as classify_with_llm()
+"""
+
+import json
+import logging
+import os
+import re
+import sys
+import time
+from typing import Any, Dict, List, Optional, Tuple
+
+logger = logging.getLogger(__name__)
+
+# Ensure pipeline dir is on path for sibling imports
+_pipeline_dir = os.path.dirname(os.path.abspath(__file__))
+if _pipeline_dir not in sys.path:
+    sys.path.insert(0, _pipeline_dir)
+
+from classifier import (
+    classify_item,
+    validate_and_correct_code,
+    _build_classification_prompt,
+    _gather_web_context,
+    _extract_search_terms,
+    _check_lookup_cache,
+    _save_to_cache,
+    lookup_assessed_classification,
+    lookup_hs_code_web,
+    _load_llm_settings,
+)
+
+
+# ── The batch classification prompt ─────────────────────────────────────────
+# Mirrors _build_classification_prompt() but for multiple items at once.
+
+_BATCH_SYSTEM_PROMPT = """You are a CARICOM customs tariff classification expert. You will classify multiple products at once.
+
+CLASSIFICATION RULES (follow strictly):
+
+1. CLASSIFY BY PRIMARY MATERIAL when the item is a simple article made of one material:
+   - Zinc articles (anodes, plates, bars, weld-on sacrificial anodes) → Chapter 79 (e.g. 79070090)
+   - Aluminum articles → Chapter 76
+   - Iron/steel articles → Chapter 73
+   - Copper articles → Chapter 74
+   - Plastic articles → Chapter 39
+   - Rubber articles → Chapter 40
+   "Zn" = Zinc. Items described as "Zn", "Zinc", "Anode", or "Sacrificial" in a marine context are zinc cathodic protection anodes → 79070090
+
+2. CLASSIFY BY FUNCTION when the item is a machine, apparatus, or complex part:
+   - Pumps, macerators, water pumps → Chapter 84
+   - Electrical equipment, motors, switches → Chapter 85
+   - Valves (check, relief, safety) → 8481
+   - Hand tools, multi-tools, pliers → Chapter 82
+
+3. COMMON MARINE/BOATING PRODUCTS (this is a Caribbean marine trade context):
+   - Zinc anodes (any shape: teardrop, collar, plate, disc, hull, shaft, rudder) → 79070090
+   - Zinc galvanizing spray/coating → 32091000
+   - Marine paint, antifouling → Chapter 32
+   - Diving masks, swim goggles → 90049000
+   - Snorkels, fins → 95062900
+   - Spear guns, spear heads → 95079010
+   - Wetsuits → 40159000
+   - Multi-tools (Leatherman, etc.) → 82055100
+   - Glasses/sunglass straps, retainers → 63079090
+
+4. NEVER classify a simple zinc/metal article as furniture hardware (Chapter 83) or machinery parts (Chapter 84) unless it is genuinely a machine component with moving parts.
+
+5. Codes MUST be exactly 8 digits. Use the CARICOM CET national subdivision (last 2 digits), not US HTS subdivisions.
+
+For EACH item, provide an 8-digit HS code, category label, confidence (0.0-1.0), and brief reasoning."""
+
+
+def _build_batch_user_message(items_with_context: List[Tuple[int, str, str]]) -> str:
+    """
+    Build the user message for a batch classification call.
+
+    Args:
+        items_with_context: List of (item_number, description, web_context) tuples.
+
+    Returns:
+        Formatted user message string.
+    """
+    lines = []
+    for num, desc, web_ctx in items_with_context:
+        ctx_str = f"\n   Web context: {web_ctx[:200]}" if web_ctx else ""
+        lines.append(f"{num}. {desc}{ctx_str}")
+
+    item_list = "\n".join(lines)
+
+    return f"""Classify these {len(items_with_context)} products with 8-digit CARICOM CET tariff codes.
+
+{item_list}
+
+Respond with ONLY a JSON object mapping item numbers to classification objects.
+Example format:
+{{"1": {{"code": "79070090", "category": "MARINE HARDWARE", "confidence": 0.9, "reasoning": "Zinc anode for marine use"}}, "2": {{"code": "73181500", "category": "FASTENERS", "confidence": 0.85, "reasoning": "Steel bolts"}}}}"""
+
+
+class BatchClassifier:
+    """
+    Batch classification strategy — sends multiple items per LLM call.
+
+    Maintains the same interface and validation as the single-item classifier
+    so it can be used as a drop-in replacement.
+    """
+
+    # Default batch size — balances context window usage vs API call count
+    DEFAULT_BATCH_SIZE = 25
+
+    def __init__(self, config: Dict = None, batch_size: int = None):
+        """
+        Args:
+            config: Pipeline config dict (needs 'base_dir' at minimum).
+            batch_size: Number of items per LLM call (default 25).
+        """
+        self.config = config or {}
+        self.base_dir = self.config.get('base_dir', '.')
+        self.batch_size = batch_size or self.DEFAULT_BATCH_SIZE
+
+    def classify_batch(
+        self,
+        items: List[Dict],
+        rules: List[Dict] = None,
+        noise_words: set = None,
+        gather_web_context: bool = True,
+    ) -> List[Dict]:
+        """
+        Classify a list of items using batched LLM calls.
+
+        This follows the same multi-layer approach as the single-item pipeline:
+          Layer 0: Assessed classifications (customs-verified)
+          Layer 1: Rule-based classification
+          Layer 2: Cache lookup
+          Layer 3: Batch LLM classification (the key difference — batched!)
+
+        Args:
+            items: List of dicts, each with at least 'description' key.
+                   Can also have 'po_item_desc', 'supplier_item_desc'.
+            rules: Classification rules (loaded from rules/classification_rules.json).
+            noise_words: Set of noise words for rule matching.
+            gather_web_context: Whether to gather web context for LLM items.
+
+        Returns:
+            List of classification result dicts (same length as items),
+            each in the standard format:
+              {'code': '79070090', 'category': 'MARINE', 'confidence': 0.9,
+               'source': 'batch_llm_classification', 'notes': '...'}
+            Items that could not be classified get code='UNKNOWN'.
+        """
+        results = [None] * len(items)
+        needs_llm = []  # (original_index, description) tuples
+
+        # ── Layers 0-2: local classification (no LLM needed) ──
+        for i, item in enumerate(items):
+            desc = self._get_description(item)
+            if not desc:
+                results[i] = self._unknown_result()
+                continue
+
+            # Layer 0: Assessed
+            assessed = lookup_assessed_classification(desc, self.base_dir)
+            if assessed and assessed.get('code') and assessed['code'] != 'UNKNOWN':
+                results[i] = assessed
+                continue
+
+            # Layer 1: Rule-based
+            if rules is not None:
+                rule_result = classify_item(
+                    desc, rules, noise_words or set(), self.base_dir
+                )
+                if rule_result and rule_result.get('code') and rule_result['code'] != 'UNKNOWN':
+                    results[i] = rule_result
+                    continue
+
+            # Layer 2: Cache
+            search_terms = _extract_search_terms(desc)
+            if search_terms:
+                cache_result = _check_lookup_cache(search_terms, self.base_dir)
+                if cache_result and cache_result.get('code') and cache_result['code'] != 'UNKNOWN':
+                    cache_result['code'] = validate_and_correct_code(
+                        cache_result['code'], self.base_dir
+                    )
+                    results[i] = cache_result
+                    continue
+
+            # Needs LLM
+            needs_llm.append((i, desc))
+
+        if not needs_llm:
+            # Everything was classified locally
+            return [r if r else self._unknown_result() for r in results]
+
+        logger.info(
+            f"[BATCH] {len(items)} items: "
+            f"{len(items) - len(needs_llm)} classified locally, "
+            f"{len(needs_llm)} need LLM"
+        )
+
+        # ── Layer 3: Batch LLM classification ──
+        # Optionally gather web context for each item (can be slow)
+        web_contexts = {}
+        if gather_web_context:
+            for idx, desc in needs_llm:
+                try:
+                    ctx = _gather_web_context(desc, self.config)
+                    if ctx:
+                        web_contexts[idx] = ctx
+                except Exception as e:
+                    logger.debug(f"Web context failed for item {idx}: {e}")
+
+        # Split into batches
+        batches = []
+        for batch_start in range(0, len(needs_llm), self.batch_size):
+            batch = needs_llm[batch_start:batch_start + self.batch_size]
+            batches.append(batch)
+
+        total_calls = len(batches)
+        logger.info(
+            f"[BATCH] Sending {len(needs_llm)} items in {total_calls} "
+            f"LLM calls (batch_size={self.batch_size})"
+        )
+
+        for batch_num, batch in enumerate(batches, 1):
+            batch_results = self._classify_batch_llm(batch, web_contexts)
+
+            for orig_idx, classification in batch_results.items():
+                results[orig_idx] = classification
+
+            logger.info(
+                f"[BATCH] Batch {batch_num}/{total_calls}: "
+                f"classified {len(batch_results)}/{len(batch)} items"
+            )
+
+        # Fill any remaining None entries with UNKNOWN
+        return [r if r else self._unknown_result() for r in results]
+
+    def _classify_batch_llm(
+        self,
+        batch: List[Tuple[int, str]],
+        web_contexts: Dict[int, str],
+    ) -> Dict[int, Dict]:
+        """
+        Send a single batch of items to the LLM for classification.
+
+        Args:
+            batch: List of (original_index, description) tuples.
+            web_contexts: Dict mapping original_index -> web context string.
+
+        Returns:
+            Dict mapping original_index -> classification result dict.
+        """
+        # Build numbered item list for the prompt
+        # Use 1-based numbering in the prompt, track mapping back to original indices
+        prompt_items = []
+        num_to_orig = {}  # prompt_number -> original_index
+
+        for prompt_num, (orig_idx, desc) in enumerate(batch, 1):
+            web_ctx = web_contexts.get(orig_idx, "")
+            prompt_items.append((prompt_num, desc, web_ctx))
+            num_to_orig[prompt_num] = orig_idx
+
+        user_message = _build_batch_user_message(prompt_items)
+
+        # Call LLM
+        raw_result = self._call_llm(user_message)
+        if not raw_result:
+            return {}
+
+        # Parse results and validate
+        classified = {}
+        for key, value in raw_result.items():
+            try:
+                prompt_num = int(key)
+            except (ValueError, TypeError):
+                continue
+
+            orig_idx = num_to_orig.get(prompt_num)
+            if orig_idx is None:
+                continue
+
+            if not isinstance(value, dict):
+                continue
+
+            code = str(value.get('code', '')).replace('.', '').replace(' ', '')
+            if len(code) != 8 or not code.isdigit():
+                logger.warning(
+                    f"[BATCH] Invalid code '{code}' for item {prompt_num}, skipping"
+                )
+                continue
+
+            # Validate against CET
+            code = validate_and_correct_code(code, self.base_dir)
+
+            confidence = value.get('confidence', 0.75)
+            if isinstance(confidence, str):
+                try:
+                    confidence = float(confidence)
+                except ValueError:
+                    confidence = 0.75
+
+            # Reject low-confidence
+            if confidence < 0.4:
+                logger.warning(
+                    f"[BATCH] Rejecting low-confidence ({confidence}) "
+                    f"for item {prompt_num}"
+                )
+                continue
+
+            classification = {
+                'code': code,
+                'category': value.get('category', 'LLM_CLASSIFIED'),
+                'confidence': confidence,
+                'source': 'batch_llm_classification',
+                'notes': value.get('reasoning', 'Classified by batch LLM'),
+            }
+            classified[orig_idx] = classification
+
+            # Cache result for future runs
+            desc = dict(batch)[orig_idx] if orig_idx in dict(batch) else ""
+            if desc:
+                search_terms = _extract_search_terms(desc)
+                if search_terms:
+                    _save_to_cache(search_terms, desc, classification, self.base_dir)
+
+        return classified
+
+    def _call_llm(self, user_message: str) -> Optional[Dict]:
+        """
+        Call the LLM API with the batch classification prompt.
+
+        Tries core.llm_client first (shared singleton with caching),
+        falls back to direct urllib call.
+        """
+        # Try the shared LLM client first (has caching, retry, etc.)
+        try:
+            from core.llm_client import get_llm_client
+            llm = get_llm_client()
+            result = llm.call_json(
+                user_message=user_message,
+                system_prompt=_BATCH_SYSTEM_PROMPT,
+                max_tokens=8192,  # Larger for batch responses
+                use_cache=True,
+                cache_key_extra="batch_classify_v1",
+            )
+            if result and isinstance(result, dict):
+                return result
+        except Exception as e:
+            logger.debug(f"LLM client call failed, trying urllib fallback: {e}")
+
+        # Fallback: direct urllib call
+        return self._call_llm_urllib(user_message)
+
+    def _call_llm_urllib(self, user_message: str) -> Optional[Dict]:
+        """Direct urllib LLM call (fallback when core.llm_client unavailable)."""
+        try:
+            from urllib.request import urlopen, Request
+        except ImportError:
+            logger.warning("urllib not available for batch LLM call")
+            return None
+
+        llm_settings = _load_llm_settings(self.base_dir)
+        api_key = llm_settings.get('api_key', '')
+        base_url = llm_settings.get('base_url', 'https://api.z.ai/api/anthropic')
+        model = llm_settings.get('model', 'glm-5')  # SSOT: src/autoinvoice/domain/models/settings.py
+
+        if not api_key:
+            logger.warning("No API key for batch LLM classification")
+            return None
+
+        payload = {
+            'model': model,
+            'max_tokens': 8192,
+            'temperature': 0,
+            'system': _BATCH_SYSTEM_PROMPT,
+            'messages': [{'role': 'user', 'content': user_message}],
+        }
+
+        api_endpoint = f"{base_url.rstrip('/')}/v1/messages"
+        body = json.dumps(payload).encode('utf-8')
+
+        req = Request(
+            api_endpoint,
+            data=body,
+            headers={
+                'Content-Type': 'application/json',
+                'x-api-key': api_key,
+                'anthropic-version': '2023-06-01',
+            },
+        )
+
+        try:
+            with urlopen(req, timeout=120) as response:
+                data = json.loads(response.read().decode('utf-8'))
+
+            text = data.get('content', [{}])[0].get('text', '')
+            if not text:
+                return None
+
+            # Extract JSON from response
+            json_start = text.find('{')
+            json_end = text.rfind('}') + 1
+            if json_start >= 0 and json_end > json_start:
+                return json.loads(text[json_start:json_end])
+
+        except Exception as e:
+            logger.warning(f"Batch LLM urllib call failed: {e}")
+
+        return None
+
+    @staticmethod
+    def _get_description(item: Dict) -> str:
+        """Extract the best description from an item dict."""
+        return (
+            item.get('description', '')
+            or item.get('po_item_desc', '')
+            or item.get('supplier_item_desc', '')
+        )
+
+    @staticmethod
+    def _unknown_result() -> Dict:
+        """Return a standard UNKNOWN classification result."""
+        return {
+            'code': 'UNKNOWN',
+            'category': 'UNCLASSIFIED',
+            'confidence': 0,
+            'source': 'none',
+            'notes': 'Could not classify',
+        }
+
+
+# ── Convenience function matching classify_with_llm() signature ─────────────
+
+def classify_items_batch(
+    items: List[Dict],
+    rules: List[Dict] = None,
+    noise_words: set = None,
+    config: Dict = None,
+    batch_size: int = 25,
+    gather_web_context: bool = True,
+) -> List[Dict]:
+    """
+    Convenience function: classify a list of items using the batch strategy.
+
+    This is the main entry point for batch classification — a drop-in
+    replacement for calling classify_with_llm() in a loop.
+
+    Args:
+        items: List of item dicts with 'description' (or 'po_item_desc'/'supplier_item_desc').
+        rules: Classification rules list (from load_classification_rules()).
+        noise_words: Noise words set (from load_classification_rules()).
+        config: Pipeline config dict.
+        batch_size: Items per LLM call (default 25).
+        gather_web_context: Whether to gather web search context first.
+
+    Returns:
+        List of classification result dicts (same length as items).
+    """
+    bc = BatchClassifier(config=config, batch_size=batch_size)
+    return bc.classify_batch(
+        items, rules=rules, noise_words=noise_words,
+        gather_web_context=gather_web_context,
+    )

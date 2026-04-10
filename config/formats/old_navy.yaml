@@ -1,0 +1,106 @@
+# Old Navy / GAP Order Details Format Specification
+# Handles Old Navy web order detail pages
+
+name: old_navy
+version: "1.0"
+description: "Old Navy / GAP order detail pages"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  all_of:
+    - "Order Details"
+  any_of:
+    - "Old Navy"
+    - "old navy"
+    - "GAP"
+
+# ─── OCR Normalization ─────────────────────────────────────
+ocr_normalize:
+  - pattern: '(\d+),(\d{2})(?!\d)'
+    replace: '\1.\2'
+    description: "Fix comma-as-decimal"
+
+  - pattern: 'Promo:\s*\d+%\s+Off\s+-\$([\d,]+\.\d{2})'
+    replace: 'Promo: -$\1'
+    description: "Normalize promo discount format"
+
+# ─── Metadata ─────────────────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order\s+#?\s*:?\s*([A-Z0-9]{6,})'
+      - '#(\d{5,})'
+    required: false
+
+  date:
+    patterns:
+      - 'Ordered\s+on[:\s]+(\w+\s+\d{1,2},?\s+\d{4})'
+
+  supplier_name:
+    value: "Old Navy"
+
+  country_code:
+    value: "US"
+
+  total:
+    patterns:
+      - 'Order\s+Total[:\s]+\$?([\d,]+\.\d{2})'
+      - 'TOTAL[:\s]+\$?([\d,]+\.\d{2})'
+    type: currency
+
+  subtotal:
+    patterns:
+      - 'Subtotal[:\s]+\$?([\d,]+\.\d{2})'
+    type: currency
+
+  tax:
+    patterns:
+      - 'Tax[:\s]+\$?([\d,]+\.\d{2})'
+    type: currency
+
+  shipping:
+    patterns:
+      - 'Shipping[:\s]+\$?([\d,]+\.\d{2})'
+    type: currency
+    default: 0
+
+  discount:
+    patterns:
+      - 'Discount[:\s]+-?\$?([\d,]+\.\d{2})'
+      - 'Savings[:\s]+-?\$?([\d,]+\.\d{2})'
+    type: currency
+
+# ─── Items ─────────────────────────────────────────────────
+# Old Navy format: item name, then Price: $XX.XX on nearby line
+# Qty is usually 1 unless stated
+items:
+  strategy: line
+  line:
+    pattern: 'Price:\s+\$?([\d,]+\.\d{2})'
+    field_map:
+      unit_price: 1
+    types:
+      unit_price: currency
+    skip_patterns:
+      - '^SHIPPED'
+      - '^Tracking'
+      - '^Package'
+      - '^Click'
+      - '^Order\s+(?:History|Summary|Details)'
+      - '^\s*$'
+    generated_fields:
+      sku: "OLDNAVY-{index}"
+
+# Section markers
+sections:
+  items_start:
+    - "SHIPPED"
+    - "Items Ordered"
+  items_end:
+    - "ORDER SUMMARY"
+    - "Subtotal"
+
+# Validation
+validation:
+  min_items: 1
+  max_item_price: 500

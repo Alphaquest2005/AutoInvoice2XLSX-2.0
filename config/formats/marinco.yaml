@@ -1,0 +1,84 @@
+# Marinco / Navico Electrical Group Invoice Format Specification
+# Priority 10 ensures this is checked BEFORE cala_marine (Marinco invoices
+# contain "CALA Marine" as salesrep name which would false-match cala_marine)
+name: marinco
+version: "1.1"
+description: "Marinco/Navico Electrical Group marine electrical invoices"
+priority: 10
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  any_of:
+    - "Navico"
+    - "MENOMONEE FALLS"
+    - "Navico Group"
+  all_of:
+    - "Invoice No."
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - '(\d{9})\s+60 NET'
+      - 'Invoice No\.\s+Terms\s*\n?.*?\n?\s*(\d{9})'
+    required: true
+
+  date:
+    patterns:
+      - '(\d{2}-[A-Z]{3}-\d{2})\s+\d{2}-[A-Z]{3}-\d{2}'
+
+  supplier_name:
+    value: "Marinco Electrical Group"
+
+  country_code:
+    value: "US"
+
+  total:
+    patterns:
+      - 'Invoice Total\s+USD\s+([\d,]+\.\d{2})'
+    type: currency
+
+  shipping:
+    patterns:
+      - 'Freight\s+([\d,]+\.\d{2})'
+    type: currency
+
+# ─── Item Extraction ───────────────────────────────────────
+# Marinco items may have optional backorder column and wrapped descriptions.
+# Format variants:
+#   Normal: "qty_ord qty_ship ITEM_CODE Description PRICE UOM AMOUNT"
+#   With backorder: "qty_ord qty_ship back_ord ITEM_CODE Description PRICE UOM AMOUNT"
+#   Backordered (0 ship): "qty_ord 0 back_ord ITEM_CODE Description 0 UOM 0.00"
+#
+# The unit_price must contain a decimal point to avoid matching AWG ratings
+# or other description numbers. Backordered items with "0" price are also matched.
+# A few items (~2-3) where the unit price wraps to the next line will have
+# incorrect unit_price but correct total_cost — the PO matcher handles this.
+items:
+  strategy: line
+
+  line:
+    pattern: '^(\d+)\s+(\d+)\s+(?:\d+\s+)?(\d\S{2,})\s+(.+?)\s+(?:([\d.]+)\s+)?(?:EACH|FOOT|SPOOL|ROLL|SET)\s+([\d,]+\.\d{2})'
+    field_map:
+      quantity: 2
+      sku: 3
+      description: 4
+      unit_price: 5
+      total_cost: 6
+    types:
+      quantity: integer
+      unit_price: currency
+      total_cost: currency
+
+# ─── Section Markers ───────────────────────────────────────
+sections:
+  items_end:
+    - "Tracking"
+    - "Invoice Total"
+    - "Special Instructions"
+    - "Important"
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 1
+  require_total: true

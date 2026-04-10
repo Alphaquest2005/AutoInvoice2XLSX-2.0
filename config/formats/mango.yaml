@@ -1,0 +1,110 @@
+# MANGO Invoice Format Specification
+# Handles MANGO / MANGO OUTLET order receipts
+
+name: mango
+version: "1.0"
+description: "MANGO clothing order invoices"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  all_of:
+    - "ref."
+  any_of:
+    - "MANGO"
+    - "mango.com"
+    - "TOTAL AMOUNT"
+
+# ─── OCR Normalization ─────────────────────────────────────
+ocr_normalize:
+  - pattern: 'US\$\s+'
+    replace: '$'
+    description: "Normalize US$ prefix: US$ 13.99 → $13.99"
+
+  - pattern: '(\d+),(\d{2})(?!\d)'
+    replace: '\1.\2'
+    description: "Fix comma-as-decimal: 13,99 → 13.99"
+
+# ─── Metadata ─────────────────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order\s*(?:number|num|no)[:\s]+(\w+)'
+      - 'order\s+(\w{5,})\s+shortly'
+    required: false
+
+  date:
+    patterns:
+      - '(?:Date|Dated?)[:\s]+(\w+\s+\d{1,2},?\s+\d{4})'
+      - '(\w+\s+\d{1,2},?\s+\d{4})'
+
+  supplier_name:
+    value: "MANGO"
+
+  country_code:
+    value: "ES"
+
+  total:
+    patterns:
+      - 'TOTAL\s+AMOUNT\s+(?:US)?\$?\s*([\d,]+\.\d{2})'
+      - 'Total\s+(?:US)?\$?\s*([\d,]+\.\d{2})'
+    type: currency
+
+  subtotal:
+    patterns:
+      - 'Subtotal\s+(?:US)?\$?\s*([\d,]+\.\d{2})'
+    type: currency
+
+  tax:
+    patterns:
+      - '(?:Estimated\s+)?Tax\s+(?:US)?\$?\s*([\d,]+\.\d{2})'
+    type: currency
+
+  shipping:
+    patterns:
+      - 'Shipping\s*(?:&\s*Handling)?\s+(?:US)?\$?\s*([\d,]+\.\d{2})'
+    type: currency
+    default: 0
+
+# ─── Items ─────────────────────────────────────────────────
+# MANGO format: description on one line, price on same or next line
+# Example: "High-waist straight shorts 13.99"
+# with ref. number on next line
+items:
+  strategy: line
+  line:
+    pattern: '^(.{10,}?)\s+(?:US)?\$?\s*([\d,]+\.\d{2})\s*$'
+    field_map:
+      description: 1
+      unit_price: 2
+    types:
+      unit_price: currency
+    skip_patterns:
+      - '^\s*ref\.'
+      - '^\s*\|'
+      - '^Subtotal'
+      - '^Shipping'
+      - '^Estimated\s+Tax'
+      - '^TOTAL\s+AMOUNT'
+      - '^Free$'
+      - '^\s*$'
+      - '^For\s+any'
+      - '^\d{4}\s+MANGO'
+      - '^Terms'
+      - '^Privacy'
+      - '^MANGO'
+    generated_fields:
+      sku: "MANGO-{index}"
+
+# Section markers
+sections:
+  items_start:
+    - "US$"
+    - "US!"
+  items_end:
+    - "Subtotal"
+    - "TOTAL AMOUNT"
+
+# Validation
+validation:
+  min_items: 1
+  max_item_price: 1000

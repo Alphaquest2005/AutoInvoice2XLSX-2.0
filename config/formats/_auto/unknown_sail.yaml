@@ -1,0 +1,58 @@
+# Auto-generated format spec for unknown_sail
+# Generated on 2026-02-18T21:05:08.853261
+# Will be promoted to formats/ on successful processing
+
+name: unknown_sail
+version: "1.0"
+description: "Packing list for Tropical Shipping with item counts and totals"
+
+detect:
+  all_of:
+    - "Tropical Shipping"
+    - "PALLET LIST"
+  any_of:
+    - "Sail Date"
+    - "TOTAL:"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Sail Date:\s*(.+)'
+    required: true
+  date:
+    patterns:
+      - '\b\d{1,2}\s+\w+\s+\d{4}\b'
+  supplier_name:
+    value: "Tropical Shipping"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'TOTAL:\s*(\d+)\s+PCS'
+    type: integer
+
+items:
+  strategy: line
+  line:
+    pattern: '^(\d+)\s+(.+)$'
+    field_map:
+      quantity: 1
+      description: 2
+    types:
+      quantity: integer
+    skip_patterns:
+      - '^TOTAL:'
+      - '^Sail Date:'
+      - '^Tropical Shipping'
+      - '^BMGREN'
+      - '^TBM'
+      - '^GRN$'
+
+sections:
+  items_start:
+    - "PALLET LIST"
+  items_end:
+    - "TOTAL:"
+
+validation:
+  min_items: 1

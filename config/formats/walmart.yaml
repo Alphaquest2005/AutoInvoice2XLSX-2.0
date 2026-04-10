@@ -1,0 +1,134 @@
+name: walmart
+version: "1.0"
+description: "Walmart.com order invoices"
+
+# Detection patterns for Walmart invoices
+detect:
+  all_of: []
+  any_of:
+    - "walmart.com"
+    - "Order details - Walmart"
+    - "Walmart.com order number"
+    - "Order#"
+
+# Metadata extraction
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order#\s*(\d+-\d+)'
+      - 'Walmart\.com order number[:\s]*(\d+-\d+)'
+    required: true
+  
+  date:
+    patterns:
+      - '(\w+\s+\d+,\s+\d+)\s+order'
+      - 'Order Placed[:\s]+(\w+\s+\d+,\s+\d+)'
+  
+  supplier_name:
+    value: "Walmart"
+  
+  supplier_address:
+    value: "1901 Highway 102 East, Bentonville, AR 72712, USA"
+  
+  subtotal:
+    patterns:
+      - 'Subtotal\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+  # Walmart "Total" is the final amount charged (after savings, tax, and
+  # excluding refunded/canceled items). Use (?<!\w) to avoid matching "Subtotal".
+  total:
+    patterns:
+      - '(?<!\w)Total\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+  tax:
+    patterns:
+      - 'Tax\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+  # Walmart "Savings" is rollback discounts already reflected in the displayed
+  # per-item prices. It is NOT an additional deduction — the item prices shown
+  # are post-rollback. Capturing it as 'discount' would double-count the savings
+  # (once in the lower item prices, once as a deduction from the total).
+  # Instead, capture it as 'savings' (informational only, not subtracted).
+  savings:
+    patterns:
+      - 'Savings\s+-?\$?([\d,]+\.\d{2})'
+    type: currency
+
+# Item extraction
+items:
+  strategy: line
+  
+  line:
+    # Pattern for Walmart order items:
+    # Standard format: Product Name (Select for More Options) Qty N $XX.XX
+    # Order-detail format (single item): Product Name $XX.XX
+    # Qty group is optional — defaults to 1 when absent.
+    pattern: '^(.+?)\s+(?:\([^)]+\)\s+)?(?:Qty\s+(\d+)\s+)?\$?([\d,]+\.\d{2})\s*[\.\s:]*$'
+
+    # Walmart item status meanings (appear before "Qty N" on the line):
+    #   "Reported lost" — Item lost in transit or after delivery. Was physically
+    #     shipped, so INCLUDE in customs declaration (goods entered the country).
+    #   "Refunded" — Walmart issued a refund. Item was shipped but returned or
+    #     disputed. INCLUDE in declaration — it was physically shipped.
+    #   "Canceled" — Order line canceled before shipping. Item was NEVER shipped.
+    #     EXCLUDE from declaration. Also excluded from Walmart's Subtotal/Tax/Savings
+    #     calculations entirely.
+    #
+    # Only Canceled items are skipped. Reported lost and Refunded items remain
+    # in the XLSX because they were physically part of the shipment.
+    # The skipped item cost is tracked for proration of tax (if needed).
+    skip_patterns:
+      - 'Canceled\s+Qty'
+      - 'Ending\s+in\s+\d+'
+      - 'Return\s+eligible'
+      - '\bSubtotal\b'
+      - '\bTax\b'
+      - '\bTotal\b'
+      - '\bShipping\b'
+      - '\bSavings\b'
+    
+    field_map:
+      description: 1
+      quantity: 2
+      total_cost: 3
+    
+    types:
+      quantity: integer
+      total_cost: currency
+    
+    clean_fields:
+      description:
+        - pattern: '\s*\(Select for More Options\)\s*'
+          replace: ''
+        - pattern: '\s*\(Select for\s*[^)]*\)\s*'
+          replace: ''
+        - pattern: '\s*More from this order\s*'
+          replace: ''
+    
+    generated_fields:
+      quantity: 1
+      sku: "WM-{index}"
+      unit_cost: "total_cost / quantity"
+
+# Section markers
+sections:
+  items_start:
+    - "Items Ordered"
+    - "Order details"
+    - "Return eligible"
+  items_end:
+    - "Shipping Address"
+    - "Payment information"
+    - "Payment method"
+    - "Subtotal"
+    - "Order Total"
+
+# OCR normalization
+ocr_normalize:
+  # Fix common OCR issues with prices
+  - pattern: '\$\s+(\d+\.\d{2})'
+    replace: '$\1'
+    description: "Fix space between $ and price"

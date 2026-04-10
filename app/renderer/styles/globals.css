@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body, #root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.3);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 0.5);
+  }
+}
+
+@layer components {
+  /* Panel resize handles */
+  .resize-handle {
+    @apply bg-surface-700 hover:bg-accent transition-colors duration-150;
+  }
+
+  .resize-handle[data-resize-handle-active] {
+    @apply bg-accent;
+  }
+
+  /* Title bar drag region */
+  .title-bar-drag {
+    -webkit-app-region: drag;
+  }
+
+  .title-bar-no-drag {
+    -webkit-app-region: no-drag;
+  }
+
+  /* Chat message animations */
+  .message-appear {
+    animation: messageSlideIn 0.2s ease-out;
+  }
+
+  @keyframes messageSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Spreadsheet grid */
+  .cell-selected {
+    @apply outline outline-2 outline-accent;
+  }
+
+  .cell-error {
+    @apply bg-red-900/30;
+  }
+
+  .cell-warning {
+    @apply bg-yellow-900/30;
+  }
+
+  .cell-group-row {
+    background-color: rgba(59, 130, 246, 0.1);
+  }
+
+  /* Drop zone */
+  .drop-zone-active {
+    @apply border-2 border-dashed border-accent bg-accent/10;
+  }
+
+  /* Tool indicator pulse */
+  .tool-pulse {
+    animation: toolPulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes toolPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+}
+
+@layer utilities {
+  /* Prevent flex children from overflowing */
+  .flex-min-0 {
+    min-width: 0;
+    min-height: 0;
+  }
+}
+
+/* Responsive: hide scrollbars on very narrow widths */
+@media (max-width: 480px) {
+  .resize-handle {
+    min-height: 6px;
+    min-width: 6px;
+  }
+}

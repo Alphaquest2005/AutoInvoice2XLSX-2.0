@@ -1,0 +1,838 @@
+{
+  "version": "1.0.0",
+  "description": "Supplier database for invoice processing",
+  "suppliers": {
+    "TEMU": {
+      "code": "TEMU",
+      "name": "Temu",
+      "full_name": "Whaleco Inc. (Temu)",
+      "address": "31 St. James Avenue, Suite 355, Boston, MA 02116",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "website": "temu.com",
+      "order_id_pattern": "PO-\\d{3}-\\d+",
+      "notes": "Chinese e-commerce platform"
+    },
+    "AMAZON": {
+      "code": "AMAZON",
+      "name": "Amazon",
+      "full_name": "Amazon.com Services LLC",
+      "address": "410 Terry Avenue North, Seattle, WA 98109",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "website": "amazon.com",
+      "order_id_pattern": "\\d{3}-\\d{7}-\\d{7}",
+      "notes": "US e-commerce platform"
+    },
+    "WALMART": {
+      "code": "WALMART",
+      "name": "Walmart",
+      "full_name": "Walmart Inc.",
+      "address": "702 SW 8th Street, Bentonville, AR 72716",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "website": "walmart.com",
+      "notes": "US retail chain"
+    },
+    "TARGET": {
+      "code": "TARGET",
+      "name": "Target",
+      "full_name": "Target Corporation",
+      "address": "1000 Nicollet Mall, Minneapolis, MN 55403",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "website": "target.com",
+      "notes": "US retail chain"
+    },
+    "SHEIN": {
+      "code": "SHEIN",
+      "name": "Shein",
+      "full_name": "Roadget Business Pte. Ltd. (SHEIN)",
+      "address": "Singapore (HQ)",
+      "country_code": "SG",
+      "country": "Singapore",
+      "currency": "USD",
+      "website": "shein.com",
+      "notes": "Fast fashion e-commerce"
+    },
+    "ALIBABA": {
+      "code": "ALIBABA",
+      "name": "Alibaba",
+      "full_name": "Alibaba Group Holding Limited",
+      "address": "969 West Wen Yi Road, Hangzhou, China",
+      "country_code": "CN",
+      "country": "China",
+      "currency": "USD",
+      "website": "alibaba.com",
+      "notes": "Chinese B2B e-commerce"
+    },
+    "ALIEXPRESS": {
+      "code": "ALIEXPRESS",
+      "name": "AliExpress",
+      "full_name": "AliExpress (Alibaba Group)",
+      "address": "969 West Wen Yi Road, Hangzhou, China",
+      "country_code": "CN",
+      "country": "China",
+      "currency": "USD",
+      "website": "aliexpress.com",
+      "notes": "Chinese B2C e-commerce"
+    },
+    "EBAY": {
+      "code": "EBAY",
+      "name": "eBay",
+      "full_name": "eBay Inc.",
+      "address": "2025 Hamilton Avenue, San Jose, CA 95125",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "website": "ebay.com",
+      "notes": "US e-commerce marketplace"
+    },
+    "ABSOLUTE": {
+      "code": "ABSOLUTE",
+      "name": "Absolute New York",
+      "full_name": "Absolute New York Inc.",
+      "address": "New York, NY",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "website": "absolutenewyork.com",
+      "notes": "Cosmetics supplier"
+    },
+    "ROSE": {
+      "code": "ROSE",
+      "name": "Rose Wholesale",
+      "full_name": "Rose Wholesale (Temu marketplace seller)",
+      "address": "31 St. James Avenue, Suite 355, Boston, MA 02116",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Temu marketplace seller \u00e2\u20ac\u201d uses Temu/Whaleco shipping address"
+    },
+    "DON": {
+      "code": "DON",
+      "name": "Donovan Marine",
+      "full_name": "Donovan Marine Inc. (GRE)",
+      "address": "PO Box 1979, Memphis, TN 38101",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Marine supply distributor"
+    },
+    "HAR": {
+      "code": "HAR",
+      "name": "Harken",
+      "full_name": "Harken International",
+      "address": "N15W24983 Bluemound Rd, Pewaukee, WI 53072",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Marine hardware manufacturer"
+    },
+    "INT": {
+      "code": "INT",
+      "name": "International Paint",
+      "full_name": "International Paint (Usa) Inc.",
+      "address": "6001 Antoine Dr, Houston, TX 77091",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Marine coatings manufacturer"
+    },
+    "LMT": {
+      "code": "LMT",
+      "name": "Lumitec",
+      "full_name": "Lumitec Lighting",
+      "address": "4747 SW 35th Terrace, Dania Beach, FL 33312",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Marine LED lighting"
+    },
+    "DAI": {
+      "code": "DAI",
+      "name": "Daiwa",
+      "full_name": "Daiwa Corporation",
+      "address": "11137 Warland Dr, Cypress, CA 90630",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Fishing equipment (Japanese parent: Globeride Inc.)"
+    },
+    "MAG": {
+      "code": "MAG",
+      "name": "Magma Products",
+      "full_name": "Magma Products Inc.",
+      "address": "12596 Lakeshore Dr, Lakeside, CA 92040",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Marine grills and accessories"
+    },
+    "MRN": {
+      "code": "MRN",
+      "name": "Marinco",
+      "full_name": "Marinco Electrical Group",
+      "address": "N85 W12545 Westbrook Crossing, Menomonee Falls, WI 53051",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Marine electrical products (Navico group)"
+    },
+    "REF": {
+      "code": "REF",
+      "name": "Reef",
+      "full_name": "Reef Lifestyle, LLC",
+      "address": "480 Pleasant Street, Suite C-110, Watertown, MA 02472",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Footwear manufacturer"
+    },
+    "TAC": {
+      "code": "TAC",
+      "name": "Taco Metals",
+      "full_name": "Taco Metals Inc.",
+      "address": "7501 NW 25th St, Doral, FL 33122",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Marine hardware manufacturer"
+    },
+    "VCT": {
+      "code": "VCT",
+      "name": "Victron Energy",
+      "full_name": "Victron Energy B.V.",
+      "address": "c/o 70 Water Street, Thomaston ME 04861",
+      "country_code": "NL",
+      "country": "Netherlands",
+      "currency": "USD",
+      "notes": "Solar and power equipment (European)"
+    },
+    "WMP": {
+      "code": "WMP",
+      "name": "West Marine",
+      "full_name": "West Marine Pro",
+      "address": "PO Box 669336, Dallas, TX 75266-9336",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Marine supply retailer"
+    },
+    "TOH": {
+      "code": "TOH",
+      "name": "Tohatsu",
+      "full_name": "Tohatsu America Corporation",
+      "address": "670 S. Freeport Parkway Suite 120, Coppell, TX 75019",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Outboard motor manufacturer"
+    },
+    "CAL": {
+      "code": "CAL",
+      "name": "Cala Marine",
+      "full_name": "Cala Marine Corporation",
+      "address": "13571 SW 135 Ave, Suite 201, Miami, FL 33186",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Marine supply distributor"
+    },
+    "BRU": {
+      "code": "BRU",
+      "name": "Brunger Export",
+      "full_name": "Brunger Export",
+      "address": "4901 NW 17th Way, Suite 600, Fort Lauderdale, FL 33309",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Marine export distributor"
+    },
+    "CRE": {
+      "code": "CRE",
+      "name": "Cressi USA",
+      "full_name": "Cressi USA",
+      "address": "3 Rosol Lane, Saddle Brook, NJ 07663",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Diving and water sports equipment (Italian parent: Cressi Sub S.p.A.)"
+    },
+    "HIL": {
+      "code": "HIL",
+      "name": "Hilco Vision",
+      "full_name": "Hilco Vision",
+      "address": "575 West Street Ste 120, Mansfield, MA 02048",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Eyewear accessories and optical products"
+    },
+    "XYL": {
+      "code": "XYL",
+      "name": "Xylem Flow Control",
+      "full_name": "Xylem Flow Control",
+      "address": "100 Cummings Center Suite 535-N, Beverly, MA 01915",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Water pumps and flow control (Jabsco/Rule brands)"
+    },
+    "LEA": {
+      "code": "LEA",
+      "name": "Leatherman Tool Group Inc",
+      "full_name": "Leatherman Tool Group Inc",
+      "address": "PO Box 20595, Portland, OR 97294-0595",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Multi-tools and knives manufacturer"
+    },
+    "CMP": {
+      "code": "CMP",
+      "name": "CMP Group Ltd",
+      "full_name": "CMP Group Ltd",
+      "address": "7733 Progress Way, Delta, BC V4G 1A3, Canada",
+      "country_code": "CA",
+      "country": "Canada",
+      "currency": "USD",
+      "notes": "Marine anodes and corrosion protection (Martyr brand)"
+    },
+    "TRO": {
+      "code": "TRO",
+      "name": "Tropical Shipping",
+      "full_name": "Tropical Shipping",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "BUD": {
+      "code": "BUD",
+      "name": "Budget Marine St. Maarten",
+      "full_name": "Budget Marine St. Maarten",
+      "address": "Waterfront Rd 25B, PO BOX 434, Cole Bay, Sint Maarten",
+      "country_code": "QN",
+      "country": "St. Maarten",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "UNK": {
+      "code": "UNK",
+      "name": "",
+      "full_name": "Florida Hardware Company",
+      "address": "4242 31st Street N, St. Petersburg, FL 33714",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "SAMBA": {
+      "code": "SAMBA",
+      "name": "Samba Wholsale Inc",
+      "full_name": "Samba Wholsale Inc",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "BEAUTYLI": {
+      "code": "BEAUTYLI",
+      "name": "Beautylicious Wholesale",
+      "full_name": "Beautylicious Wholesale",
+      "address": "GOLDEN TREE DRIVE, COLE BAY, ST. MAARTEN",
+      "country_code": "SX",
+      "country": "Sint Maarten",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "UNKNOWN": {
+      "code": "UNKNOWN",
+      "name": "Unknown Supplier A",
+      "full_name": "Unknown Supplier A",
+      "address": "",
+      "country_code": "GD",
+      "country": "Grenada",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "WALID": {
+      "code": "WALID",
+      "name": "WALID MAGNATE, S. A.",
+      "full_name": "WALID MAGNATE, S. A.",
+      "address": "Panama City, Panama",
+      "country_code": "PA",
+      "country": "Panama",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "COREBRID": {
+      "code": "COREBRID",
+      "name": "CoreBridge",
+      "full_name": "CoreBridge",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "UNKNOWN_": {
+      "code": "UNKNOWN_",
+      "name": "unknown_rose",
+      "full_name": "unknown_rose",
+      "address": "",
+      "country_code": "CN",
+      "country": "China",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "FASHIONN": {
+      "code": "FASHIONN",
+      "name": "FashionNova",
+      "full_name": "FashionNova",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "ADDRESS:": {
+      "code": "ADDRESS:",
+      "name": "Address:",
+      "full_name": "Address:",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "SHANICE": {
+      "code": "SHANICE",
+      "name": "Shanice St. Bernard",
+      "full_name": "Shanice St. Bernard",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "AUROLA": {
+      "code": "AUROLA",
+      "name": "AUROLA",
+      "full_name": "AUROLA",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "SHOPS367": {
+      "code": "SHOPS367",
+      "name": "ShopS367118 Store Customer Name David Boatswain",
+      "full_name": "ShopS367118 Store Customer Name David Boatswain",
+      "address": "",
+      "country_code": "SG",
+      "country": "Singapore",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "FASHION": {
+      "code": "FASHION",
+      "name": "Fashion Nova",
+      "full_name": "Fashion Nova",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "IMKLED": {
+      "code": "IMKLED",
+      "name": "IMKLED Store Customer Name",
+      "full_name": "IMKLED Store Customer Name",
+      "address": "",
+      "country_code": "SG",
+      "country": "Singapore",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "GANESHA": {
+      "code": "GANESHA",
+      "name": "GANESHA ENTERPRISES LLC",
+      "full_name": "GANESHA ENTERPRISES LLC",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "S$Z-FEIY": {
+      "code": "S$Z-FEIY",
+      "name": "S$Z-feiyang",
+      "full_name": "S$Z-feiyang",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "SZREBOW": {
+      "code": "SZREBOW",
+      "name": "SZREBOW Neon Sign Store",
+      "full_name": "SZREBOW Neon Sign Store",
+      "address": "",
+      "country_code": "SG",
+      "country": "Singapore",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "MINCH": {
+      "code": "MINCH",
+      "name": "Minch Shoe Shop",
+      "full_name": "Minch Shoe Shop",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "GRENADA": {
+      "code": "GRENADA",
+      "name": "Grenada Customs",
+      "full_name": "Grenada Customs",
+      "address": "",
+      "country_code": "GD",
+      "country": "Grenada",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "HOME": {
+      "code": "HOME",
+      "name": "Home Depot",
+      "full_name": "Home Depot",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "HARBOR": {
+      "code": "HARBOR",
+      "name": "Harbor Freight",
+      "full_name": "Harbor Freight",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "NAYLOR,": {
+      "code": "NAYLOR,",
+      "name": "NAYLOR, RICHard",
+      "full_name": "NAYLOR, RICHard",
+      "address": "",
+      "country_code": "GD",
+      "country": "Grenada",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "TREMERET": {
+      "code": "TREMERET",
+      "name": "Tremeretrue",
+      "full_name": "Tremeretrue",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "SHON!": {
+      "code": "SHON!",
+      "name": "Shon! 103053705 Store Customer Nume David Boatswain",
+      "full_name": "Shon! 103053705 Store Customer Nume David Boatswain",
+      "address": "",
+      "country_code": "SG",
+      "country": "Singapore",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "OLD": {
+      "code": "OLD",
+      "name": "Old Navy",
+      "full_name": "Old Navy",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "MANGO": {
+      "code": "MANGO",
+      "name": "MANGO",
+      "full_name": "MANGO",
+      "address": "",
+      "country_code": "ES",
+      "country": "Spain",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "WORLD": {
+      "code": "WORLD",
+      "name": "World Star Enterprises Inc",
+      "full_name": "World Star Enterprises Inc",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "MONINE": {
+      "code": "MONINE",
+      "name": "Monine Auto Parts",
+      "full_name": "Monine Auto Parts",
+      "address": "",
+      "country_code": "AU",
+      "country": "Australia",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "ZBLED": {
+      "code": "ZBLED",
+      "name": "ZBLED Rars Store",
+      "full_name": "ZBLED Rars Store",
+      "address": "",
+      "country_code": "SG",
+      "country": "Singapore",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "FIVE": {
+      "code": "FIVE",
+      "name": "Five Below",
+      "full_name": "Five Below",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "PUMA": {
+      "code": "PUMA",
+      "name": "PUMA",
+      "full_name": "PUMA",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "HOUSEHOL": {
+      "code": "HOUSEHOL",
+      "name": "Household Kitchen Tools Store Castumer Name David Boatswain",
+      "full_name": "Household Kitchen Tools Store Castumer Name David Boatswain",
+      "address": "",
+      "country_code": "SG",
+      "country": "Singapore",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "PRANZATE": {
+      "code": "PRANZATE",
+      "name": "Pranzatelli's Audio Outlet L.L.C.",
+      "full_name": "Pranzatelli's Audio Outlet L.L.C.",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "BELLE": {
+      "code": "BELLE",
+      "name": "Belle Etoile Jewelry",
+      "full_name": "Belle Etoile Jewelry",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "CLEAR": {
+      "code": "CLEAR",
+      "name": "Clear Cote",
+      "full_name": "Clear Cote",
+      "address": "4242 31st Street N, St. Petersburg, FL 33714",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "CAPTAINS": {
+      "code": "CAPTAINS",
+      "name": "Captains Fasteners Corp",
+      "full_name": "Captains Fasteners Corp",
+      "address": "3706 SW 30th Ave, Fort Lauderdale, FL 33312",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "RAYMARIN": {
+      "code": "RAYMARIN",
+      "name": "Raymarine, Inc.",
+      "full_name": "Raymarine, Inc.",
+      "address": "110 Lowell Road, Hudson, NH 03051",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "OCEAN-TA": {
+      "code": "OCEAN-TA",
+      "name": "Ocean-Tamer Marine Bean Bags",
+      "full_name": "Ocean-Tamer Marine Bean Bags",
+      "address": "900 4th St W, Palmetto, FL 34221",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "AZARI": {
+      "code": "AZARI",
+      "name": "AZARI FACTORY, S.A.",
+      "full_name": "AZARI FACTORY, S.A.",
+      "address": "",
+      "country_code": "PA",
+      "country": "Panama",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "MPJ": {
+      "code": "MPJ",
+      "name": "MPJ Zona Libre",
+      "full_name": "MPJ Zona Libre",
+      "address": "",
+      "country_code": "PA",
+      "country": "Panama",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "MUKHI": {
+      "code": "MUKHI",
+      "name": "MUKHI IMPEX S.A.",
+      "full_name": "MUKHI IMPEX S.A.",
+      "address": "",
+      "country_code": "PA",
+      "country": "Panama",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "IMPORTAD": {
+      "code": "IMPORTAD",
+      "name": "IMPORTADORES Y EXPORTADORES",
+      "full_name": "IMPORTADORES Y EXPORTADORES",
+      "address": "",
+      "country_code": "PA",
+      "country": "Panama",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "PREMIER": {
+      "code": "PREMIER",
+      "name": "Premier Electric (Japan) Corp.",
+      "full_name": "Premier Electric (Japan) Corp.",
+      "address": "",
+      "country_code": "PA",
+      "country": "Panama",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "FACTURA": {
+      "code": "FACTURA",
+      "name": "Factura",
+      "full_name": "Factura",
+      "address": "",
+      "country_code": "PA",
+      "country": "Panama",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "BEAUTY": {
+      "code": "BEAUTY",
+      "name": "Beauty Elements",
+      "full_name": "Beauty Elements",
+      "address": "",
+      "country_code": "GD",
+      "country": "Grenada",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "AMG": {
+      "code": "AMG",
+      "name": "AMG GLOBAL DISTRIBUTION, INC.",
+      "full_name": "AMG GLOBAL DISTRIBUTION, INC.",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "SACHA": {
+      "code": "SACHA",
+      "name": "Sacha Cosmetics Limited",
+      "full_name": "Sacha Cosmetics Limited",
+      "address": "",
+      "country_code": "TT",
+      "country": "Trinidad and Tobago",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "LAIYA": {
+      "code": "LAIYA",
+      "name": "Laiya Hair",
+      "full_name": "Laiya Hair",
+      "address": "",
+      "country_code": "CN",
+      "country": "China",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "GUANGZHO": {
+      "code": "GUANGZHO",
+      "name": "Guangzhou Jumei Tent Technology Co., Ltd.",
+      "full_name": "Guangzhou Jumei Tent Technology Co., Ltd.",
+      "address": "",
+      "country_code": "CN",
+      "country": "China",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "XE": {
+      "code": "XE",
+      "name": "XE",
+      "full_name": "XE",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "EMERALD": {
+      "code": "EMERALD",
+      "name": "Emerald LED Store",
+      "full_name": "Emerald LED Store",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    }
+  },
+  "last_updated": "2026-04-09"
+}

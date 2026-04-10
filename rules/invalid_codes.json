@@ -1,0 +1,177 @@
+{
+  "_comment": "Mapping of invalid/obsolete tariff codes to their correct replacements. Validated against CARICOM CET XLSX (HS 2017, revised April 2018). Codes here are auto-corrected by classifier.validate_and_correct_code().",
+
+  "_comment_category_headings": "Category headings that have subcodes below them — use the appropriate subcode.",
+
+  "33051010": {
+    "correct_code": "33051000",
+    "reason": "33051010 is a subcategory header, not an end-node code"
+  },
+  "39233000": {
+    "correct_code": "39233010",
+    "reason": "Category heading 'Carboys, bottles, flasks:' — use 39233010 for bottles (15%, kg, SITC 893.193)"
+  },
+  "56074900": {
+    "correct_code": "56074910",
+    "reason": "Category heading 'Other:' — use 56074910 for twine and ropes (15%, kg, SITC 657.5122)"
+  },
+  "61159900": {
+    "correct_code": "61159910",
+    "reason": "Category heading 'Of other textile materials:' — use 61159910 for socks/ankle-socks (20%, kg, SITC 846.297)"
+  },
+  "30049000": {
+    "correct_code": "30049090",
+    "reason": "Category heading 'Other medicaments, put up in measured doses:' — use 30049090 for Other (zinc oxide ointments, etc.)"
+  },
+  "96034000": {
+    "correct_code": "96034020",
+    "reason": "Category heading 'Paint brushes:' — use 96034020 for paint/varnish brushes (15%, kg, SITC 899.7272)"
+  },
+  "96034090": {
+    "correct_code": "96034020",
+    "reason": "96034090 does not exist in CET — use 96034020 for paint/varnish brushes"
+  },
+
+  "_comment_wrong_digits": "Codes with wrong CET detail digits — suffix does not match any end-node.",
+
+  "84099199": {
+    "correct_code": "84099120",
+    "reason": "84099199 does not exist — use 84099120 for marine craft engine parts (0-5%, kg, SITC 713.912)"
+  },
+  "84831099": {
+    "correct_code": "84831020",
+    "reason": "84831099 does not exist — use 84831020 for marine transmission shafts (0-5%, kg, SITC 748.12)"
+  },
+  "85291099": {
+    "correct_code": "85291000",
+    "reason": "85291099 does not exist — only 85291000 for aerials/reflectors (0-5%, kg, SITC 764.931)"
+  },
+  "73063090": {
+    "correct_code": "73063000",
+    "reason": "73063090 does not exist — only 73063000 for welded tubes (0-5%, kg, SITC 679.431)"
+  },
+  "73181590": {
+    "correct_code": "73181500",
+    "reason": "73181590 does not exist — only 73181500 for screws/bolts (0-5%, kg, SITC 694.215)"
+  },
+  "84219990": {
+    "correct_code": "84219900",
+    "reason": "84219990 does not exist — only 84219900 for filter parts (0-5%, kg, SITC 743.95)"
+  },
+  "32091090": {
+    "correct_code": "32091010",
+    "reason": "32091090 does not exist — use 32091010 for paints based on acrylic/vinyl polymers"
+  },
+
+  "_comment_wrong_headings": "Codes referencing non-existent HS subheadings in the CARICOM CET.",
+
+  "34025000": {
+    "correct_code": "34022090",
+    "reason": "3402.50 does not exist in CET — use 34022090 for retail cleaning preparations"
+  },
+  "61159100": {
+    "correct_code": "61152100",
+    "reason": "6115.91 does not exist in CET — use 61152100 for synthetic fibre tights"
+  },
+  "82030000": {
+    "correct_code": "82032000",
+    "reason": "82030000 is heading level — use 82032000 for pliers/pincers/tweezers"
+  },
+  "82131000": {
+    "correct_code": "82130090",
+    "reason": "8213.10 does not exist — use 82130090 for scissors other"
+  },
+  "85395200": {
+    "correct_code": "85395000",
+    "reason": "8539.52 does not exist — use 85395000 for LED lamps"
+  },
+  "96060000": {
+    "correct_code": "96050000",
+    "reason": "96060000 heading level — use 96050000 for travel sewing kits"
+  },
+
+  "_comment_national_subcodes": "Codes with wrong HS subheading that need remapping to valid subcodes.",
+
+  "32089000": {
+    "correct_code": "32089020",
+    "reason": "32089000 is HS subheading — use 32089020 Marine paints (Budget Marine = yacht supplies)"
+  },
+
+  "_comment_marine_paints": "Budget Marine is a yacht supplies shop. All paints are marine paints. Remap enamel/automotive/other-paint subdivisions to marine paint equivalents.",
+
+  "32081010": {
+    "correct_code": "32081020",
+    "reason": "Automotive paints → Marine paints (Budget Marine = yacht supplies)"
+  },
+  "32081030": {
+    "correct_code": "32081020",
+    "reason": "Enamels → Marine paints (Budget Marine = yacht supplies)"
+  },
+  "32081040": {
+    "correct_code": "32081020",
+    "reason": "Other paints → Marine paints (Budget Marine = yacht supplies)"
+  },
+  "32082010": {
+    "correct_code": "32082020",
+    "reason": "Automotive paints → Marine paints (Budget Marine = yacht supplies)"
+  },
+  "32082030": {
+    "correct_code": "32082020",
+    "reason": "Enamels → Marine paints (Budget Marine = yacht supplies)"
+  },
+  "32082040": {
+    "correct_code": "32082020",
+    "reason": "Other paints → Marine paints (Budget Marine = yacht supplies)"
+  },
+  "32089010": {
+    "correct_code": "32089020",
+    "reason": "Automotive paints → Marine paints (Budget Marine = yacht supplies)"
+  },
+  "32089030": {
+    "correct_code": "32089020",
+    "reason": "Enamels → Marine paints (Budget Marine = yacht supplies)"
+  },
+  "32089040": {
+    "correct_code": "32089020",
+    "reason": "Other paints → Marine paints (Budget Marine = yacht supplies)"
+  },
+  "32089090": {
+    "correct_code": "32089020",
+    "reason": "Other → Marine paints (Budget Marine = yacht supplies)"
+  },
+
+  "_comment_misclassified": "Products classified under completely wrong tariff headings. These are classification errors, not code format errors.",
+
+  "73160000": {
+    "correct_code": "73158900",
+    "reason": "MISCLASSIFIED: 7316 heading does not exist in CET — anchors/grapnels belong in 73158900 (other articles of iron/steel chain)"
+  },
+  "73161500": {
+    "correct_code": "95072000",
+    "reason": "MISCLASSIFIED: 73161500 is screws/bolts — fish hooks (Baitholder, Kirby etc.) belong in 95072000 (fish-hooks)"
+  },
+  "95110000": {
+    "correct_code": "95072000",
+    "reason": "MISCLASSIFIED: 9511 heading does not exist in CET — fishing hooks (Sea Kirby etc.) belong in 95072000 (fish-hooks)"
+  },
+  "33042000": {
+    "correct_code": "85319000",
+    "reason": "MISCLASSIFIED: 33042000 is eye makeup — safety lights/flashlights belong in 85319000 (signaling equipment parts)"
+  },
+  "61099020": {
+    "correct_code": "92089000",
+    "reason": "MISCLASSIFIED: 61099020 is clothing/singlets — air horns belong in 92089000 (other musical/signaling instruments)"
+  },
+  "96151110": {
+    "correct_code": "82059000",
+    "reason": "MISCLASSIFIED: 96151110 is combs — magnetic pick-up tools belong in 82059000 (other hand tools)"
+  },
+  "96061000": {
+    "correct_code": "95079090",
+    "reason": "MISCLASSIFIED: 96061000 is press-fasteners/snaps — fishing floats/snaps belong in 95079090 (other fishing tackle)"
+  },
+  "96159010": {
+    "correct_code": "96034020",
+    "reason": "MISCLASSIFIED: 96159010 is hair rollers — paint roller covers/refills belong in 96034020 (paint/varnish brushes)"
+  }
+}

@@ -1,0 +1,79 @@
+# FashionNova e-commerce invoice format v3
+# Fixes multiline parsing for "Price:" on separate line
+
+name: fashionnova_ecommerce_v3
+version: "1.0"
+description: "FashionNova invoice with product description and price on separate lines"
+
+detect:
+  all_of:
+    - "Order #"
+    - "Date Placed:"
+    - "Total"
+    - "Size:"
+    - "Qty"
+  any_of:
+    - "NEED HELP?"
+    - "Payment method:"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order #(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Date Placed:\s*([A-Za-z]+ \d{1,2}, \d{4})'
+  supplier_name:
+    value: "FashionNova"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Total\s+\$?([\d,]+\.\\d{2})'
+    type: currency
+
+items:
+  strategy: multiline
+  multiline:
+    # FashionNova format: product name on one line, "Price: $XX.XX" on next line
+    price_pattern: 'Price:\s*\$?([\d,]+\.\\d{2})'
+    description_join: ' '
+    min_description_length: 5
+    skip_patterns:
+      - '^Size:'
+      - '^Qty'
+      - '^Oty'
+      - '^ary'
+      - '^Order #'
+      - '^Date Placed:'
+      - '^Subtotal'
+      - '^Total\s+\$?'
+      - '^Shipping'
+      - '^Discount'
+      - '^Payment method'
+      - '^Delivery Address'
+      - '^Billing Address'
+      - '^FASHION'
+      - '^Visit'
+      - '^Shop'
+      - '^\s*$'
+      - '^\$[\d,]+\.\\d{2}$'  # Price-only lines
+    field_map:
+      unit_price: 1
+    types:
+      unit_price: currency
+    generated_fields:
+      quantity: 1
+      sku: "FN-{index}"
+
+sections:
+  items_start:
+    - "Going Viral"  # Product section header appears before items
+  items_end:
+    - "Subtotal"
+    - "Delivery Address"
+
+validation:
+  min_items: 1
+  max_item_price: 500

@@ -1,0 +1,84 @@
+# FashionNova invoice format v12 (working)
+# Simple line-based extraction with "Price:" handling
+
+name: fashionnova_ecommerce
+version: "12.0"
+description: "FashionNova invoice - simple extraction with price/qty from adjacent lines"
+
+detect:
+  all_of:
+    - "Order #"
+    - "Date Placed:"
+    - "Total"
+    - "Size:"
+    - "Qty"
+  any_of:
+    - "NEED HELP?"
+    - "Payment method:"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order #(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Date Placed:\s*([A-Za-z]+ \d{1,2}, \d{4})'
+  supplier_name:
+    value: "FashionNova"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Total\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    # Match product name lines (containing letters and spaces, no colons)
+    pattern: '^(?P<description>[A-Z][A-Za-z0-9\s\-]+)$'
+    field_map:
+      description: 1
+    types:
+      description: string
+    skip_patterns:
+      - '^Order #'
+      - '^Date Placed:'
+      - '^Size:'
+      - '^Qty:'
+      - '^Price:'
+      - '^Subtotal'
+      - '^Total\s+\$?'
+      - '^Shipping'
+      - '^Discount'
+      - '^Payment method'
+      - '^Delivery Address'
+      - '^Billing Address'
+      - '^FASHION'
+      - '^Visit'
+      - '^Shop'
+      - '^Going Viral'
+      - '^\s*$'
+      - '^\$[\d,]+\.\d{2}$'
+    # Look ahead to extract Price/Qty from following lines
+    price_pattern: '^Price:\s*\$(?P<unit_price>[\d,]+\.\d{2})$'
+    quantity_pattern: '^Qty:\s*(?P<quantity>\d+)$'
+    price_offset: 1
+    quantity_offset: 3
+    types:
+      unit_price: currency
+      quantity: integer
+    generated_fields:
+      sku: "FN-{index}"
+
+sections:
+  items_start:
+    - "Going Viral"
+  items_end:
+    - "Subtotal"
+    - "Delivery Address"
+
+validation:
+  min_items: 1
+  max_item_price: 500

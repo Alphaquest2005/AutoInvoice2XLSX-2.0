@@ -1,0 +1,67 @@
+# Tohatsu America Corporation Invoice Format Specification
+name: tohatsu
+version: "1.0"
+description: "Tohatsu America Corporation outboard motor and parts invoices"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  any_of:
+    - "TOHATSU"
+    - "Tohatsu"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - 'INVOICE NO\.\s*\n?\s*(\d+)'
+      - '^(\d{6})\s+'
+    required: true
+
+  date:
+    patterns:
+      - '(\d{1,2}/\d{1,2}/\d{2,4})'
+
+  supplier_name:
+    value: "Tohatsu America Corporation"
+
+  country_code:
+    value: "US"
+
+  total:
+    patterns:
+      - 'Amount Due:\s*\$?\s*([\d,]+\.\d{2})'
+    type: currency
+
+  discount:
+    patterns:
+      - 'Discount:\s*\$?\s*([\d,]+\.\d{2})'
+    type: currency
+
+  shipping:
+    patterns:
+      - 'Freight:\s*\$?\s*([\d,]+\.\d{2})'
+    type: currency
+
+# ─── Item Extraction ───────────────────────────────────────
+items:
+  strategy: line
+
+  line:
+    # Format: "ITEM_NO DESCRIPTION QTY_ORD QTY_BO QTY_SHIP PRICE EXTENSION"
+    # Example: "3BV871010 GEAR CASE ASSY, LOWER 1 0 1 590.49 590.49"
+    pattern: '^(\w{6,12}M?)\s+(.+?)\s+(\d+)\s+(\d+)\s+(\d+)\s+([\d.]+)\s+([\d,.]+\.\d{2})'
+    field_map:
+      sku: 1
+      description: 2
+      quantity: 5
+      unit_price: 6
+      total_cost: 7
+    types:
+      quantity: integer
+      unit_price: currency
+      total_cost: currency
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 1
+  require_total: true

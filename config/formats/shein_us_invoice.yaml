@@ -1,0 +1,234 @@
+# SHEIN US Services, LLC Invoice Format
+# Auto-generated and refined for two-column OCR layout
+
+name: shein_us_invoice
+version: "1.2"
+priority: 100  # Higher priority - check before generic shein specs
+description: "SHEIN US Services, LLC invoice - handles two-column OCR layout"
+
+# Detection patterns - broad to catch all SHEIN invoices
+# OCR may miss "SHEIN" text so also detect by address/invoice patterns
+# Third-party SHEIN sellers share the same template layout but lack "SHEIN" branding
+detect:
+  all_of:
+    - "Invoice Det"  # Matches "Invoice Detail" and OCR variants like "Invoice Detall"
+  any_of:
+    - "SHEIN"
+    - "INVUS"
+    - "Alameda"
+    - "90021"
+    - "Seller Information"
+
+# OCR normalization
+ocr_normalize:
+  - pattern: "[\u2018\u2019\u201C\u201D]"
+    replace: "'"
+    description: "Normalize Unicode smart quotes to ASCII apostrophe"
+  - pattern: 'Subtota[!il]:'
+    replace: 'Subtotal:'
+    description: "Fix OCR: Subtota!/Subtotai/Subtotall → Subtotal"
+  - pattern: '(?i)[lHhIt]{1,2}tem'
+    replace: 'Item'
+    description: "Fix OCR: lttem/ttem/Htem/htem/Ittem → Item"
+  - pattern: 'Handiing'
+    replace: 'Handling'
+    description: "Fix OCR: Handiing → Handling"
+  - pattern: '\{s\)'
+    replace: '(s)'
+    description: "Fix OCR: {s) → (s)"
+  - pattern: 'Sales Tax[.,]'
+    replace: 'Sales Tax:'
+    description: "Fix OCR: Sales Tax. → Sales Tax:"
+  - pattern: 'Grand Tota[tl](?!:)'
+    replace: 'Grand Total:'
+    description: "Fix OCR: Grand Totat/Grand Totall → Grand Total:"
+  - pattern: 'Shpping'
+    replace: 'Shipping'
+    description: "Fix OCR: Shpping → Shipping"
+  - pattern: 'Ape,'
+    replace: '1pc,'
+    description: "Fix OCR misread: Ape -> 1pc"
+  - pattern: 'Spes'
+    replace: '5pcs'
+    description: "Fix OCR misread: Spes -> 5pcs"
+  - pattern: 'pes\s+Wall'
+    replace: 'pcs Wall'
+    description: "Fix OCR: pes -> pcs"
+  - pattern: '(INVUS\d{7})\s+(\d+)'
+    replace: '\1\2'
+    description: "Fix OCR space in invoice number: INVUS2024071 7002011537 → INVUS20240717002011537"
+
+  - pattern: '(\s[0-9IilrFft|])\s+(\d)(\d{2})\s*$'
+    replace: '\1 \2.\3'
+    flags: multiline
+    description: "Fix missing decimal in price: 4 276 → 4 2.76 (OCR drops decimal point)"
+
+  - pattern: '(\d+),(\d{2})\s*$'
+    replace: '\1.\2'
+    flags: multiline
+    description: "Fix OCR comma→period in price: 10,93 → 10.93"
+
+  - pattern: '(\d)\s*[>»]\s*(\d)'
+    replace: '\1 \2'
+    description: "Remove OCR noise between qty and price: 1 > 1.71 → 1 1.71"
+
+  - pattern: '(\d),\s+([\d,]+\.\d{2})\s*$'
+    replace: '\1 \2'
+    flags: multiline
+    description: "Fix comma separator between qty and price: 1, 2.68 → 1 2.68"
+
+  - pattern: '(\s[0-9IilrFft|]{1,3})[.:;:,]\s+([\d,]+\.\d{2})\s*$'
+    replace: '\1 \2'
+    flags: multiline
+    description: "Fix OCR punctuation after qty: 1. 4.65 → 1 4.65, 1: 4.65 → 1 4.65"
+
+  - pattern: '\s+[Tt][Oo][.:;,]?\s+([\d,]+\.\d{2})\s*$'
+    replace: ' 1 \1'
+    flags: multiline
+    description: "Fix OCR misread qty as 'To:': To: 4.71 → 1 4.71 (OCR misreads 1 as To)"
+
+  - pattern: "([\\d.]+)\\s*[''°`\"']+\\s*$"
+    replace: '\1'
+    flags: multiline
+    description: "Strip trailing OCR quote/noise after price: 2.21' → 2.21"
+
+  - pattern: "[''°`']+\\s+([\\d,]+\\.\\d{2})"
+    replace: ' 1 \1'
+    description: "Fix OCR noise before price with no qty: ' 2.21 → 1 2.21 (assume qty=1)"
+
+  - pattern: "[''°`']+\\s+(\\d)(\\d{2})\\s*$"
+    replace: ' 1 \1.\2'
+    flags: multiline
+    description: "Fix OCR noise before price with no decimal: ' 920 → 1 9.20 (assume qty=1, insert decimal)"
+
+  - pattern: '[,;]\s+(\d)(\d{2})\s*$'
+    replace: ' 1 \1.\2'
+    flags: multiline
+    description: "Fix comma before price with no decimal: , 268 → 1 2.68 (OCR drops qty and decimal)"
+
+  - pattern: '§'
+    replace: '5'
+    description: "Fix OCR misread: § → 5 (common confusion with section symbol)"
+
+  - pattern: "['''`]\\s+&(\\d{2})\\s*$"
+    replace: ' 1 8.\1'
+    flags: multiline
+    description: "Fix OCR: ' &60 → 1 8.60 (apostrophe-as-qty + ampersand-as-8, must run BEFORE &XX rule)"
+
+  - pattern: '\s+&(\d{2})\s*$'
+    replace: ' 8.\1'
+    flags: multiline
+    description: "Fix OCR: &60 → 8.60 (common 8/& confusion, missing decimal)"
+
+  - pattern: '(\d+)\s+(\d{2})\s*[.\s]*$'
+    replace: '\1.\2'
+    flags: multiline
+    description: "Fix space in price: 2 82 → 2.82 (OCR splits decimal)"
+
+# Metadata extraction
+metadata:
+  invoice_number:
+    patterns:
+      - '(INVUS\d{10,})'
+      - '(INVUS\d{7,}(?:\s*\d{3,})+)'
+      # Two-column merge: "Order Number: Order Date:\nGSUNJY57BOONGXE 2024-07-17"
+      - 'Order Number:.*\n\s*([A-Z0-9]{10,})\s+\d{4}-'
+      # Order number on next line (must contain at least one digit to avoid matching "Order")
+      - 'Order Number:\s*\n\s*([A-Z0-9]*\d[A-Z0-9]{4,})'
+      - 'Order Number:\s+([A-Z0-9]*\d[A-Z0-9]{4,})'
+    required: true
+  date:
+    patterns:
+      - 'Invoice Date:\s*(\d{4}-\d{2}-\d{2})'
+      - 'Order Date:\s*(\d{4}-\d{2}-\d{2})'
+  supplier_name:
+    value: "SHEIN US Services, LLC"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Grand Total:\s*([\d,]+\.\d{2})'
+    type: currency
+
+  subtotal:
+    patterns:
+      - 'Item\(s\)\s*Subtotal:\s*([\d,]+\.\d{2})'
+    type: currency
+
+  tax:
+    patterns:
+      - 'Sales Tax:\s*([\d,]+\.\d{2})'
+    type: currency
+
+  shipping:
+    patterns:
+      - 'Shipping/Handling:\s*([\d,]+\.\d{2})'
+    type: currency
+
+# Item extraction using multiline strategy for wrapped descriptions
+# SHEIN items span multiple lines ending with "quantity price"
+# OCR often misreads qty digit "1" as letters (i, r, F, l, I, t, etc.)
+items:
+  strategy: multiline
+  multiline:
+    # Price pattern: line ending with qty and price
+    # Qty can be a digit OR common OCR misreads of "1" (i, r, F, l, I, t, |)
+    # OCR sometimes appends . : ; , after the qty digit (e.g. "1. 4.65" or "1: 4.65")
+    price_pattern: '\s+([0-9IilrFft|{(]{1,3})[.:;,]?\s+([\d,]+\.\d{2})\s*[|}\)]*\s*$'
+    field_map:
+      quantity: 1
+      unit_price: 2
+    types:
+      quantity: integer
+      unit_price: currency
+    min_description_length: 15
+    clean_fields:
+      description:
+        # Remove OCR noise: short non-word sequences (1-3 chars of symbols/single letters)
+        - pattern: '(?:^|\s)[^a-zA-Z0-9]{1,4}(?:\s|$)'
+          replace: ' '
+        # Remove single-char words that are OCR noise (but keep "a", "A")
+        - pattern: '(?<!\w)[b-zB-Z](?!\w)'
+          replace: ''
+        # Collapse multiple spaces
+        - pattern: '\s{2,}'
+          replace: ' '
+    skip_patterns:
+      - '^Invoice Detail'
+      - '^Description\s+(Quantity|Amount)'
+      - 'Description.*Quantity.*Amount'
+      - 'Description.*Amount.*USD'
+      - '^Order Number'
+      - '^Order Date'
+      - '^Sold By'
+      - '^Address'
+      - '^Bill To'
+      - '^Billing Address'
+      - '^Delivery Address'
+      - '^Seller Information'
+      - '^Order Information'
+      - '^Item\(s\) Subtotal'
+      - '^Shipping/Handling'
+      - '^Sales Tax'
+      - '^Grand Total'
+      - '^SHEIN US Services'
+      - '^\d{4}-\d{2}-\d{2}'
+    generated_fields:
+      sku: "SHEIN-{index}"
+
+# Section markers
+sections:
+  items_start:
+    - "Invoice Detail"
+    - "Invoice Detall"
+    - "Uivoies Detail"
+    - "nvoice Detail"
+  items_end:
+    - "Item(s) Subtotal"
+    - "\\tem(s) Subtotal"
+    - "Subtotal"
+
+# Validation
+validation:
+  min_items: 1
+  max_item_price: 500

@@ -1,0 +1,65 @@
+# Auto-generated format spec for pranzatelli_s_audio_outlet_l_l
+# Generated on 2026-04-04T03:36:32.292420
+# Will be promoted to formats/ on successful processing
+
+name: pranzatelli_s_audio_outlet_l_l
+version: "1.0"
+description: "Invoice format for Pranzatelli's Audio Outlet L.L.C."
+
+detect:
+  all_of:
+    - "Pranzatelli's Audio Outlet L.L.C."
+    - "SALES #"
+  any_of:
+    - "PMT METHOD"
+    - "ebay payments"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'SALES #\s*(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'DATE\s+(\d{2}/\d{2}/\d{4})'
+  supplier_name:
+    value: "Pranzatelli's Audio Outlet L.L.C."
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'TOTAL\s+([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^([A-Z0-9-]+)\s+(\d+)\s+([\d,]+\.\d{2})\s+([\d,]+\.\d{2})'
+    field_map:
+      sku: 1
+      quantity: 2
+      unit_price: 3
+      line_total: 4
+    types:
+      quantity: integer
+      unit_price: currency
+      line_total: currency
+    skip_patterns:
+      - '^SUBTOTAL'
+      - '^TAX'
+      - '^TOTAL'
+      - '^AMOUNT RECEIVED'
+      - '^BALANCE DUE'
+      - '^PMT METHOD'
+      - '^BILL TO'
+      - '^SHIP TO'
+      - '^\s*$'
+
+sections:
+  items_start:
+    - "PMT METHOD"
+  items_end:
+    - "SUBTOTAL"
+
+validation:
+  min_items: 1

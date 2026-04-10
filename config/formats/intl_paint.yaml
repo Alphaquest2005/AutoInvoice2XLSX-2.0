@@ -1,0 +1,58 @@
+# International Paint Invoice Format Specification
+name: intl_paint
+version: "1.0"
+description: "International Paint (USA) Inc. marine coatings invoices"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  all_of:
+    - "International Paint"
+  any_of:
+    - "Invoice Number"
+    - "Total Invoice Value"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - 'Invoice Number\s+(\d+)'
+    required: true
+
+  date:
+    patterns:
+      - 'Invoice Date\s+(\S+)'
+
+  supplier_name:
+    value: "International Paint (Usa) Inc."
+
+  country_code:
+    value: "US"
+
+  total:
+    patterns:
+      - 'Total Invoice Value\s+([\d,]+\.\d{2})'
+    type: currency
+
+# ─── Item Extraction ───────────────────────────────────────
+items:
+  strategy: line
+
+  line:
+    # Format: "LINE# ITEM_CODE DESCRIPTION QTY PC SIZE GAL QTY_GAL PRICE /PC AMOUNT DISCOUNT%"
+    # Example: "1 5606635 CETOL MARINE NATURAL TEAK 6 PC 0.25 GAL 1.50 GAL 25.38 /PC 152.28 0.00%"
+    pattern: '^\d+\s+(\d+)\s+(.+?)\s+(\d+)\s+PC\s+.*?([\d.]+)\s+/PC\s+([\d,]+\.\d{2})'
+    field_map:
+      sku: 1
+      description: 2
+      quantity: 3
+      unit_price: 4
+      total_cost: 5
+    types:
+      quantity: integer
+      unit_price: currency
+      total_cost: currency
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 1
+  require_total: true

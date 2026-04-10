@@ -1,0 +1,68 @@
+# Auto-generated format spec for invoice
+# Generated on 2026-02-28T18:55:25.053728
+# Will be promoted to formats/ on successful processing
+
+name: samba_wholesale_inc
+version: "1.0"
+description: "Invoice format for Samba Wholesale Inc featuring single-line items with QTY, Description, Unit Price, and Amount columns."
+
+detect:
+  all_of:
+    - "SAMBA WHOLSALE INC"
+    - "tel : 305-5474664"
+  any_of:
+    - "BILL TO INVOICE #"
+    - "myshoesmia@outlook.com"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'BILL TO INVOICE #\s*(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'INVOICE DATE\s+(\d{2}/\d{2}/\d{4})'
+  supplier_name:
+    value: "Samba Wholsale Inc"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'TOTAL\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^(\d+)\s+(.+?)\s+([\d,]+\.\d{2})\s+([\d,]+\.\d{2})$'
+    field_map:
+      quantity: 1
+      description: 2
+      unit_price: 3
+      amount: 4
+    types:
+      quantity: integer
+      unit_price: currency
+      amount: currency
+    skip_patterns:
+      - '^QTY DESCRIPTION'
+      - '^TOTAL'
+      - '^Terms & Conditions'
+      - '^\(cid:\d+\)ank you'
+      - '^Total Load'
+      - '^Boxes Loose'
+
+sections:
+  items_start:
+    - "QTY DESCRIPTION UNIT PRICE AMOUNT"
+  items_end:
+    - "TOTAL"
+
+classification:
+  product_context: "slippers and footwear"
+  default_code: "64041900"
+  default_category: "FOOTWEAR"
+
+validation:
+  min_items: 1
+  max_item_price: 10000

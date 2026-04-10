@@ -1,0 +1,88 @@
+# Captain's Fasteners Corp Invoice Format Specification
+name: captains_fasteners
+version: "1.0"
+description: "Captain's Fasteners Corp stainless steel fastener invoices"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  any_of:
+    - "CAPTAINS FASTENERS"
+    - "Captain's Fasteners"
+    - "captainsfasteners.com"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      # Line: "PO/GD/07117 B-0011 012 CF TRANSPORTATION 60 DAYS 04/14/2026 34424"
+      # Invoice No is the last field on the header data row after the date
+      - '\d{2}/\d{4}\s+(\d{5})\s*$'
+      - 'Invoice No\.?\s*\n.*?(\d{5})\s*$'
+    required: true
+
+  date:
+    patterns:
+      - 'Date:\s*(\d{2}-\d{2}-\d{4})'
+
+  supplier_name:
+    value: "Captains Fasteners Corp"
+
+  supplier_address:
+    value: "3706 SW 30th Ave, Fort Lauderdale, FL 33312"
+
+  country_code:
+    value: "US"
+
+  total:
+    patterns:
+      - 'Total Amount:\s*\n?.*?US\s*\$\s*([\d,]+\.\d{2})'
+      - 'Total\s+Amount:.*?US\s*\$\s*([\d,]+\.\d{2})'
+    type: currency
+
+  subtotal:
+    patterns:
+      - 'Sub\s*total:\s*US\s*\$\s*([\d,]+\.\d{2})'
+    type: currency
+
+  tax:
+    patterns:
+      - 'Tax:\s*US\s*\$\s*([\d,]+\.\d{2})'
+    type: currency
+
+  shipping:
+    patterns:
+      - 'Shipping\s*&?\s*Handling:\s*US\s*\$\s*([\d,]+\.\d{2})'
+    type: currency
+
+# ─── Item Extraction ───────────────────────────────────────
+# Line format:
+#  # ORD SHIP DESCRIPTION PART_NO PRICE UNIT AMOUNT
+#  1 100 100 18-8 SS CAP NUT UNC * 10-24 3356-050000 0.17540 EA 17.54
+items:
+  strategy: line
+
+  line:
+    pattern: '^\d+\s+(\d+)\s+\d+\s+(.+?)\s+(\d{4}-\d{6})\s+([\d.]+)\s+EA\s+([\d,]+\.\d{2})'
+    field_map:
+      quantity: 1
+      description: 2
+      sku: 3
+      unit_price: 4
+      total_cost: 5
+    types:
+      quantity: integer
+      unit_price: currency
+      total_cost: currency
+
+# ─── Section Markers ───────────────────────────────────────
+sections:
+  items_start:
+    - "FOB MIAMI"
+  items_end:
+    - "Sub total:"
+    - "Unauthorized returns"
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 1
+  require_total: false

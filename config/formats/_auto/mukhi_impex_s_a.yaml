@@ -1,0 +1,69 @@
+# Auto-generated format spec for mukhi_impex_s_a
+# Generated on 2026-04-06T10:30:59.180323
+# Will be promoted to formats/ on successful processing
+
+name: mukhi_impex_s_a
+version: "1.0"
+description: "Invoice format for Mukhi Impex S.A. featuring multi-column item lines with weight and measurement details."
+
+detect:
+  all_of:
+    - "MUKHI IMPEX S.A."
+    - "Zona Libre de Colón"
+  any_of:
+    - "RUC:28752"
+    - "ventas@mukhiimpex.com"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'INVOICE NO\.\s+(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'DATE:\s+(\d{2}/\d{2}/\d{4})'
+  supplier_name:
+    value: "MUKHI IMPEX S.A."
+  country_code:
+    value: "PA"
+  total:
+    patterns:
+      - '^TOTAL:\s+([\d,]+\.?\d*)'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^(\d+)\s+(.+?)\s+(CH|EA)\s+(\d+)\s+[\d.]+\s+\w+\s+[\d.]+\s+\w+\s+[\d.]+\s+[\d.]+\s+[\d.]+\s+([\d,]+\.?\d*)\s+([\d,]+\.?\d*)'
+    field_map:
+      sku: 1
+      description: 2
+      quantity: 6
+      unit_price: 7
+      amount: 8
+    types:
+      quantity: integer
+      unit_price: currency
+      amount: currency
+    skip_patterns:
+      - '^ITEMS DESCRIPTION'
+      - '^COMMENT:'
+      - '^TOTAL F\.O\.B\.'
+      - '^FREIGHT:'
+      - '^DOCUMENT:'
+      - '^TOTAL CARTONS:'
+      - '^INSURANCE:'
+      - '^TOTAL WEIGTH:'
+      - '^TOTAL MEASUREMENT:'
+      - '^DISCOUNT\.:'
+      - '^Three Hundred'
+      - '^web:'
+
+sections:
+  items_start:
+    - "ITEMS DESCRIPTION"
+  items_end:
+    - "COMMENT:"
+
+validation:
+  min_items: 1

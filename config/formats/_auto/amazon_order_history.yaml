@@ -1,0 +1,71 @@
+# Auto-generated format spec for amazon
+# Generated on 2026-04-06T12:09:16.900909
+# Will be promoted to formats/ on successful processing
+
+name: amazon_order_history
+version: "1.0"
+description: "Amazon Order History Invoice (Print View)"
+
+detect:
+  all_of:
+    - "Your Orders"
+    - "ORDER PLACED"
+    - "TOTAL"
+    - "SHIP TO"
+  any_of:
+    - "View order details"
+    - "View invoice"
+    - "Track package"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'ORDER\s+#\s+(\d{3}-\d{7}-\d{7})'
+    required: true
+  date:
+    patterns:
+      - 'ORDER PLACED\s+([A-Za-z]+ \d{1,2}, \d{4})'
+      - '(\d{2}/\d{2}/\d{4})'
+  supplier_name:
+    value: "Amazon"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'TOTAL\s+[\w\s]+\s+[\$€£]([\d,]+\.?\d*)'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^(.+?)\s+((?:\d+|\d+\s+\d+))$'
+    field_map:
+      description: 1
+      quantity: 2
+    types:
+      quantity: integer
+    skip_patterns:
+      - '^Delivered'
+      - '^Your package was'
+      - '^Track package'
+      - '^Return items'
+      - '^Share gift receipt'
+      - '^Buy it again'
+      - '^View your item'
+      - '^Write a product'
+      - '^Leave seller'
+      - '^Ask Product'
+      - '^Return or replace'
+      - '^https://'
+      - '^Your Orders'
+      - '^Page \d+ of \d+'
+      - '^\d{1,2}/\d{1,2}/\d{4}'
+
+sections:
+  items_start:
+    - "ORDER PLACED"
+  items_end:
+    - "https://www.amazon.com"
+
+validation:
+  min_items: 1

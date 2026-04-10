@@ -1,0 +1,81 @@
+# FashionNova e-commerce invoice format v6
+# Block-based extraction - product name then Price: and Qty: on separate lines
+
+name: fashionnova_ecommerce_v6
+version: "1.0"
+description: "FashionNova invoice - block-based extraction for product lines with separate Price/Qty lines"
+
+detect:
+  all_of:
+    - "Order #"
+    - "Date Placed:"
+    - "Total"
+    - "Size:"
+    - "Qty"
+  any_of:
+    - "NEED HELP?"
+    - "Payment method:"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order #(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Date Placed:\s*([A-Za-z]+ \d{1,2}, \d{4})'
+  supplier_name:
+    value: "FashionNova"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Total\s+\$?([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: block
+  block:
+    start_pattern: '^[A-Z][A-Za-z0-9\s&\-]+$'
+    end_pattern: '^Qty:\s*\d+$'
+    skip_patterns:
+      - '^Order #'
+      - '^Date Placed:'
+      - '^Subtotal'
+      - '^Total\s+\$?'
+      - '^Shipping'
+      - '^Discount'
+      - '^Payment method'
+      - '^Delivery Address'
+      - '^Billing Address'
+      - '^FASHION'
+      - '^Visit'
+      - '^Shop'
+      - '^\s*$'
+      - '^Going Viral'  # Section header
+    fields:
+      description:
+        pattern: '^(?P<desc>[A-Z][A-Za-z0-9\s&\-]+)$'
+        position: 1
+      unit_price:
+        pattern: '^Price:\s*\$(?P<price>[\d,]+\.\d{2})$'
+        position: 2
+      quantity:
+        pattern: '^Qty:\s*(?P<qty>\d+)$'
+        position: 3
+    types:
+      unit_price: currency
+      quantity: integer
+    generated_fields:
+      sku: "FN-{index}"
+
+sections:
+  items_start:
+    - "Going Viral"
+  items_end:
+    - "Subtotal"
+    - "Delivery Address"
+
+validation:
+  min_items: 1
+  max_item_price: 500

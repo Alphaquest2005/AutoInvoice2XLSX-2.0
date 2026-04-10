@@ -1,0 +1,449 @@
+# Column Configuration for CARICOM Invoice Processing
+# PRODUCTION HEADERS — 37 columns (A through AK). DO NOT CHANGE.
+# These names are the standard used in production and must not be altered.
+#
+# This file is the SINGLE SOURCE OF TRUTH for column definitions.
+# The XLSX generator (bl_xlsx_generator.py) loads this file dynamically.
+# Do NOT hardcode column numbers, headers, or widths in Python code.
+
+version: "2.0.0"
+
+# Critical production rules
+production_rules:
+  preserve_all_columns: true     # NEVER drop columns
+  freeze_column_names: true      # NEVER rename columns
+  append_only_new_columns: true  # Only add at end
+
+# Supplier Code is CRITICAL
+critical_columns:
+  - column: Z
+    name: SupplierCode
+    importance: CRITICAL
+    reason: "Required for production system integration"
+    must_populate_on: first_group_per_invoice
+
+# Styling
+styles:
+  header:
+    fill_color: "4472C4"
+    font_color: "FFFFFF"
+    font_bold: true
+    font_size: 10
+    alignment: center
+    wrap_text: true
+  group:
+    fill_color: "D9E1F2"
+    fill_type: "solid"
+    font_bold: true
+    font_size: 11
+  detail:
+    font_bold: false
+    font_size: 10
+  border:
+    style: "thin"
+
+# Currency formatting
+currency:
+  format: "#,##0.00"
+  # Columns that receive currency number_format
+  all_rows: [O, P, Q, R, S, T, U, V, W]
+  detail_only: [O, P, Q, R]
+
+# Full column mapping A-AK (37 columns)
+columns:
+  A:
+    index: 1
+    name: "DocumentType"
+    header: "Document Type"
+    width: 14
+    group_value: "4000-000"
+    detail_value: null
+    populate_on: first_group_per_invoice
+    notes: "FIRST group row per invoice=4000-000, subsequent group rows=BLANK, Detail=BLANK"
+
+  B:
+    index: 2
+    name: "PONumber"
+    header: "PO Number"
+    width: 12
+    group_value: "${po_number}"
+    detail_value: null
+    notes: "Group=PO number if available, Detail=BLANK"
+
+  C:
+    index: 3
+    name: "InvoiceNum"
+    header: "Supplier Invoice#"
+    width: 20
+    group_value: "${invoice_number}"
+    detail_value: null
+    notes: "Group=POPULATED, Detail=BLANK"
+
+  D:
+    index: 4
+    name: "Date"
+    header: "Date"
+    width: 12
+    group_value: "${invoice_date}"
+    detail_value: null
+    format: "YYYY-MM-DD"
+    notes: "Group=POPULATED, Detail=BLANK"
+
+  E:
+    index: 5
+    name: "Category"
+    header: "Category"
+    width: 15
+    group_value: "${category_name}"
+    detail_value: null
+
+  F:
+    index: 6
+    name: "TariffCode"
+    header: "TariffCode"
+    width: 12
+    group_value: "${tariff_code}"
+    detail_value: "${tariff_code}"
+    validation:
+      type: "string"
+      pattern: "^\\d{8}$"
+      length: 8
+      must_exist_in: "caricom_cet.xlsx"
+      must_have_columns: ["DUTY RATE", "UNIT", "SITC REV 4"]
+    notes: "8-digit end-node only, must have duty rate"
+
+  G:
+    index: 7
+    name: "POItemNumber"
+    header: "PO Item Number"
+    width: 22
+    group_value: "${po_item_ref}"
+    detail_value: null
+    notes: "Group=PO item reference, Detail=BLANK"
+
+  H:
+    index: 8
+    name: "POItemDescription"
+    header: "PO Item Description"
+    width: 40
+    group_value: "${po_item_desc}"
+    detail_value: null
+    notes: "Group=PO item description, Detail=BLANK"
+
+  I:
+    index: 9
+    name: "SupplierItemNumber"
+    header: "Supplier Item Number"
+    width: 18
+    group_value: "${tariff_code}"
+    detail_value: "${supplier_item}"
+    notes: "Group=tariff code (group key), Detail=supplier item/SKU"
+
+  J:
+    index: 10
+    name: "SupplierItemDescription"
+    header: "Supplier Item Description"
+    width: 45
+    group_value: "${group_label}"
+    detail_value: "${supplier_item_desc}"
+    notes: "Group=group label, Detail=supplier item description"
+
+  K:
+    index: 11
+    name: "Quantity"
+    header: "Quantity"
+    width: 10
+    group_value: "${sum_quantity}"
+    detail_value: "${item_quantity}"
+    format: "number"
+
+  L:
+    index: 12
+    name: "PerUnit"
+    header: "Per Unit"
+    width: 12
+    group_value: null
+    detail_value: null
+    notes: "Per unit quantity — not populated by pipeline (no source data)"
+
+  M:
+    index: 13
+    name: "Units"
+    header: "UNITS"
+    width: 8
+    group_value: "${uom}"
+    detail_value: "${uom}"
+    default: "Unit"
+
+  N:
+    index: 14
+    name: "Currency"
+    header: "Currency"
+    width: 8
+    value: "USD"
+
+  O:
+    index: 15
+    name: "Cost"
+    header: "Cost"
+    width: 12
+    group_value: "${average_unit_cost}"
+    detail_value: "${unit_price}"
+    precision: full
+    format: "currency"
+    notes: "Group=total_cost/sum_quantity FULL PRECISION (NO ROUNDING), Detail=unit price"
+
+  P:
+    index: 16
+    name: "TotalCost"
+    header: "Total Cost"
+    width: 12
+    group_value: "${sum_total_cost}"
+    detail_value: "${item_total_cost}"
+    format: "currency"
+
+  Q:
+    index: 17
+    name: "Total"
+    header: "Total"
+    width: 12
+    formula: "=O{row}*K{row}"
+    format: "currency"
+    notes: "Formula: Cost * Quantity — applied to ALL rows (group and detail)"
+
+  R:
+    index: 18
+    name: "TotalCostVsTotal"
+    header: "TotalCost Vs Total"
+    width: 14
+    formula: "=P{row}-Q{row}"
+    format: "currency"
+    expected: 0.00
+    notes: "Should equal zero for valid data"
+
+  S:
+    index: 19
+    name: "InvoiceTotal"
+    header: "InvoiceTotal"
+    width: 14
+    populate_on: first_group_per_invoice
+    value: "${invoice_total}"
+    format: "currency"
+    notes: "FIRST group row per invoice ONLY"
+
+  T:
+    index: 20
+    name: "Freight"
+    header: "Total Internal Freight"
+    width: 16
+    populate_on: first_group_per_invoice
+    value: "${freight}"
+    format: "currency"
+
+  U:
+    index: 21
+    name: "Insurance"
+    header: "Total Insurance"
+    width: 14
+    populate_on: first_group_per_invoice
+    value: "${insurance_or_credits}"
+    format: "currency"
+    notes: "Insurance OR customer-induced credits (store credits, promo codes) as negative values (x -1)"
+
+  V:
+    index: 22
+    name: "OtherCost"
+    header: "Total Other Cost"
+    width: 14
+    populate_on: first_group_per_invoice
+    value: "${tax_plus_other_cost}"
+    format: "currency"
+    notes: "Tax + fees + service charges"
+
+  W:
+    index: 23
+    name: "Deductions"
+    header: "Total Deduction"
+    width: 14
+    populate_on: first_group_per_invoice
+    value: "${discount_plus_free_shipping}"
+    format: "currency"
+    notes: "Supplier-induced: discount + free_shipping"
+
+  X:
+    index: 24
+    name: "Packages"
+    header: "Packages"
+    width: 10
+    populate_on: first_group_per_invoice
+    default: 1
+
+  Y:
+    index: 25
+    name: "Warehouse"
+    header: "Warehouse"
+    width: 12
+    populate_on: first_group_per_invoice
+
+  Z:
+    index: 26
+    name: "SupplierCode"
+    header: "Supplier Code"
+    width: 14
+    populate_on: first_group_per_invoice
+    value: "${supplier_code}"
+    importance: CRITICAL
+    notes: "CRITICAL for production - MUST populate on first group per invoice"
+
+  AA:
+    index: 27
+    name: "SupplierName"
+    header: "Supplier Name"
+    width: 28
+    populate_on: first_group_per_invoice
+    value: "${supplier_name}"
+
+  AB:
+    index: 28
+    name: "SupplierAddress"
+    header: "Supplier Address"
+    width: 40
+    populate_on: first_group_per_invoice
+    value: "${supplier_address}"
+
+  AC:
+    index: 29
+    name: "CountryCode"
+    header: "Country Code"
+    width: 12
+    populate_on: first_group_per_invoice
+    value: "${country_code}"
+    format: "2-letter ISO"
+
+  AD:
+    index: 30
+    name: "Instructions"
+    header: "Instructions"
+    width: 12
+
+  AE:
+    index: 31
+    name: "PrevDeclaration"
+    header: "Previous Declaration"
+    width: 18
+
+  AF:
+    index: 32
+    name: "FinancialInformation"
+    header: "Financial Information"
+    width: 16
+
+  AG:
+    index: 33
+    name: "Gallons"
+    header: "Gallons"
+    width: 10
+
+  AH:
+    index: 34
+    name: "Liters"
+    header: "Liters"
+    width: 10
+
+  AI:
+    index: 35
+    name: "INVTotalCost"
+    header: "INVTotalCost"
+    width: 14
+
+  AJ:
+    index: 36
+    name: "POTotalCost"
+    header: "POTotalCost"
+    width: 14
+
+  AK:
+    index: 37
+    name: "GroupBy"
+    header: "GroupBy"
+    width: 12
+    group_value: "${tariff_code}"
+    detail_value: null
+    notes: "Tariff code on group rows only, blank on details"
+
+# Row types (for validation/identification only)
+row_types:
+  group:
+    identification:
+      - column: AK
+        has_value: true
+    columns_blank:
+      - G  # when no PO data
+      - H  # when no PO data
+
+  detail:
+    identification:
+      - column: AK
+        has_value: false
+    columns_blank:
+      - A
+      - C
+      - D
+      - AK
+
+# Formula templates
+formula_templates:
+  total:
+    pattern: "=O{row}*K{row}"
+    description: "Total = Cost * Quantity"
+
+  totalcost_vs_total:
+    pattern: "=P{row}-Q{row}"
+    description: "TotalCost Vs Total = Total Cost - Total"
+    expected: 0.00
+
+  subtotal_grouped:
+    pattern: "={group_P_refs}"
+    description: "Sum of all group row P values"
+    syntax: "Use + operator: =P2+P15+P28"
+    not_syntax: "Do NOT use comma: =P2,P15,P28"
+
+  subtotal_details:
+    pattern: "=SUM(P{first_row}:P{last_row})-P{subtotal_grouped_row}"
+    description: "Sum of ALL rows minus grouped subtotal"
+
+  group_verification:
+    pattern: "=P{subtotal_grouped_row}-P{subtotal_details_row}"
+    description: "Should equal zero"
+    expected: 0.00
+
+  adjustments:
+    pattern: "=(T{first_row}+U{first_row}+V{first_row}-W{first_row})"
+    description: "Freight + Insurance + Other Cost - Deductions"
+
+  net_total:
+    pattern: "=P{subtotal_grouped_row}+P{adjustments_row}"
+    description: "Grouped subtotal plus adjustments"
+
+  variance_check:
+    pattern: "=S{first_row}-P{net_total_row}"
+    description: "Invoice total minus calculated net total"
+    expected: 0.00
+
+# Multi-invoice structure
+multi_invoice:
+  structure: "Inv1->SUBTOTAL->Inv2->SUBTOTAL->Grand"
+  per_invoice:
+    sections:
+      - groups_and_details
+      - subtotal_grouped
+      - subtotal_details
+      - group_verification
+      - adjustments
+      - net_total
+      - variance_check
+  grand_section:
+    when: "more than one invoice"
+    sections:
+      - grand_subtotal_grouped
+      - grand_variance_check

@@ -1,0 +1,82 @@
+# Auto-generated format spec for beautylicious_n_v
+# Generated on 2026-03-14T04:31:26.562525
+# Will be promoted to formats/ on successful processing
+
+name: beautylicious_n_v
+version: "1.0"
+description: "Invoice format for Beautylicious N.V. featuring multi-page item lists with headers repeated on each page."
+
+detect:
+  all_of:
+    - "BEAUTYLICIOUS N.V."
+    - "GOLDEN TREE DRIVE"
+    - "INVOICE NUMBER"
+    - "INVOICE DATE"
+  any_of:
+    - "ST. MAARTEN"
+    - "COLE BAY"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'INVOICE NUMBER\s+(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'INVOICE DATE\s+([A-Za-z]+\s+\d{1,2},\s+\d{4})'
+  supplier_name:
+    value: "BEAUTYLICIOUS N.V."
+  supplier_address:
+    value: "GOLDEN TREE DRIVE, COLE BAY, ST. MAARTEN"
+  country_code:
+    value: "SX"
+  total:
+    patterns:
+      - '\$([\d,]+\.\d{2})\s+MAKE ALL CHECKS PAYABLE TO'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^\s*(\d+)\s+(.+?)\s+\$([\d,]+\.\d{2})\s+\$?([\d,]+\.\d{2})\s*$'
+    field_map:
+      quantity: 1
+      description: 2
+      unit_price: 3
+      amount: 4
+    types:
+      quantity: integer
+      unit_price: currency
+      amount: currency
+    skip_patterns:
+      - '^QUANTITY DESCRIPTION'
+      - '^Page \d+'
+      - '^SUBTOTAL'
+      - '^TAX'
+      - '^FREIGHT'
+      - '^INVOICE'
+      - '^BEAUTYLICIOUS'
+      - '^GOLDEN TREE'
+      - '^SOLD TO:'
+      - '^SHIPPED TO:'
+      - '^\s*\$[\d,]+\.\d{2}\s+MAKE ALL CHECKS'
+      - '^\s*\$[\d,]+\.\d{2}\s*$'
+      - 'TEL\('
+      - 'TERMS'
+      - 'OUR ORDER NO'
+      - 'YOUR ORDER NO'
+      - 'SALES REP'
+      - 'SHIPPED VIA'
+      - 'THANK YOU'
+      - 'PAY THIS AMOUNT'
+      - 'Attn: Accounts Receivable'
+
+sections:
+  items_start:
+    - "QUANTITY DESCRIPTION UNIT PRICE AMOUNT"
+  items_end:
+    - "SUBTOTAL"
+
+validation:
+  min_items: 1
+  max_item_price: 1000

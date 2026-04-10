@@ -1,0 +1,81 @@
+name: hilco
+version: "3.0"
+description: "Hilco Vision eyewear accessories invoices"
+
+# Detection patterns
+detect:
+  all_of: []
+  any_of:
+    - "Hilco Vision"
+    - "hilcovision.com"
+
+# Metadata extraction
+metadata:
+  invoice_number:
+    patterns:
+      - 'Invoice Number:\s*(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Invoice Date:\s*(\d{2}/\d{2}/\d{4})'
+  supplier_name:
+    value: "Hilco Vision"
+  supplier_address:
+    value: "575 West Street Ste 120, Mansfield, MA 02048, USA"
+  total:
+    patterns:
+      - 'Amount Due:\s*([\d,]+\.\d{2})'
+    type: currency
+  shipping:
+    patterns:
+      - 'Freight Charge\s*([\d,]+\.\d{2})'
+    type: currency
+    aggregate: sum
+
+# Item extraction - block strategy for multi-line format with Legacy Item #
+items:
+  strategy: block
+
+  block:
+    # Each item starts: LineNum SKU Description UOM UnitPrice Disc Qty ExtPrice
+    start_pattern: '^\d+\s+\d{5,}\s+.+?\s+(?:EA|BG|PK)\s+[\d.]+\s+[\d.]+\s+\d+\s+[\d.]+'
+
+    fields:
+      sku:
+        pattern: '^\d+\s+(\d{5,})\s+'
+        group: 1
+      description:
+        pattern: '^\d+\s+\d{5,}\s+(.+?)\s+(?:EA|BG|PK)\s+'
+        group: 1
+        include_continuation: true
+        continuation_stop:
+          - 'Legacy Item #'
+      uom:
+        pattern: '\s+(EA|BG|PK)\s+'
+        group: 1
+      unit_price:
+        pattern: '(?:EA|BG|PK)\s+([\d.]+)\s+'
+        group: 1
+        type: currency
+      quantity:
+        pattern: '[\d.]+\s+[\d.]+\s+(\d+)\s+[\d.]+'
+        group: 1
+        type: integer
+      total_cost:
+        pattern: '\s([\d.]+)\s*$'
+        group: 1
+        type: currency
+      legacy_sku:
+        pattern: 'Legacy Item #:(\S+)'
+        group: 1
+
+  exclude_patterns:
+    - "Freight Charge"
+    - "Amount Due"
+    - "Remittance Slip"
+    - "Make Payment"
+    - "Past Due"
+    - "Tracking"
+    - "Note:"
+    - "Sales Amounts"
+    - "For additional"

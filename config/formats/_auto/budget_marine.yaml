@@ -1,0 +1,67 @@
+# Auto-generated format spec for budget_marine
+# Generated on 2026-04-05T17:05:24.646972
+# Will be promoted to formats/ on successful processing
+
+name: budget_marine
+version: "1.0"
+description: "Budget Marine Shipping Invoice with attached packing list"
+
+detect:
+  all_of:
+    - "BUDGET MARINE"
+    - "CARICOM"
+    - "SELLER"
+  any_of:
+    - "TROPICAL SHIPPING"
+    - "CARICOM (CARIBBEAN"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'INVOICE DATE AND NO\.\s*[\d\w]+\s+([\d\w-]+)'
+    required: true
+  date:
+    patterns:
+      - '(\d{2}-[A-Za-z]{3}-\d{2})'
+      - '(\d{1,2}\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4})'
+  supplier_name:
+    value: "Budget Marine"
+  country_code:
+    value: "SX"
+  total:
+    patterns:
+      - 'TOTAL INVOICE Amount\s+[\$]([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^\s*(\d+)\s+(.*?)\s+([\d,]+\.?\d*)\s+([\d,]+\.?\d*)\s+([\d,]+\.?\d*)\s*$'
+    field_map:
+      quantity: 1
+      description: 2
+      unit_price: 5
+    types:
+      quantity: integer
+      unit_price: currency
+    skip_patterns:
+      - '^FREIGHT'
+      - '^OTHER COSTS'
+      - '^INSURANCE'
+      - '^TOTAL INVOICE'
+      - 'N\.A\.'
+      - '^\s*$'
+      - 'NO\. AND SPECIFICATION'
+      - 'AS CONSIGNEE'
+      - 'SEE ATTACHED'
+
+sections:
+  items_start:
+    - "NO. AND SPECIFICATION"
+    - "DESCRIPTION OF GOODS"
+  items_end:
+    - "FREIGHT"
+    - "TOTAL INVOICE"
+
+validation:
+  min_items: 1

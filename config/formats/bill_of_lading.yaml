@@ -1,0 +1,79 @@
+name: bill_of_lading
+version: "1.0"
+description: "Bill of Lading / Shipping Manifest - Not an invoice, contains freight charges only"
+
+# Detection patterns for BOL documents
+detect:
+  all_of: []
+  any_of:
+    - "HBL"
+    - "MBL:"
+    - "KING OCEAN"
+    - "FMC#"
+    - "CARGO N.O.S"
+  none_of:
+    - "Item ID"
+    - "Qty Shipped"
+    - "Unit Price"
+    - "SUBTOTAL"
+    - "PO Number"
+    - "Qty Ordered"
+
+# BOL documents don't have product items - they have freight/manifest data
+item_extraction:
+  strategy: none  # No product items to extract
+
+# Manifest metadata extraction
+manifest:
+  waybill:
+    patterns:
+      - 'HBL(\d+)'
+      - 'WAYBILL[:\s]*(\d+)'
+  master_bill:
+    patterns:
+      - 'MBL[:\s]*([A-Z0-9-]+)'
+  voyage:
+    patterns:
+      - '(FOUMA\d+)'
+      - 'VOYAGE[:\s]*(\S+)'
+  packages:
+    patterns:
+      - '(\d+)\s+(?:BOX|BAG|CARTON|PACKAGE|TOTAL)'
+  weight_kg:
+    patterns:
+      - '([\d.]+)\s*kg'
+  weight_lb:
+    patterns:
+      - '([\d.]+)\s*lb'
+  seal:
+    patterns:
+      - 'SEAL#[:\s]*(\d+)'
+  container:
+    patterns:
+      - 'CNT[:\s]*(\S+)'
+
+# Freight charge extraction
+freight:
+  ocean_freight:
+    patterns:
+      - 'OCEAN FREIGHT\s+([\d.]+)'
+  bill_of_lading_fee:
+    patterns:
+      - 'BILL OF LADING\s+([\d.]+)'
+  bunker_surcharge:
+    patterns:
+      - 'BUNKER SURCHARGE\s+([\d.]+)'
+  landing:
+    patterns:
+      - 'LANDING\s+([\d.]+)'
+  handling_fee:
+    patterns:
+      - 'HANDLING FEE\s+([\d.]+)'
+  total:
+    patterns:
+      - 'USD\s+([\d.]+)\s+HBL'
+
+# Document classification
+document_type: manifest
+skip_classification: true  # No tariff codes needed for manifests
+skip_xlsx_generation: false  # Still generate summary

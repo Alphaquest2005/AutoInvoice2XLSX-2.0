@@ -1,0 +1,66 @@
+# Auto-generated format spec for shanice_st__bernard
+# Generated on 2026-03-17T03:58:31.235546
+# Will be promoted to formats/ on successful processing
+
+name: shanice_st__bernard
+version: "1.0"
+description: "Amazon-style invoice with multi-line item descriptions and specific payment summary layout."
+
+detect:
+  all_of:
+    - "Items Ordered"
+    - "Sold by:"
+    - "Payment information"
+  any_of:
+    - "Shipping Speed:"
+    - "FREE Prime Delivery"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Visa ending in \d+: ([\w\s]+):'
+    required: true
+  date:
+    patterns:
+      - 'Shipped on (\w+ \d{1,2}, \d{4})'
+      - 'Credit Card transactions[\s\S]+?: (\w+ \d{1,2}, \d{4})'
+  supplier_name:
+    value: "Shanice St. Bernard"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Grand Total: USD ([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^\s*(\d+) of; (.+?) \$(\d+\.\d{2})$'
+    field_map:
+      quantity: 1
+      description: 2
+      unit_price: 3
+    types:
+      quantity: integer
+      unit_price: currency
+    skip_patterns:
+      - '^Sold by:'
+      - '^Supplied by:'
+      - '^Condition:'
+      - '^Shipping Address:'
+      - '^Items Ordered'
+      - '^Price'
+      - '^\s*$'
+    generated_fields:
+      sku: "AMZ-{index}"
+
+sections:
+  items_start:
+    - "Items Ordered"
+  items_end:
+    - "Shipping Address"
+
+validation:
+  min_items: 1
+  max_item_price: 1000
