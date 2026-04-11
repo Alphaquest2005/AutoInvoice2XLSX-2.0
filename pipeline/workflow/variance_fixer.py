@@ -84,6 +84,29 @@ def fix_variance(
         xlsx_summary = _build_xlsx_summary(ws_data, cfg)
         invoice_total = xlsx_summary['invoice_total']
         total_cost_sum = xlsx_summary['total_cost_sum']
+
+        # Read raw adjustment components (freight/ins/tax/deduction) from row 2
+        # so we can tell the LLM the correct *items* target:
+        #     target_items_sum = invoice_total - adjustments
+        # Without this the LLM was told "Sum = Invoice Total", which caused it
+        # to target e.g. $67.80 instead of $63.37 (dropping a $4.43 tax into
+        # the items sum and effectively losing the tax).
+        def _num_cell(v):
+            try:
+                return float(v) if v is not None else 0.0
+            except (TypeError, ValueError):
+                return 0.0
+        _freight = _num_cell(ws_data.cell(row=2, column=20).value)   # T
+        _insurance = _num_cell(ws_data.cell(row=2, column=21).value) # U
+        _tax = _num_cell(ws_data.cell(row=2, column=22).value)       # V
+        _deduction = _num_cell(ws_data.cell(row=2, column=23).value) # W
+        adjustments = _freight + _insurance + _tax - _deduction
+        try:
+            inv_total_num = float(invoice_total) if invoice_total else 0.0
+        except (TypeError, ValueError):
+            inv_total_num = 0.0
+        target_items_sum = round(inv_total_num - adjustments, 2)
+
         wb_data.close()
 
         # Load again without data_only for writing (preserves formulas)
@@ -96,21 +119,30 @@ def fix_variance(
 
         user_message = f"""{xlsx_summary['text']}
 
-Invoice Total (NET TOTAL): ${invoice_total}
+Invoice Total (S2): ${invoice_total}
+Adjustments (Freight ${_freight:.2f} + Insurance ${_insurance:.2f} + Tax ${_tax:.2f} - Deduction ${_deduction:.2f}) = ${adjustments:.2f}
 Current Sum of Individual Items: ${total_cost_sum:.2f}
 Current Variance: ${current_variance:.2f}
-Target: Variance should be $0.00 (Sum = Invoice Total = ${invoice_total})
+Target: Sum of detail items MUST equal ${target_items_sum:.2f}
+  (derivation: Invoice Total ${inv_total_num:.2f} − Adjustments ${adjustments:.2f} = ${target_items_sum:.2f})
 
 Invoice PDF text (for reference):
 {invoice_text}
 
-Analyze the data and provide fixes to bring variance to $0.00. Remember:
+Analyze the data and provide fixes to bring the items sum to ${target_items_sum:.2f}. Remember:
 - Only modify NUMERIC values on DETAIL ITEM rows (not group rows or summary rows)
+- Do NOT touch the Adjustments / Freight / Tax values — those are separate
 - Do NOT propose add_items — the XLSX structure is fixed
 - If the fix is unclear, return empty fixes array"""
 
-        # Use cache key based on xlsx content + variance (deterministic)
-        cache_extra = f"variance:{current_variance:.2f}:total:{total_cost_sum:.2f}"
+        # Use cache key based on xlsx content + variance (deterministic).
+        # Include target_items_sum so cache busts when the prompt's target
+        # changes (the LLM used to be told the wrong target; a stale cache
+        # entry would otherwise keep returning fixes aimed at the old target).
+        cache_extra = (
+            f"variance:{current_variance:.2f}:total:{total_cost_sum:.2f}"
+            f":target:{target_items_sum:.2f}:v2"
+        )
 
         fixes_data = llm.call_json(
             user_message=user_message,
@@ -126,11 +158,26 @@ Analyze the data and provide fixes to bring variance to $0.00. Remember:
         # Apply fixes to XLSX
         fixes_applied = _apply_fixes(ws, fixes_data, cfg)
 
+        # Propagate detail-row changes up to their group headers so grouped
+        # subtotals (=P{group_header_row}) stay consistent with the new detail
+        # sums. Without this, SUBTOTAL (GROUPED) still references the pre-fix
+        # header value and NET TOTAL in Excel remains wrong even though our
+        # in-memory variance calculation is right.
+        if fixes_applied:
+            updated = _update_group_header_totals(ws, cfg)
+            if updated:
+                logger.info(f"Updated {updated} group header total(s) to match fixed details")
+
         # Recalculate and update variance
         new_variance = _recalculate_variance(ws, invoice_total, cfg)
 
-        # Force adjustment if LLM fix was incomplete
-        if abs(new_variance) >= cfg.variance_threshold:
+        # Force adjustment if LLM fix was incomplete. We use a tight 0.02
+        # tolerance here (not cfg.variance_threshold which is 0.50) because
+        # the downstream combined-block check also uses 0.02 — anything above
+        # that bubbles up as an unfixed variance blocker. Small residuals
+        # (e.g. 16¢ rounding errors when the LLM patches one row) should be
+        # absorbed by the ADJUSTMENTS formula so the block is fully balanced.
+        if abs(new_variance) >= 0.02:
             logger.info(f"LLM fix incomplete - forcing adjustment for ${new_variance:.2f}")
             _force_adjustment(ws, new_variance, cfg)
             new_variance = 0.00
@@ -229,16 +276,14 @@ def _build_xlsx_summary(ws, cfg) -> Dict:
     for sr in summary_rows:
         lines.append(f"  Row {sr['row']}: {sr['description']} = ${sr['total_cost']}")
 
-    # Find invoice total — check description column for labels
-    invoice_total = None
-    for row in range(ws.max_row, 0, -1):
-        cell_desc = ws.cell(row=row, column=desc_col).value
-        if cell_desc:
-            if 'INVOICE TOTAL' in str(cell_desc).upper() or 'NET TOTAL' in str(cell_desc).upper():
-                invoice_total = ws.cell(row=row, column=cfg.col_total_cost).value
-                break
+    # Read invoice_total from column S (col 19) of row 2 — this is the raw
+    # numeric invoice total written by the XLSX generator. Reading the
+    # INVOICE TOTAL row's col P is unreliable because that cell contains the
+    # formula ``=S2`` which evaluates to ``None`` under data_only=True on a
+    # freshly written workbook with no Excel-populated formula cache.
+    invoice_total = ws.cell(row=2, column=19).value  # S = COL_INV_TOTAL
 
-    lines.append(f"Invoice Total from XLSX: ${invoice_total}")
+    lines.append(f"Invoice Total from XLSX (S2): ${invoice_total}")
 
     return {
         'text': '\n'.join(lines),
@@ -283,10 +328,22 @@ def _apply_fixes(ws, fixes_data: Dict, cfg) -> int:
 
 
 def _recalculate_variance(ws, invoice_total, cfg) -> float:
-    """Recalculate variance from XLSX data."""
+    """Recalculate variance from XLSX data.
+
+    Adjustments are read directly from the raw numeric cells T2/U2/V2/W2
+    (freight/insurance/tax/deduction) because the ADJUSTMENTS row's total_cost
+    cell contains the formula ``=(T2+U2+V2-W2)`` — a string that cannot be
+    evaluated without Excel, so the previous implementation silently treated
+    adjustments as zero and computed a wildly wrong variance that, when fed
+    through _force_adjustment, destroyed the block.
+    """
     desc_col = _get_desc_column(ws)
-    new_total = 0
-    adjustment_total = 0
+    # Column indices for the invoice-level adjustments row (row 2).
+    COL_FREIGHT = 20    # T
+    COL_INSURANCE = 21  # U
+    COL_TAX = 22        # V
+    COL_DEDUCTION = 23  # W
+    new_total = 0.0
 
     def _is_group_row(row):
         fill = ws.cell(row=row, column=1).fill
@@ -300,13 +357,11 @@ def _recalculate_variance(ws, invoice_total, cfg) -> float:
             continue
 
         desc_str = str(desc).upper()
+        # Skip every summary/formula row — including ADJUSTMENTS, which is a
+        # formula string we compute separately below from raw T/U/V/W cells.
         if any(x in desc_str for x in ['SUBTOTAL', 'VARIANCE', 'NET TOTAL', 'GROUP VERIFICATION',
-                                        'INVOICE TOTAL', 'TOTAL INTERNAL', 'TOTAL INSURANCE',
-                                        'TOTAL OTHER', 'TOTAL DEDUCTION']):
-            continue
-        if 'ADJUSTMENTS' in desc_str:
-            if total and isinstance(total, (int, float)):
-                adjustment_total += float(total)
+                                        'ADJUSTMENTS', 'INVOICE TOTAL', 'TOTAL INTERNAL',
+                                        'TOTAL INSURANCE', 'TOTAL OTHER', 'TOTAL DEDUCTION']):
             continue
         if _is_group_row(row):
             continue  # Skip group rows — only count detail items
@@ -314,6 +369,18 @@ def _recalculate_variance(ws, invoice_total, cfg) -> float:
         # Detail items
         if total and isinstance(total, (int, float)):
             new_total += float(total)
+
+    def _num(v):
+        try:
+            return float(v) if v is not None else 0.0
+        except (TypeError, ValueError):
+            return 0.0
+
+    freight = _num(ws.cell(row=2, column=COL_FREIGHT).value)
+    insurance = _num(ws.cell(row=2, column=COL_INSURANCE).value)
+    tax = _num(ws.cell(row=2, column=COL_TAX).value)
+    deduction = _num(ws.cell(row=2, column=COL_DEDUCTION).value)
+    adjustment_total = freight + insurance + tax - deduction
 
     new_total += adjustment_total
     # invoice_total may be a string from formula cells — convert safely
@@ -403,3 +470,88 @@ def _force_adjustment(ws, remaining_variance: float, cfg):
 
     # No ADJUSTMENTS row found — cannot fix without inserting rows
     logger.warning(f"No ADJUSTMENTS row found in XLSX — cannot force adjustment of ${remaining_variance:.2f}")
+
+
+def _update_group_header_totals(ws, cfg) -> int:
+    """Recompute each group header's quantity & total_cost from its detail children.
+
+    In grouped XLSX format (bl_xlsx_generator), each group header row (blue
+    D9E1F2 fill) is followed by one or more detail rows. The header's col P
+    holds the sum of its details' col P, and SUBTOTAL (GROUPED) references the
+    header (e.g. ``=P2`` or ``=P2+P4``). When the LLM-based variance fixer
+    modifies detail values, the group header stays stale and the NET TOTAL
+    formula propagates the wrong value.
+
+    This walks the sheet, groups detail rows under their nearest preceding
+    group header, and writes the summed qty/total_cost back into the header.
+    Returns the number of headers whose total_cost changed.
+    """
+    desc_col = _get_desc_column(ws)
+
+    _SUMMARY_MARKERS = (
+        'SUBTOTAL', 'VARIANCE', 'NET TOTAL', 'GROUP VERIFICATION',
+        'ADJUSTMENTS', 'INVOICE TOTAL', 'TOTAL INTERNAL',
+        'TOTAL INSURANCE', 'TOTAL OTHER', 'TOTAL DEDUCTION',
+    )
+
+    def _is_group_row(row):
+        fill = ws.cell(row=row, column=1).fill
+        return (fill and fill.start_color and
+                'D9E1F2' in str(getattr(fill.start_color, 'rgb', '') or ''))
+
+    def _is_summary_row(row):
+        desc = ws.cell(row=row, column=desc_col).value
+        if not desc:
+            return False
+        s = str(desc).upper()
+        return any(m in s for m in _SUMMARY_MARKERS)
+
+    # Find all group header rows and the first summary row (end of item section).
+    group_headers = []
+    summary_start = None
+    for row in range(2, ws.max_row + 1):
+        if _is_summary_row(row):
+            if summary_start is None:
+                summary_start = row
+            continue
+        if _is_group_row(row):
+            group_headers.append(row)
+
+    if not group_headers:
+        return 0
+    if summary_start is None:
+        summary_start = ws.max_row + 1
+
+    updated = 0
+    for i, gh in enumerate(group_headers):
+        next_boundary = group_headers[i + 1] if i + 1 < len(group_headers) else summary_start
+        qty_sum = 0.0
+        cost_sum = 0.0
+        has_cost = False
+        for row in range(gh + 1, next_boundary):
+            if _is_summary_row(row):
+                break
+            q = ws.cell(row=row, column=cfg.col_quantity).value
+            tc = ws.cell(row=row, column=cfg.col_total_cost).value
+            if isinstance(q, (int, float)):
+                qty_sum += float(q)
+            if isinstance(tc, (int, float)):
+                cost_sum += float(tc)
+                has_cost = True
+
+        if not has_cost:
+            continue  # nothing to roll up
+
+        old_cost = ws.cell(row=gh, column=cfg.col_total_cost).value
+        new_cost = round(cost_sum, 2)
+        if not isinstance(old_cost, (int, float)) or abs(float(old_cost) - new_cost) > 0.005:
+            ws.cell(row=gh, column=cfg.col_total_cost).value = new_cost
+            updated += 1
+            logger.info(f"Group header row {gh}: total_cost {old_cost} -> {new_cost}")
+
+        old_qty = ws.cell(row=gh, column=cfg.col_quantity).value
+        new_qty = int(qty_sum) if qty_sum == int(qty_sum) else qty_sum
+        if not isinstance(old_qty, (int, float)) or old_qty != new_qty:
+            ws.cell(row=gh, column=cfg.col_quantity).value = new_qty
+
+    return updated
