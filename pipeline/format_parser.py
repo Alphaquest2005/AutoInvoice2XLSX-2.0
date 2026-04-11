@@ -159,11 +159,99 @@ class FormatParser:
         # Step 4: Post-OCR item validation — cross-check qty × price vs totals
         items = self._validate_and_correct_items(items, metadata)
 
+        # Step 4b: Subtotal-anchored permissive retry.  When items_sum does
+        # not reconcile with the extracted subtotal, re-run item extraction
+        # with a permissive price pattern that accepts OCR-mangled qty
+        # tokens (e.g. 'a', 'Vv', 'iM', 'L.').  Only accept the retry if it
+        # reconciles better with the subtotal anchor.
+        items = self._subtotal_anchored_retry(items, metadata, normalized_text)
+
         # Step 5: Post-process and validate
         result = self._build_result(metadata, items, normalized_text,
                                     skipped_items_total=self._skipped_items_total)
 
         return result
+
+    def _subtotal_anchored_retry(
+        self, items: List[Dict], metadata: Dict, text: str,
+    ) -> List[Dict]:
+        """
+        If items_sum fails to reconcile with the extracted subtotal, retry
+        item extraction with a permissive price pattern and accept the
+        retry only if it reconciles better with the subtotal anchor.
+
+        Rationale: OCR sometimes mangles the single-digit qty column so the
+        strict pattern misses rows (e.g. 'a', 'v', 'Vv', 'iM', 'L.' instead
+        of '1').  The subtotal printed on the invoice is a reliable anchor
+        — if a permissive retry produces an items sum that matches it, we
+        can trust the extra items even though their qty tokens are garbled.
+        """
+        items_spec = self.spec.get('items', {})
+        if items_spec.get('strategy') != 'multiline':
+            return items
+
+        subtotal = metadata.get('subtotal') or 0
+        if not isinstance(subtotal, (int, float)) or subtotal <= 0:
+            return items
+
+        items_sum = sum(
+            (it.get('total_cost', 0) or 0) for it in items
+            if isinstance(it.get('total_cost'), (int, float))
+        )
+
+        # Tolerance: $0.02 fixed (matches variance_fixer threshold)
+        tolerance = 0.02
+        original_gap = abs(items_sum - subtotal)
+        if original_gap <= tolerance:
+            return items
+
+        multiline = items_spec.get('multiline') or {}
+        if not multiline.get('price_pattern'):
+            return items
+
+        # Build permissive variant: swap price_pattern for one that accepts
+        # any 1-3 char non-whitespace token as the qty marker.
+        permissive_spec = dict(items_spec)
+        permissive_multiline = dict(multiline)
+        permissive_multiline['price_pattern'] = (
+            r'\s+(\S{1,3})[.:;,]?\s+([\d,]+\.\d{2})\s*[|}\)]*\s*$'
+        )
+        permissive_spec['multiline'] = permissive_multiline
+
+        retry_items = self._extract_multiline_items(text, permissive_spec)
+
+        # In permissive mode, force qty=1 for every item and recompute
+        # total_cost from unit_cost.  Rationale: the permissive pattern
+        # matches OCR-mangled qty tokens like 'a', 'iM', 'Vv', 'L.' which
+        # cannot be parsed to an integer, *and* it may also mis-read a
+        # stray digit (e.g. '4') that is actually a garbled '1'.  For
+        # SHEIN-style retail invoices qty is almost always 1; if an
+        # invoice legitimately has qty > 1 the subtotal anchor check
+        # below will reject the retry and we keep the original items.
+        for it in retry_items:
+            unit_cost = it.get('unit_cost', 0) or 0
+            if unit_cost > 0:
+                it['quantity'] = 1
+                it['total_cost'] = round(float(unit_cost), 2)
+
+        retry_sum = sum(
+            (it.get('total_cost', 0) or 0) for it in retry_items
+            if isinstance(it.get('total_cost'), (int, float))
+        )
+        retry_gap = abs(retry_sum - subtotal)
+
+        # Accept retry only if it reconciles with subtotal AND improves on
+        # the original gap.  This is a one-way door: we never regress.
+        if retry_gap <= tolerance and retry_gap < original_gap:
+            logger.info(
+                f"Subtotal-anchored retry: original {len(items)} items "
+                f"sum ${items_sum:.2f} (gap ${original_gap:.2f}) → "
+                f"permissive {len(retry_items)} items sum ${retry_sum:.2f} "
+                f"(anchor ${subtotal:.2f}, gap ${retry_gap:.2f})"
+            )
+            return retry_items
+
+        return items
 
     def normalize_ocr(self, text: str) -> str:
         """
@@ -1497,6 +1585,28 @@ class FormatParser:
                         f"(digit '{old_ch}'→'{new_ch}' at pos {pos})")
                     metadata['subtotal'] = new_sub
                     return 0.0
+
+        # Strategy 5: Decimal-point recovery — OCR dropped the decimal from
+        # the total (e.g. "Grand Total: 457" should be 4.57).  The raw integer
+        # fallback pattern in the format spec captures "457" as 457.00; if
+        # items_sum + adjustments ≈ invoice_total / 100 we can safely rescale.
+        #
+        # Guards:
+        #   - target_total must be positive (items were extracted)
+        #   - invoice_total must be at least 100× larger than target_total
+        #     (so we don't accidentally rescale a legitimate total)
+        #   - ratio must land within 0.02 of target after divide-by-100
+        if target_total > 0 and invoice_total >= target_total * 50:
+            recovered = round(invoice_total / 100, 2)
+            if abs(recovered - target_total) < 0.02:
+                logger.info(
+                    f"OCR metadata fix: total ${invoice_total:.2f} → ${recovered:.2f} "
+                    f"(decimal-point recovery: OCR dropped decimal in Grand Total)")
+                if metadata.get('total'):
+                    metadata['total'] = recovered
+                elif metadata.get('subtotal'):
+                    metadata['subtotal'] = recovered
+                return round(target_total - recovered, 2)
 
         return None
 

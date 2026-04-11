@@ -50,6 +50,128 @@ def _shift_formula(formula: str, row_offset: int) -> str:
     return re.sub(r'([A-Z]{1,3})(\d+)', replace_ref, formula)
 
 
+# Columns (bl_xlsx_generator layout):
+#   P (16) = total_cost per row / sums
+#   S (19) = invoice total (only on first data row)
+#   T (20) = freight, U (21) = insurance, V (22) = tax, W (23) = deduction
+_COL_TOTAL_COST = 16
+_COL_INV_TOTAL = 19
+_COL_FREIGHT = 20
+_COL_INSURANCE = 21
+_COL_TAX = 22
+_COL_DEDUCTION = 23
+
+# Rows whose description contains any of these markers are summary/metadata
+# rows, NOT detail items — they must never be included in a detail-sum.
+_SUMMARY_MARKERS = (
+    'SUBTOTAL', 'VARIANCE', 'NET TOTAL', 'GROUP VERIFICATION',
+    'ADJUSTMENTS', 'INVOICE TOTAL', 'TOTAL INTERNAL',
+    'TOTAL INSURANCE', 'TOTAL OTHER', 'TOTAL DEDUCTION',
+)
+
+
+def _is_group_header_row(ws, row: int) -> bool:
+    """A group header is filled with 'D9E1F2' in bl_xlsx_generator's grouped
+    output. Its col-P value is the sum of its child detail rows, so if both
+    header and children are counted the detail total is double-counted."""
+    fill = ws.cell(row=row, column=1).fill
+    return bool(
+        fill and fill.start_color
+        and 'D9E1F2' in str(getattr(fill.start_color, 'rgb', '') or '')
+    )
+
+
+def _is_summary_row(ws, row: int) -> bool:
+    """Rows whose description column (J=10 or L=12) matches any summary marker."""
+    for col in (10, 12):
+        desc = ws.cell(row=row, column=col).value
+        if desc and isinstance(desc, str):
+            up = desc.upper()
+            if any(m in up for m in _SUMMARY_MARKERS):
+                return True
+    return False
+
+
+def _parse_adjustment_correction(formula_str) -> float:
+    """Return the trailing numeric correction appended to an ADJUSTMENTS formula.
+
+    The variance_fixer writes corrections as ``=(T{r}+U{r}+V{r}-W{r})+12.73``
+    or ``...+-4.43``. We parse whatever follows the closing parenthesis so the
+    combined summary picks up the same net total Excel will show on open.
+    """
+    if not isinstance(formula_str, str) or not formula_str.startswith('='):
+        return 0.0
+    m = re.match(r'=\([^)]+\)\s*([+\-].+)$', formula_str)
+    if not m:
+        return 0.0
+    try:
+        return float(m.group(1))
+    except (TypeError, ValueError):
+        return 0.0
+
+
+def _compute_block_totals(ws) -> Dict[str, float]:
+    """Compute (invoice_total, net_total, variance) from raw cells of a
+    single per-invoice XLSX.
+
+    Mirrors ``variance_fixer._recalculate_variance`` so what the combined
+    summary displays matches what Excel will evaluate for the per-block
+    VARIANCE CHECK formulas. Without this, the old fallback double-counted
+    grouped header rows and ignored the ADJUSTMENTS correction, producing
+    wildly wrong per-invoice variance numbers in the grand summary block.
+    """
+    detail_sum = 0.0
+    adjustment_correction = 0.0
+    invoice_total_s = 0.0
+    # Note: ADJUSTMENTS correction can appear on any row, so we hunt for it
+    # across the whole sheet rather than assuming row 2. Also note that in
+    # bl_xlsx_generator's *grouped* output, column S is written only on the
+    # group-header row (blue fill), so S must be collected even on rows that
+    # we otherwise skip from the detail sum.
+    for r in range(2, ws.max_row + 1):
+        # Invoice total lives in col S on the first data or group-header row.
+        s_val = ws.cell(row=r, column=_COL_INV_TOTAL).value
+        if isinstance(s_val, (int, float)) and s_val and invoice_total_s == 0.0:
+            invoice_total_s = float(s_val)
+
+        if _is_summary_row(ws, r):
+            # ADJUSTMENTS row may carry a trailing +correction in its formula
+            for col in (10, 12):
+                desc = ws.cell(row=r, column=col).value
+                if desc and isinstance(desc, str) and 'ADJUSTMENTS' in desc.upper():
+                    adjustment_correction += _parse_adjustment_correction(
+                        ws.cell(row=r, column=_COL_TOTAL_COST).value
+                    )
+                    break
+            continue
+        if _is_group_header_row(ws, r):
+            continue
+        # Detail row: sum col P if numeric
+        tc = ws.cell(row=r, column=_COL_TOTAL_COST).value
+        if isinstance(tc, (int, float)):
+            detail_sum += float(tc)
+
+    def _num(v):
+        try:
+            return float(v) if v is not None else 0.0
+        except (TypeError, ValueError):
+            return 0.0
+
+    freight = _num(ws.cell(row=2, column=_COL_FREIGHT).value)
+    insurance = _num(ws.cell(row=2, column=_COL_INSURANCE).value)
+    tax = _num(ws.cell(row=2, column=_COL_TAX).value)
+    deduction = _num(ws.cell(row=2, column=_COL_DEDUCTION).value)
+    adjustments = freight + insurance + tax - deduction + adjustment_correction
+
+    net_total = round(detail_sum + adjustments, 2)
+    variance = round(invoice_total_s - net_total, 2)
+    return {
+        'invoice_total': round(invoice_total_s, 2),
+        'net_total': net_total,
+        'variance': variance,
+    }
+
+
 def combine_xlsx_files(file_paths: List[str], output_path: str,
                        ocr_notes: List[Dict[str, Any]] = None) -> Dict[str, Any]:
     """
@@ -119,59 +241,34 @@ def combine_xlsx_files(file_paths: List[str], output_path: str,
         if not os.path.exists(file_path):
             return {'status': 'error', 'error': f'File not found: {file_path}'}
 
-        # First pass: read computed values for grand summary
+        # First pass: compute block totals from raw cells.
+        #
+        # We deliberately do NOT rely on openpyxl's ``data_only=True`` cached
+        # formula values here because openpyxl cannot evaluate formulas — it
+        # only returns what Excel already wrote into the cache. Our per-invoice
+        # XLSXs are produced by openpyxl and never opened by Excel, so every
+        # formula cell (NET TOTAL, VARIANCE CHECK, ADJUSTMENTS, …) reads as
+        # None. Instead, reconstruct the numbers from raw detail cells using
+        # the same algorithm as ``variance_fixer._recalculate_variance`` so the
+        # GRAND SUMMARY matches what Excel will show when the combined file
+        # is opened.
         try:
-            wb_data = load_workbook(file_path, data_only=True)
+            wb_data = load_workbook(file_path)
             ws_data = wb_data.active
         except Exception as e:
             return {'status': 'error', 'error': f'Failed to open {file_path}: {str(e)}'}
 
+        # Invoice number lives in column C of the first data row
         invoice_num = ''
-        net_total = 0.0
-        variance = 0.0
-        # Fallback: compute totals from data rows when formulas aren't evaluated
-        # (openpyxl data_only=True only returns cached values from Excel saves)
-        sum_line_items = 0.0
-        invoice_total_from_col_s = 0.0
-        summary_labels = {'SUBTOTAL', 'ADJUSTMENTS', 'NET TOTAL', 'VARIANCE CHECK'}
-
         for r in range(2, ws_data.max_row + 1):
-            if not invoice_num:
-                inv_cell = ws_data.cell(row=r, column=3).value
-                if inv_cell and str(inv_cell).strip():
-                    invoice_num = str(inv_cell).strip()
+            inv_cell = ws_data.cell(row=r, column=3).value
+            if inv_cell and str(inv_cell).strip():
+                invoice_num = str(inv_cell).strip()
+                break
 
-            # Check if this is a summary row (skip from line-item sum)
-            is_summary = False
-            for label_col in (10, 12):
-                label_cell = ws_data.cell(row=r, column=label_col).value
-                if label_cell and isinstance(label_cell, str):
-                    label_upper = label_cell.upper().strip()
-                    if any(kw in label_upper for kw in summary_labels):
-                        is_summary = True
-                        if 'NET TOTAL' in label_upper:
-                            val = ws_data.cell(row=r, column=16).value
-                            net_total = float(val) if val else 0.0
-                        elif 'VARIANCE CHECK' in label_upper:
-                            val = ws_data.cell(row=r, column=16).value
-                            variance = float(val) if val else 0.0
-
-            if not is_summary:
-                # Sum line-item costs (Col P) for fallback total
-                cost_val = ws_data.cell(row=r, column=16).value
-                if cost_val and isinstance(cost_val, (int, float)):
-                    sum_line_items += cost_val
-                # Get InvoiceTotal from Col S (same for all rows in an invoice)
-                inv_total_val = ws_data.cell(row=r, column=19).value
-                if inv_total_val and isinstance(inv_total_val, (int, float)) and not invoice_total_from_col_s:
-                    invoice_total_from_col_s = inv_total_val
-
-        # Fallback: if NET TOTAL formula wasn't evaluated, use InvoiceTotal from Col S
-        # (this is the authoritative invoice total from the PDF)
-        if net_total == 0.0 and invoice_total_from_col_s > 0:
-            net_total = invoice_total_from_col_s
-            # Variance = sum of line items - invoice total
-            variance = round(sum_line_items - invoice_total_from_col_s, 2)
+        block = _compute_block_totals(ws_data)
+        net_total = block['net_total']
+        variance = block['variance']
 
         invoice_summaries.append({
             'file': os.path.basename(file_path),

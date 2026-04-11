@@ -449,27 +449,63 @@ def process_single_invoice(
               f"tax=${invoice_data.get('tax', 0):.2f} "
               f"discount=${invoice_data.get('discount', 0):.2f}")
 
-    # Salvage: if OCR dropped the invoice total entirely but we extracted
-    # valid items, synthesise it from items + adjustments so the generated
-    # block is self-balanced (no NET TOTAL vs INVOICE TOTAL variance). This
-    # happens on SHEIN-style receipts where post-OCR metadata fixes zero
-    # out the total. Without this, the block appears in the combined XLSX
-    # with a permanent variance that variance_fixer cannot resolve.
+    # Salvage: if OCR dropped the invoice total entirely, synthesise it
+    # from the next-best anchor so the generated block is self-balanced
+    # (no NET TOTAL vs INVOICE TOTAL variance).  This happens on
+    # SHEIN-style receipts where the Grand Total line is OCR-mangled.
+    #
+    # Tiered hierarchy (preferred → fallback):
+    #   Tier 1  sub_total + adjustments   (PDF-extracted subtotal is a
+    #                                       single-field anchor and is
+    #                                       the most trustworthy)
+    #   Tier 2  items_sum + adjustments   (only when sub_total is absent;
+    #                                       items_sum is the sum of many
+    #                                       extracted fields and can
+    #                                       silently under-report)
+    #   Tier 3  (no salvage)              (let variance check flag it)
+    #
+    # Whenever we salvage we stamp `invoice_total_uncertain` so the
+    # downstream variance fixer / customs reviewer knows this block
+    # carries reconstructed metadata.
     if not invoice_data.get('invoice_total') and matched:
         _items_sum = sum(
             m.get('total_cost', 0) or (m.get('unit_price', 0) or 0) * (m.get('quantity', 1) or 1)
             for m in matched
         )
-        if _items_sum > 0.02:
-            _adj = ((invoice_data.get('freight', 0) or 0)
-                    - (invoice_data.get('credits', 0) or 0)
-                    + (invoice_data.get('tax', 0) or 0)
-                    + (invoice_data.get('other_cost', 0) or 0)
-                    - (invoice_data.get('discount', 0) or 0)
-                    - (invoice_data.get('free_shipping', 0) or 0))
-            salvaged = round(_items_sum + _adj, 2)
-            logger.warning(f"OCR missing invoice_total — salvaged from items+adj: ${salvaged:.2f}")
+        _sub_total = invoice_data.get('sub_total', 0) or 0
+        _adj = ((invoice_data.get('freight', 0) or 0)
+                - (invoice_data.get('credits', 0) or 0)
+                + (invoice_data.get('tax', 0) or 0)
+                + (invoice_data.get('other_cost', 0) or 0)
+                - (invoice_data.get('discount', 0) or 0)
+                - (invoice_data.get('free_shipping', 0) or 0))
+
+        if _sub_total > 0.02:
+            # Tier 1: anchor on PDF-extracted subtotal.
+            salvaged = round(_sub_total + _adj, 2)
+            logger.warning(
+                f"OCR missing invoice_total — synthesised from sub_total "
+                f"${_sub_total:.2f} + adj ${_adj:.2f} = ${salvaged:.2f} "
+                f"(Tier 1, flagged uncertain)"
+            )
             invoice_data['invoice_total'] = salvaged
+            invoice_data['invoice_total_uncertain'] = True
+        elif _items_sum > 0.02:
+            # Tier 2: no subtotal to anchor on — fall back to items_sum.
+            salvaged = round(_items_sum + _adj, 2)
+            logger.warning(
+                f"OCR missing invoice_total AND sub_total — synthesised "
+                f"from items ${_items_sum:.2f} + adj ${_adj:.2f} = "
+                f"${salvaged:.2f} (Tier 2, flagged uncertain)"
+            )
+            invoice_data['invoice_total'] = salvaged
+            invoice_data['invoice_total_uncertain'] = True
+        else:
+            # Tier 3: no anchor — do not fabricate.
+            logger.error(
+                "OCR missing invoice_total, sub_total, and items — "
+                "cannot synthesise; downstream variance check will flag"
+            )
 
     generate_bl_xlsx(
         invoice_data, matched, display_name,

@@ -30,6 +30,12 @@ ocr_normalize:
   - pattern: '(?i)[lHhIt]{1,2}tem'
     replace: 'Item'
     description: "Fix OCR: lttem/ttem/Htem/htem/Ittem → Item"
+  - pattern: '\\tem\(s\)'
+    replace: 'Item(s)'
+    description: "Fix OCR: \\tem(s) → Item(s) (backslash misread for 'I')"
+  - pattern: 'ltam\(s\)'
+    replace: 'Item(s)'
+    description: "Fix OCR: ltam(s) → Item(s) (2-char garble before Subtotal)"
   - pattern: 'Handiing'
     replace: 'Handling'
     description: "Fix OCR: Handiing → Handling"
@@ -148,6 +154,10 @@ metadata:
   total:
     patterns:
       - 'Grand Total:\s*([\d,]+\.\d{2})'
+      # Fallback: OCR dropped the decimal point. Captured as raw integer;
+      # _correct_metadata_ocr Strategy 5 recovers by dividing by 100 when
+      # items_sum + tax + freight - discount confirms.
+      - 'Grand Total:\s*(\d{2,})(?!\d|\.)'
     type: currency
 
   subtotal:
