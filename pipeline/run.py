@@ -27,6 +27,7 @@ import logging
 import os
 import re
 import sys
+from typing import Optional
 
 # Setup logging
 logging.basicConfig(
@@ -56,6 +57,7 @@ from stages.supplier_resolver import (
 )
 from stages.invoice_processor import process_single_invoice, InvoiceResult
 from stages.bl_allocator import allocate_bl_packages, BLAllocation
+import send_history
 
 
 def _lookup_consignee_code(consignee_name: str) -> tuple:
@@ -1266,7 +1268,7 @@ def run_bl_mode(args) -> dict:
                             continue
                     except Exception:
                         pass
-                    _send_email_from_params(pp)
+                    _send_email_from_params(pp, args)
                     email_sent = True
         else:
             # Single declaration (or none) — original flow
@@ -1652,7 +1654,7 @@ def run_batch_mode(args) -> dict:
                             continue
                     except Exception:
                         pass
-                    _send_email_from_params(params_path)
+                    _send_email_from_params(params_path, args)
                     email_sent = True
         else:
             # Single declaration (or none) — original flow
@@ -2611,6 +2613,22 @@ def _save_email_params(args, results: list, bl_alloc, all_attachments: list,
     return params_path
 
 
+def _record_send_history(args, params: dict, email_draft: dict) -> None:
+    """Record a successful send in data/send_history.json (best-effort)."""
+    try:
+        send_history.record_send(
+            waybill=params.get('waybill', ''),
+            subject=email_draft.get('subject', ''),
+            source_input=getattr(args, '_source_input', '') or '',
+            source_mode=getattr(args, '_source_mode', '') or '',
+            output_dir=getattr(args, '_output_dir', '') or '',
+            params=params,
+            attachments=email_draft.get('attachments', []),
+        )
+    except Exception as e:
+        logger.warning(f"send history recording failed: {e}")
+
+
 def _send_bl_email(args, results: list, bl_alloc, all_attachments: list,
                    manifest_meta: dict = None, total_invoices: int = 0) -> bool:
     """Legacy: send BL email directly (used when --send-email is passed from CLI)."""
@@ -2649,6 +2667,7 @@ def _send_bl_email(args, results: list, bl_alloc, all_attachments: list,
     if email_sent:
         print(f"\nEmail sent: {email_draft['subject']} "
               f"({len(email_draft['attachments'])} attachments)")
+        _record_send_history(args, params, email_draft)
     else:
         print(f"\nEmail FAILED to send")
 
@@ -2798,13 +2817,14 @@ def _send_batch_email(args, results: list, all_attachments: list,
     if email_sent:
         print(f"\nEmail sent: {email_draft['subject']} "
               f"({len(email_draft['attachments'])} attachments)")
+        _record_send_history(args, params, email_draft)
     else:
         print(f"\nEmail FAILED to send")
 
     return email_sent
 
 
-def _send_email_from_params(params_path: str) -> bool:
+def _send_email_from_params(params_path: str, args=None) -> bool:
     """Send email from a saved _email_params.json file."""
     from workflow.email import compose_email, send_email as do_send_email
 
@@ -2824,6 +2844,8 @@ def _send_email_from_params(params_path: str) -> bool:
     if email_sent:
         print(f"    Email sent: {email_draft['subject']} "
               f"({len(email_draft['attachments'])} attachments)")
+        if args is not None:
+            _record_send_history(args, params, email_draft)
     else:
         print(f"    Email FAILED: {email_draft['subject']}")
 
@@ -2927,13 +2949,170 @@ def run_send_email(args) -> dict:
     return report
 
 
+def _reprocess_history_entry(entry: dict) -> Optional[dict]:
+    """
+    Re-run the pipeline against the source_input of a prior send.
+
+    Reuses the original output_dir so XLSX/PDF artifacts are refreshed in place.
+    Returns the new params dict (same shape as _email_params.json), or None if
+    the source is no longer available.
+    """
+    source_input = entry.get('source_input', '')
+    output_dir = entry.get('output_dir', '')
+    waybill = entry.get('waybill', '')
+
+    if not source_input or not os.path.exists(source_input):
+        logger.error(
+            f"resend {waybill}: source input missing ({source_input!r}); "
+            f"cannot reprocess"
+        )
+        return None
+
+    # Build a synthetic args namespace that mirrors the original invocation.
+    fake = argparse.Namespace(
+        input_dir=None,
+        input=None,
+        send_email_only=False,
+        output_dir=output_dir or os.path.join(BASE_DIR, 'workspace', 'shipments'),
+        output=None,
+        bl=None,
+        po_file=None,
+        doc_type='auto',
+        send_email=False,         # do NOT send during the dry re-run
+        waybill=None,
+        consignee='',
+        consignee_code='',
+        man_reg=None,
+        location='WebSource',
+        office='',
+        attachments=None,
+        total_invoices=1,
+        packages=None,
+        weight=None,
+        country_origin=None,
+        freight=None,
+        config=None,
+        json_output=False,
+        verbose=False,
+        resend=None,
+        resend_stale=False,
+    )
+    if os.path.isdir(source_input):
+        fake.input_dir = source_input
+    else:
+        fake.input = source_input
+
+    # Run detect_mode + pipeline. This produces fresh _email_params.json.
+    mode = detect_mode(fake)
+    fake._source_input = source_input
+    fake._source_mode = mode
+    if mode == 'bl':
+        run_bl_mode(fake)
+    elif mode == 'batch':
+        run_batch_mode(fake)
+    else:
+        run_single_mode(fake)
+
+    # Read the freshly-written params.
+    new_params_path = os.path.join(
+        getattr(fake, '_output_dir', '') or fake.output_dir,
+        '_email_params.json',
+    )
+    if not os.path.isfile(new_params_path):
+        logger.error(f"resend {waybill}: no _email_params.json at {new_params_path}")
+        return None
+    with open(new_params_path, 'r', encoding='utf-8') as f:
+        return json.load(f)
+
+
+def run_resend(args) -> dict:
+    """
+    Resend previously-sent shipments whose re-run would differ from what was
+    sent. Entry points:
+        --resend <waybill>   -- unconditionally reprocess and resend one waybill
+        --resend-stale       -- scan history, reprocess each entry, resend if
+                                the re-run produces different params
+    """
+    from workflow.email import compose_email, send_email as do_send_email
+
+    targets: list = []
+    if args.resend:
+        entry = send_history.find_by_waybill(args.resend)
+        if not entry:
+            print(f"ERROR: no send history entry for waybill {args.resend!r}")
+            return {'status': 'error', 'resent': 0}
+        targets.append(('force', entry))
+    else:
+        for entry in send_history.all_entries():
+            targets.append(('stale', entry))
+
+    if not targets:
+        print("No history entries to consider.")
+        return {'status': 'success', 'resent': 0, 'checked': 0}
+
+    resent = 0
+    unchanged = 0
+    skipped = 0
+    for reason, entry in targets:
+        waybill = entry.get('waybill', '(unknown)')
+        print(f"\n[resend:{reason}] {waybill}  source={entry.get('source_input','')}")
+        new_params = _reprocess_history_entry(entry)
+        if new_params is None:
+            skipped += 1
+            continue
+
+        new_hash = send_history.params_hash(new_params)
+        old_hash = entry.get('params_hash', '')
+        if reason == 'stale' and new_hash == old_hash:
+            print(f"    unchanged (params_hash match) — not resending")
+            unchanged += 1
+            continue
+
+        email_draft = compose_email(
+            **{k: v for k, v in new_params.items() if k != 'attachment_paths'},
+            attachment_paths=new_params.get('attachment_paths', []),
+        )
+        ok = do_send_email(
+            subject=email_draft['subject'],
+            body=email_draft['body'],
+            attachments=email_draft['attachments'],
+        )
+        if ok:
+            print(f"    RESENT: {email_draft['subject']} "
+                  f"({len(email_draft['attachments'])} attachments)")
+            # Refresh the history entry with the new params/hash.
+            fake = argparse.Namespace(
+                _source_input=entry.get('source_input', ''),
+                _source_mode=entry.get('source_mode', ''),
+                _output_dir=entry.get('output_dir', ''),
+            )
+            _record_send_history(fake, new_params, email_draft)
+            resent += 1
+        else:
+            print(f"    RESEND FAILED: {email_draft['subject']}")
+            skipped += 1
+
+    print(f"\nResend summary: resent={resent}, unchanged={unchanged}, "
+          f"skipped={skipped}, total={len(targets)}")
+    report = {
+        'status': 'success',
+        'resent': resent,
+        'unchanged': unchanged,
+        'skipped': skipped,
+        'checked': len(targets),
+    }
+    if args.json_output:
+        print(f"\nREPORT:JSON:{json.dumps(report)}")
+    return report
+
+
 def parse_args():
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(
         description='Unified pipeline — auto-detects BL batch vs single invoice'
     )
 
-    # Input (mutually exclusive: folder, single file, or send-email-only)
+    # Input (mutually exclusive: folder, single file, send-email-only, or resend)
     input_group = parser.add_mutually_exclusive_group(required=True)
     input_group.add_argument('--input-dir', '-d',
                              help='Directory containing PDF invoices (+ optional PO XLSX + BL PDF)')
@@ -2941,6 +3120,13 @@ def parse_args():
                              help='Single PDF invoice file')
     input_group.add_argument('--send-email-only', action='store_true',
                              help='Send email only (no processing) — requires --waybill and --attachments')
+    input_group.add_argument('--resend', metavar='WAYBILL',
+                             help='Reprocess and unconditionally resend the email '
+                                  'for a given waybill from data/send_history.json')
+    input_group.add_argument('--resend-stale', action='store_true',
+                             help='Scan send_history.json, reprocess every entry, '
+                                  'and resend only those whose params would differ '
+                                  '(e.g. after a supplier DB correction)')
 
     # Output
     parser.add_argument('--output-dir',
@@ -3008,10 +3194,19 @@ def main():
         run_send_email(args)
         return
 
+    # Resend mode — reprocess prior sends from data/send_history.json
+    if args.resend or args.resend_stale:
+        init_resolver(BASE_DIR)
+        run_resend(args)
+        return
+
     # Initialize the resolver with project base directory
     init_resolver(BASE_DIR)
 
+    # Capture source for send_history recording, then run pipeline.
+    args._source_input = args.input or args.input_dir or ''
     mode = detect_mode(args)
+    args._source_mode = mode
     logger.info(f"Detected mode: {mode}")
 
     if mode == 'bl':

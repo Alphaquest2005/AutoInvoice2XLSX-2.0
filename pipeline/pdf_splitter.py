@@ -1106,12 +1106,22 @@ def extract_declaration_metadata(pdf_path: str) -> Dict[str, Optional[str]]:
                 )):
                     pass  # skip — not a real consignee name
                 else:
-                    # Extract freight from parentheses (client-written)
-                    freight_match = re.search(r'\(\s*FREIGHT\s+([\d.]+)\s*(?:US)?\s*\)', consignee_part, re.IGNORECASE)
+                    # Extract freight from parentheses (client-written).
+                    # OCR sometimes misreads the closing ")" as "}" or "]",
+                    # so accept any bracket-like closer.
+                    freight_match = re.search(
+                        r'\(\s*FREIGHT\s+([\d.]+)\s*(?:US)?\s*[\)\}\]]',
+                        consignee_part, re.IGNORECASE,
+                    )
                     if freight_match:
                         metadata['freight'] = freight_match.group(1)
-                        # Remove freight part from consignee name
-                        consignee_name = re.sub(r'\s*\([^)]*FREIGHT[^)]*\)', '', consignee_part, flags=re.IGNORECASE).strip()
+                        # Remove the whole "( FREIGHT ... )" section from the
+                        # consignee name (tolerating OCR closer variants).
+                        consignee_name = re.sub(
+                            r'\s*\(.*?FREIGHT.*?[\)\}\]]',
+                            '', consignee_part,
+                            flags=re.IGNORECASE,
+                        ).strip()
                         metadata['consignee'] = consignee_name
                     else:
                         # No freight info, just use the whole thing as consignee

@@ -1,0 +1,40 @@
+{
+  "version": "1.0",
+  "sends": [
+    {
+      "waybill": "HAWB9675842",
+      "subject": "Shipment: HAWB9675842",
+      "source_input": "/tmp/bernisha_stage/BERNISHA.pdf",
+      "source_mode": "bl",
+      "output_dir": "/tmp/bernisha_out",
+      "params_hash": "ebb960d4cb4425d29462f766edccb0ba0d33a9a43b488202bff7c3a1e76219d1",
+      "suppliers_hash": "4cbfdbbe39da9c932c9e875a07c438a8e64d76130dc1d71c419eeb214dfa0cb8",
+      "attachments": [
+        "/tmp/bernisha_out/INVUS20240806002684.pdf",
+        "/tmp/bernisha_out/INVUS20240806002684.xlsx",
+        "/tmp/bernisha_out/HAWB9675842-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9675842",
+        "consignee_name": "BERNISHA FRANCIS",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "2.0",
+        "country_origin": "US",
+        "freight": "5.00",
+        "man_reg": "2024 30",
+        "attachment_paths": [
+          "/tmp/bernisha_out/INVUS20240806002684.pdf",
+          "/tmp/bernisha_out/INVUS20240806002684.xlsx",
+          "/tmp/bernisha_out/HAWB9675842-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-11T12:59:26Z"
+    }
+  ]
+}
