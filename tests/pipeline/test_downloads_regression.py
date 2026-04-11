@@ -57,6 +57,16 @@ _CET_DB = _REPO_ROOT / "data" / "cet.db"
 
 _TIMEOUT_SECONDS = 600  # per-PDF timeout
 
+# Optional persistent output dir: when set, tmp_path/out is copied here
+# for every PDF that lands in ``processed_pass`` so downstream steps
+# (email dispatch, manual review) can consume the XLSXs + _email_params
+# after the test run completes. Unset -> old behaviour (outputs are
+# discarded with the pytest tmp_path).
+_KEEP_OUTPUTS_DIR_ENV = os.environ.get("AUTOINVOICE_KEEP_OUTPUTS_DIR", "").strip()
+_KEEP_OUTPUTS_DIR: Path | None = Path(_KEEP_OUTPUTS_DIR_ENV) if _KEEP_OUTPUTS_DIR_ENV else None
+if _KEEP_OUTPUTS_DIR is not None:
+    _KEEP_OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
+
 
 def _resolve_downloads_dir() -> Path | None:
     """Locate the Downloads folder (matches file-watcher.ts:56 SSOT).
@@ -148,6 +158,13 @@ def _summary_reporter(tmp_path_factory):
     summary_path = summary_dir / "downloads_summary.json"
     with summary_path.open("w", encoding="utf-8") as f:
         json.dump(_RESULTS, f, indent=2, default=str)
+
+    # Also drop the summary into the persistent outputs dir so downstream
+    # consumers (email dispatcher) have a single known entry point.
+    if _KEEP_OUTPUTS_DIR is not None:
+        persistent_summary = _KEEP_OUTPUTS_DIR / "downloads_summary.json"
+        with persistent_summary.open("w", encoding="utf-8") as f:
+            json.dump(_RESULTS, f, indent=2, default=str)
 
     buckets: dict[str, list[str]] = {
         "processed_pass": [],
@@ -321,4 +338,19 @@ def test_downloads_pdf(pdf_path: Path, tmp_path: Path) -> None:
         pytest.fail("\n".join(lines))
 
     result["category"] = "processed_pass"
+
+    # Persist outputs for downstream consumers (email dispatch, review)
+    # when AUTOINVOICE_KEEP_OUTPUTS_DIR is set. We copy the entire
+    # output_dir so both the XLSX attachments and _email_params.json
+    # files land in the same relative layout the sender script expects.
+    if _KEEP_OUTPUTS_DIR is not None:
+        pdf_stem = Path(safe_name).stem or "input"
+        dest = _KEEP_OUTPUTS_DIR / pdf_stem
+        # On re-run, clear stale contents before copying to avoid mixing.
+        if dest.exists():
+            shutil.rmtree(dest)
+        shutil.copytree(output_dir, dest)
+        result["persistent_output_dir"] = str(dest)
+        result["original_pdf_name"] = pdf_path.name
+
     _RESULTS.append(result)

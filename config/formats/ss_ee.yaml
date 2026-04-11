@@ -1,0 +1,68 @@
+# Auto-generated format spec for ss_ee
+# Generated on 2026-04-10T21:22:05.551569
+# Will be promoted to formats/ on successful processing
+
+name: ss_ee
+version: "1.0"
+description: "SS ee / ISW Trading Pty. Ltd. auto parts commercial invoice"
+
+detect:
+  all_of:
+    - "ISW Trading Pty. Ltd."
+    - "Commercial Invoice #"
+  any_of:
+    - "onlineautoparts.com.au"
+    - "SS ee"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Commercial Invoice\s*#:\s*([A-Z0-9]+-[\d-]+)'
+    required: true
+  date:
+    patterns:
+      - 'Order Date:\s*(\d{2}/\d{2}/\d{4})'
+  supplier_name:
+    value: "ISW Trading Pty. Ltd."
+  country_code:
+    value: "AU"
+  total:
+    patterns:
+      - 'Invoice Total\s*\$AUD\s*([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^([A-Z]{2,4}-\d{4,})\s+(\d+)\s+(.+?)\s+(\d+)\s+year\s+\$([\d,]+\.\d{2})\s+\$([\d,]+\.\d{2})'
+    field_map:
+      sku: 1
+      quantity: 2
+      description: 3
+      warranty: 4
+      unit_price: 5
+      total: 6
+    types:
+      quantity: integer
+      unit_price: currency
+      total: currency
+    skip_patterns:
+      - '^\(OAP ebay'
+      - '^Line Item Total'
+      - '^Shipping & Handling'
+      - '^Insurance'
+      - '^Discount'
+      - '^Adjustments'
+      - '^Sub Total'
+      - '^Collected By'
+      - '^Invoice Total'
+
+sections:
+  items_start:
+    - "Item Summary"
+  items_end:
+    - "Line Item Total"
+
+validation:
+  min_items: 1
+  max_item_price: 10000
