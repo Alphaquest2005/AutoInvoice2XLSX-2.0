@@ -1021,6 +1021,7 @@ def extract_declaration_metadata(pdf_path: str) -> Dict[str, Optional[str]]:
         'customs_file': None,
         'man_reg': None,  # Man Reg Number (manifest registry)
         'consignee': None,
+        'office': None,  # Customs Office code (e.g. GDWBS, GDSGO)
         'freight': None,
         'packages': None,
         'weight': None,
@@ -1083,6 +1084,14 @@ def extract_declaration_metadata(pdf_path: str) -> Dict[str, Optional[str]]:
                 match = re.search(r'(\d{4})[/\s-]?(\d+)', line_upper)
                 if match:
                     metadata['man_reg'] = f"{match.group(1)} {match.group(2)}"
+
+            # Customs Office code: "Customs Office GDWBS" or "Customs Office: GDSGO"
+            # Must come after the "CUSTOMS FILE" check because both lines start with
+            # "CUSTOMS", but this one has "OFFICE" and captures the 4-6 letter code.
+            if 'CUSTOMS' in line_upper and 'OFFICE' in line_upper and not metadata['office']:
+                match = re.search(r'CUSTOMS\s+OFFICE[:\s]+([A-Z]{4,6})\b', line_upper)
+                if match:
+                    metadata['office'] = match.group(1)
 
             # Consignee - format: "Consignee: NAME ( FREIGHT X.XX US )"
             # The client writes freight in parentheses after name

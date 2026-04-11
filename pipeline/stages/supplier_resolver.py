@@ -1709,6 +1709,12 @@ def _classify_pdf_content(text: str) -> str:
     if _is_freight_invoice(text):
         return 'freight_invoice'
 
+    # Simplified Declaration Form (Grenada etc.): must be checked before
+    # the manifest gate because these forms also include "Man Reg Number"
+    # which would otherwise trigger the ASYCUDA marker.
+    if 'SIMPLIFIED DECLARATION' in text_upper:
+        return 'declaration'
+
     # Manifest (ASYCUDA World Waybill): checked first — ASYCUDA marker is unique
     manifest_score = sum(1 for kw in _MANIFEST_KEYWORDS if kw in text_upper)
     has_asycuda_marker = 'ASYCUDA' in text_upper or 'MAN REG NUMBER' in text_upper

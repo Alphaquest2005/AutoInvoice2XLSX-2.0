@@ -51,13 +51,13 @@
     "SHEIN": {
       "code": "SHEIN",
       "name": "Shein",
-      "full_name": "Roadget Business Pte. Ltd. (SHEIN)",
-      "address": "Singapore (HQ)",
-      "country_code": "SG",
-      "country": "Singapore",
+      "full_name": "SHEIN US Services, LLC",
+      "address": "777 S. Alameda St., Second Floor, Los Angeles, CA 90021",
+      "country_code": "US",
+      "country": "United States",
       "currency": "USD",
       "website": "shein.com",
-      "notes": "Fast fashion e-commerce"
+      "notes": "US invoicing entity for SHEIN (CA Foreign LLC #202253519925, formed 2022-12-05). Parent: Roadget Business Pte. Ltd. (Singapore). Distinct from SHEIN Distribution Corporation (757 S. Alameda St., Ste. 340)."
     },
     "ALIBABA": {
       "code": "ALIBABA",
@@ -834,5 +834,5 @@
       "notes": "Auto-added from invoice pipeline"
     }
   },
-  "last_updated": "2026-04-10"
+  "last_updated": "2026-04-11"
 }

@@ -178,7 +178,6 @@ def process_single_invoice(
     output_dir: str,
     document_type: str = '7400-000',
     verbose: bool = False,
-    no_declaration: bool = False,
 ) -> Optional[InvoiceResult]:
     """
     Process one invoice PDF through the full pipeline.
@@ -449,11 +448,6 @@ def process_single_invoice(
               f"total=${invoice_data['invoice_total']:.2f} "
               f"tax=${invoice_data.get('tax', 0):.2f} "
               f"discount=${invoice_data.get('discount', 0):.2f}")
-
-    # No declaration: zero out invoice total so variance check = 0
-    if no_declaration:
-        invoice_data['invoice_total'] = 0
-        invoice_data['total'] = 0
 
     generate_bl_xlsx(
         invoice_data, matched, display_name,

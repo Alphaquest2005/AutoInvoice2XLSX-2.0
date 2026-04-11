@@ -900,10 +900,14 @@ def _prepare_invoice_pdfs(args, classification: dict) -> list:
 
         except ImportError:
             # pdf_splitter not available — include invoices and manifests
+            logger.warning(
+                "pdf_splitter unavailable (missing PyPDF2/pypdf?) — "
+                f"cannot split combined PDF {f}, treating as-is"
+            )
             if not originally_invoice and not originally_manifest:
                 continue
         except Exception as e:
-            logger.debug(f"PDF analysis failed for {f}, using as-is: {e}")
+            logger.warning(f"PDF analysis/split failed for {f}, using as-is: {e}")
             if not originally_invoice and not originally_manifest:
                 continue
 
@@ -1025,15 +1029,6 @@ def run_bl_mode(args) -> dict:
     args.doc_type = resolve_doc_type(args)
     print(f"    Document Type: {args.doc_type}")
 
-    # Detect whether this shipment has a declaration/BL
-    _has_declaration = bool(
-        (classification or {}).get('bill_of_lading') or
-        (classification or {}).get('declaration') or
-        getattr(args, 'bl', '')
-    )
-    if not _has_declaration:
-        print("    No BL/Declaration found — invoice totals will be zeroed for variance check")
-
     print(f"\n[3] Processing {len(invoice_paths)} PDF invoices...\n")
 
     # ── Phase 1: Process each invoice ──
@@ -1051,7 +1046,6 @@ def run_bl_mode(args) -> dict:
             output_dir=output_dir,
             document_type=args.doc_type,
             verbose=args.verbose,
-            no_declaration=not _has_declaration,
         )
         if result:
             if len(result.matched_items) == 0:
@@ -1282,6 +1276,21 @@ def run_bl_mode(args) -> dict:
                     args.bl = decl_meta['waybill']
                 if decl_meta.get('man_reg') and not args.man_reg:
                     args.man_reg = decl_meta['man_reg']
+            # Attach the single declaration PDF (renamed {waybill}-Declaration.pdf)
+            # so the broker receives the customs form alongside the invoice + xlsx.
+            if all_declarations:
+                import shutil as _sh
+                decl_meta_single, decl_pdf_path_single = all_declarations[0]
+                decl_wb_single = decl_meta_single.get('waybill', '')
+                if decl_wb_single:
+                    decl_out_name_single = f"{decl_wb_single}-Declaration.pdf"
+                else:
+                    decl_out_name_single = os.path.basename(decl_pdf_path_single)
+                decl_out_path_single = os.path.join(output_dir, decl_out_name_single)
+                if os.path.abspath(decl_pdf_path_single) != os.path.abspath(decl_out_path_single):
+                    _sh.copy2(decl_pdf_path_single, decl_out_path_single)
+                if decl_out_path_single not in all_attachments:
+                    all_attachments.append(decl_out_path_single)
             # Always save email params for TypeScript to pick up
             email_params_path = _save_email_params(args, results, bl_alloc, all_attachments,
                                                     manifest_meta, output_dir,
@@ -1419,15 +1428,6 @@ def run_batch_mode(args) -> dict:
     args.doc_type = resolve_doc_type(args)
     print(f"    Document Type: {args.doc_type}")
 
-    # Detect whether this shipment has a declaration/BL
-    _has_declaration = bool(
-        (classification or {}).get('bill_of_lading') or
-        (classification or {}).get('declaration') or
-        getattr(args, 'bl', '')
-    )
-    if not _has_declaration:
-        print("    No BL/Declaration found — invoice totals will be zeroed for variance check")
-
     print(f"\n[3] Processing {len(invoice_paths)} PDF invoices...\n")
 
     # Process each invoice through the full pipeline
@@ -1445,7 +1445,6 @@ def run_batch_mode(args) -> dict:
             output_dir=output_dir,
             document_type=args.doc_type,
             verbose=args.verbose,
-            no_declaration=not _has_declaration,
         )
         if result:
             if len(result.matched_items) == 0:
@@ -1484,6 +1483,20 @@ def run_batch_mode(args) -> dict:
 
     # Manifest metadata
     manifest_meta = _apply_manifest_metadata(args, classification, output_dir, all_attachments)
+
+    # Fallback: if no manifest (e.g. Simplified Declaration shipments) use
+    # declaration metadata extracted from pdf_splitter so downstream email
+    # params inherit waybill, office, consignee, freight etc.
+    decl_meta = getattr(args, '_declaration_metadata', {})
+    if not manifest_meta:
+        if decl_meta and any(v for v in decl_meta.values()):
+            manifest_meta = decl_meta
+            logger.info(f"Using declaration metadata as manifest fallback: {decl_meta}")
+    elif decl_meta:
+        for key in ('office', 'weight', 'packages', 'freight', 'consignee', 'fob_value'):
+            if not manifest_meta.get(key) and decl_meta.get(key):
+                manifest_meta[key] = decl_meta[key]
+                logger.info(f"Supplemented manifest {key} from declaration: {decl_meta[key]}")
 
     # Apply manifest packages to XLSX (batch mode has no BL allocator)
     if manifest_meta and manifest_meta.get('packages') and results:
@@ -1649,6 +1662,21 @@ def run_batch_mode(args) -> dict:
                     args.waybill = decl_meta['waybill']
                 if decl_meta.get('man_reg') and not args.man_reg:
                     args.man_reg = decl_meta['man_reg']
+            # Attach the single declaration PDF (renamed {waybill}-Declaration.pdf)
+            # so the broker receives the customs form alongside the invoice + xlsx.
+            if all_declarations:
+                import shutil as _sh
+                decl_meta_single, decl_pdf_path_single = all_declarations[0]
+                decl_wb_single = decl_meta_single.get('waybill', '')
+                if decl_wb_single:
+                    decl_out_name_single = f"{decl_wb_single}-Declaration.pdf"
+                else:
+                    decl_out_name_single = os.path.basename(decl_pdf_path_single)
+                decl_out_path_single = os.path.join(output_dir, decl_out_name_single)
+                if os.path.abspath(decl_pdf_path_single) != os.path.abspath(decl_out_path_single):
+                    _sh.copy2(decl_pdf_path_single, decl_out_path_single)
+                if decl_out_path_single not in all_attachments:
+                    all_attachments.append(decl_out_path_single)
             # Always save email params for TypeScript to pick up
             email_params_path = _save_batch_email_params(args, results, all_attachments,
                                                           manifest_meta, output_dir)
