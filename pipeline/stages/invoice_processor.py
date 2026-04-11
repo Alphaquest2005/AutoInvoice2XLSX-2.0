@@ -518,6 +518,26 @@ def process_single_invoice(
               f"(InvTotal ${inv_total:.2f} - NetTotal ${net_total:.2f})")
         _print_variance_report(matched, invoice_data, item_cost_sum, inv_total,
                                adjustments, net_total, variance)
+        # Attempt LLM-based variance fix per-invoice (matches v1 behavior).
+        # Must run BEFORE combining so each block is self-balanced. Running it
+        # on a combined multi-invoice XLSX later gives the LLM the wrong target
+        # and can scribble corrections into the wrong block.
+        try:
+            from workflow.variance_fixer import fix_variance
+            fix_result = fix_variance(
+                xlsx_path=xlsx_path,
+                invoice_text=text,
+                current_variance=float(variance),
+            )
+            if fix_result.get('success'):
+                new_variance = fix_result.get('new_variance', variance)
+                print(f"    Variance fix: ${variance:.2f} -> ${new_variance:.2f}")
+                variance = new_variance
+            else:
+                logger.info(f"variance_fixer did not resolve ${variance:.2f}: "
+                            f"{fix_result.get('reason', 'unknown')}")
+        except Exception as e:
+            logger.warning(f"variance_fixer failed for {pdf_file}: {e}")
     if credits:
         print(f"    Credits: ${credits:.2f} (customer-induced -> Col U x -1)")
     if free_shipping:

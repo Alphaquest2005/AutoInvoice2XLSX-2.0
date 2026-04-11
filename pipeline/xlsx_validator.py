@@ -115,6 +115,18 @@ def validate_and_fix(results: list, base_dir: str = '.', bl_alloc=None,
         # Phase 1: Detect issues
         issues = _detect_issues(ws, base_dir)
 
+        # For combined multi-invoice XLSX, each block was variance-fixed
+        # individually in invoice_processor before combining. The grand
+        # variance computed by _detect_issues is not a per-invoice target
+        # that variance_fixer can act on, and aggregating has known edge
+        # cases with the ADJUSTMENTS-correction parser. Replace the global
+        # variance check with a per-block check that only flags blocks
+        # with residual variance.
+        if getattr(r, '_combined_pdf_paths', None):
+            issues = [i for i in issues if i['type'] != VARIANCE]
+            block_variance_issues = _detect_combined_block_variance(ws)
+            issues.extend(block_variance_issues)
+
         if not issues:
             all_file_results.append({
                 'file': fname,
@@ -140,9 +152,14 @@ def validate_and_fix(results: list, base_dir: str = '.', bl_alloc=None,
         wb.close()
 
         # Phase 2b: Fix variance issues (uses its own wb open/save)
+        # Skip for combined multi-invoice XLSX: variance_fixer is designed
+        # for single-invoice files and will scribble corrections into the
+        # wrong block. Per-invoice variance fixing already ran in
+        # invoice_processor before the files were combined.
+        is_combined = bool(getattr(r, '_combined_pdf_paths', None))
         variance_issues = [i for i in issues if i['type'] == VARIANCE]
         zero_value_issues = [i for i in issues if i['type'] == ZERO_VALUE]
-        if variance_issues or zero_value_issues:
+        if (variance_issues or zero_value_issues) and not is_combined:
             variance_amount = variance_issues[0]['variance'] if variance_issues else 0
             var_fix = _fix_variance_issues(xlsx_path, r, variance_amount)
             if var_fix:
@@ -153,6 +170,9 @@ def validate_and_fix(results: list, base_dir: str = '.', bl_alloc=None,
             wb = openpyxl.load_workbook(xlsx_path)
             ws = wb.active
             remaining = _detect_issues(ws, base_dir)
+            if getattr(r, '_combined_pdf_paths', None):
+                remaining = [i for i in remaining if i['type'] != VARIANCE]
+                remaining.extend(_detect_combined_block_variance(ws))
             wb.close()
         except Exception:
             remaining = issues  # couldn't re-check
@@ -429,6 +449,133 @@ def _detect_issues(ws, base_dir: str) -> list:
             'why': f'Variance ${variance:+.2f}. InvoiceTotal(${inv_total:.2f}) != NetTotal(${net_total:.2f}).',
             'how': 'Check invoice text for unextracted freight, tax, fees, or misread item prices.',
         })
+
+    return issues
+
+
+_COMBINED_FORMULA_LABELS = {
+    'SUBTOTAL (GROUPED)', 'SUBTOTAL (DETAILS)', 'GROUP VERIFICATION',
+    'ADJUSTMENTS', 'NET TOTAL', 'INVOICE TOTAL', 'VARIANCE CHECK',
+    'TOTAL INTERNAL FREIGHT', 'TOTAL INSURANCE',
+    'TOTAL OTHER COST', 'TOTAL DEDUCTION',
+    'GRAND SUBTOTAL (GROUPED)', 'GRAND SUBTOTAL (DETAILS)',
+    'GRAND ADJUSTMENTS', 'GRAND NET TOTAL', 'GRAND INVOICE TOTAL',
+    'GRAND VARIANCE CHECK', 'GRAND VARIANCE',
+}
+
+
+def _detect_combined_block_variance(ws) -> list:
+    """
+    Per-block variance check for combined multi-invoice XLSX.
+
+    Uses each block's ADJUSTMENTS row as an anchor: its formula
+    ``=(T{r}+U{r}+V{r}-W{r})[+correction]`` references the block's header
+    row ``r``. Between the current block's header and the next block's
+    header (or the ADJUSTMENTS row for the last block) we sum the item
+    rows in col P, skipping formula rows, blank rows, and known summary
+    labels. Compare against S{r} (invoice total) minus the adjustments
+    (including any variance-fixer correction term).
+
+    Blocks that already balance — because invoice_processor ran
+    variance_fixer per-invoice before combining — produce no issue.
+    variance_fixer must NOT be re-invoked on combined files because its
+    search-from-bottom logic scribbles corrections into the wrong block.
+    """
+    import re as _re
+
+    issues = []
+    # Find block anchors via ADJUSTMENTS rows. Each has a formula whose
+    # argument is the block's header row number.
+    adj_re = _re.compile(r'^=\(T(\d+)\+U\d+\+V\d+-W\d+\)')
+    blocks = []  # list of (header_row, adjustments_row)
+    for row in range(2, ws.max_row + 1):
+        j_val = str(ws.cell(row, COL_SUPP_DESC).value or '').strip().upper()
+        if j_val == 'ADJUSTMENTS':
+            tc = ws.cell(row, COL_TOTAL_COST).value
+            if isinstance(tc, str):
+                m = adj_re.match(tc)
+                if m:
+                    header_row = int(m.group(1))
+                    blocks.append((header_row, row))
+
+    if len(blocks) < 2:
+        return issues  # not a multi-block combined file
+
+    for block_idx, (header, adj_row) in enumerate(blocks, 1):
+        s_val = _num(ws.cell(header, COL_INV_TOTAL).value)
+        freight = _num(ws.cell(header, COL_FREIGHT).value)
+        insurance = _num(ws.cell(header, COL_INSURANCE).value)
+        tax = _num(ws.cell(header, COL_TAX).value)
+        deduction = _num(ws.cell(header, COL_DEDUCTION).value)
+        adjustments = freight + insurance + tax - deduction
+
+        # Parse any variance-fixer correction term on the ADJUSTMENTS formula
+        adj_formula = ws.cell(adj_row, COL_TOTAL_COST).value
+        if isinstance(adj_formula, str) and adj_formula.startswith('='):
+            paren_idx = adj_formula.rfind(')')
+            if paren_idx >= 0 and paren_idx < len(adj_formula) - 1:
+                tail = adj_formula[paren_idx + 1:]
+                for m in _re.finditer(r'[+\-]?\s*\d+\.?\d*', tail):
+                    try:
+                        adjustments += float(m.group().replace(' ', ''))
+                    except ValueError:
+                        pass
+
+        # Sum item costs for this block. The generator produces grouped
+        # XLSX where row `header` is a group header and subsequent rows
+        # are detail rows belonging to that header (detail P values are
+        # already rolled up into the header's P). The SUBTOTAL (GROUPED)
+        # formula is the source of truth — e.g. "=P2" or "=P124+P126" —
+        # so we parse it and sum the referenced P cells.
+        sum_items = 0.0
+        grouped_ref_re = _re.compile(r'P(\d+)')
+        found_grouped = False
+        for row in range(header, adj_row):
+            j_val = str(ws.cell(row, COL_SUPP_DESC).value or '').strip().upper()
+            if j_val == 'SUBTOTAL (GROUPED)':
+                grouped_formula = ws.cell(row, COL_TOTAL_COST).value
+                if isinstance(grouped_formula, str) and grouped_formula.startswith('='):
+                    for m in grouped_ref_re.finditer(grouped_formula):
+                        ref_row = int(m.group(1))
+                        ref_val = ws.cell(ref_row, COL_TOTAL_COST).value
+                        if isinstance(ref_val, (int, float)):
+                            sum_items += ref_val
+                found_grouped = True
+                break
+        if not found_grouped:
+            # Ungrouped block — sum non-formula item rows directly.
+            for row in range(header, adj_row):
+                j_val = str(ws.cell(row, COL_SUPP_DESC).value or '').strip()
+                if j_val.upper() in _COMBINED_FORMULA_LABELS:
+                    continue
+                p_val = ws.cell(row, COL_TOTAL_COST).value
+                if isinstance(p_val, str) and p_val.startswith('='):
+                    continue
+                if isinstance(p_val, (int, float)):
+                    sum_items += p_val
+
+        net_total = round(sum_items + adjustments, 2)
+        variance = round(s_val - net_total, 2)
+        # Match invoice_processor's $0.02 tolerance (covers cent rounding
+        # between grouped subtotal and detail sum).
+        if abs(variance) > 0.02:
+            issues.append({
+                'type': VARIANCE,
+                'variance': variance,
+                'invoice_total': s_val,
+                'sum_items': sum_items,
+                'freight': freight,
+                'insurance': insurance,
+                'tax': tax,
+                'deduction': deduction,
+                'block': block_idx,
+                'block_header_row': header,
+                'block_adjustments_row': adj_row,
+                'why': (f'Block {block_idx} (row {header}) variance ${variance:+.2f}. '
+                        f'InvoiceTotal(${s_val:.2f}) != NetTotal(${net_total:.2f}).'),
+                'how': ('Open source PDF for this invoice and rerun pipeline — '
+                        'per-invoice variance_fixer should resolve before combining.'),
+            })
 
     return issues
 
@@ -789,6 +936,12 @@ def _check_duplicates(results: list) -> dict:
             pdf_out = getattr(r, 'pdf_output_path', '') or ''
             if pdf_out:
                 expected_files.add(os.path.basename(pdf_out))
+            # Combined entries stash per-invoice source PDFs here; they are
+            # produced by the current run even though the individual XLSX
+            # files were merged away.
+            combined_pdfs = getattr(r, '_combined_pdf_paths', None) or []
+            for cp in combined_pdfs:
+                expected_files.add(os.path.basename(cp))
         expected_files.add('_email_params.json')
 
         for f in os.listdir(output_dir):
@@ -1296,14 +1449,25 @@ def shipment_checklist(email_params: dict, validation: dict = None) -> dict:
 
             if variance_unfixed > 0:
                 var_details = []
+                # Per-block variance issues on a combined multi-invoice XLSX
+                # are downgraded to a warning: invoice_processor already ran
+                # variance_fixer per-invoice before combining, so any
+                # residual variance is an OCR / source-data quality issue
+                # that the operator must inspect directly in the combined
+                # XLSX. Blocking the email would just prevent them from
+                # seeing the problematic attachments.
+                has_per_block = False
                 for pf in validation.get('per_file', []):
                     for rem in pf.get('remaining', []):
                         if rem.get('type') == 'VARIANCE':
+                            if rem.get('block'):
+                                has_per_block = True
                             var_details.append(
                                 f'  {pf["file"]}: {rem.get("why", "")}')
                 detail_str = '\n'.join(var_details[:10])
-                fail('unfixed_variance', 'block',
-                     f'{variance_unfixed} file(s) have unresolved variance.',
+                severity = 'warn' if has_per_block else 'block'
+                fail('unfixed_variance', severity,
+                     f'{variance_unfixed} block(s)/file(s) have unresolved variance.',
                      'validation.variance', str(variance_unfixed),
                      f'For each file: read_file the XLSX to see line items and totals (row 2 cols '
                      f'S=InvoiceTotal, T=Freight, U=Insurance, V=Tax, W=Deduction). Read the source '

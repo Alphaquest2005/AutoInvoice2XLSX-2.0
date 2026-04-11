@@ -1110,7 +1110,10 @@ def run_bl_mode(args) -> dict:
         all_attachments.append(bl_alloc.bl_output_path)
 
     # ── Print summary ──
-    _print_summary(results, bl_alloc)
+    # Use pre-combine results so each source invoice shows as its own row
+    # instead of collapsing into the single combined entry.
+    _summary_results = getattr(args, '_pre_combine_results', None) or results
+    _print_summary(_summary_results, bl_alloc)
 
     # ── Phase 2.5: Manifest metadata ──
     manifest_meta = _apply_manifest_metadata(args, classification, output_dir, all_attachments)

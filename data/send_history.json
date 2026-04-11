@@ -35,6 +35,63 @@
         "office": "GDWBS"
       },
       "sent_at": "2026-04-11T12:59:26Z"
+    },
+    {
+      "waybill": "HAWBS665535",
+      "subject": "Shipment: HAWBS665535",
+      "source_input": "/tmp/andrea_stage/ANDREA_L.pdf",
+      "source_mode": "bl",
+      "output_dir": "/tmp/andrea_out",
+      "params_hash": "5fc16a438a0f5026b65c11ed5ee2c2bee563be8f9243bf42e96a55d03a6752e0",
+      "suppliers_hash": "4cbfdbbe39da9c932c9e875a07c438a8e64d76130dc1d71c419eeb214dfa0cb8",
+      "attachments": [
+        "/tmp/andrea_out/INVUS20240728002530332.pdf",
+        "/tmp/andrea_out/INVUS20240728002505756.pdf",
+        "/tmp/andrea_out/INVUS20240728002522.pdf",
+        "/tmp/andrea_out/GSUNJG55T00QV7M.pdf",
+        "/tmp/andrea_out/INVUS20240728002530327.pdf",
+        "/tmp/andrea_out/INVUS202407280025.pdf",
+        "/tmp/andrea_out/GSUNJG55TO00QV72.pdf",
+        "/tmp/andrea_out/GSUNJG55TOOQV7W.pdf",
+        "/tmp/andrea_out/INVUS20240728002505758.pdf",
+        "/tmp/andrea_out/GSUNJG55T00QV71.pdf",
+        "/tmp/andrea_out/GSUNJG55T00QV70.pdf",
+        "/tmp/andrea_out/INVUS20240728002524924.pdf",
+        "/tmp/andrea_out/ANDREA_L_combined.xlsx",
+        "/tmp/andrea_out/HAWBS665535-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWBS665535",
+        "consignee_name": "ANDREA LORD",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 12,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "18.0",
+        "country_origin": "US",
+        "freight": "37.00",
+        "man_reg": "2024 30",
+        "attachment_paths": [
+          "/tmp/andrea_out/INVUS20240728002530332.pdf",
+          "/tmp/andrea_out/INVUS20240728002505756.pdf",
+          "/tmp/andrea_out/INVUS20240728002522.pdf",
+          "/tmp/andrea_out/GSUNJG55T00QV7M.pdf",
+          "/tmp/andrea_out/INVUS20240728002530327.pdf",
+          "/tmp/andrea_out/INVUS202407280025.pdf",
+          "/tmp/andrea_out/GSUNJG55TO00QV72.pdf",
+          "/tmp/andrea_out/GSUNJG55TOOQV7W.pdf",
+          "/tmp/andrea_out/INVUS20240728002505758.pdf",
+          "/tmp/andrea_out/GSUNJG55T00QV71.pdf",
+          "/tmp/andrea_out/GSUNJG55T00QV70.pdf",
+          "/tmp/andrea_out/INVUS20240728002524924.pdf",
+          "/tmp/andrea_out/ANDREA_L_combined.xlsx",
+          "/tmp/andrea_out/HAWBS665535-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-11T14:36:34Z"
     }
   ]
 }
