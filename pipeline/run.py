@@ -119,6 +119,73 @@ def _lookup_consignee_code(consignee_name: str) -> tuple:
     return (best_code, best_address)
 
 
+def _inject_handwritten_duties(decl_meta: dict, results: list) -> bool:
+    """Inject handwritten customs duty values into invoice_data for XLSX duty estimation.
+
+    Declaration metadata from pdf_splitter.extract_declaration_handwriting() stores
+    handwritten customs values in _customs_value_ec (EC$) and _customs_value_usd.
+    The XLSX duty estimation section reads invoice_data['_client_declared_duties']
+    (expected in XCD/EC$) and invoice_data['_customs_freight'].
+
+    This function bridges the two: it converts the extracted handwritten value to a
+    float and injects it into each result's invoice_data so the duty estimation
+    section can display the client-vs-estimated variance.
+
+    Returns True if any values were injected (caller should regenerate XLSX).
+    """
+    if not decl_meta or not results:
+        return False
+
+    # Extract handwritten duty value (prefer EC$ since ASYCUDA duties are in XCD)
+    client_duties = None
+    raw_ec = decl_meta.get('_customs_value_ec')
+    raw_usd = decl_meta.get('_customs_value_usd')
+
+    if raw_ec:
+        try:
+            client_duties = float(str(raw_ec).replace(',', '').replace('$', '').strip())
+        except (ValueError, TypeError):
+            pass
+
+    # If only USD value available, convert to XCD
+    if client_duties is None and raw_usd:
+        try:
+            usd_val = float(str(raw_usd).replace(',', '').replace('$', '').strip())
+            # XCD_RATE = 2.7169 (Eastern Caribbean Dollar per USD)
+            client_duties = round(usd_val * 2.7169, 2)
+            logger.info(f"Converted handwritten USD ${usd_val} to EC$ {client_duties}")
+        except (ValueError, TypeError):
+            pass
+
+    if client_duties is None or client_duties <= 0:
+        return False
+
+    # Extract freight from declaration metadata for CIF calculation
+    decl_freight = None
+    raw_freight = decl_meta.get('freight')
+    if raw_freight:
+        try:
+            decl_freight = float(str(raw_freight).replace(',', '').strip())
+        except (ValueError, TypeError):
+            pass
+
+    logger.info(f"Injecting handwritten client duties EC${client_duties} into "
+                f"{len(results)} invoice result(s)")
+
+    injected = False
+    for r in results:
+        inv_data = getattr(r, 'invoice_data', None)
+        if inv_data is None:
+            continue
+        # Only set if not already populated (don't overwrite manual/other sources)
+        if inv_data.get('_client_declared_duties') is None:
+            inv_data['_client_declared_duties'] = client_duties
+            injected = True
+        if decl_freight is not None and inv_data.get('_customs_freight') is None:
+            inv_data['_customs_freight'] = decl_freight
+    return injected
+
+
 def _extract_consignee(args) -> str:
     """
     Extract consignee name from all available document sources.
@@ -1136,6 +1203,31 @@ def run_bl_mode(args) -> dict:
                 manifest_meta[key] = decl_meta[key]
                 logger.info(f"Supplemented manifest {key} from declaration: {decl_meta[key]}")
 
+    # ── Inject handwritten customs values into invoice_data for duty estimation ──
+    # The declaration metadata may contain _customs_value_ec / _customs_value_usd
+    # extracted by LLM vision from pencil annotations on the Simplified Declaration.
+    # Wire these into invoice_data['_client_declared_duties'] so the XLSX duty
+    # estimation section can show the variance comparison.
+    if _inject_handwritten_duties(decl_meta, results):
+        # Regenerate XLSX files so the duty estimation section includes the
+        # client declared duties comparison.  The initial XLSX was generated
+        # before declaration metadata was available.
+        try:
+            from bl_xlsx_generator import generate_bl_xlsx
+            for r in results:
+                if r.xlsx_path and os.path.exists(r.xlsx_path):
+                    generate_bl_xlsx(
+                        r.invoice_data,
+                        r.matched_items,
+                        os.path.basename(r.xlsx_path).rsplit('.', 1)[0],
+                        r.supplier_info,
+                        r.xlsx_path,
+                        document_type=getattr(args, 'doc_type', 'auto'),
+                    )
+                    print(f"    {r.invoice_num}: XLSX regenerated with client duty comparison")
+        except Exception as e:
+            logger.warning(f"XLSX regeneration for duty comparison failed: {e}")
+
     # Apply manifest packages to XLSX when BL allocator didn't set them
     if manifest_meta and manifest_meta.get('packages') and results:
         bl_has_packages = bl_alloc and getattr(bl_alloc, 'packages', None)
@@ -1536,6 +1628,24 @@ def run_batch_mode(args) -> dict:
             if not manifest_meta.get(key) and decl_meta.get(key):
                 manifest_meta[key] = decl_meta[key]
                 logger.info(f"Supplemented manifest {key} from declaration: {decl_meta[key]}")
+
+    # Inject handwritten customs values into invoice_data for duty estimation (batch mode)
+    if _inject_handwritten_duties(decl_meta, results):
+        try:
+            from bl_xlsx_generator import generate_bl_xlsx
+            for r in results:
+                if r.xlsx_path and os.path.exists(r.xlsx_path):
+                    generate_bl_xlsx(
+                        r.invoice_data,
+                        r.matched_items,
+                        os.path.basename(r.xlsx_path).rsplit('.', 1)[0],
+                        r.supplier_info,
+                        r.xlsx_path,
+                        document_type=getattr(args, 'doc_type', 'auto'),
+                    )
+                    print(f"    {r.invoice_num}: XLSX regenerated with client duty comparison")
+        except Exception as e:
+            logger.warning(f"XLSX regeneration for duty comparison failed: {e}")
 
     # Apply manifest packages to XLSX (batch mode has no BL allocator)
     if manifest_meta and manifest_meta.get('packages') and results:

@@ -1222,13 +1222,91 @@ def extract_declaration_metadata(pdf_path: str) -> Dict[str, Optional[str]]:
     return metadata
 
 
+def _enhance_declaration_image(img_bytes: bytes) -> bytes:
+    """Enhance a scanned declaration image to make faint pencil marks more visible.
+
+    Applies contrast enhancement and adaptive processing to boost faint
+    handwritten pencil annotations that are nearly invisible in raw scans.
+    Returns enhanced PNG bytes ready for LLM vision.
+    """
+    try:
+        import cv2  # type: ignore
+        import numpy as np  # type: ignore
+    except ImportError:
+        # Fallback: use PIL-only enhancement if cv2 unavailable
+        try:
+            from PIL import Image, ImageEnhance, ImageFilter  # type: ignore
+            import io
+            pil_img = Image.open(io.BytesIO(img_bytes))
+            # Boost contrast 2x to make pencil marks darker
+            pil_img = ImageEnhance.Contrast(pil_img).enhance(2.0)
+            # Sharpen to crisp up faint strokes
+            pil_img = pil_img.filter(ImageFilter.UnsharpMask(radius=2, percent=200, threshold=1))
+            buf = io.BytesIO()
+            pil_img.save(buf, format='PNG')
+            return buf.getvalue()
+        except Exception:
+            return img_bytes
+
+    # Decode PNG bytes to OpenCV array
+    arr = np.frombuffer(img_bytes, dtype=np.uint8)
+    img = cv2.imdecode(arr, cv2.IMREAD_COLOR)
+    if img is None:
+        return img_bytes
+
+    # Convert to grayscale for processing
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    # 1. Denoise to reduce scanner noise without blurring pencil strokes
+    denoised = cv2.fastNlMeansDenoising(gray, h=8)
+
+    # 2. CLAHE — Contrast Limited Adaptive Histogram Equalization
+    #    Boosts local contrast so faint pencil in bright regions becomes visible.
+    #    clipLimit=3.0 is more aggressive than standard (2.0) to catch very faint marks.
+    clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8, 8))
+    enhanced = clahe.apply(denoised)
+
+    # 3. Adaptive threshold to create a clean binary image highlighting all marks.
+    #    We blend this with the CLAHE result rather than replacing it, so the LLM
+    #    still sees grayscale variation (helpful for distinguishing print vs pencil).
+    binary = cv2.adaptiveThreshold(
+        enhanced, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+        cv2.THRESH_BINARY, 31, 15,
+    )
+
+    # 4. Blend: 60% CLAHE + 40% binary — preserves grayscale detail while
+    #    boosting faint strokes that only show in the binary channel.
+    blended = cv2.addWeighted(enhanced, 0.6, binary, 0.4, 0)
+
+    # 5. Mild sharpening to crisp up pencil edges
+    sharpen_kernel = np.array([
+        [0, -0.5, 0],
+        [-0.5, 3, -0.5],
+        [0, -0.5, 0],
+    ], dtype=np.float32)
+    sharpened = cv2.filter2D(blended, -1, sharpen_kernel)
+
+    # Encode back to PNG
+    _, out_bytes = cv2.imencode('.png', sharpened)
+    return out_bytes.tobytes()
+
+
+def _is_truthy_value(val) -> bool:
+    """Check if a value from LLM JSON is a meaningful non-empty string/number."""
+    if val is None:
+        return False
+    s = str(val).strip()
+    return bool(s) and s.lower() not in ('null', 'none', 'n/a', '')
+
+
 def extract_declaration_handwriting(pdf_path: str, base_dir: str = '.') -> Dict[str, Optional[str]]:
     """Extract handwritten/pencil annotations from a Simplified Declaration PDF using LLM vision.
 
     Scanned declaration forms often have customs values, tariff codes, and weights
     written in pencil by the client. OCR cannot reliably detect faint pencil marks,
-    so this function renders the page as an image and sends it to an LLM with vision
-    to extract the handwritten data.
+    so this function renders the page at high DPI, applies contrast enhancement
+    (CLAHE + adaptive threshold + sharpening), and sends the enhanced image to an
+    LLM with vision to extract the handwritten data.
 
     Uses Z.AI's vision model (glm-4.6v) via the OpenAI-compatible endpoint
     (/api/paas/v4/chat/completions), NOT the Anthropic proxy which only supports
@@ -1261,48 +1339,70 @@ def extract_declaration_handwriting(pdf_path: str, base_dir: str = '.') -> Dict[
     vision_endpoint = 'https://api.z.ai/api/coding/paas/v4/chat/completions'
 
     try:
-        # Render declaration page as image
+        # Render declaration page as image at 300 DPI for better pencil visibility.
+        # Previous 150 DPI was too low — faint pencil strokes need higher resolution
+        # to be distinguishable from paper texture/noise.
         doc = fitz.open(pdf_path)
         page = doc[0]
-        # Use 150 DPI — balances pencil visibility vs payload size (~250KB)
-        mat = fitz.Matrix(150 / 72, 150 / 72)
+        mat = fitz.Matrix(300 / 72, 300 / 72)
         pix = page.get_pixmap(matrix=mat)
-        img_bytes = pix.tobytes("png")
+        raw_img_bytes = pix.tobytes("png")
         doc.close()
 
-        img_b64 = base64.b64encode(img_bytes).decode('utf-8')
+        # Enhance image to boost faint pencil marks
+        enhanced_bytes = _enhance_declaration_image(raw_img_bytes)
+        logger.debug(
+            f"Declaration image: raw={len(raw_img_bytes)//1024}KB, "
+            f"enhanced={len(enhanced_bytes)//1024}KB"
+        )
 
-        # Build vision prompt
+        img_b64 = base64.b64encode(enhanced_bytes).decode('utf-8')
+
+        # Build vision prompt — more specific about where handwriting appears
+        # on Grenada Simplified Declaration forms
         prompt = """Examine this scanned Grenada Simplified Declaration Form carefully.
+The image has been contrast-enhanced to make faint pencil marks more visible.
 
-Look for ANY handwritten or pencil annotations on the form, especially:
-1. Numbers written in pencil anywhere on the form (customs values, tariff codes, weights)
-2. Handwritten entries in the "Particulars of declaration by Importer" table
-3. Pencil marks near the margins or between printed fields
+Look for ANY handwritten or pencil annotations on the form. On these forms,
+customs officers and clients commonly write values in these locations:
+
+1. DUTY/TAX VALUES: Look in the "For Official Use Only" section at the bottom,
+   AND near the consignee name area. Values may be written VERTICALLY along the
+   left margin or near the consignee field. Look for numbers like "$125.36" or
+   "58.83" or "EC$340.00" written in pencil/pen anywhere on the form.
+
+2. TARIFF CODES: 8-digit codes (e.g. "63079090", "56081990") often handwritten
+   in the "Particulars of declaration by Importer" table or in margins.
+
+3. The "Particulars of declaration by Importer" table rows — check each column:
+   Marks, numbers, HS Code, Description, Qty, Weight, Value, Duty Rate, Duty.
+
+4. ANY pencil/pen marks in margins, between fields, or rotated/sideways text.
 
 Also extract the printed form data:
 - Consignee name (without the FREIGHT part)
 - Freight amount (from the consignee line, e.g. "FREIGHT 11.00 US")
-- WayBill Number
+- WayBill Number (starts with HAWB)
 - Man Reg Number
-- Customs Office
+- Customs Office code (e.g. GDWBS, GDSGO)
 - Gross Mass / Weight
 - Number of packages
 
 Return a JSON object with these fields:
 {
   "handwritten": {
-    "customs_value_ec": "value in EC$ if visible",
-    "customs_value_usd": "value in USD if visible",
-    "tariff_code": "tariff/HS code if visible",
+    "customs_value_ec": "numeric value in EC$ if visible, e.g. 340.00",
+    "customs_value_usd": "numeric value in USD if visible, e.g. 125.36",
+    "tariff_code": "tariff/HS code if visible, e.g. 63079090",
+    "duty_rate": "duty rate percentage if visible, e.g. 20",
     "weight": "weight if handwritten",
     "description": "goods description if handwritten",
-    "other_notes": "any other handwritten annotations"
+    "other_notes": "any other handwritten annotations including their location on the form"
   },
   "printed": {
     "consignee": "name without freight",
-    "freight": "freight amount",
-    "waybill": "waybill number",
+    "freight": "freight amount as number",
+    "waybill": "waybill/HAWB number",
     "man_reg": "manifest registry number",
     "office": "customs office code",
     "weight": "gross mass",
@@ -1311,8 +1411,12 @@ Return a JSON object with these fields:
   "has_handwriting": true/false
 }
 
-IMPORTANT: Look very carefully for faint pencil marks. They may appear as light gray writing.
-Return ONLY the JSON, no other text."""
+IMPORTANT:
+- Faint pencil marks appear as light gray strokes in this enhanced image.
+- Numbers may be written sideways/vertically — still extract them.
+- If you see ANY numeric values that appear handwritten, set has_handwriting to true.
+- For customs_value_ec and customs_value_usd, return ONLY the numeric value (no $ sign).
+Return ONLY valid JSON, no other text."""
 
         # Z.AI vision API uses OpenAI-compatible format with image_url
         # Base64 images use data URI: data:image/png;base64,...
@@ -1347,17 +1451,41 @@ Return ONLY the JSON, no other text."""
             }
         )
 
-        with urlopen(req, timeout=60) as response:
+        with urlopen(req, timeout=90) as response:
             result = json.loads(response.read().decode('utf-8'))
 
         # OpenAI-compatible response format
         response_text = result['choices'][0]['message']['content'].strip()
         logger.info(f"LLM vision response for {os.path.basename(pdf_path)}: {response_text[:200]}")
 
-        # Parse JSON from response
-        json_match = re.search(r'\{[\s\S]+\}', response_text)
+        # Parse JSON from response (may be wrapped in ```json ... ```)
+        cleaned = re.sub(r'^```(?:json)?\s*', '', response_text)
+        cleaned = re.sub(r'\s*```$', '', cleaned)
+        json_match = re.search(r'\{[\s\S]+\}', cleaned)
         if json_match:
             parsed = json.loads(json_match.group())
+            # Post-process: if the LLM found handwriting but put the value
+            # in other_notes instead of customs_value_ec/usd (common when it
+            # can't determine the currency), extract the numeric value and
+            # treat it as EC$ (the default currency on Grenada declarations).
+            hw = parsed.get('handwritten', {})
+            if parsed.get('has_handwriting') and hw:
+                has_customs = (
+                    _is_truthy_value(hw.get('customs_value_ec'))
+                    or _is_truthy_value(hw.get('customs_value_usd'))
+                )
+                if not has_customs and hw.get('other_notes'):
+                    notes = str(hw['other_notes'])
+                    # Extract numeric value from notes like "122.66 written vertically"
+                    num_match = re.search(r'(\d+\.?\d*)', notes)
+                    if num_match:
+                        val = float(num_match.group(1))
+                        if val > 1.0:  # sanity: must be a meaningful amount
+                            hw['customs_value_ec'] = str(val)
+                            logger.info(
+                                f"Recovered handwritten customs value EC${val} "
+                                f"from other_notes: {notes}"
+                            )
             return parsed
 
     except Exception as e:
