@@ -1,0 +1,42 @@
+waybill: HAWB
+replay_mode: true
+instructions: 'Edit the override block for any item. Leave fields null to keep current. Set delete: true
+  to remove an item. Append new items under add_items. Reply with this file attached to trigger pipeline
+  replay.'
+invoices:
+- invoice_num: ANDREA_L_Invoice
+  supplier: SHEIN US Services, LLC
+  pdf: ANDREA_L_Invoice.pdf
+  current:
+    sub_total: 0.0
+    items_sum: 27.24
+    invoice_total: 27.24
+    residual: -0.0
+  notes: []
+  recovered_items: []
+  other_items:
+  - sku: SHEIN-1
+    description: 12 pcs Ribbed Knit Triangle Panties
+    current:
+      quantity: 1
+      unit_cost: 15.39
+      total_cost: 15.39
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  - sku: SHEIN-2
+    description: Men Letter Printed Woven Band Boxer Briefs Set Of 5
+    current:
+      quantity: 1
+      unit_cost: 11.85
+      total_cost: 11.85
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  add_items: []
