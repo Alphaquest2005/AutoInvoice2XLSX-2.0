@@ -432,32 +432,25 @@ def process_pdf(pdf_path: str, output_dir: str, base_dir: str, index: int, send_
 
 
 def _extract_text(invoice_path: str) -> str:
-    """Extract text from invoice PDF (OCR if needed)."""
-    text = ""
+    """Extract invoice text via the unified hybrid OCR pipeline.
+
+    The old implementation ran pdfplumber on ``pages[:5]`` and then
+    fell back to ``pdf_splitter.ocr_page`` page-by-page with a custom
+    DPI. That split-brain has been replaced by a single call into
+    ``multi_ocr.extract_text`` which runs the full hybrid matrix and
+    consensus. The 5-page cap has been dropped — multi_ocr handles
+    every page and the per-PDF-sha1 cache makes re-runs cheap.
+    """
     try:
-        import pdfplumber
-        with pdfplumber.open(invoice_path) as pdf:
-            for page in pdf.pages[:5]:
-                page_text = page.extract_text()
-                if page_text:
-                    text += page_text + "\n"
+        import multi_ocr
+    except ImportError:
+        return ""
+
+    try:
+        result = multi_ocr.extract_text(invoice_path)
+        return result.text or ""
     except Exception:
-        pass
-
-    if not text.strip():
-        try:
-            from pdf_splitter import ocr_page
-            import fitz
-            doc = fitz.open(invoice_path)
-            for page_num in range(min(doc.page_count, 5)):
-                page_text = ocr_page(invoice_path, page_num, dpi=200)
-                if page_text:
-                    text += page_text + "\n"
-            doc.close()
-        except Exception:
-            pass
-
-    return text
+        return ""
 
 
 def _run_pipeline(invoice_path: str, output_dir: str, base_dir: str) -> dict:

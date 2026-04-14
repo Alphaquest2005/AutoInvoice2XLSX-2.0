@@ -582,15 +582,32 @@ def process_single_invoice(
         # and can scribble corrections into the wrong block.
         try:
             from workflow.variance_fixer import fix_variance
+            # Honest mode by default — per-item cells are authoritative.
+            # Only opt-in specs (spec.allow_llm_fix=true) may use the LLM
+            # scaling path.  See format_parser.parse() Tier A1 orphan scan
+            # for the deterministic recovery that runs before we reach here.
+            _allow_llm_fix = bool((format_spec or {}).get('allow_llm_fix', False))
+            variance_before_fix = float(variance)
             fix_result = fix_variance(
                 xlsx_path=xlsx_path,
                 invoice_text=text,
-                current_variance=float(variance),
+                current_variance=variance_before_fix,
+                honest_mode=not _allow_llm_fix,
             )
             if fix_result.get('success'):
                 new_variance = fix_result.get('new_variance', variance)
-                print(f"    Variance fix: ${variance:.2f} -> ${new_variance:.2f}")
+                print(f"    Variance fix: ${variance:.2f} -> ${new_variance:.2f}"
+                      f"{' (honest)' if not _allow_llm_fix else ' (llm)'}")
                 variance = new_variance
+                # Record that the variance was absorbed into ADJUSTMENTS so
+                # the proposed-fixes email can report it as something the
+                # reviewer may want to correct.
+                if not _allow_llm_fix and abs(variance_before_fix) > 0.02:
+                    invoice_data.setdefault('data_quality_notes', []).append(
+                        f"Residual variance ${variance_before_fix:.2f} absorbed "
+                        f"into ADJUSTMENTS row (honest mode)"
+                    )
+                    invoice_data['invoice_total_uncertain'] = True
             else:
                 logger.info(f"variance_fixer did not resolve ${variance:.2f}: "
                             f"{fix_result.get('reason', 'unknown')}")
@@ -721,5 +738,6 @@ def _items_without_po(invoice_data: Dict) -> List[Dict]:
             'total_cost': total,
             'uom': '',
             'match_score': 0,
+            'data_quality': item.get('data_quality', ''),
         })
     return matched

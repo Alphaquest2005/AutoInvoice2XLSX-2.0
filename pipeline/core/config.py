@@ -28,6 +28,11 @@ class PipelineConfig:
     email_sender_name: str = "Web Source-AutoBot"
     email_password: str = ""
     email_recipient: str = "shipments.websource@auto-brokerage.com"
+    # Proposed Fixes email recipient — reviewer mailbox for uncertain invoices
+    # that need manual correction.  Defaults to the sender (documents mailbox)
+    # so corrections return to the same inbox that originally received the
+    # shipment; override in data/settings.json when operating multi-tenant.
+    email_fixes_recipient: str = "documents.websource@auto-brokerage.com"
 
     # ─── Thresholds ─────────────────────────────────────────
     variance_threshold: float = 0.50

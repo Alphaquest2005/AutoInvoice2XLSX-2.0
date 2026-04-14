@@ -58,7 +58,7 @@ _INVALID_CODE_MAP = {**KNOWN_CATEGORY_HEADINGS, **KNOWN_WRONG_CODES, **KNOWN_BAD
 
 # Also load from invalid_codes.json at runtime (supplements hardcoded list)
 _invalid_codes_from_file = None
-# Authoritative CET valid codes (loaded from data/cet_valid_codes.txt)
+# Authoritative CET valid leaf codes (loaded from data/cet.db SSOT)
 _cet_valid_codes = None
 # Assessed classifications from ASYCUDA SQL Server databases
 _assessed_classifications = None
@@ -89,23 +89,37 @@ def _load_invalid_codes(base_dir: str = '.') -> dict:
 
 
 def _load_cet_valid_codes(base_dir: str = '.') -> set:
-    """Load authoritative CARICOM CET valid 8-digit codes from data/cet_valid_codes.txt."""
+    """Load authoritative CARICOM CET valid 8-digit leaf codes from data/cet.db (SSOT).
+
+    Only loads leaf codes (is_leaf=1) — category headings are excluded from validation.
+    """
     global _cet_valid_codes
     if _cet_valid_codes is not None:
         return _cet_valid_codes
 
     codes = set()
-    cet_path = os.path.join(base_dir, 'data', 'cet_valid_codes.txt')
+
+    # SSOT: load leaf codes from cet.db (SQLite)
+    cet_db_path = os.path.join(base_dir, 'data', 'cet.db')
     try:
-        if os.path.exists(cet_path):
-            with open(cet_path, 'r', encoding='utf-8') as f:
-                for line in f:
-                    code = line.strip().split('\t')[0]
-                    if len(code) == 8 and code.isdigit():
-                        codes.add(code)
-            logger.info(f"[CET] Loaded {len(codes)} valid CET codes from {cet_path}")
+        if os.path.exists(cet_db_path):
+            import sqlite3
+            conn = sqlite3.connect(cet_db_path)
+            cursor = conn.cursor()
+            cursor.execute('SELECT hs_code FROM cet_codes WHERE enabled = 1 AND is_leaf = 1')
+            for row in cursor.fetchall():
+                code = row[0]
+                if len(code) == 8 and code.isdigit():
+                    codes.add(code)
+            conn.close()
+            if codes:
+                logger.info(f"[CET] Loaded {len(codes)} valid CET leaf codes from {cet_db_path}")
     except Exception as e:
-        logger.warning(f"Failed to load CET valid codes: {e}")
+        logger.warning(f"Failed to load CET codes from cet.db: {e}")
+
+    if not codes:
+        logger.error("[CET] NO valid CET codes loaded — tariff code validation is DISABLED. "
+                      "Populate data/cet.db with CARICOM CET schedule.")
 
     _cet_valid_codes = codes
     return codes
@@ -415,7 +429,7 @@ def validate_and_correct_code(code: str, base_dir: str = '.') -> str:
     ENFORCED RULES:
     1. Code must be exactly 8 digits
     2. Known invalid codes are auto-corrected via invalid_codes.json
-    3. Code must exist in the CARICOM CET valid codes list (data/cet_valid_codes.txt)
+    3. Code must exist in the CARICOM CET valid leaf codes (data/cet.db, is_leaf=1)
     4. If code not in CET, try suffix '00' as fallback (many headings have no subdivision)
 
     Returns the corrected code, or the original if valid.
@@ -432,10 +446,11 @@ def validate_and_correct_code(code: str, base_dir: str = '.') -> str:
         )
         return corrected
 
-    # Step 2: Validate against authoritative CET code list
+    # Step 2: Validate against authoritative CET code list (cet.db SSOT)
     cet_codes = _load_cet_valid_codes(base_dir)
     if not cet_codes:
-        # CET list not available, skip validation
+        # CET list not available — validation disabled, return code but warn
+        logger.warning(f"[CET VALIDATION] Cannot validate {code} — no CET codes loaded")
         return code
 
     if code in cet_codes:
@@ -1332,7 +1347,17 @@ CLASSIFICATION RULES (follow strictly):
 
 4. NEVER classify a simple zinc/metal article as furniture hardware (Chapter 83) or machinery parts (Chapter 84) unless it is genuinely a machine component with moving parts.
 
-5. Codes MUST be exactly 8 digits. Use the CARICOM CET national subdivision (last 2 digits), not US HTS subdivisions.
+5. APPAREL CLASSIFICATION (Chapters 61-62):
+   - Knitted/crocheted garments → Chapter 61
+   - Woven/not-knitted garments → Chapter 62
+   - Men's cotton trousers: denim → 62034210, other → 62034220, other cotton → 62034290
+   - Men's trousers: synthetic fibres → 62034310, other materials → 62034910/62034990
+   - Women's cotton trousers: → 62046210/62046290
+   - Women's trousers: synthetic fibres → 62046310, other materials → 62046910/62046990
+   - T-shirts, singlets (knitted) → 61091000/61099000
+
+6. Codes MUST be exactly 8 digits and must be valid CARICOM CET end-node codes.
+   Do NOT invent codes — only use codes that exist in the CARICOM Common External Tariff schedule.
 
 Respond with ONLY a JSON object:
 {{"code": "XXXXXXXX", "category": "CATEGORY", "confidence": 0.X, "reasoning": "brief explanation"}}"""

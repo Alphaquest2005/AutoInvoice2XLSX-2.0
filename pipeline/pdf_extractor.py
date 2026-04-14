@@ -256,175 +256,125 @@ def run(input_path: str, output_path: str, config: Dict = None, context: Dict = 
         return extract_with_pdfplumber(input_path, output_path)
 
 
-def extract_with_pdfplumber(input_path: str, output_path: str) -> Dict:
-    """Extract using pdfplumber (good for embedded text and tables)."""
-    if not pdfplumber:
-        return {'status': 'error', 'error': 'pdfplumber not installed. Run: pip install pdfplumber'}
+def _extract_text_tables_unified(input_path: str) -> tuple:
+    """Unified text+tables extraction via the hybrid OCR pipeline.
+
+    Returns ``(full_text, tables_list, engine_label)``. Text always comes
+    from ``multi_ocr.extract_text`` (which handles the digital-PDF short-
+    circuit plus the full preprocessing × engine matrix and consensus).
+    Tables are a supplementary best-effort pass via pdfplumber, since
+    multi_ocr doesn't do table extraction.
+    """
+    try:
+        import multi_ocr
+    except ImportError:
+        return "", [], "none"
+
+    try:
+        result = multi_ocr.extract_text(input_path)
+        full_text = result.text or ""
+        engine_label = result.engine_used or "multi_ocr"
+    except Exception as e:
+        logger.error(f"multi_ocr extract_text failed for {input_path}: {e}")
+        return "", [], "none"
+
+    all_tables: List[Dict] = []
+    if pdfplumber:
+        try:
+            with pdfplumber.open(input_path) as pdf:
+                for page_num, page in enumerate(pdf.pages):
+                    for table in (page.extract_tables() or []):
+                        all_tables.append({
+                            'page': page_num + 1,
+                            'rows': table,
+                        })
+        except Exception as e:
+            logger.debug(f"pdfplumber table pass failed for {input_path}: {e}")
+
+    return full_text, all_tables, engine_label
+
+
+def _build_extract_result(
+    full_text: str,
+    all_tables: List[Dict],
+    engine_label: str,
+    output_path: str,
+) -> Dict:
+    """Shared result-shaping path: FormatRegistry → legacy → JSON write."""
+    # TRY DATA-DRIVEN PARSING FIRST (FormatRegistry)
+    registry_result = try_format_registry_parse(full_text, all_tables)
+    if registry_result:
+        registry_result['ocr_method'] = engine_label
+        if output_path:
+            os.makedirs(os.path.dirname(output_path), exist_ok=True)
+            with open(output_path, 'w') as f:
+                json.dump(registry_result, f, indent=2)
+        return registry_result
+
+    # LEGACY FALLBACK: Use hardcoded parsing functions
+    logger.debug("Using legacy hardcoded parsing")
+    invoice_data = {
+        'invoice_number': extract_invoice_number(full_text),
+        'date': extract_date(full_text),
+        'supplier': extract_supplier(full_text),
+        'total': extract_total(full_text),
+        'freight': extract_shipping(full_text),
+        'tax': extract_tax(full_text),
+        'discount': extract_discount(full_text),
+        'items': [],
+        'raw_text': full_text[:5000],
+        'tables': all_tables,
+    }
+
+    # Prefer table-based items, fall back to text-based
+    if all_tables:
+        items = extract_items_from_tables(all_tables)
+        invoice_data['items'] = items
+    if not invoice_data['items']:
+        text_items = extract_items_from_text(full_text)
+        if text_items:
+            invoice_data['items'] = text_items
 
     result = {
         'status': 'success',
-        'ocr_method': 'pdfplumber',
-        'invoices': []
+        'ocr_method': engine_label,
+        'invoices': [invoice_data],
     }
 
-    try:
-        with pdfplumber.open(input_path) as pdf:
-            all_text = []
-            all_tables = []
-
-            for page_num, page in enumerate(pdf.pages):
-                # Extract text
-                text = page.extract_text() or ''
-                all_text.append(text)
-
-                # Extract tables
-                tables = page.extract_tables() or []
-                for table in tables:
-                    all_tables.append({
-                        'page': page_num + 1,
-                        'rows': table
-                    })
-
-            full_text = '\n'.join(all_text)
-
-            # Check if PDF is scanned/image-based (no extractable text)
-            # If so, fall back to tesseract OCR
-            if len(full_text.strip()) < 50 and TESSERACT_AVAILABLE:
-                logger.info("No embedded text found, falling back to Tesseract OCR")
-                return extract_with_tesseract(input_path, output_path)
-
-            # If no text and no Tesseract available, report clear error
-            if len(full_text.strip()) < 50:
-                return {
-                    'status': 'error',
-                    'error': 'Scanned/image PDF detected but Tesseract OCR not available. '
-                             'Install: pip install pytesseract Pillow pypdf\n'
-                             'Also install Tesseract OCR: https://github.com/UB-Mannheim/tesseract/wiki'
-                }
-
-            # TRY DATA-DRIVEN PARSING FIRST (FormatRegistry)
-            # This is the preferred path - format-specific logic lives in YAML
-            registry_result = try_format_registry_parse(full_text, all_tables)
-            if registry_result:
-                registry_result['ocr_method'] = 'pdfplumber'
-                if output_path:
-                    os.makedirs(os.path.dirname(output_path), exist_ok=True)
-                    with open(output_path, 'w') as f:
-                        json.dump(registry_result, f, indent=2)
-                return registry_result
-
-            # LEGACY FALLBACK: Use hardcoded parsing functions
-            # Only reached if no format spec matched the text
-            logger.debug("Using legacy hardcoded parsing")
-
-            # Parse invoice metadata
-            invoice_data = {
-                'invoice_number': extract_invoice_number(full_text),
-                'date': extract_date(full_text),
-                'supplier': extract_supplier(full_text),
-                'total': extract_total(full_text),
-                'freight': extract_shipping(full_text),
-                'tax': extract_tax(full_text),
-                'discount': extract_discount(full_text),
-                'items': [],
-                'raw_text': full_text[:5000],  # Truncate for context
-                'tables': all_tables,
-            }
-
-            # Extract line items from tables
-            if all_tables:
-                items = extract_items_from_tables(all_tables)
-                invoice_data['items'] = items
-
-            # If no items found from tables, try extracting from text
-            if not invoice_data['items']:
-                text_items = extract_items_from_text(full_text)
-                if text_items:
-                    invoice_data['items'] = text_items
-
-            result['invoices'].append(invoice_data)
-
-    except Exception as e:
-        result['status'] = 'error'
-        result['error'] = str(e)
-
-    # Write output
-    if output_path and result['status'] == 'success':
+    if output_path:
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
         with open(output_path, 'w') as f:
             json.dump(result, f, indent=2)
 
     return result
+
+
+def extract_with_pdfplumber(input_path: str, output_path: str) -> Dict:
+    """Legacy entry point — now routes through the unified hybrid OCR pipeline.
+
+    The ``pdfplumber`` / ``pymupdf`` / ``tesseract`` labels no longer
+    correspond to three disjoint code paths. ``multi_ocr.extract_text``
+    always runs, and the engine actually used is recorded in the result.
+    """
+    try:
+        full_text, all_tables, engine_label = _extract_text_tables_unified(input_path)
+    except Exception as e:
+        return {'status': 'error', 'error': str(e)}
+
+    if len(full_text.strip()) < 50:
+        return {
+            'status': 'error',
+            'error': 'multi_ocr produced no usable text for this PDF. '
+                     'Check that PyMuPDF and at least one OCR backend '
+                     '(tesseract / paddleocr / vision_api) are installed.'
+        }
+
+    return _build_extract_result(full_text, all_tables, engine_label, output_path)
 
 
 def extract_with_pymupdf(input_path: str, output_path: str) -> Dict:
-    """Extract using PyMuPDF/fitz (fast, good for native PDFs)."""
-    if not fitz:
-        return {'status': 'error', 'error': 'PyMuPDF not installed. Run: pip install PyMuPDF'}
-
-    result = {
-        'status': 'success',
-        'ocr_method': 'pymupdf',
-        'invoices': []
-    }
-
-    try:
-        doc = fitz.open(input_path)
-        all_text = []
-
-        for page_num in range(len(doc)):
-            page = doc.load_page(page_num)
-            text = page.get_text("text")
-            all_text.append(text)
-
-        doc.close()
-        full_text = '\n'.join(all_text)
-
-        # TRY DATA-DRIVEN PARSING FIRST (FormatRegistry)
-        # This is the preferred path - format-specific logic lives in YAML
-        registry_result = try_format_registry_parse(full_text)
-        if registry_result:
-            registry_result['ocr_method'] = 'pymupdf'
-            if output_path:
-                os.makedirs(os.path.dirname(output_path), exist_ok=True)
-                with open(output_path, 'w') as f:
-                    json.dump(registry_result, f, indent=2)
-            return registry_result
-
-        # LEGACY FALLBACK: Use hardcoded parsing functions
-        logger.debug("Using legacy hardcoded parsing for pymupdf output")
-
-        # Parse invoice metadata using shared functions
-        invoice_data = {
-            'invoice_number': extract_invoice_number(full_text),
-            'date': extract_date(full_text),
-            'supplier': extract_supplier(full_text),
-            'total': extract_total(full_text),
-            'freight': extract_shipping(full_text),
-            'tax': extract_tax(full_text),
-            'discount': extract_discount(full_text),
-            'items': [],
-            'raw_text': full_text[:5000],
-            'tables': [],  # PyMuPDF doesn't extract tables as easily
-        }
-
-        # Try to extract items from text patterns
-        items = extract_items_from_text(full_text)
-        invoice_data['items'] = items
-
-        result['invoices'].append(invoice_data)
-
-    except Exception as e:
-        result['status'] = 'error'
-        result['error'] = str(e)
-
-    # Write output
-    if output_path and result['status'] == 'success':
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        with open(output_path, 'w') as f:
-            json.dump(result, f, indent=2)
-
-    return result
+    """Legacy entry point — delegates to the unified hybrid OCR pipeline."""
+    return extract_with_pdfplumber(input_path, output_path)
 
 
 def _run_tesseract_on_image(img_path: str, temp_dir: str) -> str:
@@ -508,162 +458,16 @@ def _extract_images_with_pypdf(input_path: str) -> List:
 
 
 def extract_with_tesseract(input_path: str, output_path: str) -> Dict:
-    """Extract using Tesseract OCR (for scanned/image-based PDFs).
+    """Legacy entry point — delegates to the unified hybrid OCR pipeline.
 
-    Supports three rendering backends (tried in order):
-      1. PyMuPDF (fitz) - renders pages to images at 300 DPI
-      2. pypdf + PIL - extracts embedded images (no system deps needed)
-      3. pdf2image - uses poppler to render pages
+    The old implementation rendered pages with PyMuPDF/pypdf/pdf2image
+    and ran a single Tesseract pass per page. That single-engine path
+    has been replaced by ``multi_ocr.extract_text`` which runs every
+    configured preprocessing × engine combination and reconciles via
+    consensus, so Tesseract is now just one of several engines whose
+    outputs feed the vote.
     """
-    if not TESSERACT_AVAILABLE:
-        return {
-            'status': 'error',
-            'error': 'Tesseract not available. Run: pip install pytesseract pillow\n'
-                     'Also install Tesseract OCR: https://github.com/tesseract-ocr/tesseract'
-        }
-
-    logger.info(f"Tesseract cmd: {pytesseract.pytesseract.tesseract_cmd}")
-
-    import subprocess
-    import uuid
-
-    result = {
-        'status': 'success',
-        'ocr_method': 'tesseract',
-        'invoices': []
-    }
-
-    try:
-        all_text = []
-
-        # Use Windows-accessible temp directory for WSL compatibility
-        import tempfile
-        temp_dir = tempfile.gettempdir()
-        # On WSL, use /mnt/c/Temp so tesseract.exe can access the files
-        if os.path.exists('/mnt/c'):
-            temp_dir = '/mnt/c/Temp'
-            os.makedirs(temp_dir, exist_ok=True)
-
-        rendered = False
-
-        if fitz:
-            # Best: use PyMuPDF to render pages to images at 300 DPI
-            logger.info(f"Using PyMuPDF (fitz) to render PDF pages at 300 DPI")
-            doc = fitz.open(input_path)
-            logger.info(f"PDF has {len(doc)} page(s)")
-
-            for page_num in range(len(doc)):
-                page = doc.load_page(page_num)
-                mat = fitz.Matrix(300/72, 300/72)
-                pix = page.get_pixmap(matrix=mat)
-
-                unique_id = uuid.uuid4().hex[:8]
-                img_path = os.path.join(temp_dir, f'ocr_inv_{unique_id}.png')
-                pix.save(img_path)
-                img_size = os.path.getsize(img_path)
-                logger.info(f"Page {page_num}: rendered to {img_path} ({pix.width}x{pix.height}, {img_size} bytes)")
-
-                text = _run_tesseract_on_image(img_path, temp_dir)
-                all_text.append(text)
-
-                if os.path.exists(img_path):
-                    os.remove(img_path)
-
-            doc.close()
-            rendered = True
-
-        if not rendered:
-            # Fallback: extract embedded images with pypdf (pure Python, no system deps)
-            page_images = _extract_images_with_pypdf(input_path)
-            if page_images:
-                logger.info("Using pypdf to extract embedded images for OCR")
-                for page_num, pil_img in page_images:
-                    unique_id = uuid.uuid4().hex[:8]
-                    img_path = os.path.join(temp_dir, f'ocr_inv_{unique_id}.png')
-                    pil_img.save(img_path, 'PNG')
-
-                    text = _run_tesseract_on_image(img_path, temp_dir)
-                    all_text.append(text)
-
-                    if os.path.exists(img_path):
-                        os.remove(img_path)
-                rendered = True
-
-        if not rendered and PDF2IMAGE_AVAILABLE:
-            # Last resort: use pdf2image (needs poppler installed)
-            logger.info("Using pdf2image for PDF rendering")
-            try:
-                images = convert_from_path(input_path, dpi=300)
-                for i, img in enumerate(images):
-                    unique_id = uuid.uuid4().hex[:8]
-                    img_path = os.path.join(temp_dir, f'ocr_inv_{unique_id}.png')
-                    img.save(img_path, 'PNG')
-
-                    text = _run_tesseract_on_image(img_path, temp_dir)
-                    all_text.append(text)
-
-                    if os.path.exists(img_path):
-                        os.remove(img_path)
-                rendered = True
-            except Exception as e:
-                logger.warning(f"pdf2image failed: {e}")
-
-        if not rendered:
-            return {
-                'status': 'error',
-                'error': 'Cannot render scanned PDF for OCR. Install PyMuPDF: pip install PyMuPDF'
-            }
-
-        full_text = '\n'.join(all_text)
-        logger.info(f"Tesseract OCR total: {len(full_text)} chars, stripped: {len(full_text.strip())} chars")
-        if len(full_text.strip()) < 50:
-            logger.warning(f"Tesseract OCR produced very little text. Full result: {repr(full_text[:500])}")
-
-        # TRY DATA-DRIVEN PARSING FIRST (FormatRegistry)
-        # This is the preferred path - format-specific logic lives in YAML
-        registry_result = try_format_registry_parse(full_text)
-        if registry_result:
-            registry_result['ocr_method'] = 'tesseract'
-            if output_path:
-                os.makedirs(os.path.dirname(output_path), exist_ok=True)
-                with open(output_path, 'w') as f:
-                    json.dump(registry_result, f, indent=2)
-            return registry_result
-
-        # LEGACY FALLBACK: Use hardcoded parsing functions
-        logger.debug("Using legacy hardcoded parsing for tesseract output")
-
-        # Parse invoice metadata
-        invoice_data = {
-            'invoice_number': extract_invoice_number(full_text),
-            'date': extract_date(full_text),
-            'supplier': extract_supplier(full_text),
-            'total': extract_total(full_text),
-            'freight': extract_shipping(full_text),
-            'tax': extract_tax(full_text),
-            'discount': extract_discount(full_text),
-            'items': [],
-            'raw_text': full_text[:5000],
-            'tables': [],
-        }
-
-        # Try to extract items from OCR text
-        items = extract_items_from_text(full_text)
-        invoice_data['items'] = items
-
-        result['invoices'].append(invoice_data)
-
-    except Exception as e:
-        result['status'] = 'error'
-        result['error'] = str(e)
-
-    # Write output
-    if output_path and result['status'] == 'success':
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        with open(output_path, 'w') as f:
-            json.dump(result, f, indent=2)
-
-    return result
+    return extract_with_pdfplumber(input_path, output_path)
 
 
 def extract_items_from_text(text: str) -> List[Dict]:

@@ -16,6 +16,7 @@ Returns JSON with paths to split documents and extracted metadata.
 
 import json
 import os
+import re
 import sys
 import logging
 import argparse
@@ -85,7 +86,14 @@ except ImportError:
     TESSERACT_BINARY_AVAILABLE = False
     logger.debug("pytesseract not installed - OCR for scanned PDFs unavailable")
 
-OCR_AVAILABLE = PYMUPDF_AVAILABLE and TESSERACT_AVAILABLE and TESSERACT_BINARY_AVAILABLE
+# `OCR_AVAILABLE` now gates whether the hybrid `multi_ocr` pipeline can do
+# any work at all. The only hard dependency is PyMuPDF (for rendering pages
+# to images); individual engines inside multi_ocr (tesseract / paddleocr /
+# vision_api) are optional and degrade gracefully when their backing
+# package is missing. The legacy `TESSERACT_*_AVAILABLE` flags above are
+# kept because multi_ocr's tesseract engine benefits from the
+# `pytesseract.tesseract_cmd` path configuration performed during import.
+OCR_AVAILABLE = PYMUPDF_AVAILABLE
 
 
 @dataclass
@@ -228,185 +236,68 @@ def to_windows_path(linux_path: str) -> str:
     return linux_path
 
 
-def _preprocess_image(img_path: str) -> None:
-    """Preprocess an image in-place to improve OCR accuracy.
-
-    Uses OpenCV when available (best quality), falls back to Pillow.
-    Pipeline: grayscale → upscale → denoise → CLAHE contrast → Otsu threshold
-              → morphological cleanup to remove small noise specks.
-    """
-    try:
-        import cv2
-        import numpy as np
-
-        img = cv2.imread(img_path)
-        if img is None:
-            return
-
-        # Grayscale
-        if len(img.shape) == 3:
-            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        else:
-            gray = img
-
-        # Upscale if small (below ~2000px width suggests low effective DPI)
-        h, w = gray.shape
-        if w < 2000:
-            gray = cv2.resize(gray, (w * 2, h * 2), interpolation=cv2.INTER_CUBIC)
-
-        # Denoise (h=10 balances noise removal vs preserving thin strokes)
-        gray = cv2.fastNlMeansDenoising(gray, h=10)
-
-        # CLAHE contrast enhancement (handles uneven lighting in scans)
-        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
-        gray = clahe.apply(gray)
-
-        # Otsu threshold — auto-determines optimal threshold level,
-        # better than adaptive for scanned invoices with uniform backgrounds.
-        # Adaptive threshold can turn border/decoration noise into false text.
-        _, binary = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-
-        # Morphological opening — remove small noise specks (1-2px dots/marks)
-        # that Tesseract misreads as punctuation or letters.
-        kernel = np.ones((2, 2), np.uint8)
-        binary = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel, iterations=1)
-
-        cv2.imwrite(img_path, binary)
-        return
-
-    except ImportError:
-        pass  # OpenCV not installed, fall back to Pillow
-    except Exception as e:
-        logger.debug(f"OpenCV preprocessing failed, trying Pillow: {e}")
-
-    # Pillow fallback
-    try:
-        from PIL import Image, ImageEnhance, ImageFilter
-        img = Image.open(img_path)
-
-        if img.mode != 'L':
-            img = img.convert('L')
-
-        enhancer = ImageEnhance.Contrast(img)
-        img = enhancer.enhance(1.5)
-        img = img.filter(ImageFilter.SHARPEN)
-        img.save(img_path)
-    except ImportError:
-        pass
-    except Exception as e:
-        logger.debug(f"Image preprocessing failed: {e}")
-
-
-def _preprocess_image_adaptive(img_path: str) -> None:
-    """Adaptive threshold preprocessing — better for receipts and uneven lighting."""
-    try:
-        import cv2
-        img = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
-        if img is None:
-            return
-        if img.shape[1] < 2000:
-            img = cv2.resize(img, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC)
-        img = cv2.adaptiveThreshold(
-            img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-            cv2.THRESH_BINARY, 31, 15
-        )
-        cv2.imwrite(img_path, img)
-    except ImportError:
-        _preprocess_image(img_path)
-    except Exception as e:
-        logger.debug(f"Adaptive preprocessing failed: {e}")
-
-
 def ocr_page(pdf_path: str, page_num: int, dpi: int = 300,
              preprocess: bool = True, psm: int = 6,
              preprocess_mode: str = 'default') -> str:
-    """
-    Extract text from a PDF page using OCR.
-    Uses PyMuPDF for rendering and subprocess for tesseract (WSL compatible).
+    """Extract text from a single PDF page via the unified hybrid OCR pipeline.
+
+    This is a thin wrapper around ``multi_ocr.extract_text``: it pulls the
+    requested page into a temporary one-page PDF, hands it to the hybrid
+    engine (which runs all configured preprocessing × engine variants and
+    reconciles via consensus), and returns the consensus text.
+
+    The ``dpi``, ``preprocess``, ``psm``, and ``preprocess_mode`` arguments
+    are accepted for backward compatibility but are now ignored — the full
+    quality matrix inside ``multi_ocr`` supersedes the old single-path
+    Tesseract-with-one-preprocess approach.
 
     Args:
         pdf_path: Path to PDF file
         page_num: 0-indexed page number
-        dpi: Resolution for image conversion (default 300 for better OCR)
-        preprocess: Apply image preprocessing for scanned docs
-        psm: Tesseract page segmentation mode (default 6 = uniform block)
-        preprocess_mode: 'default' (Otsu), 'adaptive' (adaptive threshold),
-                         or 'none' (skip preprocessing)
 
     Returns:
-        Extracted text string
+        Extracted text string (empty on failure / missing deps)
     """
-    if not OCR_AVAILABLE:
+    if not PYMUPDF_AVAILABLE:
         return ""
 
-    import subprocess
-    import uuid
-
     try:
-        # Use PyMuPDF to render page as image
+        import multi_ocr  # noqa: WPS433 (lazy to avoid startup cost)
+    except ImportError:
+        logger.warning("multi_ocr module unavailable; ocr_page returning empty")
+        return ""
+
+    tmp_path: Optional[str] = None
+    try:
+        # Extract the single page into a tempfile so the hybrid pipeline can
+        # cache and OCR it in isolation.
         doc = fitz.open(pdf_path)
-        page = doc.load_page(page_num)
+        try:
+            if page_num < 0 or page_num >= doc.page_count:
+                return ""
+            single = fitz.open()
+            single.insert_pdf(doc, from_page=page_num, to_page=page_num)
+        finally:
+            doc.close()
 
-        # Render at specified DPI
-        mat = fitz.Matrix(dpi/72, dpi/72)
-        pix = page.get_pixmap(matrix=mat)
+        fd, tmp_path = tempfile.mkstemp(
+            prefix=f"ocr_page_{page_num}_", suffix=".pdf"
+        )
+        os.close(fd)
+        single.save(tmp_path)
+        single.close()
 
-        # Determine temp directory (Windows-native or WSL-compatible)
-        import platform
-        if platform.system() == 'Windows':
-            import tempfile
-            temp_dir = tempfile.gettempdir()
-        else:
-            # WSL: use Windows-accessible temp for tesseract.exe
-            temp_dir = '/mnt/c/Temp'
-        os.makedirs(temp_dir, exist_ok=True)
-
-        unique_id = uuid.uuid4().hex[:8]
-        img_path = os.path.join(temp_dir, f'ocr_page_{unique_id}.png')
-        out_base = os.path.join(temp_dir, f'ocr_out_{unique_id}')
-        out_file = out_base + '.txt'
-
-        pix.save(img_path)
-        doc.close()
-
-        # Preprocess image for better OCR (contrast, sharpen, grayscale)
-        if preprocess_mode == 'adaptive':
-            _preprocess_image_adaptive(img_path)
-        elif preprocess_mode != 'none' and preprocess:
-            _preprocess_image(img_path)
-
-        # Run tesseract via subprocess
-        # --oem 3: Use LSTM neural net engine (most accurate)
-        psm_str = str(psm)
-        tesseract_cmd = pytesseract.pytesseract.tesseract_cmd
-        if platform.system() == 'Windows':
-            cmd = [tesseract_cmd, img_path, out_base,
-                   '-l', 'eng', '--psm', psm_str, '--oem', '3']
-        else:
-            # WSL: convert to Windows paths for tesseract.exe
-            win_img = to_windows_path(img_path)
-            win_out = to_windows_path(out_base)
-            cmd = [tesseract_cmd, win_img, win_out,
-                   '-l', 'eng', '--psm', psm_str, '--oem', '3']
-
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
-
-        text = ""
-        if result.returncode == 0 and os.path.exists(out_file):
-            with open(out_file, 'r', encoding='utf-8') as f:
-                text = f.read()
-
-        # Cleanup temp files
-        if os.path.exists(img_path):
-            os.remove(img_path)
-        if os.path.exists(out_file):
-            os.remove(out_file)
-
-        return text
-
+        result = multi_ocr.extract_text(tmp_path)
+        return result.text or ""
     except Exception as e:
         logger.warning(f"OCR failed for page {page_num + 1}: {e}")
         return ""
+    finally:
+        if tmp_path and os.path.exists(tmp_path):
+            try:
+                os.remove(tmp_path)
+            except OSError:
+                pass
 
 
 def apply_position_heuristic(pages: List[DocumentPage], total_pages: int) -> List[DocumentPage]:
@@ -640,7 +531,7 @@ def split_pdf(
     return output_paths
 
 
-def detect_invoice_boundaries(pdf_path: str, invoice_page_nums: List[int], page_texts: List[str] = None) -> List[List[int]]:
+def detect_invoice_boundaries(pdf_path: str, invoice_page_nums: List[int], page_texts: List[str] = None):
     """
     Detect boundaries between different invoices in the invoice pages.
 
@@ -653,15 +544,17 @@ def detect_invoice_boundaries(pdf_path: str, invoice_page_nums: List[int], page_
         page_texts: Pre-extracted page texts (from analyze_pdf) to avoid re-OCR
 
     Returns:
-        List of page number lists, each representing a separate invoice
+        Tuple of (invoice_groups, invoice_ids) where:
+        - invoice_groups: List of page number lists, each representing a separate invoice
+        - invoice_ids: Parallel list of detected invoice/order IDs (str or None)
     """
     import re
 
     if not invoice_page_nums:
-        return []
+        return [], []
 
     if len(invoice_page_nums) == 1:
-        return [invoice_page_nums]
+        return [invoice_page_nums], [None]
 
     # Extract text from each invoice page and detect invoice numbers
     page_invoice_ids = []
@@ -690,20 +583,19 @@ def detect_invoice_boundaries(pdf_path: str, invoice_page_nums: List[int], page_
         text_upper = text.upper()
 
         patterns = [
-            # SHEIN invoice: INVUS20240728002530332 (anywhere on page)
-            (r'(INVUS\d{10,})', 1),
+            # SHEIN invoice: INVUS20240728002530332 (OCR may insert spaces in digits)
+            (r'(INVUS[\s\d]{10,})', 1),
+            # SHEIN/multi-column order: GSUNJG55T00QV70 (alphanumeric, 10+ chars)
+            (r'ORDER\s*NUMBER[:\s].*\n\s*([A-Z0-9]{10,})', 1),
             # Amazon order format: 111-5908955-5240243
             (r'ORDER\s*#?\s*(\d{3}-\d{7}-\d{7})', 1),
             (r'(\d{3}-\d{7}-\d{7})', 1),
             # Temu/online: "Order ID: PO-211-12345..."
             (r'ORDER\s*ID[:\s]*(PO-\d{3}-\d+)', 1),
-            # SHEIN/multi-column: "Order Number: Order Date:\nGSUNJY57BOONGXE 2024-07-17"
-            # The ID is on the next line after "Order Number:" when two columns merge
-            (r'ORDER\s*NUMBER[:\s].*\n\s*([A-Z0-9]{10,})', 1),
             # FashionNova / generic order number (same line)
             (r'ORDER\s*(?:#|NUMBER)[:\s]*([A-Z0-9][A-Z0-9-]{5,20})', 1),
-            # Generic invoice number (after "Invoice No:" label)
-            (r'INVOICE\s*(?:#|NO\.?|NUMBER)[:\s]*([A-Z0-9][A-Z0-9-]{5,20})', 1),
+            # Generic invoice number (after "Invoice No:" label, OCR may add spaces)
+            (r'INVOICE\s*(?:#|NO\.?|NUMBER)[:\s]*([A-Z0-9][\sA-Z0-9-]{5,25})', 1),
             # PO number
             (r'(?:P\.?O\.?|PURCHASE\s*ORDER)\s*(?:#|NO\.?)?[:\s]*([A-Z0-9-]{5,20})', 1),
         ]
@@ -711,13 +603,24 @@ def detect_invoice_boundaries(pdf_path: str, invoice_page_nums: List[int], page_
         for pattern, group in patterns:
             match = re.search(pattern, text_upper)
             if match:
-                invoice_id = match.group(group).strip()
+                raw = match.group(group).strip()
+                # Normalize: strip OCR-inserted spaces from IDs
+                invoice_id = re.sub(r'\s+', '', raw)
+                # Fix OCR-duplicated trailing digits: INVUS20240728002522189189
+                # → INVUS20240728002522189 (last N digits repeated by OCR noise)
+                for suffix_len in range(3, 8):
+                    if len(invoice_id) > suffix_len * 2:
+                        tail = invoice_id[-suffix_len:]
+                        if invoice_id[-suffix_len * 2:-suffix_len] == tail:
+                            invoice_id = invoice_id[:-suffix_len]
+                            break
                 break
 
         page_invoice_ids.append((page_num, invoice_id))
 
     # Group pages by invoice ID
     invoice_groups = []
+    group_ids = []
     current_group = []
     current_id = None
 
@@ -726,6 +629,7 @@ def detect_invoice_boundaries(pdf_path: str, invoice_page_nums: List[int], page_
             # New invoice detected
             if current_group:
                 invoice_groups.append(current_group)
+                group_ids.append(current_id)
             current_group = [page_num]
             current_id = invoice_id
         else:
@@ -735,10 +639,11 @@ def detect_invoice_boundaries(pdf_path: str, invoice_page_nums: List[int], page_
     # Don't forget the last group
     if current_group:
         invoice_groups.append(current_group)
+        group_ids.append(current_id)
 
     logger.info(f"Detected {len(invoice_groups)} separate invoice(s) from {len(invoice_page_nums)} pages")
 
-    return invoice_groups
+    return invoice_groups, group_ids
 
 
 def extract_conversion_rate(text: str) -> Optional[Dict]:
@@ -948,17 +853,25 @@ def split_pdf_multi_invoice(
     # Split invoice pages into separate PDFs if they contain different invoices
     if invoice_pages:
         invoice_groups = []
+        invoice_ids = []
         if len(invoice_pages) > 1:
-            invoice_groups = detect_invoice_boundaries(pdf_path, sorted(invoice_pages), page_texts=page_texts)
+            invoice_groups, invoice_ids = detect_invoice_boundaries(pdf_path, sorted(invoice_pages), page_texts=page_texts)
 
         if len(invoice_groups) > 1:
             # Multiple distinct invoices detected — write each as separate PDF
+            # Name files after their invoice/order ID when available
             for idx, group_pages in enumerate(invoice_groups):
                 writer = PdfWriter()
                 for page_num in group_pages:
                     writer.add_page(reader.pages[page_num])
 
-                output_path = os.path.join(output_dir, f"{base_name}_Invoice_{idx+1}.pdf")
+                inv_id = invoice_ids[idx] if idx < len(invoice_ids) else None
+                if inv_id:
+                    # Sanitize ID for filesystem (remove chars invalid in filenames)
+                    safe_id = re.sub(r'[<>:"/\\|?*]', '_', inv_id)
+                    output_path = os.path.join(output_dir, f"{safe_id}.pdf")
+                else:
+                    output_path = os.path.join(output_dir, f"{base_name}_Invoice_{idx+1}.pdf")
                 with open(output_path, 'wb') as f:
                     writer.write(f)
 
@@ -1057,10 +970,13 @@ def extract_declaration_metadata(pdf_path: str) -> Dict[str, Optional[str]]:
         text_upper = text.upper()
 
         # HAWB extraction: Search entire text first (handles two-column OCR layouts)
-        # OCR may put labels and values on separate lines
-        hawb_match = re.search(r'(HAWB[A-Z0-9-]+)', text_upper)
+        # OCR may insert spaces and misread letters (e.g. S→9):
+        #   "HAWBS665535" → OCR → "HAWB 9665535"
+        # Capture HAWB + following alphanumeric on the SAME line ([ \t] not \s)
+        hawb_match = re.search(r'(HAWB[ \tA-Z0-9-]+)', text_upper)
         if hawb_match:
-            metadata['waybill'] = hawb_match.group(1)
+            raw_hawb = re.sub(r'[ \t]+', '', hawb_match.group(1))  # strip OCR spaces
+            metadata['waybill'] = raw_hawb
 
         for i, line in enumerate(lines):
             line_upper = line.upper().strip()
@@ -1069,9 +985,10 @@ def extract_declaration_metadata(pdf_path: str) -> Dict[str, Optional[str]]:
             # Waybill fallback: If no HAWB found, try line-by-line extraction
             if 'WAYBILL' in line_upper and not metadata['waybill']:
                 # Generic alphanumeric after waybill (but not "NUMBER" itself)
-                match = re.search(r'WAYBILL[:\s]*(?:NUMBER[:\s]*)?([A-Z0-9-]+)', line_upper)
-                if match and match.group(1) != 'NUMBER':
-                    metadata['waybill'] = match.group(1)
+                # Allow OCR-inserted spaces in the value
+                match = re.search(r'WAYBILL[:\s]*(?:NUMBER[:\s]*)?([A-Z0-9][ \tA-Z0-9-]+)', line_upper)
+                if match and match.group(1).strip() != 'NUMBER':
+                    metadata['waybill'] = re.sub(r'[ \t]+', '', match.group(1))
 
             # Customs File Number
             if 'CUSTOMS' in line_upper and 'FILE' in line_upper and not metadata['customs_file']:
@@ -1079,9 +996,10 @@ def extract_declaration_metadata(pdf_path: str) -> Dict[str, Optional[str]]:
                 if match:
                     metadata['customs_file'] = match.group(1)
 
-            # Man Reg Number: "Man Reg Number: 2024/28" -> "2024 28"
+            # Man Reg Number: "Man Reg Number: 2024/28" or "2024 / 30" -> "2024 28"
+            # OCR may insert extra spaces around the separator: "2024 / 30"
             if ('MAN' in line_upper and 'REG' in line_upper) and not metadata['man_reg']:
-                match = re.search(r'(\d{4})[/\s-]?(\d+)', line_upper)
+                match = re.search(r'(\d{4})[/\s-]*(\d+)', line_upper)
                 if match:
                     metadata['man_reg'] = f"{match.group(1)} {match.group(2)}"
 
@@ -1091,7 +1009,14 @@ def extract_declaration_metadata(pdf_path: str) -> Dict[str, Optional[str]]:
             if 'CUSTOMS' in line_upper and 'OFFICE' in line_upper and not metadata['office']:
                 match = re.search(r'CUSTOMS\s+OFFICE[:\s]+([A-Z]{4,6})\b', line_upper)
                 if match:
-                    metadata['office'] = match.group(1)
+                    raw_office = match.group(1)
+                    # OCR correction: common misreads for known CARICOM offices
+                    # D↔O confusion is the most frequent OCR error in these codes
+                    _OFFICE_OCR_CORRECTIONS = {
+                        'GOWBS': 'GDWBS',  # Grenada: D misread as O
+                        'GOSGO': 'GDSGO',  # Grenada: D misread as O
+                    }
+                    metadata['office'] = _OFFICE_OCR_CORRECTIONS.get(raw_office, raw_office)
 
             # Consignee - format: "Consignee: NAME ( FREIGHT X.XX US )"
             # The client writes freight in parentheses after name
@@ -1259,7 +1184,186 @@ def extract_declaration_metadata(pdf_path: str) -> Dict[str, Optional[str]]:
     except Exception as e:
         logger.error(f"Failed to extract metadata: {e}")
 
+    # ── LLM vision pass: detect handwritten/pencil annotations ──
+    # Scanned declaration forms often have customs values, tariff codes, and
+    # weights written in pencil that OCR misses entirely.  When the LLM API
+    # is available, render the page and ask the model to read pencil marks.
+    try:
+        hw = extract_declaration_handwriting(pdf_path)
+        if hw and hw.get('has_handwriting'):
+            handwritten = hw.get('handwritten', {})
+            printed = hw.get('printed', {})
+            metadata['_handwritten'] = handwritten
+            # Supplement OCR metadata with LLM-printed extraction (more accurate
+            # than OCR for scanned forms) — only fill gaps, don't overwrite
+            if not metadata['consignee'] and printed.get('consignee'):
+                metadata['consignee'] = printed['consignee']
+            if not metadata['freight'] and printed.get('freight'):
+                metadata['freight'] = printed['freight']
+            if not metadata['waybill'] and printed.get('waybill'):
+                metadata['waybill'] = printed['waybill']
+            if not metadata['office'] and printed.get('office'):
+                metadata['office'] = printed['office']
+            if not metadata['man_reg'] and printed.get('man_reg'):
+                metadata['man_reg'] = printed['man_reg']
+            if not metadata['weight'] and printed.get('weight'):
+                metadata['weight'] = printed['weight']
+            if not metadata['packages'] and printed.get('packages'):
+                metadata['packages'] = printed['packages']
+            # Store handwritten customs value for downstream use
+            if handwritten.get('customs_value_ec'):
+                metadata['_customs_value_ec'] = handwritten['customs_value_ec']
+            if handwritten.get('customs_value_usd'):
+                metadata['_customs_value_usd'] = handwritten['customs_value_usd']
+            logger.info(f"LLM vision found handwriting on {os.path.basename(pdf_path)}: {handwritten}")
+    except Exception as e:
+        logger.debug(f"LLM vision extraction skipped: {e}")
+
     return metadata
+
+
+def extract_declaration_handwriting(pdf_path: str, base_dir: str = '.') -> Dict[str, Optional[str]]:
+    """Extract handwritten/pencil annotations from a Simplified Declaration PDF using LLM vision.
+
+    Scanned declaration forms often have customs values, tariff codes, and weights
+    written in pencil by the client. OCR cannot reliably detect faint pencil marks,
+    so this function renders the page as an image and sends it to an LLM with vision
+    to extract the handwritten data.
+
+    Uses Z.AI's vision model (glm-4.6v) via the OpenAI-compatible endpoint
+    (/api/paas/v4/chat/completions), NOT the Anthropic proxy which only supports
+    text models.
+
+    Returns dict with keys matching the JSON schema below.
+    Empty dict if no LLM available or no handwriting detected.
+    """
+    if not PYMUPDF_AVAILABLE:
+        return {}
+
+    import base64
+
+    # Load LLM settings (we only need the API key — vision uses its own endpoint/model)
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from classifier import _load_llm_settings
+        llm_settings = _load_llm_settings(base_dir)
+        api_key = llm_settings.get('api_key')
+    except Exception as e:
+        logger.warning(f"Cannot load LLM settings for vision extraction: {e}")
+        return {}
+
+    if not api_key:
+        logger.debug("No API key for LLM vision extraction")
+        return {}
+
+    # Vision model config — separate from text model
+    vision_model = 'glm-4.6v'
+    vision_endpoint = 'https://api.z.ai/api/coding/paas/v4/chat/completions'
+
+    try:
+        # Render declaration page as image
+        doc = fitz.open(pdf_path)
+        page = doc[0]
+        # Use 150 DPI — balances pencil visibility vs payload size (~250KB)
+        mat = fitz.Matrix(150 / 72, 150 / 72)
+        pix = page.get_pixmap(matrix=mat)
+        img_bytes = pix.tobytes("png")
+        doc.close()
+
+        img_b64 = base64.b64encode(img_bytes).decode('utf-8')
+
+        # Build vision prompt
+        prompt = """Examine this scanned Grenada Simplified Declaration Form carefully.
+
+Look for ANY handwritten or pencil annotations on the form, especially:
+1. Numbers written in pencil anywhere on the form (customs values, tariff codes, weights)
+2. Handwritten entries in the "Particulars of declaration by Importer" table
+3. Pencil marks near the margins or between printed fields
+
+Also extract the printed form data:
+- Consignee name (without the FREIGHT part)
+- Freight amount (from the consignee line, e.g. "FREIGHT 11.00 US")
+- WayBill Number
+- Man Reg Number
+- Customs Office
+- Gross Mass / Weight
+- Number of packages
+
+Return a JSON object with these fields:
+{
+  "handwritten": {
+    "customs_value_ec": "value in EC$ if visible",
+    "customs_value_usd": "value in USD if visible",
+    "tariff_code": "tariff/HS code if visible",
+    "weight": "weight if handwritten",
+    "description": "goods description if handwritten",
+    "other_notes": "any other handwritten annotations"
+  },
+  "printed": {
+    "consignee": "name without freight",
+    "freight": "freight amount",
+    "waybill": "waybill number",
+    "man_reg": "manifest registry number",
+    "office": "customs office code",
+    "weight": "gross mass",
+    "packages": "number of packages"
+  },
+  "has_handwriting": true/false
+}
+
+IMPORTANT: Look very carefully for faint pencil marks. They may appear as light gray writing.
+Return ONLY the JSON, no other text."""
+
+        # Z.AI vision API uses OpenAI-compatible format with image_url
+        # Base64 images use data URI: data:image/png;base64,...
+        from urllib.request import Request, urlopen
+
+        request_data = json.dumps({
+            "model": vision_model,
+            "max_tokens": 2000,
+            "messages": [{
+                "role": "user",
+                "content": [
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/png;base64,{img_b64}",
+                        }
+                    },
+                    {
+                        "type": "text",
+                        "text": prompt,
+                    }
+                ]
+            }]
+        }).encode('utf-8')
+
+        req = Request(
+            vision_endpoint,
+            data=request_data,
+            headers={
+                'Content-Type': 'application/json',
+                'Authorization': f'Bearer {api_key}',
+            }
+        )
+
+        with urlopen(req, timeout=60) as response:
+            result = json.loads(response.read().decode('utf-8'))
+
+        # OpenAI-compatible response format
+        response_text = result['choices'][0]['message']['content'].strip()
+        logger.info(f"LLM vision response for {os.path.basename(pdf_path)}: {response_text[:200]}")
+
+        # Parse JSON from response
+        json_match = re.search(r'\{[\s\S]+\}', response_text)
+        if json_match:
+            parsed = json.loads(json_match.group())
+            return parsed
+
+    except Exception as e:
+        logger.warning(f"LLM vision extraction failed for {pdf_path}: {e}")
+
+    return {}
 
 
 def run(

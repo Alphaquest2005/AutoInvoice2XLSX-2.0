@@ -54,13 +54,31 @@ def main():
     if len(params_files) > 1:
         print(f"Found {len(params_files)} email params files (multi-declaration shipment)")
 
-    from workflow.email import compose_email, send_email as do_send_email
+    from workflow.email import (
+        compose_email,
+        compose_proposed_fixes_email,
+        send_email as do_send_email,
+    )
+    from xlsx_to_pdf import generate_worksheet_pdf
 
     all_sent = True
     all_reports = []
     for pf in params_files:
         with open(pf) as f:
             params = json.load(f)
+
+        # Generate worksheet PDF for each XLSX attachment
+        waybill = params.get('waybill', 'UNKNOWN')
+        attachment_paths = list(params.get('attachment_paths', []))
+        for ap in list(attachment_paths):
+            if ap.endswith('.xlsx') and os.path.exists(ap):
+                try:
+                    ws_pdf = generate_worksheet_pdf(ap, waybill)
+                    if ws_pdf not in attachment_paths:
+                        attachment_paths.append(ws_pdf)
+                        print(f"  Generated worksheet PDF: {os.path.basename(ws_pdf)}")
+                except Exception as e:
+                    print(f"  Warning: worksheet PDF generation failed: {e}")
 
         email_draft = compose_email(
             waybill=params.get('waybill', 'UNKNOWN'),
@@ -73,10 +91,11 @@ def main():
             country_origin=params.get('country_origin', 'US'),
             freight=params.get('freight', '0'),
             man_reg=params.get('man_reg', ''),
-            attachment_paths=params.get('attachment_paths', []),
+            attachment_paths=attachment_paths,
             location=params.get('location', ''),
             office=params.get('office', ''),
             expected_entries=params.get('expected_entries', 0),
+            notes=params.get('notes', ''),
         )
 
         email_sent = do_send_email(
@@ -98,6 +117,54 @@ def main():
             'attachments': len(email_draft['attachments']),
             'params_file': os.path.basename(pf),
         })
+
+    # ── Proposed Fixes sidecar ───────────────────────────────────
+    # When the pipeline found uncertain invoices it wrote a companion
+    # ``_proposed_fixes_params.json`` next to the shipment params file.
+    # Send it to the fixes recipient (separate reviewer mailbox) using
+    # the subject/body/attachments stored in the JSON verbatim.
+    fixes_path = os.path.join(params_dir, '_proposed_fixes_params.json')
+    if os.path.exists(fixes_path):
+        try:
+            with open(fixes_path) as f:
+                fparams = json.load(f)
+            fixes_draft = compose_proposed_fixes_email(
+                waybill=fparams.get('waybill', 'UNKNOWN'),
+                subject=fparams.get('subject', ''),
+                body=fparams.get('body', ''),
+                attachment_paths=fparams.get('attachment_paths', []),
+            )
+            # Route to the fixes recipient (reviewer mailbox).
+            from core.config import get_config
+            cfg = get_config()
+            fixes_recipient = getattr(cfg, 'email_fixes_recipient', None) \
+                or cfg.email_sender
+            fixes_sent = do_send_email(
+                subject=fixes_draft['subject'],
+                body=fixes_draft['body'],
+                attachments=fixes_draft['attachments'],
+                recipient=fixes_recipient,
+            )
+            if fixes_sent:
+                print(
+                    f"Proposed Fixes email sent to {fixes_recipient}: "
+                    f"{fixes_draft['subject']} "
+                    f"({len(fixes_draft['attachments'])} attachments)"
+                )
+            else:
+                print(f"Proposed Fixes email FAILED: {fixes_draft['subject']}")
+                all_sent = False
+            all_reports.append({
+                'status': 'success' if fixes_sent else 'error',
+                'email_sent': fixes_sent,
+                'subject': fixes_draft['subject'],
+                'attachments': len(fixes_draft['attachments']),
+                'params_file': os.path.basename(fixes_path),
+                'kind': 'proposed_fixes',
+            })
+        except Exception as e:
+            print(f"Proposed Fixes email error: {e}")
+            all_sent = False
 
     # Report: use first report for backward compatibility, include all in multi
     report = dict(all_reports[0]) if all_reports else {'status': 'error', 'email_sent': False}

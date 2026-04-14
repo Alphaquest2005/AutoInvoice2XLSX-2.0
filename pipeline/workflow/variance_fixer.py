@@ -52,6 +52,7 @@ def fix_variance(
     xlsx_path: str,
     invoice_text: str,
     current_variance: float,
+    honest_mode: bool = True,
 ) -> Dict:
     """
     Use LLM to analyze and fix variance in the XLSX file.
@@ -63,14 +64,50 @@ def fix_variance(
         xlsx_path: Path to the XLSX file to fix
         invoice_text: Pre-extracted invoice text (not re-extracted)
         current_variance: Current variance amount
+        honest_mode: When True (default) skip LLM cell-scaling entirely and
+            absorb the residual in the ADJUSTMENTS row via force_adjustment.
+            This is the "honest" path: no hallucinated per-item numbers, the
+            variance is recorded visibly instead of being hidden inside
+            scaled item totals.  Pass False only when a spec explicitly
+            opts in to LLM scaling (spec.allow_llm_fix=true).
 
     Returns:
         dict with success, new_variance, fixes_applied, analysis, error
     """
     from core.config import get_config
-    from core.llm_client import get_llm_client
 
     cfg = get_config()
+
+    # Honest mode: skip LLM entirely — absorb residual via ADJUSTMENTS.
+    # This keeps per-item P/O cells untouched (true to source) and records
+    # any gap visibly in the ADJUSTMENTS row where a reviewer can see it.
+    if honest_mode:
+        try:
+            import openpyxl
+            wb = openpyxl.load_workbook(xlsx_path)
+            ws = wb.active
+            logger.info(
+                f"variance_fixer (honest_mode): absorbing ${current_variance:.2f} "
+                f"into ADJUSTMENTS row — no per-item scaling"
+            )
+            _force_adjustment(ws, current_variance, cfg)
+            _update_variance_row(ws, 0.00, cfg)
+            wb.save(xlsx_path)
+            return {
+                'success': True,
+                'fixes_applied': 0,
+                'new_variance': 0.00,
+                'analysis': (
+                    f"Honest mode: ${current_variance:.2f} absorbed into "
+                    f"ADJUSTMENTS row (visible, traceable)."
+                ),
+            }
+        except Exception as e:
+            logger.error(f"Honest variance fix failed: {e}", exc_info=True)
+            return {'success': False, 'error': str(e)}
+
+    from core.llm_client import get_llm_client
+
     llm = get_llm_client()
 
     try:

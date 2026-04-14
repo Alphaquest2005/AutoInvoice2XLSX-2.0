@@ -6,6 +6,7 @@ Email subjects and bodies are composed from frozen metadata only.
 
 import logging
 import os
+import re
 import smtplib
 import ssl
 from datetime import datetime
@@ -33,6 +34,7 @@ def compose_email(
     location: str = "STG01",
     office: str = "GDSGO",
     expected_entries: int = 0,
+    notes: str = "",
 ) -> Dict:
     """
     Compose a shipment email from frozen metadata.
@@ -47,6 +49,11 @@ def compose_email(
     if not man_reg:
         now = datetime.now()
         man_reg = f"{now.strftime('%Y')} {now.timetuple().tm_yday}"
+    else:
+        # Normalize: "2024/28" or "2024 / 28" → "2024 28"
+        m = re.match(r'(\d{4})\s*/?\s*(\d+)', str(man_reg))
+        if m:
+            man_reg = f"{m.group(1)} {m.group(2)}"
 
     # Format freight with comma separators if numeric
     try:
@@ -86,6 +93,10 @@ def compose_email(
         f"Office: {office}",
     ]
 
+    if notes:
+        lines.append("")
+        lines.append(f"Notes: {notes}")
+
     # Filter attachments to only existing files
     attachments = [p for p in (attachment_paths or []) if p and os.path.exists(p)]
 
@@ -97,9 +108,39 @@ def compose_email(
     }
 
 
-def send_email(subject: str, body: str, attachments: List[str]) -> bool:
+def compose_proposed_fixes_email(
+    waybill: str,
+    subject: str,
+    body: str,
+    attachment_paths: Optional[List[str]] = None,
+) -> Dict:
+    """Compose the Proposed Fixes email from pre-built subject/body.
+
+    Kept separate from ``compose_email`` so the shipment and fixes mails
+    cannot accidentally borrow each other's templates.  The body is built
+    upstream by ``proposed_fixes.build_fixes_body`` and just passed through
+    here verbatim.
+    """
+    attachments = [p for p in (attachment_paths or []) if p and os.path.exists(p)]
+    return {
+        'subject': subject or f"Proposed Fixes for shipment: {waybill}",
+        'body': body,
+        'attachments': attachments,
+        'bl_number': waybill or 'UNKNOWN',
+    }
+
+
+def send_email(subject: str, body: str, attachments: List[str],
+               recipient: Optional[str] = None) -> bool:
     """
     Send an email with attachments via SMTP SSL.
+
+    Args:
+        subject: Subject line.
+        body: Plain-text body.
+        attachments: List of file paths.
+        recipient: Override recipient address.  When None, defaults to the
+            configured shipments mailbox (``cfg.email_recipient``).
 
     Returns True on success, False on failure.
     """
@@ -113,7 +154,7 @@ def send_email(subject: str, body: str, attachments: List[str]) -> bool:
     try:
         msg = MIMEMultipart()
         msg['From'] = f"{cfg.email_sender_name} <{cfg.email_sender}>"
-        msg['To'] = cfg.email_recipient
+        msg['To'] = recipient or cfg.email_recipient
         msg['Subject'] = subject
         msg.attach(MIMEText(body, 'plain'))
 

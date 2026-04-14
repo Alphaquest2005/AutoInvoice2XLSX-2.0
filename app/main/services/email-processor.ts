@@ -391,7 +391,7 @@ export async function runBLPipeline(
 
   logProgress?.(`Starting BL pipeline: ${inputDir}`);
 
-  const args = ['--input-dir', inputDir, '--output-dir', outputDir, '--json-output'];
+  const args = ['--input-dir', inputDir, '--output-dir', outputDir, '--json-output', '--send-email'];
   if (blNumber) {
     args.push('--bl', blNumber);
     logProgress?.(`Using BL number: ${blNumber}`);

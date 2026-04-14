@@ -1075,6 +1075,9 @@ def run_bl_mode(args) -> dict:
     # Promote successful auto-generated format specs
     _promote_auto_specs(results)
 
+    # Apply any reviewer-edited Proposed Fixes YAML dropped into input_dir
+    _maybe_apply_fixes(args, results)
+
     # Copy failed PDFs to Unprocessed/ folder
     _handle_failures(failures, output_dir, args.input_dir)
 
@@ -1128,7 +1131,7 @@ def run_bl_mode(args) -> dict:
     elif decl_meta:
         # Merge missing fields from declaration metadata into manifest metadata
         # (e.g. weight from simplified declaration when manifest parser doesn't extract it)
-        for key in ('weight', 'packages', 'freight', 'consignee', 'fob_value'):
+        for key in ('weight', 'packages', 'freight', 'consignee', 'office', 'fob_value'):
             if not manifest_meta.get(key) and decl_meta.get(key):
                 manifest_meta[key] = decl_meta[key]
                 logger.info(f"Supplemented manifest {key} from declaration: {decl_meta[key]}")
@@ -1259,6 +1262,11 @@ def run_bl_mode(args) -> dict:
             if os.path.exists(bak):
                 os.remove(bak)
 
+            # Save Proposed Fixes sidecar once per shipment (all declarations
+            # share the same underlying results; one fixes email covers the
+            # whole waybill).
+            _maybe_save_proposed_fixes(results, email_params_path, output_dir)
+
             if args.send_email:
                 for pp in all_email_params_paths:
                     try:
@@ -1273,6 +1281,8 @@ def run_bl_mode(args) -> dict:
                         pass
                     _send_email_from_params(pp, args)
                     email_sent = True
+                # Send the Proposed Fixes sidecar once per shipment (not per declaration)
+                _send_proposed_fixes_sidecar(output_dir)
         else:
             # Single declaration (or none) — original flow
             decl_meta = getattr(args, '_declaration_metadata', {})
@@ -1281,6 +1291,20 @@ def run_bl_mode(args) -> dict:
                     args.bl = decl_meta['waybill']
                 if decl_meta.get('man_reg') and not args.man_reg:
                     args.man_reg = decl_meta['man_reg']
+                # Merge OCR-extracted declaration fields into manifest_meta so
+                # _save_email_params can apply consignee, freight, weight,
+                # packages, office from scanned Simplified Declaration forms.
+                # Without this, scanned declarations lose these fields because
+                # extract_manifest_metadata (no OCR) returns empty for them.
+                if manifest_meta is None:
+                    manifest_meta = {}
+                for key_src, key_dst in [('consignee', 'consignee'),
+                                          ('freight', 'freight'),
+                                          ('packages', 'packages'),
+                                          ('weight', 'weight'),
+                                          ('office', 'office')]:
+                    if decl_meta.get(key_src) and not manifest_meta.get(key_dst):
+                        manifest_meta[key_dst] = decl_meta[key_src]
             # Attach the single declaration PDF (renamed {waybill}-Declaration.pdf)
             # so the broker receives the customs form alongside the invoice + xlsx.
             if all_declarations:
@@ -1301,6 +1325,8 @@ def run_bl_mode(args) -> dict:
                                                     manifest_meta, output_dir,
                                                     total_invoices=original_invoice_count)
             all_email_params_paths = [email_params_path]
+            # Save Proposed Fixes sidecar if any invoice carries uncertainty.
+            _maybe_save_proposed_fixes(results, email_params_path, output_dir)
             # ── Shipment pre-send checklist ──
             checklist = None
             try:
@@ -1319,6 +1345,9 @@ def run_bl_mode(args) -> dict:
                     email_sent = _send_bl_email(args, results, bl_alloc, all_attachments, manifest_meta,
                                                 total_invoices=original_invoice_count)
 
+    # Archive any reviewer-edited Proposed Fixes YAML that was applied this run
+    _maybe_archive_applied_fixes(args, args.bl or args.waybill or '')
+
     # ── JSON output for TypeScript ──
     report = _build_report(results, bl_alloc, email_sent, failures)
     if all_email_params_paths:
@@ -1329,6 +1358,8 @@ def run_bl_mode(args) -> dict:
         report['validation'] = validation
     if checklist:
         report['checklist'] = checklist
+    if getattr(args, '_fixes_reports', None):
+        report['fixes_applied'] = args._fixes_reports
     if args.json_output:
         print(f"\nREPORT:JSON:{json.dumps(report)}")
 
@@ -1476,6 +1507,9 @@ def run_batch_mode(args) -> dict:
 
     # Promote successful auto-generated format specs
     _promote_auto_specs(results)
+
+    # Apply any reviewer-edited Proposed Fixes YAML dropped into input_dir
+    _maybe_apply_fixes(args, results)
 
     # Copy failed PDFs to Unprocessed/ folder
     _handle_failures(failures, output_dir, args.input_dir)
@@ -1667,6 +1701,18 @@ def run_batch_mode(args) -> dict:
                     args.waybill = decl_meta['waybill']
                 if decl_meta.get('man_reg') and not args.man_reg:
                     args.man_reg = decl_meta['man_reg']
+                # Merge OCR-extracted declaration fields into manifest_meta so
+                # _save_batch_email_params can apply consignee, freight, weight,
+                # packages, office from scanned Simplified Declaration forms.
+                if manifest_meta is None:
+                    manifest_meta = {}
+                for key_src, key_dst in [('consignee', 'consignee'),
+                                          ('freight', 'freight'),
+                                          ('packages', 'packages'),
+                                          ('weight', 'weight'),
+                                          ('office', 'office')]:
+                    if decl_meta.get(key_src) and not manifest_meta.get(key_dst):
+                        manifest_meta[key_dst] = decl_meta[key_src]
             # Attach the single declaration PDF (renamed {waybill}-Declaration.pdf)
             # so the broker receives the customs form alongside the invoice + xlsx.
             if all_declarations:
@@ -1686,6 +1732,7 @@ def run_batch_mode(args) -> dict:
             email_params_path = _save_batch_email_params(args, results, all_attachments,
                                                           manifest_meta, output_dir)
             all_email_params_paths = [email_params_path]
+            _maybe_save_proposed_fixes(results, email_params_path, output_dir)
             # ── Shipment pre-send checklist ──
             checklist = None
             try:
@@ -1703,6 +1750,9 @@ def run_batch_mode(args) -> dict:
                 else:
                     email_sent = _send_batch_email(args, results, all_attachments, manifest_meta)
 
+    # Archive any reviewer-edited Proposed Fixes YAML that was applied this run
+    _maybe_archive_applied_fixes(args, args.waybill or args.bl or '')
+
     # JSON output for TypeScript
     report = _build_report(results, bl_alloc=None, email_sent=email_sent, failures=failures)
     if all_email_params_paths:
@@ -1713,6 +1763,8 @@ def run_batch_mode(args) -> dict:
         report['validation'] = validation
     if checklist:
         report['checklist'] = checklist
+    if getattr(args, '_fixes_reports', None):
+        report['fixes_applied'] = args._fixes_reports
     if args.json_output:
         print(f"\nREPORT:JSON:{json.dumps(report)}")
 
@@ -2442,6 +2494,122 @@ def _resolve_location_office(args, manifest_meta: dict) -> tuple:
     return location, office
 
 
+def _maybe_apply_fixes(args, results: list) -> None:
+    """Auto-discover + apply reviewer-edited Proposed Fixes YAMLs.
+
+    Called after Phase 1 processing so each invoice's matched_items and
+    invoice_data are in memory but the combine/email steps have not yet
+    started.  Stores the discovered YAML paths on ``args._fixes_yaml_paths``
+    (so they can be archived after the email is sent) and the per-invoice
+    change reports on ``args._fixes_reports`` (Phase 4 candidate journal).
+
+    Any failure here is logged and swallowed — a bad fixes file must not
+    block a legitimate shipment from being processed.
+    """
+    args._fixes_reports = []
+    args._fixes_yaml_paths = []
+    try:
+        import apply_fixes
+        fixes_paths = apply_fixes.discover_fixes(getattr(args, 'input_dir', '') or '')
+        if not fixes_paths:
+            return
+        docs = []
+        for fp in fixes_paths:
+            try:
+                docs.append(apply_fixes.load_fixes_yaml(fp))
+                args._fixes_yaml_paths.append(fp)
+            except Exception as e:
+                logger.warning(f"fixes: could not load {fp}: {e}")
+        fixes_map = apply_fixes.build_fixes_map(docs)
+        if not fixes_map:
+            return
+        print(f"\n[3.5] Applying reviewer fixes ({len(fixes_map)} invoice(s))...")
+        reports = apply_fixes.apply_fixes_to_results(results, fixes_map)
+        args._fixes_reports = reports
+        # Phase 4: append to the learned-fixes candidate journal so
+        # recurring fix patterns can be promoted into format specs later.
+        try:
+            waybill = getattr(args, 'bl', '') or getattr(args, 'waybill', '') or ''
+            apply_fixes.log_fix_candidates(reports, results, waybill, BASE_DIR)
+        except Exception as e:
+            logger.warning(f"fixes: candidate journal write failed: {e}")
+        # Regenerate XLSX for any invoice that was touched
+        from bl_xlsx_generator import generate_bl_xlsx
+        touched = {r['invoice_num'] for r in reports}
+        for r in results:
+            if r.invoice_num in touched:
+                try:
+                    generate_bl_xlsx(
+                        r.invoice_data,
+                        r.matched_items,
+                        os.path.basename(r.xlsx_path).rsplit('.', 1)[0],
+                        r.supplier_info,
+                        r.xlsx_path,
+                        document_type=getattr(args, 'doc_type', 'auto'),
+                    )
+                    print(f"    {r.invoice_num}: XLSX regenerated with fixes")
+                except Exception as e:
+                    logger.warning(
+                        f"fixes: failed to regenerate XLSX for {r.invoice_num}: {e}"
+                    )
+    except Exception as e:
+        logger.warning(f"fixes replay failed: {e}")
+
+
+def _maybe_archive_applied_fixes(args, waybill: str) -> None:
+    """Move applied Proposed Fixes YAMLs to ``data/learned_fixes/YYYY-MM/``.
+
+    Called after the shipment email has been saved/sent so we only archive
+    fixes that were actually committed.  Silent if no fixes were applied.
+    """
+    paths = getattr(args, '_fixes_yaml_paths', None) or []
+    if not paths:
+        return
+    try:
+        import apply_fixes
+        for p in paths:
+            try:
+                dest = apply_fixes.archive_fixes_yaml(p, waybill, BASE_DIR)
+                if dest:
+                    print(f"    Archived fixes: {os.path.basename(dest)}")
+            except Exception as e:
+                logger.warning(f"fixes: could not archive {p}: {e}")
+    except Exception as e:
+        logger.warning(f"fixes archive stage failed: {e}")
+
+
+def _maybe_save_proposed_fixes(results: list, email_params_path: str, output_dir: str) -> None:
+    """Detect uncertain invoices and write a _proposed_fixes_params.json sidecar.
+
+    Scans ``results`` for invoices that carry uncertainty markers
+    (``data_quality_notes``, ``invoice_total_uncertain``, or per-item
+    ``data_quality``) and, if any are present, writes the YAML patch plus
+    the email-params sidecar so ``send_shipment_email.py`` can send a
+    second email to the reviewer mailbox.  Failures are logged and
+    swallowed — they must never break the shipment email flow.
+    """
+    try:
+        import proposed_fixes
+        waybill = 'UNKNOWN'
+        if email_params_path and os.path.exists(email_params_path):
+            try:
+                with open(email_params_path) as f:
+                    waybill = json.load(f).get('waybill', 'UNKNOWN')
+            except Exception:
+                pass
+        uncertain = proposed_fixes.detect_uncertain_invoices(results)
+        if not uncertain:
+            return
+        artefacts = proposed_fixes.save_fixes_artifacts(waybill, uncertain, output_dir)
+        if artefacts:
+            print(
+                f"    Proposed Fixes: {len(uncertain)} uncertain invoice(s) → "
+                f"{os.path.basename(artefacts['params_path'])}"
+            )
+    except Exception as e:
+        logger.warning(f"proposed_fixes save failed: {e}")
+
+
 def _save_email_params(args, results: list, bl_alloc, all_attachments: list,
                        manifest_meta: dict = None, output_dir: str = '',
                        total_invoices: int = 0) -> str:
@@ -2632,6 +2800,56 @@ def _record_send_history(args, params: dict, email_draft: dict) -> None:
         logger.warning(f"send history recording failed: {e}")
 
 
+def _send_proposed_fixes_sidecar(output_dir: str) -> bool:
+    """Send the Proposed Fixes email from ``_proposed_fixes_params.json``.
+
+    Mirrors the sidecar handoff in ``send_shipment_email.py`` so the
+    legacy in-process ``--send-email`` path (_send_bl_email /
+    _send_batch_email / _send_email_from_params) also delivers the
+    reviewer-facing email when the pipeline detected uncertain invoices.
+
+    Returns True if the sidecar was sent (or absent — nothing to do);
+    returns False only when a sidecar exists and the send failed.
+    Failures are logged but do not raise — they must never take down
+    the main shipment email flow.
+    """
+    if not output_dir:
+        return True
+    fixes_params_path = os.path.join(output_dir, '_proposed_fixes_params.json')
+    if not os.path.exists(fixes_params_path):
+        return True
+    try:
+        from workflow.email import compose_proposed_fixes_email, send_email as do_send_email
+        from core.config import get_config
+        with open(fixes_params_path) as f:
+            fparams = json.load(f)
+        draft = compose_proposed_fixes_email(
+            waybill=fparams.get('waybill', 'UNKNOWN'),
+            subject=fparams.get('subject', ''),
+            body=fparams.get('body', ''),
+            attachment_paths=fparams.get('attachment_paths', []),
+        )
+        cfg = get_config()
+        recipient = getattr(cfg, 'email_fixes_recipient', None) or cfg.email_sender
+        sent = do_send_email(
+            subject=draft['subject'],
+            body=draft['body'],
+            attachments=draft['attachments'],
+            recipient=recipient,
+        )
+        if sent:
+            print(
+                f"\nProposed Fixes email sent to {recipient}: "
+                f"{draft['subject']} ({len(draft['attachments'])} attachments)"
+            )
+        else:
+            print(f"\nProposed Fixes email FAILED: {draft['subject']}")
+        return sent
+    except Exception as e:
+        logger.warning(f"proposed fixes send failed: {e}")
+        return False
+
+
 def _send_bl_email(args, results: list, bl_alloc, all_attachments: list,
                    manifest_meta: dict = None, total_invoices: int = 0) -> bool:
     """Legacy: send BL email directly (used when --send-email is passed from CLI)."""
@@ -2673,6 +2891,9 @@ def _send_bl_email(args, results: list, bl_alloc, all_attachments: list,
         _record_send_history(args, params, email_draft)
     else:
         print(f"\nEmail FAILED to send")
+
+    # Send the Proposed Fixes sidecar email (if any) to the reviewer mailbox
+    _send_proposed_fixes_sidecar(output_dir)
 
     return email_sent
 
@@ -2823,6 +3044,9 @@ def _send_batch_email(args, results: list, all_attachments: list,
         _record_send_history(args, params, email_draft)
     else:
         print(f"\nEmail FAILED to send")
+
+    # Send the Proposed Fixes sidecar email (if any) to the reviewer mailbox
+    _send_proposed_fixes_sidecar(output_dir)
 
     return email_sent
 
@@ -3071,8 +3295,13 @@ def run_resend(args) -> dict:
             unchanged += 1
             continue
 
+        _COMPOSE_KEYS = {
+            'waybill', 'consignee_name', 'consignee_code', 'consignee_address',
+            'total_invoices', 'packages', 'weight', 'country_origin', 'freight',
+            'man_reg', 'location', 'office', 'expected_entries',
+        }
         email_draft = compose_email(
-            **{k: v for k, v in new_params.items() if k != 'attachment_paths'},
+            **{k: v for k, v in new_params.items() if k in _COMPOSE_KEYS},
             attachment_paths=new_params.get('attachment_paths', []),
         )
         ok = do_send_email(

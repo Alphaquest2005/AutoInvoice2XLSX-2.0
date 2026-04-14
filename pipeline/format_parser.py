@@ -16,7 +16,7 @@ import os
 import re
 import logging
 import time as _time
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 logger = logging.getLogger(__name__)
 
@@ -159,6 +159,15 @@ class FormatParser:
         # Step 4: Post-OCR item validation — cross-check qty × price vs totals
         items = self._validate_and_correct_items(items, metadata)
 
+        # Step 4a: Honest orphan-price scan (Tier A1).  Look in the items
+        # section for standalone price tokens (\d+\.\d{2}) that were not
+        # captured as items.  If items_sum + orphan ≈ subtotal (within
+        # $0.25), inject the orphan as a new item.  The description is
+        # reconstructed from the lines immediately preceding the orphan
+        # price.  No hallucination: we only add numbers that were actually
+        # in the OCR text but missed by the strict item regex.
+        items, orphan_notes = self._scan_orphan_prices(items, metadata, normalized_text)
+
         # Step 4b: Subtotal-anchored permissive retry.  When items_sum does
         # not reconcile with the extracted subtotal, re-run item extraction
         # with a permissive price pattern that accepts OCR-mangled qty
@@ -166,11 +175,254 @@ class FormatParser:
         # reconciles better with the subtotal anchor.
         items = self._subtotal_anchored_retry(items, metadata, normalized_text)
 
+        # Step 4c: Structural item count — independent count of price-bearing
+        # lines between section markers. Compared against extracted items to
+        # flag mismatches (missed or phantom items).
+        structural_count = self._count_structural_items(normalized_text)
+
         # Step 5: Post-process and validate
         result = self._build_result(metadata, items, normalized_text,
                                     skipped_items_total=self._skipped_items_total)
 
+        # Attach orphan-scan notes so downstream (invoice_processor,
+        # bl_xlsx_generator) can render uncertainty markers and decide
+        # whether a proposed-fixes email is required.
+        if orphan_notes:
+            for inv in result.get('invoices', []):
+                inv.setdefault('data_quality_notes', []).extend(orphan_notes)
+
+        # Attach structural item count and mismatch flag
+        for inv in result.get('invoices', []):
+            inv['structural_item_count'] = structural_count
+            extracted_count = len(inv.get('items', []))
+            price_count = structural_count['price_line_count']
+            header_count = structural_count.get('header_count')
+
+            mismatch = False
+            if price_count > 0 and extracted_count != price_count:
+                mismatch = True
+                inv.setdefault('data_quality_notes', []).append(
+                    f"Structural item count mismatch: {price_count} price lines "
+                    f"found between section markers but {extracted_count} items extracted"
+                )
+            if header_count is not None and extracted_count != header_count:
+                mismatch = True
+                inv.setdefault('data_quality_notes', []).append(
+                    f"Header item count mismatch: header says {header_count} items "
+                    f"but {extracted_count} items extracted"
+                )
+            inv['item_count_mismatch'] = mismatch
+
         return result
+
+    def _scan_orphan_prices(
+        self, items: List[Dict], metadata: Dict, text: str,
+    ) -> Tuple[List[Dict], List[str]]:
+        """
+        Tier A1 honest recovery: scan the items section for standalone
+        decimal prices that were NOT captured as items by the strict regex.
+
+        For each orphan price we try to reconstruct a description from the
+        lines preceding it, then inject a new item with:
+            - sku generated from the spec's sku template
+            - description from preceding non-empty lines
+            - quantity = 1 (most common case for SHEIN/retail)
+            - unit_cost / total_cost = orphan price value
+            - data_quality = 'orphan_price_recovered'
+
+        We only add an orphan if doing so moves items_sum *closer* to the
+        subtotal anchor (within $0.25 residual).  This prevents injecting
+        prices that are actually freight/tax numbers elsewhere on the page.
+
+        Returns: (updated_items, notes) where notes is a list of
+        human-readable strings describing each recovery.
+        """
+        notes: List[str] = []
+        items_spec = self.spec.get('items') or {}
+        if items_spec.get('strategy') != 'multiline':
+            return items, notes
+
+        subtotal = metadata.get('subtotal') or 0
+        if not isinstance(subtotal, (int, float)) or subtotal <= 0:
+            return items, notes
+
+        # Existing items sum
+        items_sum = sum(
+            (it.get('total_cost', 0) or 0) for it in items
+            if isinstance(it.get('total_cost'), (int, float))
+        )
+        initial_gap = round(subtotal - items_sum, 2)
+
+        # Nothing to recover when already balanced (within $0.02).
+        if abs(initial_gap) <= 0.02:
+            return items, notes
+
+        # Only recover positive gaps (we are missing money, not extra).
+        if initial_gap < 0.02:
+            return items, notes
+
+        # Get items section text.
+        sections_spec = self.spec.get('sections') or {}
+        section_text = self._get_items_section(text, sections_spec)
+        lines = section_text.split('\n')
+
+        # Build set of already-captured prices so we don't double-count.
+        captured_prices = set()
+        for it in items:
+            tc = it.get('total_cost')
+            uc = it.get('unit_cost')
+            if isinstance(tc, (int, float)):
+                captured_prices.add(round(float(tc), 2))
+            if isinstance(uc, (int, float)):
+                captured_prices.add(round(float(uc), 2))
+
+        # Scan for orphan prices in the items section — ignore lines that
+        # match totals markers (Subtotal, Tax, Shipping, Grand Total).
+        multiline = items_spec.get('multiline') or {}
+        max_price = (self.spec.get('validation') or {}).get('max_item_price', 500)
+        min_desc_len = multiline.get('min_description_length', 10)
+
+        # Patterns we must NOT confuse with line items
+        total_line_pat = re.compile(
+            r'(?i)(subtotal|sales\s*tax|shipping|handling|grand\s*total|'
+            r'item\(s\)|order\s*(number|date)|invoice\s*(date|no\.?|number)|'
+            r'^\s*\d{4}-\d{2}-\d{2})'
+        )
+        price_token_re = re.compile(r'(?<![\d.])(\d{1,3}(?:,\d{3})*\.\d{2})(?![\d])')
+
+        orphan_candidates: List[Tuple[float, str, int]] = []  # (price, desc, line_idx)
+
+        for idx, line in enumerate(lines):
+            stripped = line.strip()
+            if not stripped:
+                continue
+            if total_line_pat.search(stripped):
+                continue
+
+            for m in price_token_re.finditer(stripped):
+                try:
+                    val = float(m.group(1).replace(',', ''))
+                except ValueError:
+                    continue
+                if val <= 0 or val > max_price:
+                    continue
+                if round(val, 2) in captured_prices:
+                    continue
+
+                # Build description from this line's prefix + previous lines.
+                prefix = stripped[:m.start()].strip(' :-—–\t|')
+                desc_parts: List[str] = []
+                if prefix:
+                    desc_parts.append(prefix)
+
+                # Walk backward up to 3 lines to find description context.
+                back = idx - 1
+                while back >= 0 and len(' '.join(desc_parts)) < 80:
+                    prev = lines[back].strip()
+                    back -= 1
+                    if not prev:
+                        continue
+                    if total_line_pat.search(prev):
+                        break
+                    # If the previous line ends with its own price token,
+                    # it already belongs to another (captured) item.
+                    if price_token_re.search(prev):
+                        break
+                    desc_parts.insert(0, prev)
+
+                description = ' '.join(desc_parts).strip()
+                # Sanitize: remove OCR punctuation noise like "eee tia"
+                description = re.sub(r'\s{2,}', ' ', description)
+                description = re.sub(
+                    r'(?:^|\s)(?:eee|tia|TE|Vv|Lge)(?:\s|$)', ' ', description
+                ).strip()
+
+                if len(description) < min_desc_len:
+                    continue
+
+                orphan_candidates.append((val, description, idx))
+
+        if not orphan_candidates:
+            return items, notes
+
+        # Accept combinations of orphans that make items_sum + sum ≈ subtotal
+        # within a residual window of $0.25 (absorbs OCR price rounding).
+        # Greedy: try each orphan alone first, then pairs, matching the gap.
+        tolerance = 0.25
+        chosen: List[Tuple[float, str]] = []
+
+        def gap_after(selected: List[Tuple[float, str]]) -> float:
+            return abs(initial_gap - sum(p for p, _ in selected))
+
+        # Single-orphan match
+        best_single = None
+        best_single_gap = tolerance + 1
+        for (val, desc, _) in orphan_candidates:
+            g = abs(initial_gap - val)
+            if g < best_single_gap:
+                best_single_gap = g
+                best_single = (val, desc)
+
+        if best_single and best_single_gap <= tolerance:
+            chosen = [best_single]
+        else:
+            # Try pairs
+            best_pair = None
+            best_pair_gap = tolerance + 1
+            n = len(orphan_candidates)
+            for i in range(n):
+                for j in range(i + 1, n):
+                    total = orphan_candidates[i][0] + orphan_candidates[j][0]
+                    g = abs(initial_gap - total)
+                    if g < best_pair_gap:
+                        best_pair_gap = g
+                        best_pair = [
+                            (orphan_candidates[i][0], orphan_candidates[i][1]),
+                            (orphan_candidates[j][0], orphan_candidates[j][1]),
+                        ]
+            if best_pair and best_pair_gap <= tolerance:
+                chosen = best_pair
+
+        if not chosen:
+            return items, notes
+
+        # Build new items for each chosen orphan.
+        sku_template = ((multiline.get('generated_fields') or {})
+                        .get('sku', 'ITEM-{index}'))
+        start_index = len(items) + 1
+        new_items = list(items)
+        for offset, (val, desc) in enumerate(chosen):
+            idx_num = start_index + offset
+            sku = sku_template.replace('{index}', str(idx_num))
+            new_items.append({
+                'sku': sku,
+                'description': desc[:200],
+                'quantity': 1,
+                'unit_cost': round(val, 2),
+                'total_cost': round(val, 2),
+                'data_quality': 'orphan_price_recovered',
+            })
+            notes.append(
+                f"Orphan price ${val:.2f} recovered from OCR text "
+                f"(description: {desc[:60]}...)"
+            )
+            logger.info(
+                f"Orphan-price recovery: injected ${val:.2f} as item "
+                f"'{desc[:40]}' (gap {initial_gap:.2f} → "
+                f"{round(initial_gap - sum(p for p, _ in chosen[:offset + 1]), 2):.2f})"
+            )
+
+        final_gap = round(subtotal - sum(
+            (it.get('total_cost', 0) or 0) for it in new_items
+            if isinstance(it.get('total_cost'), (int, float))
+        ), 2)
+        if abs(final_gap) > 0.02:
+            notes.append(
+                f"Residual ${final_gap:.2f} absorbed as OCR price rounding "
+                f"(items_sum + recovered vs subtotal ${subtotal:.2f})"
+            )
+
+        return new_items, notes
 
     def _subtotal_anchored_retry(
         self, items: List[Dict], metadata: Dict, text: str,
@@ -1158,6 +1410,91 @@ class FormatParser:
         if 'dotall' in flags_str.lower():
             flags |= re.DOTALL
         return flags
+
+    def _count_structural_items(self, text: str) -> Dict[str, Any]:
+        """Count items structurally by finding price-bearing lines between section markers.
+
+        This provides an independent item count that can be compared against the
+        parser's extracted item list to flag mismatches (missed or phantom items).
+
+        Returns dict with:
+            price_line_count: number of lines matching the price pattern in the items section
+            header_count: item count extracted from header like "Invoice Detail (N)", or None
+        """
+        sections_spec = self.spec.get('sections', {})
+        items_spec = self.spec.get('items', {})
+
+        # ── Get the items section text ──
+        start_markers = sections_spec.get('items_start', [])
+        end_markers = sections_spec.get('items_end', [])
+
+        # If no start markers defined or none match, return zero
+        start_pos = -1
+        for marker in start_markers:
+            pos = text.find(marker)
+            if pos != -1:
+                start_pos = pos
+                break
+
+        if start_pos == -1:
+            return {'price_line_count': 0, 'header_count': None}
+
+        end_pos = len(text)
+        for marker in end_markers:
+            pos = text.find(marker, start_pos)
+            if pos != -1 and pos < end_pos:
+                end_pos = pos
+
+        section_text = text[start_pos:end_pos]
+
+        # ── Try to extract header count: "Invoice Detail (N)" or "Invoice Detail\nN items" ──
+        header_count = None
+        header_match = _safe_re_search(
+            r'Invoice\s+Det\w*\s*\((\d+)\)', section_text
+        )
+        if header_match:
+            header_count = int(header_match.group(1))
+
+        # ── Count price-bearing lines ──
+        # Use the format's own price pattern if available (multiline strategy),
+        # otherwise fall back to a generic decimal price pattern.
+        strategy = items_spec.get('strategy', 'line')
+        multiline_spec = items_spec.get('multiline', {})
+        line_spec = items_spec.get('line', {})
+
+        if strategy == 'multiline' and multiline_spec.get('price_pattern'):
+            price_pattern = multiline_spec['price_pattern']
+        elif strategy == 'line' and line_spec.get('pattern'):
+            price_pattern = line_spec['pattern']
+        else:
+            # Generic: line ending with a decimal price
+            price_pattern = r'[\d,]+\.\d{2}\s*$'
+
+        price_re = self._compile(price_pattern, re.MULTILINE)
+
+        # Also compile skip patterns to exclude non-item lines
+        skip_patterns = []
+        if strategy == 'multiline':
+            skip_patterns = multiline_spec.get('skip_patterns', [])
+        elif strategy == 'line':
+            skip_patterns = line_spec.get('skip_patterns', [])
+        skip_res = [self._compile(p, re.IGNORECASE) for p in skip_patterns]
+
+        lines = section_text.split('\n')
+        price_line_count = 0
+        for line in lines:
+            stripped = line.strip()
+            if not stripped:
+                continue
+            if any(sr.search(stripped) for sr in skip_res):
+                continue
+            if price_re.search(stripped):
+                price_line_count += 1
+
+        return {
+            'price_line_count': price_line_count,
+            'header_count': header_count,
+        }
 
     def _compute_ocr_quality(self, text: str, invoice_data: Dict,
                               items: List[Dict]) -> Dict[str, Any]:

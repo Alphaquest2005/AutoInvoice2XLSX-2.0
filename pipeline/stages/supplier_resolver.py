@@ -429,8 +429,8 @@ def get_supplier_info(supplier_name: str, supplier_db: Dict,
     # Resolve name: invoice PDF → PO data → DB
     resolved_name = inv_name or supplier_name or db_info.get('name', '')
 
-    # Resolve address: invoice PDF → DB
-    resolved_address = inv_address or db_info.get('address', '')
+    # Resolve address: DB (curated) → invoice PDF (may be HQ/registered address)
+    resolved_address = db_info.get('address', '') or inv_address
 
     # Resolve country: invoice PDF → DB → name suffix inference
     resolved_country = inv_country or db_info.get('country', '')
@@ -1230,20 +1230,18 @@ def _check_tariff_product_compatibility(items: List[Dict], base_dir: str) -> Non
 
 
 def extract_pdf_text(pdf_path: str, ocr_config: dict = None) -> str:
-    """Extract full text from PDF using pdfplumber, with OCR fallback for scanned PDFs.
+    """Extract full text from a PDF via the unified hybrid OCR pipeline.
 
-    Args:
-        pdf_path: Path to PDF file
-        ocr_config: Optional format-specific OCR settings dict with keys:
-            dpi (int), psm (int), preprocessing (str: 'default'|'adaptive'|'none')
+    The ``.txt`` sidecar cache (including the ``# MANUAL`` override) is
+    still honoured because those are hand-authored corrections that must
+    never be overwritten by re-OCR.
+
+    The legacy ``ocr_config`` parameter (``dpi``/``psm``/``preprocessing``)
+    is accepted for signature compatibility but now ignored — the hybrid
+    multi_ocr pipeline runs the full preprocessing × engine matrix and
+    reconciles via consensus, so format-specific Tesseract tuning is no
+    longer meaningful.
     """
-    import time as _time
-    try:
-        import pdfplumber
-    except ImportError:
-        logger.error("pdfplumber is required. Run: pip install pdfplumber")
-        return ""
-
     # Check for OCR text sidecar (.txt file saved during PDF splitting)
     # Sidecars starting with "# MANUAL" are hand-written corrections that must
     # always be preferred and never overwritten by re-OCR.
@@ -1265,142 +1263,22 @@ def extract_pdf_text(pdf_path: str, ocr_config: dict = None) -> str:
             pass
 
     try:
-        with pdfplumber.open(pdf_path) as pdf:
-            full_text = ""
-            for page in pdf.pages:
-                full_text += (page.extract_text() or "") + "\n"
+        import multi_ocr  # noqa: WPS433
+    except ImportError:
+        logger.error("multi_ocr unavailable, cannot extract PDF text")
+        return ""
 
-        # If pdfplumber got enough text, return it
-        if len(full_text.strip()) >= 50:
-            return full_text
-
-        # Scanned/image PDF — try Tesseract first (fast), EasyOCR as fallback
-        logger.info(f"No embedded text in {os.path.basename(pdf_path)}, trying OCR...")
-
-        # Try Tesseract first via pdf_splitter (fast, good for scanned invoices)
-        # Apply format-specific OCR settings if provided
-        _ocr_dpi = (ocr_config or {}).get('dpi', 300)
-        _ocr_psm = (ocr_config or {}).get('psm', 6)
-        _ocr_preprocess = (ocr_config or {}).get('preprocessing', 'default')
-        _ocr_start = _time.time()
-        try:
-            from pdf_splitter import ocr_page as _ocr_page, OCR_AVAILABLE as _OCR
-            if _OCR:
-                import pdfplumber as _pb2
-                with _pb2.open(pdf_path) as pdf2:
-                    num_pages = len(pdf2.pages)
-                _cfg_desc = f"dpi={_ocr_dpi} psm={_ocr_psm} prep={_ocr_preprocess}" if ocr_config else ""
-                logger.info(f"Tesseract OCR starting for {os.path.basename(pdf_path)} ({num_pages} pages) {_cfg_desc}...")
-                tesseract_pages = []
-                for pg in range(num_pages):
-                    _pg_start = _time.time()
-                    pg_text = _ocr_page(pdf_path, pg, dpi=_ocr_dpi, psm=_ocr_psm,
-                                        preprocess_mode=_ocr_preprocess)
-                    _pg_elapsed = _time.time() - _pg_start
-                    if pg_text:
-                        tesseract_pages.append(pg_text)
-                    if _pg_elapsed > 60:
-                        logger.warning(f"Tesseract page {pg+1}/{num_pages} took {_pg_elapsed:.1f}s")
-                if tesseract_pages:
-                    tess_text = "\n\n".join(tesseract_pages)
-                    digit_count = sum(1 for c in tess_text if c.isdigit())
-                    _ocr_elapsed = _time.time() - _ocr_start
-                    if len(tess_text.strip()) >= 50 and digit_count >= 3:
-                        logger.info(f"Tesseract extracted {len(tess_text)} chars from {os.path.basename(pdf_path)} in {_ocr_elapsed:.1f}s")
-                        return tess_text
-                    else:
-                        logger.info(f"Tesseract quality poor ({len(tess_text)} chars, {digit_count} digits) after {_ocr_elapsed:.1f}s, trying EasyOCR...")
-        except Exception as tess_err:
-            logger.debug(f"Tesseract fast path failed: {tess_err}")
-
-        # Fallback: EasyOCR (slow but handles phone photos better)
-        try:
-            import easyocr
-            import fitz  # PyMuPDF
-            logger.info(f"Trying EasyOCR for {os.path.basename(pdf_path)}...")
-            reader = easyocr.Reader(['en'], gpu=False, verbose=False)
-            doc = fitz.open(pdf_path)
-            ocr_pages = []
-            for page_idx in range(len(doc)):
-                pix = doc[page_idx].get_pixmap(dpi=300)
-                img_bytes = pix.tobytes("png")
-                # Use detail mode to get bounding boxes, then reconstruct lines
-                results = reader.readtext(img_bytes, detail=1, paragraph=False)
-                if results:
-                    # Sort by vertical position
-                    results.sort(key=lambda r: r[0][0][1])
-                    lines = []
-                    current_line = []
-                    last_y = None
-                    for bbox, text, conf in results:
-                        y = (bbox[0][1] + bbox[2][1]) / 2
-                        if last_y is not None and abs(y - last_y) > 30:
-                            if current_line:
-                                current_line.sort(key=lambda r: r[0][0][0])
-                                lines.append(' '.join(t for _, t, _ in current_line))
-                            current_line = []
-                        current_line.append((bbox, text, conf))
-                        last_y = y
-                    if current_line:
-                        current_line.sort(key=lambda r: r[0][0][0])
-                        lines.append(' '.join(t for _, t, _ in current_line))
-                    ocr_pages.append("\n".join(lines))
-            doc.close()
-            if ocr_pages:
-                easyocr_text = "\n\n".join(ocr_pages)
-                digit_count = sum(1 for c in easyocr_text if c.isdigit())
-                if len(easyocr_text.strip()) >= 50 and digit_count >= 3:
-                    logger.info(f"EasyOCR extracted {len(easyocr_text)} chars from {os.path.basename(pdf_path)}")
-                    return easyocr_text
-                else:
-                    logger.info(f"EasyOCR quality poor ({len(easyocr_text)} chars, {digit_count} digits), trying Tesseract...")
-        except ImportError:
-            logger.debug("EasyOCR not available, trying Tesseract...")
-        except Exception as eocr_err:
-            logger.warning(f"EasyOCR failed for {os.path.basename(pdf_path)}: {eocr_err}, trying Tesseract...")
-
-        # Fallback: Tesseract OCR via pdf_splitter
-        try:
-            from pdf_splitter import ocr_page, OCR_AVAILABLE as SPLITTER_OCR
-            if not SPLITTER_OCR:
-                logger.warning("OCR not available (Tesseract/PyMuPDF not installed)")
-                return full_text
-
-            import pdfplumber as _pb
-            with _pb.open(pdf_path) as pdf2:
-                num_pages = len(pdf2.pages)
-
-            _fb_dpis = (_ocr_dpi, 450) if _ocr_dpi != 450 else (450,)
-            for dpi in _fb_dpis:
-                ocr_texts = []
-                for i in range(num_pages):
-                    page_text = ocr_page(pdf_path, i, dpi=dpi, psm=_ocr_psm,
-                                         preprocess_mode=_ocr_preprocess)
-                    if page_text:
-                        ocr_texts.append(page_text)
-
-                if ocr_texts:
-                    ocr_full = "\n".join(ocr_texts)
-                    digit_count = sum(1 for c in ocr_full if c.isdigit())
-                    avg_chars_per_page = len(ocr_full.strip()) / max(num_pages, 1)
-
-                    if avg_chars_per_page >= 100 and digit_count >= 5:
-                        logger.info(f"Tesseract extracted {len(ocr_full)} chars at {dpi} DPI from {os.path.basename(pdf_path)}")
-                        return ocr_full
-                    elif dpi == 300:
-                        logger.info(f"Tesseract quality poor at {dpi} DPI ({avg_chars_per_page:.0f} chars/page, {digit_count} digits), retrying...")
-                    else:
-                        logger.info(f"Tesseract extracted {len(ocr_full)} chars at {dpi} DPI from {os.path.basename(pdf_path)} (low quality)")
-                        return ocr_full
-
-        except ImportError:
-            logger.debug("pdf_splitter not available for OCR fallback")
-        except Exception as ocr_err:
-            logger.warning(f"Tesseract fallback failed for {os.path.basename(pdf_path)}: {ocr_err}")
-
-        return full_text
+    try:
+        result = multi_ocr.extract_text(pdf_path)
+        text = result.text or ""
+        if text:
+            logger.info(
+                f"multi_ocr[{result.engine_used}] extracted {len(text)} chars "
+                f"from {os.path.basename(pdf_path)}"
+            )
+        return text
     except Exception as e:
-        logger.error(f"Failed to extract text from {pdf_path}: {e}")
+        logger.error(f"multi_ocr extract_text failed for {pdf_path}: {e}")
         return ""
 
 
@@ -1456,6 +1334,7 @@ def normalize_parse_result(result: Dict) -> Dict:
             'total': total_cost,
             'catalog_num': item.get('catalog_num', ''),
             'legacy_sku': item.get('legacy_sku', ''),
+            'data_quality': item.get('data_quality', ''),
         })
 
     return {
@@ -1479,6 +1358,8 @@ def normalize_parse_result(result: Dict) -> Dict:
         'items': items,
         'raw_text': inv.get('raw_text', ''),
         'ocr_quality': inv.get('ocr_quality', {}),
+        'data_quality_notes': inv.get('data_quality_notes', []),
+        'invoice_total_uncertain': inv.get('invoice_total_uncertain', False),
     }
 
 

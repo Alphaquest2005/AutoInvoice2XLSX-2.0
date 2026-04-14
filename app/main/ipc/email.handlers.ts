@@ -216,44 +216,28 @@ export function registerEmailHandlers(deps: HandlerDependencies): void {
           return;
         }
 
-        // Check for pipeline failures
+        // Surface failures to UI (Python already decided whether to send)
         if (result.failures && result.failures.length > 0) {
-          updateProcessedEmail(recordId, {
-            status: 'needs_review',
-            waybillNumber: result.bl?.blNumber,
-            invoiceNumber: String(result.invoiceCount ?? ""),
-            outputFiles: result.outputFiles,
-            error: `${result.failures.length} invoice(s) failed processing`,
-          });
+          logProgress(`${result.failures.length} invoice(s) had processing issues`);
           getWin()?.webContents.send('pipeline:failures', {
             clientId,
             recordId,
             failures: result.failures,
           });
-          return;
         }
 
-        // Send shipment email if email params were saved
+        // Python pipeline (--send-email) is the SSOT for checklist → send → history.
+        // We just read the report and update the Electron-side record.
         if (result.emailParamsPath) {
-          updateProcessedEmail(recordId, { status: 'email_sending' });
-          const emailResult = await sendShipmentEmailFromParams(result.emailParamsPath, logProgress);
-          // Mark as recently sent so the auto-resend watcher doesn't double-fire
           recentlySentParams.set(result.emailParamsPath, Date.now());
-          updateProcessedEmail(recordId, {
-            status: 'completed',
-            waybillNumber: result.bl?.blNumber,
-            invoiceNumber: String(result.invoiceCount ?? ""),
-            outputFiles: result.outputFiles,
-            emailSent: emailResult.success,
-          });
-        } else {
-          updateProcessedEmail(recordId, {
-            status: 'completed',
-            waybillNumber: result.bl?.blNumber,
-            invoiceNumber: String(result.invoiceCount ?? ""),
-            outputFiles: result.outputFiles,
-          });
         }
+        updateProcessedEmail(recordId, {
+          status: 'completed',
+          waybillNumber: result.bl?.blNumber,
+          invoiceNumber: String(result.invoiceCount ?? ""),
+          outputFiles: result.outputFiles,
+          emailSent: result.emailSent ?? false,
+        });
 
         getWin()?.webContents.send('pipeline:complete', {
           clientId,
@@ -532,6 +516,10 @@ export function registerEmailHandlers(deps: HandlerDependencies): void {
   });
 
   // -- Auto-resend on _email_params.json modification --
+  // When _email_params.json is edited (e.g. fixing weight/consignee/total),
+  // resend the email via the Python SSOT (send_shipment_email.py).
+  // Works regardless of whether a SQLite record exists — CLI-initiated
+  // pipelines also benefit.
   onFileChange(async (_event: string, filePath: string) => {
     if (!filePath.endsWith('_email_params.json')) return;
 
@@ -539,14 +527,19 @@ export function registerEmailHandlers(deps: HandlerDependencies): void {
     const lastSent = recentlySentParams.get(filePath) || 0;
     if (now - lastSent < RESEND_COOLDOWN_MS) return;
 
-    // Only auto-resend if the email was previously sent (completed record exists)
+    // Auto-resend if EITHER:
+    //  (a) a completed record exists (previously sent — normal resend), OR
+    //  (b) a record exists with emailSent=false (first send was blocked/failed), OR
+    //  (c) no record at all but the file exists (CLI-initiated pipeline)
     const shipmentDir = path.dirname(filePath);
     const record = findProcessedEmailByShipmentDir(shipmentDir)
       || findProcessedEmailByInputDir(shipmentDir);
-    if (!record || record.status !== 'completed' || !record.emailSent) return;
 
-    console.log(`[email-handlers] _email_params.json modified for completed shipment: ${shipmentDir}`);
-    console.log('[email-handlers] Auto-resending email...');
+    // If a record exists but pipeline is still running, skip
+    if (record && record.status === 'pipeline_running') return;
+
+    console.log(`[email-handlers] _email_params.json modified: ${shipmentDir} (record=${record?.id ?? 'none'})`);
+    console.log('[email-handlers] Auto-resending email via Python SSOT...');
 
     recentlySentParams.set(filePath, now);
 
@@ -557,10 +550,13 @@ export function registerEmailHandlers(deps: HandlerDependencies): void {
       const result = await sendShipmentEmailFromParams(filePath, logProgress);
       if (result.success) {
         console.log('[email-handlers] Auto-resend successful');
+        if (record) {
+          updateProcessedEmail(record.id, { emailSent: true, status: 'completed' });
+        }
         deps.getMainWindow()?.webContents.send('email:autoResent', {
           paramsPath: filePath,
           shipmentDir,
-          recordId: record.id,
+          recordId: record?.id,
         });
       } else {
         console.error('[email-handlers] Auto-resend failed:', result.error);

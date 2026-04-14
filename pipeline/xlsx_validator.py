@@ -246,6 +246,9 @@ def _detect_issues(ws, base_dir: str) -> list:
             continue
         if isinstance(label_l, str) and label_l.strip() in FORMULA_LABELS:
             continue
+        # Skip invoice-level metadata rows (notes, totals appended by parser)
+        if isinstance(label_j, str) and label_j.strip().startswith('INVOICE NOTES'):
+            continue
 
         tariff = str(ws.cell(row, COL_TARIFF).value or '').strip()
         desc = str(ws.cell(row, COL_SUPP_DESC).value or '').strip()

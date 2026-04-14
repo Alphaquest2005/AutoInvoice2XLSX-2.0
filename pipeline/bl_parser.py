@@ -166,54 +166,30 @@ def match_invoice_to_bl(invoice_num: str, po_refs: List[str],
 
 
 def _extract_text(pdf_path: str) -> str:
-    """Extract full text from all pages of a PDF, with OCR fallback."""
-    # First try pdfplumber for embedded text
-    try:
-        with pdfplumber.open(pdf_path) as pdf:
-            parts = []
-            for page in pdf.pages:
-                parts.append(page.extract_text() or "")
-            text = "\n".join(parts)
-            if text.strip():
-                return text
-    except Exception as e:
-        logger.warning(f"pdfplumber failed for {pdf_path}: {e}")
+    """Extract full text from a BL PDF via the unified hybrid OCR pipeline.
 
-    # Fallback to OCR for scanned PDFs
+    Delegates to ``multi_ocr.extract_text`` which handles the full
+    pdfplumber → (preprocess × engine) matrix → consensus workflow with
+    caching. The digital-PDF short-circuit inside ``extract_text`` makes
+    this path cheap for already-digital BLs.
+    """
     try:
         import sys
-        import os
+        import os as _os
+        script_dir = _os.path.dirname(_os.path.abspath(__file__))
+        if script_dir not in sys.path:
+            sys.path.insert(0, script_dir)
+        import multi_ocr
+    except ImportError as e:
+        logger.error(f"multi_ocr unavailable, cannot extract BL text: {e}")
+        return ""
 
-        # Add pipeline directory to path
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        pipeline_dir = script_dir  # bl_parser.py is in pipeline/ directory
-        if pipeline_dir not in sys.path:
-            sys.path.insert(0, pipeline_dir)
-
-        # Now import should work
-        from pdf_splitter import ocr_page, OCR_AVAILABLE
-
-        if not OCR_AVAILABLE:
-            logger.error("OCR not available - cannot extract text from scanned PDF")
-            return ""
-
-        import fitz
-        doc = fitz.open(pdf_path)
-        ocr_parts = []
-        for page_num in range(min(3, len(doc))):  # Limit to first 3 pages for BL
-            page_text = ocr_page(pdf_path, page_num)
-            if page_text:
-                ocr_parts.append(page_text)
-        doc.close()
-
-        ocr_text = "\n".join(ocr_parts)
-        if ocr_text.strip():
-            logger.info(f"OCR extracted {len(ocr_text)} chars from {os.path.basename(pdf_path)}")
-            return ocr_text
+    try:
+        result = multi_ocr.extract_text(pdf_path)
+        return result.text or ""
     except Exception as e:
-        logger.error(f"OCR failed for {pdf_path}: {e}")
-
-    return ""
+        logger.error(f"multi_ocr extract_text failed for {pdf_path}: {e}")
+        return ""
 
 
 def _extract_bl_number(text: str) -> str:

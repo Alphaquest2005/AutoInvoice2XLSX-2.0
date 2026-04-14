@@ -78,7 +78,17 @@ CLASSIFICATION RULES (follow strictly):
 
 4. NEVER classify a simple zinc/metal article as furniture hardware (Chapter 83) or machinery parts (Chapter 84) unless it is genuinely a machine component with moving parts.
 
-5. Codes MUST be exactly 8 digits. Use the CARICOM CET national subdivision (last 2 digits), not US HTS subdivisions.
+5. APPAREL CLASSIFICATION (Chapters 61-62):
+   - Knitted/crocheted garments → Chapter 61
+   - Woven/not-knitted garments → Chapter 62
+   - Men's cotton trousers: denim → 62034210, other → 62034220, other cotton → 62034290
+   - Men's trousers: synthetic fibres → 62034310, other materials → 62034910/62034990
+   - Women's cotton trousers: → 62046210/62046290
+   - Women's trousers: synthetic fibres → 62046310, other materials → 62046910/62046990
+   - T-shirts, singlets (knitted) → 61091000/61099000
+
+6. Codes MUST be exactly 8 digits and must be valid CARICOM CET end-node codes.
+   Do NOT invent codes — only use codes that exist in the CARICOM Common External Tariff schedule.
 
 For EACH item, provide an 8-digit HS code, category label, confidence (0.0-1.0), and brief reasoning."""
 

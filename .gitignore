@@ -1,5 +1,6 @@
 # Python
 __pycache__/
+pipeline/.ocr_tmp/
 *.py[cod]
 *$py.class
 *.egg-info/
