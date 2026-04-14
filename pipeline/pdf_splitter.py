@@ -913,6 +913,10 @@ def split_pdf_multi_invoice(
     return result
 
 
+class _OcrEmptyError(Exception):
+    """Raised when OCR returns no text — signals that we should still try LLM vision."""
+
+
 def extract_declaration_metadata(pdf_path: str) -> Dict[str, Optional[str]]:
     """
     Extract key metadata from a Simplified Declaration PDF.
@@ -964,7 +968,9 @@ def extract_declaration_metadata(pdf_path: str) -> Dict[str, Optional[str]]:
         text = '\n'.join(all_texts)
 
         if not text:
-            return metadata
+            # OCR found nothing — skip regex extraction but still try LLM vision
+            # below (it can read scanned forms that OCR cannot).
+            raise _OcrEmptyError("No text extracted from declaration")
 
         lines = text.split('\n')
         text_upper = text.upper()
@@ -1190,32 +1196,37 @@ def extract_declaration_metadata(pdf_path: str) -> Dict[str, Optional[str]]:
     # is available, render the page and ask the model to read pencil marks.
     try:
         hw = extract_declaration_handwriting(pdf_path)
-        if hw and hw.get('has_handwriting'):
+        if hw:
             handwritten = hw.get('handwritten', {})
             printed = hw.get('printed', {})
-            metadata['_handwritten'] = handwritten
-            # Supplement OCR metadata with LLM-printed extraction (more accurate
-            # than OCR for scanned forms) — only fill gaps, don't overwrite
-            if not metadata['consignee'] and printed.get('consignee'):
-                metadata['consignee'] = printed['consignee']
-            if not metadata['freight'] and printed.get('freight'):
-                metadata['freight'] = printed['freight']
-            if not metadata['waybill'] and printed.get('waybill'):
-                metadata['waybill'] = printed['waybill']
-            if not metadata['office'] and printed.get('office'):
-                metadata['office'] = printed['office']
-            if not metadata['man_reg'] and printed.get('man_reg'):
-                metadata['man_reg'] = printed['man_reg']
-            if not metadata['weight'] and printed.get('weight'):
-                metadata['weight'] = printed['weight']
-            if not metadata['packages'] and printed.get('packages'):
-                metadata['packages'] = printed['packages']
-            # Store handwritten customs value for downstream use
-            if handwritten.get('customs_value_ec'):
-                metadata['_customs_value_ec'] = handwritten['customs_value_ec']
-            if handwritten.get('customs_value_usd'):
-                metadata['_customs_value_usd'] = handwritten['customs_value_usd']
-            logger.info(f"LLM vision found handwriting on {os.path.basename(pdf_path)}: {handwritten}")
+            # Always supplement OCR metadata with LLM vision-extracted printed
+            # fields — the vision model reads scanned forms more reliably than
+            # Tesseract OCR.  Only fill gaps, don't overwrite OCR results.
+            if printed:
+                if not metadata['consignee'] and printed.get('consignee'):
+                    metadata['consignee'] = printed['consignee']
+                if not metadata['freight'] and printed.get('freight'):
+                    metadata['freight'] = str(printed['freight'])
+                if not metadata['waybill'] and printed.get('waybill'):
+                    metadata['waybill'] = printed['waybill']
+                if not metadata['office'] and printed.get('office'):
+                    metadata['office'] = printed['office']
+                if not metadata['man_reg'] and printed.get('man_reg'):
+                    metadata['man_reg'] = printed['man_reg']
+                if not metadata['weight'] and printed.get('weight'):
+                    metadata['weight'] = str(printed['weight'])
+                if not metadata['packages'] and printed.get('packages'):
+                    metadata['packages'] = str(printed['packages'])
+                logger.info(f"LLM vision supplemented metadata for {os.path.basename(pdf_path)}: "
+                            f"consignee={printed.get('consignee')}, waybill={printed.get('waybill')}")
+            # Store handwritten data when detected
+            if hw.get('has_handwriting') and handwritten:
+                metadata['_handwritten'] = handwritten
+                if _is_truthy_value(handwritten.get('customs_value_ec')):
+                    metadata['_customs_value_ec'] = handwritten['customs_value_ec']
+                if _is_truthy_value(handwritten.get('customs_value_usd')):
+                    metadata['_customs_value_usd'] = handwritten['customs_value_usd']
+                logger.info(f"LLM vision found handwriting on {os.path.basename(pdf_path)}: {handwritten}")
     except Exception as e:
         logger.debug(f"LLM vision extraction skipped: {e}")
 

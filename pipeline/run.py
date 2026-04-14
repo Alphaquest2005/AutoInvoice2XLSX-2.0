@@ -670,6 +670,25 @@ def detect_mode(args) -> str:
                     args.bl = bl_hint['bl_number']
                     print(f"    BL number from hint: {args.bl}")
 
+        # Filename-based rescue: scanned declarations/manifests with no extractable
+        # text get classified as "unknown". Reclassify by filename before logging.
+        _DECL_HINTS = ('declaration', 'simplified')
+        _MANIFEST_HINTS = ('manifest',)
+        rescued = []
+        for uf in list(classification.get('unknown', [])):
+            uf_lower = uf.lower()
+            if any(h in uf_lower for h in _DECL_HINTS):
+                classification['unknown'].remove(uf)
+                classification.setdefault('declaration', []).append(uf)
+                rescued.append((uf, 'declaration'))
+            elif any(h in uf_lower for h in _MANIFEST_HINTS):
+                classification['unknown'].remove(uf)
+                classification.setdefault('manifest', []).append(uf)
+                rescued.append((uf, 'manifest'))
+        if rescued:
+            for fname, cat in rescued:
+                logger.info(f"Reclassified {fname} → {cat} (filename-based)")
+
         args._classification = classification
 
         # Log what we found
@@ -816,6 +835,17 @@ def _prepare_invoice_pdfs(args, classification: dict) -> list:
     # Only used as fallback — split declarations (from combined PDFs) take priority
     # because standalone extraction from multi-page PDFs only finds the first waybill
     metadata_candidates = declaration_files + classification.get('manifest', [])
+    # Filename-based fallback: scanned declaration PDFs often have no extractable text,
+    # so the classifier marks them "unknown".  If the filename clearly contains
+    # "Declaration" or "Manifest", treat it as a declaration metadata candidate too.
+    _DECL_FILENAME_HINTS = ('declaration', 'manifest', 'simplified')
+    for uf in unknown_files:
+        uf_lower = uf.lower()
+        if any(hint in uf_lower for hint in _DECL_FILENAME_HINTS):
+            if uf not in metadata_candidates:
+                metadata_candidates.append(uf)
+                logger.info(f"Unknown file {uf} has declaration-like filename — "
+                            "adding to metadata candidates")
     _standalone_decl_sources = set()  # Track which source PDFs had standalone extraction
     if metadata_candidates:
         try:
