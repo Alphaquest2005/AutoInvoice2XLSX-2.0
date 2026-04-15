@@ -239,9 +239,11 @@ def _detect_issues(ws, base_dir: str) -> list:
         'DUTY ESTIMATION', 'CIF ', 'CET ', 'CSC ', 'VAT ',
         'ESTIMATED TOTAL', 'CLIENT DECLARED', 'DUTY VARIANCE',
         'IMPLIED CET', 'Effective Duty', 'CET MISMATCH', '\u26a0',
-        # Reference section (items on other declarations)
-        'Items on other', 'REFERENCE ', 'COMBINED ',
-        'FULL INVOICE', 'FULL ADJUSTMENTS',
+        # Reference/combined variance section labels (informational, not item data)
+        'REFERENCE SUBTOTAL', 'REFERENCE FREIGHT', 'REFERENCE INSURANCE',
+        'REFERENCE OTHER COST', 'REFERENCE DEDUCTION', 'REFERENCE ADJUSTMENTS',
+        'REFERENCE NET TOTAL', 'COMBINED ', 'FULL INVOICE', 'FULL ADJUSTMENTS',
+        'Items on other',
     )
 
     for row in range(2, ws.max_row + 1):

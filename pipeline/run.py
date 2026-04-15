@@ -157,10 +157,56 @@ def _split_items_per_declaration(
     supplier_info = template_result.supplier_info or {}
     supplier_name = supplier_info.get('name', 'Unknown')
 
-    # Round-robin distribute items across declarations
-    decl_items = [[] for _ in range(n_decl)]
-    for i, item in enumerate(all_items):
-        decl_items[i % n_decl].append(item)
+    # ── Quantity-aware item distribution ──
+    # When there are fewer line items than declarations but total quantity
+    # >= n_decl, split item quantities across declarations (e.g. 1 item
+    # qty=3 across 3 declarations → each gets qty=1).
+    # Otherwise fall back to round-robin of whole items.
+    import math
+
+    total_qty = sum(int(it.get('quantity', 1) or 1) for it in all_items)
+
+    if len(all_items) < n_decl and total_qty >= n_decl:
+        # Quantity splitting mode: expand items into individual units,
+        # then distribute units round-robin across declarations
+        units = []
+        for item in all_items:
+            qty = int(item.get('quantity', 1) or 1)
+            unit_price = float(item.get('unit_price', 0) or 0)
+            if not unit_price and qty > 0:
+                unit_price = float(item.get('total_cost', 0) or 0) / qty
+            for _ in range(qty):
+                unit_item = dict(item)
+                unit_item['quantity'] = 1
+                unit_item['unit_price'] = unit_price
+                unit_item['total_cost'] = round(unit_price, 2)
+                units.append(unit_item)
+
+        decl_items = [[] for _ in range(n_decl)]
+        for i, unit in enumerate(units):
+            decl_items[i % n_decl].append(unit)
+
+        # Re-aggregate: merge same-description items within each declaration
+        # so qty=1+1 becomes qty=2 with correct total
+        for d_idx in range(n_decl):
+            merged = {}
+            for it in decl_items[d_idx]:
+                key = (it.get('supplier_item_desc', ''), it.get('tariff_code', ''))
+                if key in merged:
+                    merged[key]['quantity'] = int(merged[key]['quantity']) + 1
+                    merged[key]['total_cost'] = round(
+                        merged[key]['total_cost'] + it['total_cost'], 2)
+                else:
+                    merged[key] = dict(it)
+            decl_items[d_idx] = list(merged.values())
+
+        logger.info(f"Split {len(all_items)} items (total qty {total_qty}) "
+                     f"across {n_decl} declarations by quantity")
+    else:
+        # Round-robin distribute whole items across declarations
+        decl_items = [[] for _ in range(n_decl)]
+        for i, item in enumerate(all_items):
+            decl_items[i % n_decl].append(item)
 
     # Compute full invoice total for combined variance check
     full_invoice_total = invoice_data.get('invoice_total', 0)
@@ -1534,9 +1580,11 @@ def run_bl_mode(args) -> dict:
                     if decl_meta.get(key_src):
                         decl_manifest_meta[key_dst] = decl_meta[key_src]
 
+                # Each declaration = 1 invoice (the per-declaration XLSX)
+                decl_total_invoices = 1
                 params_path = _save_email_params(args, results, bl_alloc, decl_attachments,
                                                   decl_manifest_meta, output_dir,
-                                                  total_invoices=original_invoice_count)
+                                                  total_invoices=decl_total_invoices)
                 if idx == 0:
                     import shutil as _sh
                     _sh.copy2(params_path, params_path + '.bak')
@@ -1975,8 +2023,10 @@ def run_batch_mode(args) -> dict:
                 # Save email params: _email_params.json for first, _email_params_2.json etc
                 # _save_batch_email_params always writes to _email_params.json,
                 # so rename immediately to avoid overwriting on next iteration
+                # Each declaration = 1 invoice (the per-declaration XLSX)
                 params_path = _save_batch_email_params(
-                    args, results, decl_attachments, decl_manifest_meta, output_dir)
+                    args, results, decl_attachments, decl_manifest_meta, output_dir,
+                    total_invoices=1)
                 if idx == 0:
                     # First declaration keeps _email_params.json (backward compat)
                     # but save a copy since next iteration will overwrite it
@@ -3229,7 +3279,8 @@ def _send_bl_email(args, results: list, bl_alloc, all_attachments: list,
 
 
 def _save_batch_email_params(args, results: list, all_attachments: list,
-                             manifest_meta: dict = None, output_dir: str = '') -> str:
+                             manifest_meta: dict = None, output_dir: str = '',
+                             total_invoices: int = 0) -> str:
     """Compute batch email params and save to _email_params.json. Returns path."""
     countries = [r.supplier_info.get('country', 'US') for r in results]
     country_origin = max(set(countries), key=countries.count)
@@ -3328,8 +3379,8 @@ def _save_batch_email_params(args, results: list, all_attachments: list,
         'consignee_name': consignee_name,
         'consignee_code': consignee_code,
         'consignee_address': consignee_address,
-        'total_invoices': len(results),
-        'expected_entries': len(results),
+        'total_invoices': total_invoices or len(results),
+        'expected_entries': total_invoices or len(results),
         'packages': email_packages,
         'weight': email_weight,
         'country_origin': country_origin,
