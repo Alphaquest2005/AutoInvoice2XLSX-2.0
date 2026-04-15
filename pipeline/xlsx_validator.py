@@ -238,7 +238,7 @@ def _detect_issues(ws, base_dir: str) -> list:
     DUTY_ESTIMATION_PREFIXES = (
         'DUTY ESTIMATION', 'CIF ', 'CET ', 'CSC ', 'VAT ',
         'ESTIMATED TOTAL', 'CLIENT DECLARED', 'DUTY VARIANCE',
-        'IMPLIED CET', 'Effective Duty', 'CET MISMATCH',
+        'IMPLIED CET', 'Effective Duty', 'CET MISMATCH', '\u26a0',
     )
 
     for row in range(2, ws.max_row + 1):

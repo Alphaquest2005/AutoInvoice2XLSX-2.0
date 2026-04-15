@@ -245,6 +245,105 @@
         "notes": "WARNING: Some pages have poor OCR quality. Check the \"OCR Notes\" sheet in the combined XLSX for details. Consider asking sender to rescan and resubmit."
       },
       "sent_at": "2026-04-12T19:02:55Z"
+    },
+    {
+      "waybill": "HAWB9595443",
+      "subject": "Shipment: HAWB9595443",
+      "source_input": "/tmp/03142025_amazon.pdf",
+      "source_mode": "bl",
+      "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_amazon",
+      "params_hash": "14ab3b6522dc7eb30cf82a12f1bedc119ab8d39cf06204296e7f79476ad7f947",
+      "suppliers_hash": "12f5b01d779f2dbfb938b060fd14baf97bdca5b7846f2f4edc5b7c68f896770a",
+      "attachments": [
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_amazon/111 - 8019845 - 2302666.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_amazon/HAWB9595443-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9595443",
+        "consignee_name": "AARON WILSON",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 2,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "8.0",
+        "country_origin": "US",
+        "freight": "17.0",
+        "man_reg": "2024/28",
+        "attachment_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_amazon/111 - 8019845 - 2302666.pdf",
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_amazon/HAWB9595443-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-15T02:22:40Z"
+    },
+    {
+      "waybill": "HAWB9595459",
+      "subject": "Shipment: HAWB9595459",
+      "source_input": "/tmp/03142025_amazon.pdf",
+      "source_mode": "bl",
+      "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_amazon",
+      "params_hash": "47037d05af1146b067101a65fd92fdf0f1adeaa6159841c11c2c2d568863146e",
+      "suppliers_hash": "12f5b01d779f2dbfb938b060fd14baf97bdca5b7846f2f4edc5b7c68f896770a",
+      "attachments": [
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_amazon/111 - 8019845 - 2302666.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_amazon/HAWB9595459-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9595459",
+        "consignee_name": "AARON WILSON",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 2,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "8.0",
+        "country_origin": "US",
+        "freight": "17.0",
+        "man_reg": "2024/28",
+        "attachment_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_amazon/111 - 8019845 - 2302666.pdf",
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_amazon/HAWB9595459-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-15T02:22:46Z"
+    },
+    {
+      "waybill": "HAWB9596948",
+      "subject": "Shipment: HAWB9596948",
+      "source_input": "/tmp/03142025_amazon.pdf",
+      "source_mode": "bl",
+      "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_amazon",
+      "params_hash": "d2c125111ad7893d65e51e34bec7d9c43857c6d2641b64b4af32dc00807b1574",
+      "suppliers_hash": "12f5b01d779f2dbfb938b060fd14baf97bdca5b7846f2f4edc5b7c68f896770a",
+      "attachments": [
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_amazon/111 - 8019845 - 2302666.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_amazon/HAWB9596948-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9596948",
+        "consignee_name": "AARON WILSON",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 2,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "8.0",
+        "country_origin": "US",
+        "freight": "17.00",
+        "man_reg": "2024/28",
+        "attachment_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_amazon/111 - 8019845 - 2302666.pdf",
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_amazon/HAWB9596948-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-15T02:22:59Z"
     }
   ]
 }
