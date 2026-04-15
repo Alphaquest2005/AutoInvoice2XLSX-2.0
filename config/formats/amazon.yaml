@@ -93,20 +93,20 @@ metadata:
 
   total:
     patterns:
-      # USD format (primary)
-      - 'Grand\s+Total:\s*(?:USD\s+)?\$?([\d,]+\.\d{2})'
+      # USD format (primary) — \s* before : handles OCR "Grand Total :"
+      - 'Grand\s+Total\s*:\s*(?:USD\s+)?\$?([\d,]+\.\d{2})'
       # XCD format: "Grand Total: XCD 1,518.83"
-      - 'Grand\s+Total:\s*XCD\s+([\d,]+\.\d{2})'
+      - 'Grand\s+Total\s*:\s*XCD\s+([\d,]+\.\d{2})'
       # Fallback
-      - 'Order\s+[Tt]otal:\s*(?:USD\s+)?\$?([\d,]+\.\d{2})'
+      - 'Order\s+[Tt]otal\s*:\s*(?:USD\s+)?\$?([\d,]+\.\d{2})'
     type: currency
 
   subtotal:
     patterns:
-      # USD format (primary)
-      - 'Item\(s\)\s+Subtotal:\s*(?:USD\s+)?\$?([\d,]+\.\d{2})'
-      # XCD format: "Item(s) Subtotal: XCD 1,503.79"
-      - 'Item\(s\)\s+Subtotal:\s*XCD\s+([\d,]+\.\d{2})'
+      # USD format — handles OCR "Item ( s ) Subtotal :"
+      - 'Item\s*\(\s*s\s*\)\s+Subtotal\s*:\s*(?:USD\s+)?\$?([\d,]+\.\d{2})'
+      # XCD format
+      - 'Item\s*\(\s*s\s*\)\s+Subtotal\s*:\s*XCD\s+([\d,]+\.\d{2})'
     type: currency
 
   tax:
@@ -134,9 +134,10 @@ metadata:
 
   credits:
     patterns:
-      - '(?:Your\s+)?Coupon\s+Savings\s*:?\s*-?(?:XCD\s+|USD\s+)?\$?([\d,]+\.\d{2})'
-      - 'Gift\s+Card\s+Amount\s*:?\s*-?(?:XCD\s+|USD\s+)?\$?([\d,]+\.\d{2})'
-      - 'Promoti(?:on|onal)\s+(?:Applied|Credit)\s*:?\s*-?(?:XCD\s+|USD\s+)?\$?([\d,]+\.\d{2})'
+      # \s* after -? handles OCR newline/space: "Coupon Savings :\n- USD 12.00"
+      - '(?:Your\s+)?Coupon\s+Savings\s*:?\s*-?\s*(?:XCD\s+|USD\s+)?\$?([\d,]+\.\d{2})'
+      - 'Gift\s+Card\s+Amount\s*:?\s*-?\s*(?:XCD\s+|USD\s+)?\$?([\d,]+\.\d{2})'
+      - 'Promoti(?:on|onal)\s+(?:Applied|Credit)\s*:?\s*-?\s*(?:XCD\s+|USD\s+)?\$?([\d,]+\.\d{2})'
     type: currency
     aggregate: sum
 

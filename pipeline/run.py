@@ -390,16 +390,18 @@ def _split_items_per_declaration(
             except (ValueError, TypeError):
                 pass
     orig_freight = float(invoice_data.get('freight', 0) or 0)
+    # Match XLSX ADJUSTMENTS formula: T2 + U2 + V2 - W2
     orig_insurance = float(invoice_data.get('insurance', 0) or 0)
-    # Match XLSX generator: tax → other_cost, discount+free_shipping → deduction
+    orig_credits = float(invoice_data.get('credits', 0) or 0)
+    orig_insurance_or_credits = orig_insurance if orig_insurance else -orig_credits
     orig_tax = float(invoice_data.get('tax', 0) or 0)
     orig_other = float(invoice_data.get('other_cost', 0) or 0) + orig_tax
     orig_discount = float(invoice_data.get('discount', 0) or 0)
     orig_free_shipping = float(invoice_data.get('free_shipping', 0) or 0)
-    orig_deduction = float(invoice_data.get('deduction', 0) or 0) + orig_discount + orig_free_shipping
+    orig_deduction = orig_discount + orig_free_shipping
     # Use whichever freight is larger: BL total or invoice freight
     effective_total_freight = max(total_decl_freight, orig_freight)
-    full_adj = effective_total_freight + orig_insurance + orig_other - orig_deduction
+    full_adj = effective_total_freight + orig_insurance_or_credits + orig_other - orig_deduction
     min_full_total = round(all_items_total + full_adj, 2)
     if full_invoice_total < min_full_total:
         logger.info(
@@ -456,7 +458,7 @@ def _split_items_per_declaration(
                 decl_inv_data['_customs_freight'] = decl_inv_data['freight']
 
         # Prorate other adjustments by item value ratio
-        for key in ('insurance', 'other_cost', 'deduction', 'tax', 'discount', 'free_shipping'):
+        for key in ('insurance', 'other_cost', 'deduction', 'tax', 'discount', 'free_shipping', 'credits'):
             orig = invoice_data.get(key, 0)
             if orig:
                 decl_inv_data[key] = round(orig * ratio, 2)
@@ -494,21 +496,23 @@ def _split_items_per_declaration(
         if other_freight:
             ref_adjustments['freight'] = other_freight
 
-        # Ensure invoice_total covers items + adjustments so VARIANCE CHECK = 0.
-        # When invoice_total == items_sum (e.g. Amazon order pages with no
-        # shipping overhead), BL freight creates a negative variance.
-        # Bump invoice_total to items + freight + insurance + other - deduction.
+        # Set invoice_total = items + adjustments so VARIANCE CHECK = 0.
+        # Must match XLSX ADJUSTMENTS formula: T2 + U2 + V2 - W2 where:
+        #   T2 = freight
+        #   U2 = insurance if insurance else -credits  (coupon savings → neg insurance)
+        #   V2 = tax + other_cost
+        #   W2 = discount + free_shipping
         effective_freight = decl_inv_data.get('freight', 0) or 0
         effective_insurance = decl_inv_data.get('insurance', 0) or 0
-        # XLSX generator merges tax into other_cost (V2 = tax + other_cost)
+        effective_credits = decl_inv_data.get('credits', 0) or 0
+        insurance_or_credits = effective_insurance if effective_insurance else -effective_credits
         effective_tax = decl_inv_data.get('tax', 0) or 0
         effective_other = (decl_inv_data.get('other_cost', 0) or 0) + effective_tax
-        # XLSX generator merges discount + free_shipping into deduction (W2)
         effective_discount = decl_inv_data.get('discount', 0) or 0
         effective_free_shipping = decl_inv_data.get('free_shipping', 0) or 0
-        effective_deduction = (decl_inv_data.get('deduction', 0) or 0) + effective_discount + effective_free_shipping
+        effective_deduction = effective_discount + effective_free_shipping
         exact_invoice_total = round(
-            my_total + effective_freight + effective_insurance
+            my_total + effective_freight + insurance_or_credits
             + effective_other - effective_deduction, 2
         )
         current_inv_total = decl_inv_data.get('invoice_total', 0) or 0
