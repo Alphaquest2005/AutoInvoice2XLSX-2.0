@@ -234,6 +234,13 @@ def _detect_issues(ws, base_dir: str) -> list:
                       'GRAND SUBTOTAL (GROUPED)', 'GRAND SUBTOTAL (DETAILS)',
                       'GRAND VARIANCE CHECK'}
 
+    # Duty estimation section labels — these are informational rows, not item data
+    DUTY_ESTIMATION_PREFIXES = (
+        'DUTY ESTIMATION', 'CIF ', 'CET ', 'CSC ', 'VAT ',
+        'ESTIMATED TOTAL', 'CLIENT DECLARED', 'DUTY VARIANCE',
+        'IMPLIED CET', 'Effective Duty', 'CET MISMATCH',
+    )
+
     for row in range(2, ws.max_row + 1):
         # Skip formula rows and label rows (combined XLSX has these between invoices)
         tc_val = ws.cell(row, COL_TOTAL_COST).value
@@ -248,6 +255,9 @@ def _detect_issues(ws, base_dir: str) -> list:
             continue
         # Skip invoice-level metadata rows (notes, totals appended by parser)
         if isinstance(label_j, str) and label_j.strip().startswith('INVOICE NOTES'):
+            continue
+        # Skip duty estimation section rows (informational, not item data)
+        if isinstance(label_j, str) and any(label_j.strip().startswith(p) for p in DUTY_ESTIMATION_PREFIXES):
             continue
 
         tariff = str(ws.cell(row, COL_TARIFF).value or '').strip()

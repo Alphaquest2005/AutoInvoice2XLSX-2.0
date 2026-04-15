@@ -653,6 +653,21 @@ QUALITY_MATRIX: Dict[str, Dict[str, Optional[Tuple[str, ...]]]] = {
 }
 
 
+def _resolve_api_key() -> str:
+    """Resolve LLM API key from environment or pipeline config."""
+    key = os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ZAI_API_KEY", "")
+    if key:
+        return key
+    # Fall back to pipeline config (settings.json loaded by classifier)
+    try:
+        from classifier import _load_llm_settings
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        settings = _load_llm_settings(base_dir)
+        return settings.get("api_key", "")
+    except Exception:
+        return ""
+
+
 def _run_engine_on_image(engine_name: str, img) -> str:
     if engine_name.startswith("tesseract_psm"):
         psm = int(engine_name.replace("tesseract_psm", ""))
@@ -660,14 +675,10 @@ def _run_engine_on_image(engine_name: str, img) -> str:
     if engine_name == "paddleocr":
         return engine_paddleocr(img)
     if engine_name == "glm_ocr":
-        api_key = os.environ.get("ANTHROPIC_API_KEY") or os.environ.get(
-            "ZAI_API_KEY", ""
-        )
+        api_key = _resolve_api_key()
         return engine_glm_ocr(img, api_key=api_key)
     if engine_name == "vision_api":
-        api_key = os.environ.get("ANTHROPIC_API_KEY") or os.environ.get(
-            "ZAI_API_KEY", ""
-        )
+        api_key = _resolve_api_key()
         base_url = os.environ.get(
             "ANTHROPIC_BASE_URL", "https://api.z.ai/api/anthropic"
         )
