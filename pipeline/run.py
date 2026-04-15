@@ -1325,10 +1325,13 @@ def run_bl_mode(args) -> dict:
             # Multiple simplified declarations — save separate email params for each
             print(f"\n    Multiple declarations ({len(all_declarations)}) — generating separate emails for each")
 
-            # Separate invoice/xlsx attachments from declaration/manifest attachments
+            # Separate invoice/xlsx attachments from declaration/manifest PDF attachments
+            # Only exclude .pdf files — XLSX files may contain 'Declaration' in name
+            # (e.g. HAWB9595443-Declaration_combined.xlsx) and must be kept
             invoice_attachments = [p for p in all_attachments
-                                   if not any(tag in os.path.basename(p).lower()
-                                              for tag in ('declaration', 'manifest'))]
+                                   if p.lower().endswith('.xlsx') or
+                                   not any(tag in os.path.basename(p).lower()
+                                           for tag in ('declaration', 'manifest'))]
 
             for idx, (decl_meta, decl_pdf_path) in enumerate(all_declarations):
                 import shutil
@@ -1739,10 +1742,13 @@ def run_batch_mode(args) -> dict:
             # declaration metadata (waybill, freight, packages, etc.)
             print(f"\n    Multiple declarations ({len(all_declarations)}) — generating separate emails for each")
 
-            # Separate invoice/xlsx attachments from declaration/manifest attachments
+            # Separate invoice/xlsx attachments from declaration/manifest PDF attachments
+            # Only exclude .pdf files — XLSX files may contain 'Declaration' in name
+            # (e.g. HAWB9595443-Declaration_combined.xlsx) and must be kept
             invoice_attachments = [p for p in all_attachments
-                                   if not any(tag in os.path.basename(p).lower()
-                                              for tag in ('declaration', 'manifest'))]
+                                   if p.lower().endswith('.xlsx') or
+                                   not any(tag in os.path.basename(p).lower()
+                                           for tag in ('declaration', 'manifest'))]
 
             for idx, (decl_meta, decl_pdf_path) in enumerate(all_declarations):
                 # Copy declaration PDF to output dir with {waybill}-Declaration.pdf naming
