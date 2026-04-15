@@ -119,6 +119,169 @@ def _lookup_consignee_code(consignee_name: str) -> tuple:
     return (best_code, best_address)
 
 
+def _split_items_per_declaration(
+    all_declarations: list,
+    results: list,
+    output_dir: str,
+    document_type: str = 'auto',
+) -> list:
+    """Split invoice items across declarations and generate per-declaration XLSX files.
+
+    When a single invoice's items need to be distributed across multiple
+    simplified declarations (one item per declaration), this function:
+    1. Round-robin distributes items across declarations
+    2. Generates a separate XLSX per declaration with its items as main
+       and the other declarations' items as reference_items
+    3. Always generates an XLSX for every declaration (even if 0 main items,
+       showing all items as reference so the reviewer sees the full invoice)
+
+    Returns:
+        List of dicts: [{'xlsx_path': str, 'decl_meta': dict, 'items': list}, ...]
+        Empty list if splitting is not applicable.
+    """
+    n_decl = len(all_declarations)
+    if n_decl < 2 or not results:
+        return []
+
+    # Collect all matched items across all results
+    all_items = []
+    for r in results:
+        all_items.extend(r.matched_items or [])
+
+    if not all_items:
+        return []
+
+    # Use first result as template for invoice_data and supplier_info
+    template_result = results[0]
+    invoice_data = template_result.invoice_data or {}
+    supplier_info = template_result.supplier_info or {}
+    supplier_name = supplier_info.get('name', 'Unknown')
+
+    # Round-robin distribute items across declarations
+    decl_items = [[] for _ in range(n_decl)]
+    for i, item in enumerate(all_items):
+        decl_items[i % n_decl].append(item)
+
+    # Compute full invoice total for combined variance check
+    full_invoice_total = invoice_data.get('invoice_total', 0)
+    all_items_total = sum(it.get('total_cost', 0) for it in all_items)
+
+    per_decl = []
+    from bl_xlsx_generator import generate_bl_xlsx
+
+    for idx, (decl_meta, decl_pdf_path) in enumerate(all_declarations):
+        my_items = decl_items[idx]
+
+        # Collect reference items (items on other declarations)
+        ref_items = []
+        for j, items_j in enumerate(decl_items):
+            if j != idx:
+                ref_items.extend(items_j)
+
+        # Build per-declaration invoice_data
+        decl_inv_data = dict(invoice_data)
+        my_total = sum(it.get('total_cost', 0) for it in my_items)
+        decl_inv_data['_full_invoice_total'] = full_invoice_total
+
+        # Prorate invoice total and freight by item value ratio
+        if all_items_total > 0 and my_items:
+            ratio = my_total / all_items_total
+        else:
+            ratio = 1.0 / n_decl  # equal share when no items or zero total
+
+        # Set prorated invoice_total for this declaration's share
+        if full_invoice_total:
+            decl_inv_data['invoice_total'] = round(full_invoice_total * ratio, 2)
+
+        # Use declaration freight from metadata (customs freight per declaration)
+        decl_freight_val = 0
+        decl_freight_raw = decl_meta.get('freight')
+        if decl_freight_raw:
+            try:
+                decl_freight_val = float(str(decl_freight_raw).replace(',', '').strip())
+            except (ValueError, TypeError):
+                pass
+
+        # Set freight both for XLSX display and for duty estimation CIF
+        if decl_freight_val:
+            decl_inv_data['freight'] = decl_freight_val
+            decl_inv_data['_customs_freight'] = decl_freight_val
+        else:
+            # Prorate invoice freight across declarations
+            orig_freight = invoice_data.get('freight', 0)
+            if orig_freight:
+                decl_inv_data['freight'] = round(orig_freight * ratio, 2)
+                decl_inv_data['_customs_freight'] = decl_inv_data['freight']
+
+        # Prorate other adjustments by item value ratio
+        for key in ('insurance', 'other_cost', 'deduction'):
+            orig = invoice_data.get(key, 0)
+            if orig:
+                decl_inv_data[key] = round(orig * ratio, 2)
+
+        # Inject this declaration's handwritten duties if available
+        raw_ec = decl_meta.get('_customs_value_ec')
+        raw_usd = decl_meta.get('_customs_value_usd')
+        client_duties = None
+        if raw_ec:
+            try:
+                client_duties = float(str(raw_ec).replace(',', '').replace('$', '').strip())
+            except (ValueError, TypeError):
+                pass
+        if client_duties is None and raw_usd:
+            try:
+                usd_val = float(str(raw_usd).replace(',', '').replace('$', '').strip())
+                client_duties = round(usd_val * 2.7169, 2)
+            except (ValueError, TypeError):
+                pass
+        if client_duties and client_duties > 0:
+            decl_inv_data['_client_declared_duties'] = client_duties
+
+        # Build reference adjustments from the other declarations' prorated values
+        ref_ratio = 1.0 - ratio
+        ref_adjustments = {}
+        for key in ('freight', 'insurance', 'other_cost', 'deduction'):
+            orig = invoice_data.get(key, 0)
+            if orig:
+                ref_adjustments[key] = round(orig * ref_ratio, 2)
+        # Use actual freight values from other declarations when available
+        other_freight = sum(
+            float(str(d.get('freight', 0)).replace(',', '').strip() or 0)
+            for j, (d, _) in enumerate(all_declarations) if j != idx
+        )
+        if other_freight:
+            ref_adjustments['freight'] = other_freight
+
+        # Generate per-declaration XLSX
+        decl_waybill = decl_meta.get('waybill', f'Declaration_{idx + 1}')
+        xlsx_path = os.path.join(output_dir, f"{decl_waybill}.xlsx")
+
+        generate_bl_xlsx(
+            decl_inv_data,
+            my_items,
+            supplier_name,
+            supplier_info,
+            xlsx_path,
+            document_type=document_type,
+            reference_items=ref_items if ref_items else None,
+            reference_label=f"Items on other declaration(s) ({len(ref_items)} items)",
+            reference_adjustments=ref_adjustments if any(ref_adjustments.values()) else None,
+        )
+
+        logger.info(f"Generated per-declaration XLSX: {os.path.basename(xlsx_path)} "
+                     f"({len(my_items)} items, {len(ref_items)} reference)")
+        print(f"    {decl_waybill}: {os.path.basename(xlsx_path)} "
+              f"({len(my_items)} items + {len(ref_items)} reference)")
+
+        per_decl.append({
+            'xlsx_path': xlsx_path,
+            'decl_meta': decl_meta,
+            'items': my_items,
+        })
+
+    return per_decl
+
+
 def _inject_handwritten_duties(decl_meta: dict, results: list) -> bool:
     """Inject handwritten customs duty values into invoice_data for XLSX duty estimation.
 
@@ -1322,16 +1485,21 @@ def run_bl_mode(args) -> dict:
         all_declarations = getattr(args, '_all_declarations', [])
 
         if len(all_declarations) > 1:
-            # Multiple simplified declarations — save separate email params for each
+            # Multiple simplified declarations — split items across declarations,
+            # generate per-declaration XLSX with reference items + combined variance
             print(f"\n    Multiple declarations ({len(all_declarations)}) — generating separate emails for each")
 
-            # Separate invoice/xlsx attachments from declaration/manifest PDF attachments
-            # Only exclude .pdf files — XLSX files may contain 'Declaration' in name
-            # (e.g. HAWB9595443-Declaration_combined.xlsx) and must be kept
-            invoice_attachments = [p for p in all_attachments
-                                   if p.lower().endswith('.xlsx') or
-                                   not any(tag in os.path.basename(p).lower()
-                                           for tag in ('declaration', 'manifest'))]
+            # Generate per-declaration XLSX files (items split + reference section)
+            per_decl_xlsx = _split_items_per_declaration(
+                all_declarations, results, output_dir,
+                document_type=getattr(args, 'doc_type', 'auto'),
+            )
+
+            # Separate non-declaration/manifest PDF attachments (invoice PDFs)
+            invoice_pdf_attachments = [p for p in all_attachments
+                                       if p.lower().endswith('.pdf') and
+                                       not any(tag in os.path.basename(p).lower()
+                                               for tag in ('declaration', 'manifest'))]
 
             for idx, (decl_meta, decl_pdf_path) in enumerate(all_declarations):
                 import shutil
@@ -1345,7 +1513,14 @@ def run_bl_mode(args) -> dict:
                 if os.path.abspath(decl_pdf_path) != os.path.abspath(decl_out_path):
                     shutil.copy2(decl_pdf_path, decl_out_path)
 
-                decl_attachments = list(invoice_attachments) + [decl_out_path]
+                # Build per-declaration attachments: invoice PDF(s) + per-decl XLSX + declaration PDF
+                if per_decl_xlsx and idx < len(per_decl_xlsx):
+                    decl_xlsx = per_decl_xlsx[idx]['xlsx_path']
+                    decl_attachments = list(invoice_pdf_attachments) + [decl_xlsx, decl_out_path]
+                else:
+                    # Fallback: use original shared XLSX attachments
+                    xlsx_attachments = [p for p in all_attachments if p.lower().endswith('.xlsx')]
+                    decl_attachments = list(invoice_pdf_attachments) + xlsx_attachments + [decl_out_path]
 
                 saved_bl = args.bl
                 saved_man_reg = getattr(args, 'man_reg', '')
@@ -1737,18 +1912,21 @@ def run_batch_mode(args) -> dict:
         all_declarations = getattr(args, '_all_declarations', [])
 
         if len(all_declarations) > 1:
-            # Multiple simplified declarations — save separate email params for each
-            # Each email reuses the same invoice PDF(s) + XLSX(es) but with different
-            # declaration metadata (waybill, freight, packages, etc.)
+            # Multiple simplified declarations — split items across declarations,
+            # generate per-declaration XLSX with reference items + combined variance
             print(f"\n    Multiple declarations ({len(all_declarations)}) — generating separate emails for each")
 
-            # Separate invoice/xlsx attachments from declaration/manifest PDF attachments
-            # Only exclude .pdf files — XLSX files may contain 'Declaration' in name
-            # (e.g. HAWB9595443-Declaration_combined.xlsx) and must be kept
-            invoice_attachments = [p for p in all_attachments
-                                   if p.lower().endswith('.xlsx') or
-                                   not any(tag in os.path.basename(p).lower()
-                                           for tag in ('declaration', 'manifest'))]
+            # Generate per-declaration XLSX files (items split + reference section)
+            per_decl_xlsx = _split_items_per_declaration(
+                all_declarations, results, output_dir,
+                document_type=getattr(args, 'doc_type', 'auto'),
+            )
+
+            # Separate non-declaration/manifest PDF attachments (invoice PDFs)
+            invoice_pdf_attachments = [p for p in all_attachments
+                                       if p.lower().endswith('.pdf') and
+                                       not any(tag in os.path.basename(p).lower()
+                                               for tag in ('declaration', 'manifest'))]
 
             for idx, (decl_meta, decl_pdf_path) in enumerate(all_declarations):
                 # Copy declaration PDF to output dir with {waybill}-Declaration.pdf naming
@@ -1762,8 +1940,14 @@ def run_batch_mode(args) -> dict:
                 if os.path.abspath(decl_pdf_path) != os.path.abspath(decl_out_path):
                     shutil.copy2(decl_pdf_path, decl_out_path)
 
-                # Build per-declaration attachments: declaration PDF + all invoice/xlsx files
-                decl_attachments = list(invoice_attachments) + [decl_out_path]
+                # Build per-declaration attachments: invoice PDF(s) + per-decl XLSX + declaration PDF
+                if per_decl_xlsx and idx < len(per_decl_xlsx):
+                    decl_xlsx = per_decl_xlsx[idx]['xlsx_path']
+                    decl_attachments = list(invoice_pdf_attachments) + [decl_xlsx, decl_out_path]
+                else:
+                    # Fallback: use original shared XLSX attachments
+                    xlsx_attachments = [p for p in all_attachments if p.lower().endswith('.xlsx')]
+                    decl_attachments = list(invoice_pdf_attachments) + xlsx_attachments + [decl_out_path]
 
                 # Override args with this declaration's metadata
                 saved_waybill = getattr(args, 'waybill', '')

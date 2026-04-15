@@ -239,6 +239,9 @@ def _detect_issues(ws, base_dir: str) -> list:
         'DUTY ESTIMATION', 'CIF ', 'CET ', 'CSC ', 'VAT ',
         'ESTIMATED TOTAL', 'CLIENT DECLARED', 'DUTY VARIANCE',
         'IMPLIED CET', 'Effective Duty', 'CET MISMATCH', '\u26a0',
+        # Reference section (items on other declarations)
+        'Items on other', 'REFERENCE ', 'COMBINED ',
+        'FULL INVOICE', 'FULL ADJUSTMENTS',
     )
 
     for row in range(2, ws.max_row + 1):

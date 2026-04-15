@@ -412,6 +412,14 @@ def generate_bl_xlsx(
     _write_headers(ws)
 
     if not matched_items:
+        # Even with no main items, write reference section if provided
+        # (e.g. declaration with no items split to it but needs full invoice context)
+        if reference_items:
+            _write_reference_section(ws, reference_items, reference_label,
+                                     invoice_data, matched_items,
+                                     reference_adjustments)
+            for col_idx, width in _spec.column_widths.items():
+                ws.column_dimensions[get_column_letter(col_idx)].width = width
         wb.save(output_path)
         return output_path
 
