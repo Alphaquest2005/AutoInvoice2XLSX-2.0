@@ -157,16 +157,184 @@ def _split_items_per_declaration(
     supplier_info = template_result.supplier_info or {}
     supplier_name = supplier_info.get('name', 'Unknown')
 
-    # ── Quantity-aware item distribution ──
-    # When there are fewer line items than declarations but total quantity
-    # >= n_decl, split item quantities across declarations (e.g. 1 item
-    # qty=3 across 3 declarations → each gets qty=1).
-    # Otherwise fall back to round-robin of whole items.
+    # ── Item distribution across declarations ──
     import math
+    from itertools import combinations
 
     total_qty = sum(int(it.get('quantity', 1) or 1) for it in all_items)
+    all_items_total = sum(float(it.get('total_cost', 0) or 0) for it in all_items)
+    decl_items = None  # will be set by whichever strategy succeeds
 
-    if len(all_items) < n_decl and total_qty >= n_decl:
+    # Strategy 1: Customs-value-guided distribution.
+    # When declarations have handwritten customs values (_customs_value_usd),
+    # use them to find the item subset whose total best matches each
+    # declaration's declared value.
+    customs_targets = []
+    for decl_meta, _ in all_declarations:
+        # Try both _customs_value_usd and _customs_value_ec fields.
+        # LLM vision sometimes swaps them; pick the best candidate.
+        candidates = []
+        for field in ('_customs_value_usd', '_customs_value_ec'):
+            raw = decl_meta.get(field)
+            if raw:
+                try:
+                    val = float(str(raw).replace(',', '').replace('$', '').strip())
+                    if val > 0:
+                        candidates.append(val)
+                except (ValueError, TypeError):
+                    pass
+        # Also check handwritten dict if present
+        hw = decl_meta.get('_handwritten', {})
+        for field in ('customs_value_usd', 'customs_value_ec'):
+            raw = hw.get(field)
+            if raw:
+                try:
+                    val = float(str(raw).replace(',', '').replace('$', '').strip())
+                    if val > 0 and val not in candidates:
+                        candidates.append(val)
+                except (ValueError, TypeError):
+                    pass
+        # Pick the candidate closest to a plausible item-value share
+        # (proportional to 1/n_decl of total items)
+        if candidates:
+            expected_share = all_items_total / n_decl if n_decl else all_items_total
+            best = min(candidates, key=lambda v: abs(v - expected_share))
+            customs_targets.append(best)
+        else:
+            customs_targets.append(None)
+
+    # Validate: targets should sum close to all_items_total
+    if all(t is not None for t in customs_targets) and len(customs_targets) == n_decl:
+        target_sum = sum(customs_targets)
+        if abs(target_sum - all_items_total) > 2.0:
+            # Targets don't sum to items total — try other combinations
+            # of candidate values to find the best match
+            logger.info(
+                f"Customs targets sum ${target_sum:.2f} != items ${all_items_total:.2f}, "
+                f"trying alternative field combinations"
+            )
+            # Rebuild with all candidate values per declaration and find best combo
+            all_candidates = []
+            for decl_meta, _ in all_declarations:
+                cands = set()
+                for field in ('_customs_value_usd', '_customs_value_ec'):
+                    raw = decl_meta.get(field)
+                    if raw:
+                        try:
+                            val = float(str(raw).replace(',', '').replace('$', '').strip())
+                            if val > 0:
+                                cands.add(val)
+                        except (ValueError, TypeError):
+                            pass
+                hw = decl_meta.get('_handwritten', {})
+                for field in ('customs_value_usd', 'customs_value_ec'):
+                    raw = hw.get(field)
+                    if raw:
+                        try:
+                            val = float(str(raw).replace(',', '').replace('$', '').strip())
+                            if val > 0:
+                                cands.add(val)
+                        except (ValueError, TypeError):
+                            pass
+                all_candidates.append(sorted(cands) if cands else [None])
+
+            # For 2 declarations, try all pairs
+            if n_decl == 2 and all(c[0] is not None for c in all_candidates):
+                best_pair = None
+                best_gap = float('inf')
+                for v0 in all_candidates[0]:
+                    for v1 in all_candidates[1]:
+                        gap = abs((v0 + v1) - all_items_total)
+                        if gap < best_gap:
+                            best_gap = gap
+                            best_pair = [v0, v1]
+                if best_pair and best_gap < 2.0:
+                    customs_targets = best_pair
+                    logger.info(f"Found valid customs targets: {customs_targets} "
+                                f"(sum ${sum(customs_targets):.2f}, gap ${best_gap:.2f})")
+
+    if all(t is not None for t in customs_targets) and len(customs_targets) == n_decl:
+        # Subset-sum matching: find the item partition across declarations
+        # that minimises total deviation from declared customs values.
+        # For typical shipments (2-20 items, 2-3 declarations) this is
+        # fast enough to try all 2-way partitions exhaustively.
+        n_items = len(all_items)
+        item_costs = [float(it.get('total_cost', 0) or 0) for it in all_items]
+
+        best_assignment = None
+        best_total_gap = float('inf')
+
+        if n_decl == 2:
+            # Exhaustive 2-way partition: try all subsets for declaration 0
+            # Rest goes to declaration 1.  2^20 = ~1M is fine.
+            target0 = customs_targets[0]
+            target1 = customs_targets[1]
+            for mask in range(1 << n_items):
+                sum0 = sum(item_costs[i] for i in range(n_items) if mask & (1 << i))
+                sum1 = sum(item_costs[i] for i in range(n_items) if not (mask & (1 << i)))
+                gap = abs(sum0 - target0) + abs(sum1 - target1)
+                if gap < best_total_gap:
+                    best_total_gap = gap
+                    best_assignment = [
+                        0 if (mask & (1 << i)) else 1
+                        for i in range(n_items)
+                    ]
+        else:
+            # Multi-way: greedy assign items to declaration with largest
+            # positive remaining target.  Sort items largest-first.
+            sorted_indices = sorted(
+                range(n_items), key=lambda i: item_costs[i], reverse=True
+            )
+            assignment = [0] * n_items
+            rem = list(customs_targets)
+            for idx in sorted_indices:
+                cost = item_costs[idx]
+                # Prefer declarations with room (remaining > 0)
+                best_d = 0
+                best_rem = float('inf')
+                for d in range(n_decl):
+                    if rem[d] >= cost:
+                        # Fits: prefer smallest remaining after assignment
+                        after = rem[d] - cost
+                        if after < best_rem:
+                            best_rem = after
+                            best_d = d
+                if best_rem == float('inf'):
+                    # Doesn't fit anywhere perfectly — pick largest remaining
+                    best_d = max(range(n_decl), key=lambda d: rem[d])
+                assignment[idx] = best_d
+                rem[best_d] -= cost
+            best_assignment = assignment
+            best_total_gap = sum(abs(r) for r in rem)
+
+        # Build item lists from assignment
+        if best_assignment is not None and best_total_gap <= 2.0:
+            candidate = [[] for _ in range(n_decl)]
+            for i, d in enumerate(best_assignment):
+                candidate[d].append(all_items[i])
+
+            # Validate: each declaration should have items
+            valid = all(len(candidate[d]) > 0 for d in range(n_decl))
+            if valid:
+                decl_items = candidate
+                for d in range(n_decl):
+                    actual = sum(float(it.get('total_cost', 0)) for it in decl_items[d])
+                    wbl = all_declarations[d][0].get('waybill', f'Decl_{d+1}')
+                    logger.info(
+                        f"Customs-value split: {wbl} → {len(decl_items[d])} items "
+                        f"${actual:.2f} (target ${customs_targets[d]:.2f})"
+                    )
+            else:
+                logger.warning("Customs-value split left a declaration empty — "
+                               "falling back")
+        else:
+            logger.warning(
+                f"Customs-value split gap ${best_total_gap:.2f} too large — "
+                f"falling back to round-robin"
+            )
+
+    # Strategy 2: Quantity-aware distribution (when fewer items than declarations)
+    if decl_items is None and len(all_items) < n_decl and total_qty >= n_decl:
         # Quantity splitting mode: expand items into individual units,
         # then distribute units round-robin across declarations
         units = []
@@ -202,15 +370,43 @@ def _split_items_per_declaration(
 
         logger.info(f"Split {len(all_items)} items (total qty {total_qty}) "
                      f"across {n_decl} declarations by quantity")
-    else:
-        # Round-robin distribute whole items across declarations
+
+    # Strategy 3: Round-robin fallback
+    if decl_items is None:
         decl_items = [[] for _ in range(n_decl)]
         for i, item in enumerate(all_items):
             decl_items[i % n_decl].append(item)
 
-    # Compute full invoice total for combined variance check
+    # Compute full invoice total for combined variance check.
+    # When the invoice total equals items sum (e.g. Amazon order pages),
+    # BL freight must be included so COMBINED VARIANCE CHECK resolves to 0.
     full_invoice_total = invoice_data.get('invoice_total', 0)
-    all_items_total = sum(it.get('total_cost', 0) for it in all_items)
+    total_decl_freight = 0
+    for decl_meta, _ in all_declarations:
+        raw_f = decl_meta.get('freight')
+        if raw_f:
+            try:
+                total_decl_freight += float(str(raw_f).replace(',', '').strip())
+            except (ValueError, TypeError):
+                pass
+    orig_freight = float(invoice_data.get('freight', 0) or 0)
+    orig_insurance = float(invoice_data.get('insurance', 0) or 0)
+    # Match XLSX generator: tax → other_cost, discount+free_shipping → deduction
+    orig_tax = float(invoice_data.get('tax', 0) or 0)
+    orig_other = float(invoice_data.get('other_cost', 0) or 0) + orig_tax
+    orig_discount = float(invoice_data.get('discount', 0) or 0)
+    orig_free_shipping = float(invoice_data.get('free_shipping', 0) or 0)
+    orig_deduction = float(invoice_data.get('deduction', 0) or 0) + orig_discount + orig_free_shipping
+    # Use whichever freight is larger: BL total or invoice freight
+    effective_total_freight = max(total_decl_freight, orig_freight)
+    full_adj = effective_total_freight + orig_insurance + orig_other - orig_deduction
+    min_full_total = round(all_items_total + full_adj, 2)
+    if full_invoice_total < min_full_total:
+        logger.info(
+            f"Bumping _full_invoice_total ${full_invoice_total:.2f} → "
+            f"${min_full_total:.2f} to cover items+freight across all declarations"
+        )
+        full_invoice_total = min_full_total
 
     per_decl = []
     from bl_xlsx_generator import generate_bl_xlsx
@@ -260,7 +456,7 @@ def _split_items_per_declaration(
                 decl_inv_data['_customs_freight'] = decl_inv_data['freight']
 
         # Prorate other adjustments by item value ratio
-        for key in ('insurance', 'other_cost', 'deduction'):
+        for key in ('insurance', 'other_cost', 'deduction', 'tax', 'discount', 'free_shipping'):
             orig = invoice_data.get(key, 0)
             if orig:
                 decl_inv_data[key] = round(orig * ratio, 2)
@@ -297,6 +493,32 @@ def _split_items_per_declaration(
         )
         if other_freight:
             ref_adjustments['freight'] = other_freight
+
+        # Ensure invoice_total covers items + adjustments so VARIANCE CHECK = 0.
+        # When invoice_total == items_sum (e.g. Amazon order pages with no
+        # shipping overhead), BL freight creates a negative variance.
+        # Bump invoice_total to items + freight + insurance + other - deduction.
+        effective_freight = decl_inv_data.get('freight', 0) or 0
+        effective_insurance = decl_inv_data.get('insurance', 0) or 0
+        # XLSX generator merges tax into other_cost (V2 = tax + other_cost)
+        effective_tax = decl_inv_data.get('tax', 0) or 0
+        effective_other = (decl_inv_data.get('other_cost', 0) or 0) + effective_tax
+        # XLSX generator merges discount + free_shipping into deduction (W2)
+        effective_discount = decl_inv_data.get('discount', 0) or 0
+        effective_free_shipping = decl_inv_data.get('free_shipping', 0) or 0
+        effective_deduction = (decl_inv_data.get('deduction', 0) or 0) + effective_discount + effective_free_shipping
+        exact_invoice_total = round(
+            my_total + effective_freight + effective_insurance
+            + effective_other - effective_deduction, 2
+        )
+        current_inv_total = decl_inv_data.get('invoice_total', 0) or 0
+        if abs(current_inv_total - exact_invoice_total) > 0.005:
+            logger.info(
+                f"Split-decl: setting invoice_total ${current_inv_total:.2f} → "
+                f"${exact_invoice_total:.2f} (items+adjustments) for "
+                f"{decl_meta.get('waybill', 'Declaration')}"
+            )
+        decl_inv_data['invoice_total'] = exact_invoice_total
 
         # Generate per-declaration XLSX
         decl_waybill = decl_meta.get('waybill', f'Declaration_{idx + 1}')

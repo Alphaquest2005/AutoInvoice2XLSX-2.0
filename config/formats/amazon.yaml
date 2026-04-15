@@ -10,11 +10,13 @@ description: "Amazon.com order invoices (print view)"
 # This format handles Amazon order details pages
 detect:
   all_of:
-    - "Sold by:"
+    - "Sold by"
     - "Items Ordered"
   any_of:
     - " of:"   # Quantity pattern: "1 of: Description"
+    - " of :"  # OCR space before colon: "1 of : Description"
     - " of;"   # OCR misread: "1 of;" (semicolon instead of colon)
+    - " of ;"  # OCR misread with space: "1 of ; Description"
 
 # ─── OCR Normalization ─────────────────────────────────────
 # Applied BEFORE parsing, in order listed
@@ -32,6 +34,10 @@ ocr_normalize:
     replace: '$\1.\2'
     description: "Fix OCR comma-as-decimal in $ amounts: $0,79 → $0.79"
 
+  - pattern: '(\d+)\s+of\s+[;:]'
+    replace: '\1 of:'
+    description: "Fix OCR space before colon/semicolon: 1 of : → 1 of:, 1 of ; → 1 of:"
+
   - pattern: '(\d+)\s+of;'
     replace: '\1 of:'
     description: "Fix OCR misread semicolon: 3 of; → 3 of:"
@@ -44,6 +50,22 @@ ocr_normalize:
     replace: '1'
     description: "Fix OCR misread quantity: I of: → 1 of:"
 
+  - pattern: '\$(\d+)\s*[\(\[]\s*(\d{2})\s*[°\)\]]*'
+    replace: '$\1.\2'
+    description: "Fix OCR-corrupted price: $39 ( 99 ° → $39.99"
+
+  - pattern: 'Sold by\s+:'
+    replace: 'Sold by:'
+    description: "Fix OCR space before colon: Sold by : → Sold by:"
+
+  - pattern: 'Supplied by\s+:'
+    replace: 'Supplied by:'
+    description: "Fix OCR space before colon: Supplied by : → Supplied by:"
+
+  - pattern: '(\d{3})\s+-\s+(\d{7})\s+-\s+(\d{7})'
+    replace: '\1-\2-\3'
+    description: "Fix OCR-spaced order number: 112 - 9925042 - 2903468 → 112-9925042-2903468"
+
   - pattern: '\s*[\}\)\|]+\s*$'
     replace: ''
     flags: multiline
@@ -54,8 +76,8 @@ ocr_normalize:
 metadata:
   invoice_number:
     patterns:
-      - 'Order\s*#?\s*:?\s*(\d{3}-\d{7}-\d{7})'
-      - 'order\s*number[:\s]+(\d{3}-\d{7}-\d{7})'
+      - 'Order\s*#?\s*:?\s*(\d{3}\s*-\s*\d{7}\s*-\s*\d{7})'
+      - 'order\s*number[:\s]+(\d{3}\s*-\s*\d{7}\s*-\s*\d{7})'
     required: true
 
   date:
@@ -160,8 +182,8 @@ items:
 
     # Skip these lines within blocks
     skip_patterns:
-      - '^Sold by:'
-      - '^Supplied by:'
+      - '^-?\s*Sold by'
+      - '^-?\s*Supplied by'
       - '^Condition:'
       - '^Price$'
       - '^Return '

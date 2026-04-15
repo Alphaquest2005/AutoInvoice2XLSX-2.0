@@ -350,6 +350,146 @@
         "office": "GDWBS"
       },
       "sent_at": "2026-04-15T11:45:05Z"
+    },
+    {
+      "waybill": "HAWB9590375136",
+      "subject": "Shipment: HAWB9590375136",
+      "source_input": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/03142025_usd170.pdf",
+      "source_mode": "bl",
+      "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170",
+      "params_hash": "5252876bfcc5be3cb3afe59b8c71044cbd4abf9b173708ba2f2fe4a65e5b203e",
+      "suppliers_hash": "a41653af5c9767c53cb9358d1e1f7632ad090c8756b512dc171fb7a00e0327c7",
+      "attachments": [
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/RTABLE.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB9590375136.xlsx",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB9590375136-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9590375136",
+        "consignee_name": "KIRLA SYLVESTER",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "5.0",
+        "country_origin": "US",
+        "freight": "11.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/RTABLE.pdf",
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB9590375136.xlsx",
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB9590375136-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-15T17:54:18Z"
+    },
+    {
+      "waybill": "HAWB95903756",
+      "subject": "Shipment: HAWB95903756",
+      "source_input": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/03142025_usd170.pdf",
+      "source_mode": "bl",
+      "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170",
+      "params_hash": "e09a0db4dd656b61207749accef30e463a28d3ed3911934a40c6aaada39612bd",
+      "suppliers_hash": "a41653af5c9767c53cb9358d1e1f7632ad090c8756b512dc171fb7a00e0327c7",
+      "attachments": [
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/RTABLE.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB95903756.xlsx",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB95903756-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB95903756",
+        "consignee_name": "KIRLA SYLVESTER",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "5.0",
+        "country_origin": "US",
+        "freight": "11.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/RTABLE.pdf",
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB95903756.xlsx",
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB95903756-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-15T17:54:32Z"
+    },
+    {
+      "waybill": "HAWB9591043",
+      "subject": "Shipment: HAWB9591043",
+      "source_input": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170",
+      "source_mode": "bl",
+      "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170",
+      "params_hash": "3cffc9563a89adab6395c64596a29506799fbbd82a90eaef4fce30ccdc78c2cc",
+      "suppliers_hash": "a41653af5c9767c53cb9358d1e1f7632ad090c8756b512dc171fb7a00e0327c7",
+      "attachments": [
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/112-9925042-2903468.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB9591043.xlsx",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB9591043-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9591043",
+        "consignee_name": "KIRLA SYLEVESTER",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "2.0",
+        "country_origin": "US",
+        "freight": "5.0",
+        "man_reg": "2024/28",
+        "attachment_paths": [
+          "workspace/shipments/Shipment_ 03142025_usd170/112-9925042-2903468.pdf",
+          "workspace/shipments/Shipment_ 03142025_usd170/HAWB9591043.xlsx",
+          "workspace/shipments/Shipment_ 03142025_usd170/HAWB9591043-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-15T21:25:36Z"
+    },
+    {
+      "waybill": "HAWB9590375",
+      "subject": "Shipment: HAWB9590375",
+      "source_input": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170",
+      "source_mode": "bl",
+      "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170",
+      "params_hash": "e2ad8737f16aff72c7385b16faa58a2cca15a18d8f514a15207cbfed98728ed6",
+      "suppliers_hash": "a41653af5c9767c53cb9358d1e1f7632ad090c8756b512dc171fb7a00e0327c7",
+      "attachments": [
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/112-9925042-2903468.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB9590375.xlsx",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB9590375-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9590375",
+        "consignee_name": "KIRLA SYLEVESTER",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "5.0",
+        "country_origin": "US",
+        "freight": "11.0",
+        "man_reg": "2024/28",
+        "attachment_paths": [
+          "workspace/shipments/Shipment_ 03142025_usd170/112-9925042-2903468.pdf",
+          "workspace/shipments/Shipment_ 03142025_usd170/HAWB9590375.xlsx",
+          "workspace/shipments/Shipment_ 03142025_usd170/HAWB9590375-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-15T21:25:42Z"
     }
   ]
 }

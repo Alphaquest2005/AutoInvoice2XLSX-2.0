@@ -587,17 +587,17 @@ def detect_invoice_boundaries(pdf_path: str, invoice_page_nums: List[int], page_
             (r'(INVUS[\s\d]{10,})', 1),
             # SHEIN/multi-column order: GSUNJG55T00QV70 (alphanumeric, 10+ chars)
             (r'ORDER\s*NUMBER[:\s].*\n\s*([A-Z0-9]{10,})', 1),
-            # Amazon order format: 111-5908955-5240243
-            (r'ORDER\s*#?\s*(\d{3}-\d{7}-\d{7})', 1),
-            (r'(\d{3}-\d{7}-\d{7})', 1),
+            # Amazon order format: 111-5908955-5240243 (OCR may add spaces around hyphens)
+            (r'ORDER\s*#?\s*(\d{3}\s*-\s*\d{7}\s*-\s*\d{7})', 1),
+            (r'(\d{3}\s*-\s*\d{7}\s*-\s*\d{7})', 1),
             # Temu/online: "Order ID: PO-211-12345..."
             (r'ORDER\s*ID[:\s]*(PO-\d{3}-\d+)', 1),
             # FashionNova / generic order number (same line)
             (r'ORDER\s*(?:#|NUMBER)[:\s]*([A-Z0-9][A-Z0-9-]{5,20})', 1),
             # Generic invoice number (after "Invoice No:" label, OCR may add spaces)
             (r'INVOICE\s*(?:#|NO\.?|NUMBER)[:\s]*([A-Z0-9][\sA-Z0-9-]{5,25})', 1),
-            # PO number
-            (r'(?:P\.?O\.?|PURCHASE\s*ORDER)\s*(?:#|NO\.?)?[:\s]*([A-Z0-9-]{5,20})', 1),
+            # PO number (word boundary prevents matching words like "PORTABLE")
+            (r'(?<![A-Z])(?:P\.?O\.?|PURCHASE\s*ORDER)\s*(?:#|NO\.?)?[:\s]*([A-Z0-9-]{5,20})', 1),
         ]
 
         for pattern, group in patterns:
