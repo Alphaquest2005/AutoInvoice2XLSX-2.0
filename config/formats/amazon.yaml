@@ -163,7 +163,7 @@ metadata:
 
   free_shipping:
     patterns:
-      - 'Free\s+Shipping\s*:?\s*-?(?:XCD\s+|USD\s+)?\$?([\d,]+\.\d{2})'
+      - 'Free\s+Shipping\s*:?\s*-?\s*(?:XCD\s+|USD\s+)?\$?([\d,]+\.\d{2})'
     type: currency
     aggregate: sum
 

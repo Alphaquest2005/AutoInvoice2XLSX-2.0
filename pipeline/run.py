@@ -481,13 +481,30 @@ def _split_items_per_declaration(
         if client_duties and client_duties > 0:
             decl_inv_data['_client_declared_duties'] = client_duties
 
-        # Build reference adjustments from the other declarations' prorated values
+        # Build reference adjustments matching XLSX formula semantics:
+        #   insurance = insurance if insurance else -credits
+        #   other_cost = tax + other_cost
+        #   deduction = discount + free_shipping
         ref_ratio = 1.0 - ratio
         ref_adjustments = {}
-        for key in ('freight', 'insurance', 'other_cost', 'deduction'):
-            orig = invoice_data.get(key, 0)
-            if orig:
-                ref_adjustments[key] = round(orig * ref_ratio, 2)
+        # Insurance → insurance_or_credits (coupon savings become negative insurance)
+        ref_ins = float(invoice_data.get('insurance', 0) or 0)
+        ref_cred = float(invoice_data.get('credits', 0) or 0)
+        ref_ins_val = ref_ins if ref_ins else -ref_cred
+        if ref_ins_val:
+            ref_adjustments['insurance'] = round(ref_ins_val * ref_ratio, 2)
+        # Other cost → tax + other_cost
+        ref_tax = float(invoice_data.get('tax', 0) or 0)
+        ref_oc = float(invoice_data.get('other_cost', 0) or 0)
+        ref_oc_val = ref_tax + ref_oc
+        if ref_oc_val:
+            ref_adjustments['other_cost'] = round(ref_oc_val * ref_ratio, 2)
+        # Deduction → discount + free_shipping
+        ref_disc = float(invoice_data.get('discount', 0) or 0)
+        ref_fs = float(invoice_data.get('free_shipping', 0) or 0)
+        ref_ded_val = ref_disc + ref_fs
+        if ref_ded_val:
+            ref_adjustments['deduction'] = round(ref_ded_val * ref_ratio, 2)
         # Use actual freight values from other declarations when available
         other_freight = sum(
             float(str(d.get('freight', 0)).replace(',', '').strip() or 0)
@@ -961,7 +978,10 @@ def _maybe_combine_entries(args, results, output_dir):
         return results
 
     # Build combined output path
-    bl_number = getattr(args, 'bl', '')
+    bl_number = getattr(args, 'bl', '') or ''
+    # If bl is a directory path, use just the basename
+    if bl_number and os.path.sep in bl_number:
+        bl_number = os.path.basename(bl_number.rstrip(os.path.sep))
     if not bl_number and results:
         # Use first invoice number when no BL number available
         bl_number = re.sub(r'[<>:"/\\|?*]', '_', results[0].invoice_num)
