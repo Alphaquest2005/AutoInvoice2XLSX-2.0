@@ -422,12 +422,47 @@
       "sent_at": "2026-04-15T17:54:32Z"
     },
     {
+      "waybill": "HAWB9590375",
+      "subject": "Shipment: HAWB9590375",
+      "source_input": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170",
+      "source_mode": "bl",
+      "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170",
+      "params_hash": "1238c61d80e4397840cee6fbfd49b1a19e2b86487f48734ea0c18175fe51d24f",
+      "suppliers_hash": "a41653af5c9767c53cb9358d1e1f7632ad090c8756b512dc171fb7a00e0327c7",
+      "attachments": [
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/112-9925042-2903468.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB9590375.xlsx",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB9590375-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9590375",
+        "consignee_name": "KIRLA SYLVESTER",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "5.0",
+        "country_origin": "US",
+        "freight": "11.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "workspace/shipments/Shipment_ 03142025_usd170/112-9925042-2903468.pdf",
+          "workspace/shipments/Shipment_ 03142025_usd170/HAWB9590375.xlsx",
+          "workspace/shipments/Shipment_ 03142025_usd170/HAWB9590375-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-16T01:30:12Z"
+    },
+    {
       "waybill": "HAWB9591043",
       "subject": "Shipment: HAWB9591043",
       "source_input": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170",
       "source_mode": "bl",
       "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170",
-      "params_hash": "9fa09de7383bc89d36a4bae9d9d265866879b6054ce3ff786497d78b1d370b03",
+      "params_hash": "7d5315ff4706eb0e2e2f49c0cf898a05a5fce6caa6d5777d3158e0d5cb788ea9",
       "suppliers_hash": "a41653af5c9767c53cb9358d1e1f7632ad090c8756b512dc171fb7a00e0327c7",
       "attachments": [
         "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/112-9925042-2903468.pdf",
@@ -436,7 +471,7 @@
       ],
       "params": {
         "waybill": "HAWB9591043",
-        "consignee_name": "KIRLA SYLEVESTER",
+        "consignee_name": "KIRLA SYLVESTER",
         "consignee_code": "",
         "consignee_address": "",
         "total_invoices": 1,
@@ -454,42 +489,7 @@
         "location": "WebSource",
         "office": "GDWBS"
       },
-      "sent_at": "2026-04-15T21:58:15Z"
-    },
-    {
-      "waybill": "HAWB9590375",
-      "subject": "Shipment: HAWB9590375",
-      "source_input": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170",
-      "source_mode": "bl",
-      "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170",
-      "params_hash": "e2ad8737f16aff72c7385b16faa58a2cca15a18d8f514a15207cbfed98728ed6",
-      "suppliers_hash": "a41653af5c9767c53cb9358d1e1f7632ad090c8756b512dc171fb7a00e0327c7",
-      "attachments": [
-        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/112-9925042-2903468.pdf",
-        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB9590375.xlsx",
-        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB9590375-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9590375",
-        "consignee_name": "KIRLA SYLEVESTER",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "5.0",
-        "country_origin": "US",
-        "freight": "11.0",
-        "man_reg": "2024/28",
-        "attachment_paths": [
-          "workspace/shipments/Shipment_ 03142025_usd170/112-9925042-2903468.pdf",
-          "workspace/shipments/Shipment_ 03142025_usd170/HAWB9590375.xlsx",
-          "workspace/shipments/Shipment_ 03142025_usd170/HAWB9590375-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-15T21:58:23Z"
+      "sent_at": "2026-04-16T01:30:18Z"
     }
   ]
 }
