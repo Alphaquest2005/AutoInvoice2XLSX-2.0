@@ -981,7 +981,13 @@ def extract_declaration_metadata(pdf_path: str) -> Dict[str, Optional[str]]:
         # Capture HAWB + following alphanumeric on the SAME line ([ \t] not \s)
         hawb_match = re.search(r'(HAWB[ \tA-Z0-9-]+)', text_upper)
         if hawb_match:
-            raw_hawb = re.sub(r'[ \t]+', '', hawb_match.group(1))  # strip OCR spaces
+            raw_hawb = hawb_match.group(1)
+            # If match absorbed the integer part of a following decimal (e.g.
+            # "HAWB 9590375 6.37" → captured "HAWB 9590375 6"), trim it.
+            end_pos = hawb_match.end()
+            if end_pos < len(text_upper) and text_upper[end_pos] == '.':
+                raw_hawb = re.sub(r'[ \t]+\d+$', '', raw_hawb)
+            raw_hawb = re.sub(r'[ \t]+', '', raw_hawb)  # strip OCR spaces
             metadata['waybill'] = raw_hawb
 
         for i, line in enumerate(lines):
@@ -1310,6 +1316,22 @@ def _is_truthy_value(val) -> bool:
     return bool(s) and s.lower() not in ('null', 'none', 'n/a', '')
 
 
+def _vision_cache_path(pdf_path: str, base_dir: str) -> Optional[str]:
+    """Return disk cache path for LLM vision results keyed on PDF content hash.
+
+    Caching avoids repeated (slow, flaky) vision API calls on re-runs.
+    """
+    try:
+        import hashlib
+        with open(pdf_path, 'rb') as f:
+            h = hashlib.sha1(f.read()).hexdigest()
+        cache_dir = os.path.join(base_dir, 'data', 'vision_cache', h[:2])
+        os.makedirs(cache_dir, exist_ok=True)
+        return os.path.join(cache_dir, f'{h}.json')
+    except Exception:
+        return None
+
+
 def extract_declaration_handwriting(pdf_path: str, base_dir: str = '.') -> Dict[str, Optional[str]]:
     """Extract handwritten/pencil annotations from a Simplified Declaration PDF using LLM vision.
 
@@ -1323,6 +1345,9 @@ def extract_declaration_handwriting(pdf_path: str, base_dir: str = '.') -> Dict[
     (/api/paas/v4/chat/completions), NOT the Anthropic proxy which only supports
     text models.
 
+    Results are cached on disk keyed by PDF content hash to avoid repeat API
+    calls on re-runs. Timeouts trigger up to 2 retries before giving up.
+
     Returns dict with keys matching the JSON schema below.
     Empty dict if no LLM available or no handwriting detected.
     """
@@ -1330,6 +1355,17 @@ def extract_declaration_handwriting(pdf_path: str, base_dir: str = '.') -> Dict[
         return {}
 
     import base64
+
+    # ── Disk cache check ────────────────────────────────────────
+    cache_path = _vision_cache_path(pdf_path, base_dir)
+    if cache_path and os.path.exists(cache_path):
+        try:
+            with open(cache_path, 'r') as f:
+                cached = json.load(f)
+            logger.info(f"LLM vision cache hit for {os.path.basename(pdf_path)}")
+            return cached
+        except Exception as e:
+            logger.debug(f"Vision cache read failed: {e}")
 
     # Load LLM settings (we only need the API key — vision uses its own endpoint/model)
     try:
@@ -1453,17 +1489,32 @@ Return ONLY valid JSON, no other text."""
             }]
         }).encode('utf-8')
 
-        req = Request(
-            vision_endpoint,
-            data=request_data,
-            headers={
-                'Content-Type': 'application/json',
-                'Authorization': f'Bearer {api_key}',
-            }
-        )
-
-        with urlopen(req, timeout=90) as response:
-            result = json.loads(response.read().decode('utf-8'))
+        # Retry on transient timeouts / connection resets. Vision API is
+        # occasionally slow; one timeout should not permanently skip a
+        # declaration (we need the waybill to split per declaration).
+        last_err: Optional[Exception] = None
+        result = None
+        for attempt in range(3):
+            req = Request(
+                vision_endpoint,
+                data=request_data,
+                headers={
+                    'Content-Type': 'application/json',
+                    'Authorization': f'Bearer {api_key}',
+                }
+            )
+            try:
+                with urlopen(req, timeout=120) as response:
+                    result = json.loads(response.read().decode('utf-8'))
+                break
+            except Exception as e:
+                last_err = e
+                logger.warning(
+                    f"LLM vision attempt {attempt+1}/3 failed for "
+                    f"{os.path.basename(pdf_path)}: {e}"
+                )
+        if result is None:
+            raise last_err if last_err else RuntimeError("vision API unreachable")
 
         # OpenAI-compatible response format
         response_text = result['choices'][0]['message']['content'].strip()
@@ -1497,6 +1548,13 @@ Return ONLY valid JSON, no other text."""
                                 f"Recovered handwritten customs value EC${val} "
                                 f"from other_notes: {notes}"
                             )
+            # Persist to disk cache so subsequent runs skip the API call.
+            if cache_path:
+                try:
+                    with open(cache_path, 'w') as f:
+                        json.dump(parsed, f, indent=2)
+                except Exception as e:
+                    logger.debug(f"Vision cache write failed: {e}")
             return parsed
 
     except Exception as e:

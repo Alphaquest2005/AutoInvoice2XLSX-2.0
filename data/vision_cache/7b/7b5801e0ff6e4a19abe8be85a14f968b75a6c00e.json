@@ -1,0 +1,16 @@
+{
+  "handwritten": {
+    "customs_value_usd": "136.57",
+    "other_notes": "Handwritten numbers '155.04' (left margin), '136.57', and '6.37' (right side near Man Reg Number and WayBill fields)."
+  },
+  "printed": {
+    "consignee": "KIRLA SYLVESTER",
+    "freight": "11.00",
+    "waybill": "HAWB9590375",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": "5.0",
+    "packages": "1"
+  },
+  "has_handwriting": true
+}
