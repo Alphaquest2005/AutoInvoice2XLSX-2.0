@@ -608,6 +608,12 @@ def process_single_invoice(
                         f"into ADJUSTMENTS row (honest mode)"
                     )
                     invoice_data['invoice_total_uncertain'] = True
+                    # Persist the numeric residual so later XLSX regenerations
+                    # (e.g. for client duty comparison in run.py) can re-apply
+                    # the honest-mode ADJUSTMENTS absorption — otherwise the
+                    # regenerated formula reverts to =(T+U+V-W) and the
+                    # validator re-flags VARIANCE as unfixed, blocking email.
+                    invoice_data['_residual_variance_absorbed'] = float(variance_before_fix)
             else:
                 logger.info(f"variance_fixer did not resolve ${variance:.2f}: "
                             f"{fix_result.get('reason', 'unknown')}")

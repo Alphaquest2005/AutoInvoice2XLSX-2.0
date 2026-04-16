@@ -428,7 +428,7 @@
       "source_mode": "bl",
       "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170",
       "params_hash": "1238c61d80e4397840cee6fbfd49b1a19e2b86487f48734ea0c18175fe51d24f",
-      "suppliers_hash": "a41653af5c9767c53cb9358d1e1f7632ad090c8756b512dc171fb7a00e0327c7",
+      "suppliers_hash": "8d085613cd798b27dd17fd9bdb942cb53f1f18271e3af7f07f5964dd692fcc57",
       "attachments": [
         "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/112-9925042-2903468.pdf",
         "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB9590375.xlsx",
@@ -447,14 +447,14 @@
         "freight": "11.00",
         "man_reg": "2024 28",
         "attachment_paths": [
-          "workspace/shipments/Shipment_ 03142025_usd170/112-9925042-2903468.pdf",
-          "workspace/shipments/Shipment_ 03142025_usd170/HAWB9590375.xlsx",
-          "workspace/shipments/Shipment_ 03142025_usd170/HAWB9590375-Declaration.pdf"
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/112-9925042-2903468.pdf",
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB9590375.xlsx",
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB9590375-Declaration.pdf"
         ],
         "location": "WebSource",
         "office": "GDWBS"
       },
-      "sent_at": "2026-04-16T01:30:12Z"
+      "sent_at": "2026-04-16T09:16:30Z"
     },
     {
       "waybill": "HAWB9591043",
@@ -462,8 +462,8 @@
       "source_input": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170",
       "source_mode": "bl",
       "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170",
-      "params_hash": "7d5315ff4706eb0e2e2f49c0cf898a05a5fce6caa6d5777d3158e0d5cb788ea9",
-      "suppliers_hash": "a41653af5c9767c53cb9358d1e1f7632ad090c8756b512dc171fb7a00e0327c7",
+      "params_hash": "58ad055d50c3d762f7177d9822985dbd1c6f23f0e9e7e4d896c0fa8de2b52f10",
+      "suppliers_hash": "8d085613cd798b27dd17fd9bdb942cb53f1f18271e3af7f07f5964dd692fcc57",
       "attachments": [
         "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/112-9925042-2903468.pdf",
         "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB9591043.xlsx",
@@ -480,16 +480,16 @@
         "weight": "2.0",
         "country_origin": "US",
         "freight": "5.00",
-        "man_reg": "2024 28",
+        "man_reg": "2024/28",
         "attachment_paths": [
-          "workspace/shipments/Shipment_ 03142025_usd170/112-9925042-2903468.pdf",
-          "workspace/shipments/Shipment_ 03142025_usd170/HAWB9591043.xlsx",
-          "workspace/shipments/Shipment_ 03142025_usd170/HAWB9591043-Declaration.pdf"
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/112-9925042-2903468.pdf",
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB9591043.xlsx",
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/shipments/Shipment_ 03142025_usd170/HAWB9591043-Declaration.pdf"
         ],
         "location": "WebSource",
         "office": "GDWBS"
       },
-      "sent_at": "2026-04-16T01:30:18Z"
+      "sent_at": "2026-04-16T09:27:44Z"
     }
   ]
 }

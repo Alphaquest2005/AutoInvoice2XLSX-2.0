@@ -1710,6 +1710,30 @@ def run_bl_mode(args) -> dict:
                         document_type=getattr(args, 'doc_type', 'auto'),
                     )
                     print(f"    {r.invoice_num}: XLSX regenerated with client duty comparison")
+                    # Re-apply honest-mode variance absorption if a residual was
+                    # recorded before regeneration — the regen rebuilds the
+                    # ADJUSTMENTS formula from base components and would
+                    # otherwise wipe the absorbed correction, causing the
+                    # validator to re-flag unfixed_variance and block email.
+                    residual = r.invoice_data.get('_residual_variance_absorbed') if r.invoice_data else None
+                    if residual and abs(float(residual)) > 0.02:
+                        try:
+                            from workflow.variance_fixer import fix_variance as _replay_fix
+                            _fix = _replay_fix(
+                                xlsx_path=r.xlsx_path,
+                                invoice_text='',
+                                current_variance=float(residual),
+                                honest_mode=True,
+                            )
+                            if _fix.get('success'):
+                                print(f"    {r.invoice_num}: re-absorbed ${float(residual):.2f} residual into ADJUSTMENTS (post-regen)")
+                            else:
+                                logger.warning(
+                                    f"Post-regen variance replay failed for {r.invoice_num}: "
+                                    f"{_fix.get('error', 'unknown')}"
+                                )
+                        except Exception as _e:
+                            logger.warning(f"Post-regen variance replay error for {r.invoice_num}: {_e}")
         except Exception as e:
             logger.warning(f"XLSX regeneration for duty comparison failed: {e}")
 
@@ -2146,6 +2170,30 @@ def run_batch_mode(args) -> dict:
                         document_type=getattr(args, 'doc_type', 'auto'),
                     )
                     print(f"    {r.invoice_num}: XLSX regenerated with client duty comparison")
+                    # Re-apply honest-mode variance absorption if a residual was
+                    # recorded before regeneration — the regen rebuilds the
+                    # ADJUSTMENTS formula from base components and would
+                    # otherwise wipe the absorbed correction, causing the
+                    # validator to re-flag unfixed_variance and block email.
+                    residual = r.invoice_data.get('_residual_variance_absorbed') if r.invoice_data else None
+                    if residual and abs(float(residual)) > 0.02:
+                        try:
+                            from workflow.variance_fixer import fix_variance as _replay_fix
+                            _fix = _replay_fix(
+                                xlsx_path=r.xlsx_path,
+                                invoice_text='',
+                                current_variance=float(residual),
+                                honest_mode=True,
+                            )
+                            if _fix.get('success'):
+                                print(f"    {r.invoice_num}: re-absorbed ${float(residual):.2f} residual into ADJUSTMENTS (post-regen)")
+                            else:
+                                logger.warning(
+                                    f"Post-regen variance replay failed for {r.invoice_num}: "
+                                    f"{_fix.get('error', 'unknown')}"
+                                )
+                        except Exception as _e:
+                            logger.warning(f"Post-regen variance replay error for {r.invoice_num}: {_e}")
         except Exception as e:
             logger.warning(f"XLSX regeneration for duty comparison failed: {e}")
 
@@ -3867,16 +3915,47 @@ def _reprocess_history_entry(entry: dict) -> Optional[dict]:
     else:
         run_single_mode(fake)
 
-    # Read the freshly-written params.
-    new_params_path = os.path.join(
-        getattr(fake, '_output_dir', '') or fake.output_dir,
-        '_email_params.json',
-    )
-    if not os.path.isfile(new_params_path):
-        logger.error(f"resend {waybill}: no _email_params.json at {new_params_path}")
+    # Read the freshly-written params.  A multi-declaration shipment produces
+    # _email_params.json, _email_params_2.json, …  Scan them all and return
+    # the one whose waybill matches the history entry — otherwise --resend
+    # HAWBxxx silently sends the FIRST declaration instead of the requested
+    # one when the pipeline split order changes between runs.
+    out_dir = getattr(fake, '_output_dir', '') or fake.output_dir
+    candidates = []
+    primary = os.path.join(out_dir, '_email_params.json')
+    if os.path.isfile(primary):
+        candidates.append(primary)
+    try:
+        for name in sorted(os.listdir(out_dir)):
+            if name.startswith('_email_params_') and name.endswith('.json'):
+                p = os.path.join(out_dir, name)
+                if p not in candidates:
+                    candidates.append(p)
+    except OSError:
+        pass
+
+    if not candidates:
+        logger.error(f"resend {waybill}: no _email_params*.json in {out_dir}")
         return None
-    with open(new_params_path, 'r', encoding='utf-8') as f:
-        return json.load(f)
+
+    loaded = []
+    for p in candidates:
+        try:
+            with open(p, 'r', encoding='utf-8') as f:
+                loaded.append((p, json.load(f)))
+        except Exception as e:
+            logger.warning(f"resend {waybill}: failed to read {p}: {e}")
+
+    for p, params in loaded:
+        if params.get('waybill') == waybill:
+            logger.info(f"resend {waybill}: using {os.path.basename(p)}")
+            return params
+
+    logger.warning(
+        f"resend {waybill}: no params file matched waybill; "
+        f"falling back to _email_params.json"
+    )
+    return loaded[0][1] if loaded else None
 
 
 def run_resend(args) -> dict:
