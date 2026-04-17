@@ -199,6 +199,29 @@ def process_single_invoice(
     pdf_file = os.path.basename(pdf_path)
     print(f"  Processing: {pdf_file}")
 
+    # 0. Auto-reorder pages if the invoice was scanned out of order.
+    # We only run this when there is no cached .txt sidecar yet — otherwise
+    # the reorder helper would trigger a fresh OCR pass just to read the
+    # page-footer markers (the multi-OCR engine is expensive).  Shipment
+    # mode does the reorder once inside pdf_splitter.run() before any
+    # sidecar is written, so split invoices already arrive in logical
+    # order; this branch only catches standalone --input PDFs.
+    # Also skip single-page PDFs where reorder is impossible — avoids
+    # paying the OCR cost just to confirm there's nothing to reorder.
+    txt_sidecar = pdf_path.rsplit('.', 1)[0] + '.txt'
+    if not os.path.exists(txt_sidecar):
+        try:
+            import pdfplumber as _pb
+            with _pb.open(pdf_path) as _p:
+                _npages = len(_p.pages)
+            if _npages > 1:
+                from pdf_splitter import auto_reorder_if_scanned
+                _r = auto_reorder_if_scanned(pdf_path)
+                if _r.get('reordered'):
+                    print(f"    Auto-reordered scanned pages: {_r['new_order']}")
+        except Exception as _e:
+            logger.debug(f"auto_reorder skipped for {pdf_file}: {_e}")
+
     # 1. Extract text from PDF
     text = extract_pdf_text(pdf_path)
     if not text.strip():
@@ -576,49 +599,29 @@ def process_single_invoice(
               f"(InvTotal ${inv_total:.2f} - NetTotal ${net_total:.2f})")
         _print_variance_report(matched, invoice_data, item_cost_sum, inv_total,
                                adjustments, net_total, variance)
-        # Attempt LLM-based variance fix per-invoice (matches v1 behavior).
-        # Must run BEFORE combining so each block is self-balanced. Running it
-        # on a combined multi-invoice XLSX later gives the LLM the wrong target
-        # and can scribble corrections into the wrong block.
-        try:
-            from workflow.variance_fixer import fix_variance
-            # Honest mode by default — per-item cells are authoritative.
-            # Only opt-in specs (spec.allow_llm_fix=true) may use the LLM
-            # scaling path.  See format_parser.parse() Tier A1 orphan scan
-            # for the deterministic recovery that runs before we reach here.
-            _allow_llm_fix = bool((format_spec or {}).get('allow_llm_fix', False))
-            variance_before_fix = float(variance)
-            fix_result = fix_variance(
-                xlsx_path=xlsx_path,
-                invoice_text=text,
-                current_variance=variance_before_fix,
-                honest_mode=not _allow_llm_fix,
-            )
-            if fix_result.get('success'):
-                new_variance = fix_result.get('new_variance', variance)
-                print(f"    Variance fix: ${variance:.2f} -> ${new_variance:.2f}"
-                      f"{' (honest)' if not _allow_llm_fix else ' (llm)'}")
-                variance = new_variance
-                # Record that the variance was absorbed into ADJUSTMENTS so
-                # the proposed-fixes email can report it as something the
-                # reviewer may want to correct.
-                if not _allow_llm_fix and abs(variance_before_fix) > 0.02:
-                    invoice_data.setdefault('data_quality_notes', []).append(
-                        f"Residual variance ${variance_before_fix:.2f} absorbed "
-                        f"into ADJUSTMENTS row (honest mode)"
-                    )
-                    invoice_data['invoice_total_uncertain'] = True
-                    # Persist the numeric residual so later XLSX regenerations
-                    # (e.g. for client duty comparison in run.py) can re-apply
-                    # the honest-mode ADJUSTMENTS absorption — otherwise the
-                    # regenerated formula reverts to =(T+U+V-W) and the
-                    # validator re-flags VARIANCE as unfixed, blocking email.
-                    invoice_data['_residual_variance_absorbed'] = float(variance_before_fix)
-            else:
-                logger.info(f"variance_fixer did not resolve ${variance:.2f}: "
-                            f"{fix_result.get('reason', 'unknown')}")
-        except Exception as e:
-            logger.warning(f"variance_fixer failed for {pdf_file}: {e}")
+        # Attempt LLM-based variance fix ONLY when the format spec opts in.
+        # By default, leave the variance visible so the broker sees the real
+        # discrepancy — hiding it in ADJUSTMENTS masks missing items.
+        _allow_llm_fix = bool((format_spec or {}).get('allow_llm_fix', False))
+        if _allow_llm_fix:
+            try:
+                from workflow.variance_fixer import fix_variance
+                variance_before_fix = float(variance)
+                fix_result = fix_variance(
+                    xlsx_path=xlsx_path,
+                    invoice_text=text,
+                    current_variance=variance_before_fix,
+                    honest_mode=False,
+                )
+                if fix_result.get('success'):
+                    new_variance = fix_result.get('new_variance', variance)
+                    print(f"    Variance fix (llm): ${variance:.2f} -> ${new_variance:.2f}")
+                    variance = new_variance
+                else:
+                    logger.info(f"variance_fixer did not resolve ${variance:.2f}: "
+                                f"{fix_result.get('reason', 'unknown')}")
+            except Exception as e:
+                logger.warning(f"variance_fixer failed for {pdf_file}: {e}")
     if credits:
         print(f"    Credits: ${credits:.2f} (customer-induced -> Col U x -1)")
     if free_shipping:

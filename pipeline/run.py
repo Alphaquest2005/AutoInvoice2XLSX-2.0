@@ -1378,6 +1378,40 @@ def _prepare_invoice_pdfs(args, classification: dict) -> list:
 
             pages, used_ocr, used_heuristic, page_texts = analyze_pdf(pdf_path)
 
+            # Auto-reorder scanned-out-of-order pages before splitting.
+            # Reuses the page_texts we just extracted so this adds no extra
+            # OCR work — no-op when page-footer markers are already in
+            # physical order. Without this pre-pass the split files arrive
+            # in the wrong order and process_single_invoice would have to
+            # invoke auto_reorder later (triggering an expensive second
+            # OCR pass on each split PDF).
+            try:
+                from pdf_splitter import (
+                    detect_logical_page_order,
+                    auto_reorder_if_scanned,
+                    DocumentPage,
+                )
+                _new_order = detect_logical_page_order(page_texts)
+                if _new_order is not None:
+                    _r = auto_reorder_if_scanned(pdf_path, page_texts=page_texts)
+                    if _r.get('reordered'):
+                        logger.info(
+                            f"auto_reorder (batch): {f} pages rewritten to "
+                            f"logical order {_new_order}"
+                        )
+                        page_texts = [page_texts[i] for i in _new_order]
+                        pages = [
+                            DocumentPage(
+                                page_num=j,
+                                doc_type=pages[i].doc_type,
+                                confidence=pages[i].confidence,
+                                keywords_found=pages[i].keywords_found,
+                            )
+                            for j, i in enumerate(_new_order)
+                        ]
+            except Exception as _e:
+                logger.warning(f"auto_reorder pre-pass (batch) failed for {f}: {_e}")
+
             has_declaration = any(p.doc_type == 'declaration' for p in pages)
             has_invoice = any(p.doc_type == 'invoice' for p in pages)
 
@@ -1710,30 +1744,6 @@ def run_bl_mode(args) -> dict:
                         document_type=getattr(args, 'doc_type', 'auto'),
                     )
                     print(f"    {r.invoice_num}: XLSX regenerated with client duty comparison")
-                    # Re-apply honest-mode variance absorption if a residual was
-                    # recorded before regeneration — the regen rebuilds the
-                    # ADJUSTMENTS formula from base components and would
-                    # otherwise wipe the absorbed correction, causing the
-                    # validator to re-flag unfixed_variance and block email.
-                    residual = r.invoice_data.get('_residual_variance_absorbed') if r.invoice_data else None
-                    if residual and abs(float(residual)) > 0.02:
-                        try:
-                            from workflow.variance_fixer import fix_variance as _replay_fix
-                            _fix = _replay_fix(
-                                xlsx_path=r.xlsx_path,
-                                invoice_text='',
-                                current_variance=float(residual),
-                                honest_mode=True,
-                            )
-                            if _fix.get('success'):
-                                print(f"    {r.invoice_num}: re-absorbed ${float(residual):.2f} residual into ADJUSTMENTS (post-regen)")
-                            else:
-                                logger.warning(
-                                    f"Post-regen variance replay failed for {r.invoice_num}: "
-                                    f"{_fix.get('error', 'unknown')}"
-                                )
-                        except Exception as _e:
-                            logger.warning(f"Post-regen variance replay error for {r.invoice_num}: {_e}")
         except Exception as e:
             logger.warning(f"XLSX regeneration for duty comparison failed: {e}")
 
@@ -2170,30 +2180,6 @@ def run_batch_mode(args) -> dict:
                         document_type=getattr(args, 'doc_type', 'auto'),
                     )
                     print(f"    {r.invoice_num}: XLSX regenerated with client duty comparison")
-                    # Re-apply honest-mode variance absorption if a residual was
-                    # recorded before regeneration — the regen rebuilds the
-                    # ADJUSTMENTS formula from base components and would
-                    # otherwise wipe the absorbed correction, causing the
-                    # validator to re-flag unfixed_variance and block email.
-                    residual = r.invoice_data.get('_residual_variance_absorbed') if r.invoice_data else None
-                    if residual and abs(float(residual)) > 0.02:
-                        try:
-                            from workflow.variance_fixer import fix_variance as _replay_fix
-                            _fix = _replay_fix(
-                                xlsx_path=r.xlsx_path,
-                                invoice_text='',
-                                current_variance=float(residual),
-                                honest_mode=True,
-                            )
-                            if _fix.get('success'):
-                                print(f"    {r.invoice_num}: re-absorbed ${float(residual):.2f} residual into ADJUSTMENTS (post-regen)")
-                            else:
-                                logger.warning(
-                                    f"Post-regen variance replay failed for {r.invoice_num}: "
-                                    f"{_fix.get('error', 'unknown')}"
-                                )
-                        except Exception as _e:
-                            logger.warning(f"Post-regen variance replay error for {r.invoice_num}: {_e}")
         except Exception as e:
             logger.warning(f"XLSX regeneration for duty comparison failed: {e}")
 

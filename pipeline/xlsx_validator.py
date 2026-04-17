@@ -157,13 +157,8 @@ def validate_and_fix(results: list, base_dir: str = '.', bl_alloc=None,
         # wrong block. Per-invoice variance fixing already ran in
         # invoice_processor before the files were combined.
         is_combined = bool(getattr(r, '_combined_pdf_paths', None))
-        variance_issues = [i for i in issues if i['type'] == VARIANCE]
-        zero_value_issues = [i for i in issues if i['type'] == ZERO_VALUE]
-        if (variance_issues or zero_value_issues) and not is_combined:
-            variance_amount = variance_issues[0]['variance'] if variance_issues else 0
-            var_fix = _fix_variance_issues(xlsx_path, r, variance_amount)
-            if var_fix:
-                fixes.append(var_fix)
+        # Variance is left visible — do NOT auto-absorb into ADJUSTMENTS.
+        # The broker needs to see the real discrepancy.
 
         # Phase 3: Re-validate
         try:

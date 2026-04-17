@@ -1603,6 +1603,36 @@ def run(
         # Analyze pages
         pages, used_ocr, used_heuristic, page_texts = analyze_pdf(input_path)
 
+        # Auto-reorder scanned-out-of-order pages (e.g. invoice scanned with
+        # page 2 face-up first).  Reuses the page_texts from analyze_pdf so
+        # this adds no extra OCR work — no-op when "Page N of M" / "N / M"
+        # markers are already in physical order.
+        try:
+            new_order = detect_logical_page_order(page_texts)
+            if new_order is not None:
+                reorder_info = auto_reorder_if_scanned(
+                    input_path, page_texts=page_texts,
+                )
+                if reorder_info.get('reordered'):
+                    logger.info(
+                        f"auto_reorder: {os.path.basename(input_path)} pages "
+                        f"rewritten to logical order {new_order}"
+                    )
+                    # Permute in-memory state to match the rewritten PDF so
+                    # downstream splitters see the corrected order.
+                    page_texts = [page_texts[i] for i in new_order]
+                    pages = [
+                        DocumentPage(
+                            page_num=j,
+                            doc_type=pages[i].doc_type,
+                            confidence=pages[i].confidence,
+                            keywords_found=pages[i].keywords_found,
+                        )
+                        for j, i in enumerate(new_order)
+                    ]
+        except Exception as e:
+            logger.warning(f"auto_reorder pre-pass failed for {input_path}: {e}")
+
         # Summary
         declaration_pages = [p for p in pages if p.doc_type == DocumentType.DECLARATION]
         invoice_pages = [p for p in pages if p.doc_type == DocumentType.INVOICE]
@@ -1665,6 +1695,226 @@ def run(
     except Exception as e:
         logger.exception(f"PDF split failed: {e}")
         return {'status': 'error', 'error': str(e)}
+
+
+# ── Auto page-order detection (scanned-document recovery) ──────
+# When a multi-page invoice is fed into the scanner reverse-side-up, the
+# resulting PDF has pages in inverse order (e.g. page 2 first, page 1
+# second).  Format parsers run "items_start..items_end" section scans on
+# the concatenated text, so out-of-order pages can silently drop items
+# (a section_start marker on a later physical page leaves anything that
+# would have been "after" it on an earlier physical page outside the
+# scan window).
+#
+# This helper looks for "Page N of M" / "N of M" / "N / M" footer markers
+# (Amazon prints "orderID = ... 1 / 2" at the bottom of each page) and,
+# when adjacent pages claim the same total but appear in the wrong order,
+# returns a permutation that puts them back in logical order.  Pages
+# without markers stay in their physical position so declarations and
+# other appended documents are not disturbed.
+
+_PAGE_MARKER_PATTERNS = [
+    # Amazon: "orderID = 112-9925042-2903468 1 / 2" — captures identity
+    (re.compile(
+        r'order\s*I[Dd]\s*=\s*([\w\-\s]+?)\s+(\d+)\s*/\s*(\d+)\s*$',
+        re.I | re.M,
+    ), 'orderid'),
+    # Generic "Page 1 of 2" or "page 1 of 2"
+    (re.compile(r'page\s+(\d+)\s+of\s+(\d+)\b', re.I), 'page_of'),
+    # Tail "1 / 2" at end of line (footer page numbers)
+    (re.compile(r'(?:^|\s)(\d{1,2})\s*/\s*(\d{1,2})\s*$', re.M), 'slash'),
+    # "1 of 2" anywhere (lowest priority — body-text false positives)
+    (re.compile(r'\b(\d{1,2})\s+of\s+(\d{1,2})\b', re.I), 'of'),
+]
+
+
+def _extract_page_marker(text: str, max_total: int = 20) -> Optional[Tuple[int, int, str]]:
+    """Return (logical_n, total_m, identity_key) for a page, or None.
+
+    Identity key is the document identifier (e.g. order number) when the
+    pattern provides one, otherwise a synthetic ``_anon_total_<M>`` so
+    pages claiming the same total can still be grouped.
+
+    Only the last ~400 chars of the page are searched so body text like
+    "Pack of 2" or "(2 / 2 sets)" doesn't trigger false matches.
+    """
+    if not text:
+        return None
+    tail = text[-400:]
+    for pat, name in _PAGE_MARKER_PATTERNS:
+        last = None
+        for m in pat.finditer(tail):
+            last = m
+        if not last:
+            continue
+        if name == 'orderid':
+            identity = re.sub(r'\s+', '', last.group(1))
+            n, total = int(last.group(2)), int(last.group(3))
+        else:
+            groups = last.groups()
+            n, total = int(groups[-2]), int(groups[-1])
+            identity = f'_anon_total_{total}'
+        if 1 <= n <= total <= max_total:
+            return (n, total, identity)
+    return None
+
+
+def detect_logical_page_order(page_texts: List[str]) -> Optional[List[int]]:
+    """Return a physical→logical permutation, or None when no reorder is needed.
+
+    Args:
+        page_texts: text of each PDF page in physical order.
+
+    Returns:
+        ``new_order`` such that ``new_order[i]`` is the original (physical)
+        page index that should appear at output position ``i``.  Returns
+        ``None`` if every group is already in order, or if too few pages
+        carry markers to make a confident decision.
+    """
+    if not page_texts:
+        return None
+
+    markers = [_extract_page_marker(t or '') for t in page_texts]
+
+    # Group contiguous pages that share a total_m (and identity, when known).
+    # An anonymous marker may join an adjacent identified group with the
+    # same total, and inherits its identity.
+    groups: List[Dict] = []
+    current = None
+    for i, marker in enumerate(markers):
+        if marker is None:
+            current = None
+            continue
+        n, total, identity = marker
+        if current is not None:
+            cg_total = current['total']
+            cg_ident = current['identity']
+            same_total = (cg_total == total)
+            id_compat = (
+                cg_ident == identity
+                or cg_ident.startswith('_anon_')
+                or identity.startswith('_anon_')
+            )
+            if same_total and id_compat:
+                if cg_ident.startswith('_anon_') and not identity.startswith('_anon_'):
+                    current['identity'] = identity
+                current['members'].append((i, n))
+                continue
+        current = {'total': total, 'identity': identity, 'members': [(i, n)]}
+        groups.append(current)
+
+    new_order = list(range(len(page_texts)))
+    changed = False
+    for g in groups:
+        members = g['members']
+        if len(members) < 2:
+            continue  # single-page groups can't be reordered
+        physical_slots = sorted(p for p, _ in members)
+        sorted_by_n = sorted(members, key=lambda x: x[1])
+        # Sanity: distinct N values (don't reorder if two pages claim same N)
+        ns = [n for _, n in sorted_by_n]
+        if len(set(ns)) != len(ns):
+            logger.debug(
+                f"detect_logical_page_order: skipping group {g['identity']} "
+                f"(duplicate page numbers {ns})"
+            )
+            continue
+        for slot, (orig_phys, _) in zip(physical_slots, sorted_by_n):
+            if new_order[slot] != orig_phys:
+                changed = True
+            new_order[slot] = orig_phys
+
+    return new_order if changed else None
+
+
+def auto_reorder_if_scanned(
+    pdf_path: str,
+    output_path: Optional[str] = None,
+    page_texts: Optional[List[str]] = None,
+) -> Dict:
+    """Detect out-of-order scanned pages and rewrite the PDF in logical order.
+
+    Idempotent: if the PDF is already in logical order (or carries no
+    markers) this is a no-op.
+
+    Args:
+        pdf_path: PDF to inspect/rewrite.
+        output_path: where to write the reordered PDF (defaults to
+            ``pdf_path`` — overwrites in place).
+        page_texts: pre-extracted page texts.  If omitted, this function
+            extracts them via the same path ``analyze_pdf`` uses (with
+            its OCR cache).
+
+    Returns:
+        ``{'reordered': bool, 'new_order': list|None, 'reason': str,
+           'output': str|None}``.
+    """
+    if not os.path.exists(pdf_path):
+        return {'reordered': False, 'reason': 'file_not_found', 'new_order': None}
+
+    if page_texts is None:
+        try:
+            _, _, _, page_texts = analyze_pdf(pdf_path, use_ocr=True, use_heuristic=False)
+        except Exception as e:
+            logger.debug(f"auto_reorder: text extraction failed for {pdf_path}: {e}")
+            return {'reordered': False, 'reason': f'extract_failed:{e}', 'new_order': None}
+
+    new_order = detect_logical_page_order(page_texts or [])
+    if new_order is None:
+        return {'reordered': False, 'reason': 'order_already_correct_or_no_markers', 'new_order': None}
+
+    target = output_path or pdf_path
+    rewrite = reorder_pages(pdf_path, new_order, output_path=target)
+    if rewrite.get('status') != 'success':
+        return {
+            'reordered': False,
+            'reason': f"reorder_failed:{rewrite.get('error', 'unknown')}",
+            'new_order': new_order,
+        }
+
+    # Refresh the .pages.json sidecar (keyed on file size — the new file
+    # likely has a different size, so the cache would already be stale,
+    # but rewriting it here saves an OCR pass on the next run).
+    cache_path = target + '.pages.json'
+    try:
+        reordered_texts = [page_texts[i] for i in new_order]
+        with open(cache_path, 'w', encoding='utf-8') as cf:
+            json.dump({
+                'size': os.path.getsize(target),
+                'page_texts': reordered_texts,
+            }, cf)
+    except Exception as e:
+        # Non-fatal: just delete the sidecar so analyze_pdf re-extracts.
+        logger.debug(f"auto_reorder: sidecar refresh failed ({e}); deleting")
+        try:
+            if os.path.exists(cache_path):
+                os.remove(cache_path)
+        except OSError:
+            pass
+
+    # Also refresh the .txt sidecar if the splitter produced one.
+    txt_sidecar = target.rsplit('.', 1)[0] + '.txt'
+    if os.path.exists(txt_sidecar):
+        try:
+            with open(txt_sidecar, 'r', encoding='utf-8') as f:
+                head = f.read(20)
+            if not head.startswith('# MANUAL'):
+                # Stale auto-generated sidecar — drop it; re-extraction
+                # downstream will rebuild it from the reordered PDF.
+                os.remove(txt_sidecar)
+        except OSError:
+            pass
+
+    logger.info(
+        f"auto_reorder: rewrote {os.path.basename(pdf_path)} "
+        f"physical→logical = {new_order}"
+    )
+    return {
+        'reordered': True,
+        'reason': 'pages_out_of_order',
+        'new_order': new_order,
+        'output': target,
+    }
 
 
 def reorder_pages(input_path: str, page_order: List[int], output_path: str = None) -> Dict:
