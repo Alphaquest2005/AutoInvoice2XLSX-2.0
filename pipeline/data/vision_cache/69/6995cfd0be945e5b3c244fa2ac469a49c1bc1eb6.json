@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "375.0",
+    "customs_value_usd": null,
+    "tariff_code": null,
+    "duty_rate": null,
+    "weight": null,
+    "description": null,
+    "other_notes": "Handwritten numbers: 0375 (next to first item), 0375 (second item), 0375 (third item), 1043 (fourth item), 0375 (fifth item), 0375 (sixth item)"
+  },
+  "printed": {
+    "consignee": "Kirla Sylvester",
+    "freight": 0,
+    "waybill": null,
+    "man_reg": null,
+    "office": null,
+    "weight": null,
+    "packages": null
+  },
+  "has_handwriting": true
+}

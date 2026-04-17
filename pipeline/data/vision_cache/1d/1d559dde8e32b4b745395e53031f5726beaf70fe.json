@@ -1,0 +1,16 @@
+{
+  "handwritten": {
+    "other_notes": "90.95 written in the left margin",
+    "customs_value_ec": "90.95"
+  },
+  "printed": {
+    "consignee": "AARON WILSON",
+    "freight": 17.0,
+    "waybill": "HAWB9595443",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": 8.0,
+    "packages": 1
+  },
+  "has_handwriting": true
+}

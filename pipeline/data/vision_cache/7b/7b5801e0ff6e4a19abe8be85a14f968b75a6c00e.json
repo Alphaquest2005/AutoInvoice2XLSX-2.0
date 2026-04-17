@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "136.57",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "136.57 and 6.37 written near Man Reg Number field (right side)"
+  },
+  "printed": {
+    "consignee": "KIRLA SYLVESTER",
+    "freight": "11.00",
+    "waybill": "HAWB9590375",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": "5.0",
+    "packages": "1"
+  },
+  "has_handwriting": true
+}

@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "39.98",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten values '39.98' and '1.87' in the right margin near the Man Reg Number and WayBill Number fields"
+  },
+  "printed": {
+    "consignee": "KIRLA SYLEVESTER",
+    "freight": "5.00",
+    "waybill": "HAWB9591043",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": "2.0",
+    "packages": "1"
+  },
+  "has_handwriting": true
+}
