@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": null,
+    "customs_value_usd": "2.70",
+    "tariff_code": null,
+    "duty_rate": null,
+    "weight": null,
+    "description": null,
+    "other_notes": "2.70 written near the price column of the Items Ordered section"
+  },
+  "printed": {
+    "consignee": "Rochelle Ragbasingh",
+    "freight": 0,
+    "waybill": "111-1616806-9805016",
+    "man_reg": null,
+    "office": null,
+    "weight": null,
+    "packages": 1
+  },
+  "has_handwriting": true
+}
