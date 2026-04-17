@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "16.9",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "16.90 written vertically on left margin"
+  },
+  "printed": {
+    "consignee": "ROCHELLE RAGBASINGH",
+    "freight": 3.0,
+    "waybill": "HAWB9591668",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": "1.0",
+    "packages": "1"
+  },
+  "has_handwriting": true
+}
