@@ -119,11 +119,38 @@ def _lookup_consignee_code(consignee_name: str) -> tuple:
     return (best_code, best_address)
 
 
+def _extract_cc_charges(text: str) -> list:
+    """Extract credit card transaction amounts from Amazon invoice text.
+
+    Amazon invoices contain lines like:
+        Credit Card transactions Visa ending in 0099 : July 19 , 2024 : $89.54
+        Visa ending in 0099 : July 19 , 2024 : $10.69
+
+    Returns a list of floats (the charge amounts) in the order they appear.
+    """
+    import re
+    pattern = (
+        r'(?:Visa|Mastercard|Amex|Discover|Credit\s+Card)'
+        r'[^$\n]*'
+        r'\$\s*([\d,]+\.\d{2})'
+    )
+    charges = []
+    for m in re.finditer(pattern, text, re.IGNORECASE):
+        try:
+            val = float(m.group(1).replace(',', ''))
+            if val > 0:
+                charges.append(val)
+        except (ValueError, TypeError):
+            pass
+    return charges
+
+
 def _split_items_per_declaration(
     all_declarations: list,
     results: list,
     output_dir: str,
     document_type: str = 'auto',
+    invoice_text: str = '',
 ) -> list:
     """Split invoice items across declarations and generate per-declaration XLSX files.
 
@@ -202,6 +229,11 @@ def _split_items_per_declaration(
             customs_targets.append(best)
         else:
             customs_targets.append(None)
+
+    # ── Extract credit card charges as supplementary splitting signal ──
+    cc_charges = _extract_cc_charges(invoice_text) if invoice_text else []
+    if cc_charges:
+        logger.info(f"Extracted {len(cc_charges)} CC charges: {cc_charges}")
 
     # Validate: targets should sum close to all_items_total
     if all(t is not None for t in customs_targets) and len(customs_targets) == n_decl:
@@ -333,6 +365,167 @@ def _split_items_per_declaration(
                 f"falling back to round-robin"
             )
 
+    # Strategy 1b: CC-charge-guided distribution.
+    # When CC charges are available and match the number of declarations,
+    # use them as splitting targets.  CC charges include tax, so we adjust.
+    # This is more reliable than customs values which may be in XCD vs USD.
+    if decl_items is None and cc_charges and len(cc_charges) == n_decl:
+        orig_tax_val = float(invoice_data.get('tax', 0) or 0)
+        inv_total_val = float(invoice_data.get('invoice_total', 0) or 0)
+        tax_ratio_est = (orig_tax_val / inv_total_val) if inv_total_val > 0 else 0.07
+
+        # CC charges map to declarations but order may differ.
+        # Try all permutations to find the best assignment.
+        from itertools import permutations
+        n_items = len(all_items)
+        item_costs = [float(it.get('total_cost', 0) or 0) for it in all_items]
+        cc_targets_pre_tax = [c / (1 + tax_ratio_est) for c in cc_charges]
+
+        best_perm = None
+        best_perm_gap = float('inf')
+        best_perm_assignment = None
+
+        for perm in permutations(range(len(cc_charges))):
+            targets = [cc_targets_pre_tax[perm[d]] for d in range(n_decl)]
+
+            if n_decl == 2:
+                local_best = None
+                local_gap = float('inf')
+                for mask in range(1 << n_items):
+                    s0 = sum(item_costs[i] for i in range(n_items) if mask & (1 << i))
+                    s1 = sum(item_costs[i] for i in range(n_items) if not (mask & (1 << i)))
+                    gap = abs(s0 - targets[0]) + abs(s1 - targets[1])
+                    if gap < local_gap:
+                        local_gap = gap
+                        local_best = [0 if (mask & (1 << i)) else 1 for i in range(n_items)]
+            else:
+                sorted_indices = sorted(range(n_items), key=lambda i: item_costs[i], reverse=True)
+                local_best = [0] * n_items
+                rem = list(targets)
+                for idx_s in sorted_indices:
+                    cost = item_costs[idx_s]
+                    best_d = max(range(n_decl), key=lambda d: rem[d])
+                    for d in range(n_decl):
+                        if rem[d] >= cost and (rem[d] - cost) < rem[best_d]:
+                            best_d = d
+                    local_best[idx_s] = best_d
+                    rem[best_d] -= cost
+                local_gap = sum(abs(r) for r in rem)
+
+            if local_gap < best_perm_gap:
+                best_perm_gap = local_gap
+                best_perm = perm
+                best_perm_assignment = local_best
+
+        if best_perm_assignment is not None and best_perm_gap <= 3.0:
+            candidate = [[] for _ in range(n_decl)]
+            for i, d in enumerate(best_perm_assignment):
+                candidate[d].append(all_items[i])
+            if all(len(c) > 0 for c in candidate):
+                decl_items = candidate
+                for d in range(n_decl):
+                    actual = sum(float(it.get('total_cost', 0)) for it in decl_items[d])
+                    wbl = all_declarations[d][0].get('waybill', f'Decl_{d+1}')
+                    cc_idx = best_perm[d]
+                    logger.info(
+                        f"CC-charge split: {wbl} → {len(decl_items[d])} items "
+                        f"${actual:.2f} (CC ${cc_charges[cc_idx]:.2f}, "
+                        f"target ${cc_targets_pre_tax[cc_idx]:.2f})"
+                    )
+
+    # Strategy 1c: Partial customs-value + CC charge fallback.
+    # When some declarations have customs values and others don't, fill gaps
+    # from CC charges (if available), then run subset-sum with mixed targets.
+    if decl_items is None:
+        known_idx = [i for i, t in enumerate(customs_targets) if t is not None]
+        unknown_idx = [i for i, t in enumerate(customs_targets) if t is None]
+        filled_targets = list(customs_targets)
+        if unknown_idx and cc_charges and len(cc_charges) == n_decl:
+            # Try all permutations of CC charges to declarations to find
+            # the mapping where known targets best match their CC charge.
+            from itertools import permutations
+            # Estimate tax ratio from invoice
+            orig_tax_val = float(invoice_data.get('tax', 0) or 0)
+            inv_total_val = float(invoice_data.get('invoice_total', 0) or 0)
+            tax_ratio_est = (orig_tax_val / inv_total_val) if inv_total_val > 0 else 0.07
+
+            best_perm = None
+            best_perm_gap = float('inf')
+            for perm in permutations(range(len(cc_charges))):
+                gap = 0
+                for ki in known_idx:
+                    cc_val = cc_charges[perm[ki]]
+                    items_est = cc_val / (1 + tax_ratio_est)
+                    gap += abs(items_est - customs_targets[ki])
+                if gap < best_perm_gap:
+                    best_perm_gap = gap
+                    best_perm = perm
+
+            if best_perm is not None:
+                for ui in unknown_idx:
+                    cc_val = cc_charges[best_perm[ui]]
+                    filled_targets[ui] = cc_val / (1 + tax_ratio_est)
+                logger.info(
+                    f"Filled {len(unknown_idx)} missing customs targets from CC charges: "
+                    f"{[round(filled_targets[i], 2) for i in unknown_idx]}"
+                )
+
+        # If we still have some known + some filled targets, try subset-sum
+        if all(t is not None for t in filled_targets) and (known_idx or cc_charges):
+            n_items = len(all_items)
+            item_costs = [float(it.get('total_cost', 0) or 0) for it in all_items]
+
+            if n_decl == 2:
+                best_assignment = None
+                best_total_gap = float('inf')
+                t0, t1 = filled_targets[0], filled_targets[1]
+                for mask in range(1 << n_items):
+                    s0 = sum(item_costs[i] for i in range(n_items) if mask & (1 << i))
+                    s1 = sum(item_costs[i] for i in range(n_items) if not (mask & (1 << i)))
+                    gap = abs(s0 - t0) + abs(s1 - t1)
+                    if gap < best_total_gap:
+                        best_total_gap = gap
+                        best_assignment = [
+                            0 if (mask & (1 << i)) else 1
+                            for i in range(n_items)
+                        ]
+            else:
+                # Multi-way greedy (same as Strategy 1)
+                sorted_indices = sorted(
+                    range(n_items), key=lambda i: item_costs[i], reverse=True
+                )
+                best_assignment = [0] * n_items
+                rem = list(filled_targets)
+                for idx in sorted_indices:
+                    cost = item_costs[idx]
+                    best_d = 0
+                    best_rem = float('inf')
+                    for d in range(n_decl):
+                        if rem[d] >= cost:
+                            after = rem[d] - cost
+                            if after < best_rem:
+                                best_rem = after
+                                best_d = d
+                    if best_rem == float('inf'):
+                        best_d = max(range(n_decl), key=lambda d: rem[d])
+                    best_assignment[idx] = best_d
+                    rem[best_d] -= cost
+                best_total_gap = sum(abs(r) for r in rem)
+
+            if best_assignment is not None and best_total_gap <= 5.0:
+                candidate = [[] for _ in range(n_decl)]
+                for i, d in enumerate(best_assignment):
+                    candidate[d].append(all_items[i])
+                if all(len(candidate[d]) > 0 for d in range(n_decl)):
+                    decl_items = candidate
+                    for d in range(n_decl):
+                        actual = sum(float(it.get('total_cost', 0)) for it in decl_items[d])
+                        wbl = all_declarations[d][0].get('waybill', f'Decl_{d+1}')
+                        logger.info(
+                            f"Partial/CC split: {wbl} → {len(decl_items[d])} items "
+                            f"${actual:.2f} (target ${filled_targets[d]:.2f})"
+                        )
+
     # Strategy 2: Quantity-aware distribution (when fewer items than declarations)
     if decl_items is None and len(all_items) < n_decl and total_qty >= n_decl:
         # Quantity splitting mode: expand items into individual units,
@@ -373,9 +566,57 @@ def _split_items_per_declaration(
 
     # Strategy 3: Round-robin fallback
     if decl_items is None:
+        logger.warning("All item-splitting strategies failed — using round-robin fallback")
         decl_items = [[] for _ in range(n_decl)]
         for i, item in enumerate(all_items):
             decl_items[i % n_decl].append(item)
+
+    # ── Post-split verification ──
+    # Check 1: All items accounted for (no duplication, no loss)
+    assigned_total = sum(len(items) for items in decl_items)
+    if assigned_total != len(all_items):
+        logger.error(
+            f"ITEM SPLIT ERROR: {assigned_total} items assigned != "
+            f"{len(all_items)} total extracted"
+        )
+    assigned_cost = sum(
+        sum(float(it.get('total_cost', 0) or 0) for it in items)
+        for items in decl_items
+    )
+    if abs(assigned_cost - all_items_total) > 0.02:
+        logger.error(
+            f"ITEM SPLIT ERROR: assigned cost ${assigned_cost:.2f} != "
+            f"extracted total ${all_items_total:.2f}"
+        )
+    else:
+        logger.info(
+            f"Item split verified: {assigned_total} items, "
+            f"${assigned_cost:.2f} across {n_decl} declarations"
+        )
+
+    # Check 2: CC charge cross-validation
+    if cc_charges and len(cc_charges) == n_decl:
+        # CC charges include tax — estimate tax per declaration
+        orig_tax_val = float(invoice_data.get('tax', 0) or 0)
+        for d in range(n_decl):
+            decl_total = sum(float(it.get('total_cost', 0) or 0) for it in decl_items[d])
+            ratio = decl_total / all_items_total if all_items_total > 0 else 1.0 / n_decl
+            est_tax = orig_tax_val * ratio
+            est_with_tax = decl_total + est_tax
+            # Find the CC charge closest to this declaration's estimated total
+            best_cc = min(cc_charges, key=lambda c: abs(c - est_with_tax))
+            diff = abs(best_cc - est_with_tax)
+            wbl = all_declarations[d][0].get('waybill', f'Decl_{d+1}')
+            if diff > 2.0:
+                logger.warning(
+                    f"CC charge mismatch: {wbl} items+tax ${est_with_tax:.2f} "
+                    f"vs nearest CC charge ${best_cc:.2f} (diff ${diff:.2f})"
+                )
+            else:
+                logger.info(
+                    f"CC charge match: {wbl} items+tax ${est_with_tax:.2f} "
+                    f"≈ CC charge ${best_cc:.2f}"
+                )
 
     # Compute full invoice total for combined variance check.
     # When the invoice total equals items sum (e.g. Amazon order pages),
@@ -1816,9 +2057,22 @@ def run_bl_mode(args) -> dict:
             print(f"\n    Multiple declarations ({len(all_declarations)}) — generating separate emails for each")
 
             # Generate per-declaration XLSX files (items split + reference section)
+            # Extract invoice text for CC charge analysis — try all result
+            # PDFs since the first may be a worksheet, not the actual invoice.
+            _inv_text_for_split = ''
+            for _r in (results or []):
+                try:
+                    _inv_pdf = _r.pdf_output_path or ''
+                    if _inv_pdf:
+                        _t = extract_pdf_text(_inv_pdf) or ''
+                        if len(_t) > len(_inv_text_for_split):
+                            _inv_text_for_split = _t
+                except Exception:
+                    pass
             per_decl_xlsx = _split_items_per_declaration(
                 all_declarations, results, output_dir,
                 document_type=getattr(args, 'doc_type', 'auto'),
+                invoice_text=_inv_text_for_split,
             )
 
             # Separate non-declaration/manifest PDF attachments (invoice PDFs)
@@ -2245,9 +2499,22 @@ def run_batch_mode(args) -> dict:
             print(f"\n    Multiple declarations ({len(all_declarations)}) — generating separate emails for each")
 
             # Generate per-declaration XLSX files (items split + reference section)
+            # Extract invoice text for CC charge analysis — try all result
+            # PDFs since the first may be a worksheet, not the actual invoice.
+            _inv_text_for_split = ''
+            for _r in (results or []):
+                try:
+                    _inv_pdf = _r.pdf_output_path or ''
+                    if _inv_pdf:
+                        _t = extract_pdf_text(_inv_pdf) or ''
+                        if len(_t) > len(_inv_text_for_split):
+                            _inv_text_for_split = _t
+                except Exception:
+                    pass
             per_decl_xlsx = _split_items_per_declaration(
                 all_declarations, results, output_dir,
                 document_type=getattr(args, 'doc_type', 'auto'),
+                invoice_text=_inv_text_for_split,
             )
 
             # Separate non-declaration/manifest PDF attachments (invoice PDFs)

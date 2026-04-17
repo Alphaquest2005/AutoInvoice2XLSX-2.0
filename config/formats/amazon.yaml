@@ -124,10 +124,10 @@ metadata:
 
   shipping:
     patterns:
-      # USD format
-      - 'Shipping\s*(?:&|and)\s*Handling:\s*(?:USD\s+)?\$?([\d,]+\.\d{2})'
+      # USD format (OCR may swap period/comma: "9,31" vs "9.31")
+      - 'Shipping\s*(?:&|and)\s*Handling\s*:\s*(?:USD\s+)?\$?([\d,]+[.,]\d{2})'
       # XCD format: "Shipping & Handling: XCD 0.00"
-      - 'Shipping\s*(?:&|and)\s*Handling:\s*XCD\s+([\d,]+\.\d{2})'
+      - 'Shipping\s*(?:&|and)\s*Handling\s*:\s*XCD\s+([\d,]+[.,]\d{2})'
       # Positional fallback: 2nd USD value in payment block (subtotal, SHIPPING)
       - 'USD\s+[\d,]+\.\d{2}\nUSD\s+([\d,]+\.\d{2})\n\nUSD'
     type: currency

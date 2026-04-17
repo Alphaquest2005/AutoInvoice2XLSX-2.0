@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "8571.0",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten '8571 X' on the left margin near the invoice detail section"
+  },
+  "printed": {
+    "consignee": "Bemisha Francis",
+    "freight": "0",
+    "waybill": "",
+    "man_reg": "",
+    "office": "",
+    "weight": "",
+    "packages": "2"
+  },
+  "has_handwriting": true
+}

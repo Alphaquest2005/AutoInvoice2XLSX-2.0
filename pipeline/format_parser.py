@@ -1319,7 +1319,12 @@ class FormatParser:
         """Convert extracted string value to specified type."""
         if field_type == 'currency':
             # Handle various currency formats including space-separated
-            cleaned = value.replace('$', '').replace(',', '').strip()
+            cleaned = value.replace('$', '').strip()
+            # OCR comma-as-decimal: "9,31" → "9.31" (no period, comma + 2 digits)
+            if '.' not in cleaned and re.match(r'^\d+,\d{2}$', cleaned):
+                cleaned = cleaned.replace(',', '.')
+            else:
+                cleaned = cleaned.replace(',', '')
             # Handle "39 99" -> "39.99"
             space_match = re.match(r'^(\d+)\s+(\d{2})$', cleaned)
             if space_match:
@@ -1804,8 +1809,11 @@ class FormatParser:
             )
             tax = metadata.get('tax', 0) or 0
             shipping = metadata.get('shipping', 0) or 0
+            free_ship = metadata.get('free_shipping', 0) or 0
             discount = metadata.get('discount', 0) or 0
-            expected_from_items = items_sum + tax + shipping - discount
+            # Net shipping: when free_shipping ≈ shipping, they cancel
+            net_shipping = max(0, round(shipping - free_ship, 2))
+            expected_from_items = items_sum + tax + net_shipping - discount
 
             if items_sum > 0:
                 variance = round(expected_from_items - invoice_total, 2)
@@ -1813,7 +1821,7 @@ class FormatParser:
                 # Try metadata digit corrections if variance is non-trivial
                 if abs(variance) > 0.02:
                     variance = self._correct_metadata_ocr(
-                        metadata, items_sum, tax, shipping, discount,
+                        metadata, items_sum, tax, net_shipping, discount,
                         invoice_total, _OCR_DIGIT_SWAPS)
                     if variance is not None:
                         corrected_count += 1
@@ -1821,7 +1829,7 @@ class FormatParser:
                 # Recompute for final warning
                 tax = metadata.get('tax', 0) or 0
                 invoice_total = metadata.get('total') or metadata.get('subtotal') or 0
-                expected_from_items = items_sum + tax + shipping - discount
+                expected_from_items = items_sum + tax + net_shipping - discount
                 if invoice_total > 0:
                     variance_pct = abs(expected_from_items - invoice_total) / invoice_total
                     if variance_pct > 0.15:
@@ -1972,9 +1980,30 @@ class FormatParser:
             if spec_field in metadata:
                 invoice_data[pipeline_field] = metadata[spec_field]
 
-        # Pass free_shipping through as a separate field (supplier-induced deduction)
+        # Net shipping vs free_shipping: Amazon invoices show both
+        # "Shipping & Handling: $X" and "Free Shipping: -$X" but the
+        # invoice_total already reflects the net amount.  When they
+        # approximately cancel, zero both so the XLSX balances.
         free_shipping = metadata.get('free_shipping', 0) or 0
-        if free_shipping:
+        freight = invoice_data.get('freight', 0) or 0
+        if free_shipping > 0 and freight > 0:
+            net = round(freight - free_shipping, 2)
+            if abs(net) < 0.50:
+                # They cancel — invoice_total already reflects net-zero shipping
+                invoice_data['freight'] = 0
+                # don't set free_shipping
+            elif net > 0:
+                # Partial free shipping — keep the remainder as freight
+                invoice_data['freight'] = net
+            else:
+                # Free shipping exceeds shipping — keep remainder as deduction
+                invoice_data['freight'] = 0
+                invoice_data['free_shipping'] = round(-net, 2)
+        elif free_shipping > 0 and freight == 0:
+            # Orphan free_shipping without matching freight — invoice_total
+            # already accounts for this, adding it as a deduction double-counts
+            pass  # don't set free_shipping
+        elif free_shipping > 0:
             invoice_data['free_shipping'] = free_shipping
 
         # Handle XCD to USD conversion for CARICOM invoices
