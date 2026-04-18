@@ -20,9 +20,15 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 logger = logging.getLogger(__name__)
 
-# Regex timeout protection via signal alarm (SIGALRM).
-# Prevents catastrophic backtracking on large OCR text.
-_REGEX_TIMEOUT = 5  # seconds
+# ── Regex safety: timeout + performance tracking ─────────────────────────
+# Prevents catastrophic backtracking on LLM-generated patterns applied to
+# large OCR text.  Every regex operation goes through a _safe_re_* wrapper
+# that (a) enforces a wall-clock timeout via SIGALRM and (b) logs any
+# operation that exceeds _PERF_LOG_THRESHOLD so we can identify and fix
+# the offending pattern.
+
+_REGEX_TIMEOUT = 5          # hard-kill timeout (seconds)
+_PERF_LOG_THRESHOLD = 0.1   # log warning for any regex taking longer (seconds)
 _SIGALRM_AVAILABLE = hasattr(__import__('signal'), 'SIGALRM')
 
 if _SIGALRM_AVAILABLE:
@@ -35,85 +41,196 @@ if _SIGALRM_AVAILABLE:
         raise _RegexTimeoutError("regex timeout")
 
 
+def _pattern_str(pattern) -> str:
+    """Extract printable pattern string from str or compiled re.Pattern."""
+    if isinstance(pattern, re.Pattern):
+        return pattern.pattern
+    return str(pattern)
+
+
 def _safe_re_sub(pattern, replace, text, flags=0):
-    """re.sub with timeout protection against catastrophic backtracking."""
+    """re.sub with timeout protection and performance logging."""
+    t0 = _time.monotonic()
+    pat_s = _pattern_str(pattern)
     if _SIGALRM_AVAILABLE and len(text) > 5000:
         old_handler = _signal.signal(_signal.SIGALRM, _alarm_handler)
         _signal.alarm(_REGEX_TIMEOUT)
         try:
             result = re.sub(pattern, replace, text, flags=flags)
             _signal.alarm(0)
+            elapsed = _time.monotonic() - t0
+            if elapsed > _PERF_LOG_THRESHOLD:
+                logger.warning(f"REGEX_PERF sub {elapsed:.3f}s pattern={pat_s[:120]} text_len={len(text)}")
             return result
         except _RegexTimeoutError:
             _signal.alarm(0)
-            logger.warning(f"Regex timeout ({_REGEX_TIMEOUT}s) on sub pattern: {pattern[:80]}")
+            logger.error(f"REGEX_TIMEOUT sub {_REGEX_TIMEOUT}s pattern={pat_s[:120]} text_len={len(text)}")
             return text
         except re.error as e:
             _signal.alarm(0)
-            logger.warning(f"Invalid regex pattern '{pattern[:80]}': {e}")
+            logger.error(f"REGEX_ERROR sub pattern={pat_s[:120]}: {e}")
             return text
         finally:
             _signal.signal(_signal.SIGALRM, old_handler)
     try:
-        return re.sub(pattern, replace, text, flags=flags)
+        result = re.sub(pattern, replace, text, flags=flags)
+        elapsed = _time.monotonic() - t0
+        if elapsed > _PERF_LOG_THRESHOLD:
+            logger.warning(f"REGEX_PERF sub {elapsed:.3f}s pattern={pat_s[:120]} text_len={len(text)}")
+        return result
     except re.error as e:
-        logger.warning(f"Invalid regex pattern '{pattern[:80]}': {e}")
+        logger.error(f"REGEX_ERROR sub pattern={pat_s[:120]}: {e}")
         return text
 
 
 def _safe_re_search(pattern, text, flags=0):
-    """re.search with timeout protection."""
+    """re.search with timeout protection and performance logging."""
+    t0 = _time.monotonic()
+    pat_s = _pattern_str(pattern)
     if _SIGALRM_AVAILABLE and len(text) > 5000:
         old_handler = _signal.signal(_signal.SIGALRM, _alarm_handler)
         _signal.alarm(_REGEX_TIMEOUT)
         try:
             result = re.search(pattern, text, flags=flags)
             _signal.alarm(0)
+            elapsed = _time.monotonic() - t0
+            if elapsed > _PERF_LOG_THRESHOLD:
+                logger.warning(f"REGEX_PERF search {elapsed:.3f}s pattern={pat_s[:120]} text_len={len(text)}")
             return result
         except _RegexTimeoutError:
             _signal.alarm(0)
-            logger.warning(f"Regex timeout ({_REGEX_TIMEOUT}s) on search pattern: {pattern[:80]}")
+            logger.error(f"REGEX_TIMEOUT search {_REGEX_TIMEOUT}s pattern={pat_s[:120]} text_len={len(text)}")
             return None
-        except re.error:
+        except re.error as e:
             _signal.alarm(0)
+            logger.error(f"REGEX_ERROR search pattern={pat_s[:120]}: {e}")
             return None
         finally:
             _signal.signal(_signal.SIGALRM, old_handler)
     try:
-        return re.search(pattern, text, flags=flags)
-    except re.error:
+        result = re.search(pattern, text, flags=flags)
+        elapsed = _time.monotonic() - t0
+        if elapsed > _PERF_LOG_THRESHOLD:
+            logger.warning(f"REGEX_PERF search {elapsed:.3f}s pattern={pat_s[:120]} text_len={len(text)}")
+        return result
+    except re.error as e:
+        logger.error(f"REGEX_ERROR search pattern={pat_s[:120]}: {e}")
         return None
 
 
 def _safe_re_match(pattern, text, flags=0):
-    """re.match with timeout protection."""
+    """re.match with timeout protection and performance logging."""
+    t0 = _time.monotonic()
+    pat_s = _pattern_str(pattern)
+    if _SIGALRM_AVAILABLE and len(text) > 5000:
+        old_handler = _signal.signal(_signal.SIGALRM, _alarm_handler)
+        _signal.alarm(_REGEX_TIMEOUT)
+        try:
+            result = re.match(pattern, text, flags=flags)
+            _signal.alarm(0)
+            elapsed = _time.monotonic() - t0
+            if elapsed > _PERF_LOG_THRESHOLD:
+                logger.warning(f"REGEX_PERF match {elapsed:.3f}s pattern={pat_s[:120]} text_len={len(text)}")
+            return result
+        except _RegexTimeoutError:
+            _signal.alarm(0)
+            logger.error(f"REGEX_TIMEOUT match {_REGEX_TIMEOUT}s pattern={pat_s[:120]} text_len={len(text)}")
+            return None
+        except re.error as e:
+            _signal.alarm(0)
+            logger.error(f"REGEX_ERROR match pattern={pat_s[:120]}: {e}")
+            return None
+        finally:
+            _signal.signal(_signal.SIGALRM, old_handler)
     try:
-        return re.match(pattern, text, flags=flags)
-    except re.error:
+        result = re.match(pattern, text, flags=flags)
+        elapsed = _time.monotonic() - t0
+        if elapsed > _PERF_LOG_THRESHOLD:
+            logger.warning(f"REGEX_PERF match {elapsed:.3f}s pattern={pat_s[:120]} text_len={len(text)}")
+        return result
+    except re.error as e:
+        logger.error(f"REGEX_ERROR match pattern={pat_s[:120]}: {e}")
         return None
 
 
 def _safe_re_findall(pattern, text, flags=0):
-    """re.findall with timeout protection."""
+    """re.findall with timeout protection and performance logging."""
+    t0 = _time.monotonic()
+    pat_s = _pattern_str(pattern)
     if _SIGALRM_AVAILABLE and len(text) > 5000:
         old_handler = _signal.signal(_signal.SIGALRM, _alarm_handler)
         _signal.alarm(_REGEX_TIMEOUT)
         try:
             result = re.findall(pattern, text, flags=flags)
             _signal.alarm(0)
+            elapsed = _time.monotonic() - t0
+            if elapsed > _PERF_LOG_THRESHOLD:
+                logger.warning(f"REGEX_PERF findall {elapsed:.3f}s pattern={pat_s[:120]} text_len={len(text)}")
             return result
         except _RegexTimeoutError:
             _signal.alarm(0)
-            logger.warning(f"Regex timeout ({_REGEX_TIMEOUT}s) on findall pattern: {pattern[:80]}")
+            logger.error(f"REGEX_TIMEOUT findall {_REGEX_TIMEOUT}s pattern={pat_s[:120]} text_len={len(text)}")
             return []
-        except re.error:
+        except re.error as e:
             _signal.alarm(0)
+            logger.error(f"REGEX_ERROR findall pattern={pat_s[:120]}: {e}")
             return []
         finally:
             _signal.signal(_signal.SIGALRM, old_handler)
     try:
-        return re.findall(pattern, text, flags=flags)
-    except re.error:
+        result = re.findall(pattern, text, flags=flags)
+        elapsed = _time.monotonic() - t0
+        if elapsed > _PERF_LOG_THRESHOLD:
+            logger.warning(f"REGEX_PERF findall {elapsed:.3f}s pattern={pat_s[:120]} text_len={len(text)}")
+        return result
+    except re.error as e:
+        logger.error(f"REGEX_ERROR findall pattern={pat_s[:120]}: {e}")
+        return []
+
+
+def _safe_re_finditer(pattern, text, flags=0):
+    """re.finditer with timeout protection and performance logging.
+
+    Returns a list (not an iterator) so that the entire match operation
+    completes within the timeout window.  Callers can iterate the list
+    normally.
+    """
+    t0 = _time.monotonic()
+    pat_s = _pattern_str(pattern)
+    if _SIGALRM_AVAILABLE and len(text) > 5000:
+        old_handler = _signal.signal(_signal.SIGALRM, _alarm_handler)
+        _signal.alarm(_REGEX_TIMEOUT)
+        try:
+            result = list(re.finditer(pattern, text, flags=flags))
+            _signal.alarm(0)
+            elapsed = _time.monotonic() - t0
+            if elapsed > _PERF_LOG_THRESHOLD:
+                logger.warning(
+                    f"REGEX_PERF finditer {elapsed:.3f}s matches={len(result)} "
+                    f"pattern={pat_s[:120]} text_len={len(text)}"
+                )
+            return result
+        except _RegexTimeoutError:
+            _signal.alarm(0)
+            logger.error(f"REGEX_TIMEOUT finditer {_REGEX_TIMEOUT}s pattern={pat_s[:120]} text_len={len(text)}")
+            return []
+        except re.error as e:
+            _signal.alarm(0)
+            logger.error(f"REGEX_ERROR finditer pattern={pat_s[:120]}: {e}")
+            return []
+        finally:
+            _signal.signal(_signal.SIGALRM, old_handler)
+    try:
+        result = list(re.finditer(pattern, text, flags=flags))
+        elapsed = _time.monotonic() - t0
+        if elapsed > _PERF_LOG_THRESHOLD:
+            logger.warning(
+                f"REGEX_PERF finditer {elapsed:.3f}s matches={len(result)} "
+                f"pattern={pat_s[:120]} text_len={len(text)}"
+            )
+        return result
+    except re.error as e:
+        logger.error(f"REGEX_ERROR finditer pattern={pat_s[:120]}: {e}")
         return []
 
 
@@ -146,18 +263,34 @@ class FormatParser:
         Returns:
             Parsed invoice data with metadata and items
         """
+        t0 = _time.monotonic()
         # Step 1: Apply OCR normalization
-        normalized_text = self.normalize_ocr(text)
+        try:
+            normalized_text = self.normalize_ocr(text)
+        except Exception as e:
+            logger.error(f"[{self.name}] OCR normalization failed: {e}", exc_info=True)
+            normalized_text = text
 
         # Step 2: Extract metadata
-        metadata = self.extract_metadata(normalized_text)
+        try:
+            metadata = self.extract_metadata(normalized_text)
+        except Exception as e:
+            logger.error(f"[{self.name}] Metadata extraction failed: {e}", exc_info=True)
+            metadata = {}
 
         # Step 3: Extract line items
         self._skipped_items_total = 0.0
-        items = self.extract_items(normalized_text)
+        try:
+            items = self.extract_items(normalized_text)
+        except Exception as e:
+            logger.error(f"[{self.name}] Item extraction failed: {e}", exc_info=True)
+            items = []
 
         # Step 4: Post-OCR item validation — cross-check qty × price vs totals
-        items = self._validate_and_correct_items(items, metadata)
+        try:
+            items = self._validate_and_correct_items(items, metadata)
+        except Exception as e:
+            logger.error(f"[{self.name}] Item validation failed: {e}", exc_info=True)
 
         # Step 4a: Honest orphan-price scan (Tier A1).  Look in the items
         # section for standalone price tokens (\d+\.\d{2}) that were not
@@ -166,19 +299,30 @@ class FormatParser:
         # reconstructed from the lines immediately preceding the orphan
         # price.  No hallucination: we only add numbers that were actually
         # in the OCR text but missed by the strict item regex.
-        items, orphan_notes = self._scan_orphan_prices(items, metadata, normalized_text)
+        orphan_notes = []
+        try:
+            items, orphan_notes = self._scan_orphan_prices(items, metadata, normalized_text)
+        except Exception as e:
+            logger.error(f"[{self.name}] Orphan price scan failed: {e}", exc_info=True)
 
         # Step 4b: Subtotal-anchored permissive retry.  When items_sum does
         # not reconcile with the extracted subtotal, re-run item extraction
         # with a permissive price pattern that accepts OCR-mangled qty
         # tokens (e.g. 'a', 'Vv', 'iM', 'L.').  Only accept the retry if it
         # reconciles better with the subtotal anchor.
-        items = self._subtotal_anchored_retry(items, metadata, normalized_text)
+        try:
+            items = self._subtotal_anchored_retry(items, metadata, normalized_text)
+        except Exception as e:
+            logger.error(f"[{self.name}] Subtotal retry failed: {e}", exc_info=True)
 
         # Step 4c: Structural item count — independent count of price-bearing
         # lines between section markers. Compared against extracted items to
         # flag mismatches (missed or phantom items).
-        structural_count = self._count_structural_items(normalized_text)
+        structural_count = {'price_line_count': 0, 'header_count': None}
+        try:
+            structural_count = self._count_structural_items(normalized_text)
+        except Exception as e:
+            logger.error(f"[{self.name}] Structural count failed: {e}", exc_info=True)
 
         # Step 5: Post-process and validate
         result = self._build_result(metadata, items, normalized_text,
@@ -213,6 +357,12 @@ class FormatParser:
                 )
             inv['item_count_mismatch'] = mismatch
 
+        elapsed = _time.monotonic() - t0
+        if elapsed > 1.0:
+            logger.info(
+                f"[{self.name}] parse completed in {elapsed:.1f}s "
+                f"(items={len(items)}, text_len={len(text)})"
+            )
         return result
 
     def _scan_orphan_prices(
@@ -748,7 +898,7 @@ class FormatParser:
 
         item_idx = 0
         skipped_total = 0.0
-        for match in line_re.finditer(text):
+        for match in _safe_re_finditer(line_re, text):
             matched_text = match.group(0)
 
             # Check if this line should be skipped
@@ -840,7 +990,7 @@ class FormatParser:
         if extra_patterns:
             # Build set of already-matched spans to avoid duplicates
             matched_spans = set()
-            for m in line_re.finditer(text):
+            for m in _safe_re_finditer(line_re, text):
                 matched_spans.add((m.start(), m.end()))
 
             for extra in extra_patterns:
@@ -849,7 +999,7 @@ class FormatParser:
                 if not ep:
                     continue
                 extra_re = self._compile(ep, re.MULTILINE)
-                for match in extra_re.finditer(text):
+                for match in _safe_re_finditer(extra_re, text):
                     # Skip if overlapping with primary matches
                     if any(not (match.end() <= s or match.start() >= e)
                            for s, e in matched_spans):
@@ -1227,7 +1377,7 @@ class FormatParser:
 
         # Extract prices from price section
         prices = []
-        for match in price_re.finditer(price_text):
+        for match in _safe_re_finditer(price_re, price_text):
             try:
                 price_val = float(match.group(1).replace(',', ''))
                 # Filter out likely totals (too high) or zeros
@@ -1305,14 +1455,14 @@ class FormatParser:
         field_type = field_spec.get('type', 'currency')
         total = 0.0
         for pattern in patterns:
-            try:
-                for match in re.finditer(pattern, text, re.IGNORECASE | re.MULTILINE):
+            for match in _safe_re_finditer(pattern, text, re.IGNORECASE | re.MULTILINE):
+                try:
                     raw = match.group(1) if match.lastindex else match.group(0)
                     val = self._convert_type(raw.strip(), field_type)
                     if isinstance(val, (int, float)):
                         total += val
-            except re.error as e:
-                logger.debug(f"Aggregate pattern '{pattern}' failed: {e}")
+                except (IndexError, TypeError, ValueError) as e:
+                    logger.debug(f"Aggregate match extraction failed: {e}")
         return round(total, 2)
 
     def _convert_type(self, value: str, field_type: str) -> Any:

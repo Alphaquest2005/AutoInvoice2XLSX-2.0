@@ -1,8 +1,8 @@
 {
-  "session_start": "2026-04-18T09:09:13.912266+00:00",
+  "session_start": "2026-04-18T10:29:56.079289+00:00",
   "total_folders": 103,
-  "processed": 35,
-  "elapsed_s": 25299.3,
+  "processed": 43,
+  "elapsed_s": 30141.5,
   "results": [
     {
       "folder": "03142025_7_24_24_3_53_PM_am_on.coiti_",
@@ -4307,6 +4307,700 @@
       },
       "error": null,
       "elapsed_s": 107.2
+    },
+    {
+      "folder": "03152025_Free_returns_within_90_days",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "CKETS",
+            "supplier": "Home Depot",
+            "format": "home_depot",
+            "items": 1,
+            "matched": 0,
+            "classified": 0,
+            "total": 241.33,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Free_returns_within_90_days.out/CKETS.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Free_returns_within_90_days.out/CKETS.pdf"
+          }
+        ],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Free_returns_within_90_days.out/_split_temp/03152025_Free_returns_within_90_days_Invoice_1.pdf",
+            "pdf_file": "03152025_Free_returns_within_90_days_Invoice_1.pdf",
+            "reason": "No items extracted (format: unmatched)",
+            "invoice_num": "03152025_Free_returns_within_90_days_Invoice_1"
+          }
+        ],
+        "failed_count": 1,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Free_returns_within_90_days.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Free_returns_within_90_days.out/_email_params.json",
+        "validation": {
+          "total_issues": 2,
+          "fixed": 2,
+          "unfixed": 0,
+          "per_file": [
+            {
+              "file": "CKETS.xlsx",
+              "supplier": "Home Depot",
+              "issues": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "current": "00000000",
+                  "description": "Home Depot Purchase (1 items)",
+                  "qty": 1,
+                  "total_cost": 241.33,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"Home Depot Purchase (1 items)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 3,
+                  "current": "00000000",
+                  "description": "Home Depot Purchase",
+                  "qty": 1,
+                  "total_cost": 241.33,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"Home Depot Purchase\" using CARICOM CET schedule based on material and function."
+                }
+              ],
+              "fixes": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "old": "00000000",
+                  "new": "42022200",
+                  "method": "LLM: Faux leather tote bag/handbag classified under Chapter 42 as",
+                  "description": "Home Depot Purchase (1 items)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 3,
+                  "old": "00000000",
+                  "new": "42022200",
+                  "method": "LLM: Same faux leather tote bag/handbag as Row 2, duplicate line ",
+                  "description": "Home Depot Purchase"
+                }
+              ],
+              "remaining": [],
+              "fixed": 2,
+              "unfixed": 0
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "CKETS.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": true,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            }
+          ],
+          "blocker_count": 0,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 902.0
+    },
+    {
+      "folder": "03152025_Grand_Total_USD_44.17_Payment_Grand_Total_XCD_120.90",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "113-5845714-9327456",
+            "supplier": "Amazon.com",
+            "format": "amazon",
+            "items": 1,
+            "matched": 0,
+            "classified": 1,
+            "total": 120.9,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Grand_Total_USD_44.17_Payment_Grand_Total_XCD_120.90.out/113-5845714-9327456.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Grand_Total_USD_44.17_Payment_Grand_Total_XCD_120.90.out/113-5845714-9327456.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Grand_Total_USD_44.17_Payment_Grand_Total_XCD_120.90.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Grand_Total_USD_44.17_Payment_Grand_Total_XCD_120.90.out/_email_params.json",
+        "validation": {
+          "total_issues": 1,
+          "fixed": 0,
+          "unfixed": 1,
+          "per_file": [
+            {
+              "file": "113-5845714-9327456.xlsx",
+              "supplier": "Amazon.com",
+              "issues": [
+                {
+                  "type": "VARIANCE",
+                  "variance": 76.73,
+                  "invoice_total": 120.9,
+                  "sum_items": 41.28,
+                  "freight": 0.0,
+                  "insurance": 0.0,
+                  "tax": 2.89,
+                  "deduction": 0.0,
+                  "why": "Variance $+76.73. InvoiceTotal($120.90) != NetTotal($44.17).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixes": [],
+              "remaining": [
+                {
+                  "type": "VARIANCE",
+                  "variance": 76.73,
+                  "invoice_total": 120.9,
+                  "sum_items": 41.28,
+                  "freight": 0.0,
+                  "insurance": 0.0,
+                  "tax": 2.89,
+                  "deduction": 0.0,
+                  "why": "Variance $+76.73. InvoiceTotal($120.90) != NetTotal($44.17).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixed": 0,
+              "unfixed": 1
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "113-5845714-9327456.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": false,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            },
+            {
+              "check": "unfixed_variance",
+              "severity": "block",
+              "message": "1 block(s)/file(s) have unresolved variance.",
+              "field": "validation.variance",
+              "value": "1",
+              "fix_hint": "For each file: read_file the XLSX to see line items and totals (row 2 cols S=InvoiceTotal, T=Freight, U=Insurance, V=Tax, W=Deduction). Read the source invoice PDF to find unextracted charges. Use edit_file to correct values. Variance = InvoiceTotal - (SumItems + Freight + Insurance + Tax - Deduction). After fixing, run validate_xlsx to confirm.\n  113-5845714-9327456.xlsx: Variance $+76.73. InvoiceTotal($120.90) != NetTotal($44.17)."
+            }
+          ],
+          "blocker_count": 1,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 541.2
+    },
+    {
+      "folder": "03152025_Grenada_Simplified_Declaration_Form",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "114-5488418-4405037",
+            "supplier": "Amazon.com",
+            "format": "amazon",
+            "items": 4,
+            "matched": 0,
+            "classified": 4,
+            "total": 234.29,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Grenada_Simplified_Declaration_Form.out/114-5488418-4405037.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Grenada_Simplified_Declaration_Form.out/114-5488418-4405037.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Grenada_Simplified_Declaration_Form.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Grenada_Simplified_Declaration_Form.out/_email_params.json",
+        "validation": {
+          "total_issues": 3,
+          "fixed": 2,
+          "unfixed": 1,
+          "per_file": [
+            {
+              "file": "114-5488418-4405037.xlsx",
+              "supplier": "Amazon.com",
+              "issues": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 29,
+                  "current": "",
+                  "description": "\u2514 39269090: 20% CET (9% of value)",
+                  "qty": 0,
+                  "total_cost": 11.04,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 39269090: 20% CET (9% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 30,
+                  "current": "",
+                  "description": "\u2514 84713000: 5% CET (91% of value)",
+                  "qty": 0,
+                  "total_cost": 29.07,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 84713000: 5% CET (91% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "VARIANCE",
+                  "variance": 15.33,
+                  "invoice_total": 234.29,
+                  "sum_items": 218.96,
+                  "freight": 0.0,
+                  "insurance": 0.0,
+                  "tax": 0.0,
+                  "deduction": 0.0,
+                  "why": "Variance $+15.33. InvoiceTotal($234.29) != NetTotal($218.96).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixes": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 29,
+                  "old": "",
+                  "new": "39269090",
+                  "method": "LLM: Row explicitly references tariff code 39269090 (20% CET) and",
+                  "description": "\u2514 39269090: 20% CET (9% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 30,
+                  "old": "",
+                  "new": "84713000",
+                  "method": "LLM: Row explicitly references tariff code 84713000 (5% CET) and ",
+                  "description": "\u2514 84713000: 5% CET (91% of value)"
+                }
+              ],
+              "remaining": [
+                {
+                  "type": "VARIANCE",
+                  "variance": 15.33,
+                  "invoice_total": 234.29,
+                  "sum_items": 218.96,
+                  "freight": 0.0,
+                  "insurance": 0.0,
+                  "tax": 0.0,
+                  "deduction": 0.0,
+                  "why": "Variance $+15.33. InvoiceTotal($234.29) != NetTotal($218.96).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixed": 2,
+              "unfixed": 1
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "114-5488418-4405037.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": false,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            },
+            {
+              "check": "unfixed_variance",
+              "severity": "block",
+              "message": "1 block(s)/file(s) have unresolved variance.",
+              "field": "validation.variance",
+              "value": "1",
+              "fix_hint": "For each file: read_file the XLSX to see line items and totals (row 2 cols S=InvoiceTotal, T=Freight, U=Insurance, V=Tax, W=Deduction). Read the source invoice PDF to find unextracted charges. Use edit_file to correct values. Variance = InvoiceTotal - (SumItems + Freight + Insurance + Tax - Deduction). After fixing, run validate_xlsx to confirm.\n  114-5488418-4405037.xlsx: Variance $+15.33. InvoiceTotal($234.29) != NetTotal($218.96)."
+            }
+          ],
+          "blocker_count": 1,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 668.9
+    },
+    {
+      "folder": "03152025_Jul_16_2024_order_Order_2000120-11892676",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Jul_16_2024_order_Order_2000120-11892676.out/_split_temp/03152025_Jul_16_2024_order_Order_2000120-11892676_Invoice.pdf",
+            "pdf_file": "03152025_Jul_16_2024_order_Order_2000120-11892676_Invoice.pdf",
+            "reason": "No items extracted (format: unmatched)",
+            "invoice_num": "2000120"
+          }
+        ],
+        "failed_count": 1,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 555.9
+    },
+    {
+      "folder": "03152025_Order_information",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Order_information.out/_split_temp/06-11830-29458_Invoice.pdf",
+            "pdf_file": "06-11830-29458_Invoice.pdf",
+            "reason": "No items extracted (format: unmatched)",
+            "invoice_num": "06-11830-29458_Invoice"
+          }
+        ],
+        "failed_count": 1,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 393.0
+    },
+    {
+      "folder": "03152025_Order_totai",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Order_totai.out/_split_temp/03-11786-67235_Invoice.pdf",
+            "pdf_file": "03-11786-67235_Invoice.pdf",
+            "reason": "No items extracted (format: koduste_order)",
+            "invoice_num": "03-11786-67235_Invoice"
+          }
+        ],
+        "failed_count": 1,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 432.1
+    },
+    {
+      "folder": "03152025_Order_total",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "16 - 11830 - 25259",
+            "supplier": "la_parts_order_number",
+            "format": "la_parts_order_number",
+            "items": 1,
+            "matched": 0,
+            "classified": 1,
+            "total": 26.99,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Order_total.out/16 - 11830 - 25259.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Order_total.out/16 - 11830 - 25259.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Order_total.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Order_total.out/_email_params.json",
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": [
+            {
+              "file": "16 - 11830 - 25259.xlsx",
+              "supplier": "la_parts_order_number",
+              "issues": [],
+              "fixes": [],
+              "fixed": 0,
+              "unfixed": 0
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "16 - 11830 - 25259.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": true,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            }
+          ],
+          "blocker_count": 0,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 630.2
+    },
+    {
+      "folder": "03152025_Payment_Grand_TotahXCD_102.48_Visa_ending_in_9228_July",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "114-2968016-2384218",
+            "supplier": "Amazon.com",
+            "format": "amazon",
+            "items": 1,
+            "matched": 0,
+            "classified": 1,
+            "total": 37.44,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Payment_Grand_TotahXCD_102.48_Visa_ending_in_9228_July.out/114-2968016-2384218.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Payment_Grand_TotahXCD_102.48_Visa_ending_in_9228_July.out/114-2968016-2384218.pdf"
+          }
+        ],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Payment_Grand_TotahXCD_102.48_Visa_ending_in_9228_July.out/_split_temp/114-2968016-2384218_Invoice_1.pdf",
+            "pdf_file": "114-2968016-2384218_Invoice_1.pdf",
+            "reason": "No items extracted (format: unmatched)",
+            "invoice_num": "114-2968016-2384218_Invoice_1"
+          }
+        ],
+        "failed_count": 1,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Payment_Grand_TotahXCD_102.48_Visa_ending_in_9228_July.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Payment_Grand_TotahXCD_102.48_Visa_ending_in_9228_July.out/_email_params.json",
+        "validation": {
+          "total_issues": 1,
+          "fixed": 0,
+          "unfixed": 1,
+          "per_file": [
+            {
+              "file": "114-2968016-2384218.xlsx",
+              "supplier": "Amazon.com",
+              "issues": [
+                {
+                  "type": "VARIANCE",
+                  "variance": 2.45,
+                  "invoice_total": 37.44,
+                  "sum_items": 34.99,
+                  "freight": 0.0,
+                  "insurance": 0.0,
+                  "tax": 0.0,
+                  "deduction": 0.0,
+                  "why": "Variance $+2.45. InvoiceTotal($37.44) != NetTotal($34.99).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixes": [],
+              "remaining": [
+                {
+                  "type": "VARIANCE",
+                  "variance": 2.45,
+                  "invoice_total": 37.44,
+                  "sum_items": 34.99,
+                  "freight": 0.0,
+                  "insurance": 0.0,
+                  "tax": 0.0,
+                  "deduction": 0.0,
+                  "why": "Variance $+2.45. InvoiceTotal($37.44) != NetTotal($34.99).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixed": 0,
+              "unfixed": 1
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "114-2968016-2384218.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": false,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            },
+            {
+              "check": "unfixed_variance",
+              "severity": "block",
+              "message": "1 block(s)/file(s) have unresolved variance.",
+              "field": "validation.variance",
+              "value": "1",
+              "fix_hint": "For each file: read_file the XLSX to see line items and totals (row 2 cols S=InvoiceTotal, T=Freight, U=Insurance, V=Tax, W=Deduction). Read the source invoice PDF to find unextracted charges. Use edit_file to correct values. Variance = InvoiceTotal - (SumItems + Freight + Insurance + Tax - Deduction). After fixing, run validate_xlsx to confirm.\n  114-2968016-2384218.xlsx: Variance $+2.45. InvoiceTotal($37.44) != NetTotal($34.99)."
+            }
+          ],
+          "blocker_count": 1,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 718.6
     }
   ]
 }

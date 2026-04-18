@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": null,
+    "customs_value_usd": null,
+    "tariff_code": null,
+    "duty_rate": null,
+    "weight": null,
+    "description": null,
+    "other_notes": null
+  },
+  "printed": {
+    "consignee": "RICKADO THOMAS",
+    "freight": 3.0,
+    "waybill": "HAWB9591350",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": 1.0,
+    "packages": 1
+  },
+  "has_handwriting": false
+}

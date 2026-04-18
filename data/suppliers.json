@@ -842,6 +842,16 @@
       "country": "United States",
       "currency": "USD",
       "notes": "Auto-added from invoice pipeline"
+    },
+    "KODUSTE": {
+      "code": "KODUSTE",
+      "name": "koduste",
+      "full_name": "koduste",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
     }
   },
   "last_updated": "2026-04-18"

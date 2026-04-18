@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "62.83",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten '62.83' in the left margin near the consignee field"
+  },
+  "printed": {
+    "consignee": "KERRY FRANK",
+    "freight": "7.00",
+    "waybill": "HAWB9580080",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": "3.0",
+    "packages": "1"
+  },
+  "has_handwriting": true
+}
