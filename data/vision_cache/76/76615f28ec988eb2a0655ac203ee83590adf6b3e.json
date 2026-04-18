@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "1220.0",
+    "customs_value_usd": null,
+    "tariff_code": "1220",
+    "duty_rate": null,
+    "weight": null,
+    "description": null,
+    "other_notes": "Handwritten number '1220' near the first item (Solid Notch Neck Blouse) next to 'By aimaduo'"
+  },
+  "printed": {
+    "consignee": null,
+    "freight": null,
+    "waybill": null,
+    "man_reg": null,
+    "office": null,
+    "weight": null,
+    "packages": null
+  },
+  "has_handwriting": true
+}

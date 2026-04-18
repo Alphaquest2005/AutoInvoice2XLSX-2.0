@@ -1,8 +1,8 @@
 {
-  "session_start": "2026-04-18T12:24:51.340489+00:00",
+  "session_start": "2026-04-18T12:41:24.405316+00:00",
   "total_folders": 103,
-  "processed": 50,
-  "elapsed_s": 37036.8,
+  "processed": 51,
+  "elapsed_s": 38029.8,
   "results": [
     {
       "folder": "03142025_7_24_24_3_53_PM_am_on.coiti_",
@@ -5513,6 +5513,27 @@
       },
       "error": null,
       "elapsed_s": 606.6
+    },
+    {
+      "folder": "03152025_Solid_Notch_Neck_Blouse_Casual_Short_Sleeve_..._Golden",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 993.0
     }
   ]
 }
