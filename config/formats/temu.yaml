@@ -95,6 +95,7 @@ metadata:
   subtotal:
     patterns:
       - 'Subtotal[:\s]*\$?([\d,]+\.\d{2})'
+      - '(?i)item\s*\(?s?\)?\s+total[:\s]*\$?([\d,]+\.\d{2})'
     type: currency
 
   tax:
@@ -185,6 +186,11 @@ sections:
   items_end:
     - "Free returns"
     - "Shipping address"
+
+# ─── Balance items ─────────────────────────────────────────
+# Single-item TEMU invoices often have the price only in Order Summary,
+# not in the item details section.
+balance_items: true
 
 # ─── Validation ────────────────────────────────────────────
 validation:

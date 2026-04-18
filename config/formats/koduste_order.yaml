@@ -94,8 +94,10 @@ items:
 sections:
   items_start:
     - "Items bought from"
-  items_end:
-    - "Order total"
+  # Note: Do NOT use "Order total" — it appears in the header line BEFORE
+  # items_start in some OCR layouts, which makes the section empty.
+  # Omit items_end so the section extends to end of text; skip_patterns
+  # already filter out non-item lines.
 
 validation:
   min_items: 1

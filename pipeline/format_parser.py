@@ -2199,13 +2199,15 @@ class FormatParser:
             # Determine the authoritative subtotal
             raw_total = invoice_data.get('total', 0) or 0
             raw_tax = invoice_data.get('tax', 0) or 0
+            raw_shipping = invoice_data.get('freight', 0) or 0
             raw_subtotal = invoice_data.get('sub_total', 0) or 0
 
-            # Prefer total - tax as subtotal (total is usually most reliable)
-            if raw_total > 0 and raw_tax >= 0:
-                expected_sub = round(raw_total - raw_tax, 2)
-            elif raw_subtotal > 0:
+            # Prefer extracted subtotal (excludes shipping); fall back to
+            # total - tax - shipping when subtotal wasn't captured.
+            if raw_subtotal > 0:
                 expected_sub = raw_subtotal
+            elif raw_total > 0 and raw_tax >= 0:
+                expected_sub = round(raw_total - raw_tax - raw_shipping, 2)
             else:
                 expected_sub = 0
 
@@ -2239,8 +2241,19 @@ class FormatParser:
                     for it in items
                 )
 
-                if not items or items_sum == 0:
-                    # No items extracted — create one placeholder item = subtotal
+                if items and items_sum == 0:
+                    # Items exist but all have zero price — fill from subtotal
+                    # preserving original descriptions from format extraction.
+                    per_item = round(expected_sub / len(items), 2)
+                    remainder = round(expected_sub - per_item * len(items), 2)
+                    for idx, it in enumerate(items):
+                        qty = it.get('quantity', 1) or 1
+                        price = per_item + (remainder if idx == len(items) - 1 else 0)
+                        it['unit_cost'] = price
+                        it['total_cost'] = round(price * qty, 2)
+                    logger.info(f"Balance: filled {len(items)} zero-price items from subtotal ${expected_sub:.2f}")
+                elif not items:
+                    # No items at all — create one placeholder item = subtotal
                     items = [{
                         'sku': f'{supplier[:3].upper()}-1',
                         'description': f'{supplier} Purchase',

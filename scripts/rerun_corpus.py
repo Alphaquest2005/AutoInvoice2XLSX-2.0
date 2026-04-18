@@ -198,6 +198,10 @@ def main() -> int:
     ap.add_argument("--tmp-root", type=Path, default=REPO_ROOT / "workspace" / "_rerun_tmp")
     args = ap.parse_args()
 
+    # Resolve relative paths so relative_to(REPO_ROOT) works later.
+    args.report = args.report.resolve()
+    args.tmp_root = args.tmp_root.resolve()
+
     if not CORPUS.is_dir():
         print(f"corpus not found: {CORPUS}", file=sys.stderr)
         return 2

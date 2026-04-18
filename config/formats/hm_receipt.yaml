@@ -1,0 +1,207 @@
+# H&M Receipt Format Specification
+# Parses H&M online order receipts
+
+name: hm_receipt
+version: "1.0"
+description: "H&M online order receipts with ORDER SUMMARY item table"
+
+# ─── Detection ─────────────────────────────────────────────
+detect:
+  all_of:
+    - "ORDER SUMMARY"
+  any_of:
+    - "RECEIPT NUMBER"
+    - "RECEIPT DATE"
+    - "ART . NO"
+    - "ART.NO"
+    - "UNIT PRICE"
+
+# ─── OCR Normalization ─────────────────────────────────────
+ocr_normalize:
+  - pattern: 'ART\s*\.\s*NO'
+    replace: 'ART.NO'
+    description: "Normalize spaced ART . NO → ART.NO"
+
+  - pattern: 'DESC\s*\.'
+    replace: 'DESC.'
+    description: "Normalize spaced DESC . → DESC."
+
+  - pattern: 'UNIT\s+PRICE'
+    replace: 'UNIT_PRICE'
+    description: "Normalize UNIT PRICE → UNIT_PRICE (prevent split)"
+
+  - pattern: 'TOTAL\s+PRICE'
+    replace: 'TOTAL_PRICE'
+    description: "Normalize TOTAL PRICE → TOTAL_PRICE (prevent split)"
+
+  - pattern: '(?i)Yellowhie\s*-\s*dye'
+    replace: 'Yellow tie-dye'
+    description: "Fix OCR: Yellowhie-dye → Yellow tie-dye"
+
+  - pattern: '(?i)\bary\b'
+    replace: 'QTY'
+    description: "Fix OCR: ary → QTY"
+
+  - pattern: '(?i)\bqary\b'
+    replace: 'QTY'
+    description: "Fix OCR: qary → QTY"
+
+  - pattern: '(?i)\bHeaite\b'
+    replace: ''
+    description: "Strip garbled OCR article number prefix"
+
+  - pattern: '(?i)\bFe\s+ise\b'
+    replace: ''
+    description: "Strip garbled OCR article number prefix"
+
+  - pattern: '(?i)\bAMfe\b'
+    replace: ''
+    description: "Strip garbled OCR article number prefix"
+
+  - pattern: '(\d)\s+(\d{2})(?=\s*$)'
+    replace: '\1.\2'
+    flags: multiline
+    description: "Fix space-separated prices: $7 99 → $7.99"
+
+  - pattern: 'Twist\s*-\s*detail'
+    replace: 'Twist-detail'
+    description: "Normalize spaced hyphenated words"
+
+  - pattern: 'Frayed\s*-\s*edge'
+    replace: 'Frayed-edge'
+    description: "Normalize spaced hyphenated words"
+
+# ─── Metadata Extraction ───────────────────────────────────
+metadata:
+  invoice_number:
+    patterns:
+      - 'RECEIPT\s+NUMBER\s+(\d+)'
+      - 'ORDER\s+NUMBER\s+[:\s]*([\w\-]+)'
+    required: true
+
+  date:
+    patterns:
+      - 'RECEIPT\s+DATE\s+(\d{1,2}\s+[A-Za-z]+\s+\d{4})'
+      - 'ORDER\s+DATE\s+(\d{1,2}\s+[A-Za-z]+\s+\d{4})'
+
+  supplier_name:
+    value: "H&M"
+
+  country_code:
+    value: "US"
+
+  total:
+    patterns:
+      - 'PAYMENT\s+METHOD\s+\w+\s+\$?([\d,]+\.\d{2})'
+      - 'TOTAL[:\s]+\$?([\d,]+\.\d{2})'
+      - 'MERCHANDISE\s+TOTAL[:\s]+\$?([\d,]+\.\d{2})'
+    type: currency
+
+  shipping:
+    patterns:
+      - 'SHIPPING[:\s]+\$?([\d,]+\.\d{2})'
+      - 'SHIPPING[:\s]+FREE'
+    type: currency
+    default: 0
+
+  discount:
+    patterns:
+      - 'DISCOUNT[:\s]+-?\$?([\d,]+\.\d{2})'
+    type: currency
+
+# ─── Item Extraction ───────────────────────────────────────
+items:
+  # H&M receipts have tabular items but OCR garbles article numbers
+  # and descriptions. The reliable pattern is dollar amounts at end of line.
+  # Each item line ends with: $UNIT_PRICE - $DISCOUNT $TOTAL_PRICE
+  strategy: multiline
+
+  multiline:
+    # Match lines ending with 3 dollar amounts: UNIT_PRICE +/- DISCOUNT TOTAL_PRICE
+    # The last dollar amount is the TOTAL PRICE for the item
+    # Examples:
+    #   "Flared Twill Pants 12 Dark gray 1 $20.99 + $13.00 $7.99"
+    #   "Straw Hat M 56 Beige 1 $19.99 - $11.00 $6.99"
+    price_pattern: '\$([\d,]+\.\d{2})\s+[\+\-]\s+\$([\d,]+\.\d{2})\s+\$([\d,]+\.\d{2})\s*$'
+
+    field_map:
+      unit_price: 1
+      discount: 2
+      total_price: 3
+
+    types:
+      unit_price: currency
+      discount: currency
+      total_price: currency
+
+    description_join: ' '
+    min_description_length: 5
+
+    # Lines to skip (metadata and headers, not items)
+    skip_patterns:
+      - '(?i)^ART\.?NO'
+      - '(?i)^ORDER\s+SUMMARY'
+      - '(?i)^RECEIPT\s+(NUMBER|DATE)'
+      - '(?i)^ORDER\s+(NUMBER|DATE)'
+      - '(?i)^NAME\b'
+      - '(?i)^EMAIL\b'
+      - '(?i)^HOME\s+ADDRESS'
+      - '(?i)^PAYMENT\s+METHOD'
+      - '(?i)^DELIVERY\s+METHOD'
+      - '(?i)^MERCHANDISE\s+TOTAL'
+      - '(?i)^SUBTOTAL'
+      - '(?i)^SHIPPING'
+      - '(?i)^SALES\s+TAX'
+      - '(?i)^TOTAL[:\s]'
+      - '(?i)^DISCOUNT[:\s]'
+      - '(?i)^YOUR\s+DETAILS'
+      - '(?i)^DESC\.'
+      - '(?i)^SIZE\b'
+      - '(?i)^COLOUR\b'
+      - '(?i)^QTY\b'
+      - '(?i)^UNIT_PRICE'
+      - '(?i)^TOTAL_PRICE'
+      - '(?i)^TAXABLE'
+      - '(?i)^QA-code'
+      - '(?i)^Note,?\s+you'
+      - '(?i)^For\s+more\s+information'
+      - '(?i)^You\s+always'
+      - '^\s*$'
+      - '^\s*[¥=*Wwr]+\s*$'
+      - '^\s*\*\s*\d+\s*$'
+
+    clean_fields:
+      description:
+        # Strip garbled article numbers (digit/letter combos at start)
+        - pattern: '^\d{5,}[\d\w]*\s+'
+          replace: ''
+        # Strip stray OCR noise characters at start
+        - pattern: '^[\W_]+\s+'
+          replace: ''
+        # Collapse whitespace
+        - pattern: '\s+'
+          replace: ' '
+        # Strip trailing size/colour/qty that leaked into description
+        - pattern: '\s+\d+\s+\$.*$'
+          replace: ''
+
+    generated_fields:
+      sku: "HM-{index}"
+
+# ─── Section Markers ───────────────────────────────────────
+sections:
+  items_start:
+    - "ORDER SUMMARY"
+    - "ART.NO"
+    - "ART . NO"
+
+  items_end: []
+
+# ─── Balance items ─────────────────────────────────────────
+balance_items: true
+
+# ─── Validation ────────────────────────────────────────────
+validation:
+  min_items: 1
+  max_item_price: 10000
+  require_total: false

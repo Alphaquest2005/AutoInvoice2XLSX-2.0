@@ -237,6 +237,10 @@ sections:
   items_end:
     - "Grand Total"
 
+# When OCR misses per-item prices (two-column layout), distribute
+# subtotal across extracted items rather than rejecting them.
+balance_items: true
+
 # Validation
 validation:
   min_items: 1

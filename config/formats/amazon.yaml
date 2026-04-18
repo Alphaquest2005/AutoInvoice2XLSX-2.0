@@ -203,6 +203,9 @@ items:
       - '^\d+/\d+/\d+,\s+\d+:\d+'
       - '^Amazon\.com\s*-\s*Order'
       - 'C/o CaribConex'
+      - '^Shipping Speed'
+      - '^Kerry'
+      - '^GRE\s+\d'
 
     # Field extraction from combined block text
     fields:
@@ -249,6 +252,12 @@ sections:
     - "Payment information"
     - "Payment method"
     - "Conditions of Use"
+
+# ─── Balance items ─────────────────────────────────────────
+# Some Amazon invoice variants have prices only in the payment section,
+# not in the item blocks.  balance_items fills zero-price items from
+# the invoice subtotal so they survive the zero-value filter.
+balance_items: true
 
 # ─── Validation ────────────────────────────────────────────
 validation:

@@ -90,6 +90,8 @@ sections:
   items_end:
     - "Subtotal"
 
+balance_items: true
+
 validation:
   min_items: 1
   max_item_price: 1000

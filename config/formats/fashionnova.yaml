@@ -1,70 +1,221 @@
-# Auto-generated format spec for unknown_4
-# Generated on 2026-03-17T03:37:26.032503
-# Will be promoted to formats/ on successful processing
+# Fashion Nova Invoice Format Specification
+# Handles FashionNova order invoices / packing slips
+# Covers both "Order #" (packing slip) and "Order Number :" (invoice) layouts
 
 name: fashionnova
-version: "1.0"
-description: "FashionNova packing slip/invoice format"
+version: "2.0"
+description: "Fashion Nova order invoices and packing slips"
 
+# ─── Detection ─────────────────────────────────────────────
+# OCR frequently garbles the brand name: ASHIONNOVA, FASHIOMWVA, FASHIOMiOVA
+# Match on cleaner "Fashion Nova" text OR garbled variants, plus order indicators
 detect:
-  all_of:
-    - "FASHIONNOVA"
-    - "Order #"
+  all_of: []
   any_of:
-    - "Shipping Methods"
-    - "Delivery Address"
+    - "Fashion Nova"
+    - "FASHIONNOVA"
+    - "ASHIONNOVA"
+    - "FASHIOMWVA"
+    - "FASHIOMiOVA"
+    - "FASHIOMOVA"
+    - "Vernon , CA"
+    - "Veron , CA"
+  require_also:
+    any_of:
+      - "Order Number"
+      - "Order #"
+      - "Total Payment Amount"
 
+# ─── OCR Normalization ────────────────────────────────────
+# Applied BEFORE parsing, in order listed
+ocr_normalize:
+  - pattern: '\s*[|]+\s*'
+    replace: ' '
+    description: "Remove pipe characters (OCR noise from column borders)"
+
+  - pattern: '\s+oe\s*$'
+    replace: ''
+    flags: multiline
+    description: "Remove trailing 'oe' OCR noise"
+
+  - pattern: '^\s*[—]+\s+'
+    replace: ''
+    flags: multiline
+    description: "Remove leading em-dashes (OCR noise)"
+
+  - pattern: '\s*,\s*,\s*'
+    replace: ', '
+    description: "Collapse double commas from OCR noise"
+
+  - pattern: 'ASHIONNOVA'
+    replace: 'FASHIONNOVA'
+    description: "Fix OCR: ASHIONNOVA → FASHIONNOVA (dropped leading F)"
+
+  - pattern: 'FASHIOMWVA'
+    replace: 'FASHIONNOVA'
+    description: "Fix OCR: FASHIOMWVA → FASHIONNOVA"
+
+  - pattern: 'FASHIOMiOVA'
+    replace: 'FASHIONNOVA'
+    description: "Fix OCR: FASHIOMiOVA → FASHIONNOVA"
+
+  - pattern: 'FASHIOMOVA'
+    replace: 'FASHIONNOVA'
+    description: "Fix OCR: FASHIOMOVA → FASHIONNOVA"
+
+  - pattern: 'Veron\s*,'
+    replace: 'Vernon,'
+    description: "Fix OCR: Veron → Vernon (Fashion Nova HQ city)"
+
+  - pattern: '(\$\d+)\s+(\d{2})(?=\s|$)'
+    replace: '\1.\2'
+    flags: multiline
+    description: "Fix space-separated prices: $41 99 → $41.99"
+
+  - pattern: '(\$\d+),(\d{2})(?!\d)'
+    replace: '\1.\2'
+    description: "Fix OCR comma-as-decimal: $41,99 → $41.99"
+
+  - pattern: 'Oty'
+    replace: 'Qty'
+    description: "Fix OCR: Oty → Qty"
+
+# ─── Metadata Extraction ──────────────────────────────────
 metadata:
   invoice_number:
     patterns:
-      - 'Order\s+#(\d+)'
+      - 'Order\s+Number\s*:\s*(\d{6,})'
+      - 'Order\s+#\s*(\d{6,})'
     required: true
+
   date:
     patterns:
-      - 'Date Placed:\s+([A-Za-z]{3}\s+\d{1,2}/\d{4})'
+      # Invoice layout: "Order Date / Time : August 6 th , 2024 - 05 : 46 pm"
+      - 'Order\s+Date\s*/?\s*Time\s*:\s*(\w+\s+\d{1,2}\s*(?:th|st|nd|rd)?\s*,?\s*\d{4})'
+      # Packing slip layout: "Date Placed: Aug 06/2024"
+      - 'Date\s+Placed:\s+([A-Za-z]{3}\s+\d{1,2}/\d{4})'
+      # Fallback: month day year
+      - 'Order\s+Date\s*:\s*(\w+\s+\d{1,2}\s*,?\s*\d{4})'
+
   supplier_name:
-    value: "FashionNova"
+    value: "Fashion Nova"
+
   country_code:
     value: "US"
+
   total:
     patterns:
-      - 'Total\s+\$?([\d,]+\.\d{2})'
+      - 'Total\s+Payment\s+Amount\s*:\s*\$?([\d,]+\.\d{2})'
+      - 'Total\s*:\s*\$?([\d,]+\.\d{2})'
     type: currency
 
+  subtotal:
+    patterns:
+      - 'Product\s+Full\s+Price\s*:\s*\$?([\d,]+\.\d{2})'
+      - 'Subtotal\s*:\s*\$?([\d,]+\.\d{2})'
+    type: currency
+
+  tax:
+    patterns:
+      - 'Product\s+Tax\s*:\s*\$?([\d,]+\.\d{2})'
+      - 'Tax\s*:\s*\$?([\d,]+\.\d{2})'
+    type: currency
+    default: 0
+
+  shipping:
+    patterns:
+      - 'Shipping\s+Cost\s*:\s*\$?([\d,]+\.\d{2})'
+      - 'Shipping\s*:\s*\$?([\d,]+\.\d{2})'
+    type: currency
+    default: 0
+
+  discount:
+    patterns:
+      - 'Product\s+Discount\s*:\s*\$?([\d,]+\.\d{2})'
+      - 'Discount\s*:\s*-?\$?([\d,]+\.\d{2})'
+    type: currency
+    default: 0
+
+  duty:
+    patterns:
+      - 'Product\s+Duty\s*:\s*\$?([\d,]+\.\d{2})'
+    type: currency
+    default: 0
+
+# ─── Item Extraction ──────────────────────────────────────
+# FashionNova item details appear BELOW tracking info on invoices,
+# or inline on packing slips.  OCR frequently cuts them off or
+# places them on a second page.
 items:
-  strategy: line
-  line:
-    pattern: '([A-Z][^$]+?)(?:Size:\s+[^\n]+\n)?(?:Oty[\s:]+(\d+)[\s\n]+)?\$([\d,]+\.\d{2})'
+  strategy: multiline
+  multiline:
+    # Item lines ending with optional qty and a price
+    price_pattern: '\s+(\d{1,3})\s+\$?([\d,]+\.\d{2})\s*$'
     field_map:
-      description: 1
-      quantity: 2
-      unit_price: 3
+      quantity: 1
+      unit_price: 2
     types:
       quantity: integer
       unit_price: currency
+    min_description_length: 10
     skip_patterns:
+      - '^Fashion Nova'
+      - '^FASHIONNOVA'
+      - '^\d{4}\s+E\s*\.'
+      - '^Vernon'
+      - '^Order Number'
+      - '^Order Date'
+      - '^Order\s+#'
+      - '^Date Placed'
+      - '^Shipping Information'
+      - '^Billing Information'
+      - '^Shipping Method'
+      - '^Shipping Cost'
+      - '^Shipping Discount'
+      - '^Shipping Tax'
+      - '^Product Full Price'
+      - '^Product Discount'
+      - '^Product Tax'
+      - '^Product Duty'
+      - '^Total Payment'
       - '^Total'
       - '^Subtotal'
       - '^Shipping'
       - '^Tax'
       - '^Discount'
-      - 'Order\s+#'
-      - 'Date Placed'
-      - 'Delivery Address'
-      - 'Billing Address'
-      - 'Shipping Methods'
+      - '^Tracking'
+      - '^Payment Method'
+      - '^Delivery Address'
+      - '^Billing Address'
+      - '^Shipping Methods'
+      - '^Miami'
+      - '^United States'
+      - '^\d+\s*\(\s*\d{3}\s*\)'
       - '^\s*$'
       - '^\d+\s+FREE:'
       - '^\d+\s+IPPING'
     generated_fields:
       sku: "FN-{index}"
 
+# ─── Section Markers ─────────────────────────────────────
 sections:
   items_start:
+    - "Tracking URL"
+    - "Tracking Number"
+    - "Payment Method"
     - "Order #"
   items_end:
+    - "Total Payment Amount"
     - "Total"
 
+# ─── Balance Items ────────────────────────────────────────
+# OCR often fails to capture item details (below the fold / second page).
+# balance_items distributes subtotal across items or creates a placeholder
+# when no items are extracted.
+balance_items: true
+
+# ─── Validation ───────────────────────────────────────────
 validation:
   min_items: 1
-  max_item_price: 500
+  max_item_price: 5000
+  require_total: false
