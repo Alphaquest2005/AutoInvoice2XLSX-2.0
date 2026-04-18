@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "24.65",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "24.65 written vertically in left margin"
+  },
+  "printed": {
+    "consignee": "RICHARD AYLiffe",
+    "freight": "39.00",
+    "waybill": "HAWB9591765",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": "19.0",
+    "packages": "1"
+  },
+  "has_handwriting": true
+}

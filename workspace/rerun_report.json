@@ -1,8 +1,8 @@
 {
-  "session_start": "2026-04-18T07:06:49.968396+00:00",
+  "session_start": "2026-04-18T09:09:13.912266+00:00",
   "total_folders": 103,
-  "processed": 22,
-  "elapsed_s": 17955.4,
+  "processed": 35,
+  "elapsed_s": 25299.3,
   "results": [
     {
       "folder": "03142025_7_24_24_3_53_PM_am_on.coiti_",
@@ -2716,6 +2716,1597 @@
       },
       "error": null,
       "elapsed_s": 880.7
+    },
+    {
+      "folder": "03152025_7_20_24_9_02_an_zon.com_",
+      "staged": 3,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "113-5352926-0997859",
+            "supplier": "Amazon.com",
+            "format": "amazon",
+            "items": 3,
+            "matched": 0,
+            "classified": 2,
+            "total": 172.89,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_20_24_9_02_an_zon.com_.out/113-5352926-0997859.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_20_24_9_02_an_zon.com_.out/113-5352926-0997859.pdf"
+          }
+        ],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_20_24_9_02_an_zon.com_.stage/HAWB9597903-WorkSheet.pdf",
+            "pdf_file": "HAWB9597903-WorkSheet.pdf",
+            "reason": "No items extracted (format: Tremeretrue_Supplier_Invoice)",
+            "invoice_num": "Document Type PO Number Supplier Invoice# Date"
+          }
+        ],
+        "failed_count": 1,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_20_24_9_02_an_zon.com_.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_20_24_9_02_an_zon.com_.out/_email_params.json",
+        "validation": {
+          "total_issues": 4,
+          "fixed": 0,
+          "unfixed": 4,
+          "per_file": [
+            {
+              "file": "113-5352926-0997859.xlsx",
+              "supplier": "Amazon.com",
+              "issues": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 5,
+                  "current": "00000000",
+                  "description": "NEEWER F 500 5.5 Inch Camera Field Monitor , HDR Touch Screen with 3 D LUT , Waveform , Vector Scope , Full HD (1 items)",
+                  "qty": 1,
+                  "total_cost": 159.99,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"NEEWER F 500 5.5 Inch Camera Field Monitor , HDR Touch Scree\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 6,
+                  "current": "00000000",
+                  "description": "NEEWER F 500 5.5 Inch Camera Field Monitor , HDR Touch Screen with 3 D LUT , Waveform , Vector Scope , Full HD",
+                  "qty": 1,
+                  "total_cost": 159.99,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"NEEWER F 500 5.5 Inch Camera Field Monitor , HDR Touch Scree\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 26,
+                  "current": "",
+                  "description": "\u2514 00000000: 20% CET (93% of value)",
+                  "qty": 0,
+                  "total_cost": 87.62,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 00000000: 20% CET (93% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 27,
+                  "current": "",
+                  "description": "\u2514 85366900: 20% CET (7% of value)",
+                  "qty": 0,
+                  "total_cost": 6.33,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 85366900: 20% CET (7% of value)\" using CARICOM CET schedule based on material and function."
+                }
+              ],
+              "fixes": [],
+              "remaining": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 5,
+                  "current": "00000000",
+                  "description": "NEEWER F 500 5.5 Inch Camera Field Monitor , HDR Touch Screen with 3 D LUT , Waveform , Vector Scope , Full HD (1 items)",
+                  "qty": 1,
+                  "total_cost": 159.99,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"NEEWER F 500 5.5 Inch Camera Field Monitor , HDR Touch Scree\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 6,
+                  "current": "00000000",
+                  "description": "NEEWER F 500 5.5 Inch Camera Field Monitor , HDR Touch Screen with 3 D LUT , Waveform , Vector Scope , Full HD",
+                  "qty": 1,
+                  "total_cost": 159.99,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"NEEWER F 500 5.5 Inch Camera Field Monitor , HDR Touch Scree\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 26,
+                  "current": "",
+                  "description": "\u2514 00000000: 20% CET (93% of value)",
+                  "qty": 0,
+                  "total_cost": 87.62,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 00000000: 20% CET (93% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 27,
+                  "current": "",
+                  "description": "\u2514 85366900: 20% CET (7% of value)",
+                  "qty": 0,
+                  "total_cost": 6.33,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 85366900: 20% CET (7% of value)\" using CARICOM CET schedule based on material and function."
+                }
+              ],
+              "fixed": 0,
+              "unfixed": 4
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "113-5352926-0997859.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": false,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            },
+            {
+              "check": "unfixed_tariff",
+              "severity": "block",
+              "message": "4 item(s) have invalid/missing tariff codes.",
+              "field": "validation.tariff",
+              "value": "4",
+              "fix_hint": "For each item below, use lookup_tariff with the item description to find the correct 8-digit CET end-node code. Then edit the XLSX file: set column F (TariffCode) and column AK (GroupBy) to the new code. After fixing, run validate_xlsx to confirm.\n  113-5352926-0997859.xlsx row 5: \"NEEWER F 500 5.5 Inch Camera Field Monitor , HDR T\" [current: 00000000]\n  113-5352926-0997859.xlsx row 6: \"NEEWER F 500 5.5 Inch Camera Field Monitor , HDR T\" [current: 00000000]\n  113-5352926-0997859.xlsx row 26: \"\u2514 00000000: 20% CET (93% of value)\" [current: ]\n  113-5352926-0997859.xlsx row 27: \"\u2514 85366900: 20% CET (7% of value)\" [current: ]"
+            }
+          ],
+          "blocker_count": 1,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 759.2
+    },
+    {
+      "folder": "03152025_7_28_24_10_16_AM_9r_on.com",
+      "staged": 3,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "114-1708026-9220253",
+            "supplier": "Amazon.com",
+            "format": "amazon",
+            "items": 1,
+            "matched": 0,
+            "classified": 1,
+            "total": 64.56,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_28_24_10_16_AM_9r_on.com.out/114-1708026-9220253.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_28_24_10_16_AM_9r_on.com.out/114-1708026-9220253.pdf"
+          }
+        ],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_28_24_10_16_AM_9r_on.com.stage/HAWB9605543-WorkSheet.pdf",
+            "pdf_file": "HAWB9605543-WorkSheet.pdf",
+            "reason": "No items extracted (format: Tremeretrue_Supplier_Invoice)",
+            "invoice_num": "Document Type PO Number Supplier Invoice# Date"
+          }
+        ],
+        "failed_count": 1,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_28_24_10_16_AM_9r_on.com.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_28_24_10_16_AM_9r_on.com.out/_email_params.json",
+        "validation": {
+          "total_issues": 1,
+          "fixed": 0,
+          "unfixed": 1,
+          "per_file": [
+            {
+              "file": "114-1708026-9220253.xlsx",
+              "supplier": "Amazon.com",
+              "issues": [
+                {
+                  "type": "VARIANCE",
+                  "variance": 9.0,
+                  "invoice_total": 64.56,
+                  "sum_items": 59.99,
+                  "freight": 0.0,
+                  "insurance": -9.0,
+                  "tax": 4.57,
+                  "deduction": 0.0,
+                  "why": "Variance $+9.00. InvoiceTotal($64.56) != NetTotal($55.56).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixes": [],
+              "remaining": [
+                {
+                  "type": "VARIANCE",
+                  "variance": 9.0,
+                  "invoice_total": 64.56,
+                  "sum_items": 59.99,
+                  "freight": 0.0,
+                  "insurance": -9.0,
+                  "tax": 4.57,
+                  "deduction": 0.0,
+                  "why": "Variance $+9.00. InvoiceTotal($64.56) != NetTotal($55.56).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixed": 0,
+              "unfixed": 1
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "114-1708026-9220253.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": false,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            },
+            {
+              "check": "unfixed_variance",
+              "severity": "block",
+              "message": "1 block(s)/file(s) have unresolved variance.",
+              "field": "validation.variance",
+              "value": "1",
+              "fix_hint": "For each file: read_file the XLSX to see line items and totals (row 2 cols S=InvoiceTotal, T=Freight, U=Insurance, V=Tax, W=Deduction). Read the source invoice PDF to find unextracted charges. Use edit_file to correct values. Variance = InvoiceTotal - (SumItems + Freight + Insurance + Tax - Deduction). After fixing, run validate_xlsx to confirm.\n  114-1708026-9220253.xlsx: Variance $+9.00. InvoiceTotal($64.56) != NetTotal($55.56)."
+            }
+          ],
+          "blocker_count": 1,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 210.6
+    },
+    {
+      "folder": "03152025_7_29_24_2_33_PM_amazon.com",
+      "staged": 3,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "114-1133554-2261051",
+            "supplier": "Amazon.com",
+            "format": "amazon",
+            "items": 1,
+            "matched": 0,
+            "classified": 0,
+            "total": 61.44,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_29_24_2_33_PM_amazon.com.out/114-1133554-2261051.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_29_24_2_33_PM_amazon.com.out/114-1133554-2261051.pdf"
+          }
+        ],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_29_24_2_33_PM_amazon.com.stage/HAWB9579071-WorkSheet.pdf",
+            "pdf_file": "HAWB9579071-WorkSheet.pdf",
+            "reason": "No items extracted (format: Tremeretrue_Supplier_Invoice)",
+            "invoice_num": "Document Type PO Number Supplier Invoice# Date"
+          }
+        ],
+        "failed_count": 1,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_29_24_2_33_PM_amazon.com.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_29_24_2_33_PM_amazon.com.out/_email_params.json",
+        "validation": {
+          "total_issues": 2,
+          "fixed": 0,
+          "unfixed": 2,
+          "per_file": [
+            {
+              "file": "114-1133554-2261051.xlsx",
+              "supplier": "Amazon.com",
+              "issues": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "current": "00000000",
+                  "description": "O - Cedar System Easy Wring Spin Mop & Bucket with 3 Extra Refills with Citrus Pac ( Variety Pack (1 items)",
+                  "qty": 1,
+                  "total_cost": 57.42,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"O - Cedar System Easy Wring Spin Mop & Bucket with 3 Extra R\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 3,
+                  "current": "00000000",
+                  "description": "O - Cedar System Easy Wring Spin Mop & Bucket with 3 Extra Refills with Citrus Pac ( Variety Pack",
+                  "qty": 1,
+                  "total_cost": 57.42,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"O - Cedar System Easy Wring Spin Mop & Bucket with 3 Extra R\" using CARICOM CET schedule based on material and function."
+                }
+              ],
+              "fixes": [],
+              "remaining": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "current": "00000000",
+                  "description": "O - Cedar System Easy Wring Spin Mop & Bucket with 3 Extra Refills with Citrus Pac ( Variety Pack (1 items)",
+                  "qty": 1,
+                  "total_cost": 57.42,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"O - Cedar System Easy Wring Spin Mop & Bucket with 3 Extra R\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 3,
+                  "current": "00000000",
+                  "description": "O - Cedar System Easy Wring Spin Mop & Bucket with 3 Extra Refills with Citrus Pac ( Variety Pack",
+                  "qty": 1,
+                  "total_cost": 57.42,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"O - Cedar System Easy Wring Spin Mop & Bucket with 3 Extra R\" using CARICOM CET schedule based on material and function."
+                }
+              ],
+              "fixed": 0,
+              "unfixed": 2
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "114-1133554-2261051.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": false,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            },
+            {
+              "check": "unfixed_tariff",
+              "severity": "block",
+              "message": "2 item(s) have invalid/missing tariff codes.",
+              "field": "validation.tariff",
+              "value": "2",
+              "fix_hint": "For each item below, use lookup_tariff with the item description to find the correct 8-digit CET end-node code. Then edit the XLSX file: set column F (TariffCode) and column AK (GroupBy) to the new code. After fixing, run validate_xlsx to confirm.\n  114-1133554-2261051.xlsx row 2: \"O - Cedar System Easy Wring Spin Mop & Bucket with\" [current: 00000000]\n  114-1133554-2261051.xlsx row 3: \"O - Cedar System Easy Wring Spin Mop & Bucket with\" [current: 00000000]"
+            }
+          ],
+          "blocker_count": 1,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 297.1
+    },
+    {
+      "folder": "03152025_7_29_24_2_33_PM_amazoncom",
+      "staged": 3,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "114-1133554-2261051",
+            "supplier": "Amazon.com",
+            "format": "amazon",
+            "items": 1,
+            "matched": 0,
+            "classified": 1,
+            "total": 61.44,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_29_24_2_33_PM_amazoncom.out/114-1133554-2261051.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_29_24_2_33_PM_amazoncom.out/114-1133554-2261051.pdf"
+          }
+        ],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_29_24_2_33_PM_amazoncom.stage/HAWB9579071-WorkSheet.pdf",
+            "pdf_file": "HAWB9579071-WorkSheet.pdf",
+            "reason": "No items extracted (format: Tremeretrue_Supplier_Invoice)",
+            "invoice_num": "Document Type PO Number Supplier Invoice# Date"
+          }
+        ],
+        "failed_count": 1,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_29_24_2_33_PM_amazoncom.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_29_24_2_33_PM_amazoncom.out/_email_params.json",
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": [
+            {
+              "file": "114-1133554-2261051.xlsx",
+              "supplier": "Amazon.com",
+              "issues": [],
+              "fixes": [],
+              "fixed": 0,
+              "unfixed": 0
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "114-1133554-2261051.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": true,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            }
+          ],
+          "blocker_count": 0,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 213.1
+    },
+    {
+      "folder": "03152025_7_29_24_35_PM_ai_zoncom",
+      "staged": 3,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "112-0219979-8477833",
+            "supplier": "Amazon.com",
+            "format": "amazon",
+            "items": 1,
+            "matched": 0,
+            "classified": 1,
+            "total": 418.78,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_29_24_35_PM_ai_zoncom.out/112-0219979-8477833.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_29_24_35_PM_ai_zoncom.out/112-0219979-8477833.pdf"
+          }
+        ],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_29_24_35_PM_ai_zoncom.stage/HAWB9591765-WorkSheet.pdf",
+            "pdf_file": "HAWB9591765-WorkSheet.pdf",
+            "reason": "No items extracted (format: Tremeretrue_Supplier_Invoice)",
+            "invoice_num": "Document Type PO Number Supplier Invoice# Date"
+          }
+        ],
+        "failed_count": 1,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_29_24_35_PM_ai_zoncom.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_29_24_35_PM_ai_zoncom.out/_email_params.json",
+        "validation": {
+          "total_issues": 1,
+          "fixed": 0,
+          "unfixed": 1,
+          "per_file": [
+            {
+              "file": "112-0219979-8477833.xlsx",
+              "supplier": "Amazon.com",
+              "issues": [
+                {
+                  "type": "VARIANCE",
+                  "variance": 265.78,
+                  "invoice_total": 418.78,
+                  "sum_items": 142.99,
+                  "freight": 0.0,
+                  "insurance": 0.0,
+                  "tax": 10.01,
+                  "deduction": 0.0,
+                  "why": "Variance $+265.78. InvoiceTotal($418.78) != NetTotal($153.00).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixes": [],
+              "remaining": [
+                {
+                  "type": "VARIANCE",
+                  "variance": 265.78,
+                  "invoice_total": 418.78,
+                  "sum_items": 142.99,
+                  "freight": 0.0,
+                  "insurance": 0.0,
+                  "tax": 10.01,
+                  "deduction": 0.0,
+                  "why": "Variance $+265.78. InvoiceTotal($418.78) != NetTotal($153.00).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixed": 0,
+              "unfixed": 1
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "112-0219979-8477833.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": false,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            },
+            {
+              "check": "unfixed_variance",
+              "severity": "block",
+              "message": "1 block(s)/file(s) have unresolved variance.",
+              "field": "validation.variance",
+              "value": "1",
+              "fix_hint": "For each file: read_file the XLSX to see line items and totals (row 2 cols S=InvoiceTotal, T=Freight, U=Insurance, V=Tax, W=Deduction). Read the source invoice PDF to find unextracted charges. Use edit_file to correct values. Variance = InvoiceTotal - (SumItems + Freight + Insurance + Tax - Deduction). After fixing, run validate_xlsx to confirm.\n  112-0219979-8477833.xlsx: Variance $+265.78. InvoiceTotal($418.78) != NetTotal($153.00)."
+            }
+          ],
+          "blocker_count": 1,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 579.6
+    },
+    {
+      "folder": "03152025_7_29_24_3_57_PM_amazon.com_",
+      "staged": 3,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "111-9341313-9838630",
+            "supplier": "Amazon.com",
+            "format": "amazon",
+            "items": 2,
+            "matched": 0,
+            "classified": 2,
+            "total": 671.54,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_29_24_3_57_PM_amazon.com_.out/111-9341313-9838630.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_29_24_3_57_PM_amazon.com_.out/111-9341313-9838630.pdf"
+          }
+        ],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_29_24_3_57_PM_amazon.com_.stage/HAWB9591107-WorkSheet.pdf",
+            "pdf_file": "HAWB9591107-WorkSheet.pdf",
+            "reason": "No items extracted (format: Tremeretrue_Supplier_Invoice)",
+            "invoice_num": "Document Type PO Number Supplier Invoice# Date"
+          }
+        ],
+        "failed_count": 1,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_29_24_3_57_PM_amazon.com_.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_7_29_24_3_57_PM_amazon.com_.out/_email_params.json",
+        "validation": {
+          "total_issues": 3,
+          "fixed": 2,
+          "unfixed": 1,
+          "per_file": [
+            {
+              "file": "111-9341313-9838630.xlsx",
+              "supplier": "Amazon.com",
+              "issues": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 27,
+                  "current": "",
+                  "description": "\u2514 42022200: 20% CET (17% of value)",
+                  "qty": 0,
+                  "total_cost": 60.32,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 42022200: 20% CET (17% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 28,
+                  "current": "",
+                  "description": "\u2514 84719000: 5% CET (83% of value)",
+                  "qty": 0,
+                  "total_cost": 76.15,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 84719000: 5% CET (83% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "VARIANCE",
+                  "variance": 43.95,
+                  "invoice_total": 671.54,
+                  "sum_items": 628.89,
+                  "freight": 0.0,
+                  "insurance": -1.3,
+                  "tax": 0.0,
+                  "deduction": 0.0,
+                  "why": "Variance $+43.95. InvoiceTotal($671.54) != NetTotal($627.59).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixes": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 27,
+                  "old": "",
+                  "new": "42022200",
+                  "method": "LLM: Row represents the CET duty allocation line for the MOSISO l",
+                  "description": "\u2514 42022200: 20% CET (17% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 28,
+                  "old": "",
+                  "new": "84719000",
+                  "method": "LLM: Row represents the CET duty allocation line for the Anker US",
+                  "description": "\u2514 84719000: 5% CET (83% of value)"
+                }
+              ],
+              "remaining": [
+                {
+                  "type": "VARIANCE",
+                  "variance": 43.95,
+                  "invoice_total": 671.54,
+                  "sum_items": 628.89,
+                  "freight": 0.0,
+                  "insurance": -1.3,
+                  "tax": 0.0,
+                  "deduction": 0.0,
+                  "why": "Variance $+43.95. InvoiceTotal($671.54) != NetTotal($627.59).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixed": 2,
+              "unfixed": 1
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "111-9341313-9838630.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": false,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            },
+            {
+              "check": "unfixed_variance",
+              "severity": "block",
+              "message": "1 block(s)/file(s) have unresolved variance.",
+              "field": "validation.variance",
+              "value": "1",
+              "fix_hint": "For each file: read_file the XLSX to see line items and totals (row 2 cols S=InvoiceTotal, T=Freight, U=Insurance, V=Tax, W=Deduction). Read the source invoice PDF to find unextracted charges. Use edit_file to correct values. Variance = InvoiceTotal - (SumItems + Freight + Insurance + Tax - Deduction). After fixing, run validate_xlsx to confirm.\n  111-9341313-9838630.xlsx: Variance $+43.95. InvoiceTotal($671.54) != NetTotal($627.59)."
+            }
+          ],
+          "blocker_count": 1,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 527.2
+    },
+    {
+      "folder": "03152025_8_18_24_9_05_PM_ai_on.com_",
+      "staged": 3,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_8_18_24_9_05_PM_ai_on.com_.stage/HAWB9671027-WorkSheet.pdf",
+            "pdf_file": "HAWB9671027-WorkSheet.pdf",
+            "reason": "No items extracted (format: Tremeretrue_Supplier_Invoice)",
+            "invoice_num": "Document Type PO Number Supplier Invoice# Date"
+          },
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_8_18_24_9_05_PM_ai_on.com_.out/_split_temp/112-1892394-4362604_Invoice.pdf",
+            "pdf_file": "112-1892394-4362604_Invoice.pdf",
+            "reason": "No items extracted (format: unmatched)",
+            "invoice_num": "112"
+          }
+        ],
+        "failed_count": 2,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 473.3
+    },
+    {
+      "folder": "03152025_ABOUT",
+      "staged": 4,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "00190",
+            "supplier": "unknown_y",
+            "format": "unknown_y",
+            "items": 6,
+            "matched": 0,
+            "classified": 0,
+            "total": 277.17,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_ABOUT.out/00190.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_ABOUT.out/00190.pdf"
+          }
+        ],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_ABOUT.stage/HAWB9728292-WorkSheet.pdf",
+            "pdf_file": "HAWB9728292-WorkSheet.pdf",
+            "reason": "No items extracted (format: Tremeretrue_Supplier_Invoice)",
+            "invoice_num": "Document Type PO Number Supplier Invoice# Date"
+          },
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_ABOUT.stage/HAWB9748223-WorkSheet.pdf",
+            "pdf_file": "HAWB9748223-WorkSheet.pdf",
+            "reason": "No items extracted (format: Tremeretrue_Supplier_Invoice)",
+            "invoice_num": "Document Type PO Number Supplier Invoice# Date"
+          }
+        ],
+        "failed_count": 2,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_ABOUT.out/_email_params.json",
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_ABOUT.out/_email_params_2.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_ABOUT.out/_email_params.json",
+        "validation": {
+          "total_issues": 1,
+          "fixed": 1,
+          "unfixed": 0,
+          "per_file": [
+            {
+              "file": "00190.xlsx",
+              "supplier": "unknown_y",
+              "issues": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "current": "00000000",
+                  "description": "(+5 more) (6 items)",
+                  "qty": 6,
+                  "total_cost": 277.17,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"(+5 more) (6 items)\" using CARICOM CET schedule based on material and function."
+                }
+              ],
+              "fixes": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "old": "00000000",
+                  "new": "64041990",
+                  "method": "LLM: The invoice is from PUMA and lists multiple sneaker styles (",
+                  "description": "(+5 more) (6 items)"
+                }
+              ],
+              "remaining": [],
+              "fixed": 1,
+              "unfixed": 0
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "00190.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        }
+      },
+      "error": null,
+      "elapsed_s": 1347.6
+    },
+    {
+      "folder": "03152025_ASHIONNOVA",
+      "staged": 3,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_ASHIONNOVA.stage/HAWB9676008-WorkSheet.pdf",
+            "pdf_file": "HAWB9676008-WorkSheet.pdf",
+            "reason": "No items extracted (format: Tremeretrue_Supplier_Invoice)",
+            "invoice_num": "Document Type PO Number Supplier Invoice# Date"
+          },
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_ASHIONNOVA.out/_split_temp/140070017_Invoice.pdf",
+            "pdf_file": "140070017_Invoice.pdf",
+            "reason": "No items extracted (format: unmatched)",
+            "invoice_num": "140070017"
+          }
+        ],
+        "failed_count": 2,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 572.2
+    },
+    {
+      "folder": "03152025_AoV",
+      "staged": 5,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "111-1616806-9805016",
+            "supplier": "Amazon.com",
+            "format": "amazon",
+            "items": 7,
+            "matched": 0,
+            "classified": 7,
+            "total": 141.45,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_AoV.out/111-1616806-9805016.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_AoV.out/111-1616806-9805016.pdf"
+          }
+        ],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_AoV.stage/HAWB9584275-WorkSheet.pdf",
+            "pdf_file": "HAWB9584275-WorkSheet.pdf",
+            "reason": "No items extracted (format: Tremeretrue_Supplier_Invoice)",
+            "invoice_num": "Document Type PO Number Supplier Invoice# Date"
+          },
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_AoV.stage/HAWB9586702-WorkSheet.pdf",
+            "pdf_file": "HAWB9586702-WorkSheet.pdf",
+            "reason": "No items extracted (format: Tremeretrue_Supplier_Invoice)",
+            "invoice_num": "Document Type PO Number Supplier Invoice# Date"
+          },
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_AoV.stage/HAWB9591668-WorkSheet.pdf",
+            "pdf_file": "HAWB9591668-WorkSheet.pdf",
+            "reason": "No items extracted (format: Tremeretrue_Supplier_Invoice)",
+            "invoice_num": "Document Type PO Number Supplier Invoice# Date"
+          }
+        ],
+        "failed_count": 3,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_AoV.out/_email_params.json",
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_AoV.out/_email_params_2.json",
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_AoV.out/_email_params_3.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_AoV.out/_email_params.json",
+        "validation": {
+          "total_issues": 5,
+          "fixed": 5,
+          "unfixed": 0,
+          "per_file": [
+            {
+              "file": "111-1616806-9805016.xlsx",
+              "supplier": "Amazon.com",
+              "issues": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 33,
+                  "current": "",
+                  "description": "\u2514 21069000: 5% CET (14% of value)",
+                  "qty": 0,
+                  "total_cost": 2.65,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 21069000: 5% CET (14% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 34,
+                  "current": "",
+                  "description": "\u2514 33049900: 20% CET (19% of value)",
+                  "qty": 0,
+                  "total_cost": 14.81,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 33049900: 20% CET (19% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 35,
+                  "current": "",
+                  "description": "\u2514 42029200: 20% CET (29% of value)",
+                  "qty": 0,
+                  "total_cost": 22.4,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 42029200: 20% CET (29% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 36,
+                  "current": "",
+                  "description": "\u2514 61091020: 20% CET (31% of value)",
+                  "qty": 0,
+                  "total_cost": 24.12,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 61091020: 20% CET (31% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 37,
+                  "current": "",
+                  "description": "\u2514 96091020: 20% CET (6% of value)",
+                  "qty": 0,
+                  "total_cost": 4.93,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 96091020: 20% CET (6% of value)\" using CARICOM CET schedule based on material and function."
+                }
+              ],
+              "fixes": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 33,
+                  "old": "",
+                  "new": "21069000",
+                  "method": "LLM: Food preparations not elsewhere specified or included. Match",
+                  "description": "\u2514 21069000: 5% CET (14% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 34,
+                  "old": "",
+                  "new": "33049900",
+                  "method": "LLM: Beauty or make-up skin care preparations (other than medicam",
+                  "description": "\u2514 33049900: 20% CET (19% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 35,
+                  "old": "",
+                  "new": "42029200",
+                  "method": "LLM: Trunks, suitcases, vanity cases, executive cases, briefcases",
+                  "description": "\u2514 42029200: 20% CET (29% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 36,
+                  "old": "",
+                  "new": "61091020",
+                  "method": "LLM: T-shirts, singlets, tank tops and similar garments, knitted,",
+                  "description": "\u2514 61091020: 20% CET (31% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 37,
+                  "old": "",
+                  "new": "96091020",
+                  "method": "LLM: Pencils and crayons, with leads of graphite or other carbon-",
+                  "description": "\u2514 96091020: 20% CET (6% of value)"
+                }
+              ],
+              "remaining": [],
+              "fixed": 5,
+              "unfixed": 0
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "111-1616806-9805016.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        }
+      },
+      "error": null,
+      "elapsed_s": 1184.7
+    },
+    {
+      "folder": "03152025_COJAY",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "HAWB9670577-Manifest_Invoice_1",
+            "supplier": "TEMU",
+            "format": "temu",
+            "items": 3,
+            "matched": 0,
+            "classified": 0,
+            "total": 16.35,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_COJAY.out/HAWB9670577-Manifest_combined.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_COJAY.out/HAWB9670577-Manifest_Invoice_1.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_COJAY.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_COJAY.out/_email_params.json",
+        "validation": {
+          "total_issues": 12,
+          "fixed": 0,
+          "unfixed": 12,
+          "per_file": [
+            {
+              "file": "HAWB9670577-Manifest_combined.xlsx",
+              "supplier": "TEMU",
+              "issues": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "current": "00000000",
+                  "description": "eee = For Xiaomi / Redmi Note 9 4 G / Note 9 S / Note 10 . . . (+2 more) (3 items)",
+                  "qty": 1,
+                  "total_cost": 11.64,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"eee = For Xiaomi / Redmi Note 9 4 G / Note 9 S / Note 10 . .\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 3,
+                  "current": "00000000",
+                  "description": "eee = For Xiaomi / Redmi Note 9 4 G / Note 9 S / Note 10 . . .",
+                  "qty": 0,
+                  "total_cost": 2.98,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"eee = For Xiaomi / Redmi Note 9 4 G / Note 9 S / Note 10 . .\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 4,
+                  "current": "00000000",
+                  "description": "cas ee PayPal c * * * s @ gmail . com",
+                  "qty": 1,
+                  "total_cost": 6.85,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"cas ee PayPal c * * * s @ gmail . com\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 5,
+                  "current": "00000000",
+                  "description": "/ set Kawaii Stationery Gift Bag - Colorful Sc . . .",
+                  "qty": 0,
+                  "total_cost": 1.81,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"/ set Kawaii Stationery Gift Bag - Colorful Sc . . .\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 36,
+                  "current": "00000000",
+                  "description": "Vet - \u2018 \u2019 } 1 pc Cartoon Elephant Portable Lunch Box Set wi . . . (+1 more) (2 items)",
+                  "qty": 0,
+                  "total_cost": 68.61,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"Vet - \u2018 \u2019 } 1 pc Cartoon Elephant Portable Lunch Box Set wi \" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 37,
+                  "current": "00000000",
+                  "description": "Vet - \u2018 \u2019 } 1 pc Cartoon Elephant Portable Lunch Box Set wi . . .",
+                  "qty": 0,
+                  "total_cost": 3.89,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"Vet - \u2018 \u2019 } 1 pc Cartoon Elephant Portable Lunch Box Set wi \" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 38,
+                  "current": "00000000",
+                  "description": "Bais PayPal c * * * s @ gmail . com",
+                  "qty": 0,
+                  "total_cost": 64.72,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"Bais PayPal c * * * s @ gmail . com\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 62,
+                  "current": "",
+                  "description": "\u2514 00000000: 20% CET (79% of value)",
+                  "qty": 0,
+                  "total_cost": 27.69,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 00000000: 20% CET (79% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 63,
+                  "current": "",
+                  "description": "\u2514 42022200: 20% CET (8% of value)",
+                  "qty": 0,
+                  "total_cost": 2.86,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 42022200: 20% CET (8% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 64,
+                  "current": "",
+                  "description": "\u2514 42029200: 20% CET (11% of value)",
+                  "qty": 0,
+                  "total_cost": 3.99,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 42029200: 20% CET (11% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 65,
+                  "current": "",
+                  "description": "\u2514 92089000: 20% CET (2% of value)",
+                  "qty": 0,
+                  "total_cost": 0.63,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 92089000: 20% CET (2% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "VARIANCE",
+                  "variance": -27.21,
+                  "invoice_total": 64.72,
+                  "sum_items": 87.14,
+                  "freight": 0,
+                  "insurance": 0,
+                  "tax": 4.79,
+                  "deduction": 0,
+                  "block": 2,
+                  "block_header_row": 32,
+                  "block_adjustments_row": 49,
+                  "why": "Block 2 (row 32) variance $-27.21. InvoiceTotal($64.72) != NetTotal($91.93).",
+                  "how": "Open source PDF for this invoice and rerun pipeline \u2014 per-invoice variance_fixer should resolve before combining."
+                }
+              ],
+              "fixes": [],
+              "remaining": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "current": "00000000",
+                  "description": "eee = For Xiaomi / Redmi Note 9 4 G / Note 9 S / Note 10 . . . (+2 more) (3 items)",
+                  "qty": 1,
+                  "total_cost": 11.64,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"eee = For Xiaomi / Redmi Note 9 4 G / Note 9 S / Note 10 . .\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 3,
+                  "current": "00000000",
+                  "description": "eee = For Xiaomi / Redmi Note 9 4 G / Note 9 S / Note 10 . . .",
+                  "qty": 0,
+                  "total_cost": 2.98,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"eee = For Xiaomi / Redmi Note 9 4 G / Note 9 S / Note 10 . .\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 4,
+                  "current": "00000000",
+                  "description": "cas ee PayPal c * * * s @ gmail . com",
+                  "qty": 1,
+                  "total_cost": 6.85,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"cas ee PayPal c * * * s @ gmail . com\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 5,
+                  "current": "00000000",
+                  "description": "/ set Kawaii Stationery Gift Bag - Colorful Sc . . .",
+                  "qty": 0,
+                  "total_cost": 1.81,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"/ set Kawaii Stationery Gift Bag - Colorful Sc . . .\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 36,
+                  "current": "00000000",
+                  "description": "Vet - \u2018 \u2019 } 1 pc Cartoon Elephant Portable Lunch Box Set wi . . . (+1 more) (2 items)",
+                  "qty": 0,
+                  "total_cost": 68.61,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"Vet - \u2018 \u2019 } 1 pc Cartoon Elephant Portable Lunch Box Set wi \" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 37,
+                  "current": "00000000",
+                  "description": "Vet - \u2018 \u2019 } 1 pc Cartoon Elephant Portable Lunch Box Set wi . . .",
+                  "qty": 0,
+                  "total_cost": 3.89,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"Vet - \u2018 \u2019 } 1 pc Cartoon Elephant Portable Lunch Box Set wi \" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 38,
+                  "current": "00000000",
+                  "description": "Bais PayPal c * * * s @ gmail . com",
+                  "qty": 0,
+                  "total_cost": 64.72,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"Bais PayPal c * * * s @ gmail . com\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 62,
+                  "current": "",
+                  "description": "\u2514 00000000: 20% CET (79% of value)",
+                  "qty": 0,
+                  "total_cost": 27.69,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 00000000: 20% CET (79% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 63,
+                  "current": "",
+                  "description": "\u2514 42022200: 20% CET (8% of value)",
+                  "qty": 0,
+                  "total_cost": 2.86,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 42022200: 20% CET (8% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 64,
+                  "current": "",
+                  "description": "\u2514 42029200: 20% CET (11% of value)",
+                  "qty": 0,
+                  "total_cost": 3.99,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 42029200: 20% CET (11% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 65,
+                  "current": "",
+                  "description": "\u2514 92089000: 20% CET (2% of value)",
+                  "qty": 0,
+                  "total_cost": 0.63,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 92089000: 20% CET (2% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "VARIANCE",
+                  "variance": -27.21,
+                  "invoice_total": 64.72,
+                  "sum_items": 87.14,
+                  "freight": 0,
+                  "insurance": 0,
+                  "tax": 4.79,
+                  "deduction": 0,
+                  "block": 2,
+                  "block_header_row": 32,
+                  "block_adjustments_row": 49,
+                  "why": "Block 2 (row 32) variance $-27.21. InvoiceTotal($64.72) != NetTotal($91.93).",
+                  "how": "Open source PDF for this invoice and rerun pipeline \u2014 per-invoice variance_fixer should resolve before combining."
+                }
+              ],
+              "fixed": 0,
+              "unfixed": 12
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "HAWB9670577-Manifest_combined.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": false,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            },
+            {
+              "check": "unfixed_tariff",
+              "severity": "block",
+              "message": "11 item(s) have invalid/missing tariff codes.",
+              "field": "validation.tariff",
+              "value": "11",
+              "fix_hint": "For each item below, use lookup_tariff with the item description to find the correct 8-digit CET end-node code. Then edit the XLSX file: set column F (TariffCode) and column AK (GroupBy) to the new code. After fixing, run validate_xlsx to confirm.\n  HAWB9670577-Manifest_combined.xlsx row 2: \"eee = For Xiaomi / Redmi Note 9 4 G / Note 9 S / N\" [current: 00000000]\n  HAWB9670577-Manifest_combined.xlsx row 3: \"eee = For Xiaomi / Redmi Note 9 4 G / Note 9 S / N\" [current: 00000000]\n  HAWB9670577-Manifest_combined.xlsx row 4: \"cas ee PayPal c * * * s @ gmail . com\" [current: 00000000]\n  HAWB9670577-Manifest_combined.xlsx row 5: \"/ set Kawaii Stationery Gift Bag - Colorful Sc . .\" [current: 00000000]\n  HAWB9670577-Manifest_combined.xlsx row 36: \"Vet - \u2018 \u2019 } 1 pc Cartoon Elephant Portable Lunch B\" [current: 00000000]\n  HAWB9670577-Manifest_combined.xlsx row 37: \"Vet - \u2018 \u2019 } 1 pc Cartoon Elephant Portable Lunch B\" [current: 00000000]\n  HAWB9670577-Manifest_combined.xlsx row 38: \"Bais PayPal c * * * s @ gmail . com\" [current: 00000000]\n  HAWB9670577-Manifest_combined.xlsx row 62: \"\u2514 00000000: 20% CET (79% of value)\" [current: ]\n  HAWB9670577-Manifest_combined.xlsx row 63: \"\u2514 42022200: 20% CET (8% of value)\" [current: ]\n  HAWB9670577-Manifest_combined.xlsx row 64: \"\u2514 42029200: 20% CET (11% of value)\" [current: ]\n  HAWB9670577-Manifest_combined.xlsx row 65: \"\u2514 92089000: 20% CET (2% of value)\" [current: ]"
+            },
+            {
+              "check": "unfixed_variance",
+              "severity": "warn",
+              "message": "1 block(s)/file(s) have unresolved variance.",
+              "field": "validation.variance",
+              "value": "1",
+              "fix_hint": "For each file: read_file the XLSX to see line items and totals (row 2 cols S=InvoiceTotal, T=Freight, U=Insurance, V=Tax, W=Deduction). Read the source invoice PDF to find unextracted charges. Use edit_file to correct values. Variance = InvoiceTotal - (SumItems + Freight + Insurance + Tax - Deduction). After fixing, run validate_xlsx to confirm.\n  HAWB9670577-Manifest_combined.xlsx: Block 2 (row 32) variance $-27.21. InvoiceTotal($64.72) != NetTotal($91.93)."
+            }
+          ],
+          "blocker_count": 1,
+          "warning_count": 2
+        }
+      },
+      "error": null,
+      "elapsed_s": 818.3
+    },
+    {
+      "folder": "03152025_FASHIOMWVA",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_FASHIOMWVA.out/_split_temp/138984731_Invoice.pdf",
+            "pdf_file": "138984731_Invoice.pdf",
+            "reason": "No items extracted (format: unmatched)",
+            "invoice_num": "138984731"
+          }
+        ],
+        "failed_count": 1,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 253.7
+    },
+    {
+      "folder": "03152025_FASHIOMiOVA",
+      "staged": 1,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_FASHIOMiOVA.stage/138878183.pdf",
+            "pdf_file": "138878183.pdf",
+            "reason": "No items extracted (format: unmatched)",
+            "invoice_num": "138878183"
+          }
+        ],
+        "failed_count": 1,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 107.2
     }
   ]
 }

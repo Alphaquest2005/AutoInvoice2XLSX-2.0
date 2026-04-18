@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "116.11",
+    "customs_value_usd": null,
+    "tariff_code": null,
+    "duty_rate": null,
+    "weight": null,
+    "description": null,
+    "other_notes": "Handwritten '116.11' near Man Reg Number"
+  },
+  "printed": {
+    "consignee": "DAWSEANNE WILLIAMS",
+    "freight": 19.0,
+    "waybill": "HAWB9728292",
+    "man_reg": "2024/32",
+    "office": "GDWBS",
+    "weight": "9.0",
+    "packages": "1"
+  },
+  "has_handwriting": true
+}
