@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "75.85",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Left margin: 75.85 (vertical handwritten), Right side: 55.18 (handwritten)"
+  },
+  "printed": {
+    "consignee": "SHANICE ST BERNARD",
+    "freight": 7.0,
+    "waybill": "HAWB9687189",
+    "man_reg": "2024/31",
+    "office": "GDWBS",
+    "weight": 3.0,
+    "packages": 1
+  },
+  "has_handwriting": true
+}
