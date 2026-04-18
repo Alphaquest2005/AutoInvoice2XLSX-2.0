@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "11.15",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten '11.15' on left margin (vertical)"
+  },
+  "printed": {
+    "consignee": "NAKISHA CORNWALL",
+    "freight": 7.0,
+    "waybill": "HAWB9597352",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": 3.0,
+    "packages": 1
+  },
+  "has_handwriting": true
+}

@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "29.3",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "29.30 written vertically on the left margin"
+  },
+  "printed": {
+    "consignee": "SAMANTHA MC QUEEN",
+    "freight": "5.00",
+    "waybill": "HAWB9600960",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": "2.0",
+    "packages": "1"
+  },
+  "has_handwriting": true
+}

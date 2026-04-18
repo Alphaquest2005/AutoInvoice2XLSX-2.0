@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": null,
+    "customs_value_usd": "150.00",
+    "tariff_code": null,
+    "duty_rate": null,
+    "weight": null,
+    "description": null,
+    "other_notes": "150.00 written vertically on left margin"
+  },
+  "printed": {
+    "consignee": "REGINA DECOTEAU",
+    "freight": "15.00",
+    "waybill": "HAWB9597711",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": "7.0",
+    "packages": "1"
+  },
+  "has_handwriting": true
+}

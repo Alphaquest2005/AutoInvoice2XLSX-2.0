@@ -1,8 +1,8 @@
 {
-  "session_start": "2026-04-18T11:34:45.500326+00:00",
+  "session_start": "2026-04-18T12:24:51.340489+00:00",
   "total_folders": 103,
-  "processed": 47,
-  "elapsed_s": 34030.9,
+  "processed": 50,
+  "elapsed_s": 37036.8,
   "results": [
     {
       "folder": "03142025_7_24_24_3_53_PM_am_on.coiti_",
@@ -5307,6 +5307,212 @@
       },
       "error": null,
       "elapsed_s": 1525.6
+    },
+    {
+      "folder": "03152025_Shipped_on_August_7_2024",
+      "staged": 2,
+      "rc": -2,
+      "status": "failed",
+      "report": null,
+      "error": "timeout after 1800s",
+      "elapsed_s": 1898.1
+    },
+    {
+      "folder": "03152025_Shipped_on_July_11_2024",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "113-4349740-8141839",
+            "supplier": "Amazon.com",
+            "format": "amazon",
+            "items": 1,
+            "matched": 0,
+            "classified": 1,
+            "total": 7.8,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Shipped_on_July_11_2024.out/113-4349740-8141839.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Shipped_on_July_11_2024.out/113-4349740-8141839.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Shipped_on_July_11_2024.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Shipped_on_July_11_2024.out/_email_params.json",
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": [
+            {
+              "file": "113-4349740-8141839.xlsx",
+              "supplier": "Amazon.com",
+              "issues": [],
+              "fixes": [],
+              "fixed": 0,
+              "unfixed": 0
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "113-4349740-8141839.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": true,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            }
+          ],
+          "blocker_count": 0,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 500.8
+    },
+    {
+      "folder": "03152025_Sign_Out",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "HAWB9389257-Manifest_Invoice",
+            "supplier": "TEMU",
+            "format": "temu",
+            "items": 1,
+            "matched": 0,
+            "classified": 1,
+            "total": 26.48,
+            "freight": 2.99,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Sign_Out.out/HAWB9389257-Manifest_Invoice.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Sign_Out.out/HAWB9389257-Manifest_Invoice.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Sign_Out.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Sign_Out.out/_email_params.json",
+        "validation": {
+          "total_issues": 1,
+          "fixed": 0,
+          "unfixed": 1,
+          "per_file": [
+            {
+              "file": "HAWB9389257-Manifest_Invoice.xlsx",
+              "supplier": "TEMU",
+              "issues": [
+                {
+                  "type": "VARIANCE",
+                  "variance": -0.02,
+                  "invoice_total": 26.48,
+                  "sum_items": 21.97,
+                  "freight": 2.99,
+                  "insurance": 0.0,
+                  "tax": 1.54,
+                  "deduction": 0.0,
+                  "why": "Variance $-0.02. InvoiceTotal($26.48) != NetTotal($26.50).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixes": [],
+              "remaining": [
+                {
+                  "type": "VARIANCE",
+                  "variance": -0.02,
+                  "invoice_total": 26.48,
+                  "sum_items": 21.97,
+                  "freight": 2.99,
+                  "insurance": 0.0,
+                  "tax": 1.54,
+                  "deduction": 0.0,
+                  "why": "Variance $-0.02. InvoiceTotal($26.48) != NetTotal($26.50).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixed": 0,
+              "unfixed": 1
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "HAWB9389257-Manifest_Invoice.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": false,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            },
+            {
+              "check": "unfixed_variance",
+              "severity": "block",
+              "message": "1 block(s)/file(s) have unresolved variance.",
+              "field": "validation.variance",
+              "value": "1",
+              "fix_hint": "For each file: read_file the XLSX to see line items and totals (row 2 cols S=InvoiceTotal, T=Freight, U=Insurance, V=Tax, W=Deduction). Read the source invoice PDF to find unextracted charges. Use edit_file to correct values. Variance = InvoiceTotal - (SumItems + Freight + Insurance + Tax - Deduction). After fixing, run validate_xlsx to confirm.\n  HAWB9389257-Manifest_Invoice.xlsx: Variance $-0.02. InvoiceTotal($26.48) != NetTotal($26.50)."
+            }
+          ],
+          "blocker_count": 1,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 606.6
     }
   ]
 }

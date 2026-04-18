@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "",
+    "customs_value_usd": "146.90",
+    "tariff_code": "6826",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "6826 (middle of form), 146.90 (right side), 049 (right side)"
+  },
+  "printed": {
+    "consignee": "Arlena Mitchell",
+    "freight": "0",
+    "waybill": "",
+    "man_reg": "",
+    "office": "",
+    "weight": "",
+    "packages": "3"
+  },
+  "has_handwriting": true
+}
