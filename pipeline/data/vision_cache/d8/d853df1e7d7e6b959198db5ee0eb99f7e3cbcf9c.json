@@ -1,0 +1,16 @@
+{
+  "handwritten": {
+    "customs_value_usd": "136.57",
+    "other_notes": "6.37 written below 136.57 to the right of the consignee field"
+  },
+  "printed": {
+    "consignee": "KIRLA SYLVESTER",
+    "freight": "11.00",
+    "waybill": "HAWB9590375",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": "5.0",
+    "packages": "1"
+  },
+  "has_handwriting": true
+}

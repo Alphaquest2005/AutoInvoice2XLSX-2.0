@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "44.68",
+    "customs_value_usd": null,
+    "tariff_code": null,
+    "duty_rate": null,
+    "weight": null,
+    "description": null,
+    "other_notes": null
+  },
+  "printed": {
+    "consignee": "RHONOSHA REDHEAD",
+    "freight": 3.0,
+    "waybill": "HAWB9622064",
+    "man_reg": "2024/29",
+    "office": "GDWBS",
+    "weight": 1.0,
+    "packages": 1
+  },
+  "has_handwriting": true
+}

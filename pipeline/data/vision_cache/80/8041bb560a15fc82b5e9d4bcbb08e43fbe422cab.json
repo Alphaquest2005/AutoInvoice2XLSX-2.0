@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "3.0",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten '3a.02' visible near the Man Reg Number field"
+  },
+  "printed": {
+    "consignee": "BRITANA BOWEN",
+    "freight": 9.0,
+    "waybill": "HAWB9606090",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": 4.0,
+    "packages": 1
+  },
+  "has_handwriting": true
+}

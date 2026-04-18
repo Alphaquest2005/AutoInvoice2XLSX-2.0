@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": ""
+  },
+  "printed": {
+    "consignee": "Kerry Frank",
+    "freight": "0.00",
+    "waybill": "113-2477560-9595440",
+    "man_reg": "",
+    "office": "",
+    "weight": "",
+    "packages": "1"
+  },
+  "has_handwriting": false
+}

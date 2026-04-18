@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "96.0",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Page number 'pg. 96' written vertically on left margin"
+  },
+  "printed": {
+    "consignee": "SANASHA JOHN",
+    "freight": 13.0,
+    "waybill": "HAWB9428169",
+    "man_reg": "2024/22",
+    "office": "GDWBS",
+    "weight": 6.0,
+    "packages": 1
+  },
+  "has_handwriting": true
+}

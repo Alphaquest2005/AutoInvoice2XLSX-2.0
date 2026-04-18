@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": ""
+  },
+  "printed": {
+    "consignee": "ARTISHA CHARLES",
+    "freight": 13.0,
+    "waybill": "HAWB9592028",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": 6.0,
+    "packages": 1
+  },
+  "has_handwriting": false
+}
