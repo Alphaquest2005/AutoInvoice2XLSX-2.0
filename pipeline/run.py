@@ -747,8 +747,15 @@ def _split_items_per_declaration(
         if ref_ded_val:
             ref_adjustments['deduction'] = round(ref_ded_val * ref_ratio, 2)
         # Use actual freight values from other declarations when available
+        def _safe_float(raw: object) -> float:
+            s = str(raw).replace(',', '').strip() if raw is not None else '0'
+            try:
+                return float(s) if s and s != 'None' else 0.0
+            except (ValueError, TypeError):
+                return 0.0
+
         other_freight = sum(
-            float(str(d.get('freight', 0)).replace(',', '').strip() or 0)
+            _safe_float(d.get('freight'))
             for j, (d, _) in enumerate(all_declarations) if j != idx
         )
         if other_freight:

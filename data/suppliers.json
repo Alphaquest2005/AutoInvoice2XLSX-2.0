@@ -832,7 +832,17 @@
       "country": "United States",
       "currency": "USD",
       "notes": "Auto-added from invoice pipeline"
+    },
+    "LA_PARTS": {
+      "code": "LA_PARTS",
+      "name": "la_parts_order_number",
+      "full_name": "la_parts_order_number",
+      "address": "",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
     }
   },
-  "last_updated": "2026-04-17"
+  "last_updated": "2026-04-18"
 }

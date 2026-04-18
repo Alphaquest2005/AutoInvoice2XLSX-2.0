@@ -1,0 +1,16 @@
+{
+  "handwritten": {
+    "customs_value_ec": "60.54",
+    "other_notes": "Handwritten '60.54' vertically on the left margin"
+  },
+  "printed": {
+    "consignee": "FRANKY LINDSAY",
+    "freight": 9.0,
+    "waybill": "HAWB9590423",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": "4.0",
+    "packages": 1
+  },
+  "has_handwriting": true
+}

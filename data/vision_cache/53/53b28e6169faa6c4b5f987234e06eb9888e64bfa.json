@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "123.0",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten annotations: '0123' above item name in first order, '2.29' next to item price in first order, '1179' above item name in second order, '1.34' next to item price in second order"
+  },
+  "printed": {
+    "consignee": "",
+    "freight": "",
+    "waybill": "",
+    "man_reg": "",
+    "office": "",
+    "weight": "",
+    "packages": ""
+  },
+  "has_handwriting": true
+}

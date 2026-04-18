@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": ""
+  },
+  "printed": {
+    "consignee": "FRANKEY LINDSAY",
+    "freight": "3.00",
+    "waybill": "HAWB9591268",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": "1.0",
+    "packages": "1"
+  },
+  "has_handwriting": false
+}

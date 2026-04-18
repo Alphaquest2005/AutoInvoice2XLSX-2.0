@@ -1,8 +1,8 @@
 {
-  "session_start": "2026-04-18T02:51:16.073465+00:00",
+  "session_start": "2026-04-18T03:57:48.842146+00:00",
   "total_folders": 103,
-  "processed": 4,
-  "elapsed_s": 2621.5,
+  "processed": 9,
+  "elapsed_s": 6614.3,
   "results": [
     {
       "folder": "03142025_7_24_24_3_53_PM_am_on.coiti_",
@@ -574,6 +574,216 @@
       },
       "error": null,
       "elapsed_s": 591.2
+    },
+    {
+      "folder": "03152025103801",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "111-5908955-5240243",
+            "supplier": "Amazon.com",
+            "format": "amazon",
+            "items": 1,
+            "matched": 0,
+            "classified": 1,
+            "total": 33.38,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025103801.out/111-5908955-5240243.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025103801.out/111-5908955-5240243.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025103801.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025103801.out/_email_params.json",
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": [
+            {
+              "file": "111-5908955-5240243.xlsx",
+              "supplier": "Amazon.com",
+              "issues": [],
+              "fixes": [],
+              "fixed": 0,
+              "unfixed": 0
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "111-5908955-5240243.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": true,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            }
+          ],
+          "blocker_count": 0,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 471.3
+    },
+    {
+      "folder": "03152025110538",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025110538.stage/INVUS20240717002005487.pdf",
+            "pdf_file": "INVUS20240717002005487.pdf",
+            "reason": "No items extracted (format: shein_us_invoice)",
+            "invoice_num": "INVUS20240717002005487"
+          }
+        ],
+        "failed_count": 1,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 212.1
+    },
+    {
+      "folder": "03152025111114",
+      "staged": 2,
+      "rc": -2,
+      "status": "failed",
+      "report": null,
+      "error": "timeout after 1800s",
+      "elapsed_s": 1903.3
+    },
+    {
+      "folder": "03152025130830",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "114-9178653-9365066",
+            "supplier": "Amazon.com",
+            "format": "amazon",
+            "items": 1,
+            "matched": 0,
+            "classified": 1,
+            "total": 8.3,
+            "freight": 9.99,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025130830.out/114-9178653-9365066.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025130830.out/114-9178653-9365066.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025130830.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025130830.out/_email_params.json",
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": [
+            {
+              "file": "114-9178653-9365066.xlsx",
+              "supplier": "Amazon.com",
+              "issues": [],
+              "fixes": [],
+              "fixed": 0,
+              "unfixed": 0
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "114-9178653-9365066.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": true,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            }
+          ],
+          "blocker_count": 0,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 509.7
+    },
+    {
+      "folder": "03152025131854",
+      "staged": 3,
+      "rc": 1,
+      "status": "failed",
+      "report": null,
+      "error": "e 2072, in run_bl_mode\n    per_decl_xlsx = _split_items_per_declaration(\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/pipeline/run.py\", line 750, in _split_items_per_declaration\n    other_freight = sum(\n                    ^^^^\n  File \"/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/pipeline/run.py\", line 751, in <genexpr>\n    float(str(d.get('freight', 0)).replace(',', '').strip() or 0)\nValueError: could not convert string to float: 'None'\n",
+      "elapsed_s": 896.3
     }
   ]
 }
