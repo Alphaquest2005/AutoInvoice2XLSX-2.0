@@ -1,8 +1,8 @@
 {
-  "session_start": "2026-04-18T02:19:23.952426+00:00",
+  "session_start": "2026-04-18T02:51:16.073465+00:00",
   "total_folders": 103,
-  "processed": 1,
-  "elapsed_s": 709.4,
+  "processed": 4,
+  "elapsed_s": 2621.5,
   "results": [
     {
       "folder": "03142025_7_24_24_3_53_PM_am_on.coiti_",
@@ -71,6 +71,509 @@
       },
       "error": null,
       "elapsed_s": 709.4
+    },
+    {
+      "folder": "03142025_USD_170.88_XCD_467.72",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "112-9925042-2903468",
+            "supplier": "Amazon.com",
+            "format": "amazon",
+            "items": 6,
+            "matched": 0,
+            "classified": 6,
+            "total": 170.88,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03142025_USD_170.88_XCD_467.72.out/112-9925042-2903468.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03142025_USD_170.88_XCD_467.72.out/112-9925042-2903468.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03142025_USD_170.88_XCD_467.72.out/_email_params.json",
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03142025_USD_170.88_XCD_467.72.out/_email_params_2.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03142025_USD_170.88_XCD_467.72.out/_email_params.json",
+        "validation": {
+          "total_issues": 4,
+          "fixed": 3,
+          "unfixed": 1,
+          "per_file": [
+            {
+              "file": "112-9925042-2903468.xlsx",
+              "supplier": "Amazon.com",
+              "issues": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 32,
+                  "current": "",
+                  "description": "\u2514 39249000: 20% CET (9% of value)",
+                  "qty": 0,
+                  "total_cost": 8.21,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 39249000: 20% CET (9% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 33,
+                  "current": "",
+                  "description": "\u2514 62034290: 20% CET (33% of value)",
+                  "qty": 0,
+                  "total_cost": 31.02,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 62034290: 20% CET (33% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 34,
+                  "current": "",
+                  "description": "\u2514 85044000: 5% CET (58% of value)",
+                  "qty": 0,
+                  "total_cost": 13.41,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 85044000: 5% CET (58% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "VARIANCE",
+                  "variance": -5.67,
+                  "invoice_total": 170.88,
+                  "sum_items": 176.55,
+                  "freight": 0.0,
+                  "insurance": 0.0,
+                  "tax": 0.0,
+                  "deduction": 0.0,
+                  "why": "Variance $-5.67. InvoiceTotal($170.88) != NetTotal($176.55).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixes": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 32,
+                  "old": "",
+                  "new": "39249000",
+                  "method": "LLM: Plastic household article (water bottle) under heading 3924;",
+                  "description": "\u2514 39249000: 20% CET (9% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 33,
+                  "old": "",
+                  "new": "62034290",
+                  "method": "LLM: Cotton boys' trousers/joggers under heading 6203 (men's/boys",
+                  "description": "\u2514 62034290: 20% CET (33% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 34,
+                  "old": "",
+                  "new": "85044000",
+                  "method": "LLM: Static converters (power banks/chargers) under heading 8504;",
+                  "description": "\u2514 85044000: 5% CET (58% of value)"
+                }
+              ],
+              "remaining": [
+                {
+                  "type": "VARIANCE",
+                  "variance": -5.67,
+                  "invoice_total": 170.88,
+                  "sum_items": 176.55,
+                  "freight": 0.0,
+                  "insurance": 0.0,
+                  "tax": 0.0,
+                  "deduction": 0.0,
+                  "why": "Variance $-5.67. InvoiceTotal($170.88) != NetTotal($176.55).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixed": 3,
+              "unfixed": 1
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "112-9925042-2903468.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        }
+      },
+      "error": null,
+      "elapsed_s": 860.7
+    },
+    {
+      "folder": "03152025103631",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "PO-211-11245148453753900_Invoice",
+            "supplier": "TEMU",
+            "format": "temu",
+            "items": 1,
+            "matched": 0,
+            "classified": 0,
+            "total": 17.15,
+            "freight": 2.99,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025103631.out/PO-211-11245148453753900_Invoice.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025103631.out/PO-211-11245148453753900_Invoice.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025103631.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025103631.out/_email_params.json",
+        "validation": {
+          "total_issues": 3,
+          "fixed": 2,
+          "unfixed": 1,
+          "per_file": [
+            {
+              "file": "PO-211-11245148453753900_Invoice.xlsx",
+              "supplier": "TEMU",
+              "issues": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "current": "00000000",
+                  "description": "Item ( s ) discount : - (1 items)",
+                  "qty": 0,
+                  "total_cost": 16.76,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"Item ( s ) discount : - (1 items)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 3,
+                  "current": "00000000",
+                  "description": "Item ( s ) discount : -",
+                  "qty": 0,
+                  "total_cost": 16.76,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"Item ( s ) discount : -\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "VARIANCE",
+                  "variance": -3.53,
+                  "invoice_total": 17.15,
+                  "sum_items": 16.76,
+                  "freight": 2.99,
+                  "insurance": 0.0,
+                  "tax": 0.93,
+                  "deduction": 0.0,
+                  "why": "Variance $-3.53. InvoiceTotal($17.15) != NetTotal($20.68).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixes": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "old": "00000000",
+                  "new": "42029290",
+                  "method": "LLM: Row represents a discount line (qty=0, negative value) refer",
+                  "description": "Item ( s ) discount : - (1 items)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 3,
+                  "old": "00000000",
+                  "new": "42029290",
+                  "method": "LLM: Same discount line as Row 2, referencing the identical backp",
+                  "description": "Item ( s ) discount : -"
+                }
+              ],
+              "remaining": [
+                {
+                  "type": "VARIANCE",
+                  "variance": -3.53,
+                  "invoice_total": 17.15,
+                  "sum_items": 16.76,
+                  "freight": 2.99,
+                  "insurance": 0.0,
+                  "tax": 0.93,
+                  "deduction": 0.0,
+                  "why": "Variance $-3.53. InvoiceTotal($17.15) != NetTotal($20.68).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixed": 2,
+              "unfixed": 1
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "PO-211-11245148453753900_Invoice.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": false,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            },
+            {
+              "check": "unfixed_variance",
+              "severity": "block",
+              "message": "1 block(s)/file(s) have unresolved variance.",
+              "field": "validation.variance",
+              "value": "1",
+              "fix_hint": "For each file: read_file the XLSX to see line items and totals (row 2 cols S=InvoiceTotal, T=Freight, U=Insurance, V=Tax, W=Deduction). Read the source invoice PDF to find unextracted charges. Use edit_file to correct values. Variance = InvoiceTotal - (SumItems + Freight + Insurance + Tax - Deduction). After fixing, run validate_xlsx to confirm.\n  PO-211-11245148453753900_Invoice.xlsx: Variance $-3.53. InvoiceTotal($17.15) != NetTotal($20.68)."
+            }
+          ],
+          "blocker_count": 1,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 460.1
+    },
+    {
+      "folder": "03152025103721",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "PO-211-11245253311353900_Invoice",
+            "supplier": "TEMU",
+            "format": "temu",
+            "items": 2,
+            "matched": 0,
+            "classified": 2,
+            "total": 60.0,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025103721.out/PO-211-11245253311353900_Invoice.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025103721.out/PO-211-11245253311353900_Invoice.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025103721.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025103721.out/_email_params.json",
+        "validation": {
+          "total_issues": 5,
+          "fixed": 2,
+          "unfixed": 3,
+          "per_file": [
+            {
+              "file": "PO-211-11245253311353900_Invoice.xlsx",
+              "supplier": "TEMU",
+              "issues": [
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 2,
+                  "current": "99999999",
+                  "description": "Item ( s ) discount : - (1 items)",
+                  "qty": 1,
+                  "total_cost": 30.84,
+                  "why": "Code 99999999 not in CARICOM CET valid codes list (not an end-node code).",
+                  "how": "Find the correct end-node under heading 9999.99."
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 3,
+                  "current": "99999999",
+                  "description": "Item ( s ) discount : -",
+                  "qty": 1,
+                  "total_cost": 30.84,
+                  "why": "Code 99999999 not in CARICOM CET valid codes list (not an end-node code).",
+                  "how": "Find the correct end-node under heading 9999.99."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 27,
+                  "current": "",
+                  "description": "\u2514 42029200: 20% CET (27% of value)",
+                  "qty": 0,
+                  "total_cost": 8.84,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 42029200: 20% CET (27% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 28,
+                  "current": "",
+                  "description": "\u2514 99999999: 20% CET (73% of value)",
+                  "qty": 0,
+                  "total_cost": 23.76,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 99999999: 20% CET (73% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "VARIANCE",
+                  "variance": 13.77,
+                  "invoice_total": 60.0,
+                  "sum_items": 42.31,
+                  "freight": 0.0,
+                  "insurance": 0.0,
+                  "tax": 3.92,
+                  "deduction": 0.0,
+                  "why": "Variance $+13.77. InvoiceTotal($60.00) != NetTotal($46.23).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixes": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 27,
+                  "old": "",
+                  "new": "42029200",
+                  "method": "LLM: Row explicitly references heading 4202.92.00 and represents ",
+                  "description": "\u2514 42029200: 20% CET (27% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 28,
+                  "old": "",
+                  "new": "66019900",
+                  "method": "LLM: Row represents 73% of the value of a bundled item containing",
+                  "description": "\u2514 99999999: 20% CET (73% of value)"
+                }
+              ],
+              "remaining": [
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 2,
+                  "current": "99999999",
+                  "description": "Item ( s ) discount : - (1 items)",
+                  "qty": 1,
+                  "total_cost": 30.84,
+                  "why": "Code 99999999 not in CARICOM CET valid codes list (not an end-node code).",
+                  "how": "Find the correct end-node under heading 9999.99."
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 3,
+                  "current": "99999999",
+                  "description": "Item ( s ) discount : -",
+                  "qty": 1,
+                  "total_cost": 30.84,
+                  "why": "Code 99999999 not in CARICOM CET valid codes list (not an end-node code).",
+                  "how": "Find the correct end-node under heading 9999.99."
+                },
+                {
+                  "type": "VARIANCE",
+                  "variance": 13.77,
+                  "invoice_total": 60.0,
+                  "sum_items": 42.31,
+                  "freight": 0.0,
+                  "insurance": 0.0,
+                  "tax": 3.92,
+                  "deduction": 0.0,
+                  "why": "Variance $+13.77. InvoiceTotal($60.00) != NetTotal($46.23).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixed": 2,
+              "unfixed": 3
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "PO-211-11245253311353900_Invoice.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": false,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            },
+            {
+              "check": "unfixed_tariff",
+              "severity": "block",
+              "message": "2 item(s) have invalid/missing tariff codes.",
+              "field": "validation.tariff",
+              "value": "2",
+              "fix_hint": "For each item below, use lookup_tariff with the item description to find the correct 8-digit CET end-node code. Then edit the XLSX file: set column F (TariffCode) and column AK (GroupBy) to the new code. After fixing, run validate_xlsx to confirm.\n  PO-211-11245253311353900_Invoice.xlsx row 2: \"Item ( s ) discount : - (1 items)\" [current: 99999999]\n  PO-211-11245253311353900_Invoice.xlsx row 3: \"Item ( s ) discount : -\" [current: 99999999]"
+            },
+            {
+              "check": "unfixed_variance",
+              "severity": "block",
+              "message": "1 block(s)/file(s) have unresolved variance.",
+              "field": "validation.variance",
+              "value": "1",
+              "fix_hint": "For each file: read_file the XLSX to see line items and totals (row 2 cols S=InvoiceTotal, T=Freight, U=Insurance, V=Tax, W=Deduction). Read the source invoice PDF to find unextracted charges. Use edit_file to correct values. Variance = InvoiceTotal - (SumItems + Freight + Insurance + Tax - Deduction). After fixing, run validate_xlsx to confirm.\n  PO-211-11245253311353900_Invoice.xlsx: Variance $+13.77. InvoiceTotal($60.00) != NetTotal($46.23)."
+            }
+          ],
+          "blocker_count": 2,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 591.2
     }
   ]
 }
