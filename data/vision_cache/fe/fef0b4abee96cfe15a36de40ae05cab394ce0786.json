@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": ""
+  },
+  "printed": {
+    "consignee": "Rochelle Ragbasingh",
+    "freight": 0.0,
+    "waybill": "",
+    "man_reg": "",
+    "office": "",
+    "weight": "",
+    "packages": 4
+  },
+  "has_handwriting": false
+}

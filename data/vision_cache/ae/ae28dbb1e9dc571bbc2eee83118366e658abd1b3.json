@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": ""
+  },
+  "printed": {
+    "consignee": "10813 NW 30th street BLDG 115 GRE 8474 Miami, FLORIDA 33172",
+    "freight": "0.00",
+    "waybill": "",
+    "man_reg": "",
+    "office": "",
+    "weight": "",
+    "packages": ""
+  },
+  "has_handwriting": false
+}

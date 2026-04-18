@@ -1,8 +1,8 @@
 {
-  "session_start": "2026-04-18T03:57:48.842146+00:00",
+  "session_start": "2026-04-18T04:52:46.172217+00:00",
   "total_folders": 103,
-  "processed": 9,
-  "elapsed_s": 6614.3,
+  "processed": 12,
+  "elapsed_s": 9911.6,
   "results": [
     {
       "folder": "03142025_7_24_24_3_53_PM_am_on.coiti_",
@@ -784,6 +784,282 @@
       "report": null,
       "error": "e 2072, in run_bl_mode\n    per_decl_xlsx = _split_items_per_declaration(\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/pipeline/run.py\", line 750, in _split_items_per_declaration\n    other_freight = sum(\n                    ^^^^\n  File \"/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/pipeline/run.py\", line 751, in <genexpr>\n    float(str(d.get('freight', 0)).replace(',', '').strip() or 0)\nValueError: could not convert string to float: 'None'\n",
       "elapsed_s": 896.3
+    },
+    {
+      "folder": "03152025135001",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "111-7220046-1575437",
+            "supplier": "Home Depot",
+            "format": "home_depot",
+            "items": 1,
+            "matched": 0,
+            "classified": 0,
+            "total": 166.6,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025135001.out/111-7220046-1575437_combined.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025135001.out/111-7220046-1575437.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025135001.out/_email_params.json",
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025135001.out/_email_params_2.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025135001.out/_email_params.json",
+        "validation": {
+          "total_issues": 8,
+          "fixed": 5,
+          "unfixed": 3,
+          "per_file": [
+            {
+              "file": "111-7220046-1575437_combined.xlsx",
+              "supplier": "Home Depot",
+              "issues": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "current": "00000000",
+                  "description": "Home Depot Purchase (1 items)",
+                  "qty": 1,
+                  "total_cost": 166.6,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"Home Depot Purchase (1 items)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 3,
+                  "current": "00000000",
+                  "description": "Home Depot Purchase",
+                  "qty": 1,
+                  "total_cost": 166.6,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"Home Depot Purchase\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 60,
+                  "current": "",
+                  "description": "\u2514 39249000: 20% CET (8% of value)",
+                  "qty": 0,
+                  "total_cost": 7.45,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 39249000: 20% CET (8% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 61,
+                  "current": "",
+                  "description": "\u2514 61071100: 20% CET (12% of value)",
+                  "qty": 0,
+                  "total_cost": 10.86,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 61071100: 20% CET (12% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 62,
+                  "current": "",
+                  "description": "\u2514 63079090: 0% CET (18% of value)",
+                  "qty": 0,
+                  "total_cost": 0,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 63079090: 0% CET (18% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 63,
+                  "current": "",
+                  "description": "\u2514 64041990: 20% CET (42% of value)",
+                  "qty": 0,
+                  "total_cost": 37.37,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 64041990: 20% CET (42% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 64,
+                  "current": "",
+                  "description": "\u2514 95062900: 20% CET (19% of value)",
+                  "qty": 0,
+                  "total_cost": 16.76,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 95062900: 20% CET (19% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "VARIANCE",
+                  "variance": 24.98,
+                  "invoice_total": 161.87,
+                  "sum_items": 141.62,
+                  "freight": 0,
+                  "insurance": -8.5,
+                  "tax": 3.77,
+                  "deduction": 0,
+                  "block": 2,
+                  "block_header_row": 28,
+                  "block_adjustments_row": 47,
+                  "why": "Block 2 (row 28) variance $+24.98. InvoiceTotal($161.87) != NetTotal($136.89).",
+                  "how": "Open source PDF for this invoice and rerun pipeline \u2014 per-invoice variance_fixer should resolve before combining."
+                }
+              ],
+              "fixes": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 60,
+                  "old": "",
+                  "new": "39249000",
+                  "method": "LLM: Line explicitly references tariff code 39249000 (plastic hou",
+                  "description": "\u2514 39249000: 20% CET (8% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 61,
+                  "old": "",
+                  "new": "61071100",
+                  "method": "LLM: Line explicitly references tariff code 61071100 (men's knitt",
+                  "description": "\u2514 61071100: 20% CET (12% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 62,
+                  "old": "",
+                  "new": "63079090",
+                  "method": "LLM: Line explicitly references tariff code 63079090 (made-up tex",
+                  "description": "\u2514 63079090: 0% CET (18% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 63,
+                  "old": "",
+                  "new": "64041990",
+                  "method": "LLM: Line explicitly references tariff code 64041990 (footwear wi",
+                  "description": "\u2514 64041990: 20% CET (42% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 64,
+                  "old": "",
+                  "new": "95062900",
+                  "method": "LLM: Line explicitly references tariff code 95062900 (inflatable ",
+                  "description": "\u2514 95062900: 20% CET (19% of value)"
+                }
+              ],
+              "remaining": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "current": "00000000",
+                  "description": "Home Depot Purchase (1 items)",
+                  "qty": 1,
+                  "total_cost": 166.6,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"Home Depot Purchase (1 items)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 3,
+                  "current": "00000000",
+                  "description": "Home Depot Purchase",
+                  "qty": 1,
+                  "total_cost": 166.6,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"Home Depot Purchase\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "VARIANCE",
+                  "variance": 24.98,
+                  "invoice_total": 161.87,
+                  "sum_items": 141.62,
+                  "freight": 0,
+                  "insurance": -8.5,
+                  "tax": 3.77,
+                  "deduction": 0,
+                  "block": 2,
+                  "block_header_row": 28,
+                  "block_adjustments_row": 47,
+                  "why": "Block 2 (row 28) variance $+24.98. InvoiceTotal($161.87) != NetTotal($136.89).",
+                  "how": "Open source PDF for this invoice and rerun pipeline \u2014 per-invoice variance_fixer should resolve before combining."
+                }
+              ],
+              "fixed": 5,
+              "unfixed": 3
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "111-7220046-1575437_combined.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        }
+      },
+      "error": null,
+      "elapsed_s": 1096.2
+    },
+    {
+      "folder": "03152025135238",
+      "staged": 3,
+      "rc": -2,
+      "status": "failed",
+      "report": null,
+      "error": "timeout after 1800s",
+      "elapsed_s": 1901.4
+    },
+    {
+      "folder": "03152025135830",
+      "staged": 3,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025135830.stage/HAWB9600960-WorkSheet.pdf",
+            "pdf_file": "HAWB9600960-WorkSheet.pdf",
+            "reason": "No items extracted (format: unmatched)",
+            "invoice_num": "4000-000"
+          },
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025135830.out/_split_temp/PO-211-0650403289407038_Invoice.pdf",
+            "pdf_file": "PO-211-0650403289407038_Invoice.pdf",
+            "reason": "No items extracted (format: temu)",
+            "invoice_num": "PO-211-0650403289407038_Invoice"
+          }
+        ],
+        "failed_count": 2,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 299.7
     }
   ]
 }
