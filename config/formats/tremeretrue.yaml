@@ -1,0 +1,62 @@
+# Auto-generated format spec for tremeretrue
+# Generated on 2026-04-18T04:06:23.407484
+# Will be promoted to formats/ on successful processing
+
+name: tremeretrue
+version: "1.0"
+description: "Tremeretrue order invoice format"
+
+detect:
+  all_of:
+    - "TREMERETRUE"
+    - "Order #"
+  any_of:
+    - "tremeretruebuzz"
+    - "tremeretrue . company"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order #\s*([A-Z0-9\s]+?)(?:\s+Tremeretrue|\s*$)'
+    required: true
+  date:
+    patterns:
+      - '(\w{3}\s+\d{1,2}\s*,\s*\d{4}\s*,\s*\d{1,2}\s*:\s*\d{2}\s*(?:AM|PM))'
+  supplier_name:
+    value: "Tremeretrue"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Total\s*\$\s*([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: block
+  block:
+    start_pattern: '^(?=\S)'
+    end_pattern: '^(?:Shipping|Total|Subtotal|Tax)'
+    fields:
+      description:
+        pattern: '^(.+?)$'
+        first: true
+        required: true
+      sku:
+        pattern: 'SKU\s*:\s*(\S+)'
+      unit_price:
+        pattern: '\$\s*([\d,]+\.\d{2})'
+        type: currency
+        required: true
+      quantity:
+        pattern: '(\d+)\s*$'
+        type: integer
+        group: 1
+
+sections:
+  items_start:
+    - "Items"
+  items_end:
+    - "Shipping"
+
+validation:
+  min_items: 1

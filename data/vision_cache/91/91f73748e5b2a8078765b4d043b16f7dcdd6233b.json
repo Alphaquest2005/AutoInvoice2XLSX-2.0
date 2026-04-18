@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": null,
+    "customs_value_usd": null,
+    "tariff_code": null,
+    "duty_rate": null,
+    "weight": null,
+    "description": null,
+    "other_notes": null
+  },
+  "printed": {
+    "consignee": "Morne Fendue",
+    "freight": null,
+    "waybill": null,
+    "man_reg": null,
+    "office": null,
+    "weight": null,
+    "packages": null
+  },
+  "has_handwriting": false
+}

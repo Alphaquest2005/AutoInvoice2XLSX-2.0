@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "6117.0",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten '6117' near 'Shipped on July 24, 2024' line"
+  },
+  "printed": {
+    "consignee": "Shanice St. Bernard",
+    "freight": "0.00",
+    "waybill": "",
+    "man_reg": "",
+    "office": "",
+    "weight": "",
+    "packages": ""
+  },
+  "has_handwriting": true
+}

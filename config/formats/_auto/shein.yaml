@@ -1,0 +1,69 @@
+# Auto-generated format spec for shein
+# Generated on 2026-04-18T02:16:30.945185
+# Will be promoted to formats/ on successful processing
+
+name: shein
+version: "1.0"
+description: "SHEIN purchase order invoice with grouped and detail line items"
+
+detect:
+  all_of:
+    - "SHEIN"
+    - "Supplier Invoice#"
+  any_of:
+    - "INVOICE TOTAL"
+    - "NET TOTAL"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Document Type PO Number Supplier Invoice#\s*\n.*?\s+(\S+)'
+    required: true
+  date:
+    patterns:
+      - 'Document Type.*?\n.*?(\d{4}-\d{2}-\d{2})'
+  supplier_name:
+    value: "SHEIN"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'INVOICE TOTAL\s+([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^(\d{8})\s+\d{8}\s+(.+?)\s+(\d+)\s+Unit\s+USD\s+([\d,]+\.\d{2})\s+([\d,]+\.\d{2})\s+([\d,]+\.\d{2})\s+\d+'
+    field_map:
+      tariff_code: 1
+      description: 2
+      quantity: 3
+      unit_price: 4
+      total_price: 5
+    types:
+      quantity: integer
+      unit_price: currency
+      total_price: currency
+    skip_patterns:
+      - '^\d{8}\s+\d{8}\s+.+\(\+\d+ more\)'
+      - '^SUBTOTAL'
+      - '^GROUP VERIFICATION'
+      - '^TOTAL INTERNAL'
+      - '^TOTAL INSURANCE'
+      - '^TOTAL OTHER'
+      - '^TOTAL DEDUCTION'
+      - '^ADJUSTMENTS'
+      - '^NET TOTAL'
+      - '^INVOICE TOTAL'
+      - '^VARIANCE CHECK'
+
+sections:
+  items_start:
+    - "Supplier Item Description"
+  items_end:
+    - "SUBTOTAL (GROUPED)"
+
+validation:
+  min_items: 1
+  max_item_price: 100000

@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "2.0",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "2/5/89 written vertically on left margin"
+  },
+  "printed": {
+    "consignee": "REBA CALLISTE",
+    "freight": 39.0,
+    "waybill": "HAWB9333496",
+    "man_reg": "2024/19",
+    "office": "GDWBS",
+    "weight": 19.0,
+    "packages": 1
+  },
+  "has_handwriting": true
+}

@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "180.67",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "180.67 written vertically on the left margin"
+  },
+  "printed": {
+    "consignee": "NOAMI COUTAIN",
+    "freight": "7.00",
+    "waybill": "HAWB9662041",
+    "man_reg": "2024/30",
+    "office": "GDWBS",
+    "weight": "3.0",
+    "packages": "1"
+  },
+  "has_handwriting": true
+}

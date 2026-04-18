@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "8.76",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten 'N 8.76' in left margin"
+  },
+  "printed": {
+    "consignee": "REGINALD ANDALL",
+    "freight": "3.00",
+    "waybill": "HAWB9573874",
+    "man_reg": "2024/27",
+    "office": "GDWBS",
+    "weight": "1.0",
+    "packages": "1"
+  },
+  "has_handwriting": true
+}
