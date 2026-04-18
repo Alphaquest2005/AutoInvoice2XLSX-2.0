@@ -1,0 +1,26 @@
+{
+  "session_start": "2026-04-18T01:13:00.415574+00:00",
+  "total_folders": 103,
+  "processed": 2,
+  "elapsed_s": 1888.4,
+  "results": [
+    {
+      "folder": "03142025_7_24_24_3_53_PM_am_on.coiti_",
+      "staged": 2,
+      "rc": -2,
+      "status": "failed",
+      "report": null,
+      "error": "timeout after 900s",
+      "elapsed_s": 945.1
+    },
+    {
+      "folder": "03142025_USD_170.88_XCD_467.72",
+      "staged": 2,
+      "rc": -2,
+      "status": "failed",
+      "report": null,
+      "error": "timeout after 900s",
+      "elapsed_s": 943.2
+    }
+  ]
+}
