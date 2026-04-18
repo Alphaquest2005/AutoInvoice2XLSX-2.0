@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "90.05",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Faint pencil marks '90.05' visible in left margin"
+  },
+  "printed": {
+    "consignee": "AARON S WILSON",
+    "freight": 17.0,
+    "waybill": "HAWB9596948",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": 8.0,
+    "packages": 1
+  },
+  "has_handwriting": true
+}

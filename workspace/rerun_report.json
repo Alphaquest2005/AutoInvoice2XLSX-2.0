@@ -1,8 +1,8 @@
 {
-  "session_start": "2026-04-18T10:29:56.079289+00:00",
+  "session_start": "2026-04-18T10:44:45.975337+00:00",
   "total_folders": 103,
-  "processed": 43,
-  "elapsed_s": 30141.5,
+  "processed": 44,
+  "elapsed_s": 31031.4,
   "results": [
     {
       "folder": "03142025_7_24_24_3_53_PM_am_on.coiti_",
@@ -5001,6 +5001,198 @@
       },
       "error": null,
       "elapsed_s": 718.6
+    },
+    {
+      "folder": "03152025_Payment_information",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "114-1223151-7141036",
+            "supplier": "Amazon.com",
+            "format": "amazon",
+            "items": 7,
+            "matched": 0,
+            "classified": 7,
+            "total": 53.93,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Payment_information.out/114-1223151-7141036.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Payment_information.out/114-1223151-7141036.pdf"
+          }
+        ],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Payment_information.out/_split_temp/114-1223151-7141036_Invoice_1.pdf",
+            "pdf_file": "114-1223151-7141036_Invoice_1.pdf",
+            "reason": "No items extracted (format: unmatched)",
+            "invoice_num": "114-1223151-7141036_Invoice_1"
+          }
+        ],
+        "failed_count": 1,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Payment_information.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Payment_information.out/_email_params.json",
+        "validation": {
+          "total_issues": 6,
+          "fixed": 6,
+          "unfixed": 0,
+          "per_file": [
+            {
+              "file": "114-1223151-7141036.xlsx",
+              "supplier": "Amazon.com",
+              "issues": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 34,
+                  "current": "",
+                  "description": "\u2514 21069000: 5% CET (19% of value)",
+                  "qty": 0,
+                  "total_cost": 1.36,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 21069000: 5% CET (19% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 35,
+                  "current": "",
+                  "description": "\u2514 42021200: 20% CET (13% of value)",
+                  "qty": 0,
+                  "total_cost": 3.8,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 42021200: 20% CET (13% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 36,
+                  "current": "",
+                  "description": "\u2514 42022200: 20% CET (13% of value)",
+                  "qty": 0,
+                  "total_cost": 3.8,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 42022200: 20% CET (13% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 37,
+                  "current": "",
+                  "description": "\u2514 61046200: 20% CET (30% of value)",
+                  "qty": 0,
+                  "total_cost": 8.68,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 61046200: 20% CET (30% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 38,
+                  "current": "",
+                  "description": "\u2514 61082100: 20% CET (11% of value)",
+                  "qty": 0,
+                  "total_cost": 3.25,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 61082100: 20% CET (11% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 39,
+                  "current": "",
+                  "description": "\u2514 62121000: 20% CET (15% of value)",
+                  "qty": 0,
+                  "total_cost": 4.34,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 62121000: 20% CET (15% of value)\" using CARICOM CET schedule based on material and function."
+                }
+              ],
+              "fixes": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 34,
+                  "old": "",
+                  "new": "21069000",
+                  "method": "LLM: Food supplement (Turmeric and Ginger 3000mg softgel capsules",
+                  "description": "\u2514 21069000: 5% CET (19% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 35,
+                  "old": "",
+                  "new": "42021200",
+                  "method": "LLM: Foldable travel duffel bag with outer surface of plastic or ",
+                  "description": "\u2514 42021200: 20% CET (13% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 36,
+                  "old": "",
+                  "new": "42022200",
+                  "method": "LLM: Fanny pack/crossbody bag with outer surface of plastic or te",
+                  "description": "\u2514 42022200: 20% CET (13% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 37,
+                  "old": "",
+                  "new": "61046200",
+                  "method": "LLM: Women's knitted leggings (cotton), classified as women's kni",
+                  "description": "\u2514 61046200: 20% CET (30% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 38,
+                  "old": "",
+                  "new": "61082100",
+                  "method": "LLM: Women's knitted briefs/thongs (cotton), classified as women'",
+                  "description": "\u2514 61082100: 20% CET (11% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 39,
+                  "old": "",
+                  "new": "62121000",
+                  "method": "LLM: Women's sports bras (woven), classified as brassieres of tex",
+                  "description": "\u2514 62121000: 20% CET (15% of value)"
+                }
+              ],
+              "remaining": [],
+              "fixed": 6,
+              "unfixed": 0
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "114-1223151-7141036.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": true,
+          "failures": [],
+          "blocker_count": 0,
+          "warning_count": 0
+        }
+      },
+      "error": null,
+      "elapsed_s": 889.8
     }
   ]
 }

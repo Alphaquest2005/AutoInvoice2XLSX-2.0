@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "24.82",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "24.82 written vertically on the left margin"
+  },
+  "printed": {
+    "consignee": "TERRIE ANN CHARLES",
+    "freight": "7.00",
+    "waybill": "HAWB9474997",
+    "man_reg": "2024/24",
+    "office": "GDWBS",
+    "weight": "3.0",
+    "packages": "1"
+  },
+  "has_handwriting": true
+}
