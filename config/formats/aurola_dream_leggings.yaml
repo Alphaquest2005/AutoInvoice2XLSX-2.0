@@ -14,6 +14,12 @@ detect:
     - "Get in Touch"
     - "From: AUROLA store"
 
+# ─── OCR Normalization ─────────────────────────────────────
+ocr_normalize:
+  - pattern: '(?m)^[:\s\(\)\u00a2\u2018\u2019]+(?=\S)'
+    replace: ''
+    description: "Strip leading OCR junk (colons, parens, cent signs) from lines"
+
 metadata:
   invoice_number:
     patterns:
@@ -33,15 +39,19 @@ metadata:
     type: currency
 
 items:
-  strategy: line
-  line:
-    pattern: '^(.+?)\s+\/\s+(.+?)\s+\$([\d,]+\.\d{2})$'
+  # Product name ("AUROLA Dream Leggings") appears on a line BEFORE the
+  # price line ("Naval Academy / XL $36.99").  Multiline strategy collects
+  # description lines until a price-bearing line is found.
+  strategy: multiline
+  multiline:
+    # Price line pattern: "Color / Size $XX.XX" or standalone "$XX.XX"
+    price_pattern: '\$([\d,]+\.\d{2})\s*$'
     field_map:
-      description: 1
-      size: 2
-      unit_price: 3
+      unit_price: 1
     types:
       unit_price: currency
+    description_join: ' '
+    min_description_length: 5
     skip_patterns:
       - '^Subtotal'
       - '^Shipping'
@@ -60,6 +70,19 @@ items:
       - '^Subject:'
       - '^To:'
       - '^Date:'
+      - '(?i)^Quantity\s*:'
+      - '^[:\s\(\)\u00a2]*$'
+      - '(?i)^Purchase\s+confirmation'
+      - '(?i)^Thanks\s+for'
+      - '(?i)^shipp'
+      - '(?i)^once\s+they'
+      - '(?i)^Get\s+special'
+      - '(?i)^GO\s+TO\s+SITE'
+      - '(?i)^or\s+View'
+      - '^AUROLA$'
+      - '(?i)^Help\s+center'
+    generated_fields:
+      sku: "AUROLA-{index}"
 
 sections:
   items_start:

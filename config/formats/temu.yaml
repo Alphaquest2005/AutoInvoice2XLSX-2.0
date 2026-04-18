@@ -117,40 +117,51 @@ metadata:
 
 # ─── Item Extraction ───────────────────────────────────────
 items:
-  # TEMU uses mixed layout - some items have price inline, some don't
-  # Use line-based extraction for items with inline prices
-  strategy: line
+  # TEMU uses mixed layout - descriptions wrap across lines, price may be
+  # on the same line or on a following "By ..." line.
+  # Multiline strategy accumulates description lines until a price line appears.
+  strategy: multiline
 
-  line:
-    # Pattern for items with price on same line - must start with qty or product name
-    # Examples:
-    #   "20pcs Premium HB Pencil Set... $3.49 x1"
-    #   "10pairs Pack - Ultra... $6.74"
-    # Must have at least 20 chars of description before price to avoid matching metadata
-    pattern: '^(\d+\s*(?:pcs?|pairs?|pack|pc)\s+.{15,}?|\w{3}.{20,}?)\s+\$([\d,]+\.\d{2})(?:\s*[x×]?(\d+))?'
+  multiline:
+    # Price line: contains $XX.XX optionally followed by xN quantity
+    # Matches lines like:
+    #   "...Throw Pillow $14.98 x1"  (price at end of description line)
+    #   "By § baslt Hore $14.98 × 1" (price on seller attribution line)
+    #   "SOCEM we po ae Suntlower...Pidlow $14.98" (OCR with price at end)
+    price_pattern: '\$([\d,]+\.\d{2})(?:\s*[x×]?\s*(\d+))?\s*$'
 
     field_map:
-      description: 1
-      unit_price: 2
-      quantity: 3
+      unit_price: 1
+      quantity: 2
 
     types:
       quantity: integer
       unit_price: currency
 
+    description_join: ' '
+    min_description_length: 10
+
     # Lines to skip (metadata, not items)
     skip_patterns:
-      - '^Item\(s\)\s+total'
-      - '^Item\(s\)\s+discount'
-      - '^Subtotal'
-      - '^Shipping'
-      - '^Sales\s+tax'
-      - '^Order\s+total'
-      - '^Order\s+ID'
-      - '^Order\s+time'
-      - '^Free returns'
+      - '(?i)^Item\(s\)\s+total'
+      - '(?i)^Item\(s\)\s+discount'
+      - '(?i)^item\s*\(s\)\s+total'
+      - '(?i)^Subtotal'
+      - '(?i)^Shipping'
+      - '(?i)^Sales\s+tax'
+      - '(?i)^Order\s+total'
+      - '(?i)^Order\s+ID'
+      - '(?i)^Order\s+time'
+      - '(?i)^Free returns'
+      - '(?i)^Free rotums'
       - '^\d+\..*return'
       - '^\$\d'
+      - '(?i)^Vise?\s+'
+      - '(?i)^VISA\b'
+      - '(?i)^Billing\s+address'
+      - '(?i)^Payment\s+method'
+      - '(?i)^Your\s+payment'
+      - '^\d+\s*/\s*\d+$'
 
     clean_fields:
       description:

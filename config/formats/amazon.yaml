@@ -178,8 +178,9 @@ items:
   block:
     # Start pattern: either "N of:" (print view) OR "Delivered" (Order Details page)
     start_pattern: '^\d+\s+of[;:]|Delivered\s+\w+'
-    # End pattern: standalone price line "$XX.XX"
-    end_pattern: '^\$[\d,]+(?:[.\s]\d{2})?$'
+    # End pattern: standalone price line "$XX.XX", or price embedded in line,
+    # or section terminators that indicate end of item block
+    end_pattern: '^\$[\d,]+(?:[.\s]\d{2})?$|(?:USD\s+|XCD\s+|\$)[\d,]+\.\d{2}\s*$'
 
     # Skip these lines within blocks
     skip_patterns:
@@ -191,6 +192,7 @@ items:
       - '^Shipping Address'
       - '^Shipping Speed'
       - '^FREE Shipping'
+      - '^FREE Prime'
       - '^Standard Shipping'
       - '^\d+\s+NW\s+'
       - '^MIAMI'
@@ -213,17 +215,24 @@ items:
         default: 1
 
       description:
-        # Description is text after "N of:" up to price ([\s\S] matches newlines)
-        pattern: '^\d+\s+of[;:]\s+([\s\S]+?)(?:Price|\$)'
+        # Description is text after "N of:" — try with $ delimiter first,
+        # then fall back to capturing everything after "N of:" and cleaning
+        patterns:
+          - '^\d+\s+of[;:]\s+([\s\S]+?)(?:\s*Price\s*|\s*\$)'
+          - '^\d+\s+of[;:]\s+(.+(?:\n.+)*)'
         clean:
           - pattern: '\s*[©\}\)\|\*#~]+\s*'
             replace: ''
           - pattern: '\s+'
             replace: ' '
+          - pattern: '\s*,?\s*$'
+            replace: ''
 
       unit_price:
-        pattern: '\$([\d,]+(?:[.\s]\d{2})?)'
+        # Try $ format first, then USD/XCD format
+        pattern: '(?:\$|USD\s+|XCD\s+)([\d,]+(?:[.\s]\d{2})?)'
         type: currency
+        default: 0
 
     types:
       quantity: integer

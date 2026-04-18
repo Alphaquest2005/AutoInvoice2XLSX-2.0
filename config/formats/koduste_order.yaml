@@ -32,25 +32,64 @@ metadata:
     type: currency
 
 items:
-  strategy: line
-  line:
-    pattern: '^\d+\s+(.+)'
+  # Items span multiple lines: description + price on first line,
+  # item code / continuation on next line(s).
+  # Example OCR:
+  #   "1 OPV NISSANRight Upper Lower Door Hinge... USPS Ground $59.98"
+  #   "005 (276109893511) Advantage"
+  #   "La BBP H5844 Front Disc Brake Hardware Kit (255582491117) USPS First Class $10.27"
+  #   "2pcs Right Side... $15.99"
+  strategy: multiline
+  multiline:
+    # Price at end of line: $XX.XX
+    price_pattern: '\$([\d,]+\.\d{2})\s*$'
     field_map:
-      description: 1
-      unit_price: 0
-      quantity: 0
+      unit_price: 1
     types:
-      quantity: integer
       unit_price: currency
+    description_join: ' '
+    min_description_length: 10
     skip_patterns:
       - '^Items bought'
       - '^Order number'
-      - '^Quantity'
+      - '(?i)^Quantity\s+Item'
       - '^Shipping service'
       - '^Order total'
       - '^\(?\d+\)?$'
+      - '(?i)^Order\s+information'
+      - '(?i)^Buyer\b'
+      - '(?i)^Placed\s+on'
+      - '(?i)^Payment\s+method'
+      - '(?i)^Paid\s+on'
+      - '(?i)^Shipping\s+address'
+      - '(?i)^Learn\s+more'
+      - '(?i)^\*?We.re\s+required'
+      - '(?i)^sales\s+tax'
+      - '(?i)^certain\s+tax'
+      - '^\d{4}$'
+      - '^[a-z]{1,4}\s*$'
+      - '(?i)^eBay'
+      # Skip eBay item continuation lines: item codes, part numbers, shipping details
+      - '^\w{2,5}c?\s+\(\d{6,}\)'
+      - '^Switch\s+\('
+      - '^\d{3,}\s+\(\d{6,}\)'
+      - '(?i)\b(?:Advantage|Economy)\b\s*[.:,]*\s*$'
+      - '(?i)^Shipping\s+Free'
+      - '(?i)^Tax\b'
+      - '(?i)^6\s+items'
+    clean_fields:
+      description:
+        # Strip leading OCR-garbled quantity: "1 Se. necoore", "1 or", "1 OPV", "La "
+        - pattern: '^\d*\s*(?:Se\.\s*necoore|OEN\w+|or|OPV|La|Vai)\s+'
+          replace: ''
+        # Strip trailing shipping service info
+        - pattern: '\s+(?:USPS|FedEx|UPS)\s+.*$'
+          replace: ''
+        - pattern: '\s+'
+          replace: ' '
     generated_fields:
       quantity: 1
+      sku: "EBAY-{index}"
 
 sections:
   items_start:

@@ -218,8 +218,9 @@ items:
       - '^Seller Information'
       - '^Order Information'
       - '^Item\(s\) Subtotal'
-      - '^Shipping/Handling'
+      - '^Shipping'
       - '^Sales Tax'
+      - '^Tax:'
       - '^Grand Total'
       - '^SHEIN US Services'
       - '^\d{4}-\d{2}-\d{2}'
@@ -234,9 +235,7 @@ sections:
     - "Uivoies Detail"
     - "nvoice Detail"
   items_end:
-    - "Item(s) Subtotal"
-    - "\\tem(s) Subtotal"
-    - "Subtotal"
+    - "Grand Total"
 
 # Validation
 validation:

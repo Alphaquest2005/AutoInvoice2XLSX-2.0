@@ -1392,6 +1392,22 @@ def detect_mode(args) -> str:
             for fname, cat in rescued:
                 logger.info(f"Reclassified {fname} → {cat} (filename-based)")
 
+        # Worksheet exclusion: HAWB*-WorkSheet.pdf files are customs clearance
+        # worksheets, not invoices. Move them out of invoice/unknown so they
+        # are never processed as invoices.
+        _WORKSHEET_HINTS = ('-worksheet', 'worksheet')
+        worksheet_moved = []
+        for cat in ('invoice', 'unknown'):
+            for wf in list(classification.get(cat, [])):
+                wf_lower = wf.lower()
+                if any(h in wf_lower for h in _WORKSHEET_HINTS):
+                    classification[cat].remove(wf)
+                    classification.setdefault('worksheet', []).append(wf)
+                    worksheet_moved.append((wf, cat))
+        if worksheet_moved:
+            for fname, orig_cat in worksheet_moved:
+                logger.info(f"Reclassified {fname} → worksheet (excluded from {orig_cat})")
+
         args._classification = classification
 
         # Log what we found
