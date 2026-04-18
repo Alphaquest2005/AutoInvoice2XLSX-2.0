@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "95.86",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten number '95.86' in the left margin (vertical)"
+  },
+  "printed": {
+    "consignee": "MAURINE WILSON",
+    "freight": "13.00",
+    "waybill": "HAWB9579071",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": "6.0",
+    "packages": "1"
+  },
+  "has_handwriting": true
+}

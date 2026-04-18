@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": null,
+    "customs_value_usd": null,
+    "tariff_code": null,
+    "duty_rate": null,
+    "weight": null,
+    "description": null,
+    "other_notes": null
+  },
+  "printed": {
+    "consignee": "ROSALIE LA GRENADE",
+    "freight": 13.0,
+    "waybill": "HAWB9601811",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": 6.0,
+    "packages": 1
+  },
+  "has_handwriting": false
+}

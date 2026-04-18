@@ -1,0 +1,80 @@
+# Auto-generated format spec for high___waist_straight_shorts
+# Generated on 2026-04-18T09:51:53.841598
+# Will be promoted to formats/ on successful processing
+
+name: high___waist_straight_shorts
+version: "1.0"
+description: "MANGO/MANGO OUTLET order confirmation invoice"
+
+detect:
+  all_of:
+    - "MANGO"
+    - "ref ."
+  any_of:
+    - "OUTLET"
+    - "Terms & Conditions"
+    - "Customer Service"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order number\s*:\s*([A-Z0-9]+)'
+    required: true
+  date:
+    patterns:
+      - 'Date\s*:\s*(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\s*,\s*(\w+\s+\d+\s*,\s*\d{4})'
+  supplier_name:
+    value: "MANGO"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'TOTAL\s*AMOUNT\s*[\s\S]*?(\d+\.\d{2})'
+      - 'Total\s*[\s\S]*?(\d+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^(.+?)\s+ref\s*\.\s*(\d+[A-Z]*)\s*(?:[A-Z]{1,2}\s+)?(?:\d+\s+)?US\s*\$\s*(\d+\.\d{2})'
+    field_map:
+      description: 1
+      ref: 2
+      unit_price: 3
+    types:
+      unit_price: currency
+    skip_patterns:
+      - '^Subtotal'
+      - '^Shipping'
+      - '^Estimated Tax'
+      - '^TOTAL'
+      - '^Description'
+      - '^We remind'
+      - '^For any'
+      - '^©'
+      - '^Terms'
+      - '^From'
+      - '^To'
+      - '^Date'
+      - '^Hello'
+      - '^Your order'
+      - '^Address'
+      - '^Check the'
+      - '^Meanwhile'
+      - '^You will receive'
+      - '^Order number'
+      - '^MANGO'
+      - '^OUTLET'
+
+sections:
+  items_start:
+    - "We remind you of the items included in your order"
+    - "Description"
+  items_end:
+    - "Subtotal"
+    - "TOTAL AMOUNT"
+    - "For any enquiries"
+
+validation:
+  min_items: 1
+  max_item_price: 1000

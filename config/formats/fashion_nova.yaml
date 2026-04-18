@@ -1,0 +1,70 @@
+# Auto-generated format spec for fashion_nova
+# Generated on 2026-04-18T10:09:40.406977
+# Will be promoted to formats/ on successful processing
+
+name: fashion_nova
+version: "1.0"
+description: "Fashion Nova order invoice"
+
+detect:
+  all_of:
+    - "Fashion Nova"
+    - "Order Number"
+    - "Order Date / Time"
+  any_of:
+    - "2801 E . 46 th Street"
+    - "Total Payment Amount"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order Number\s*:\s*(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'Order Date\s*/\s*Time\s*:\s*([A-Za-z]+\s+\d+\w*\s*,?\s*\d{4})'
+  supplier_name:
+    value: "Fashion Nova"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'Total Payment Amount\s*:\s*\$?([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: block
+  block:
+    start_pattern: 'Item Description'
+    end_pattern: 'For Questions Regarding'
+    fields:
+      description:
+        pattern: '^(.+?)\s+(\d+)\s+\$'
+        group: 1
+        type: string
+      quantity:
+        pattern: '^(.+?)\s+(\d+)\s+\$'
+        group: 2
+        type: integer
+      unit_price:
+        pattern: '\d+\s+\$([\d,]+\.\d{2})'
+        group: 1
+        type: currency
+      total:
+        pattern: '\$([\d,]+\.\d{2})\s*$'
+        group: 1
+        type: currency
+    multiline:
+      enabled: true
+      continuation_pattern: '^\s{2,}\S'
+      join_char: ' '
+
+sections:
+  items_start:
+    - "Item Description"
+  items_end:
+    - "For Questions Regarding"
+
+validation:
+  min_items: 1
+  max_item_price: 1000

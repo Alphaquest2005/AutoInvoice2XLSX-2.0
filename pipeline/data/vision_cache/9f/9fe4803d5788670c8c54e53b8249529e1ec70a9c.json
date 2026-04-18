@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": ""
+  },
+  "printed": {
+    "consignee": "Richard Ayliffe",
+    "freight": "0",
+    "waybill": "",
+    "man_reg": "",
+    "office": "",
+    "weight": "",
+    "packages": "1"
+  },
+  "has_handwriting": false
+}

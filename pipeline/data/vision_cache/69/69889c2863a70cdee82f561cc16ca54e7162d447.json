@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "270",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten '270' in right margin near item price; handwritten '0702' in left margin near 'Condition: New'"
+  },
+  "printed": {
+    "consignee": "Rochelle Ragbasingh",
+    "freight": "0",
+    "waybill": "111-1616806-9805016",
+    "man_reg": "",
+    "office": "",
+    "weight": "",
+    "packages": "1"
+  },
+  "has_handwriting": true
+}

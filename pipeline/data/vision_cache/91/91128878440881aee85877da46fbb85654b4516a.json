@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "186.59",
+    "customs_value_usd": null,
+    "tariff_code": null,
+    "duty_rate": null,
+    "weight": null,
+    "description": null,
+    "other_notes": "186.59 written vertically in left margin"
+  },
+  "printed": {
+    "consignee": "MICAH MATHURA",
+    "freight": 9.0,
+    "waybill": "HAWB9597903",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": 4.0,
+    "packages": 1
+  },
+  "has_handwriting": true
+}

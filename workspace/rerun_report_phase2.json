@@ -1,0 +1,919 @@
+{
+  "session_start": "2026-04-18T14:19:21.327804+00:00",
+  "total_folders": 103,
+  "processed": 53,
+  "elapsed_s": 5874.2,
+  "results": [
+    {
+      "folder": "03142025_7_24_24_3_53_PM_am_on.coiti_",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03142025_USD_170.88_XCD_467.72",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025103631",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025103721",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025103801",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025110538",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025110538.stage/INVUS20240717002005487.pdf",
+            "pdf_file": "INVUS20240717002005487.pdf",
+            "reason": "No items extracted (format: shein_us_invoice)",
+            "invoice_num": "INVUS20240717002005487"
+          }
+        ],
+        "failed_count": 1,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 88.3
+    },
+    {
+      "folder": "03152025111114",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025130830",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025131854",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025135001",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025135238",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025135830",
+      "staged": 3,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025135830.out/_split_temp/PO-211-0650403289407038_Invoice.pdf",
+            "pdf_file": "PO-211-0650403289407038_Invoice.pdf",
+            "reason": "No items extracted (format: temu)",
+            "invoice_num": "PO-211-0650403289407038_Invoice"
+          }
+        ],
+        "failed_count": 1,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 310.1
+    },
+    {
+      "folder": "03152025140025",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025140315",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_0.00",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_140.56_0.00_0.00_-_7.40_140.56_USD_you_saved_7.40",
+      "staged": 3,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_140.56_0.00_0.00_-_7.40_140.56_USD_you_saved_7.40.out/_split_temp/AU236542_Invoice.pdf",
+            "pdf_file": "AU236542_Invoice.pdf",
+            "reason": "No items extracted (format: aurola_dream_leggings)",
+            "invoice_num": "AU236542_Invoice"
+          }
+        ],
+        "failed_count": 1,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 261.3
+    },
+    {
+      "folder": "03152025_1_8_2024_06_00_amaz_.com_",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_25.58",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_5_27_25_6_57_PM_anmzon.com",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_6_20_24_1_47_PM_amazon.com",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_6_4_24_10_55_AM_amazon.com-",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_74.70",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_7_20_24_9_02_an_zon.com_",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_7_28_24_10_16_AM_9r_on.com",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_7_29_24_2_33_PM_amazon.com",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_7_29_24_2_33_PM_amazoncom",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_7_29_24_35_PM_ai_zoncom",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_7_29_24_3_57_PM_amazon.com_",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_8_18_24_9_05_PM_ai_on.com_",
+      "staged": 3,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_8_18_24_9_05_PM_ai_on.com_.stage/112-1892394-4362604.pdf",
+            "pdf_file": "112-1892394-4362604.pdf",
+            "reason": "Text extraction failed"
+          }
+        ],
+        "failed_count": 1,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 195.5
+    },
+    {
+      "folder": "03152025_ABOUT",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_ASHIONNOVA",
+      "staged": 3,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_ASHIONNOVA.out/_split_temp/140070017_Invoice.pdf",
+            "pdf_file": "140070017_Invoice.pdf",
+            "reason": "No items extracted (format: unmatched)",
+            "invoice_num": "140070017"
+          }
+        ],
+        "failed_count": 1,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 381.1
+    },
+    {
+      "folder": "03152025_AoV",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_COJAY",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_FASHIOMWVA",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_FASHIOMWVA.out/_split_temp/138984731_Invoice.pdf",
+            "pdf_file": "138984731_Invoice.pdf",
+            "reason": "No items extracted (format: unmatched)",
+            "invoice_num": "138984731"
+          }
+        ],
+        "failed_count": 1,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 435.6
+    },
+    {
+      "folder": "03152025_FASHIOMiOVA",
+      "staged": 1,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "138878183",
+            "supplier": "Fashion Nova",
+            "format": "fashion_nova",
+            "items": 1,
+            "matched": 0,
+            "classified": 1,
+            "total": 84.48,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_FASHIOMiOVA.out/138878183.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_FASHIOMiOVA.out/138878183.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_FASHIOMiOVA.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_FASHIOMiOVA.out/_email_params.json",
+        "validation": {
+          "total_issues": 1,
+          "fixed": 0,
+          "unfixed": 1,
+          "per_file": [
+            {
+              "file": "138878183.xlsx",
+              "supplier": "Fashion Nova",
+              "issues": [
+                {
+                  "type": "VARIANCE",
+                  "variance": 68.49,
+                  "invoice_total": 84.48,
+                  "sum_items": 15.99,
+                  "freight": 0.0,
+                  "insurance": 0.0,
+                  "tax": 0.0,
+                  "deduction": 0.0,
+                  "why": "Variance $+68.49. InvoiceTotal($84.48) != NetTotal($15.99).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixes": [],
+              "remaining": [
+                {
+                  "type": "VARIANCE",
+                  "variance": 68.49,
+                  "invoice_total": 84.48,
+                  "sum_items": 15.99,
+                  "freight": 0.0,
+                  "insurance": 0.0,
+                  "tax": 0.0,
+                  "deduction": 0.0,
+                  "why": "Variance $+68.49. InvoiceTotal($84.48) != NetTotal($15.99).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixed": 0,
+              "unfixed": 1
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "default (1 per entry)",
+            "per_file": [
+              {
+                "file": "138878183.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": false,
+          "failures": [
+            {
+              "check": "weight_zero",
+              "severity": "block",
+              "message": "Weight is 0 kg. A shipment cannot weigh 0 kg.",
+              "field": "weight",
+              "value": "0",
+              "fix_hint": "Read the BL PDF and look for GRAND TOTAL line with weight in kg. Update _email_params.json field \"weight\" with the correct value."
+            },
+            {
+              "check": "freight_zero",
+              "severity": "warn",
+              "message": "Freight is $0. Ocean freight is typically > $0.",
+              "field": "freight",
+              "value": "0",
+              "fix_hint": "Check the BL cost breakdown for freight charges. If freight is genuinely $0 (e.g. prepaid/included), this may be OK."
+            },
+            {
+              "check": "consignee_missing",
+              "severity": "block",
+              "message": "Consignee name is missing or placeholder: \"\".",
+              "field": "consignee_name",
+              "value": "",
+              "fix_hint": "Read the BL PDF or invoice headers to find the consignee/ship-to name."
+            },
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            },
+            {
+              "check": "unfixed_variance",
+              "severity": "block",
+              "message": "1 block(s)/file(s) have unresolved variance.",
+              "field": "validation.variance",
+              "value": "1",
+              "fix_hint": "For each file: read_file the XLSX to see line items and totals (row 2 cols S=InvoiceTotal, T=Freight, U=Insurance, V=Tax, W=Deduction). Read the source invoice PDF to find unextracted charges. Use edit_file to correct values. Variance = InvoiceTotal - (SumItems + Freight + Insurance + Tax - Deduction). After fixing, run validate_xlsx to confirm.\n  138878183.xlsx: Variance $+68.49. InvoiceTotal($84.48) != NetTotal($15.99)."
+            }
+          ],
+          "blocker_count": 3,
+          "warning_count": 2
+        }
+      },
+      "error": null,
+      "elapsed_s": 36.7
+    },
+    {
+      "folder": "03152025_Free_returns_within_90_days",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_Grand_Total_USD_44.17_Payment_Grand_Total_XCD_120.90",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_Grenada_Simplified_Declaration_Form",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_Jul_16_2024_order_Order_2000120-11892676",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Jul_16_2024_order_Order_2000120-11892676.out/_split_temp/03152025_Jul_16_2024_order_Order_2000120-11892676_Invoice.pdf",
+            "pdf_file": "03152025_Jul_16_2024_order_Order_2000120-11892676_Invoice.pdf",
+            "reason": "No items extracted (format: unmatched)",
+            "invoice_num": "2000120"
+          }
+        ],
+        "failed_count": 1,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 288.5
+    },
+    {
+      "folder": "03152025_Order_information",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "06 - 11830 - 29458",
+            "supplier": "Lucas County Cars",
+            "format": "items_lucascountycars",
+            "items": 1,
+            "matched": 0,
+            "classified": 1,
+            "total": 91577.16,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Order_information.out/06 - 11830 - 29458.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Order_information.out/06 - 11830 - 29458.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Order_information.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Order_information.out/_email_params.json",
+        "validation": {
+          "total_issues": 2,
+          "fixed": 2,
+          "unfixed": 0,
+          "per_file": [
+            {
+              "file": "06 - 11830 - 29458.xlsx",
+              "supplier": "Lucas County Cars",
+              "issues": [
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 2,
+                  "current": "99999999",
+                  "description": "2004 2005 2006 2007 8958 ( 134710634347 ) (1 items)",
+                  "qty": 2003,
+                  "total_cost": 91577.16,
+                  "why": "Code 99999999 not in CARICOM CET valid codes list (not an end-node code).",
+                  "how": "Find the correct end-node under heading 9999.99."
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 3,
+                  "current": "99999999",
+                  "description": "2004 2005 2006 2007 8958 ( 134710634347 )",
+                  "qty": 2003,
+                  "total_cost": 91577.16,
+                  "why": "Code 99999999 not in CARICOM CET valid codes list (not an end-node code).",
+                  "how": "Find the correct end-node under heading 9999.99."
+                }
+              ],
+              "fixes": [
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 2,
+                  "old": "99999999",
+                  "new": "87082900",
+                  "method": "LLM: Side rearview mirror (parts and accessories of motor vehicle",
+                  "description": "2004 2005 2006 2007 8958 ( 134710634347 ) (1 items"
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 3,
+                  "old": "99999999",
+                  "new": "87082900",
+                  "method": "LLM: Same item as Row 2 - side rearview mirror for Honda Accord. ",
+                  "description": "2004 2005 2006 2007 8958 ( 134710634347 )"
+                }
+              ],
+              "remaining": [],
+              "fixed": 2,
+              "unfixed": 0
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "06 - 11830 - 29458.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": true,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            }
+          ],
+          "blocker_count": 0,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 214.2
+    },
+    {
+      "folder": "03152025_Order_totai",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Order_totai.out/_split_temp/03-11786-67235_Invoice.pdf",
+            "pdf_file": "03-11786-67235_Invoice.pdf",
+            "reason": "No items extracted (format: koduste_order)",
+            "invoice_num": "03-11786-67235_Invoice"
+          }
+        ],
+        "failed_count": 1,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 358.4
+    },
+    {
+      "folder": "03152025_Order_total",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_Payment_Grand_TotahXCD_102.48_Visa_ending_in_9228_July",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_Payment_information",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_Price_59.92",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Price_59.92.out/_split_temp/113-2477560-9595440_Invoice.pdf",
+            "pdf_file": "113-2477560-9595440_Invoice.pdf",
+            "reason": "No items extracted (format: amazon)",
+            "invoice_num": "113-2477560-9595440"
+          }
+        ],
+        "failed_count": 1,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 282.3
+    },
+    {
+      "folder": "03152025_RECEIPT",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_RECEIPT.out/_split_temp/1504495444_Invoice.pdf",
+            "pdf_file": "1504495444_Invoice.pdf",
+            "reason": "No items extracted (format: unmatched)",
+            "invoice_num": "1504495444_Invoice"
+          }
+        ],
+        "failed_count": 1,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 484.3
+    },
+    {
+      "folder": "03152025_Sales_Invoice",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Sales_Invoice.out/_split_temp/SELLER.pdf",
+            "pdf_file": "SELLER.pdf",
+            "reason": "No items extracted (format: shein_us_invoice)",
+            "invoice_num": "SELLER"
+          },
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Sales_Invoice.out/_split_temp/GSUNJE.pdf",
+            "pdf_file": "GSUNJE.pdf",
+            "reason": "No items extracted (format: shein_us_invoice)",
+            "invoice_num": "GSUNJE"
+          },
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Sales_Invoice.out/_split_temp/SELLER.pdf",
+            "pdf_file": "SELLER.pdf",
+            "reason": "No items extracted (format: shein_us_invoice)",
+            "invoice_num": "SELLER"
+          },
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Sales_Invoice.out/_split_temp/GSUNJE.pdf",
+            "pdf_file": "GSUNJE.pdf",
+            "reason": "No items extracted (format: shein_us_invoice)",
+            "invoice_num": "GSUNJE"
+          },
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Sales_Invoice.out/_split_temp/SELLER.pdf",
+            "pdf_file": "SELLER.pdf",
+            "reason": "No items extracted (format: shein_us_invoice)",
+            "invoice_num": "SELLER"
+          }
+        ],
+        "failed_count": 5,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 1125.8
+    },
+    {
+      "folder": "03152025_Shipped_on_August_7_2024",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_Shipped_on_July_11_2024",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_Sign_Out",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_Solid_Notch_Neck_Blouse_Casual_Short_Sleeve_..._Golden",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 0,
+        "invoices": [],
+        "email_sent": false,
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": []
+        }
+      },
+      "error": null,
+      "elapsed_s": 690.9
+    },
+    {
+      "folder": "03152025_TOTAL_AMOUNT",
+      "status": "skipped_existing"
+    },
+    {
+      "folder": "03152025_USD_279.46_XCD_765.72_765.72",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "113-5364495-5165021",
+            "supplier": "Amazon.com",
+            "format": "amazon",
+            "items": 2,
+            "matched": 0,
+            "classified": 2,
+            "total": 279.49,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_USD_279.46_XCD_765.72_765.72.out/113-5364495-5165021.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_USD_279.46_XCD_765.72_765.72.out/113-5364495-5165021.pdf"
+          }
+        ],
+        "email_sent": false,
+        "failures": [
+          {
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_USD_279.46_XCD_765.72_765.72.out/_split_temp/113-5364495-5165021_Invoice_1.pdf",
+            "pdf_file": "113-5364495-5165021_Invoice_1.pdf",
+            "reason": "No items extracted (format: unmatched)",
+            "invoice_num": "113-5364495-5165021_Invoice_1"
+          }
+        ],
+        "failed_count": 1,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_USD_279.46_XCD_765.72_765.72.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_USD_279.46_XCD_765.72_765.72.out/_email_params.json",
+        "validation": {
+          "total_issues": 1,
+          "fixed": 0,
+          "unfixed": 1,
+          "per_file": [
+            {
+              "file": "113-5364495-5165021.xlsx",
+              "supplier": "Amazon.com",
+              "issues": [
+                {
+                  "type": "VARIANCE",
+                  "variance": 119.95,
+                  "invoice_total": 279.49,
+                  "sum_items": 159.54,
+                  "freight": 0.0,
+                  "insurance": 0.0,
+                  "tax": 0.0,
+                  "deduction": 0.0,
+                  "why": "Variance $+119.95. InvoiceTotal($279.49) != NetTotal($159.54).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixes": [],
+              "remaining": [
+                {
+                  "type": "VARIANCE",
+                  "variance": 119.95,
+                  "invoice_total": 279.49,
+                  "sum_items": 159.54,
+                  "freight": 0.0,
+                  "insurance": 0.0,
+                  "tax": 0.0,
+                  "deduction": 0.0,
+                  "why": "Variance $+119.95. InvoiceTotal($279.49) != NetTotal($159.54).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixed": 0,
+              "unfixed": 1
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "113-5364495-5165021.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": false,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            },
+            {
+              "check": "unfixed_variance",
+              "severity": "block",
+              "message": "1 block(s)/file(s) have unresolved variance.",
+              "field": "validation.variance",
+              "value": "1",
+              "fix_hint": "For each file: read_file the XLSX to see line items and totals (row 2 cols S=InvoiceTotal, T=Freight, U=Insurance, V=Tax, W=Deduction). Read the source invoice PDF to find unextracted charges. Use edit_file to correct values. Variance = InvoiceTotal - (SumItems + Freight + Insurance + Tax - Deduction). After fixing, run validate_xlsx to confirm.\n  113-5364495-5165021.xlsx: Variance $+119.95. InvoiceTotal($279.49) != NetTotal($159.54)."
+            }
+          ],
+          "blocker_count": 1,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 720.8
+    }
+  ]
+}

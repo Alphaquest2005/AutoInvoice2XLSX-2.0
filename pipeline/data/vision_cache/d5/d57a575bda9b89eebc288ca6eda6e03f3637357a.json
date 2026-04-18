@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": ""
+  },
+  "printed": {
+    "consignee": "Micah Mathura",
+    "freight": null,
+    "waybill": null,
+    "man_reg": null,
+    "office": null,
+    "weight": null,
+    "packages": null
+  },
+  "has_handwriting": false
+}

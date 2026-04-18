@@ -852,6 +852,16 @@
       "country": "United States",
       "currency": "USD",
       "notes": "Auto-added from invoice pipeline"
+    },
+    "LUCAS": {
+      "code": "LUCAS",
+      "name": "Lucas County Cars",
+      "full_name": "Lucas County Cars",
+      "address": "3400 King Road Toledo OH 43617",
+      "country_code": "CO",
+      "country": "Colombia",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
     }
   },
   "last_updated": "2026-04-18"

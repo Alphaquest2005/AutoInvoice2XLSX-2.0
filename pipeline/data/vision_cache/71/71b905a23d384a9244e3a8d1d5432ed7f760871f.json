@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": ""
+  },
+  "printed": {
+    "consignee": "SHORNA-LEE CHITTERMAN",
+    "freight": "7.00",
+    "waybill": "HAWB9569093",
+    "man_reg": "2024/27",
+    "office": "GDWBS",
+    "weight": "3.0",
+    "packages": "1"
+  },
+  "has_handwriting": false
+}

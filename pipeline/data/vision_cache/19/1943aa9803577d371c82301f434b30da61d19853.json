@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "94.79",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "94.79 (left margin), 6112 (top right)"
+  },
+  "printed": {
+    "consignee": "ANKITA MOORE",
+    "freight": 3.0,
+    "waybill": "HAWB9671284",
+    "man_reg": "2024/30",
+    "office": "GDWBS",
+    "weight": 1.0,
+    "packages": 1
+  },
+  "has_handwriting": true
+}

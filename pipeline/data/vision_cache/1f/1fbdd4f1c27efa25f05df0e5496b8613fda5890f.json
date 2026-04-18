@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": null,
+    "customs_value_usd": null,
+    "tariff_code": null,
+    "duty_rate": null,
+    "weight": null,
+    "description": null,
+    "other_notes": null
+  },
+  "printed": {
+    "consignee": "NOAMI COUTAIN",
+    "freight": "7.00",
+    "waybill": "HAWB9662041",
+    "man_reg": "2024/30",
+    "office": "GDWBS",
+    "weight": "3.0",
+    "packages": "1"
+  },
+  "has_handwriting": false
+}

@@ -1,0 +1,52 @@
+# Auto-generated format spec for items_lucascountycars
+# Generated on 2026-04-18T10:17:48.864266
+# Will be promoted to formats/ on successful processing
+
+name: items_lucascountycars
+version: "1.0"
+description: "Invoice format for Lucas County Cars auto parts orders"
+
+detect:
+  all_of:
+    - "lucascountycars"
+  any_of:
+    - "Order number"
+    - "Item price"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order\s*number\s*:\s*(\d[\d\s-]+\d)'
+    required: true
+  date:
+    patterns:
+      - 'Paid\s+on\s+(\w{3}\s+\d{1,2}\s*,\s*\d{4})'
+  supplier_name:
+    value: "Lucas County Cars"
+  total:
+    patterns:
+      - 'Item\s+price.*?\$\s*([\d,]+\.\d{2})\s*$'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^.*?(\d+)\s+(.+?)\s+(?:USPS|UPS|FedEx|Shipping)[\w\s]*\s+\$([\d,]+\.\d{2})\s*$'
+    field_map:
+      quantity: 1
+      description: 2
+      unit_price: 3
+    types:
+      quantity: integer
+      unit_price: currency
+
+sections:
+  items_start:
+    - "Quantity"
+    - "Item name"
+  items_end:
+    - "Total"
+    - "Order number"
+
+validation:
+  min_items: 1

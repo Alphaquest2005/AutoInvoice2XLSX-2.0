@@ -1,0 +1,266 @@
+{
+  "session_start": "2026-04-18T14:06:49.108418+00:00",
+  "total_folders": 1,
+  "processed": 1,
+  "elapsed_s": 1217.2,
+  "results": [
+    {
+      "folder": "03152025_Shipped_on_August_7_2024",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "112-8635667-8526641",
+            "supplier": "Amazon.com",
+            "format": "amazon",
+            "items": 12,
+            "matched": 0,
+            "classified": 12,
+            "total": 504.42,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Shipped_on_August_7_2024.out/112-8635667-8526641.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Shipped_on_August_7_2024.out/112-8635667-8526641.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Shipped_on_August_7_2024.out/_email_params.json",
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Shipped_on_August_7_2024.out/_email_params_2.json",
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Shipped_on_August_7_2024.out/_email_params_3.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Shipped_on_August_7_2024.out/_email_params.json",
+        "validation": {
+          "total_issues": 10,
+          "fixed": 9,
+          "unfixed": 1,
+          "per_file": [
+            {
+              "file": "112-8635667-8526641.xlsx",
+              "supplier": "Amazon.com",
+              "issues": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 44,
+                  "current": "",
+                  "description": "\u2514 34011910: 20% CET (4% of value)",
+                  "qty": 0,
+                  "total_cost": 12,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 34011910: 20% CET (4% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 45,
+                  "current": "",
+                  "description": "\u2514 42029200: 20% CET (14% of value)",
+                  "qty": 0,
+                  "total_cost": 42.07,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 42029200: 20% CET (14% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 46,
+                  "current": "",
+                  "description": "\u2514 61091020: 20% CET (17% of value)",
+                  "qty": 0,
+                  "total_cost": 50.73,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 61091020: 20% CET (17% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 47,
+                  "current": "",
+                  "description": "\u2514 61112010: 20% CET (6% of value)",
+                  "qty": 0,
+                  "total_cost": 16.63,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 61112010: 20% CET (6% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 48,
+                  "current": "",
+                  "description": "\u2514 61112090: 20% CET (10% of value)",
+                  "qty": 0,
+                  "total_cost": 30.63,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 61112090: 20% CET (10% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 49,
+                  "current": "",
+                  "description": "\u2514 63029900: 20% CET (3% of value)",
+                  "qty": 0,
+                  "total_cost": 8.75,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 63029900: 20% CET (3% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 50,
+                  "current": "",
+                  "description": "\u2514 84131900: 5% CET (12% of value)",
+                  "qty": 0,
+                  "total_cost": 8.75,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 84131900: 5% CET (12% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 51,
+                  "current": "",
+                  "description": "\u2514 85098090: 20% CET (19% of value)",
+                  "qty": 0,
+                  "total_cost": 55.16,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 85098090: 20% CET (19% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 52,
+                  "current": "",
+                  "description": "\u2514 96190029: 20% CET (16% of value)",
+                  "qty": 0,
+                  "total_cost": 46.47,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2514 96190029: 20% CET (16% of value)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "VARIANCE",
+                  "variance": 163.07,
+                  "invoice_total": 504.42,
+                  "sum_items": 339.66999999999996,
+                  "freight": 0.0,
+                  "insurance": 0.0,
+                  "tax": 1.68,
+                  "deduction": 0.0,
+                  "why": "Variance $+163.07. InvoiceTotal($504.42) != NetTotal($341.35).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixes": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 44,
+                  "old": "",
+                  "new": "34011910",
+                  "method": "LLM: Baby wipes (Huggies) classified as soap/cleaning preparation",
+                  "description": "\u2514 34011910: 20% CET (4% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 45,
+                  "old": "",
+                  "new": "42029200",
+                  "method": "LLM: Travelling bag or similar container of plastic/textile sheet",
+                  "description": "\u2514 42029200: 20% CET (14% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 46,
+                  "old": "",
+                  "new": "61091020",
+                  "method": "LLM: Cotton knitted T-shirts/bodysuits; matches Gerber and Simple",
+                  "description": "\u2514 61091020: 20% CET (17% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 47,
+                  "old": "",
+                  "new": "61112010",
+                  "method": "LLM: Cotton knitted babies' garments; matches Onesies Brand baby ",
+                  "description": "\u2514 61112010: 20% CET (6% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 48,
+                  "old": "",
+                  "new": "61112090",
+                  "method": "LLM: Babies' knitted garments of cotton (other); matches cap and ",
+                  "description": "\u2514 61112090: 20% CET (10% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 49,
+                  "old": "",
+                  "new": "63029900",
+                  "method": "LLM: Textile washcloths of other materials; matches Cute Castle b",
+                  "description": "\u2514 63029900: 20% CET (3% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 50,
+                  "old": "",
+                  "new": "84131900",
+                  "method": "LLM: Liquid pumps not elsewhere specified; likely a breast pump a",
+                  "description": "\u2514 84131900: 5% CET (12% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 51,
+                  "old": "",
+                  "new": "85098090",
+                  "method": "LLM: Electromechanical domestic appliances not elsewhere specifie",
+                  "description": "\u2514 85098090: 20% CET (19% of value)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 52,
+                  "old": "",
+                  "new": "96190029",
+                  "method": "LLM: Articles of pulp/paper/cellulose wadding for hygiene; likely",
+                  "description": "\u2514 96190029: 20% CET (16% of value)"
+                }
+              ],
+              "remaining": [
+                {
+                  "type": "VARIANCE",
+                  "variance": 163.07,
+                  "invoice_total": 504.42,
+                  "sum_items": 339.66999999999996,
+                  "freight": 0.0,
+                  "insurance": 0.0,
+                  "tax": 1.68,
+                  "deduction": 0.0,
+                  "why": "Variance $+163.07. InvoiceTotal($504.42) != NetTotal($341.35).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixed": 9,
+              "unfixed": 1
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "112-8635667-8526641.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        }
+      },
+      "error": null,
+      "elapsed_s": 1217.2
+    }
+  ]
+}
