@@ -887,6 +887,46 @@ def split_pdf_multi_invoice(
                                 f"detected (each page has Grand Total)")
 
         if len(invoice_groups) > 1:
+            # For per-page splits of image-based PDFs, the page_texts from
+            # analyze_pdf may be garbled (single-page OCR is much worse than
+            # multi-page OCR for image-based PDFs).  Try full-document OCR on
+            # a temporary combined invoice PDF to get better text, then split
+            # by structural markers (e.g. "Grand Total").
+            _enhanced_page_texts = None
+            if page_texts:
+                # Always try enhanced OCR for per-page splits of image-based
+                # PDFs.  Single-page OCR is fundamentally worse than multi-page
+                # OCR because OCR engines have less context.  Use the ORIGINAL
+                # full PDF's multi_ocr cache (which benefits from multi-variant
+                # consensus + low-confidence fallback) and split its text by
+                # "Grand Total" boundaries to get per-invoice text.
+                if True:  # Always try enhanced OCR for per-page splits
+                    try:
+                        import multi_ocr as _multi_ocr
+                        _combo_result = _multi_ocr.extract_text(pdf_path)
+                        _combo_text = _combo_result.text or ""
+                        if _combo_text and len(re.findall(r'\d+\.\d{2}', _combo_text)) >= len(invoice_groups):
+                            # Split by "Grand Total" boundaries — each sub-invoice
+                            # ends with "Grand Total: <amount>".
+                            _gt_pattern = re.compile(r'Grand\s+Total[:\s]*[\d,.]*', re.IGNORECASE)
+                            _splits = list(_gt_pattern.finditer(_combo_text))
+                            if len(_splits) >= len(invoice_groups):
+                                _enhanced_page_texts = {}
+                                for gi in range(len(invoice_groups)):
+                                    _start = 0 if gi == 0 else _splits[gi - 1].end()
+                                    _end = _splits[gi].end() if gi < len(_splits) else len(_combo_text)
+                                    _chunk = _combo_text[_start:_end].strip()
+                                    # Map to the original page numbers in this group
+                                    for pn in invoice_groups[gi]:
+                                        _enhanced_page_texts[pn] = _chunk
+                                logger.info(
+                                    f"Enhanced OCR: split {len(_combo_text)} chars "
+                                    f"into {len(invoice_groups)} sub-invoices "
+                                    f"from full-doc OCR [{_combo_result.engine_used}]"
+                                )
+                    except Exception as _e:
+                        logger.debug(f"Enhanced OCR failed: {_e}")
+
             # Multiple distinct invoices detected — write each as separate PDF
             # Name files after their invoice/order ID when available
             for idx, group_pages in enumerate(invoice_groups):
@@ -908,9 +948,11 @@ def split_pdf_multi_invoice(
                 logger.info(f"Wrote invoice {idx+1}/{len(invoice_groups)}: {output_path} ({len(group_pages)} pages)")
 
                 # Save OCR text sidecar to avoid re-OCR downstream
+                # Prefer enhanced (full-doc OCR) text over garbled page_texts
                 # Don't overwrite existing sidecar (may have been manually corrected)
-                if page_texts:
-                    sidecar_text = "\n\n".join(page_texts[pn] for pn in group_pages if pn < len(page_texts) and page_texts[pn])
+                _src_texts = _enhanced_page_texts or ({pn: page_texts[pn] for pn in range(len(page_texts)) if page_texts[pn]} if page_texts else {})
+                if _src_texts:
+                    sidecar_text = "\n\n".join(_src_texts.get(pn, '') for pn in group_pages if _src_texts.get(pn))
                     if sidecar_text.strip():
                         txt_path = output_path.rsplit('.', 1)[0] + '.txt'
                         if not os.path.exists(txt_path):

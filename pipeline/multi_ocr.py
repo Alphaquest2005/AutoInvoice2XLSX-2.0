@@ -810,6 +810,28 @@ def _pick_skeleton(variant_texts: Dict[str, str]) -> Tuple[str, str]:
     return best_vid, best_text
 
 
+def _pick_best_fallback(variant_texts: Dict[str, str]) -> Tuple[str, str]:
+    """Pick the best variant for the low-confidence fallback.
+
+    Unlike ``_pick_skeleton`` (which weights engine priority highest),
+    this prefers **digit density first** — when consensus failed, the
+    variant with the most numeric content (prices, quantities, invoice
+    numbers) is the most useful for downstream extraction.
+    """
+    if not variant_texts:
+        return ("", "")
+
+    def _score(item):
+        vid, text = item
+        digit_density = len(_PRICE_PATTERN.findall(text))
+        text_length = len(text)
+        priority = _priority_of(vid)
+        return (digit_density, text_length, priority, vid)
+
+    best_vid, best_text = max(variant_texts.items(), key=_score)
+    return best_vid, best_text
+
+
 def align_lines(
     variant_texts: Dict[str, str],
 ) -> List[List[Tuple[str, str]]]:
@@ -1020,7 +1042,14 @@ def _compute_confidence(
 
 
 def build_consensus(variant_texts: Dict[str, str]) -> MultiOcrResult:
-    """Top-level consensus builder: align, vote, build token map, package."""
+    """Top-level consensus builder: align, vote, build token map, package.
+
+    When consensus confidence falls below ``_LOW_CONFIDENCE_THRESHOLD``,
+    the token-level voting has destroyed too much data (prices, quantities,
+    invoice numbers).  In that case, fall back to the highest-priority
+    individual variant (by engine priority × digit density) instead of
+    emitting the degraded consensus.
+    """
     if not variant_texts:
         return _empty_result()
 
@@ -1030,7 +1059,28 @@ def build_consensus(variant_texts: Dict[str, str]) -> MultiOcrResult:
     token_map = build_token_map(variant_texts)
     confidence = _compute_confidence(clusters)
     method_stats = {vid: len(t) for vid, t in variant_texts.items()}
-    engine_used = "hybrid(" + ",".join(sorted(variant_texts.keys())) + ")"
+
+    # Low-confidence fallback: use best individual variant instead of
+    # mangled consensus.  The consensus process can drop numeric tokens
+    # (prices, quantities, invoice numbers) when alignment across many
+    # variants disagrees, producing text that downstream parsers cannot
+    # extract items from.
+    _LOW_CONFIDENCE_THRESHOLD = 0.50
+    _MIN_VARIANTS_FOR_FALLBACK = 4  # With ≤3 variants, majority voting works fine
+    if confidence < _LOW_CONFIDENCE_THRESHOLD and len(variant_texts) >= _MIN_VARIANTS_FOR_FALLBACK:
+        best_vid, best_text = _pick_best_fallback(variant_texts)
+        if best_text and len(best_text) > len(consensus_text) * 0.8:
+            logger.warning(
+                f"Consensus confidence {confidence:.2f} < {_LOW_CONFIDENCE_THRESHOLD} "
+                f"— falling back to best variant '{best_vid}' "
+                f"({len(best_text)} chars vs {len(consensus_text)} consensus chars)"
+            )
+            consensus_text = best_text
+            engine_used = f"fallback({best_vid})"
+        else:
+            engine_used = "hybrid(" + ",".join(sorted(variant_texts.keys())) + ")"
+    else:
+        engine_used = "hybrid(" + ",".join(sorted(variant_texts.keys())) + ")"
 
     return MultiOcrResult(
         text=consensus_text,
@@ -1104,14 +1154,35 @@ def cache_load(
             k: [tuple(pair) for pair in v]
             for k, v in r.get("token_map", {}).items()
         }
+        text = r["text"]
+        variants = r["variants"]
+        confidence = r["confidence"]
+        engine_used = r["engine_used"]
+
+        # Re-apply low-confidence fallback on cached results that were
+        # stored before the fallback logic existed.
+        _LOW_CONFIDENCE_THRESHOLD = 0.50
+        _MIN_VARIANTS_FOR_FALLBACK = 4
+        if (confidence < _LOW_CONFIDENCE_THRESHOLD
+                and len(variants) >= _MIN_VARIANTS_FOR_FALLBACK
+                and not engine_used.startswith("fallback(")):
+            best_vid, best_text = _pick_best_fallback(variants)
+            if best_text and len(best_text) > len(text) * 0.8:
+                logger.warning(
+                    f"Cache hit with low confidence {confidence:.2f} "
+                    f"— applying fallback to '{best_vid}'"
+                )
+                text = best_text
+                engine_used = f"fallback({best_vid})"
+
         return MultiOcrResult(
-            text=r["text"],
-            variants=r["variants"],
+            text=text,
+            variants=variants,
             token_map=token_map,
-            confidence=r["confidence"],
+            confidence=confidence,
             method_stats=r["method_stats"],
             page_count=r["page_count"],
-            engine_used=r["engine_used"],
+            engine_used=engine_used,
         )
     except Exception as e:
         logger.debug(f"cache_load failed for {path}: {e}")
