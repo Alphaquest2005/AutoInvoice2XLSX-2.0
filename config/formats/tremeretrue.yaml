@@ -4,7 +4,8 @@
 
 name: tremeretrue
 version: "1.0"
-description: "Tremeretrue order invoice format"
+priority: -5  # Lower priority — tremeretrue_invoice.yaml (priority 10) should match first
+description: "Tremeretrue order invoice format (fallback block strategy)"
 
 detect:
   all_of:
