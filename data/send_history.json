@@ -490,6 +490,55 @@
         "office": "GDWBS"
       },
       "sent_at": "2026-04-17T09:50:52Z"
+    },
+    {
+      "waybill": "HAWB9597352",
+      "subject": "Shipment: HAWB9597352",
+      "source_input": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/03152025131854",
+      "source_mode": "bl",
+      "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/03152025131854",
+      "params_hash": "dc939733bf2ae813f8b308b6961b003b4a2f47c249447dc95135d0e99fee4dd5",
+      "suppliers_hash": "7af2bb8bbef678a49b2acfbd2af71231cc906fa022ee8c5027918dac94eccdd3",
+      "attachments": [
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/03152025131854/INVUS20240718001265517.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/03152025131854/INVUS20240718001269215.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/03152025131854/INVUS20240718001278681.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/03152025131854/INVUS20240718001281670.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/03152025131854/INVUS20240718001284626.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/03152025131854/INVUS20240718001284626_2.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/03152025131854/HAWB9597352-Declaration_combined.xlsx",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/03152025131854/HAWB9597352-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9597352",
+        "consignee_name": "NAKISHA CORNWALL (FREIGHT 7.00 US)",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 9,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "3.0",
+        "country_origin": "US",
+        "freight": "7.00",
+        "man_reg": "2024/28",
+        "attachment_paths": [
+          "workspace/output/downloads-regression-emails/03152025131854/INVUS20240718001265517.pdf",
+          "workspace/output/downloads-regression-emails/03152025131854/INVUS20240718001269215.pdf",
+          "workspace/output/downloads-regression-emails/03152025131854/INVUS20240718001278681.pdf",
+          "workspace/output/downloads-regression-emails/03152025131854/INVUS20240718001281670.pdf",
+          "workspace/output/downloads-regression-emails/03152025131854/INVUS20240718001284626.pdf",
+          "workspace/output/downloads-regression-emails/03152025131854/INVUS20240718001284626_2.pdf",
+          "workspace/output/downloads-regression-emails/03152025131854/HAWB9597352-Declaration_combined.xlsx",
+          "workspace/output/downloads-regression-emails/03152025131854/HAWB9597352-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS",
+        "ocr_warnings": [
+          "INVUS20240718001265517.pdf: OCR quality POOR (score 35/100)"
+        ],
+        "notes": "WARNING: Some pages have poor OCR quality. Check the \"OCR Notes\" sheet in the combined XLSX for details. Consider asking sender to rescan and resubmit."
+      },
+      "sent_at": "2026-04-19T18:28:57Z"
     }
   ]
 }
