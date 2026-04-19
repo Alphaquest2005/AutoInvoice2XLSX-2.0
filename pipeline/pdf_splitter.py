@@ -580,6 +580,13 @@ def detect_invoice_boundaries(pdf_path: str, invoice_page_nums: List[int], page_
 
         # Look for invoice/order number patterns
         invoice_id = None
+
+        # Skip pattern matching on pages with very little text — OCR noise
+        # on scanned pages produces false positives (e.g. "POWERFUL" → PO + "WERFUL")
+        if len(text.strip()) < 50:
+            page_invoice_ids.append((page_num, None))
+            continue
+
         text_upper = text.upper()
 
         patterns = [
@@ -592,12 +599,12 @@ def detect_invoice_boundaries(pdf_path: str, invoice_page_nums: List[int], page_
             (r'(\d{3}\s*-\s*\d{7}\s*-\s*\d{7})', 1),
             # Temu/online: "Order ID: PO-211-12345..."
             (r'ORDER\s*ID[:\s]*(PO-\d{3}-\d+)', 1),
-            # FashionNova / generic order number (same line)
-            (r'ORDER\s*(?:#|NUMBER)[:\s]*([A-Z0-9][A-Z0-9-]{5,20})', 1),
+            # FashionNova / generic order number (same line, no newline crossing)
+            (r'ORDER\s*(?:#|NUMBER)[: \t]*([A-Z0-9][A-Z0-9-]{5,20})', 1),
             # Generic invoice number (after "Invoice No:" label, OCR may add spaces)
             (r'INVOICE\s*(?:#|NO\.?|NUMBER)[:\s]*([A-Z0-9][\sA-Z0-9-]{5,25})', 1),
-            # PO number (word boundary prevents matching words like "PORTABLE")
-            (r'(?<![A-Z])(?:P\.?O\.?|PURCHASE\s*ORDER)\s*(?:#|NO\.?)?[:\s]*([A-Z0-9-]{5,20})', 1),
+            # PO number (word boundary prevents matching words like "PORTABLE", "POWERFUL")
+            (r'(?<![A-Z])(?:P\.?O\.?|PURCHASE\s*ORDER)(?![A-Za-z])\s*(?:#|NO\.?)?[:\s]*([A-Z0-9-]{5,20})', 1),
         ]
 
         for pattern, group in patterns:
@@ -605,7 +612,12 @@ def detect_invoice_boundaries(pdf_path: str, invoice_page_nums: List[int], page_
             if match:
                 raw = match.group(group).strip()
                 # Normalize: strip OCR-inserted spaces from IDs
-                invoice_id = re.sub(r'\s+', '', raw)
+                candidate = re.sub(r'\s+', '', raw)
+                # Reject pure-alpha IDs — real invoice IDs contain digits
+                # (avoids false positives like "SELLER", "RTABLE" from OCR noise)
+                if not re.search(r'\d', candidate):
+                    continue
+                invoice_id = candidate
                 # Fix OCR-duplicated trailing digits: INVUS20240728002522189189
                 # → INVUS20240728002522189 (last N digits repeated by OCR noise)
                 for suffix_len in range(3, 8):
@@ -856,6 +868,23 @@ def split_pdf_multi_invoice(
         invoice_ids = []
         if len(invoice_pages) > 1:
             invoice_groups, invoice_ids = detect_invoice_boundaries(pdf_path, sorted(invoice_pages), page_texts=page_texts)
+
+            # Fallback: if boundary detection found only one group, check if each
+            # page has its own "Grand Total" — if so, each page is a separate
+            # sub-invoice (common in TEMU/SHEIN-style combined invoices).
+            if len(invoice_groups) <= 1 and page_texts:
+                import re as _re
+                _grand_total_pages = []
+                for pn in sorted(invoice_pages):
+                    if pn < len(page_texts) and page_texts[pn]:
+                        if _re.search(r'Grand\s+Total', page_texts[pn], _re.IGNORECASE):
+                            _grand_total_pages.append(pn)
+                if len(_grand_total_pages) > 1:
+                    # Each page with Grand Total becomes its own invoice group
+                    invoice_groups = [[pn] for pn in _grand_total_pages]
+                    invoice_ids = [None] * len(invoice_groups)
+                    logger.info(f"Per-page split: {len(invoice_groups)} sub-invoices "
+                                f"detected (each page has Grand Total)")
 
         if len(invoice_groups) > 1:
             # Multiple distinct invoices detected — write each as separate PDF

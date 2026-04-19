@@ -1,0 +1,308 @@
+{
+  "session_start": "2026-04-18T20:26:52.026527+00:00",
+  "total_folders": 1,
+  "processed": 1,
+  "elapsed_s": 1055.8,
+  "results": [
+    {
+      "folder": "03152025_Sales_Invoice",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "SELLER",
+            "supplier": "SHEIN US Services, LLC",
+            "format": "shein_us_invoice",
+            "items": 1,
+            "matched": 0,
+            "classified": 1,
+            "total": 0.01,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Sales_Invoice.out/HAWB9687189-Manifest_combined.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Sales_Invoice.out/SELLER.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Sales_Invoice.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Sales_Invoice.out/_email_params.json",
+        "validation": {
+          "total_issues": 12,
+          "fixed": 12,
+          "unfixed": 0,
+          "per_file": [
+            {
+              "file": "HAWB9687189-Manifest_combined.xlsx",
+              "supplier": "SHEIN US Services, LLC",
+              "issues": [
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 2,
+                  "current": "99999999",
+                  "description": "SHEIN US Services, LLC Purchase (1 items)",
+                  "qty": 1,
+                  "total_cost": 0.01,
+                  "why": "Code 99999999 not in CARICOM CET valid codes list (not an end-node code).",
+                  "how": "Find the correct end-node under heading 9999.99."
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 3,
+                  "current": "99999999",
+                  "description": "SHEIN US Services, LLC Purchase",
+                  "qty": 1,
+                  "total_cost": 0.01,
+                  "why": "Code 99999999 not in CARICOM CET valid codes list (not an end-node code).",
+                  "how": "Find the correct end-node under heading 9999.99."
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 28,
+                  "current": "99999999",
+                  "description": "SHEIN US Services, LLC Purchase (1 items)",
+                  "qty": 1,
+                  "total_cost": 0.01,
+                  "why": "Code 99999999 not in CARICOM CET valid codes list (not an end-node code).",
+                  "how": "Find the correct end-node under heading 9999.99."
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 29,
+                  "current": "99999999",
+                  "description": "SHEIN US Services, LLC Purchase",
+                  "qty": 1,
+                  "total_cost": 0.01,
+                  "why": "Code 99999999 not in CARICOM CET valid codes list (not an end-node code).",
+                  "how": "Find the correct end-node under heading 9999.99."
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 54,
+                  "current": "99999999",
+                  "description": "SHEIN US Services, LLC Purchase (1 items)",
+                  "qty": 1,
+                  "total_cost": 0.01,
+                  "why": "Code 99999999 not in CARICOM CET valid codes list (not an end-node code).",
+                  "how": "Find the correct end-node under heading 9999.99."
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 55,
+                  "current": "99999999",
+                  "description": "SHEIN US Services, LLC Purchase",
+                  "qty": 1,
+                  "total_cost": 0.01,
+                  "why": "Code 99999999 not in CARICOM CET valid codes list (not an end-node code).",
+                  "how": "Find the correct end-node under heading 9999.99."
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 80,
+                  "current": "99999999",
+                  "description": "SHEIN US Services, LLC Purchase (1 items)",
+                  "qty": 1,
+                  "total_cost": 0.01,
+                  "why": "Code 99999999 not in CARICOM CET valid codes list (not an end-node code).",
+                  "how": "Find the correct end-node under heading 9999.99."
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 81,
+                  "current": "99999999",
+                  "description": "SHEIN US Services, LLC Purchase",
+                  "qty": 1,
+                  "total_cost": 0.01,
+                  "why": "Code 99999999 not in CARICOM CET valid codes list (not an end-node code).",
+                  "how": "Find the correct end-node under heading 9999.99."
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 106,
+                  "current": "99999999",
+                  "description": "SHEIN US Services, LLC Purchase (1 items)",
+                  "qty": 1,
+                  "total_cost": 0.01,
+                  "why": "Code 99999999 not in CARICOM CET valid codes list (not an end-node code).",
+                  "how": "Find the correct end-node under heading 9999.99."
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 107,
+                  "current": "99999999",
+                  "description": "SHEIN US Services, LLC Purchase",
+                  "qty": 1,
+                  "total_cost": 0.01,
+                  "why": "Code 99999999 not in CARICOM CET valid codes list (not an end-node code).",
+                  "how": "Find the correct end-node under heading 9999.99."
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 132,
+                  "current": "99999999",
+                  "description": "SHEIN US Services, LLC Purchase (1 items)",
+                  "qty": 1,
+                  "total_cost": 0.01,
+                  "why": "Code 99999999 not in CARICOM CET valid codes list (not an end-node code).",
+                  "how": "Find the correct end-node under heading 9999.99."
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 133,
+                  "current": "99999999",
+                  "description": "SHEIN US Services, LLC Purchase",
+                  "qty": 1,
+                  "total_cost": 0.01,
+                  "why": "Code 99999999 not in CARICOM CET valid codes list (not an end-node code).",
+                  "how": "Find the correct end-node under heading 9999.99."
+                }
+              ],
+              "fixes": [
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 2,
+                  "old": "99999999",
+                  "new": "62052000",
+                  "method": "LLM: SHEIN purchase of women's plaid print button-front shirt cla",
+                  "description": "SHEIN US Services, LLC Purchase (1 items)"
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 3,
+                  "old": "99999999",
+                  "new": "62052000",
+                  "method": "LLM: Duplicate line item for same SHEIN purchase - women's woven ",
+                  "description": "SHEIN US Services, LLC Purchase"
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 28,
+                  "old": "99999999",
+                  "new": "62052000",
+                  "method": "LLM: SHEIN purchase item - women's apparel, woven button-front sh",
+                  "description": "SHEIN US Services, LLC Purchase (1 items)"
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 29,
+                  "old": "99999999",
+                  "new": "62052000",
+                  "method": "LLM: Duplicate line item for same SHEIN purchase - women's woven ",
+                  "description": "SHEIN US Services, LLC Purchase"
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 54,
+                  "old": "99999999",
+                  "new": "62052000",
+                  "method": "LLM: SHEIN purchase item - women's apparel, woven button-front sh",
+                  "description": "SHEIN US Services, LLC Purchase (1 items)"
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 55,
+                  "old": "99999999",
+                  "new": "62052000",
+                  "method": "LLM: Duplicate line item for same SHEIN purchase - women's woven ",
+                  "description": "SHEIN US Services, LLC Purchase"
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 80,
+                  "old": "99999999",
+                  "new": "62052000",
+                  "method": "LLM: SHEIN purchase item - women's apparel, woven button-front sh",
+                  "description": "SHEIN US Services, LLC Purchase (1 items)"
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 81,
+                  "old": "99999999",
+                  "new": "62052000",
+                  "method": "LLM: Duplicate line item for same SHEIN purchase - women's woven ",
+                  "description": "SHEIN US Services, LLC Purchase"
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 106,
+                  "old": "99999999",
+                  "new": "62052000",
+                  "method": "LLM: SHEIN purchase item - women's apparel, woven button-front sh",
+                  "description": "SHEIN US Services, LLC Purchase (1 items)"
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 107,
+                  "old": "99999999",
+                  "new": "62052000",
+                  "method": "LLM: Duplicate line item for same SHEIN purchase - women's woven ",
+                  "description": "SHEIN US Services, LLC Purchase"
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 132,
+                  "old": "99999999",
+                  "new": "62052000",
+                  "method": "LLM: SHEIN purchase item - women's apparel, woven button-front sh",
+                  "description": "SHEIN US Services, LLC Purchase (1 items)"
+                },
+                {
+                  "type": "INVALID_TARIFF",
+                  "row": 133,
+                  "old": "99999999",
+                  "new": "62052000",
+                  "method": "LLM: Duplicate line item for same SHEIN purchase - women's woven ",
+                  "description": "SHEIN US Services, LLC Purchase"
+                }
+              ],
+              "remaining": [],
+              "fixed": 12,
+              "unfixed": 0
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "HAWB9687189-Manifest_combined.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": true,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            }
+          ],
+          "blocker_count": 0,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 1055.8
+    }
+  ]
+}

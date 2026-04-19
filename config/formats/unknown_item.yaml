@@ -1,0 +1,74 @@
+# Auto-generated format spec for unknown_item
+# Generated on 2026-04-18T12:55:05.812857
+# Will be promoted to formats/ on successful processing
+
+name: unknown_item
+version: "1.0"
+description: "E-commerce order with item details and embedded prices"
+
+detect:
+  all_of:
+    - "Item details"
+  any_of:
+    - "By —"
+    - "By ▲"
+    - "By ig"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order\s*#?\s*(\d+)'
+      - 'Invoice\s*#?\s*(\d+)'
+    required: false
+  date:
+    patterns:
+      - 'Date[:\s]+(\d{1,2}[/\-\.]\d{1,2}[/\-\.]\d{2,4})'
+      - '(\d{1,2}[/\-\.]\d{1,2}[/\-\.]\d{2,4})'
+  supplier_name:
+    value: "unknown_item"
+  total:
+    patterns:
+      - 'Total[:\s]*\$?([\d,]+\.\d{2})'
+      - 'Order\s*Total[:\s]*\$?([\d,]+\.\d{2})'
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^\s*(\d+)\s+pes\s+(.+?)(?:\s+By\s+[—▲ig]\s+.+)?$|^(.+?)\s+\$([\d,]+\.\d{2})'
+    field_map:
+      quantity: 1
+      description: 2
+      unit_price: 4
+    types:
+      quantity: integer
+      unit_price: currency
+    skip_patterns:
+      - '^Item details'
+      - '^By\s'
+      - '^\d+\s*/\s*\d+$'
+      - '^By\s*—'
+      - '^By\s*▲'
+      - '^By\s*ig'
+      - '^Female'
+      - '^\d+\.\d+\s*/\s*[A-Z]'
+      - '^ree\s+fy'
+      - '^Ci\s+w\s'
+      - '^fi\s+\]'
+      - '^Lightweight'
+      - '^Elegant'
+      - '^Smart\s+Watch'
+      - '^\d+\s+pes\s+Spes\s+pcs'
+    generated_fields:
+      sku: "ITEM-{index}"
+
+sections:
+  items_start:
+    - "Item details"
+  items_end:
+    - "Total"
+    - "Order Total"
+
+validation:
+  min_items: 1
+  max_item_price: 10000

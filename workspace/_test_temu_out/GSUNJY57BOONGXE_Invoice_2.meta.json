@@ -1,0 +1,11 @@
+{
+  "format_name": "shein_us_invoice",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "61046200",
+      "classification_source": "",
+      "description": "Women Color Block Crochet Knitted Short Sleeve Top And Shorts Set Short Sets Sum"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9591179",
+  "consignee_name": "FRANKY LINDSAY",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "1.0",
+  "country_origin": "US",
+  "freight": "3.00",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "workspace/_test_ebay2_out/20-11818-51856.pdf",
+    "workspace/_test_ebay2_out/HAWB9591179.xlsx",
+    "workspace/_test_ebay2_out/HAWB9591179-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

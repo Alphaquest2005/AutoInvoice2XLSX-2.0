@@ -1,0 +1,79 @@
+waybill: HAWB9591179
+replay_mode: true
+instructions: 'Edit the override block for any item. Leave fields null to keep current. Set delete: true
+  to remove an item. Append new items under add_items. Reply with this file attached to trigger pipeline
+  replay.'
+invoices:
+- invoice_num: 20-11818-51856
+  supplier: eBay
+  pdf: 20-11818-51856.pdf
+  current:
+    sub_total: 0.0
+    items_sum: 149.08
+    invoice_total: 170.51
+    residual: 21.43
+  notes:
+  - 'Structural item count mismatch: 1 price lines found between section markers but 5 items extracted'
+  recovered_items: []
+  other_items:
+  - sku: ITEM-001
+    description: F 1-04 FRONTIER/SENTRA CLEAR LENS OE DRIVING PAIR FOG LIGHT FedEx Ground or FedEx
+    current:
+      quantity: 1
+      unit_cost: 32.7
+      total_cost: 32.7
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  - sku: ITEM-002
+    description: NEW GENUINE SUZUKI GRAND VITARA BRAKE LEVER PARKING ADJUSTER USPS Ground
+    current:
+      quantity: 1
+      unit_cost: 19.04
+      total_cost: 19.04
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  - sku: ITEM-003
+    description: Se. necoore Suzuki Vitara Brake Lever Parking Adjuster Left Side 5378265D00 USPS Ground
+    current:
+      quantity: 1
+      unit_cost: 20.67
+      total_cost: 20.67
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  - sku: ITEM-004
+    description: or Suzuki Grand Vitara Vitara 1999 2000-2002 XL-7 2005 2006 Power Window FedEx Ground
+    current:
+      quantity: 1
+      unit_cost: 16.69
+      total_cost: 16.69
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  - sku: ITEM-005
+    description: OPV NISSANRight Upper Lower Door Hinge Fits Nissan D22 Frontier Maxima 2000 USPS Ground
+    current:
+      quantity: 1
+      unit_cost: 59.98
+      total_cost: 59.98
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  add_items: []

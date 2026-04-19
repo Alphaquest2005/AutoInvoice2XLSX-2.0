@@ -1,0 +1,13 @@
+{
+  "kind": "proposed_fixes",
+  "waybill": "HAWB9591179",
+  "subject": "Proposed Fixes for shipment: HAWB9591179",
+  "body": "Proposed Fixes for shipment: HAWB9591179\n\nThis shipment has 1 invoice(s) that could not be \nresolved deterministically. Each one was reconciled honestly:\n  - orphan price tokens in the OCR text were matched against \n    the subtotal anchor where possible,\n  - any remaining variance was absorbed into the ADJUSTMENTS row \n    (visible in the combined manifest), and\n  - every recovered value is highlighted in the XLSX with a \n    yellow fill and a cell comment.\n\nPlease review each invoice below and \u2014 if anything is wrong \u2014 \nedit the attached file (proposed_fixes_HAWB9591179.yaml) and reply to this \nmessage with the edited file attached. The pipeline will detect \nthe patch and re-process the shipment with your corrections.\n\n----------------------------------------------------------------------\n\n[1] Invoice: 20-11818-51856   Supplier: eBay\n    Sub-total:    $0.00\n    Items sum:    $149.08\n    Invoice total:$170.51\n    Residual:     $21.43\n    Notes:\n      - Structural item count mismatch: 1 price lines found between section markers but 5 items extracted\n\n----------------------------------------------------------------------\n\nHow to respond:\n  1. Download proposed_fixes_HAWB9591179.yaml.\n  2. For each item you want to correct, fill in the override \n     block. Leave fields as null to keep current values.\n  3. Reply to this email with the edited file attached. The \n     subject must start with 'APPLY FIXES:' so the pipeline \n     picks it up automatically.\n\nIf everything in the manifest looks right as-is, no action is \nneeded \u2014 the shipment email has already been sent for processing.",
+  "yaml_path": "workspace/_test_ebay2_out/proposed_fixes_HAWB9591179.yaml",
+  "uncertain_count": 1,
+  "attachment_paths": [
+    "workspace/_test_ebay2_out/proposed_fixes_HAWB9591179.yaml",
+    "workspace/_test_ebay2_out/20-11818-51856.pdf",
+    "workspace/_test_ebay2_out/20-11818-51856.xlsx"
+  ]
+}

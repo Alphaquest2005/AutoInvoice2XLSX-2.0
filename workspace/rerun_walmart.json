@@ -1,0 +1,140 @@
+{
+  "session_start": "2026-04-18T19:02:06.748622+00:00",
+  "total_folders": 1,
+  "processed": 1,
+  "elapsed_s": 237.8,
+  "results": [
+    {
+      "folder": "03152025_Jul_16_2024_order_Order_2000120-11892676",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "2000120 - 11892676",
+            "supplier": "Walmart",
+            "format": "walmart",
+            "items": 1,
+            "matched": 0,
+            "classified": 0,
+            "total": 53.47,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Jul_16_2024_order_Order_2000120-11892676.out/2000120 - 11892676.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Jul_16_2024_order_Order_2000120-11892676.out/2000120 - 11892676.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Jul_16_2024_order_Order_2000120-11892676.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Jul_16_2024_order_Order_2000120-11892676.out/_email_params.json",
+        "validation": {
+          "total_issues": 2,
+          "fixed": 0,
+          "unfixed": 2,
+          "per_file": [
+            {
+              "file": "2000120 - 11892676.xlsx",
+              "supplier": "Walmart",
+              "issues": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "current": "00000000",
+                  "description": "Walmart Purchase (1 items)",
+                  "qty": 1,
+                  "total_cost": 53.47,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"Walmart Purchase (1 items)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 3,
+                  "current": "00000000",
+                  "description": "Walmart Purchase",
+                  "qty": 1,
+                  "total_cost": 53.47,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"Walmart Purchase\" using CARICOM CET schedule based on material and function."
+                }
+              ],
+              "fixes": [],
+              "remaining": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "current": "00000000",
+                  "description": "Walmart Purchase (1 items)",
+                  "qty": 1,
+                  "total_cost": 53.47,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"Walmart Purchase (1 items)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 3,
+                  "current": "00000000",
+                  "description": "Walmart Purchase",
+                  "qty": 1,
+                  "total_cost": 53.47,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"Walmart Purchase\" using CARICOM CET schedule based on material and function."
+                }
+              ],
+              "fixed": 0,
+              "unfixed": 2
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "2000120 - 11892676.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": false,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            },
+            {
+              "check": "unfixed_tariff",
+              "severity": "block",
+              "message": "2 item(s) have invalid/missing tariff codes.",
+              "field": "validation.tariff",
+              "value": "2",
+              "fix_hint": "For each item below, use lookup_tariff with the item description to find the correct 8-digit CET end-node code. Then edit the XLSX file: set column F (TariffCode) and column AK (GroupBy) to the new code. After fixing, run validate_xlsx to confirm.\n  2000120 - 11892676.xlsx row 2: \"Walmart Purchase (1 items)\" [current: 00000000]\n  2000120 - 11892676.xlsx row 3: \"Walmart Purchase\" [current: 00000000]"
+            }
+          ],
+          "blocker_count": 1,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 237.8
+    }
+  ]
+}

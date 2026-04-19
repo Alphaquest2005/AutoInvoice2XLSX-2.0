@@ -1,5 +1,6 @@
 name: walmart
-version: "1.0"
+version: "1.1"
+priority: 10
 description: "Walmart.com order invoices"
 
 # Detection patterns for Walmart invoices
@@ -10,13 +11,16 @@ detect:
     - "Order details - Walmart"
     - "Walmart.com order number"
     - "Order#"
+    - "Order #"
+  none_of:
+    - "amazon"
 
 # Metadata extraction
 metadata:
   invoice_number:
     patterns:
-      - 'Order#\s*(\d+-\d+)'
-      - 'Walmart\.com order number[:\s]*(\d+-\d+)'
+      - 'Order\s*#\s*(\d[\d\s-]+\d)'
+      - 'Walmart\.com order number[:\s]*(\d[\d\s-]+\d)'
     required: true
   
   date:
@@ -58,47 +62,38 @@ metadata:
     type: currency
 
 # Item extraction
+# Walmart OCR has two common layouts:
+#   - Inline: "Product Name $49.97 Delivery instructions" (price mid-line)
+#   - Standard: "Product Name Qty 1 $53.47" (price at line end)
+# Use line strategy matching a price anywhere on the description line.
 items:
   strategy: line
-  
-  line:
-    # Pattern for Walmart order items:
-    # Standard format: Product Name (Select for More Options) Qty N $XX.XX
-    # Order-detail format (single item): Product Name $XX.XX
-    # Qty group is optional — defaults to 1 when absent.
-    pattern: '^(.+?)\s+(?:\([^)]+\)\s+)?(?:Qty\s+(\d+)\s+)?\$?([\d,]+\.\d{2})\s*[\.\s:]*$'
 
-    # Walmart item status meanings (appear before "Qty N" on the line):
-    #   "Reported lost" — Item lost in transit or after delivery. Was physically
-    #     shipped, so INCLUDE in customs declaration (goods entered the country).
-    #   "Refunded" — Walmart issued a refund. Item was shipped but returned or
-    #     disputed. INCLUDE in declaration — it was physically shipped.
-    #   "Canceled" — Order line canceled before shipping. Item was NEVER shipped.
-    #     EXCLUDE from declaration. Also excluded from Walmart's Subtotal/Tax/Savings
-    #     calculations entirely.
-    #
-    # Only Canceled items are skipped. Reported lost and Refunded items remain
-    # in the XLSX because they were physically part of the shipment.
-    # The skipped item cost is tracked for proration of tax (if needed).
+  line:
+    # Match description with a dollar price (possibly mid-line in two-column OCR)
+    # Pattern: (description) $price (optional trailing text)
+    pattern: '^(.+?)\s+(?:\([^)]+\)\s+)?(?:Qty\s+(\d+)\s+)?\$([\d,]+\.\d{2})(?:\s|$)'
+
     skip_patterns:
       - 'Canceled\s+Qty'
       - 'Ending\s+in\s+\d+'
       - 'Return\s+eligible'
       - '\bSubtotal\b'
       - '\bTax\b'
-      - '\bTotal\b'
+      - '(?<!\w)Total\b'
       - '\bShipping\b'
       - '\bSavings\b'
-    
+      - '/ea\b'
+
     field_map:
       description: 1
       quantity: 2
       total_cost: 3
-    
+
     types:
       quantity: integer
       total_cost: currency
-    
+
     clean_fields:
       description:
         - pattern: '\s*\(Select for More Options\)\s*'
@@ -107,7 +102,7 @@ items:
           replace: ''
         - pattern: '\s*More from this order\s*'
           replace: ''
-    
+
     generated_fields:
       quantity: 1
       sku: "WM-{index}"
@@ -122,9 +117,13 @@ sections:
   items_end:
     - "Shipping Address"
     - "Payment information"
-    - "Payment method"
+    - "Charge history"
     - "Subtotal"
     - "Order Total"
+
+# When OCR spreads description/qty/price across multiple lines,
+# distribute subtotal across extracted items.
+balance_items: true
 
 # OCR normalization
 ocr_normalize:

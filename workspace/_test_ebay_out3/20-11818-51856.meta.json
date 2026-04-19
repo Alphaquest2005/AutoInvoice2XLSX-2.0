@@ -1,0 +1,36 @@
+{
+  "format_name": "la_parts_order_number",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "85122000",
+      "classification_source": "",
+      "description": "a 2 Y 0 Ll Pping price 1 F 1-04 FRONTIER/SENTRA CLEAR LENS OE DRIVING PAIR FO..."
+    },
+    {
+      "tariff_code": "85365000",
+      "classification_source": "",
+      "description": "AMP+SWITCH (382064019516) Home Delivery , os . Item 1 NEW GENUINE SUZUKI GRAN..."
+    },
+    {
+      "tariff_code": "87089990",
+      "classification_source": "",
+      "description": "PASSENGER SIDE (204138295521) Advantage \u00b0 \u201cam o a if . *We're required by law..."
+    },
+    {
+      "tariff_code": "87089990",
+      "classification_source": "",
+      "description": "APc (166001234398) Advantage . , a ys oor 1 or Suzuki Grand Vitara Vitara 199..."
+    },
+    {
+      "tariff_code": "87089990",
+      "classification_source": "",
+      "description": "Switch (282981840889) Economy : ~eN 1 OPV NISSANRight Upper Lower Door Hinge ..."
+    },
+    {
+      "tariff_code": "87083099",
+      "classification_source": "",
+      "description": "005 (276109893511) Advantage \u00b0 A yo La H5844 Front Disc Brake Hardware Kit (2..."
+    }
+  ]
+}

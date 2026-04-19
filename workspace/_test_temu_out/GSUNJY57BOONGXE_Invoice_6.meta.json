@@ -1,0 +1,11 @@
+{
+  "format_name": "shein_us_invoice",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "64041990",
+      "classification_source": "",
+      "description": "Slip On Sandal For Women Fully Adjustable Straps With Closure Sport Light Weight"
+    }
+  ]
+}

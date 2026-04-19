@@ -10,13 +10,14 @@ description: "Amazon.com order invoices (print view)"
 # This format handles Amazon order details pages
 detect:
   all_of:
-    - "Sold by"
     - "Items Ordered"
   any_of:
     - " of:"   # Quantity pattern: "1 of: Description"
     - " of :"  # OCR space before colon: "1 of : Description"
     - " of;"   # OCR misread: "1 of;" (semicolon instead of colon)
     - " of ;"  # OCR misread with space: "1 of ; Description"
+    - "Sold by"
+    - "Sotd by"  # OCR misread: "Sotd" for "Sold"
 
 # ─── OCR Normalization ─────────────────────────────────────
 # Applied BEFORE parsing, in order listed
@@ -53,6 +54,10 @@ ocr_normalize:
   - pattern: '\$(\d+)\s*[\(\[]\s*(\d{2})\s*[°\)\]]*'
     replace: '$\1.\2'
     description: "Fix OCR-corrupted price: $39 ( 99 ° → $39.99"
+
+  - pattern: 'Sotd by'
+    replace: 'Sold by'
+    description: "Fix OCR misread: Sotd → Sold"
 
   - pattern: 'Sold by\s+:'
     replace: 'Sold by:'

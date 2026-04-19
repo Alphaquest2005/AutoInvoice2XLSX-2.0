@@ -1,10 +1,10 @@
-# Auto-generated format spec for la_parts_order_number
-# Generated on 2026-04-18T00:32:59.753677
-# Will be promoted to formats/ on successful processing
+# eBay multi-vendor auto parts order
+# Multiple sub-orders with different sellers, each with "Order number :" header
 
 name: la_parts_order_number
-version: "1.0"
-description: "Multi-vendor auto parts order invoice with individual order numbers per item"
+version: "1.1"
+description: "eBay multi-vendor order invoice with individual order numbers per item"
+priority: 5
 
 detect:
   all_of:
@@ -14,35 +14,54 @@ detect:
     - "Shipping service"
     - "Item price"
 
+# OCR normalization
+ocr_normalize:
+  - pattern: 'Order number\s+:'
+    replace: 'Order number:'
+    description: "Fix OCR space before colon: Order number : → Order number:"
+
+  - pattern: '\$(\d{2})(\d{2})(?=\s)'
+    replace: '$\1.\2'
+    description: "Fix OCR missing decimal in small dollar amounts: $1116 → $11.16"
+
 metadata:
   invoice_number:
     patterns:
-      - 'Order\s*number\s*:\s*(\d+\s*-\s*\d+\s*-\s*\d+)'
+      - 'Order\s*number\s*:?\s*(\d+\s*-\s*\d+\s*-\s*\d+)'
     required: true
   date:
     patterns:
+      - 'Placed\s*on\s*([A-Z][a-z]+\s+\d{1,2}\s*,\s*\d{4})'
       - 'Paid\s*on\s*([A-Z][a-z]+\s+\d{1,2}\s*,\s*\d{4})'
   supplier_name:
-    value: "la_parts_order_number"
+    value: "eBay"
   country_code:
     value: "US"
   total:
     patterns:
       - 'Order\s*total\s*\$?([\d,]+\.\d{2})'
     type: currency
+  subtotal:
+    patterns:
+      - '\d+\s+items\s+\$?([\d,]+\.\d{2})'
+    type: currency
+  tax:
+    patterns:
+      - 'Tax\*?\s+\$?([\d,]+\.\d{2})'
+    type: currency
 
+# Use multiline strategy: collect description lines until a line with $price
 items:
-  strategy: line
-  line:
-    pattern: '^(\d+)\s+(.+?)\s+\(\s*(\d+)\s*\)\s+[\w\s]+\s+\$([\d,]+\.\d{2})\s*$'
+  strategy: multiline
+  multiline:
+    # Lines ending with $XX.XX mark end of item (price on last line)
+    price_pattern: '\$([\d,]+\.\d{2})\s*$'
     field_map:
-      quantity: 1
-      description: 2
-      sku: 3
-      unit_price: 4
+      unit_price: 1
     types:
-      quantity: integer
       unit_price: currency
+      quantity: integer
+    min_description_length: 10
     skip_patterns:
       - '^Items bought from'
       - '^Order number'
@@ -51,14 +70,25 @@ items:
       - '^Payment method'
       - '^Order total'
       - '^Learn more'
+      - '^Buyer\s'
+      - '\d+\s+items\s+\$'
+      - '^Placed on'
+      - '^Order information'
+      - '^Shipping address'
       - '^\d{5}\s*,\s*'
-      - '^$'
+      - '^United States'
+      - '^Payment method'
+      - '^Credit Card'
+    generated_fields:
+      sku: "EBAY-{index}"
+      quantity: "1"
 
+# No section boundaries — items are scattered throughout the text
 sections:
-  items_start:
-    - "Order number"
-  items_end:
-    - "Order total"
+  items_start: []
+  items_end: []
+
+balance_items: true
 
 validation:
   min_items: 1

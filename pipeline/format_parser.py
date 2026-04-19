@@ -1142,7 +1142,12 @@ class FormatParser:
                     # Generate fields
                     for field_name, template in generated_fields.items():
                         if field_name not in item:
-                            item[field_name] = template.format(index=item_idx + 1)
+                            val = template.format(index=item_idx + 1)
+                            # Apply type conversion for generated fields
+                            ftype = types_map.get(field_name)
+                            if ftype:
+                                val = self._convert_type(val, ftype)
+                            item[field_name] = val
 
                     # Normalize alternate total field names
                     if 'total_cost' not in item and 'line_total' in item:

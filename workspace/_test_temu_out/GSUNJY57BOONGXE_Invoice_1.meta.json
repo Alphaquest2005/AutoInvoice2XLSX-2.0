@@ -1,0 +1,11 @@
+{
+  "format_name": "shein_us_invoice",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "42022200",
+      "classification_source": "rule",
+      "description": "Pu Fabric Rainbow Stripe Mini Heart Shaped Kids Crossbody Bag"
+    }
+  ]
+}

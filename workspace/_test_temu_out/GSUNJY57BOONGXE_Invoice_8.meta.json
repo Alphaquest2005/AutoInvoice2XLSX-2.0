@@ -1,0 +1,21 @@
+{
+  "format_name": "shein_us_invoice",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "62046290",
+      "classification_source": "",
+      "description": "SFEIN ICON Flap Pocket Buckle Detail Denim Shorts"
+    },
+    {
+      "tariff_code": "62046290",
+      "classification_source": "",
+      "description": "pre ICON Solid PU Leather Pleated Skirt"
+    },
+    {
+      "tariff_code": "61099010",
+      "classification_source": "",
+      "description": "syEth ICON Hollow Out Ultra Short Camisole Top"
+    }
+  ]
+}

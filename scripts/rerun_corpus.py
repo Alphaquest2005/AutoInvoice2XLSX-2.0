@@ -67,14 +67,36 @@ def stage_folder(src: Path, stage: Path) -> int:
         if item.is_file() and is_source_file(item):
             shutil.copy2(item, stage / item.name)
             n += 1
+            # Also copy OCR sidecars (.txt, .pdf.pages.json) if they exist
+            for sidecar_suffix in (".txt", ".pdf.pages.json"):
+                if sidecar_suffix == ".txt":
+                    sidecar = src / (item.stem + sidecar_suffix)
+                else:
+                    sidecar = src / (item.name + ".pages.json")
+                if sidecar.exists():
+                    shutil.copy2(sidecar, stage / sidecar.name)
     return n
+
+
+def is_ocr_sidecar(path: Path) -> bool:
+    """Return True for OCR sidecar files paired with a source PDF."""
+    name = path.name
+    # .txt sidecar: foo.txt → paired with foo.pdf
+    if path.suffix == ".txt":
+        pdf = path.with_suffix(".pdf")
+        return pdf.exists() and is_source_file(pdf)
+    # .pages.json sidecar: foo.pdf.pages.json → paired with foo.pdf
+    if name.endswith(".pdf.pages.json"):
+        pdf = path.parent / name[: -len(".pages.json")]
+        return pdf.exists() and is_source_file(pdf)
+    return False
 
 
 def clear_generated(dst: Path) -> int:
     """Remove generated files in-place from dst. Returns count removed."""
     n = 0
     for item in dst.iterdir():
-        if item.is_file() and not is_source_file(item):
+        if item.is_file() and not is_source_file(item) and not is_ocr_sidecar(item):
             item.unlink()
             n += 1
         elif item.is_dir() and item.name == "_split_temp":

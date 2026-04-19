@@ -1,0 +1,36 @@
+{
+  "waybill": "HAWB9603225",
+  "consignee_name": "SHEMICA CHARLES",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 13,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "8.0",
+  "country_origin": "US",
+  "freight": "17.00",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "workspace/_test_temu_out/GSUNJY57BOONGXE_Invoice_1.pdf",
+    "workspace/_test_temu_out/GSUNJY57BOONGXE_Invoice_2.pdf",
+    "workspace/_test_temu_out/GSUNJY57BOONGXE_Invoice_3.pdf",
+    "workspace/_test_temu_out/GSUNJY57BOONGXE_Invoice_4.pdf",
+    "workspace/_test_temu_out/GSUNJY57BOONGXE_Invoice_5.pdf",
+    "workspace/_test_temu_out/GSUNJY57BOONGXE_Invoice_6.pdf",
+    "workspace/_test_temu_out/GSUNJY57BOONGXE_Invoice_7.pdf",
+    "workspace/_test_temu_out/GSUNJY57BOONGXE_Invoice_8.pdf",
+    "workspace/_test_temu_out/GSUNJY57BOONGXE_Invoice_9.pdf",
+    "workspace/_test_temu_out/GSUNJY57BOONGXE_Invoice_10.pdf",
+    "workspace/_test_temu_out/GSUNJY57BOONGXE_Invoice_11.pdf",
+    "workspace/_test_temu_out/GSUNJY57BOONGXE_Invoice_12.pdf",
+    "workspace/_test_temu_out/GSUNJY57BOONGXE_Invoice_13.pdf",
+    "workspace/_test_temu_out/GSUNJY57BOONGXE_Invoice_1_combined.xlsx",
+    "workspace/_test_temu_out/HAWB9603225-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS",
+  "ocr_warnings": [
+    "GSUNJY57BOONGXE_Invoice_1.pdf: OCR quality POOR (score 35/100)"
+  ],
+  "notes": "WARNING: Some pages have poor OCR quality. Check the \"OCR Notes\" sheet in the combined XLSX for details. Consider asking sender to rescan and resubmit."
+}

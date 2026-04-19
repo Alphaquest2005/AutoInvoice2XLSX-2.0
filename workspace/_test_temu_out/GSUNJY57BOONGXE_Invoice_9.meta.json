@@ -1,0 +1,21 @@
+{
+  "format_name": "shein_us_invoice",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "61099010",
+      "classification_source": "",
+      "description": "EIN Slayr Casual Money Letter Printed Women Sexy Crop Top Top Suitable For Summe"
+    },
+    {
+      "tariff_code": "62052000",
+      "classification_source": "",
+      "description": "pe Slayr Women Summer Short Sleeve Casual Shirt With Angel Print And Slogan Roun"
+    },
+    {
+      "tariff_code": "61091020",
+      "classification_source": "",
+      "description": "SHEIN Slayr Angel And Letter Graphic Printed Crop Top For Summer Casual"
+    }
+  ]
+}

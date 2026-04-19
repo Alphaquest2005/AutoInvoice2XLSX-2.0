@@ -1,0 +1,30 @@
+waybill: HAWB9603225
+replay_mode: true
+instructions: 'Edit the override block for any item. Leave fields null to keep current. Set delete: true
+  to remove an item. Append new items under add_items. Reply with this file attached to trigger pipeline
+  replay.'
+invoices:
+- invoice_num: GSUNJY57BOONGXE_Invoice_1
+  supplier: SHEIN US Services, LLC
+  pdf: GSUNJY57BOONGXE_Invoice_1.pdf
+  current:
+    sub_total: 0.0
+    items_sum: 6.56
+    invoice_total: 6.56
+    residual: 0.0
+  notes: []
+  recovered_items: []
+  other_items:
+  - sku: SHEIN-1
+    description: Pu Fabric Rainbow Stripe Mini Heart Shaped Kids Crossbody Bag
+    current:
+      quantity: 1
+      unit_cost: 6.56
+      total_cost: 6.56
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  add_items: []

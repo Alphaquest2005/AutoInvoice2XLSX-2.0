@@ -1,0 +1,31 @@
+{
+  "format_name": "ebay",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "85122000",
+      "classification_source": "",
+      "description": "F 1-04 FRONTIER/SENTRA CLEAR LENS OE DRIVING PAIR FOG LIGHT FedEx Ground or FedE"
+    },
+    {
+      "tariff_code": "87083099",
+      "classification_source": "",
+      "description": "NEW GENUINE SUZUKI GRAND VITARA BRAKE LEVER PARKING ADJUSTER USPS Ground"
+    },
+    {
+      "tariff_code": "87083099",
+      "classification_source": "",
+      "description": "Se. necoore Suzuki Vitara Brake Lever Parking Adjuster Left Side 5378265D00 USPS"
+    },
+    {
+      "tariff_code": "85365000",
+      "classification_source": "",
+      "description": "or Suzuki Grand Vitara Vitara 1999 2000-2002 XL-7 2005 2006 Power Window FedEx G"
+    },
+    {
+      "tariff_code": "87082900",
+      "classification_source": "",
+      "description": "OPV NISSANRight Upper Lower Door Hinge Fits Nissan D22 Frontier Maxima 2000 USPS"
+    }
+  ]
+}

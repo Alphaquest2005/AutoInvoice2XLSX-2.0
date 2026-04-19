@@ -1,0 +1,11 @@
+{
+  "format_name": "shein_us_invoice",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "56074910",
+      "classification_source": "rule",
+      "description": "Irregular Petals Candy Colored Bubble Glasses With Hollow Concave Shape European"
+    }
+  ]
+}

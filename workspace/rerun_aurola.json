@@ -1,0 +1,128 @@
+{
+  "session_start": "2026-04-18T19:07:33.715755+00:00",
+  "total_folders": 1,
+  "processed": 1,
+  "elapsed_s": 276.7,
+  "results": [
+    {
+      "folder": "03152025_140.56_0.00_0.00_-_7.40_140.56_USD_you_saved_7.40",
+      "staged": 3,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "AU236542_Invoice",
+            "supplier": "AUROLA",
+            "format": "aurola_dream_leggings",
+            "items": 1,
+            "matched": 0,
+            "classified": 0,
+            "total": 140.56,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_140.56_0.00_0.00_-_7.40_140.56_USD_you_saved_7.40.out/AU236542_Invoice.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_140.56_0.00_0.00_-_7.40_140.56_USD_you_saved_7.40.out/AU236542_Invoice.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_140.56_0.00_0.00_-_7.40_140.56_USD_you_saved_7.40.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_140.56_0.00_0.00_-_7.40_140.56_USD_you_saved_7.40.out/_email_params.json",
+        "validation": {
+          "total_issues": 2,
+          "fixed": 2,
+          "unfixed": 0,
+          "per_file": [
+            {
+              "file": "AU236542_Invoice.xlsx",
+              "supplier": "AUROLA",
+              "issues": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "current": "00000000",
+                  "description": "AUROLA Purchase (1 items)",
+                  "qty": 1,
+                  "total_cost": 140.56,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"AUROLA Purchase (1 items)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 3,
+                  "current": "00000000",
+                  "description": "AUROLA Purchase",
+                  "qty": 1,
+                  "total_cost": 140.56,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"AUROLA Purchase\" using CARICOM CET schedule based on material and function."
+                }
+              ],
+              "fixes": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "old": "00000000",
+                  "new": "61046300",
+                  "method": "LLM: AUROLA Dream Leggings are women's knitted activewear pants (",
+                  "description": "AUROLA Purchase (1 items)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 3,
+                  "old": "00000000",
+                  "new": "61046300",
+                  "method": "LLM: Same item as Row 2 \u2014 AUROLA Dream Leggings (women's knitted ",
+                  "description": "AUROLA Purchase"
+                }
+              ],
+              "remaining": [],
+              "fixed": 2,
+              "unfixed": 0
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "AU236542_Invoice.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": true,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            }
+          ],
+          "blocker_count": 0,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 276.7
+    }
+  ]
+}

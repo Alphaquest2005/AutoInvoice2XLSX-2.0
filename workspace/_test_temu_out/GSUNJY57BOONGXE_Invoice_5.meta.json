@@ -1,0 +1,11 @@
+{
+  "format_name": "shein_us_invoice",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "61152100",
+      "classification_source": "rule",
+      "description": "SHEIN Swim SXY Summer Beach Hollow Out Fishnet Bodycon Dress Without Liner"
+    }
+  ]
+}

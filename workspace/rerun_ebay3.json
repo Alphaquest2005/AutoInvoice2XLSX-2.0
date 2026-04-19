@@ -1,0 +1,17 @@
+{
+  "session_start": "2026-04-18T21:16:28.067532+00:00",
+  "total_folders": 1,
+  "processed": 1,
+  "elapsed_s": 974.5,
+  "results": [
+    {
+      "folder": "03152025111114",
+      "staged": 2,
+      "rc": 1,
+      "status": "failed",
+      "report": null,
+      "error": ".0/pipeline/run.py\", line 2117, in run_bl_mode\n    shutil.copy2(decl_pdf_path, decl_out_path)\n  File \"/usr/lib/python3.11/shutil.py\", line 436, in copy2\n    copyfile(src, dst, follow_symlinks=follow_symlinks)\n  File \"/usr/lib/python3.11/shutil.py\", line 256, in copyfile\n    with open(src, 'rb') as fsrc:\n         ^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025111114.stage/HAWB9591179-Manifest.pdf'\n",
+      "elapsed_s": 974.5
+    }
+  ]
+}

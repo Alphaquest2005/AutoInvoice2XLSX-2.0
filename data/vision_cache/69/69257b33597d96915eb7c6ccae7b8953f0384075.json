@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "31.0",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten '31' in top right margin; '1226/15' in left margin"
+  },
+  "printed": {
+    "consignee": "TANISHA ANDREW BARTHOLOMEW",
+    "freight": "11.00",
+    "waybill": "HAWB9579495",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": "5.0",
+    "packages": "1"
+  },
+  "has_handwriting": true
+}

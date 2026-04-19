@@ -1,0 +1,11 @@
+{
+  "format_name": "shein_us_invoice",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "71171900",
+      "classification_source": "rule",
+      "description": "1 pair Elegant And Stylish Rural Style Pink Edge Camellia Stud Earrings For Wome"
+    }
+  ]
+}

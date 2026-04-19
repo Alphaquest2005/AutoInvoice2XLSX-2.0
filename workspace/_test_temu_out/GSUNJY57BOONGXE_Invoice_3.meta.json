@@ -1,0 +1,16 @@
+{
+  "format_name": "shein_us_invoice",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "42029200",
+      "classification_source": "rule",
+      "description": "Trendy Warm Winter Upper Handle Handbag With Shoulder Strap For Shopping Featuri"
+    },
+    {
+      "tariff_code": "42029200",
+      "classification_source": "rule",
+      "description": "Students White Collar Workers Perfect For Work Back To School Middle School High"
+    }
+  ]
+}
