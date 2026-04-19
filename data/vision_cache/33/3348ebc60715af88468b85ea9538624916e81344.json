@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": null,
+    "customs_value_usd": null,
+    "tariff_code": null,
+    "duty_rate": null,
+    "weight": null,
+    "description": null,
+    "other_notes": "Supplements written next to DYI in the Description column"
+  },
+  "printed": {
+    "consignee": "Ankita Moore",
+    "freight": 10.75,
+    "waybill": null,
+    "man_reg": null,
+    "office": null,
+    "weight": null,
+    "packages": 3
+  },
+  "has_handwriting": true
+}
