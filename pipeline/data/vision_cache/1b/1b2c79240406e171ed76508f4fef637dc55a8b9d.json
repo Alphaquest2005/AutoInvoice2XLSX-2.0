@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "17.65",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "17.65 written vertically in left margin"
+  },
+  "printed": {
+    "consignee": "Hannah Cummings",
+    "freight": "3.00",
+    "waybill": "HAWB9701903",
+    "man_reg": "2024/31",
+    "office": "GDWBS",
+    "weight": "1.0",
+    "packages": "1"
+  },
+  "has_handwriting": true
+}

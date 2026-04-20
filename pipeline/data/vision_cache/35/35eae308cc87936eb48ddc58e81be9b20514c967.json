@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": ""
+  },
+  "printed": {
+    "consignee": "ROLANDA JULIEN",
+    "freight": 3.0,
+    "waybill": "HAWB9565711",
+    "man_reg": "2024/27",
+    "office": "GDWBS",
+    "weight": 1.0,
+    "packages": 1
+  },
+  "has_handwriting": false
+}

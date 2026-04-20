@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Arrow pointing to the description '1pc Men Large Frame Sports Sunglasses With Tawny Mirror, Suitable For Outdoor Travel And Cycling Shades Accessories'"
+  },
+  "printed": {
+    "consignee": "Darion JohnLewis",
+    "freight": "",
+    "waybill": "",
+    "man_reg": "",
+    "office": "",
+    "weight": "",
+    "packages": ""
+  },
+  "has_handwriting": true
+}
