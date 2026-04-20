@@ -1,0 +1,13 @@
+{
+  "kind": "proposed_fixes",
+  "waybill": "03-11786-67235",
+  "subject": "Proposed Fixes for shipment: 03-11786-67235",
+  "body": "Proposed Fixes for shipment: 03-11786-67235\n\nThis shipment has 1 invoice(s) that could not be \nresolved deterministically. Each one was reconciled honestly:\n  - orphan price tokens in the OCR text were matched against \n    the subtotal anchor where possible,\n  - any remaining variance was absorbed into the ADJUSTMENTS row \n    (visible in the combined manifest), and\n  - every recovered value is highlighted in the XLSX with a \n    yellow fill and a cell comment.\n\nPlease review each invoice below and \u2014 if anything is wrong \u2014 \nedit the attached file (proposed_fixes_03-11786-67235.yaml) and reply to this \nmessage with the edited file attached. The pipeline will detect \nthe patch and re-process the shipment with your corrections.\n\n----------------------------------------------------------------------\n\n[1] Invoice: 03-11786-67235   Supplier: eBay\n    Sub-total:    $24.20\n    Items sum:    $24.20\n    Invoice total:$25.89\n    Residual:     $0.00\n    Notes:\n      - Orphan price $24.20 recovered from OCR text (description: Buyer kaz_f4 Rickado C Thomas 2 items $...)\n    Recovered items (review these first):\n      * EBAY-1  qty=1  unit=$24.20  total=$24.20  [orphan_price_recovered]\n        Buyer kaz_f4 Rickado C Thomas 2 items $\n\n----------------------------------------------------------------------\n\nHow to respond:\n  1. Download proposed_fixes_03-11786-67235.yaml.\n  2. For each item you want to correct, fill in the override \n     block. Leave fields as null to keep current values.\n  3. Reply to this email with the edited file attached. The \n     subject must start with 'APPLY FIXES:' so the pipeline \n     picks it up automatically.\n\nIf everything in the manifest looks right as-is, no action is \nneeded \u2014 the shipment email has already been sent for processing.",
+  "yaml_path": "workspace/_reprocess_out/proposed_fixes_03-11786-67235.yaml",
+  "uncertain_count": 1,
+  "attachment_paths": [
+    "workspace/_reprocess_out/proposed_fixes_03-11786-67235.yaml",
+    "workspace/_reprocess_out/03-11786-67235.pdf",
+    "workspace/_reprocess_out/03-11786-67235_combined.xlsx"
+  ]
+}

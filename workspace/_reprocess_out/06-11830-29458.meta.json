@@ -1,0 +1,21 @@
+{
+  "format_name": "la_parts_order_number",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "00000000",
+      "classification_source": "",
+      "description": "ebay Seller  lucascountycars Whitney Andrew 10813 NW 30th st BLDG 115 GRE 254..."
+    },
+    {
+      "tariff_code": "00000000",
+      "classification_source": "",
+      "description": "Shipping  Free Tax*"
+    },
+    {
+      "tariff_code": "00000000",
+      "classification_source": "",
+      "description": "*We're required by law to collect sales tax and applicable fees for certain t..."
+    }
+  ]
+}

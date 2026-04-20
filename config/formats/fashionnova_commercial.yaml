@@ -31,46 +31,49 @@ ocr_normalize:
     replace: ''
     flags: multiline
     description: "Remove trailing OCR period/dot noise"
-  - pattern: '\s{2,}'
+  - pattern: '[^\S\n]{2,}'
     replace: ' '
-    description: "Collapse multiple spaces"
+    description: "Collapse multiple horizontal spaces (preserve newlines)"
 
 detect:
   all_of:
-    - "Order Number:"
+    - "Order Number"
+    - "Total Payment Amount"
   any_of:
     - "Fashion Nova"
     - "FASHIONNOVA"
     - "fashionnova.com"
     - "Vernon, CA"
+    - "Veron, CA"
 
 metadata:
   invoice_number:
     patterns:
-      - 'Order Number:\s*(\d+)'
+      - 'Order Number\s*:\s*(\d+)'
     required: true
   date:
     patterns:
-      - 'Order Date/Time:\s*(.+?)(?:\s*-\s*\d{2}:\d{2})'
+      - 'Order Date\s*/?\s*Time\s*:\s*(.+?)(?:\s*-\s*\d{2}\s*:\s*\d{2})'
+      - 'Order Date\s*/?\s*Time\s*:\s*(\w+\s+\d+\s*\w*\s*,\s*\d{4})'
   supplier_name:
     value: "Fashion Nova"
   country_code:
     value: "US"
   total:
     patterns:
-      - 'Total Payment Amount:\s*\$?([\d,]+\.\d{2})'
+      - 'Total Payment Amount\s*:\s*\$?\s*([\d,]+\.\d{2})'
     type: currency
   subtotal:
     patterns:
-      - 'Product Full Price:\s*\$?([\d,]+\.\d{2})'
+      - 'Product Full Price\s*:\s*\$?\s*([\d,]+\.\d{2})'
     type: currency
   tax:
     patterns:
-      - 'Product Tax:\s*\$?([\d,]+\.\d{2})'
+      - 'Product Tax\s*:\s*\$?\s*([\d,]+\.\d{2})'
     type: currency
   discount:
     patterns:
-      - 'Product Discount:\s*\$?([\d,]+\.\d{2})'
+      - 'Product Discount\s*:\s*\$?\s*([\d,]+\.\d{2})'
     type: currency
 
 # Items span multiple lines: description wraps, price line has qty + dollar amounts

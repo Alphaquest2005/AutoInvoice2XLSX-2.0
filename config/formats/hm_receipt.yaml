@@ -63,6 +63,10 @@ ocr_normalize:
     flags: multiline
     description: "Fix space-separated prices: $7 99 → $7.99"
 
+  - pattern: '\$(\d{2})(\d{2})(?=\s+[\+\-])'
+    replace: '$\1.\2'
+    description: "Fix mid-line price missing decimal: $1299 → $12.99"
+
   - pattern: 'Twist\s*-\s*detail'
     replace: 'Twist-detail'
     description: "Normalize spaced hyphenated words"

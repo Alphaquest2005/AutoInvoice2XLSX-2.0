@@ -1,0 +1,21 @@
+{
+  "format_name": "fashionnova_commercial",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "00000000",
+      "classification_source": "",
+      "description": "Harmonized Total . Amount Emma Ribbed Tank - Camel _\u2014"
+    },
+    {
+      "tariff_code": "62034290",
+      "classification_source": "",
+      "description": "Glistening Jeans-Olive-5 1 $11.98 $0.84.\u00bb $0.00 ~\u2014\u00ab$0.00 $12.82 Always InA Good "
+    },
+    {
+      "tariff_code": "82059000",
+      "classification_source": "rule",
+      "description": "Set - Green/combo - S Maya Bandage Midi Dress-"
+    }
+  ]
+}

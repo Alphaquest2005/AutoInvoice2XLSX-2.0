@@ -1,0 +1,11 @@
+{
+  "format_name": "shein_us_invoice",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "61161000",
+      "classification_source": "",
+      "description": "4PCS Manual Pencil Sharpeners Double Hole Compact Handheld Design For Kids, S..."
+    }
+  ]
+}

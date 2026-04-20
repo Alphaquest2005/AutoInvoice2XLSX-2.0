@@ -5,18 +5,27 @@ name: koduste_order
 version: "1.0"
 description: "Order confirmation format for unknown_order supplier (koduste)"
 
+ocr_normalize:
+  - pattern: '(\d{2})\s+-\s+(\d{5})\s+-\s+(\d{5})'
+    replace: '\1-\2-\3'
+    description: "Fix OCR-spaced order number: 03 - 11786 - 67235 → 03-11786-67235"
+  - pattern: 'Order number :'
+    replace: 'Order number:'
+    description: "Fix OCR space before colon"
+
 detect:
   all_of:
     - "Order information"
-    - "Items bought from"
   any_of:
-    - "Order number:"
+    - "Items bought from"
+    - "items bought from"
+    - "Order number"
     - "SpeedPAK"
 
 metadata:
   invoice_number:
     patterns:
-      - 'Order number:\s*([0-9\-]+)'
+      - 'Order number\s*:\s*([\d][\d\s-]+[\d])'
     required: true
   date:
     patterns:
@@ -27,7 +36,6 @@ metadata:
     value: "US"
   total:
     patterns:
-      - 'Order total\s+\$[\d,]+\.\d{2}'
       - 'Order total\s+\$([\d,]+\.\d{2})'
     type: currency
 
@@ -94,6 +102,7 @@ items:
 sections:
   items_start:
     - "Items bought from"
+    - "items bought from"
   # Note: Do NOT use "Order total" — it appears in the header line BEFORE
   # items_start in some OCR layouts, which makes the section empty.
   # Omit items_end so the section extends to end of text; skip_patterns

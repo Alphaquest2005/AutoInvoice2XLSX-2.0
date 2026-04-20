@@ -1142,7 +1142,7 @@ class FormatParser:
                     # Generate fields
                     for field_name, template in generated_fields.items():
                         if field_name not in item:
-                            val = template.format(index=item_idx + 1)
+                            val = template.format(index=item_idx + 1) if isinstance(template, str) else template
                             # Apply type conversion for generated fields
                             ftype = types_map.get(field_name)
                             if ftype:

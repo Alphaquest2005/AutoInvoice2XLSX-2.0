@@ -7,11 +7,12 @@ description: "Multi-order eBay invoice with itemized sections grouped by supplie
 
 detect:
   all_of:
-    - "Order number:"
-    - "Items bought from"
+    - "Order number"
   any_of:
-    - "Order total"
+    - "Items bought from"
+    - "items bought from"
     - "Item price"
+    - "Order total"
 
 ocr_normalize:
   - pattern: '(?m)^[,;.]\s+(\S)'
@@ -21,11 +22,20 @@ ocr_normalize:
     replace: '$\1.\2'
     flags: multiline
     description: "Fix missing decimal in price: $6999 -> $69.99"
+  - pattern: 'Order number :'
+    replace: 'Order number:'
+    description: "Fix OCR space before colon: Order number : → Order number:"
+  - pattern: '(\d{2})\s+-\s+(\d{5})\s+-\s+(\d{5})'
+    replace: '\1-\2-\3'
+    description: "Fix OCR-spaced order number: 06 - 11830 - 29458 → 06-11830-29458"
+  - pattern: "(?m)^['''\"\\u2018\\u2019]\\s+"
+    replace: ''
+    description: "Strip leading OCR quote noise from item lines"
 
 metadata:
   invoice_number:
     patterns:
-      - 'Order number:\s*([\d-]+)'
+      - 'Order number:\s*([\d][\d\s-]+[\d])'
     required: true
   date:
     patterns:
@@ -42,35 +52,55 @@ metadata:
     type: currency
 
 items:
-  strategy: line
-  line:
-    # eBay item lines: "1 Description (SKU) Shipping $price" or "1 Description $price"
-    # OCR may mangle the line so we keep the pattern flexible
-    pattern: '^\s*(\d+)\s+(.+?)\s+\$(\d[\d,]*\.\d{2})\s*$'
+  strategy: multiline
+  multiline:
+    # Price at end of line: $XX.XX
+    price_pattern: '\$([\d,]+\.\d{2})\s*$'
     field_map:
-      quantity: 1
-      description: 2
-      unit_price: 3
+      unit_price: 1
     types:
-      quantity: integer
       unit_price: currency
+    description_join: ' '
+    min_description_length: 10
     skip_patterns:
       - '^Items bought from'
-      - '^Order number:'
+      - '^items bought from'
+      - '^Order number'
       - '^Order information'
       - '^Shipping address'
-      - '^Quantity\s+Item name'
+      - '^Quantity\s+[Ii]?t+em'
       - '^Order total'
       - '^Items\s+\$'
       - '^Shipping'
       - '^Tax'
       - '^\| \d+'
+      - '(?i)^Paid\s+on'
+      - '(?i)^Payment\s+meth'
+      - '(?i)^\*\s*We'
+      - '(?i)^Learn\s+more'
+      - '(?i)^applicable'
+      - '(?i)^sales\s+tax'
+      - '(?i)^certain\s+tax'
+      - '^\d{5}\s'
+      - '^\d+\s*/\s*\d+$'
+    clean_fields:
+      description:
+        - pattern: '\s+(?:USPS|FedEx|UPS)\s+.*$'
+          replace: ''
+        - pattern: '\s*\(\d{6,}\)\s*'
+          replace: ' '
+        - pattern: '\s+'
+          replace: ' '
+    generated_fields:
+      quantity: 1
+      sku: "EBAY-{index}"
 
 sections:
   items_start:
     - "Items bought from"
     - "items bought from"
     - "Quantity Item name"
+    - "Quantity ttem name"
   items_end:
     - "Order total"
     - "Order information"

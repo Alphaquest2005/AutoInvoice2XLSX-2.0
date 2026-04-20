@@ -100,10 +100,10 @@ metadata:
     patterns:
       # USD format (primary) — \s* before : handles OCR "Grand Total :"
       - 'Grand\s+Total\s*:\s*(?:USD\s+)?\$?([\d,]+\.\d{2})'
-      # XCD format: "Grand Total: XCD 1,518.83"
-      - 'Grand\s+Total\s*:\s*XCD\s+([\d,]+\.\d{2})'
-      # Fallback
+      # USD Order Total — before XCD patterns to prefer USD
       - 'Order\s+[Tt]otal\s*:\s*(?:USD\s+)?\$?([\d,]+\.\d{2})'
+      # XCD format: "Grand Total: XCD 1,518.83" but NOT "Payment Grand Total"
+      - '(?<!Payment\s)Grand\s+Total\s*:\s*XCD\s+([\d,]+\.\d{2})'
     type: currency
 
   subtotal:
@@ -191,7 +191,7 @@ items:
     skip_patterns:
       - '^-?\s*Sold by'
       - '^-?\s*Supplied by'
-      - '^Condition:'
+      - '^Condition'
       - '^Price$'
       - '^Return '
       - '^Shipping Address'

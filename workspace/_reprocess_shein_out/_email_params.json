@@ -1,0 +1,25 @@
+{
+  "waybill": "INVUS20240717001998094",
+  "consignee_name": "Rochelle Ragbasingh",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 7,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "0",
+  "country_origin": "US",
+  "freight": "0",
+  "man_reg": null,
+  "attachment_paths": [
+    "workspace/_reprocess_shein_out/INVUS20240717001998094.pdf",
+    "workspace/_reprocess_shein_out/INVUS20240714003388571.pdf",
+    "workspace/_reprocess_shein_out/INVUS20240714003391892.pdf",
+    "workspace/_reprocess_shein_out/INVUS20240717002005487.pdf",
+    "workspace/_reprocess_shein_out/INVUS20240717002011537.pdf",
+    "workspace/_reprocess_shein_out/INVUS20240717002018383.pdf",
+    "workspace/_reprocess_shein_out/INVUS20240717002005488.pdf",
+    "workspace/_reprocess_shein_out/INVUS20240717001998094_combined.xlsx"
+  ],
+  "location": "WebSource",
+  "office": ""
+}

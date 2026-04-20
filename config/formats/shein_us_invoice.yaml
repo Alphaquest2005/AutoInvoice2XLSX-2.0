@@ -60,6 +60,10 @@ ocr_normalize:
   - pattern: 'pes\s+Wall'
     replace: 'pcs Wall'
     description: "Fix OCR: pes -> pcs"
+  - pattern: 'INVUS\s+(\d)'
+    replace: 'INVUS\1'
+    description: "Fix OCR space after INVUS: INVUS 2024 → INVUS2024"
+
   - pattern: '(INVUS\d{7})\s+(\d+)'
     replace: '\1\2'
     description: "Fix OCR space in invoice number: INVUS2024071 7002011537 → INVUS20240717002011537"
@@ -106,6 +110,11 @@ ocr_normalize:
     replace: ' 1 \1.\2'
     flags: multiline
     description: "Fix OCR noise before price with no decimal: ' 920 → 1 9.20 (assume qty=1, insert decimal)"
+
+  - pattern: ';\s+([\d,]+\.\d{2})\s*$'
+    replace: ' 1 \1'
+    flags: multiline
+    description: "Insert qty=1 before semicolon-preceded price: ; 9.37 → 1 9.37"
 
   - pattern: '[,;]\s+(\d)(\d{2})\s*$'
     replace: ' 1 \1.\2'
