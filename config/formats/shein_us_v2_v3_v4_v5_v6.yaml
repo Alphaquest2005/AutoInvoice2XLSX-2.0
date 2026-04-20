@@ -32,7 +32,7 @@ metadata:
 items:
   strategy: line
   line:
-    pattern: '^(?:(SHEIN|Fashionable|Women''s|7-Pack|Sports)[\w\s\W]+?)(?:(\d+)\s+)?([\d,]+\.?\d*)$'
+    pattern: '^(?:(SHEIN|Fashionable|Women''s|7-Pack|Sports).+?)(?:(\d+)\s+)?([\d,]+\.?\d*)$'
     field_map:
       description: 1
       quantity: 2

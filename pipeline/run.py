@@ -1883,44 +1883,95 @@ def run_bl_mode(args) -> dict:
 
     print(f"\n[3] Processing {len(invoice_paths)} PDF invoices...\n")
 
-    # ── Phase 1: Process each invoice ──
+    # ── Phase 1: Process each invoice (parallelized) ──
     results = []
     failures = []
     all_attachments = []
-    for pdf_path in invoice_paths:
-        result = process_single_invoice(
-            pdf_path=pdf_path,
-            registry=registry,
-            matcher=matcher,
-            rules=rules,
-            noise_words=noise_words,
-            supplier_db=supplier_db,
-            output_dir=output_dir,
-            document_type=args.doc_type,
-            verbose=args.verbose,
-        )
-        if result:
-            if len(result.matched_items) == 0:
-                if result.format_name == '_default':
-                    # Unrecognised doc (BOL, manifest, etc.) — skip silently
-                    print(f"    Skipping non-invoice: {os.path.basename(pdf_path)} (no format match)")
+
+    n_workers = getattr(args, 'workers', 0) or 0
+    if n_workers == 0:
+        n_workers = min(4, os.cpu_count() or 1)
+    n_workers = min(n_workers, len(invoice_paths)) if invoice_paths else 1
+
+    if n_workers > 1 and len(invoice_paths) > 1:
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+
+        def _process_one(pdf_path):
+            return pdf_path, process_single_invoice(
+                pdf_path=pdf_path,
+                registry=registry,
+                matcher=matcher,
+                rules=rules,
+                noise_words=noise_words,
+                supplier_db=supplier_db,
+                output_dir=output_dir,
+                document_type=args.doc_type,
+                verbose=args.verbose,
+            )
+
+        with ThreadPoolExecutor(max_workers=n_workers) as executor:
+            futures = {executor.submit(_process_one, p): i for i, p in enumerate(invoice_paths)}
+            ordered_results = [None] * len(invoice_paths)
+            for future in as_completed(futures):
+                idx = futures[future]
+                ordered_results[idx] = future.result()
+
+        for pdf_path, result in ordered_results:
+            if result:
+                if len(result.matched_items) == 0:
+                    if result.format_name == '_default':
+                        print(f"    Skipping non-invoice: {os.path.basename(pdf_path)} (no format match)")
+                    else:
+                        failures.append({
+                            'pdf_path': pdf_path,
+                            'pdf_file': os.path.basename(pdf_path),
+                            'reason': f'No items extracted (format: {result.format_name})',
+                            'invoice_num': result.invoice_num,
+                        })
+                        print(f"    WARNING: {os.path.basename(pdf_path)} — 0 items extracted, flagged for review")
                 else:
-                    failures.append({
-                        'pdf_path': pdf_path,
-                        'pdf_file': os.path.basename(pdf_path),
-                        'reason': f'No items extracted (format: {result.format_name})',
-                        'invoice_num': result.invoice_num,
-                    })
-                    print(f"    WARNING: {os.path.basename(pdf_path)} — 0 items extracted, flagged for review")
+                    results.append(result)
+                    all_attachments.extend([result.pdf_output_path, result.xlsx_path])
             else:
-                results.append(result)
-                all_attachments.extend([result.pdf_output_path, result.xlsx_path])
-        else:
-            failures.append({
-                'pdf_path': pdf_path,
-                'pdf_file': os.path.basename(pdf_path),
-                'reason': 'Text extraction failed',
-            })
+                failures.append({
+                    'pdf_path': pdf_path,
+                    'pdf_file': os.path.basename(pdf_path),
+                    'reason': 'Text extraction failed',
+                })
+    else:
+        for pdf_path in invoice_paths:
+            result = process_single_invoice(
+                pdf_path=pdf_path,
+                registry=registry,
+                matcher=matcher,
+                rules=rules,
+                noise_words=noise_words,
+                supplier_db=supplier_db,
+                output_dir=output_dir,
+                document_type=args.doc_type,
+                verbose=args.verbose,
+            )
+            if result:
+                if len(result.matched_items) == 0:
+                    if result.format_name == '_default':
+                        print(f"    Skipping non-invoice: {os.path.basename(pdf_path)} (no format match)")
+                    else:
+                        failures.append({
+                            'pdf_path': pdf_path,
+                            'pdf_file': os.path.basename(pdf_path),
+                            'reason': f'No items extracted (format: {result.format_name})',
+                            'invoice_num': result.invoice_num,
+                        })
+                        print(f"    WARNING: {os.path.basename(pdf_path)} — 0 items extracted, flagged for review")
+                else:
+                    results.append(result)
+                    all_attachments.extend([result.pdf_output_path, result.xlsx_path])
+            else:
+                failures.append({
+                    'pdf_path': pdf_path,
+                    'pdf_file': os.path.basename(pdf_path),
+                    'reason': 'Text extraction failed',
+                })
 
     # Promote successful auto-generated format specs
     _promote_auto_specs(results)
@@ -2372,44 +2423,95 @@ def run_batch_mode(args) -> dict:
 
     print(f"\n[3] Processing {len(invoice_paths)} PDF invoices...\n")
 
-    # Process each invoice through the full pipeline
+    # Process each invoice through the full pipeline (parallelized)
     results = []
     failures = []
     all_attachments = []
-    for pdf_path in invoice_paths:
-        result = process_single_invoice(
-            pdf_path=pdf_path,
-            registry=registry,
-            matcher=matcher,
-            rules=rules,
-            noise_words=noise_words,
-            supplier_db=supplier_db,
-            output_dir=output_dir,
-            document_type=args.doc_type,
-            verbose=args.verbose,
-        )
-        if result:
-            if len(result.matched_items) == 0:
-                if result.format_name == '_default':
-                    # Unrecognised doc (BOL, manifest, etc.) — skip silently
-                    print(f"    Skipping non-invoice: {os.path.basename(pdf_path)} (no format match)")
+
+    n_workers = getattr(args, 'workers', 0) or 0
+    if n_workers == 0:
+        n_workers = min(4, os.cpu_count() or 1)
+    n_workers = min(n_workers, len(invoice_paths)) if invoice_paths else 1
+
+    if n_workers > 1 and len(invoice_paths) > 1:
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+
+        def _process_one(pdf_path):
+            return pdf_path, process_single_invoice(
+                pdf_path=pdf_path,
+                registry=registry,
+                matcher=matcher,
+                rules=rules,
+                noise_words=noise_words,
+                supplier_db=supplier_db,
+                output_dir=output_dir,
+                document_type=args.doc_type,
+                verbose=args.verbose,
+            )
+
+        with ThreadPoolExecutor(max_workers=n_workers) as executor:
+            futures = {executor.submit(_process_one, p): i for i, p in enumerate(invoice_paths)}
+            ordered_results = [None] * len(invoice_paths)
+            for future in as_completed(futures):
+                idx = futures[future]
+                ordered_results[idx] = future.result()
+
+        for pdf_path, result in ordered_results:
+            if result:
+                if len(result.matched_items) == 0:
+                    if result.format_name == '_default':
+                        print(f"    Skipping non-invoice: {os.path.basename(pdf_path)} (no format match)")
+                    else:
+                        failures.append({
+                            'pdf_path': pdf_path,
+                            'pdf_file': os.path.basename(pdf_path),
+                            'reason': f'No items extracted (format: {result.format_name})',
+                            'invoice_num': result.invoice_num,
+                        })
+                        print(f"    WARNING: {os.path.basename(pdf_path)} — 0 items extracted, flagged for review")
                 else:
-                    failures.append({
-                        'pdf_path': pdf_path,
-                        'pdf_file': os.path.basename(pdf_path),
-                        'reason': f'No items extracted (format: {result.format_name})',
-                        'invoice_num': result.invoice_num,
-                    })
-                    print(f"    WARNING: {os.path.basename(pdf_path)} — 0 items extracted, flagged for review")
+                    results.append(result)
+                    all_attachments.extend([result.pdf_output_path, result.xlsx_path])
             else:
-                results.append(result)
-                all_attachments.extend([result.pdf_output_path, result.xlsx_path])
-        else:
-            failures.append({
-                'pdf_path': pdf_path,
-                'pdf_file': os.path.basename(pdf_path),
-                'reason': 'Text extraction failed',
-            })
+                failures.append({
+                    'pdf_path': pdf_path,
+                    'pdf_file': os.path.basename(pdf_path),
+                    'reason': 'Text extraction failed',
+                })
+    else:
+        for pdf_path in invoice_paths:
+            result = process_single_invoice(
+                pdf_path=pdf_path,
+                registry=registry,
+                matcher=matcher,
+                rules=rules,
+                noise_words=noise_words,
+                supplier_db=supplier_db,
+                output_dir=output_dir,
+                document_type=args.doc_type,
+                verbose=args.verbose,
+            )
+            if result:
+                if len(result.matched_items) == 0:
+                    if result.format_name == '_default':
+                        print(f"    Skipping non-invoice: {os.path.basename(pdf_path)} (no format match)")
+                    else:
+                        failures.append({
+                            'pdf_path': pdf_path,
+                            'pdf_file': os.path.basename(pdf_path),
+                            'reason': f'No items extracted (format: {result.format_name})',
+                            'invoice_num': result.invoice_num,
+                        })
+                        print(f"    WARNING: {os.path.basename(pdf_path)} — 0 items extracted, flagged for review")
+                else:
+                    results.append(result)
+                    all_attachments.extend([result.pdf_output_path, result.xlsx_path])
+            else:
+                failures.append({
+                    'pdf_path': pdf_path,
+                    'pdf_file': os.path.basename(pdf_path),
+                    'reason': 'Text extraction failed',
+                })
 
     # Promote successful auto-generated format specs
     _promote_auto_specs(results)
@@ -4446,6 +4548,11 @@ def parse_args():
     parser.add_argument('--doc-type', default='auto',
                         help='CARICOM document type (e.g., 7400-000, 4000-000). '
                              'Default: auto (resolved from consignee via config/document_types.json)')
+
+    # Parallelism
+    parser.add_argument('--workers', type=int, default=0,
+                        help='Number of parallel PDF processing workers. '
+                             '0 = auto (min(4, cpu_count)). 1 = sequential.')
 
     # Email parameters (used by all modes when --send-email or --send-email-only)
     parser.add_argument('--send-email', action='store_true',

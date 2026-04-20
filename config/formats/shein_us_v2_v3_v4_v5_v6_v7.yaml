@@ -34,7 +34,7 @@ metadata:
 items:
   strategy: line
   line:
-    pattern: '^(?:(?!Item\(s\) Subtotal|Shipping/Handling|Sales Tax|Grand Total).)+?\s+(\d+)\s+([\d,]+\.\d{2})$'
+    pattern: '^(.+?)\s+(\d+)\s+([\d,]+\.\d{2})$'
     field_map:
       description: 1
       quantity: 2
