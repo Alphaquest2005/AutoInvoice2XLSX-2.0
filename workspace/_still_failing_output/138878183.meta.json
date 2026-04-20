@@ -1,0 +1,31 @@
+{
+  "format_name": "fashionnova_commercial",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "00000000",
+      "classification_source": "",
+      "description": "Harmonized Total Cream All Day Short Sleeve"
+    },
+    {
+      "tariff_code": "94054000",
+      "classification_source": "",
+      "description": "Tee - Sage - M Viana Denim Romper - Light"
+    },
+    {
+      "tariff_code": "00000000",
+      "classification_source": "",
+      "description": "Wash - 2 X Unmatched Faux Leather"
+    },
+    {
+      "tariff_code": "00000000",
+      "classification_source": "",
+      "description": "Cargo Skirt - Black - 2 X Don t Talk Faux Leather Skirt ="
+    },
+    {
+      "tariff_code": "62034290",
+      "classification_source": "",
+      "description": "Set - Black - 2 X No Self Control Denim Corset"
+    }
+  ]
+}

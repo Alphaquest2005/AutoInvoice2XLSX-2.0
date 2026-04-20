@@ -1,0 +1,66 @@
+waybill: 03152025_Free_returns_within_90_days_Invoice_1
+replay_mode: true
+instructions: 'Edit the override block for any item. Leave fields null to keep current. Set delete: true
+  to remove an item. Append new items under add_items. Reply with this file attached to trigger pipeline
+  replay.'
+invoices:
+- invoice_num: 03152025_Free_returns_within_90_days_Invoice_1
+  supplier: unknown_item
+  pdf: 03152025_Free_returns_within_90_days_Invoice_1.pdf
+  current:
+    sub_total: 0.0
+    items_sum: 17.76
+    invoice_total: 17.76
+    residual: 0.0
+  notes: []
+  recovered_items: []
+  other_items:
+  - sku: ITEM-1
+    description: ''
+    current:
+      quantity: 0
+      unit_cost: 1.98
+      total_cost: 1.98
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  - sku: ITEM-2
+    description: ''
+    current:
+      quantity: 0
+      unit_cost: 5.98
+      total_cost: 5.98
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  - sku: ITEM-3
+    description: ''
+    current:
+      quantity: 0
+      unit_cost: 7.47
+      total_cost: 7.47
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  - sku: ITEM-4
+    description: ''
+    current:
+      quantity: 0
+      unit_cost: 2.33
+      total_cost: 2.33
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  add_items: []

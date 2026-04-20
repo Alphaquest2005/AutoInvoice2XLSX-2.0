@@ -1,0 +1,26 @@
+{
+  "format_name": "unknown_item",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "00000000",
+      "classification_source": "",
+      "description": ""
+    },
+    {
+      "tariff_code": "00000000",
+      "classification_source": "",
+      "description": ""
+    },
+    {
+      "tariff_code": "00000000",
+      "classification_source": "",
+      "description": ""
+    },
+    {
+      "tariff_code": "00000000",
+      "classification_source": "",
+      "description": ""
+    }
+  ]
+}

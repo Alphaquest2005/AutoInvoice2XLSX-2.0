@@ -1,0 +1,11 @@
+{
+  "format_name": "shein_us_invoice",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "61159910",
+      "classification_source": "rule",
+      "description": "20 Pairs Children' Pure Black Simple Mid-Calf Socks, Skin-Friendly, Comfortab..."
+    }
+  ]
+}
