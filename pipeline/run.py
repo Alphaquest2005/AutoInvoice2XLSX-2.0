@@ -1928,8 +1928,9 @@ def run_bl_mode(args) -> dict:
     # Apply any reviewer-edited Proposed Fixes YAML dropped into input_dir
     _maybe_apply_fixes(args, results)
 
-    # Copy failed PDFs to Unprocessed/ folder
-    _handle_failures(failures, output_dir, args.input_dir)
+    # Copy failed PDFs to Unprocessed/ folder (and email if --send-email)
+    _handle_failures(failures, output_dir, args.input_dir,
+                     send_email=getattr(args, 'send_email', False))
 
     # Save updated supplier database
     save_supplier_db(supplier_db)
@@ -2416,8 +2417,9 @@ def run_batch_mode(args) -> dict:
     # Apply any reviewer-edited Proposed Fixes YAML dropped into input_dir
     _maybe_apply_fixes(args, results)
 
-    # Copy failed PDFs to Unprocessed/ folder
-    _handle_failures(failures, output_dir, args.input_dir)
+    # Copy failed PDFs to Unprocessed/ folder (and email if --send-email)
+    _handle_failures(failures, output_dir, args.input_dir,
+                     send_email=getattr(args, 'send_email', False))
 
     # Save updated supplier database
     save_supplier_db(supplier_db)
@@ -2914,8 +2916,13 @@ def _promote_auto_specs(results: list) -> None:
                 print(f"    Promoted auto-generated format spec: {os.path.basename(new_path)}")
 
 
-def _handle_failures(failures: list, output_dir: str, input_dir: str) -> None:
-    """Copy failed PDFs to Unprocessed/ subfolder with a failure manifest."""
+def _handle_failures(failures: list, output_dir: str, input_dir: str,
+                     send_email: bool = False) -> None:
+    """Copy failed PDFs to Unprocessed/ subfolder with a failure manifest.
+
+    When *send_email* is True, also sends a single notification email with
+    all failed PDFs attached so staff can process them manually.
+    """
     if not failures:
         return
 
@@ -2937,6 +2944,88 @@ def _handle_failures(failures: list, output_dir: str, input_dir: str) -> None:
     print(f"\nWARNING: {len(failures)} invoice(s) failed — copied to Unprocessed/")
     for f in failures:
         print(f"    {f['pdf_file']}: {f['reason']}")
+
+    # Email failed PDFs for manual review
+    if send_email:
+        _email_failed_pdfs(failures, input_dir)
+
+
+def _email_failed_pdfs(failures: list, input_dir: str) -> bool:
+    """Send a single email with all failed PDFs attached for manual review.
+
+    Returns True if the email was sent successfully.
+    """
+    import smtplib
+    import ssl
+    from email import encoders
+    from email.mime.base import MIMEBase
+    from email.mime.multipart import MIMEMultipart
+    from email.mime.text import MIMEText
+
+    try:
+        from core.config import load_config
+        cfg = load_config(BASE_DIR)
+    except Exception:
+        logger.warning("Could not load config for failed-PDF email notification")
+        return False
+
+    folder_name = os.path.basename(input_dir) if input_dir else "Unknown"
+    n = len(failures)
+
+    # Build body
+    body_lines = [
+        f"Failed Import Notification — {n} invoice(s)",
+        "",
+        f"Source folder: {folder_name}",
+        "",
+        "The following PDFs could not be processed automatically and",
+        "require manual review. They are attached to this email.",
+        "",
+        "─" * 50,
+    ]
+    for f in failures:
+        body_lines.append(f"  {f['pdf_file']}")
+        body_lines.append(f"    Reason: {f['reason']}")
+        if f.get('invoice_num'):
+            body_lines.append(f"    Invoice #: {f['invoice_num']}")
+        body_lines.append("")
+
+    body = "\n".join(body_lines)
+
+    try:
+        msg = MIMEMultipart()
+        msg['From'] = f"{cfg.email_sender_name} <{cfg.email_sender}>"
+        msg['To'] = cfg.email_recipient
+        msg['Subject'] = f"Failed Import: {n} invoice(s) from {folder_name}"
+        msg.attach(MIMEText(body, 'plain'))
+
+        # Attach each failed PDF
+        for f in failures:
+            pdf_path = f['pdf_path']
+            if os.path.exists(pdf_path):
+                with open(pdf_path, 'rb') as fh:
+                    part = MIMEBase('application', 'pdf')
+                    part.set_payload(fh.read())
+                    encoders.encode_base64(part)
+                    part.add_header(
+                        'Content-Disposition',
+                        f'attachment; filename="{f["pdf_file"]}"',
+                    )
+                    msg.attach(part)
+
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL(cfg.smtp_host, cfg.smtp_port, context=context) as server:
+            server.login(cfg.email_sender, cfg.email_password)
+            server.send_message(msg)
+
+        print(f"    Sent failed-import email with {n} PDF(s) attached")
+        logger.info(f"Sent failed-import email for {n} PDF(s) from {folder_name}")
+        return True
+
+    except Exception as e:
+        logger.warning(f"Failed to send failed-import email: {e}")
+        print(f"    Could not send failed-import email: {e}")
+        return False
 
 
 def _apply_manifest_metadata(args, classification: dict, output_dir: str,
