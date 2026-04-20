@@ -234,6 +234,7 @@ def _detect_issues(ws, base_dir: str) -> list:
         'DUTY ESTIMATION', 'CIF ', 'CET ', 'CSC ', 'VAT ',
         'ESTIMATED TOTAL', 'CLIENT DECLARED', 'DUTY VARIANCE',
         'IMPLIED CET', 'Effective Duty', 'CET MISMATCH', '\u26a0',
+        '\u2514',  # └ duty breakdown sub-rows (e.g. "└ 34059010: 20% CET")
         # Reference/combined variance section labels (informational, not item data)
         'REFERENCE SUBTOTAL', 'REFERENCE FREIGHT', 'REFERENCE INSURANCE',
         'REFERENCE OTHER COST', 'REFERENCE DEDUCTION', 'REFERENCE ADJUSTMENTS',
@@ -395,6 +396,17 @@ def _detect_issues(ws, base_dir: str) -> list:
     sum_items = 0.0
     import re as _re
     _group_re = _re.compile(r'\(\d+\s+items?\)$')
+    def _is_summary_row(row):
+        """Return True if row is a formula label, duty estimation, or empty label."""
+        j_val = str(ws.cell(row, COL_SUPP_DESC).value or '').strip()
+        if not j_val:
+            return True
+        if j_val in FORMULA_LABELS:
+            return True
+        if any(j_val.startswith(p) for p in DUTY_ESTIMATION_PREFIXES):
+            return True
+        return False
+
     if is_grouped:
         # Grouped mode: only sum group-header rows.
         # Group headers end with "(N items)" in column J (e.g. "slippers (27 items)").
@@ -404,10 +416,10 @@ def _detect_issues(ws, base_dir: str) -> list:
             tc = ws.cell(row, COL_TOTAL_COST).value
             if isinstance(tc, str) and tc.startswith('='):
                 continue
-            j_val = str(ws.cell(row, COL_SUPP_DESC).value or '').strip()
-            if j_val in FORMULA_LABELS or not j_val:
+            if _is_summary_row(row):
                 continue
             # Group header: description ends with "(N items)"
+            j_val = str(ws.cell(row, COL_SUPP_DESC).value or '').strip()
             if _group_re.search(j_val):
                 if isinstance(tc, (int, float)):
                     sum_items += tc
@@ -415,10 +427,12 @@ def _detect_issues(ws, base_dir: str) -> list:
     else:
         for row in range(2, ws.max_row + 1):
             tc = ws.cell(row, COL_TOTAL_COST).value
+            if isinstance(tc, str) and tc.startswith('='):
+                continue  # skip formula rows (combined XLSX has per-invoice formulas)
+            if _is_summary_row(row):
+                continue
             if isinstance(tc, (int, float)):
                 sum_items += tc
-            elif isinstance(tc, str) and tc.startswith('='):
-                continue  # skip formula rows (combined XLSX has per-invoice formulas)
 
     adjustments = freight + insurance + tax - deduction
 
