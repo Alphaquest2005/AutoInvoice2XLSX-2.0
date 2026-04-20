@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "11.9",
+    "customs_value_usd": null,
+    "tariff_code": null,
+    "duty_rate": null,
+    "weight": null,
+    "description": null,
+    "other_notes": "Handwritten 'kns' on the right side (near Man Reg Number/above Particulars table); vertical '11.90' on left margin"
+  },
+  "printed": {
+    "consignee": "MAHALIA CHARLES",
+    "freight": 3.0,
+    "waybill": "HAWB9591089",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": 1.0,
+    "packages": 1
+  },
+  "has_handwriting": true
+}
