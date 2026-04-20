@@ -31,6 +31,15 @@ _REGEX_TIMEOUT = 5          # hard-kill timeout (seconds)
 _PERF_LOG_THRESHOLD = 0.1   # log warning for any regex taking longer (seconds)
 _SIGALRM_AVAILABLE = hasattr(__import__('signal'), 'SIGALRM')
 
+
+def _can_use_sigalrm() -> bool:
+    """SIGALRM can only be set from the main thread. Worker threads in
+    ThreadPoolExecutor must skip signal-based regex timeouts."""
+    if not _SIGALRM_AVAILABLE:
+        return False
+    import threading
+    return threading.current_thread() is threading.main_thread()
+
 if _SIGALRM_AVAILABLE:
     import signal as _signal
 
@@ -52,7 +61,7 @@ def _safe_re_sub(pattern, replace, text, flags=0):
     """re.sub with timeout protection and performance logging."""
     t0 = _time.monotonic()
     pat_s = _pattern_str(pattern)
-    if _SIGALRM_AVAILABLE and len(text) > 5000:
+    if _can_use_sigalrm() and len(text) > 5000:
         old_handler = _signal.signal(_signal.SIGALRM, _alarm_handler)
         _signal.alarm(_REGEX_TIMEOUT)
         try:
@@ -87,7 +96,7 @@ def _safe_re_search(pattern, text, flags=0):
     """re.search with timeout protection and performance logging."""
     t0 = _time.monotonic()
     pat_s = _pattern_str(pattern)
-    if _SIGALRM_AVAILABLE and len(text) > 5000:
+    if _can_use_sigalrm() and len(text) > 5000:
         old_handler = _signal.signal(_signal.SIGALRM, _alarm_handler)
         _signal.alarm(_REGEX_TIMEOUT)
         try:
@@ -122,7 +131,7 @@ def _safe_re_match(pattern, text, flags=0):
     """re.match with timeout protection and performance logging."""
     t0 = _time.monotonic()
     pat_s = _pattern_str(pattern)
-    if _SIGALRM_AVAILABLE and len(text) > 5000:
+    if _can_use_sigalrm() and len(text) > 5000:
         old_handler = _signal.signal(_signal.SIGALRM, _alarm_handler)
         _signal.alarm(_REGEX_TIMEOUT)
         try:
@@ -157,7 +166,7 @@ def _safe_re_findall(pattern, text, flags=0):
     """re.findall with timeout protection and performance logging."""
     t0 = _time.monotonic()
     pat_s = _pattern_str(pattern)
-    if _SIGALRM_AVAILABLE and len(text) > 5000:
+    if _can_use_sigalrm() and len(text) > 5000:
         old_handler = _signal.signal(_signal.SIGALRM, _alarm_handler)
         _signal.alarm(_REGEX_TIMEOUT)
         try:
@@ -197,7 +206,7 @@ def _safe_re_finditer(pattern, text, flags=0):
     """
     t0 = _time.monotonic()
     pat_s = _pattern_str(pattern)
-    if _SIGALRM_AVAILABLE and len(text) > 5000:
+    if _can_use_sigalrm() and len(text) > 5000:
         old_handler = _signal.signal(_signal.SIGALRM, _alarm_handler)
         _signal.alarm(_REGEX_TIMEOUT)
         try:
