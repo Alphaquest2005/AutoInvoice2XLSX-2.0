@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "31.56",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "31.56 written vertically on left margin"
+  },
+  "printed": {
+    "consignee": "JASON JAMES",
+    "freight": 11.0,
+    "waybill": "HAWB9478016",
+    "man_reg": "2024/24",
+    "office": "GDWBS",
+    "weight": 5.0,
+    "packages": 1
+  },
+  "has_handwriting": true
+}

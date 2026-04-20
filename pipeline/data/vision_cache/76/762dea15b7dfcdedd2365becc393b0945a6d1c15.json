@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": ""
+  },
+  "printed": {
+    "consignee": "DAVID BOATSWAIN",
+    "freight": "5.00",
+    "waybill": "HAWB9757771",
+    "man_reg": "2024/33",
+    "office": "GDWBS",
+    "weight": "2.0",
+    "packages": "1"
+  },
+  "has_handwriting": false
+}

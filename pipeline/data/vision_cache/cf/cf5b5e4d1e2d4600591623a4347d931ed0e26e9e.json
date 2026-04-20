@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "3404.0",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten marks '3404' (near item price) and '8016' (near shipping address) visible on the form"
+  },
+  "printed": {
+    "consignee": "Jason James",
+    "freight": "",
+    "waybill": "",
+    "man_reg": "",
+    "office": "",
+    "weight": "",
+    "packages": "1"
+  },
+  "has_handwriting": true
+}
