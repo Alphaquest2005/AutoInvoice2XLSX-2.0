@@ -1,0 +1,21 @@
+{
+  "handwritten": {
+    "customs_value_ec": "90.00",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "90.00 written vertically along left margin"
+  },
+  "printed": {
+    "consignee": "VERNICA CHARLES",
+    "freight": "9.00",
+    "waybill": "HAWB9383720",
+    "man_reg": "2024/21",
+    "office": "GDWBS",
+    "weight": "4.0",
+    "packages": "1"
+  },
+  "has_handwriting": true
+}

@@ -241,10 +241,10 @@ def ocr_page(pdf_path: str, page_num: int, dpi: int = 300,
              preprocess_mode: str = 'default') -> str:
     """Extract text from a single PDF page via the unified hybrid OCR pipeline.
 
-    This is a thin wrapper around ``multi_ocr.extract_text``: it pulls the
-    requested page into a temporary one-page PDF, hands it to the hybrid
-    engine (which runs all configured preprocessing × engine variants and
-    reconciles via consensus), and returns the consensus text.
+    Uses a composite cache key ``sha1(parent_pdf) + ':page:N'`` so that
+    per-page OCR results persist across runs even though the temp single-
+    page PDF is deleted after each call.  This avoids re-running the full
+    12-variant OCR matrix (~50 s/page) on every pipeline invocation.
 
     The ``dpi``, ``preprocess``, ``psm``, and ``preprocess_mode`` arguments
     are accepted for backward compatibility but are now ignored — the full
@@ -267,10 +267,23 @@ def ocr_page(pdf_path: str, page_num: int, dpi: int = 300,
         logger.warning("multi_ocr module unavailable; ocr_page returning empty")
         return ""
 
+    # Composite cache key: parent PDF SHA-1 + page number.
+    # This survives temp-file deletion and avoids re-OCR on re-runs.
+    import hashlib
+    parent_sha1 = multi_ocr._pdf_sha1(pdf_path)
+    page_cache_key = hashlib.sha1(
+        f"{parent_sha1}:page:{page_num}".encode()
+    ).hexdigest()
+
+    cached = multi_ocr.cache_load(page_cache_key)
+    if cached is not None:
+        logger.info(f"Page {page_num + 1} OCR cache hit (parent {parent_sha1[:8]})")
+        return cached.text or ""
+
     tmp_path: Optional[str] = None
     try:
         # Extract the single page into a tempfile so the hybrid pipeline can
-        # cache and OCR it in isolation.
+        # OCR it in isolation.
         doc = fitz.open(pdf_path)
         try:
             if page_num < 0 or page_num >= doc.page_count:
@@ -287,7 +300,12 @@ def ocr_page(pdf_path: str, page_num: int, dpi: int = 300,
         single.save(tmp_path)
         single.close()
 
-        result = multi_ocr.extract_text(tmp_path)
+        # Run OCR without its own cache (we manage the composite key above)
+        result = multi_ocr.extract_text(tmp_path, use_cache=False)
+
+        # Save under the composite parent+page key
+        multi_ocr.cache_save(page_cache_key, result)
+
         return result.text or ""
     except Exception as e:
         logger.warning(f"OCR failed for page {page_num + 1}: {e}")
@@ -1020,23 +1038,43 @@ def extract_declaration_metadata(pdf_path: str) -> Dict[str, Optional[str]]:
     try:
         # Extract text from ALL pages (not just page 0)
         # CARICOM docs can be multi-page: BL + Shipper's Letter + CARICOM Invoice
-        all_texts = []
-        num_pages = 0
-        if pdfplumber:
-            with pdfplumber.open(pdf_path) as pdf:
-                num_pages = len(pdf.pages)
-                for page in pdf.pages:
-                    all_texts.append(page.extract_text() or "")
-
-        # For pages with little/no text, try OCR
+        #
+        # Optimisation: try the whole-document OCR cache first.  The per-page
+        # fallback (12 variants × N pages) takes ~50 s/page on scanned PDFs.
+        # If the whole-document result is already cached it contains text from
+        # every page and is returned in <1 s.
+        text = ""
         if OCR_AVAILABLE:
-            for i in range(num_pages):
-                if len(all_texts[i].strip()) < 50:
-                    logger.info(f"Using OCR for declaration page {i+1}")
-                    all_texts[i] = ocr_page(pdf_path, i)
+            try:
+                import multi_ocr
+                whole_doc = multi_ocr.extract_text(pdf_path)
+                if whole_doc.text and len(whole_doc.text.strip()) >= 50:
+                    text = whole_doc.text
+                    logger.info(
+                        f"Declaration: using whole-document OCR "
+                        f"({len(text)} chars, engine={whole_doc.engine_used})"
+                    )
+            except Exception as e:
+                logger.debug(f"Whole-document OCR failed, falling back to per-page: {e}")
 
-        # Combine all pages
-        text = '\n'.join(all_texts)
+        # Fallback: per-page extraction when whole-document OCR is unavailable
+        if not text:
+            all_texts = []
+            num_pages = 0
+            if pdfplumber:
+                with pdfplumber.open(pdf_path) as pdf:
+                    num_pages = len(pdf.pages)
+                    for page in pdf.pages:
+                        all_texts.append(page.extract_text() or "")
+
+            # For pages with little/no text, try OCR
+            if OCR_AVAILABLE:
+                for i in range(num_pages):
+                    if len(all_texts[i].strip()) < 50:
+                        logger.info(f"Using OCR for declaration page {i+1}")
+                        all_texts[i] = ocr_page(pdf_path, i)
+
+            text = '\n'.join(all_texts)
 
         if not text:
             # OCR found nothing — skip regex extraction but still try LLM vision

@@ -1041,6 +1041,121 @@ def _compute_confidence(
     return agreed / len(clusters)
 
 
+def _is_sensible_line(line: str) -> bool:
+    """Heuristic: does *line* look like real invoice content or OCR garbage?
+
+    A line is sensible if it carries meaningful signal:
+    - Contains a price/currency pattern  (strong signal)
+    - Contains a multi-digit number      (moderate signal)
+    - Contains a real English/product word ≥3 chars AND the line isn't
+      majority punctuation/symbols        (weak but sufficient)
+    """
+    stripped = line.strip()
+    if len(stripped) < 4:
+        return False
+
+    # Strong: contains a price like 8.19 or $12.50
+    if _PRICE_PATTERN.search(stripped):
+        return True
+
+    # Moderate: contains a multi-digit number (qty, invoice #, date component)
+    if re.search(r"\d{2,}", stripped):
+        # But reject lines that are ONLY numbers with no alpha context
+        # (e.g. OCR garbage "123456789")
+        if re.search(r"[A-Za-z]{2,}", stripped):
+            return True
+        # Pure number lines are OK if they look like invoice numbers
+        if re.match(r"^[\d\s.,-]+$", stripped) and len(stripped) < 30:
+            return True
+
+    # Weak: word-based signal. OCR garbage produces short fragments like
+    # "SRS Aaa rT Sis ae nena" — many 2-4 char pieces that aren't real words.
+    # Real invoice text has longer average word length.
+    all_words = re.findall(r"[A-Za-z]+", stripped)
+    if all_words:
+        avg_len = sum(len(w) for w in all_words) / len(all_words)
+        long_words = [w for w in all_words if len(w) >= 6]
+        # Accept if: average word length ≥ 4 AND (has a 6+ char word OR ≥3 words)
+        if avg_len >= 4.0 and (long_words or len(all_words) >= 3):
+            alpha_chars = sum(c.isalnum() or c.isspace() for c in stripped)
+            total_chars = len(stripped)
+            if total_chars > 0 and alpha_chars / total_chars >= 0.60:
+                return True
+
+    return False
+
+
+def _build_super_text(variant_texts: Dict[str, str]) -> str:
+    """Build a 'super text' by merging unique sensible lines from all variants.
+
+    Instead of falling back to a single best variant when consensus confidence
+    is low, this unions the content across ALL variants:
+
+    1. Start with the best variant (by digit density + priority) as the base.
+    2. For every other variant, find lines NOT already present in the base
+       (using fuzzy matching to avoid near-duplicates).
+    3. Filter those unique lines through a sensibility heuristic to reject
+       OCR garbage (random symbols, fragmented characters).
+    4. Insert accepted lines at the end of the base, grouped by source variant.
+
+    The result captures text that different OCR engines extracted from different
+    parts of the document while filtering out nonsense that bad engines
+    hallucinated.
+    """
+    if not variant_texts:
+        return ""
+
+    # Use the best variant as the base
+    best_vid, base_text = _pick_best_fallback(variant_texts)
+    base_lines = [l for l in base_text.splitlines() if l.strip()]
+    base_norms = [_normalize_line(l) for l in base_lines]
+
+    # Collect unique sensible lines from other variants
+    extra_lines: List[str] = []
+    for vid, text in variant_texts.items():
+        if vid == best_vid:
+            continue
+        for line in text.splitlines():
+            stripped = line.strip()
+            if not stripped:
+                continue
+            norm = _normalize_line(stripped)
+
+            # Skip if it's a near-duplicate of any base line
+            is_dup = False
+            for bn in base_norms:
+                if difflib.SequenceMatcher(None, norm, bn).ratio() > 0.80:
+                    is_dup = True
+                    break
+            if is_dup:
+                continue
+
+            # Skip if it's a near-duplicate of an already-added extra line
+            extra_dup = False
+            for el in extra_lines:
+                if difflib.SequenceMatcher(
+                    None, norm, _normalize_line(el)
+                ).ratio() > 0.80:
+                    extra_dup = True
+                    break
+            if extra_dup:
+                continue
+
+            # Only keep sensible lines
+            if _is_sensible_line(stripped):
+                extra_lines.append(stripped)
+
+    if extra_lines:
+        logger.info(
+            f"Super-text: merged {len(extra_lines)} unique lines from "
+            f"{len(variant_texts) - 1} other variant(s) into base '{best_vid}'"
+        )
+        # Append extras after base — they're lines the best variant missed
+        return "\n".join(base_lines + extra_lines)
+    else:
+        return base_text
+
+
 def build_consensus(variant_texts: Dict[str, str]) -> MultiOcrResult:
     """Top-level consensus builder: align, vote, build token map, package.
 
@@ -1060,23 +1175,25 @@ def build_consensus(variant_texts: Dict[str, str]) -> MultiOcrResult:
     confidence = _compute_confidence(clusters)
     method_stats = {vid: len(t) for vid, t in variant_texts.items()}
 
-    # Low-confidence fallback: use best individual variant instead of
-    # mangled consensus.  The consensus process can drop numeric tokens
-    # (prices, quantities, invoice numbers) when alignment across many
-    # variants disagrees, producing text that downstream parsers cannot
-    # extract items from.
+    # Low-confidence fallback: build a "super text" that merges unique
+    # sensible lines from ALL variants instead of picking just one.
+    # The consensus process can drop numeric tokens when alignment across
+    # many variants disagrees; the super-text approach preserves content
+    # that only specific engines captured (e.g., glm_ocr reading prices
+    # that tesseract missed, or vice versa).
     _LOW_CONFIDENCE_THRESHOLD = 0.50
     _MIN_VARIANTS_FOR_FALLBACK = 4  # With ≤3 variants, majority voting works fine
     if confidence < _LOW_CONFIDENCE_THRESHOLD and len(variant_texts) >= _MIN_VARIANTS_FOR_FALLBACK:
-        best_vid, best_text = _pick_best_fallback(variant_texts)
-        if best_text and len(best_text) > len(consensus_text) * 0.8:
+        super_text = _build_super_text(variant_texts)
+        if super_text and len(super_text) > len(consensus_text) * 0.8:
+            best_vid = _pick_best_fallback(variant_texts)[0]
             logger.warning(
                 f"Consensus confidence {confidence:.2f} < {_LOW_CONFIDENCE_THRESHOLD} "
-                f"— falling back to best variant '{best_vid}' "
-                f"({len(best_text)} chars vs {len(consensus_text)} consensus chars)"
+                f"— using super-text merge (base '{best_vid}', "
+                f"{len(super_text)} chars vs {len(consensus_text)} consensus chars)"
             )
-            consensus_text = best_text
-            engine_used = f"fallback({best_vid})"
+            consensus_text = super_text
+            engine_used = f"super({best_vid}+{len(variant_texts)-1}others)"
         else:
             engine_used = "hybrid(" + ",".join(sorted(variant_texts.keys())) + ")"
     else:
@@ -1159,21 +1276,22 @@ def cache_load(
         confidence = r["confidence"]
         engine_used = r["engine_used"]
 
-        # Re-apply low-confidence fallback on cached results that were
-        # stored before the fallback logic existed.
+        # Re-apply super-text merge on cached results that used the old
+        # single-variant fallback or raw consensus.
         _LOW_CONFIDENCE_THRESHOLD = 0.50
         _MIN_VARIANTS_FOR_FALLBACK = 4
         if (confidence < _LOW_CONFIDENCE_THRESHOLD
                 and len(variants) >= _MIN_VARIANTS_FOR_FALLBACK
-                and not engine_used.startswith("fallback(")):
-            best_vid, best_text = _pick_best_fallback(variants)
-            if best_text and len(best_text) > len(text) * 0.8:
+                and not engine_used.startswith("super(")):
+            super_text = _build_super_text(variants)
+            if super_text and len(super_text) > len(text) * 0.8:
+                best_vid = _pick_best_fallback(variants)[0]
                 logger.warning(
                     f"Cache hit with low confidence {confidence:.2f} "
-                    f"— applying fallback to '{best_vid}'"
+                    f"— applying super-text merge (base '{best_vid}')"
                 )
-                text = best_text
-                engine_used = f"fallback({best_vid})"
+                text = super_text
+                engine_used = f"super({best_vid}+{len(variants)-1}others)"
 
         return MultiOcrResult(
             text=text,
