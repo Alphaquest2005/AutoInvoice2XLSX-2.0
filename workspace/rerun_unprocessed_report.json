@@ -1,0 +1,17 @@
+{
+  "session_start": "2026-04-20T15:06:50.832402+00:00",
+  "total_folders": 1,
+  "processed": 1,
+  "elapsed_s": 2818.2,
+  "results": [
+    {
+      "folder": "03152025135238",
+      "staged": 14,
+      "rc": -15,
+      "status": "failed",
+      "report": null,
+      "error": "onsensus chars)\n2026-04-20 11:58:32,920 - WARNING - Consensus confidence 0.40 < 0.5 \u2014 falling back to best variant 'original+glm_ocr' (967 chars vs 762 consensus chars)\n2026-04-20 11:59:29,037 - WARNING - Consensus confidence 0.31 < 0.5 \u2014 falling back to best variant 'sharpen_contrast+tesseract_psm6' (1067 chars vs 787 consensus chars)\n2026-04-20 12:02:21,132 - WARNING - Consensus confidence 0.21 < 0.5 \u2014 falling back to best variant 'upscale_2x+tesseract_psm4' (985 chars vs 822 consensus chars)\n",
+      "elapsed_s": 2818.2
+    }
+  ]
+}
