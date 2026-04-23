@@ -1,0 +1,113 @@
+{
+  "session_start": "2026-04-23T02:42:21.189511+00:00",
+  "total_folders": 1,
+  "processed": 1,
+  "elapsed_s": 137.6,
+  "results": [
+    {
+      "folder": "03152025_FASHIOMiOVA",
+      "staged": 1,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "138878183",
+            "supplier": "Fashion Nova",
+            "format": "fashionnova_commercial",
+            "items": 5,
+            "matched": 0,
+            "classified": 5,
+            "total": 44.48,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_FASHIOMiOVA.out/138878183.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_FASHIOMiOVA.out/138878183.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_FASHIOMiOVA.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_FASHIOMiOVA.out/_email_params.json",
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": [
+            {
+              "file": "138878183.xlsx",
+              "supplier": "Fashion Nova",
+              "issues": [],
+              "fixes": [],
+              "fixed": 0,
+              "unfixed": 0
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "default (1 per entry)",
+            "per_file": [
+              {
+                "file": "138878183.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": false,
+          "failures": [
+            {
+              "check": "weight_zero",
+              "severity": "block",
+              "message": "Weight is 0 kg. A shipment cannot weigh 0 kg.",
+              "field": "weight",
+              "value": "0",
+              "fix_hint": "Read the BL PDF and look for GRAND TOTAL line with weight in kg. Update _email_params.json field \"weight\" with the correct value."
+            },
+            {
+              "check": "freight_zero",
+              "severity": "warn",
+              "message": "Freight is $0. Ocean freight is typically > $0.",
+              "field": "freight",
+              "value": "0",
+              "fix_hint": "Check the BL cost breakdown for freight charges. If freight is genuinely $0 (e.g. prepaid/included), this may be OK."
+            },
+            {
+              "check": "consignee_missing",
+              "severity": "block",
+              "message": "Consignee name is missing or placeholder: \"\".",
+              "field": "consignee_name",
+              "value": "",
+              "fix_hint": "Read the BL PDF or invoice headers to find the consignee/ship-to name."
+            },
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            }
+          ],
+          "blocker_count": 2,
+          "warning_count": 2
+        }
+      },
+      "error": null,
+      "elapsed_s": 137.6
+    }
+  ]
+}

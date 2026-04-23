@@ -1,0 +1,199 @@
+{
+  "session_start": "2026-04-23T06:02:11.919913+00:00",
+  "total_folders": 1,
+  "processed": 1,
+  "elapsed_s": 280.8,
+  "results": [
+    {
+      "folder": "03152025_RECEIPT",
+      "staged": 6,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "1504495444",
+            "supplier": "",
+            "format": "h_and_m_unknown_receipt",
+            "items": 7,
+            "matched": 0,
+            "classified": 5,
+            "total": 118.93,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_RECEIPT.out/HAWB9600998-Declaration_combined.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_RECEIPT.out/1504495444.pdf"
+          }
+        ],
+        "email_sent": true,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_RECEIPT.out/_email_params.json",
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_RECEIPT.out/_email_params_2.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_RECEIPT.out/_email_params.json",
+        "validation": {
+          "total_issues": 6,
+          "fixed": 5,
+          "unfixed": 1,
+          "per_file": [
+            {
+              "file": "HAWB9600998-Declaration_combined.xlsx",
+              "supplier": "",
+              "issues": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 9,
+                  "current": "00000000",
+                  "description": "METHOD Paypal $67.98 (+1 more) (2 items)",
+                  "qty": 2,
+                  "total_cost": 25.98,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"METHOD Paypal $67.98 (+1 more) (2 items)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 10,
+                  "current": "00000000",
+                  "description": "METHOD Paypal $67.98",
+                  "qty": 1,
+                  "total_cost": 19.99,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"METHOD Paypal $67.98\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 11,
+                  "current": "00000000",
+                  "description": "eee",
+                  "qty": 1,
+                  "total_cost": 5.99,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"eee\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 44,
+                  "current": "00000000",
+                  "description": "\u2014\u2014 (1 items)",
+                  "qty": 1,
+                  "total_cost": 20.99,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2014\u2014 (1 items)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 45,
+                  "current": "00000000",
+                  "description": "\u2014\u2014",
+                  "qty": 1,
+                  "total_cost": 20.99,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"\u2014\u2014\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "VARIANCE",
+                  "variance": 56.97,
+                  "invoice_total": 128.93,
+                  "sum_items": 71.96,
+                  "freight": 0,
+                  "insurance": 0,
+                  "tax": 0,
+                  "deduction": 0,
+                  "block": 2,
+                  "block_header_row": 41,
+                  "block_adjustments_row": 56,
+                  "why": "Block 2 (row 41) variance $+56.97. InvoiceTotal($128.93) != NetTotal($71.96).",
+                  "how": "Open source PDF for this invoice and rerun pipeline \u2014 per-invoice variance_fixer should resolve before combining."
+                }
+              ],
+              "fixes": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 9,
+                  "old": "00000000",
+                  "new": "62044200",
+                  "method": "LLM: Composite row for 'METHOD Paypal $67.98 (+1 more) (2 items)'",
+                  "description": "METHOD Paypal $67.98 (+1 more) (2 items)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 10,
+                  "old": "00000000",
+                  "new": "62044200",
+                  "method": "LLM: Matches the Twist-detail Shirt Dress (art 1187610004005) at ",
+                  "description": "METHOD Paypal $67.98"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 11,
+                  "old": "00000000",
+                  "new": "71171900",
+                  "method": "LLM: OCR fragment 'eee' corresponds to 'Pendant Necklace' (art 10",
+                  "description": "eee"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 44,
+                  "old": "00000000",
+                  "new": "62046290",
+                  "method": "LLM: Composite row '\u2014\u2014 (1 items)' at $20.99. The price matches th",
+                  "description": "\u2014\u2014 (1 items)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 45,
+                  "old": "00000000",
+                  "new": "62046290",
+                  "method": "LLM: Single item '\u2014\u2014' at $20.99. Price matches Flared Twill Pants",
+                  "description": "\u2014\u2014"
+                }
+              ],
+              "remaining": [
+                {
+                  "type": "VARIANCE",
+                  "variance": 56.97,
+                  "invoice_total": 128.93,
+                  "sum_items": 71.96,
+                  "freight": 0,
+                  "insurance": 0,
+                  "tax": 0,
+                  "deduction": 0,
+                  "block": 2,
+                  "block_header_row": 41,
+                  "block_adjustments_row": 56,
+                  "why": "Block 2 (row 41) variance $+56.97. InvoiceTotal($128.93) != NetTotal($71.96).",
+                  "how": "Open source PDF for this invoice and rerun pipeline \u2014 per-invoice variance_fixer should resolve before combining."
+                }
+              ],
+              "fixed": 5,
+              "unfixed": 1
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "HAWB9600998-Declaration_combined.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        }
+      },
+      "error": null,
+      "elapsed_s": 280.8
+    }
+  ]
+}

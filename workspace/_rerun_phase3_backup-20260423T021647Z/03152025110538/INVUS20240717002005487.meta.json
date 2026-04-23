@@ -1,0 +1,11 @@
+{
+  "format_name": "shein_us_invoice",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "64029910",
+      "classification_source": "rule",
+      "description": "Women' Thick-Soled Slippers, Summer Anti-Skid Waterproof Beach Sandals, Suita..."
+    }
+  ]
+}

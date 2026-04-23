@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9597280",
+  "consignee_name": "SHELLEY THOMAS",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "3.0",
+  "country_origin": "US",
+  "freight": "7.00",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_FASHIOMWVA.out/138984731.pdf",
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_FASHIOMWVA.out/HAWB9597280.xlsx",
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_FASHIOMWVA.out/HAWB9597280-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

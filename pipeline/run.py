@@ -119,6 +119,29 @@ def _lookup_consignee_code(consignee_name: str) -> tuple:
     return (best_code, best_address)
 
 
+def _iso_to_caricom_country(iso_code: str) -> str:
+    """Translate ISO 3166-1 country code to CARICOM code if a mapping exists.
+
+    CARICOM/ASYCUDA uses its own codes (e.g. QN for Sint Maarten instead of SX).
+    Mappings are defined in config/shipment_rules.yaml → country_codes.iso_to_caricom.
+    Returns the CARICOM code, or the original code if no mapping exists.
+    """
+    if not iso_code:
+        return iso_code
+    rules_path = os.path.join(BASE_DIR, 'config', 'shipment_rules.yaml')
+    try:
+        import yaml
+        with open(rules_path, 'r') as f:
+            rules = yaml.safe_load(f) or {}
+        iso_map = rules.get('country_codes', {}).get('iso_to_caricom', {})
+        caricom = iso_map.get(iso_code, iso_code)
+        if caricom != iso_code:
+            logger.info(f"Country code translated: {iso_code} -> {caricom} (CARICOM)")
+        return caricom
+    except Exception:
+        return iso_code
+
+
 def _extract_cc_charges(text: str) -> list:
     """Extract credit card transaction amounts from Amazon invoice text.
 
@@ -143,6 +166,54 @@ def _extract_cc_charges(text: str) -> list:
         except (ValueError, TypeError):
             pass
     return charges
+
+
+# ---------------------------------------------------------------------------
+# Reverse-calc: declared duty (XCD) → implied items USD (ASYCUDA inverse)
+# ---------------------------------------------------------------------------
+# duty  = cif_xcd * (1.15 * cet_rate + 0.219)
+# → cif_xcd  = duty / composite
+# → cif_usd  = cif_xcd / XCD_RATE
+# → items_usd = cif_usd − freight_usd − insurance_usd  (floored at 0)
+#
+# Used by _split_items_per_declaration to turn a handwritten per-decl duty
+# into the *items* subset-sum target. This is the authoritative allocation
+# signal for multi-waybill shipments per feedback_reverse_calc_allocation.
+_XCD_RATE = 2.7169
+
+
+def _implied_items_usd_from_duty(
+    declared_duty_xcd: float,
+    avg_cet_rate: float,
+    freight_usd: float = 0.0,
+    insurance_usd: float = 0.0,
+) -> float:
+    composite = 1.15 * avg_cet_rate + 0.219
+    if composite <= 0 or declared_duty_xcd <= 0:
+        return 0.0
+    cif_xcd = declared_duty_xcd / composite
+    cif_usd = cif_xcd / _XCD_RATE
+    return max(0.0, cif_usd - (freight_usd or 0) - (insurance_usd or 0))
+
+
+def _avg_cet_rate_for_items(items: list) -> float:
+    """Weighted avg CET rate across items' tariff codes. Mirror of
+    bl_xlsx_generator's calc; defaults to 0.20 when unknown."""
+    try:
+        from bl_xlsx_generator import get_cet_rate  # lazy import to avoid cycles
+    except Exception:
+        return 0.20
+    total = 0.0
+    weighted = 0.0
+    for it in items or []:
+        tc = str(it.get('tariff_code', '00000000'))
+        cost = float(it.get('total_cost', 0) or 0)
+        rate = get_cet_rate(tc)
+        if rate is None:
+            rate = 0.20
+        total += cost
+        weighted += cost * rate
+    return (weighted / total) if total > 0 else 0.20
 
 
 def _split_items_per_declaration(
@@ -192,98 +263,116 @@ def _split_items_per_declaration(
     all_items_total = sum(float(it.get('total_cost', 0) or 0) for it in all_items)
     decl_items = None  # will be set by whichever strategy succeeds
 
-    # Strategy 1: Customs-value-guided distribution.
-    # When declarations have handwritten customs values (_customs_value_usd),
-    # use them to find the item subset whose total best matches each
-    # declaration's declared value.
-    customs_targets = []
+    # Strategy 1: Reverse-calc-guided distribution.
+    # Handwritten _customs_value_ec / _customs_value_usd fields on each
+    # declaration are DUTY values (in XCD after conversion), not item totals.
+    # Per feedback_reverse_calc_allocation: for multi-waybill shipments the
+    # declared duty is the authoritative signal for item allocation. We
+    # reverse-calc each duty into its implied items-USD value (via the
+    # inverse ASYCUDA composite formula) and use those as the subset-sum
+    # targets. The raw USD candidate is kept as a fallback only when reverse
+    # calc produces 0 (freight exceeds implied CIF).
+    avg_cet_rate = _avg_cet_rate_for_items(all_items)
+    # Per-BL freight is a per-waybill ground truth — each declaration carries
+    # its own freight in the "(FREIGHT X.XX US)" annotation extracted by
+    # pdf_splitter. It is NOT proportional to duty, items, or other BLs'
+    # freight. If missing from a decl, we use 0 + warning rather than
+    # borrow/split from the invoice level — that would violate per-BL
+    # isolation and smuggle another BL's freight into this BL's reverse-calc.
+    per_decl_freight = []
+    per_decl_insurance = []
     for decl_meta, _ in all_declarations:
-        # Try both _customs_value_usd and _customs_value_ec fields.
-        # LLM vision sometimes swaps them; pick the best candidate.
-        candidates = []
-        for field in ('_customs_value_usd', '_customs_value_ec'):
-            raw = decl_meta.get(field)
-            if raw:
-                try:
-                    val = float(str(raw).replace(',', '').replace('$', '').strip())
-                    if val > 0:
-                        candidates.append(val)
-                except (ValueError, TypeError):
-                    pass
-        # Also check handwritten dict if present
-        hw = decl_meta.get('_handwritten', {})
-        for field in ('customs_value_usd', 'customs_value_ec'):
+        try:
+            f = float(str(decl_meta.get('freight', '')).replace(',', '').strip() or 0)
+        except (ValueError, TypeError):
+            f = 0.0
+        if f <= 0:
+            wbl = decl_meta.get('waybill', '?')
+            logger.warning(
+                f"[reverse-calc] {wbl}: no per-BL freight on declaration — "
+                f"using 0. Implied items target will be overstated by the "
+                f"true freight amount (typically $3–$15)."
+            )
+        per_decl_freight.append(max(0.0, f))
+        # Insurance is rarely declared per-BL on Caribbean Simplified
+        # Declarations; default to 0 when absent (same invariant).
+        try:
+            ins = float(str(decl_meta.get('insurance', '')).replace(',', '').strip() or 0)
+        except (ValueError, TypeError):
+            ins = 0.0
+        per_decl_insurance.append(max(0.0, ins))
+
+    customs_targets = []
+    for idx, (decl_meta, _) in enumerate(all_declarations):
+        # Collect raw candidate DUTY values (ec=XCD, usd→converted to XCD).
+        # LLM vision sometimes swaps fields; both become XCD candidates.
+        duty_xcd_candidates = []
+        raw_ec = decl_meta.get('_customs_value_ec')
+        if raw_ec:
+            try:
+                v = float(str(raw_ec).replace(',', '').replace('$', '').strip())
+                if v > 0:
+                    duty_xcd_candidates.append(v)
+            except (ValueError, TypeError):
+                pass
+        raw_usd = decl_meta.get('_customs_value_usd')
+        if raw_usd:
+            try:
+                v = float(str(raw_usd).replace(',', '').replace('$', '').strip())
+                if v > 0:
+                    # Treat as USD duty → convert to XCD-equivalent duty
+                    v_xcd = round(v * _XCD_RATE, 2)
+                    if v_xcd not in duty_xcd_candidates:
+                        duty_xcd_candidates.append(v_xcd)
+            except (ValueError, TypeError):
+                pass
+        hw = decl_meta.get('_handwritten', {}) or {}
+        for field, is_usd in (('customs_value_ec', False), ('customs_value_usd', True)):
             raw = hw.get(field)
             if raw:
                 try:
-                    val = float(str(raw).replace(',', '').replace('$', '').strip())
-                    if val > 0 and val not in candidates:
-                        candidates.append(val)
+                    v = float(str(raw).replace(',', '').replace('$', '').strip())
+                    if v > 0:
+                        v_xcd = round(v * _XCD_RATE, 2) if is_usd else v
+                        if v_xcd not in duty_xcd_candidates:
+                            duty_xcd_candidates.append(v_xcd)
                 except (ValueError, TypeError):
                     pass
-        # Pick the candidate closest to a plausible item-value share
-        # (proportional to 1/n_decl of total items)
-        if candidates:
-            expected_share = all_items_total / n_decl if n_decl else all_items_total
-            best = min(candidates, key=lambda v: abs(v - expected_share))
-            customs_targets.append(best)
-        else:
+
+        if not duty_xcd_candidates:
             customs_targets.append(None)
+            continue
+
+        # Reverse-calc every candidate → implied items USD, pick the one
+        # whose resulting target is a plausible share of all_items_total.
+        f_u = per_decl_freight[idx]
+        i_u = per_decl_insurance[idx]
+        implied = [
+            _implied_items_usd_from_duty(v, avg_cet_rate, f_u, i_u)
+            for v in duty_xcd_candidates
+        ]
+        # Prefer the first positive implied value (most common: single candidate)
+        positive = [x for x in implied if x > 0]
+        if positive:
+            customs_targets.append(positive[0])
+        else:
+            # Reverse-calc gave 0 (freight > implied CIF). Fall back to raw
+            # USD value as direct items target (old behaviour).
+            customs_targets.append(duty_xcd_candidates[0] / _XCD_RATE)
 
     # ── Extract credit card charges as supplementary splitting signal ──
     cc_charges = _extract_cc_charges(invoice_text) if invoice_text else []
     if cc_charges:
         logger.info(f"Extracted {len(cc_charges)} CC charges: {cc_charges}")
 
-    # Validate: targets should sum close to all_items_total
+    # Log reverse-calc targets for debugging
     if all(t is not None for t in customs_targets) and len(customs_targets) == n_decl:
         target_sum = sum(customs_targets)
-        if abs(target_sum - all_items_total) > 2.0:
-            # Targets don't sum to items total — try other combinations
-            # of candidate values to find the best match
-            logger.info(
-                f"Customs targets sum ${target_sum:.2f} != items ${all_items_total:.2f}, "
-                f"trying alternative field combinations"
-            )
-            # Rebuild with all candidate values per declaration and find best combo
-            all_candidates = []
-            for decl_meta, _ in all_declarations:
-                cands = set()
-                for field in ('_customs_value_usd', '_customs_value_ec'):
-                    raw = decl_meta.get(field)
-                    if raw:
-                        try:
-                            val = float(str(raw).replace(',', '').replace('$', '').strip())
-                            if val > 0:
-                                cands.add(val)
-                        except (ValueError, TypeError):
-                            pass
-                hw = decl_meta.get('_handwritten', {})
-                for field in ('customs_value_usd', 'customs_value_ec'):
-                    raw = hw.get(field)
-                    if raw:
-                        try:
-                            val = float(str(raw).replace(',', '').replace('$', '').strip())
-                            if val > 0:
-                                cands.add(val)
-                        except (ValueError, TypeError):
-                            pass
-                all_candidates.append(sorted(cands) if cands else [None])
-
-            # For 2 declarations, try all pairs
-            if n_decl == 2 and all(c[0] is not None for c in all_candidates):
-                best_pair = None
-                best_gap = float('inf')
-                for v0 in all_candidates[0]:
-                    for v1 in all_candidates[1]:
-                        gap = abs((v0 + v1) - all_items_total)
-                        if gap < best_gap:
-                            best_gap = gap
-                            best_pair = [v0, v1]
-                if best_pair and best_gap < 2.0:
-                    customs_targets = best_pair
-                    logger.info(f"Found valid customs targets: {customs_targets} "
-                                f"(sum ${sum(customs_targets):.2f}, gap ${best_gap:.2f})")
+        logger.info(
+            f"Reverse-calc item targets: {[round(t, 2) for t in customs_targets]} "
+            f"(sum ${target_sum:.2f} vs items ${all_items_total:.2f}, "
+            f"avg CET {avg_cet_rate*100:.0f}%)"
+        )
 
     if all(t is not None for t in customs_targets) and len(customs_targets) == n_decl:
         # Subset-sum matching: find the item partition across declarations
@@ -299,9 +388,13 @@ def _split_items_per_declaration(
         if n_decl == 2:
             # Exhaustive 2-way partition: try all subsets for declaration 0
             # Rest goes to declaration 1.  2^20 = ~1M is fine.
+            # Skip partitions that leave either declaration empty — the
+            # reverse-calc targets are approximate, and empty-decl splits
+            # produce useless XLSX output. The caller wants an even split
+            # when possible.
             target0 = customs_targets[0]
             target1 = customs_targets[1]
-            for mask in range(1 << n_items):
+            for mask in range(1, (1 << n_items) - 1):  # exclude 0 and all-ones
                 sum0 = sum(item_costs[i] for i in range(n_items) if mask & (1 << i))
                 sum1 = sum(item_costs[i] for i in range(n_items) if not (mask & (1 << i)))
                 gap = abs(sum0 - target0) + abs(sum1 - target1)
@@ -339,13 +432,23 @@ def _split_items_per_declaration(
             best_assignment = assignment
             best_total_gap = sum(abs(r) for r in rem)
 
-        # Build item lists from assignment
-        if best_assignment is not None and best_total_gap <= 2.0:
+        # Build item lists from assignment. Reverse-calc targets have
+        # inherent estimation error (avg_cet_rate assumption, freight
+        # allocation, pencil rounding, duty rounding by declarant). The
+        # BEST partition is what the handwritten duty values point to —
+        # accept it unless the gap exceeds 50% of total items, which
+        # means the reverse-calc model fundamentally disagrees with the
+        # item set (suggesting items missing from the receipt, not a
+        # splitter problem).
+        _gap_tolerance = max(15.0, 0.50 * all_items_total)
+        if best_assignment is not None and best_total_gap <= _gap_tolerance:
             candidate = [[] for _ in range(n_decl)]
             for i, d in enumerate(best_assignment):
                 candidate[d].append(all_items[i])
 
-            # Validate: each declaration should have items
+            # Validate: ALL declarations must get at least one item. An
+            # empty allocation means this strategy produced a lopsided
+            # split — let later strategies try.
             valid = all(len(candidate[d]) > 0 for d in range(n_decl))
             if valid:
                 decl_items = candidate
@@ -353,16 +456,17 @@ def _split_items_per_declaration(
                     actual = sum(float(it.get('total_cost', 0)) for it in decl_items[d])
                     wbl = all_declarations[d][0].get('waybill', f'Decl_{d+1}')
                     logger.info(
-                        f"Customs-value split: {wbl} → {len(decl_items[d])} items "
-                        f"${actual:.2f} (target ${customs_targets[d]:.2f})"
+                        f"Reverse-calc split: {wbl} → {len(decl_items[d])} items "
+                        f"${actual:.2f} (implied target ${customs_targets[d]:.2f}, "
+                        f"gap ${abs(actual - customs_targets[d]):.2f})"
                     )
             else:
-                logger.warning("Customs-value split left a declaration empty — "
+                logger.warning("Reverse-calc split left a declaration empty — "
                                "falling back")
         else:
             logger.warning(
-                f"Customs-value split gap ${best_total_gap:.2f} too large — "
-                f"falling back to round-robin"
+                f"Reverse-calc split gap ${best_total_gap:.2f} > tolerance "
+                f"${_gap_tolerance:.2f} — falling back"
             )
 
     # Strategy 1b: CC-charge-guided distribution.
@@ -391,7 +495,8 @@ def _split_items_per_declaration(
             if n_decl == 2:
                 local_best = None
                 local_gap = float('inf')
-                for mask in range(1 << n_items):
+                # Exclude empty-decl masks (0 and all-ones)
+                for mask in range(1, (1 << n_items) - 1):
                     s0 = sum(item_costs[i] for i in range(n_items) if mask & (1 << i))
                     s1 = sum(item_costs[i] for i in range(n_items) if not (mask & (1 << i)))
                     gap = abs(s0 - targets[0]) + abs(s1 - targets[1])
@@ -479,7 +584,8 @@ def _split_items_per_declaration(
                 best_assignment = None
                 best_total_gap = float('inf')
                 t0, t1 = filled_targets[0], filled_targets[1]
-                for mask in range(1 << n_items):
+                # Exclude empty-decl masks (0 and all-ones)
+                for mask in range(1, (1 << n_items) - 1):
                     s0 = sum(item_costs[i] for i in range(n_items) if mask & (1 << i))
                     s1 = sum(item_costs[i] for i in range(n_items) if not (mask & (1 << i)))
                     gap = abs(s0 - t0) + abs(s1 - t1)
@@ -687,16 +793,25 @@ def _split_items_per_declaration(
             except (ValueError, TypeError):
                 pass
 
-        # Set freight both for XLSX display and for duty estimation CIF
+        # Set freight both for XLSX display and for duty estimation CIF.
+        # Per-BL freight is a per-waybill ground truth (from the
+        # "(FREIGHT X.XX US)" annotation on this BL's declaration) — it is
+        # paired 1:1 with this BL's items inside the declarant's CIF. If
+        # missing, we use 0 + warning rather than prorating from the
+        # invoice level, which would smuggle another BL's freight into this
+        # BL's reverse-calc and break the per-BL invariant.
         if decl_freight_val:
             decl_inv_data['freight'] = decl_freight_val
             decl_inv_data['_customs_freight'] = decl_freight_val
         else:
-            # Prorate invoice freight across declarations
-            orig_freight = invoice_data.get('freight', 0)
-            if orig_freight:
-                decl_inv_data['freight'] = round(orig_freight * ratio, 2)
-                decl_inv_data['_customs_freight'] = decl_inv_data['freight']
+            wbl = decl_meta.get('waybill', '?')
+            logger.warning(
+                f"[per-decl XLSX] {wbl}: no per-BL freight on declaration — "
+                f"using 0 for both XLSX freight cell and duty-estimation CIF. "
+                f"Invoice freight is NOT prorated, to keep per-BL isolation."
+            )
+            decl_inv_data['freight'] = 0
+            decl_inv_data['_customs_freight'] = 0
 
         # Prorate other adjustments by item value ratio
         for key in ('insurance', 'other_cost', 'deduction', 'tax', 'discount', 'free_shipping', 'credits'):
@@ -819,22 +934,56 @@ def _split_items_per_declaration(
     return per_decl
 
 
-def _inject_handwritten_duties(decl_meta: dict, results: list) -> bool:
+def _inject_handwritten_duties(decl_meta_or_list, results: list) -> bool:
     """Inject handwritten customs duty values into invoice_data for XLSX duty estimation.
 
-    Declaration metadata from pdf_splitter.extract_declaration_handwriting() stores
-    handwritten customs values in _customs_value_ec (EC$) and _customs_value_usd.
-    The XLSX duty estimation section reads invoice_data['_client_declared_duties']
-    (expected in XCD/EC$) and invoice_data['_customs_freight'].
+    Declaration metadata from ``pdf_splitter.extract_declaration_handwriting()``
+    stores handwritten customs values in ``_customs_value_ec`` (EC$) and
+    ``_customs_value_usd``. The XLSX duty estimation section reads
+    ``invoice_data['_client_declared_duties']`` (expected in XCD/EC$) and
+    ``invoice_data['_customs_freight']``.
 
-    This function bridges the two: it converts the extracted handwritten value to a
-    float and injects it into each result's invoice_data so the duty estimation
-    section can display the client-vs-estimated variance.
+    Accepts either form for backward compatibility:
+      * ``dict`` — a single declaration's metadata (legacy single-decl path).
+      * ``list[tuple]`` — ``[(meta_dict, pdf_path), ...]`` from
+        ``args._all_declarations`` (multi-decl shipments).
+
+    **Multi-decl rule (bug fix):** when more than one declaration is present,
+    this function INTENTIONALLY returns False without mutating any result.
+    ``_split_items_per_declaration`` already assigns ``_client_declared_duties``
+    per-decl from each declaration's own ``decl_meta``. Injecting any single
+    decl's value into ``r.invoice_data`` here would then leak via the
+    ``dict(invoice_data)`` shallow copy into EVERY per-decl XLSX — the exact
+    cross-shipment contamination that made e.g. 9600998's $8.96 show up on
+    9603312's XLSX. Per-decl code is authoritative for multi-decl shipments.
 
     Returns True if any values were injected (caller should regenerate XLSX).
     """
-    if not decl_meta or not results:
+    if not decl_meta_or_list or not results:
         return False
+
+    # Normalise input to a list of metadata dicts.
+    if isinstance(decl_meta_or_list, dict):
+        all_decls = [decl_meta_or_list]
+    else:
+        try:
+            all_decls = [m for m, _ in decl_meta_or_list if m]
+        except (TypeError, ValueError):
+            return False
+
+    if not all_decls:
+        return False
+
+    # Multi-declaration case: defer to per-declaration XLSX generation.
+    # See docstring for the full rationale.
+    if len(all_decls) > 1:
+        logger.debug(
+            f"_inject_handwritten_duties: {len(all_decls)} declarations present — "
+            "skipping batch injection (per-decl XLSX handles each independently)"
+        )
+        return False
+
+    decl_meta = all_decls[0]
 
     # Extract handwritten duty value (prefer EC$ since ASYCUDA duties are in XCD)
     client_duties = None
@@ -901,6 +1050,13 @@ def _extract_consignee(args) -> str:
     _PLACEHOLDER_CONSIGNEES = {'SAME AS CONSIGNEE', 'SAME AS SHIPPER', 'SAME AS ABOVE',
                                'AS PER SHIPPER', 'TO ORDER', 'TO THE ORDER OF',
                                'NOTIFY', 'NOTIFY:', 'NOTIFY PARTY', 'NOTIFY PARTY:'}
+    # Field labels that may be grabbed by OCR when extraction fails
+    _FIELD_LABELS = {'DESCRIPTION OF GOODS', 'DESCRIPTION OF PACKAGES', 'DESCRIPTION',
+                     'CONSIGNEE', 'SHIPPER', 'SHIP TO', 'BILL TO', 'SOLD TO',
+                     'MARKS & NUMBERS', 'GROSS WEIGHT', 'MEASUREMENT',
+                     'PARTICULARS FURNISHED BY SHIPPER', 'FORWARDING AGENT',
+                     'EXPORTING CARRIER', 'PORT OF LOADING', 'PORT OF DISCHARGE',
+                     'PLACE OF DELIVERY', 'NOTIFY PARTY ALSO NOTIFY'}
 
     def _is_valid_consignee(name: str) -> bool:
         """Reject names that are clearly not consignee names."""
@@ -909,38 +1065,74 @@ def _extract_consignee(args) -> str:
         upper = name.upper().strip()
         if upper in _PLACEHOLDER_CONSIGNEES:
             return False
+        if upper in _FIELD_LABELS:
+            return False
         # Reject if it starts with "Notify" — OCR artifact from manifest
         if re.match(r'^NOTIFY\b', upper):
             return False
+        # Reject if it looks like a BL field header (all caps + generic terms)
+        if re.match(r'^(DESCRIPTION|PARTICULARS|MARKS|GROSS|MEASUREMENT)\b', upper):
+            return False
         return True
 
+    def _normalize_consignee(name: str) -> str:
+        """Strip pencil-written annotations (e.g. ``(FREIGHT 5.00 US)``).
+
+        Clients sometimes scribble freight/handling notes after the consignee
+        name on BLs and simplified declarations. OCR picks these up verbatim,
+        producing values like ``ROSALIE LA GRENADE (FREIGHT 5.00 US)`` that
+        should never show up in the email summary. Tolerates OCR closer
+        variants ``)`` ``}`` ``]`` and missing closers at end-of-string.
+        """
+        if not name:
+            return name
+        cleaned = re.sub(
+            r'\s*[\(\[\{]\s*FREIGHT\b.*?(?:[\)\]\}]|$)',
+            '',
+            name,
+            flags=re.IGNORECASE,
+        ).strip()
+        # Also strip trailing bare "FREIGHT X.XX US" without parens
+        # (OCR sometimes drops the brackets entirely).
+        cleaned = re.sub(
+            r'\s+FREIGHT\s+[\d.]+\s*(?:US|USD)?\s*$',
+            '',
+            cleaned,
+            flags=re.IGNORECASE,
+        ).strip()
+        # Tidy residual whitespace/punctuation
+        cleaned = re.sub(r'[\s,;:\-]+$', '', cleaned).strip()
+        return cleaned
+
     # 1. Manifest metadata (set by extract_manifest_metadata in _prepare_invoice_pdfs)
-    consignee = (decl_meta.get('consignee_name') or '').strip()
+    consignee = _normalize_consignee((decl_meta.get('consignee_name') or '').strip())
     if _is_valid_consignee(consignee):
         logger.info(f"Consignee from manifest: {consignee}")
         return consignee
 
     # 2. Declaration metadata (set by extract_declaration_metadata in _prepare_invoice_pdfs)
-    consignee = (decl_meta.get('consignee') or '').strip()
+    consignee = _normalize_consignee((decl_meta.get('consignee') or '').strip())
     if _is_valid_consignee(consignee):
         logger.info(f"Consignee from declaration: {consignee}")
         return consignee
 
-    # 3. Bill of Lading PDF — parse it for consignee
+    # 3. Bill of Lading PDF — parse it for consignee (try ALL BL files, not just first)
     classification = getattr(args, '_classification', {})
     bl_files = classification.get('bill_of_lading', [])
     if bl_files and hasattr(args, 'input_dir'):
-        bl_path = os.path.join(args.input_dir, bl_files[0])
-        if os.path.exists(bl_path):
+        for bl_file in bl_files:
+            bl_path = os.path.join(args.input_dir, bl_file)
+            if not os.path.exists(bl_path):
+                continue
             try:
                 from bl_parser import parse_bl_pdf
                 bl_data = parse_bl_pdf(bl_path)
-                consignee = (bl_data.get('consignee') or '').strip()
-                if consignee:
-                    logger.info(f"Consignee from Bill of Lading: {consignee}")
+                consignee = _normalize_consignee((bl_data.get('consignee') or '').strip())
+                if _is_valid_consignee(consignee):
+                    logger.info(f"Consignee from Bill of Lading ({bl_file}): {consignee}")
                     return consignee
             except Exception as e:
-                logger.debug(f"BL consignee extraction failed: {e}")
+                logger.debug(f"BL consignee extraction failed for {bl_file}: {e}")
 
             # Fallback: extract consignee from BL text via regex
             try:
@@ -960,11 +1152,12 @@ def _extract_consignee(args) -> str:
                         )
                     if consignee_match:
                         name = consignee_match.group(1).strip().split('\n')[0].strip()
-                        if name and len(name) > 2 and not re.match(r'^\d', name):
-                            logger.info(f"Consignee from BL text: {name}")
+                        name = _normalize_consignee(name)
+                        if _is_valid_consignee(name):
+                            logger.info(f"Consignee from BL text ({bl_file}): {name}")
                             return name
             except Exception as e:
-                logger.debug(f"BL text consignee extraction failed: {e}")
+                logger.debug(f"BL text consignee extraction failed for {bl_file}: {e}")
 
     # 4. Declaration PDFs not yet parsed via pdf_splitter — try them
     decl_files = classification.get('declaration', [])
@@ -975,7 +1168,7 @@ def _extract_consignee(args) -> str:
                 decl_path = os.path.join(args.input_dir, df)
                 if os.path.exists(decl_path):
                     meta = extract_declaration_metadata(decl_path)
-                    consignee = (meta.get('consignee') or '').strip()
+                    consignee = _normalize_consignee((meta.get('consignee') or '').strip())
                     if consignee:
                         logger.info(f"Consignee from declaration PDF ({df}): {consignee}")
                         return consignee
@@ -1417,7 +1610,7 @@ def detect_mode(args) -> str:
 
         bl_files = classification.get('bill_of_lading', [])
         decl_files = classification.get('declaration', [])
-        bl_pdf = os.path.join(args.input_dir, bl_files[0]) if bl_files else None
+        bl_pdf = _select_best_bl_pdf(bl_files, args.input_dir) if bl_files else None
 
         # Simplified Declaration serves same role as BL for shipment identification
         if not bl_pdf and decl_files:
@@ -1465,6 +1658,64 @@ def _looks_like_bl_number(value: str) -> bool:
     if not re.match(r'^[A-Za-z0-9_-]+$', value):
         return False
     return True
+
+
+def _select_best_bl_pdf(bl_files: list, input_dir: str) -> str:
+    """Select the best BL PDF from a list of candidates.
+
+    Scores each file by the presence of Bill of Lading keywords (CONSIGNEE,
+    SHIPPER, FREIGHT, B/L NO, etc.) rather than raw text length.  A genuine
+    BL will hit many of these terms; a mis-classified Caricom declaration or
+    packing list will not.
+
+    Returns the full path to the best BL PDF, or None if no BL files.
+    """
+    if not bl_files:
+        return None
+    if len(bl_files) == 1:
+        return os.path.join(input_dir, bl_files[0])
+
+    try:
+        from stages.supplier_resolver import extract_pdf_text
+    except ImportError:
+        return os.path.join(input_dir, bl_files[0])
+
+    _BL_KEYWORDS = [
+        r'BILL\s*OF\s*LADING', r'B/?L\s*N[Oo]', r'CONSIGNEE',
+        r'SHIPPER', r'NOTIFY\s*PARTY', r'PORT\s*OF\s*(LOADING|DISCHARGE)',
+        r'OCEAN\s*FREIGHT', r'FREIGHT\s*(PREPAID|COLLECT|CHARGES)',
+        r'CONTAINER\s*NO', r'SEAL\s*NO', r'VESSEL',
+        r'PLACE\s*OF\s*(DELIVERY|RECEIPT)', r'LADEN\s*ON\s*BOARD',
+    ]
+
+    best_path = None
+    best_score = -1
+    for f in bl_files:
+        fpath = os.path.join(input_dir, f)
+        if not os.path.exists(fpath):
+            continue
+        try:
+            text = extract_pdf_text(fpath) or ''
+            text_upper = text.upper()
+            if not text.strip():
+                continue
+            # Score = number of BL keyword matches
+            score = sum(1 for kw in _BL_KEYWORDS if re.search(kw, text_upper))
+            # Bonus: filename contains "bill_of_lading" or "bl"
+            fname_lower = f.lower()
+            if 'bill_of_lading' in fname_lower or fname_lower.startswith('bl'):
+                score += 2
+            logger.debug(f"BL score for {f}: {score} (text {len(text.strip())} chars)")
+            if score > best_score:
+                best_score = score
+                best_path = fpath
+        except Exception:
+            continue
+
+    if best_path:
+        logger.info(f"Selected best BL PDF: {os.path.basename(best_path)} (score={best_score})")
+        return best_path
+    return os.path.join(input_dir, bl_files[0])
 
 
 def _auto_detect_bl_number(args, bl_pdf: str) -> None:
@@ -1989,12 +2240,16 @@ def run_bl_mode(args) -> dict:
     # ── Phase 2: BL allocation ──
     original_invoice_count = len(results)  # total invoices before combining
     bl_files = (classification or {}).get('bill_of_lading', [])
-    bl_pdf_path = os.path.join(args.input_dir, bl_files[0]) if bl_files else None
+    bl_pdf_path = _select_best_bl_pdf(bl_files, args.input_dir) if bl_files else None
+    # Build list of supplementary BL paths (all BL files except the primary)
+    all_bl_paths = [os.path.join(args.input_dir, f) for f in bl_files] if bl_files else []
+    sup_bl_paths = [p for p in all_bl_paths if p != bl_pdf_path]
     bl_alloc = allocate_bl_packages(
         bl_pdf_path=bl_pdf_path,
         invoice_results=results,
         output_dir=output_dir,
         bl_number=args.bl or '',
+        supplementary_bl_paths=sup_bl_paths or None,
     )
     args._bl_alloc = bl_alloc  # store for consolidation report cross-reference
 
@@ -2043,7 +2298,11 @@ def run_bl_mode(args) -> dict:
     # extracted by LLM vision from pencil annotations on the Simplified Declaration.
     # Wire these into invoice_data['_client_declared_duties'] so the XLSX duty
     # estimation section can show the variance comparison.
-    if _inject_handwritten_duties(decl_meta, results):
+    # Prefer full declarations list when available (multi-decl shipments must be
+    # skipped by the batch injector so per-decl XLSX generation controls duty
+    # assignment per waybill).
+    _inject_src = getattr(args, '_all_declarations', None) or decl_meta
+    if _inject_handwritten_duties(_inject_src, results):
         # Regenerate XLSX files so the duty estimation section includes the
         # client declared duties comparison.  The initial XLSX was generated
         # before declaration metadata was available.
@@ -2117,6 +2376,32 @@ def run_bl_mode(args) -> dict:
     except Exception as e:
         logger.warning(f"XLSX validation failed: {e}")
         _validate_xlsx_variance(results)  # fallback to print-only
+
+    # ── Classification cross-check (LLM-based) ──
+    class_fixes_applied = 0
+    try:
+        from classification_verifier import verify_and_fix as verify_class, print_verification_report
+        class_results = {}
+        for r in results:
+            if r.xlsx_path and os.path.exists(r.xlsx_path):
+                result = verify_class(r.xlsx_path, BASE_DIR, auto_fix=True)
+                if result['flags']:
+                    class_results[os.path.basename(r.xlsx_path)] = result
+                    class_fixes_applied += len(result.get('fixed', []))
+        if class_results:
+            print_verification_report(class_results)
+    except Exception as e:
+        logger.warning(f"Classification verification failed: {e}")
+
+    # Re-validate after classification fixes so checklist uses fresh data
+    if class_fixes_applied > 0:
+        logger.info(f"Re-validating after {class_fixes_applied} classification fixes")
+        try:
+            from xlsx_validator import validate_and_fix
+            validation = validate_and_fix(results, BASE_DIR, bl_alloc=bl_alloc,
+                                          manifest_meta=manifest_meta)
+        except Exception as e:
+            logger.warning(f"Post-classification re-validation failed: {e}")
 
     # ── Phase 3: Email params + optional send ──
     email_sent = False
@@ -2224,21 +2509,22 @@ def run_bl_mode(args) -> dict:
             # whole waybill).
             _maybe_save_proposed_fixes(results, email_params_path, output_dir)
 
-            if args.send_email:
-                for pp in all_email_params_paths:
-                    try:
-                        from xlsx_validator import shipment_checklist
-                        with open(pp) as f:
-                            ep = json.load(f)
-                        cl = shipment_checklist(ep, validation)
-                        if cl and not cl['passed']:
-                            print(f"    Email BLOCKED for {os.path.basename(pp)}: {cl['blocker_count']} blocker(s)")
-                            continue
-                    except Exception:
-                        pass
-                    _send_email_from_params(pp, args)
-                    email_sent = True
-                # Send the Proposed Fixes sidecar once per shipment (not per declaration)
+            # Auto-send emails when checklist passes
+            for pp in all_email_params_paths:
+                try:
+                    from xlsx_validator import shipment_checklist
+                    with open(pp) as f:
+                        ep = json.load(f)
+                    cl = shipment_checklist(ep, validation)
+                    if cl and not cl['passed']:
+                        print(f"    Email BLOCKED for {os.path.basename(pp)}: {cl['blocker_count']} blocker(s)")
+                        continue
+                except Exception:
+                    pass
+                _send_email_from_params(pp, args)
+                email_sent = True
+            # Send the Proposed Fixes sidecar once per shipment (not per declaration)
+            if email_sent:
                 _send_proposed_fixes_sidecar(output_dir)
         else:
             # Single declaration (or none) — original flow
@@ -2294,13 +2580,12 @@ def run_bl_mode(args) -> dict:
             except Exception as e:
                 logger.warning(f"Shipment checklist failed: {e}")
 
-            # Only send email directly when --send-email (legacy CLI mode)
-            if args.send_email:
-                if checklist and not checklist['passed']:
-                    print(f"    Email BLOCKED by checklist: {checklist['blocker_count']} blocker(s). Fix issues first.")
-                else:
-                    email_sent = _send_bl_email(args, results, bl_alloc, all_attachments, manifest_meta,
-                                                total_invoices=original_invoice_count)
+            # Auto-send email when checklist passes
+            if checklist and not checklist['passed']:
+                print(f"    Email BLOCKED by checklist: {checklist['blocker_count']} blocker(s). Fix issues first.")
+            else:
+                email_sent = _send_bl_email(args, results, bl_alloc, all_attachments, manifest_meta,
+                                            total_invoices=original_invoice_count)
 
     # Archive any reviewer-edited Proposed Fixes YAML that was applied this run
     _maybe_archive_applied_fixes(args, args.bl or args.waybill or '')
@@ -2547,7 +2832,9 @@ def run_batch_mode(args) -> dict:
                 logger.info(f"Supplemented manifest {key} from declaration: {decl_meta[key]}")
 
     # Inject handwritten customs values into invoice_data for duty estimation (batch mode)
-    if _inject_handwritten_duties(decl_meta, results):
+    # Prefer full declarations list for multi-decl safety (see main-path comment above).
+    _inject_src = getattr(args, '_all_declarations', None) or decl_meta
+    if _inject_handwritten_duties(_inject_src, results):
         try:
             from bl_xlsx_generator import generate_bl_xlsx
             for r in results:
@@ -2612,6 +2899,32 @@ def run_batch_mode(args) -> dict:
     except Exception as e:
         logger.warning(f"XLSX validation failed: {e}")
         _validate_xlsx_variance(results)  # fallback to print-only
+
+    # Classification cross-check (LLM-based)
+    class_fixes_applied = 0
+    try:
+        from classification_verifier import verify_and_fix as verify_class, print_verification_report
+        class_results = {}
+        for r in results:
+            if r.xlsx_path and os.path.exists(r.xlsx_path):
+                result = verify_class(r.xlsx_path, BASE_DIR, auto_fix=True)
+                if result['flags']:
+                    class_results[os.path.basename(r.xlsx_path)] = result
+                    class_fixes_applied += len(result.get('fixed', []))
+        if class_results:
+            print_verification_report(class_results)
+    except Exception as e:
+        logger.warning(f"Classification verification failed: {e}")
+
+    # Re-validate after classification fixes so checklist uses fresh data
+    if class_fixes_applied > 0:
+        logger.info(f"Re-validating after {class_fixes_applied} classification fixes")
+        try:
+            from xlsx_validator import validate_and_fix
+            validation = validate_and_fix(results, BASE_DIR, bl_alloc=None,
+                                          manifest_meta=manifest_meta)
+        except Exception as e:
+            logger.warning(f"Post-classification re-validation failed: {e}")
 
     # Email params + optional send
     email_sent = False
@@ -2732,21 +3045,20 @@ def run_batch_mode(args) -> dict:
             if os.path.exists(bak):
                 os.remove(bak)
 
-            # Send emails for each declaration if --send-email
-            if args.send_email:
-                for params_path in all_email_params_paths:
-                    try:
-                        from xlsx_validator import shipment_checklist
-                        with open(params_path) as f:
-                            ep = json.load(f)
-                        cl = shipment_checklist(ep, validation)
-                        if cl and not cl['passed']:
-                            print(f"    Email BLOCKED for {os.path.basename(params_path)}: {cl['blocker_count']} blocker(s)")
-                            continue
-                    except Exception:
-                        pass
-                    _send_email_from_params(params_path, args)
-                    email_sent = True
+            # Auto-send emails when checklist passes
+            for params_path in all_email_params_paths:
+                try:
+                    from xlsx_validator import shipment_checklist
+                    with open(params_path) as f:
+                        ep = json.load(f)
+                    cl = shipment_checklist(ep, validation)
+                    if cl and not cl['passed']:
+                        print(f"    Email BLOCKED for {os.path.basename(params_path)}: {cl['blocker_count']} blocker(s)")
+                        continue
+                except Exception:
+                    pass
+                _send_email_from_params(params_path, args)
+                email_sent = True
         else:
             # Single declaration (or none) — original flow
             decl_meta = getattr(args, '_declaration_metadata', {})
@@ -2797,12 +3109,11 @@ def run_batch_mode(args) -> dict:
             except Exception as e:
                 logger.warning(f"Shipment checklist failed: {e}")
 
-            # Only send email directly when --send-email (legacy CLI mode)
-            if args.send_email:
-                if checklist and not checklist['passed']:
-                    print(f"    Email BLOCKED by checklist: {checklist['blocker_count']} blocker(s). Fix issues first.")
-                else:
-                    email_sent = _send_batch_email(args, results, all_attachments, manifest_meta)
+            # Auto-send email when checklist passes
+            if checklist and not checklist['passed']:
+                print(f"    Email BLOCKED by checklist: {checklist['blocker_count']} blocker(s). Fix issues first.")
+            else:
+                email_sent = _send_batch_email(args, results, all_attachments, manifest_meta)
 
     # Archive any reviewer-edited Proposed Fixes YAML that was applied this run
     _maybe_archive_applied_fixes(args, args.waybill or args.bl or '')
@@ -3586,8 +3897,8 @@ def _extract_office_from_bl(args) -> str:
         return ''
     try:
         from stages.supplier_resolver import extract_pdf_text
-        bl_path = os.path.join(args.input_dir, bl_files[0])
-        if not os.path.exists(bl_path):
+        bl_path = _select_best_bl_pdf(bl_files, args.input_dir)
+        if not bl_path or not os.path.exists(bl_path):
             return ''
         bl_text = extract_pdf_text(bl_path)
         if not bl_text:
@@ -3759,9 +4070,9 @@ def _save_email_params(args, results: list, bl_alloc, all_attachments: list,
     Does NOT send — email sending is a separate step (send_shipment_email.py).
     Returns the path to the saved params file.
     """
-    # Determine predominant country of origin
+    # Determine predominant country of origin (translate ISO → CARICOM)
     countries = [r.supplier_info.get('country', 'US') for r in results]
-    country_origin = max(set(countries), key=countries.count)
+    country_origin = _iso_to_caricom_country(max(set(countries), key=countries.count))
 
     # Use BL freight if available, else sum of invoice freight
     if bl_alloc:
@@ -4044,7 +4355,7 @@ def _save_batch_email_params(args, results: list, all_attachments: list,
                              total_invoices: int = 0) -> str:
     """Compute batch email params and save to _email_params.json. Returns path."""
     countries = [r.supplier_info.get('country', 'US') for r in results]
-    country_origin = max(set(countries), key=countries.count)
+    country_origin = _iso_to_caricom_country(max(set(countries), key=countries.count))
 
     email_freight = sum(r.freight for r in results)
     email_packages = str(len(results))

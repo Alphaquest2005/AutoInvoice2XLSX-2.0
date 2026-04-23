@@ -44,15 +44,22 @@ def allocate_bl_packages(
     invoice_results: List,           # List[InvoiceResult] from invoice_processor
     output_dir: str,
     bl_number: str = '',
+    supplementary_bl_paths: Optional[List[str]] = None,
 ) -> Optional[BLAllocation]:
     """
     Parse BL PDF, match invoices to shipments, allocate packages, update XLSX.
 
+    When multiple BL-classified files exist (e.g. an actual BL + a Caricom
+    declaration), the primary BL supplies freight/consignee/waybill while
+    supplementary files supply package counts and shipment-level detail that
+    the primary may lack.
+
     Args:
-        bl_pdf_path: Path to Bill of Lading PDF (None if no BL found)
+        bl_pdf_path: Path to primary Bill of Lading PDF (None if no BL found)
         invoice_results: List of InvoiceResult from invoice_processor
         output_dir: Directory where XLSX files are stored
         bl_number: BL number for file naming (auto-detected from PDF if empty)
+        supplementary_bl_paths: Additional BL-classified files to merge data from
 
     Returns:
         BLAllocation with all allocation data, or None if no BL PDF
@@ -74,6 +81,36 @@ def allocate_bl_packages(
     bl_piece_count = gt.get('pieces', 0) or gt.get('packages', 1)
     bl_packages = str(bl_piece_count)
     bl_weight = str(gt.get('weight_kg', 0))
+
+    # ── Supplement from other BL-classified files ──
+    # When the final BL isn't available, multiple partial documents (actual BL,
+    # Caricom declaration, packing list) may each carry different data.  Merge
+    # the best values: highest package count, heaviest weight, extra shipments.
+    if supplementary_bl_paths and bl_piece_count <= len(invoice_results):
+        for sup_path in supplementary_bl_paths:
+            if not os.path.exists(sup_path):
+                continue
+            try:
+                sup_data = parse_bl_pdf(sup_path)
+                sup_gt = sup_data.get('grand_total', {})
+                sup_pkgs = sup_gt.get('pieces', 0) or sup_gt.get('packages', 0)
+                sup_weight = sup_gt.get('weight_kg', 0)
+                if sup_pkgs > bl_piece_count:
+                    logger.info(f"Supplemented packages from {os.path.basename(sup_path)}: "
+                                f"{bl_piece_count} -> {sup_pkgs}")
+                    bl_piece_count = sup_pkgs
+                    bl_packages = str(sup_pkgs)
+                if sup_weight > float(bl_weight or 0):
+                    logger.info(f"Supplemented weight from {os.path.basename(sup_path)}: "
+                                f"{bl_weight} -> {sup_weight}")
+                    bl_weight = str(sup_weight)
+                # Merge shipments for better invoice matching
+                if sup_data.get('shipments'):
+                    bl_data.setdefault('shipments', []).extend(sup_data['shipments'])
+                    logger.info(f"Merged {len(sup_data['shipments'])} shipment(s) from "
+                                f"{os.path.basename(sup_path)}")
+            except Exception as e:
+                logger.debug(f"Supplementary BL parse failed for {sup_path}: {e}")
 
     # Auto-detect BL number from parsed data if not provided
     if not bl_number:

@@ -1,0 +1,8 @@
+{
+  "_comment": "Baseline for the strangler-fig migration size guard. Numbers MUST only decrease (pipeline_*) or increase (src_*). Update ONLY via scripts/update_monotonic_baseline.py after a green pipeline→src migration PR — never loosen manually.",
+  "pipeline_run_py_loc": 4786,
+  "pipeline_py_file_count": 58,
+  "src_autoinvoice_py_file_count": 55,
+  "updated_at": "2026-04-22",
+  "updated_reason": "SSOT: pipeline/bl_xlsx_generator.py + pipeline/stages/supplier_resolver.py now delegate CET category walk to src/autoinvoice/domain/services/cet_category.py"
+}

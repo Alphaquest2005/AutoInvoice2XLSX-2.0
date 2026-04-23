@@ -1,0 +1,89 @@
+{
+  "session_start": "2026-04-23T02:36:16.222335+00:00",
+  "total_folders": 1,
+  "processed": 1,
+  "elapsed_s": 211.3,
+  "results": [
+    {
+      "folder": "03152025_ASHIONNOVA",
+      "staged": 4,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "140070017",
+            "supplier": "Fashion Nova",
+            "format": "fashionnova_commercial",
+            "items": 3,
+            "matched": 0,
+            "classified": 4,
+            "total": 100.96,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_ASHIONNOVA.out/HAWB9676008-Declaration_combined.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_ASHIONNOVA.out/140070017_2.pdf"
+          }
+        ],
+        "email_sent": true,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_ASHIONNOVA.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_ASHIONNOVA.out/_email_params.json",
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": [
+            {
+              "file": "HAWB9676008-Declaration_combined.xlsx",
+              "supplier": "Fashion Nova",
+              "issues": [],
+              "fixes": [],
+              "fixed": 0,
+              "unfixed": 0
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "HAWB9676008-Declaration_combined.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": true,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            }
+          ],
+          "blocker_count": 0,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 211.3
+    }
+  ]
+}

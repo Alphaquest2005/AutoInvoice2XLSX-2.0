@@ -1,0 +1,11 @@
+{
+  "format_name": "la_parts_order_number",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "00000000",
+      "classification_source": "",
+      "description": "Buyer kaz_f4 Rickado C Thomas 2 items $"
+    }
+  ]
+}

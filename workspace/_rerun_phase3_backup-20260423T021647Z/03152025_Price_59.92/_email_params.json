@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9590726",
+  "consignee_name": "KERRY FRANK (FREIGHT 5.00 US)",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 2,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "2.0",
+  "country_origin": "US",
+  "freight": "5.0",
+  "man_reg": "2024/28",
+  "attachment_paths": [
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Price_59.92.out/113-2477560-9595440.pdf",
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Price_59.92.out/HAWB9590726-Declaration_combined.xlsx",
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Price_59.92.out/HAWB9590726-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

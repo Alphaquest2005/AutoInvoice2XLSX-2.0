@@ -1,0 +1,488 @@
+{
+  "06-11830-29458.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'eBay'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'2025 Hamilton Avenue, San Jose, CA 95125'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'87082900'"
+        },
+        "AK3": {
+          "value": "'87082900'"
+        },
+        "AK6": {
+          "value": "'87082900'"
+        },
+        "AK7": {
+          "value": "'87082900'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'06-11830-29458'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "D2": {
+          "value": "'2024-07-16'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Unidentifiable transaction data'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'87082900'"
+        },
+        "F3": {
+          "value": "'87082900'"
+        },
+        "F4": {
+          "value": "'00000000'"
+        },
+        "F5": {
+          "value": "'00000000'"
+        },
+        "F6": {
+          "value": "'87082900'"
+        },
+        "F7": {
+          "value": "'87082900'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'00000000'"
+        },
+        "I3": {
+          "value": "'EBAY-1'"
+        },
+        "I4": {
+          "value": "'EBAY-2'"
+        },
+        "I5": {
+          "value": "'EBAY-3'"
+        },
+        "I6": {
+          "value": "'EBAY-4'"
+        },
+        "I7": {
+          "value": "'EBAY-5'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J12": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J13": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J14": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J15": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J16": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J18": {
+          "value": "'NET TOTAL'"
+        },
+        "J19": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J2": {
+          "value": "'ebay Seller\\tlucascountycars Whitney Andrew 10813 NW 30th st BLDG 115 GRE 2547... (+4 more) (5 items)'"
+        },
+        "J21": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J23": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J24": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J25": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J26": {
+          "value": "'CET (20%) \u2014 Tariff 00000000'"
+        },
+        "J27": {
+          "value": "'CSC (6%)'"
+        },
+        "J28": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J29": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J3": {
+          "value": "'ebay Seller\\tlucascountycars Whitney Andrew 10813 NW 30th st BLDG 115 GRE 2547...'"
+        },
+        "J30": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J4": {
+          "value": "'Shipping\\tFree Tax*'"
+        },
+        "J5": {
+          "value": "\"*We're required by law to collect sales tax and applicable fees for certain t...\""
+        },
+        "J6": {
+          "value": "'1/2 8uyer kimon_jerome Whitney Andrew 1item'"
+        },
+        "J7": {
+          "value": "'Seller lucascountycars 10813 NW 30th st BLDG 115 GRE 2547 Shipping Free Payme...'"
+        },
+        "J8": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J9": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "5"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "K5": {
+          "value": "1"
+        },
+        "K6": {
+          "value": "1"
+        },
+        "K7": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "N6": {
+          "value": "'USD'"
+        },
+        "N7": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "9.144"
+        },
+        "O3": {
+          "value": "5.72"
+        },
+        "O4": {
+          "value": "3.2"
+        },
+        "O5": {
+          "value": "5.72"
+        },
+        "O6": {
+          "value": "5.72"
+        },
+        "O7": {
+          "value": "25.36"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "formula": "=P8-P9"
+        },
+        "P12": {
+          "value": "0"
+        },
+        "P13": {
+          "value": "0"
+        },
+        "P14": {
+          "value": "3.2"
+        },
+        "P15": {
+          "value": "0"
+        },
+        "P16": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P18": {
+          "formula": "=P8+P16"
+        },
+        "P19": {
+          "formula": "=S2"
+        },
+        "P2": {
+          "value": "45.72"
+        },
+        "P21": {
+          "formula": "=S2-P18"
+        },
+        "P24": {
+          "value": "48.92"
+        },
+        "P25": {
+          "value": "132.91"
+        },
+        "P26": {
+          "value": "26.58"
+        },
+        "P27": {
+          "value": "7.97"
+        },
+        "P28": {
+          "value": "25.12"
+        },
+        "P29": {
+          "value": "59.67"
+        },
+        "P3": {
+          "value": "5.72"
+        },
+        "P30": {
+          "value": "0.4489504175758032"
+        },
+        "P4": {
+          "value": "3.2"
+        },
+        "P5": {
+          "value": "5.72"
+        },
+        "P6": {
+          "value": "5.72"
+        },
+        "P7": {
+          "value": "25.36"
+        },
+        "P8": {
+          "formula": "=P2"
+        },
+        "P9": {
+          "formula": "=SUM(P2:P7)-P8"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q10": {
+          "formula": "=Q8-Q9"
+        },
+        "Q16": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q18": {
+          "formula": "=Q8+Q16"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q21": {
+          "formula": "=S2-Q18"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q6": {
+          "formula": "=O6*K6"
+        },
+        "Q7": {
+          "formula": "=O7*K7"
+        },
+        "Q8": {
+          "formula": "=Q2"
+        },
+        "Q9": {
+          "formula": "=SUM(Q2:Q7)-Q8"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "R6": {
+          "formula": "=P6-Q6"
+        },
+        "R7": {
+          "formula": "=P7-Q7"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "48.92"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "3.2"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'EBAY'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "06-11830-29458.pdf",
+        "06-11830-29458.xlsx",
+        "HAWB9536971-Declaration.pdf"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "WHITNEY ANDREW",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "13.00",
+      "location": "WebSource",
+      "man_reg": "2024 28",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 1,
+      "waybill": "HAWB9536971",
+      "weight": "6.0"
+    }
+  }
+}

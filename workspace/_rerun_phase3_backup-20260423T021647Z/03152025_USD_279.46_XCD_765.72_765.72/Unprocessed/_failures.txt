@@ -1,0 +1,4 @@
+Source: /mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_USD_279.46_XCD_765.72_765.72.stage
+
+113-5364495-5165021_Invoice_1.pdf: No items extracted (format: unmatched)
+HAWB9597917-Manifest_Invoice_1.pdf: No items extracted (format: unmatched)

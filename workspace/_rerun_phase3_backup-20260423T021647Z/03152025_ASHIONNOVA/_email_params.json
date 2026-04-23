@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9676008",
+  "consignee_name": "CARREMA LEWIS",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "3.0",
+  "country_origin": "US",
+  "freight": "7.00",
+  "man_reg": "2024 30",
+  "attachment_paths": [
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/03152025_ASHIONNOVA/140070017.pdf",
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/03152025_ASHIONNOVA/140070017.xlsx",
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/03152025_ASHIONNOVA/HAWB9676008-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB39662041",
+  "consignee_name": "NOAMI COUTAIN",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "3.0",
+  "country_origin": "US",
+  "freight": "7.00",
+  "man_reg": "2024/30",
+  "attachment_paths": [
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_140.56_0.00_0.00_-_7.40_140.56_USD_you_saved_7.40.out/AU236542_Invoice.pdf",
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_140.56_0.00_0.00_-_7.40_140.56_USD_you_saved_7.40.out/AU236542_Invoice.xlsx",
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_140.56_0.00_0.00_-_7.40_140.56_USD_you_saved_7.40.out/HAWB39662041-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

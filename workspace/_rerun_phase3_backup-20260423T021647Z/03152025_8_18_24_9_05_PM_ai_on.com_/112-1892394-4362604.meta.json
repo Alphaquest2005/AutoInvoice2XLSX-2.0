@@ -1,0 +1,11 @@
+{
+  "format_name": "amazon",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "70099100",
+      "classification_source": "rule",
+      "description": "Dorman 56768 Driver Side Door Mirror Glass Compatible with Select Mitsubishi ..."
+    }
+  ]
+}

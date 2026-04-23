@@ -1,0 +1,16 @@
+{
+  "format_name": "amazon",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "35061000",
+      "classification_source": "rule",
+      "description": "Atiick Wear and Go Glueless Bob Wig - Body Wave Lace Front Human Hair Wigs fo..."
+    },
+    {
+      "tariff_code": "67041100",
+      "classification_source": "rule",
+      "description": "MIAORUN Bob Wig Human Hair , 13 x 4 HD Lace Front Wigs Human Hair , 10 Inch G..."
+    }
+  ]
+}

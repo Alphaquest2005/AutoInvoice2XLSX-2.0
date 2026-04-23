@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9591350",
+  "consignee_name": "RICKADO THOMAS",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 2,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "1.0",
+  "country_origin": "US",
+  "freight": "3.00",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Order_totai.out/03-11786-67235.pdf",
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Order_totai.out/03-11786-67235_combined.xlsx",
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Order_totai.out/HAWB9591350-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

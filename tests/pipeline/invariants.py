@@ -277,6 +277,38 @@ def assert_variance_is_formula(ws: Worksheet) -> None:
     )
 
 
+def assert_all_variance_labels_are_formulas(ws: Worksheet) -> None:
+    """Every row whose label contains "VARIANCE CHECK" must carry a formula.
+
+    ``assert_variance_is_formula`` (via ``_find_label_row``) only returns the
+    bottom-most match, which misses the split-shipment case: both the
+    per-declaration ``VARIANCE CHECK`` and the grand ``COMBINED VARIANCE
+    CHECK`` must be formulas. Writing a hardcoded 0 into either destroys
+    Excel auditability (Law L2).
+    """
+    from openpyxl.utils import get_column_letter  # local: keep module import light
+
+    found: list[tuple[int, str]] = []
+    # Scan every cell — the variance label can live in col J or col A
+    # depending on the grouped vs ungrouped layout.
+    for row in range(1, ws.max_row + 1):
+        for col_idx in range(1, ws.max_column + 1):
+            v = ws.cell(row=row, column=col_idx).value
+            if isinstance(v, str) and "VARIANCE CHECK" in v.upper():
+                found.append((row, v.strip()))
+                break
+    assert found, f"[{ws.title}] no VARIANCE CHECK row found"
+    for row, label in found:
+        cell = ws.cell(row=row, column=COL_P_TOTAL_COST)
+        value = cell.value
+        assert isinstance(value, str) and value.startswith("="), (
+            f"[{ws.title}] {label!r} at row {row} col "
+            f"{get_column_letter(COL_P_TOTAL_COST)} must be a formula, "
+            f"got {value!r} (type={type(value).__name__}). Every variance "
+            f"audit cell — per-declaration AND combined — must stay a formula."
+        )
+
+
 def assert_adjustments_has_no_stacked_corrections(ws: Worksheet) -> None:
     """ADJUSTMENTS formula may have at most one appended correction.
 
@@ -806,6 +838,10 @@ def run_all_invariants(
         lambda: assert_row_q_r_formulas(ws, first, last),
     )
     _run("assert_variance_is_formula", lambda: assert_variance_is_formula(ws))
+    _run(
+        "assert_all_variance_labels_are_formulas",
+        lambda: assert_all_variance_labels_are_formulas(ws),
+    )
     _run(
         "assert_adjustments_has_no_stacked_corrections",
         lambda: assert_adjustments_has_no_stacked_corrections(ws),

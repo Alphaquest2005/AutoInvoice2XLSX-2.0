@@ -2335,12 +2335,20 @@
         "RUBBING COMPOUND"
       ],
       "exclude": [
-        "NAIL POLISH"
+        "NAIL POLISH",
+        "POLISHER",
+        "SANDER",
+        "DUAL ACTION",
+        "DUAL-ACTION",
+        "VARIABLE SPEED",
+        "120V",
+        "240V",
+        "BACKING PLATE"
       ],
       "code": "34053000",
       "category": "POLISHES & WAXES",
       "confidence": 0.85,
-      "notes": "Polishes/creams for bodywork Chapter 34"
+      "notes": "Polishes/creams for bodywork Chapter 34. Excludes power tools (polishers/sanders \u2192 84672900)"
     },
     {
       "id": "marine_adhesive_001",
@@ -3551,6 +3559,49 @@
       "code": "90189000",
       "category": "EAR PIERCING SUPPLIES",
       "confidence": 0.95
+    },
+    {
+      "id": "anchor_001",
+      "priority": 90,
+      "patterns": [
+        "ANCHOR,",
+        "ANCHOR ",
+        "ANCHOR DANFORTH",
+        "ANCHOR BRITANY",
+        "ANCHOR BRUCE",
+        "ANCHOR PLOW",
+        "GRAPNEL"
+      ],
+      "code": "73160000",
+      "category": "MARINE HARDWARE",
+      "confidence": 0.95,
+      "notes": "HS 73.16 Anchors, grapnels and parts thereof, of iron or steel"
+    },
+    {
+      "id": "wire_brush_001",
+      "priority": 85,
+      "patterns": [
+        "WIRE BRUSH",
+        "CUP BRUSH",
+        "WHEEL BRUSH"
+      ],
+      "code": "96039090",
+      "category": "BRUSHES",
+      "confidence": 0.9,
+      "notes": "HS 96.03 Brooms, brushes - Other"
+    },
+    {
+      "id": "tarpaulin_001",
+      "priority": 85,
+      "patterns": [
+        "TARPAULIN",
+        "TARP,",
+        "TARP "
+      ],
+      "code": "63061210",
+      "category": "TEXTILE ARTICLES",
+      "confidence": 0.9,
+      "notes": "HS 63.06 Tarpaulins of synthetic fibres"
     }
   ],
   "chapter_determination": {

@@ -1,0 +1,136 @@
+{
+  "session_start": "2026-04-23T03:12:14.759767+00:00",
+  "total_folders": 1,
+  "processed": 1,
+  "elapsed_s": 791.2,
+  "results": [
+    {
+      "folder": "03152025_Sales_Invoice",
+      "staged": 8,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "INVUS202408020047",
+            "supplier": "SHEIN US Services, LLC",
+            "format": "shein_us_invoice",
+            "items": 2,
+            "matched": 0,
+            "classified": 1,
+            "total": 18.72,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Sales_Invoice.out/HAWB9687189-Declaration_combined.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Sales_Invoice.out/INVUS202408020047.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Sales_Invoice.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Sales_Invoice.out/_email_params.json",
+        "validation": {
+          "total_issues": 2,
+          "fixed": 2,
+          "unfixed": 0,
+          "per_file": [
+            {
+              "file": "HAWB9687189-Declaration_combined.xlsx",
+              "supplier": "SHEIN US Services, LLC",
+              "issues": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "current": "00000000",
+                  "description": "ee eee ee ee eee ee ee eee ae a, diateyaitnn, a ERE Near VBP be ee. cee ee ne... (1 items)",
+                  "qty": 1,
+                  "total_cost": 9.09,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"ee eee ee ee eee ee ee eee ae a, diateyaitnn, a ERE Near VBP\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 3,
+                  "current": "00000000",
+                  "description": "ee eee ee ee eee ee ee eee ae a, diateyaitnn, a ERE Near VBP be ee. cee ee ne...",
+                  "qty": 1,
+                  "total_cost": 9.09,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"ee eee ee ee eee ee ee eee ae a, diateyaitnn, a ERE Near VBP\" using CARICOM CET schedule based on material and function."
+                }
+              ],
+              "fixes": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "old": "00000000",
+                  "new": "62052000",
+                  "method": "LLM: The description is garbled OCR text from the invoice. Based ",
+                  "description": "ee eee ee ee eee ee ee eee ae a, diateyaitnn, a ER"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 3,
+                  "old": "00000000",
+                  "new": "62052000",
+                  "method": "LLM: Identical garbled OCR text as Row 2, representing the same S",
+                  "description": "ee eee ee ee eee ee ee eee ae a, diateyaitnn, a ER"
+                }
+              ],
+              "remaining": [],
+              "fixed": 2,
+              "unfixed": 0
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "HAWB9687189-Declaration_combined.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": false,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            },
+            {
+              "check": "llm_review_consignee_name",
+              "severity": "block",
+              "message": "[LLM Review] Consignee name contains freight amount data '( FREIGHT 7.00 US)' appended to what appears to be a personal name rather than a company name.",
+              "field": "consignee_name",
+              "value": "SHANICE ST BERNARD ( FREIGHT 7.00 US)",
+              "fix_hint": "Review the source PDFs and correct the email params."
+            }
+          ],
+          "blocker_count": 1,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 791.2
+    }
+  ]
+}

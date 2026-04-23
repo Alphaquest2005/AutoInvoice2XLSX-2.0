@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9560165",
+  "consignee_name": "DAWSEANNE WILLIAMS",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "29.0",
+  "country_origin": "US",
+  "freight": "59.00",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Jul_16_2024_order_Order_2000120-11892676.out/2000120 - 11892676.pdf",
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Jul_16_2024_order_Order_2000120-11892676.out/2000120 - 11892676.xlsx",
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Jul_16_2024_order_Order_2000120-11892676.out/HAWB9560165-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

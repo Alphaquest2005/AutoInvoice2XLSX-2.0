@@ -427,7 +427,7 @@
       "code": "AUROLA",
       "name": "AUROLA",
       "full_name": "AUROLA",
-      "address": "",
+      "address": "9950 Wakeman Dr Manassas, VA 20110",
       "country_code": "US",
       "country": "United States",
       "currency": "USD",
@@ -864,5 +864,5 @@
       "notes": "Auto-added from invoice pipeline"
     }
   },
-  "last_updated": "2026-04-20"
+  "last_updated": "2026-04-23"
 }

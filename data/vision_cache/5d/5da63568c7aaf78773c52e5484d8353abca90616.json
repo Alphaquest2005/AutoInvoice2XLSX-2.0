@@ -10,12 +10,13 @@
   },
   "printed": {
     "consignee": "ROSALIE LA GRENADE",
-    "freight": 9.0,
+    "freight": "9.00",
     "waybill": "HAWB9603312",
     "man_reg": "2024/28",
     "office": "GDWBS",
-    "weight": 4.0,
-    "packages": 1
+    "weight": "4.0",
+    "packages": "1"
   },
-  "has_handwriting": false
+  "has_handwriting": false,
+  "_cache_version": 2
 }

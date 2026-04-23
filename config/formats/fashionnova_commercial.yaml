@@ -3,7 +3,7 @@
 # These are shipping invoices with item table including HS codes
 
 name: fashionnova_commercial
-version: "1.1"
+version: "1.2"
 priority: 50
 description: "FashionNova commercial/shipping invoice with itemized table"
 
@@ -14,6 +14,12 @@ ocr_normalize:
   - pattern: "[''`]"
     replace: ''
     description: "Remove OCR smart quotes noise"
+  - pattern: '(\d+)\s*,\s*\d+(?=\s+\$)'
+    replace: '\1'
+    description: "Strip stray OCR digit between qty and first $: '1 , 7 $41.99' → '1 $41.99'"
+  - pattern: '[.,»«~—\-/]+(?=\s*\$)'
+    replace: ''
+    description: "Strip OCR punctuation junk immediately before $ amounts (e.g. '$0.84.»' '~—«$0.00')"
   - pattern: '[$](\d)\s'
     replace: '$\1.00 '
     description: "Fix truncated dollar amount: $6 → $6.00"

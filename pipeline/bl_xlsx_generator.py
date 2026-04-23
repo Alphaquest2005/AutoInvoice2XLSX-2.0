@@ -39,7 +39,13 @@ _pipeline_dir = os.path.dirname(os.path.abspath(__file__))
 if _pipeline_dir not in sys.path:
     sys.path.insert(0, _pipeline_dir)
 
+# Ensure src/ is importable so we can pull the SSOT CET category service.
+_src_dir = os.path.join(os.path.dirname(_pipeline_dir), "src")
+if _src_dir not in sys.path:
+    sys.path.insert(0, _src_dir)
+
 from spec_loader import get_spec
+from autoinvoice.domain.services.cet_category import category_for as _category_for
 
 # ─── Load spec (singleton) ────────────────────────────────
 _spec = get_spec()
@@ -176,58 +182,14 @@ def _load_cet_descriptions() -> None:
             logger.error(f"[CET] Temp copy also failed: {e2}")
 
 def get_cet_category(tariff_code: str) -> str:
-    """Look up the CET description for a tariff code. Falls back to heading level."""
+    """Look up the CET description for a tariff code.
+
+    Delegates to :func:`autoinvoice.domain.services.cet_category.category_for`
+    — the SSOT implementation of the leaf-→subheading-→heading-→chapter walk.
+    This module only supplies the in-memory description cache.
+    """
     _load_cet_descriptions()
-    if not tariff_code or tariff_code == '00000000':
-        return ''
-    _GENERIC = {'OTHER', 'OTHER:', 'VIRGIN', 'NONE', ''}
-
-    def _is_useful(desc: str) -> bool:
-        cleaned = desc.strip().rstrip(':').strip()
-        if cleaned.upper() in _GENERIC:
-            return False
-        if re.match(r'^Of\s+\w+$', cleaned):
-            return False
-        if len(cleaned) < 3:
-            return False
-        if cleaned.upper().startswith('INVALID:'):
-            return False
-        return True
-
-    def _clean(desc: str) -> str:
-        if not desc:
-            return ''
-        desc = re.sub(r'[\n\r\t]+', ' ', desc).strip()
-        desc = re.sub(r' {2,}', ' ', desc)
-        if desc.upper().startswith('CATEGORY:'):
-            desc = desc[9:].strip()
-        desc = desc.rstrip(':').strip()
-        for sep in [' - ', '; ', ' (see ']:
-            if sep in desc:
-                desc = desc.split(sep)[0].strip()
-        if len(desc) > 80:
-            desc = desc[:77] + '...'
-        return desc
-
-    if tariff_code in _cet_desc_cache:
-        desc = _cet_desc_cache[tariff_code]
-        if _is_useful(desc):
-            return _clean(desc)
-    heading = tariff_code[:4] + '0000'
-    if heading in _cet_desc_cache:
-        desc = _cet_desc_cache[heading]
-        if _is_useful(desc):
-            return _clean(desc)
-    chapter = tariff_code[:2] + '000000'
-    if chapter in _cet_desc_cache:
-        desc = _cet_desc_cache[chapter]
-        if _is_useful(desc):
-            return _clean(desc)
-    prefix = tariff_code[:4]
-    for code, desc in _cet_desc_cache.items():
-        if code.startswith(prefix) and desc and _is_useful(desc):
-            return _clean(desc)
-    return ''
+    return _category_for(tariff_code, _cet_desc_cache)
 
 
 def get_cet_rate(tariff_code: str) -> Optional[float]:
@@ -478,7 +440,11 @@ def _write_items_ungrouped(
     for idx, item in enumerate(matched_items):
         tariff_code = str(item.get('tariff_code', '00000000'))
         cet_desc = get_cet_category(tariff_code)
-        category = cet_desc or _spec.category_name(tariff_code) or item.get('category', '')
+        spec_cat = _spec.category_name(tariff_code)
+        if spec_cat != _spec.category_default:
+            category = spec_cat
+        else:
+            category = cet_desc or item.get('category', '') or spec_cat
 
         # Build context for value resolution
         ctx = _build_item_context(item, invoice_data, supplier_name, supplier_info,
@@ -1165,23 +1131,77 @@ def _write_duty_estimation_section(
         _write_duty_row('DUTY VARIANCE (Client − Estimated)', variance, font=variance_font)
 
         # Reverse-engineer client's implied CET rate
+        # total = cif_xcd * (1.15 * cet_rate + 0.219)
+        # cet_rate = (total/cif_xcd - 0.219) / 1.15
+        implied_cet_valid = False
         if duties['cif_xcd'] > 0 and client_declared > 0:
-            # total = cif*r + cif*0.06 + (cif + cif*r + cif*0.06)*0.15
-            # total = cif*r + cif*0.06 + cif*0.15 + cif*r*0.15 + cif*0.06*0.15
-            # total = cif*(r + 0.06 + 0.15 + 0.15r + 0.009)
-            # total = cif*(1.15r + 0.219)
-            # r = (total/cif - 0.219) / 1.15
             implied_r = (client_declared / duties['cif_xcd'] - 0.219) / 1.15
             if 0 <= implied_r <= 1.0:
+                implied_cet_valid = True
                 _write_duty_row(
-                    f'IMPLIED CET RATE (from client value)',
+                    'IMPLIED CET RATE (from client value)',
                     implied_r,
                     fmt='0.0%',
                 )
                 if abs(implied_r - avg_cet_rate) > 0.02:
                     ws.cell(
                         row=row_num, column=COL_J,
-                        value=f'⚠ CET MISMATCH: System={avg_cet_rate*100:.0f}% vs Client≈{implied_r*100:.0f}% — review classification'
+                        value=(
+                            f'⚠ CET MISMATCH: System={avg_cet_rate*100:.0f}% vs '
+                            f'Client≈{implied_r*100:.0f}% — review classification'
+                        ),
+                    ).font = DUTY_WARN_FONT
+                    for col in range(1, col_count + 1):
+                        ws.cell(row=row_num, column=col).border = THIN_BORDER
+                    row_num += 1
+
+        # ── Reverse-calculated CIF (Fix C-2) ──────────────────────────────
+        # When the client's declared duty is much lower (or higher) than the
+        # estimate for the items CURRENTLY in this XLSX, the gap is usually
+        # driven by item allocation — items that should belong to a
+        # different waybill are being charged here (or vice versa).
+        #
+        # Reverse-calc:  cif_implied_xcd = declared_duty / composite_rate
+        # where composite_rate = 1.15*cet + 0.219 at the system's avg CET.
+        # Comparing cif_implied vs actual CIF lets the user see whether the
+        # item split across per-declaration XLSX files matches reality.
+        composite = 1.15 * avg_cet_rate + 0.219
+        if composite > 0:
+            cif_implied_xcd = client_declared / composite
+            cif_implied_usd = cif_implied_xcd / XCD_RATE
+            items_implied_usd = max(0.0, cif_implied_usd - (customs_freight or 0) - (customs_insurance or 0))
+            _write_duty_row(
+                f'IMPLIED CIF (from declared duty @ {avg_cet_rate*100:.0f}% CET, XCD)',
+                round(cif_implied_xcd, 2),
+            )
+            _write_duty_row(
+                'IMPLIED ITEMS VALUE (USD, net of freight/insurance)',
+                round(items_implied_usd, 2),
+            )
+            # Allocation check — compare to the items actually on this sheet.
+            actual_items_usd = float(sum(
+                float(item.get('total_cost', 0) or 0) for item in matched_items
+            ))
+            if actual_items_usd > 0 and items_implied_usd > 0:
+                # If the two values diverge by more than _ALLOC_TOLERANCE, the
+                # per-declaration item split likely mis-assigned items between
+                # waybills (or the declared duty refers to a different subset).
+                _ALLOC_TOLERANCE = 0.35  # 35% relative gap
+                rel_gap = abs(actual_items_usd - items_implied_usd) / max(
+                    actual_items_usd, items_implied_usd
+                )
+                if rel_gap > _ALLOC_TOLERANCE:
+                    direction = (
+                        'OVER-ALLOCATED (items should move to another waybill)'
+                        if actual_items_usd > items_implied_usd
+                        else 'UNDER-ALLOCATED (items from another waybill may belong here)'
+                    )
+                    ws.cell(
+                        row=row_num, column=COL_J,
+                        value=(
+                            f'⚠ ITEM ALLOCATION CHECK: actual ${actual_items_usd:,.2f} USD '
+                            f'vs implied ${items_implied_usd:,.2f} USD — {direction}'
+                        ),
                     ).font = DUTY_WARN_FONT
                     for col in range(1, col_count + 1):
                         ws.cell(row=row_num, column=col).border = THIN_BORDER

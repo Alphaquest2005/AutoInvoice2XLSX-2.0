@@ -1,0 +1,4 @@
+Source: /mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Price_59.92.stage
+
+113-2477560-9595440.pdf: Text extraction failed
+HAWB9590726-Manifest.pdf: Text extraction failed

@@ -1,0 +1,21 @@
+{
+  "format_name": "fashionnova_commercial",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "95030090",
+      "classification_source": "",
+      "description": "Harmonized Total Summer Games Cargo Pants -"
+    },
+    {
+      "tariff_code": "00000000",
+      "classification_source": "",
+      "description": "Olive - 34 Dipset 145 th St . Short Sleeve Tee -"
+    },
+    {
+      "tariff_code": "00000000",
+      "classification_source": "",
+      "description": "Black - M 21 Savage American Dream"
+    }
+  ]
+}

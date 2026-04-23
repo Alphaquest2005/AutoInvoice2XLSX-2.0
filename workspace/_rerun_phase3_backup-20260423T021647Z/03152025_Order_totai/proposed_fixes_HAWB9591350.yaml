@@ -1,0 +1,32 @@
+waybill: HAWB9591350
+replay_mode: true
+instructions: 'Edit the override block for any item. Leave fields null to keep current. Set delete: true
+  to remove an item. Append new items under add_items. Reply with this file attached to trigger pipeline
+  replay.'
+invoices:
+- invoice_num: 03-11786-67235
+  supplier: eBay
+  pdf: 03-11786-67235.pdf
+  current:
+    sub_total: 24.2
+    items_sum: 24.2
+    invoice_total: 25.89
+    residual: 0.0
+  notes:
+  - 'Orphan price $24.20 recovered from OCR text (description: Buyer kaz_f4 Rickado C Thomas 2 items $...)'
+  recovered_items:
+  - sku: EBAY-1
+    description: Buyer kaz_f4 Rickado C Thomas 2 items $
+    current:
+      quantity: 1
+      unit_cost: 24.2
+      total_cost: 24.2
+    data_quality: orphan_price_recovered
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  other_items: []
+  add_items: []

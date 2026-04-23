@@ -15,7 +15,18 @@ import json
 import logging
 import os
 import re
+import sys
 from typing import Any, Dict, List, Optional, Tuple
+
+# Make the ``src/`` package importable so we can reuse the SSOT CET category
+# service. ``pipeline/stages/supplier_resolver.py`` lives two levels down from
+# the repo root.
+_repo_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+_src_dir = os.path.join(_repo_root, "src")
+if _src_dir not in sys.path:
+    sys.path.insert(0, _src_dir)
+
+from autoinvoice.domain.services.cet_category import category_for as _category_for
 
 logger = logging.getLogger(__name__)
 
@@ -539,57 +550,49 @@ def _normalize_product_type(desc: str) -> str:
     return text
 
 
+# Per-base_dir description cache; avoids repeated SQLite connects for every
+# item lookup while keeping the SSOT walk in the domain service.
+_CET_DESC_CACHE_BY_DIR: Dict[str, Dict[str, str]] = {}
+
+
+def _load_cet_descriptions(base_dir: str) -> Dict[str, str]:
+    """Lazily load the full CET description map for *base_dir*.
+
+    The hierarchy walk (:func:`category_for`) needs lookups for the leaf AND
+    all its ancestors; loading the whole table once is cheaper than 4 round
+    trips per item.
+    """
+    cache = _CET_DESC_CACHE_BY_DIR.get(base_dir)
+    if cache is not None:
+        return cache
+    cache = {}
+    db_path = os.path.join(base_dir, "data", "cet.db")
+    if os.path.exists(db_path):
+        try:
+            import sqlite3
+            conn = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
+            for code, desc in conn.execute(
+                "SELECT hs_code, description FROM cet_codes"
+            ):
+                if desc:
+                    cache[code] = desc
+            conn.close()
+        except Exception as e:
+            logger.debug(f"CET description load failed: {e}")
+    _CET_DESC_CACHE_BY_DIR[base_dir] = cache
+    return cache
+
+
 def _get_cet_category(tariff_code: str, base_dir: str) -> str:
     """Look up CET description for a tariff code to use as category fallback.
 
-    Returns a descriptive category label derived from the CET schedule,
-    or '' if the code is not found.
+    Delegates hierarchy resolution to the SSOT domain service
+    (:func:`autoinvoice.domain.services.cet_category.category_for`). This
+    function only supplies the description map sourced from ``data/cet.db``
+    under *base_dir*.
     """
-    if not tariff_code or tariff_code == '00000000' or len(tariff_code) != 8:
-        return ''
-    try:
-        import sqlite3
-        db_path = os.path.join(base_dir, 'data', 'cet.db')
-        if not os.path.exists(db_path):
-            return ''
-        conn = sqlite3.connect(db_path)
-        cur = conn.cursor()
-        # Try exact code first
-        cur.execute('SELECT description FROM cet_codes WHERE hs_code = ?', (tariff_code,))
-        row = cur.fetchone()
-        if row and row[0]:
-            conn.close()
-            return row[0]
-        # Try heading level (first 4 digits + 0000)
-        heading = tariff_code[:4] + '0000'
-        cur.execute('SELECT description FROM cet_codes WHERE hs_code = ?', (heading,))
-        row = cur.fetchone()
-        if row and row[0]:
-            conn.close()
-            return row[0]
-        conn.close()
-    except Exception as e:
-        logger.debug(f"CET category lookup failed for {tariff_code}: {e}")
-
-    # Fallback: try cet_master_codes.txt (tab-separated: code\tdescription)
-    txt_path = os.path.join(base_dir, 'data', 'cet_master_codes.txt')
-    if os.path.exists(txt_path):
-        try:
-            with open(txt_path, 'r') as f:
-                for line in f:
-                    parts = line.strip().split('\t', 1)
-                    if len(parts) == 2 and parts[0] == tariff_code:
-                        return parts[1].strip('- ').strip()
-                # Try prefix match (e.g. 39233000 → 392330)
-                prefix = tariff_code[:6]
-                f.seek(0)
-                for line in f:
-                    parts = line.strip().split('\t', 1)
-                    if len(parts) == 2 and parts[0].startswith(prefix):
-                        return parts[1].strip('- ').strip()
-        except Exception:
-            pass
-    return ''
+    cache = _load_cet_descriptions(base_dir)
+    return _category_for(tariff_code, cache)
 
 
 def _llm_assign_categories(matched_items: List[Dict], config: Dict) -> int:

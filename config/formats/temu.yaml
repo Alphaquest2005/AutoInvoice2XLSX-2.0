@@ -2,20 +2,21 @@
 # Parses TEMU order receipts
 
 name: temu
-version: "1.0"
+version: "1.1"
 description: "TEMU order receipts"
 
 # ─── Detection ─────────────────────────────────────────────
+# v1.1: loosened to catch split-page fragments that don't carry "Order Summary"
+# header text but still show the Temu-specific "Item details (N)" marker and
+# "By — seller" attribution lines.
 detect:
-  all_of:
-    - "Order Summary"
   any_of:
+    - "Order Summary"
     - "Order ID:"
     - "Order ID;"
     - "TEMU"
-    - "PO-"
-    - "Item details"
-    - "Item detalls"
+    - "Item details ("
+    - "Item detalls ("
 
 # ─── OCR Normalization ─────────────────────────────────────
 ocr_normalize:
@@ -67,6 +68,10 @@ ocr_normalize:
   - pattern: '(PO-\d{3}-\d+)\s+(\d+)'
     replace: '\1\2'
     description: "Fix OCR space in PO number: PO-211-1124525331 1353900 → PO-211-11245253311353900"
+
+  - pattern: '\$([\d,]+\.\d{2})\s*\n\s*x\s*(\d+)\b'
+    replace: '$\1 x\2'
+    description: "Merge stacked price+qty (Temu v2 layout): '$X.XX\\n xN' → '$X.XX xN'"
 
 # ─── Metadata Extraction ───────────────────────────────────
 metadata:
@@ -156,9 +161,10 @@ items:
       - '(?i)^Free returns'
       - '(?i)^Free rotums'
       - '^\d+\..*return'
-      - '^\$\d'
+      - '^\$[\d,]+\.\d{2}\s*$'
       - '(?i)^Vise?\s+'
       - '(?i)^VISA\b'
+      - '(?i)^By\s+\S'
       - '(?i)^Billing\s+address'
       - '(?i)^Payment\s+method'
       - '(?i)^Your\s+payment'

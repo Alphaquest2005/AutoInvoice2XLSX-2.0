@@ -1162,16 +1162,28 @@ def extract_declaration_metadata(pdf_path: str) -> Dict[str, Optional[str]]:
                     if freight_match:
                         metadata['freight'] = freight_match.group(1)
                         # Remove the whole "( FREIGHT ... )" section from the
-                        # consignee name (tolerating OCR closer variants).
+                        # consignee name (tolerating OCR closer variants, and
+                        # falling back to end-of-string when the closer is
+                        # missing entirely).
                         consignee_name = re.sub(
-                            r'\s*\(.*?FREIGHT.*?[\)\}\]]',
+                            r'\s*[\(\[\{].*?FREIGHT.*?(?:[\)\}\]]|$)',
                             '', consignee_part,
                             flags=re.IGNORECASE,
                         ).strip()
                         metadata['consignee'] = consignee_name
                     else:
-                        # No freight info, just use the whole thing as consignee
-                        metadata['consignee'] = consignee_part
+                        # No freight bracket pattern matched — but OCR may have
+                        # dropped the brackets entirely. Try a bracket-less
+                        # "FREIGHT X.XX US" trailing annotation as a last resort.
+                        bareless = re.search(
+                            r'(.+?)\s+FREIGHT\s+([\d.]+)\s*(?:US|USD)?\s*$',
+                            consignee_part, re.IGNORECASE,
+                        )
+                        if bareless:
+                            metadata['freight'] = bareless.group(2)
+                            metadata['consignee'] = bareless.group(1).strip()
+                        else:
+                            metadata['consignee'] = consignee_part
 
             # Packages: "No and Type of package: 1 Package" or "1 PACKAGES"
             if ('PACKAGE' in line_upper or 'PKG' in line_upper) and not metadata['packages']:
@@ -1465,14 +1477,51 @@ def extract_declaration_handwriting(pdf_path: str, base_dir: str = '.') -> Dict[
 
     import base64
 
+    # Cache-schema version. Bumped when extraction quality improves so that
+    # older caches aren't silently trusted. See ``_cache_is_trustworthy``.
+    _CACHE_VERSION = 2
+
+    def _cache_is_trustworthy(cached: dict) -> bool:
+        """Return False if the cached result looks like a false negative.
+
+        v1 caches were written before the false-negative retry; if they have
+        ``has_handwriting: false`` AND blank customs values, we re-extract on
+        the chance the new retry path can recover the value. v2+ caches are
+        always trusted because they already went through the retry.
+        """
+        if not isinstance(cached, dict):
+            return False
+        if cached.get('_cache_version', 1) >= _CACHE_VERSION:
+            return True
+        hw = cached.get('handwritten') or {}
+        ec = str(hw.get('customs_value_ec') or '').strip()
+        usd = str(hw.get('customs_value_usd') or '').strip()
+        has_hw = cached.get('has_handwriting')
+        # v1 cache with no customs value and explicit "no handwriting" →
+        # bust it, re-extract under the v2 retry logic.
+        if has_hw is False and not ec and not usd:
+            return False
+        return True
+
     # ── Disk cache check ────────────────────────────────────────
+    # Env var override: setting AUTOINVOICE_VISION_FORCE_REFRESH=1 forces a
+    # fresh extraction for every declaration (bypasses cache, does not delete
+    # it — writes a new cache after).  Handy when the user knows a value is
+    # wrong and wants the whole corpus re-extracted.
+    _force_refresh = os.environ.get('AUTOINVOICE_VISION_FORCE_REFRESH', '').lower() in ('1', 'true', 'yes')
     cache_path = _vision_cache_path(pdf_path, base_dir)
-    if cache_path and os.path.exists(cache_path):
+    if cache_path and os.path.exists(cache_path) and not _force_refresh:
         try:
             with open(cache_path, 'r') as f:
                 cached = json.load(f)
-            logger.info(f"LLM vision cache hit for {os.path.basename(pdf_path)}")
-            return cached
+            if _cache_is_trustworthy(cached):
+                logger.info(f"LLM vision cache hit for {os.path.basename(pdf_path)}")
+                return cached
+            else:
+                logger.info(
+                    f"LLM vision cache STALE (v1 false-negative) for "
+                    f"{os.path.basename(pdf_path)} — re-extracting"
+                )
         except Exception as e:
             logger.debug(f"Vision cache read failed: {e}")
 
@@ -1657,6 +1706,105 @@ Return ONLY valid JSON, no other text."""
                                 f"Recovered handwritten customs value EC${val} "
                                 f"from other_notes: {notes}"
                             )
+
+            # ── False-negative retry (Fix C) ──────────────────────────────
+            # If the first attempt returned ``has_handwriting: false`` AND
+            # both customs value fields are blank, try once more with a
+            # prompt that focuses specifically on pencil/pen marks near the
+            # consignee and in the margins. glm-4.6v occasionally misses
+            # faint vertical pencil annotations on its first pass.
+            def _blank(h):
+                return not (
+                    _is_truthy_value(h.get('customs_value_ec'))
+                    or _is_truthy_value(h.get('customs_value_usd'))
+                )
+
+            if parsed.get('has_handwriting') is False and _blank(parsed.get('handwritten') or {}):
+                focused_prompt = """Second-pass handwriting review. The first review said no handwriting was present, but many of these declarations have SUBTLE pencil marks that are easy to miss.
+
+Please look VERY carefully for:
+1. FAINT pencil digits anywhere on the form — including rotated 90°, written vertically along a margin, or squeezed between printed fields.
+2. Numbers near the consignee line, in the "For Official Use Only" box at bottom, or under/beside a printed field value.
+3. A small handwritten total in the right margin (very common — often shows the customs value in EC$).
+4. Any number that does NOT match a printed form value — if you see a digit that looks hand-drawn, extract it.
+
+Return the same JSON structure as before:
+{
+  "handwritten": {
+    "customs_value_ec": "numeric EC$ value if found",
+    "customs_value_usd": "numeric USD value if found",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "describe WHERE on the form you found any handwritten marks"
+  },
+  "printed": {},
+  "has_handwriting": true or false
+}
+
+If you still see no handwriting at all, return has_handwriting:false and leave the handwritten fields blank. Only set values you can actually see.
+Return ONLY valid JSON."""
+
+                retry_request = json.dumps({
+                    "model": vision_model,
+                    "max_tokens": 2000,
+                    "messages": [{
+                        "role": "user",
+                        "content": [
+                            {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{img_b64}"}},
+                            {"type": "text", "text": focused_prompt},
+                        ],
+                    }]
+                }).encode('utf-8')
+                try:
+                    req2 = Request(
+                        vision_endpoint,
+                        data=retry_request,
+                        headers={
+                            'Content-Type': 'application/json',
+                            'Authorization': f'Bearer {api_key}',
+                        }
+                    )
+                    with urlopen(req2, timeout=120) as r2:
+                        result2 = json.loads(r2.read().decode('utf-8'))
+                    resp2 = result2['choices'][0]['message']['content'].strip()
+                    c2 = re.sub(r'^```(?:json)?\s*', '', resp2)
+                    c2 = re.sub(r'\s*```$', '', c2)
+                    m2 = re.search(r'\{[\s\S]+\}', c2)
+                    if m2:
+                        parsed2 = json.loads(m2.group())
+                        hw2 = parsed2.get('handwritten') or {}
+                        if parsed2.get('has_handwriting') and not _blank(hw2):
+                            # Retry recovered a value — merge into parsed.
+                            logger.info(
+                                f"Vision retry (focused prompt) recovered handwriting "
+                                f"for {os.path.basename(pdf_path)}: "
+                                f"ec={hw2.get('customs_value_ec')!r} usd={hw2.get('customs_value_usd')!r}"
+                            )
+                            parsed['has_handwriting'] = True
+                            ph = parsed.setdefault('handwritten', {})
+                            for k in ('customs_value_ec', 'customs_value_usd',
+                                      'tariff_code', 'duty_rate', 'weight',
+                                      'description', 'other_notes'):
+                                if _is_truthy_value(hw2.get(k)):
+                                    ph[k] = hw2[k]
+                            parsed['_retry_recovered'] = True
+                        else:
+                            logger.info(
+                                f"Vision retry confirmed no handwriting for "
+                                f"{os.path.basename(pdf_path)}"
+                            )
+                except Exception as e:
+                    logger.warning(
+                        f"Vision false-negative retry failed for "
+                        f"{os.path.basename(pdf_path)}: {e}"
+                    )
+
+            # Stamp cache version so future runs know this result went
+            # through the v2 false-negative retry and can be trusted.
+            parsed['_cache_version'] = _CACHE_VERSION
+
             # Persist to disk cache so subsequent runs skip the API call.
             if cache_path:
                 try:

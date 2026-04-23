@@ -1,0 +1,9 @@
+START: 2026-04-23T02:59:03Z
+[1/1] 03152025_Sales_Invoice
+    ok  (791.2s)
+
+Session summary:
+  ok                   1
+  total elapsed: 791.2s
+  report: workspace/rerun_phase3_reports/03152025_Sales_Invoice.json
+END: 2026-04-23T03:12:14Z  rc=0

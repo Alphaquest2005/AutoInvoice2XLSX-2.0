@@ -140,12 +140,26 @@
     "reason": "Other → Marine paints (Budget Marine = yacht supplies)"
   },
 
+  "_comment_anchor_codes": "HS 73.16 = Anchors, grapnels and parts thereof. 73160000 is the valid CET leaf code (68 assessed occurrences). LLM often invents non-existent subdivisions.",
+
+  "73161000": {
+    "correct_code": "73160000",
+    "reason": "73161000 does not exist in CET — anchors belong in 73160000 (HS 73.16 Anchors, grapnels)"
+  },
+  "73169000": {
+    "correct_code": "73160000",
+    "reason": "73169000 does not exist in CET — anchors belong in 73160000 (HS 73.16 Anchors, grapnels)"
+  },
+
+  "_comment_lead_codes": "HS 78.06 = Other articles of lead. 78070090 does not exist (no heading 78.07 in CET).",
+
+  "78070090": {
+    "correct_code": "78060090",
+    "reason": "78070090 does not exist in CET (no heading 78.07) — lead sinkers belong in 78060090 (Other articles of lead)"
+  },
+
   "_comment_misclassified": "Products classified under completely wrong tariff headings. These are classification errors, not code format errors.",
 
-  "73160000": {
-    "correct_code": "73158900",
-    "reason": "MISCLASSIFIED: 7316 heading does not exist in CET — anchors/grapnels belong in 73158900 (other articles of iron/steel chain)"
-  },
   "73161500": {
     "correct_code": "95072000",
     "reason": "MISCLASSIFIED: 73161500 is screws/bolts — fish hooks (Baitholder, Kirby etc.) belong in 95072000 (fish-hooks)"

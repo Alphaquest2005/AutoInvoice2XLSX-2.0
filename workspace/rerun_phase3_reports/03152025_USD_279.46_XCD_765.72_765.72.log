@@ -1,0 +1,9 @@
+START: 2026-04-23T03:12:14Z
+[1/1] 03152025_USD_279.46_XCD_765.72_765.72
+    ok  (310.4s)
+
+Session summary:
+  ok                   1
+  total elapsed: 310.4s
+  report: workspace/rerun_phase3_reports/03152025_USD_279.46_XCD_765.72_765.72.json
+END: 2026-04-23T03:17:25Z  rc=0

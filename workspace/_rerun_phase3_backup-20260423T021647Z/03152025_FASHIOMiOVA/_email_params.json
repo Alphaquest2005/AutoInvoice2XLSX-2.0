@@ -1,0 +1,19 @@
+{
+  "waybill": "138878183",
+  "consignee_name": "",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "0",
+  "country_origin": "US",
+  "freight": "0",
+  "man_reg": null,
+  "attachment_paths": [
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_FASHIOMiOVA.out/138878183.pdf",
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_FASHIOMiOVA.out/138878183.xlsx"
+  ],
+  "location": "WebSource",
+  "office": ""
+}

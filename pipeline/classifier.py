@@ -285,9 +285,17 @@ def lookup_assessed_classification(description: str, base_dir: str = '.',
     # Tier 1: Exact match
     if norm_query in assessed:
         entry = assessed[norm_query]
+        entry_conf = entry.get('confidence', 0.5)
+        entry_count = entry.get('count', 1)
         code = validate_and_correct_code(entry['code'], base_dir)
+        # Gate: reject low-confidence assessed entries (< 0.60 or count < 2)
+        # These are often poisoned by historical misclassifications.
+        if entry_conf < 0.60 or entry_count < 2:
+            logger.warning(
+                f"[ASSESSED] Rejected low-confidence exact match '{norm_query[:50]}' -> {code}: "
+                f"conf={entry_conf:.2f}, count={entry_count}")
         # Gate: LLM expected_chapter check
-        if expected_chapter and code[:2] != expected_chapter:
+        elif expected_chapter and code[:2] != expected_chapter:
             logger.warning(
                 f"[ASSESSED] Rejected exact match '{norm_query[:50]}' -> {code}: "
                 f"chapter {code[:2]} vs LLM expected ch{expected_chapter}")
@@ -298,10 +306,11 @@ def lookup_assessed_classification(description: str, base_dir: str = '.',
             return {
                 'code': code,
                 'category': entry.get('category', 'ASSESSED'),
-                'confidence': min(0.97, 0.90 + (entry.get('confidence', 0.5) * 0.07)),
+                'confidence': min(0.97, 0.90 + (entry_conf * 0.07)),
+                'assessed_confidence': entry_conf,
                 'source': 'assessed_exact',
                 'notes': (f"Assessed classification (exact match, "
-                          f"{entry['count']}/{entry['total']} entries, "
+                          f"{entry_count}/{entry['total']} entries, "
                           f"sources: {', '.join(entry.get('sources', []))}). "
                           f"Sample: {entry.get('sample_desc', '')[:80]}"),
             }
@@ -1356,11 +1365,28 @@ CLASSIFICATION RULES (follow strictly):
    - Women's trousers: synthetic fibres → 62046310, other materials → 62046910/62046990
    - T-shirts, singlets (knitted) → 61091000/61099000
 
-6. Codes MUST be exactly 8 digits and must be valid CARICOM CET end-node codes.
+6. SUPPLIER CATEGORY CONTEXT: If the description includes a [Supplier category: ...] tag,
+   use it as strong evidence for classification. For example:
+   - "fishing/reels" → Chapter 95 (fishing tackle)
+   - "electrical/batteries" → Chapter 85
+   - "boat-building-maintenance/boat-care-products" → Chapter 34 (cleaning/polishing preparations)
+   - "plumbing/fittings" → Chapter 73 or 74 (metal fittings)
+   The supplier category reflects how the product is merchandised by a marine supplier.
+
+7. Codes MUST be exactly 8 digits and must be valid CARICOM CET end-node codes.
    Do NOT invent codes — only use codes that exist in the CARICOM Common External Tariff schedule.
 
+8. CATEGORY FIELD: The "category" MUST be a short, accurate product-group description that
+   matches the HS heading/subheading the code belongs to. Examples:
+   - 84672900 → "Electric Hand Tools" (HS 84.67)
+   - 73160000 → "Anchors & Grapnels" (HS 73.16)
+   - 95072000 → "Fish-hooks" (HS 95.07)
+   - 39241090 → "Plastic Tableware" (HS 39.24)
+   Do NOT use generic labels like "OTHER", "PRODUCTS", "TOOLS", or the CET leaf description
+   if it just says "Other". Use the heading-level product group name instead.
+
 Respond with ONLY a JSON object:
-{{"code": "XXXXXXXX", "category": "CATEGORY", "confidence": 0.X, "reasoning": "brief explanation"}}"""
+{{"code": "XXXXXXXX", "category": "SHORT PRODUCT GROUP NAME", "confidence": 0.X, "reasoning": "brief explanation"}}"""
 
 
 def classify_with_llm(description: str, web_results: str, config: Dict = None) -> Optional[Dict]:
@@ -1538,6 +1564,17 @@ def run(input_path: str, output_path: str, config: Dict = None, context: Dict = 
     )
     noise_words = set(rules_data.get('word_analysis', {}).get('noise_words', []))
 
+    # Load supplier product matches for category enrichment
+    supplier_matches = {}
+    bm_matches_path = os.path.join(base_dir, 'data', 'bm_product_matches.json')
+    if os.path.exists(bm_matches_path):
+        try:
+            with open(bm_matches_path) as f:
+                supplier_matches = json.load(f)
+            logger.info(f"[CLASSIFIER] Loaded {len(supplier_matches)} supplier product matches")
+        except Exception as e:
+            logger.debug(f"[CLASSIFIER] Could not load supplier matches: {e}")
+
     items = data.get('items', data if isinstance(data, list) else [])
     classified = 0
     unmatched = 0
@@ -1553,18 +1590,27 @@ def run(input_path: str, output_path: str, config: Dict = None, context: Dict = 
             continue  # Skip bundles in first pass
 
         desc = item.get('description', '')
-        match = classify_item(desc, rules, noise_words, base_dir)
+        sku = item.get('sku', '')
+
+        # Look up supplier category for this SKU
+        supplier_cat = supplier_matches.get(sku, {}).get('category', '') if sku else ''
+
+        match = classify_item(desc, rules, noise_words, base_dir,
+                              supplier_category=supplier_cat)
 
         if match:
             item['classification'] = match
             classified += 1
             # Store classification by SKU for bundle inheritance
-            sku = item.get('sku', '')
             if sku:
                 sku_classifications[sku] = match
         else:
-            # Try web lookup for unknown items
-            web_match = lookup_hs_code_web(desc, config)
+            # Enrich description with supplier category for web/LLM lookup
+            enriched_desc = desc
+            if supplier_cat:
+                enriched_desc = f"{desc} [Supplier category: {supplier_cat}]"
+
+            web_match = lookup_hs_code_web(enriched_desc, config)
             if web_match:
                 # Validate web lookup codes too
                 web_match['code'] = validate_and_correct_code(web_match['code'], base_dir)
@@ -1604,7 +1650,10 @@ def run(input_path: str, output_path: str, config: Dict = None, context: Dict = 
             classified += 1
         else:
             # Fall back to regular classification
-            match = classify_item(desc, rules, noise_words, base_dir)
+            sku = item.get('sku', '')
+            supplier_cat = supplier_matches.get(sku, {}).get('category', '') if sku else ''
+            match = classify_item(desc, rules, noise_words, base_dir,
+                                  supplier_category=supplier_cat)
             if match:
                 item['classification'] = match
                 classified += 1
@@ -1637,7 +1686,8 @@ def run(input_path: str, output_path: str, config: Dict = None, context: Dict = 
 
 
 def classify_item(description: str, rules: List[Dict], noise_words: set,
-                   base_dir: str = '.', expected_chapter: str = None) -> Optional[Dict]:
+                   base_dir: str = '.', expected_chapter: str = None,
+                   supplier_category: str = '') -> Optional[Dict]:
     """Apply classification rules to an item description.
 
     Classification priority:
@@ -1651,10 +1701,33 @@ def classify_item(description: str, rules: List[Dict], noise_words: set,
         base_dir: Project base directory
         expected_chapter: 2-digit chapter from LLM pre-assignment (Phase 1).
             Used to gate assessed lookups — rejects matches from wrong chapters.
+        supplier_category: Supplier website category path (e.g. 'fishing/reels/spinning-reels')
+            Used to enrich LLM classification context.
 
     All returned codes are validated against the CARICOM CET to ensure they are
     valid end-node codes with DUTY RATE, UNIT, and SITC REV 4 data.
     """
+    # Supplier category → chapter hint mapping
+    if supplier_category and not expected_chapter:
+        _cat_chapter_hints = {
+            'fishing': '95', 'terminal-tackle': '95', 'reels': '95',
+            'hooks': '95', 'lures': '95', 'rods': '95',
+            'electrical': '85', 'batteries': '85', 'lighting': '85',
+            'plumbing': '73', 'fittings': '73',
+            'paints': '32', 'antifouling': '32', 'varnish': '32',
+            'cleaning': '34', 'boat-care': '34', 'wax': '34',
+            'adhesives': '35', 'sealants': '35',
+            'rope': '56', 'cordage': '56',
+            'safety': '63', 'life-jackets': '63',
+            'anchoring': '73', 'chain': '73',
+        }
+        cat_lower = supplier_category.lower()
+        for keyword, chapter in _cat_chapter_hints.items():
+            if keyword in cat_lower:
+                expected_chapter = chapter
+                logger.debug(f"[SUPPLIER-HINT] '{supplier_category}' -> chapter {chapter}")
+                break
+
     # WS-B4: lazily seed classifications.db on first classification.
     # Cheap no-op after the first call per process.
     try:
@@ -1672,6 +1745,7 @@ def classify_item(description: str, rules: List[Dict], noise_words: set,
         return assessed_result
 
     # ── Layer 1: Rule-based classification ──
+    import re as _re
     desc_upper = description.upper()
 
     for rule in rules:
@@ -1687,16 +1761,40 @@ def classify_item(description: str, rules: List[Dict], noise_words: set,
         if excluded:
             continue
 
+        matched = False
         for pattern in patterns:
-            if pattern.upper() in desc_upper:
-                code = validate_and_correct_code(rule['code'], base_dir)
-                return {
-                    'code': code,
-                    'category': rule.get('category', 'PRODUCTS'),
-                    'confidence': rule.get('confidence', 0.8),
-                    'rule_id': rule.get('id'),
-                    'notes': rule.get('notes'),
-                }
+            pat_upper = pattern.upper()
+            # Use word-boundary matching for short patterns (< 7 chars)
+            # to prevent "POLISH" matching "Polisher", "WAX" matching "WAXED", etc.
+            if len(pat_upper) < 7:
+                if _re.search(r'\b' + _re.escape(pat_upper) + r'\b', desc_upper):
+                    matched = True
+                    break
+            else:
+                if pat_upper in desc_upper:
+                    matched = True
+                    break
+
+        if not matched:
+            continue
+
+        rule_code = rule['code']
+        rule_chapter = rule_code[:2] if len(rule_code) >= 2 else ''
+
+        # Gate Layer 1 with LLM expected_chapter (same as Layer 0)
+        if expected_chapter and rule_chapter and rule_chapter != expected_chapter:
+            logger.debug(f"[RULE-SKIP] Rule {rule.get('id')} matched '{description[:40]}' "
+                         f"but chapter {rule_chapter} != expected {expected_chapter}")
+            continue
+
+        code = validate_and_correct_code(rule_code, base_dir)
+        return {
+            'code': code,
+            'category': rule.get('category', 'PRODUCTS'),
+            'confidence': rule.get('confidence', 0.8),
+            'rule_id': rule.get('id'),
+            'notes': rule.get('notes'),
+        }
 
     return None
 

@@ -1,0 +1,30 @@
+waybill: HAWB9671027
+replay_mode: true
+instructions: 'Edit the override block for any item. Leave fields null to keep current. Set delete: true
+  to remove an item. Append new items under add_items. Reply with this file attached to trigger pipeline
+  replay.'
+invoices:
+- invoice_num: 112-1892394-4362604
+  supplier: Amazon.com
+  pdf: 112-1892394-4362604.pdf
+  current:
+    sub_total: 14.81
+    items_sum: 14.81
+    invoice_total: 15.85
+    residual: -0.0
+  notes: []
+  recovered_items: []
+  other_items:
+  - sku: AMZ-1
+    description: Dorman 56768 Driver Side Door Mirror Glass Compatible with Select Mitsubishi ...
+    current:
+      quantity: 1
+      unit_cost: 14.81
+      total_cost: 14.81
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  add_items: []

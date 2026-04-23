@@ -1,0 +1,218 @@
+{
+  "session_start": "2026-04-23T03:17:25.749399+00:00",
+  "total_folders": 1,
+  "processed": 1,
+  "elapsed_s": 310.4,
+  "results": [
+    {
+      "folder": "03152025_USD_279.46_XCD_765.72_765.72",
+      "staged": 5,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "113-5364495-5165021",
+            "supplier": "Amazon.com",
+            "format": "amazon",
+            "items": 2,
+            "matched": 0,
+            "classified": 2,
+            "total": 279.49,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_USD_279.46_XCD_765.72_765.72.out/HAWB9597917-Declaration_combined.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_USD_279.46_XCD_765.72_765.72.out/113-5364495-5165021_2.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_USD_279.46_XCD_765.72_765.72.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_USD_279.46_XCD_765.72_765.72.out/_email_params.json",
+        "validation": {
+          "total_issues": 5,
+          "fixed": 0,
+          "unfixed": 5,
+          "per_file": [
+            {
+              "file": "HAWB9597917-Declaration_combined.xlsx",
+              "supplier": "Amazon.com",
+              "issues": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 29,
+                  "current": "00000000",
+                  "description": "TEMU Purchase (1 items)",
+                  "qty": 1,
+                  "total_cost": 765.72,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"TEMU Purchase (1 items)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 30,
+                  "current": "00000000",
+                  "description": "TEMU Purchase",
+                  "qty": 1,
+                  "total_cost": 765.72,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"TEMU Purchase\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 55,
+                  "current": "00000000",
+                  "description": "TEMU Purchase (1 items)",
+                  "qty": 1,
+                  "total_cost": 765.72,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"TEMU Purchase (1 items)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 56,
+                  "current": "00000000",
+                  "description": "TEMU Purchase",
+                  "qty": 1,
+                  "total_cost": 765.72,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"TEMU Purchase\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "VARIANCE",
+                  "variance": 18.31,
+                  "invoice_total": 279.49,
+                  "sum_items": 261.18,
+                  "freight": 0,
+                  "insurance": 0,
+                  "tax": 0,
+                  "deduction": 0,
+                  "block": 1,
+                  "block_header_row": 2,
+                  "block_adjustments_row": 13,
+                  "why": "Block 1 (row 2) variance $+18.31. InvoiceTotal($279.49) != NetTotal($261.18).",
+                  "how": "Open source PDF for this invoice and rerun pipeline \u2014 per-invoice variance_fixer should resolve before combining."
+                }
+              ],
+              "fixes": [],
+              "remaining": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 29,
+                  "current": "00000000",
+                  "description": "TEMU Purchase (1 items)",
+                  "qty": 1,
+                  "total_cost": 765.72,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"TEMU Purchase (1 items)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 30,
+                  "current": "00000000",
+                  "description": "TEMU Purchase",
+                  "qty": 1,
+                  "total_cost": 765.72,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"TEMU Purchase\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 55,
+                  "current": "00000000",
+                  "description": "TEMU Purchase (1 items)",
+                  "qty": 1,
+                  "total_cost": 765.72,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"TEMU Purchase (1 items)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 56,
+                  "current": "00000000",
+                  "description": "TEMU Purchase",
+                  "qty": 1,
+                  "total_cost": 765.72,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"TEMU Purchase\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "VARIANCE",
+                  "variance": 18.31,
+                  "invoice_total": 279.49,
+                  "sum_items": 261.18,
+                  "freight": 0,
+                  "insurance": 0,
+                  "tax": 0,
+                  "deduction": 0,
+                  "block": 1,
+                  "block_header_row": 2,
+                  "block_adjustments_row": 13,
+                  "why": "Block 1 (row 2) variance $+18.31. InvoiceTotal($279.49) != NetTotal($261.18).",
+                  "how": "Open source PDF for this invoice and rerun pipeline \u2014 per-invoice variance_fixer should resolve before combining."
+                }
+              ],
+              "fixed": 0,
+              "unfixed": 5
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "HAWB9597917-Declaration_combined.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": false,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            },
+            {
+              "check": "unfixed_tariff",
+              "severity": "block",
+              "message": "4 item(s) have invalid/missing tariff codes.",
+              "field": "validation.tariff",
+              "value": "4",
+              "fix_hint": "For each item below, use lookup_tariff with the item description to find the correct 8-digit CET end-node code. Then edit the XLSX file: set column F (TariffCode) and column AK (GroupBy) to the new code. After fixing, run validate_xlsx to confirm.\n  HAWB9597917-Declaration_combined.xlsx row 29: \"TEMU Purchase (1 items)\" [current: 00000000]\n  HAWB9597917-Declaration_combined.xlsx row 30: \"TEMU Purchase\" [current: 00000000]\n  HAWB9597917-Declaration_combined.xlsx row 55: \"TEMU Purchase (1 items)\" [current: 00000000]\n  HAWB9597917-Declaration_combined.xlsx row 56: \"TEMU Purchase\" [current: 00000000]"
+            },
+            {
+              "check": "unfixed_variance",
+              "severity": "warn",
+              "message": "1 block(s)/file(s) have unresolved variance.",
+              "field": "validation.variance",
+              "value": "1",
+              "fix_hint": "For each file: read_file the XLSX to see line items and totals (row 2 cols S=InvoiceTotal, T=Freight, U=Insurance, V=Tax, W=Deduction). Read the source invoice PDF to find unextracted charges. Use edit_file to correct values. Variance = InvoiceTotal - (SumItems + Freight + Insurance + Tax - Deduction). After fixing, run validate_xlsx to confirm.\n  HAWB9597917-Declaration_combined.xlsx: Block 1 (row 2) variance $+18.31. InvoiceTotal($279.49) != NetTotal($261.18)."
+            }
+          ],
+          "blocker_count": 1,
+          "warning_count": 2
+        }
+      },
+      "error": null,
+      "elapsed_s": 310.4
+    }
+  ]
+}

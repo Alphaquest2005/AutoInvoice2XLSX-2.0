@@ -48,6 +48,7 @@ import pytest
 from openpyxl import load_workbook
 
 from tests.pipeline.invariants import run_all_invariants
+from tests.pipeline._regression_artifacts import snapshot_and_compare
 
 # ── Paths ──────────────────────────────────────────────────────────────
 _REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -175,12 +176,23 @@ def _summary_reporter(tmp_path_factory):
     for r in _RESULTS:
         buckets.setdefault(r["category"], []).append(r["filename"])
 
+    # Snapshot drift summary — which baselines differ from current output.
+    drift_files = [r for r in _RESULTS if r.get("snapshot_status") == "drift"]
+    new_baselines = [r for r in _RESULTS if r.get("snapshot_status") == "new"]
+    promoted = [r for r in _RESULTS if r.get("snapshot_status") == "promoted"]
+
     print("\n" + "=" * 72)
     print(f"Downloads regression summary  ({len(_RESULTS)} PDFs)")
     print("=" * 72)
     for cat in ("processed_pass", "processed_fail", "skipped_non_invoice", "error_crash"):
         names = buckets.get(cat, [])
         print(f"  {cat:<22} {len(names)}")
+    print(f"\n  snapshot: {len(new_baselines)} new, "
+          f"{len(drift_files)} drift, {len(promoted)} promoted")
+    for r in drift_files:
+        count = r.get("snapshot_diff_count", "?")
+        print(f"    DRIFT {r['filename']}  ({count} diffs)  "
+              f"→ {r.get('snapshot_current_dir', '?')}")
     print(f"\nFull report: {summary_path}")
     print("=" * 72)
 
@@ -352,5 +364,22 @@ def test_downloads_pdf(pdf_path: Path, tmp_path: Path) -> None:
         shutil.copytree(output_dir, dest)
         result["persistent_output_dir"] = str(dest)
         result["original_pdf_name"] = pdf_path.name
+
+    # Snapshot XLSX + _email_params.json and compare against golden baseline.
+    # Drift is reported (not a hard failure) — it flags that a change needs
+    # human review. Promote via AUTOINVOICE_UPDATE_GOLDENS=1.
+    pdf_stem = Path(safe_name).stem or "input"
+    try:
+        snap = snapshot_and_compare(pdf_stem, output_dir)
+    except Exception as e:  # noqa: BLE001
+        result["snapshot_error"] = str(e)
+    else:
+        result["snapshot_status"] = snap["status"]
+        result["snapshot_hash"] = snap["hash"]
+        if snap["diffs"]:
+            # Cap diff list so large XLSXs don't blow the summary file.
+            result["snapshot_diffs"] = snap["diffs"][:200]
+            result["snapshot_diff_count"] = len(snap["diffs"])
+            result["snapshot_current_dir"] = snap["current_dir"]
 
     _RESULTS.append(result)

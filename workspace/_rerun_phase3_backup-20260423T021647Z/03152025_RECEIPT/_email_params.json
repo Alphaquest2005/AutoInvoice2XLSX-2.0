@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9600998",
+  "consignee_name": "ROSALIE LA GRENADE",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "2.0",
+  "country_origin": "US",
+  "freight": "5.00",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_RECEIPT.out/1504495444.pdf",
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_RECEIPT.out/HAWB9600998.xlsx",
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_RECEIPT.out/HAWB9600998-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

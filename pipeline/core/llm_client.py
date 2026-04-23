@@ -89,35 +89,91 @@ class LLMClient:
 
         # Retry loop
         last_error = None
+        call_start = time.monotonic()
         for attempt in range(1, self.max_retries + 1):
+            attempt_start = time.monotonic()
             try:
                 req = urllib.request.Request(api_url, data=body, headers=headers, method='POST')
                 with urllib.request.urlopen(req, timeout=120) as response:
                     data = json.loads(response.read().decode('utf-8'))
 
+                elapsed = time.monotonic() - attempt_start
                 text = data.get('content', [{}])[0].get('text', '')
                 if text:
                     if use_cache:
                         _response_cache[cache_key] = text
+                    total_elapsed = time.monotonic() - call_start
+                    logger.info(
+                        f"LLM call succeeded: attempt {attempt}, "
+                        f"response {elapsed:.1f}s, total {total_elapsed:.1f}s"
+                    )
                     return text
 
                 logger.warning(f"LLM returned empty response on attempt {attempt}")
 
             except urllib.error.HTTPError as e:
-                error_body = e.read().decode('utf-8')[:200] if e.fp else str(e)
+                elapsed = time.monotonic() - attempt_start
+                error_body = e.read().decode('utf-8')[:500] if e.fp else str(e)
                 last_error = f"HTTP {e.code}: {error_body}"
-                logger.warning(f"LLM API error (attempt {attempt}): {last_error}")
+
+                # Extract rate-limit headers if present
+                retry_after = None
+                if hasattr(e, 'headers'):
+                    retry_after = e.headers.get('retry-after')
+                    rl_remaining = e.headers.get('x-ratelimit-remaining')
+                    rl_reset = e.headers.get('x-ratelimit-reset')
+                    if rl_remaining is not None or rl_reset is not None:
+                        logger.warning(
+                            f"LLM rate-limit headers: remaining={rl_remaining}, "
+                            f"reset={rl_reset}, retry-after={retry_after}"
+                        )
+
+                if e.code == 429:
+                    logger.warning(
+                        f"LLM RATE LIMITED (429) on attempt {attempt}/{self.max_retries} "
+                        f"after {elapsed:.1f}s. retry-after={retry_after}. "
+                        f"Body: {error_body}"
+                    )
+                elif e.code == 529:
+                    logger.warning(
+                        f"LLM OVERLOADED (529) on attempt {attempt}/{self.max_retries} "
+                        f"after {elapsed:.1f}s. Body: {error_body}"
+                    )
+                else:
+                    logger.warning(
+                        f"LLM API error (attempt {attempt}/{self.max_retries}, "
+                        f"{elapsed:.1f}s): {last_error}"
+                    )
             except urllib.error.URLError as e:
+                elapsed = time.monotonic() - attempt_start
                 last_error = f"Connection error: {e.reason}"
-                logger.warning(f"LLM API connection error (attempt {attempt}): {last_error}")
+                logger.warning(
+                    f"LLM API connection error (attempt {attempt}/{self.max_retries}, "
+                    f"{elapsed:.1f}s): {last_error}"
+                )
             except Exception as e:
+                elapsed = time.monotonic() - attempt_start
                 last_error = str(e)
-                logger.warning(f"LLM call failed (attempt {attempt}): {last_error}")
+                logger.warning(
+                    f"LLM call failed (attempt {attempt}/{self.max_retries}, "
+                    f"{elapsed:.1f}s): {last_error}"
+                )
 
             if attempt < self.max_retries:
-                time.sleep(self.retry_delay * attempt)
+                backoff = self.retry_delay * attempt
+                total_so_far = time.monotonic() - call_start
+                logger.info(
+                    f"LLM retry backoff: sleeping {backoff}s before attempt "
+                    f"{attempt + 1}/{self.max_retries} "
+                    f"(total elapsed: {total_so_far:.1f}s)"
+                )
+                time.sleep(backoff)
 
-        logger.error(f"LLM call failed after {self.max_retries} attempts: {last_error}")
+        total_elapsed = time.monotonic() - call_start
+        logger.error(
+            f"LLM call failed after {self.max_retries} attempts "
+            f"({total_elapsed:.1f}s total): {last_error}"
+        )
         return None
 
     def call_json(

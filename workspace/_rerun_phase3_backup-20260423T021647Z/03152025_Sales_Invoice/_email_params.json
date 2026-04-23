@@ -1,0 +1,25 @@
+{
+  "waybill": "HAWB9687189",
+  "consignee_name": "SHANICE ST BERNARD",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 5,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "3.0",
+  "country_origin": "US",
+  "freight": "7.00",
+  "man_reg": "2024 31",
+  "attachment_paths": [
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Sales_Invoice.out/SELLER.pdf",
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Sales_Invoice.out/GSUNJE.pdf",
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Sales_Invoice.out/HAWB9687189-Manifest_combined.xlsx",
+    "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Sales_Invoice.out/HAWB9687189-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS",
+  "ocr_warnings": [
+    "SELLER.pdf: OCR quality POOR (score 25/100)"
+  ],
+  "notes": "WARNING: Some pages have poor OCR quality. Check the \"OCR Notes\" sheet in the combined XLSX for details. Consider asking sender to rescan and resubmit."
+}

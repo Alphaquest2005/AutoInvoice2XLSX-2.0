@@ -1,0 +1,11 @@
+{
+  "format_name": "walmart",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "00000000",
+      "classification_source": "",
+      "description": "Walmart Purchase"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "format_name": "shein_us_invoice",
+  "format_source": "yaml_spec",
+  "items": [
+    {
+      "tariff_code": "99999999",
+      "classification_source": "",
+      "description": "SHEIN US Services, LLC Purchase"
+    }
+  ]
+}

@@ -1,0 +1,269 @@
+{
+  "session_start": "2026-04-23T02:50:04.865765+00:00",
+  "total_folders": 1,
+  "processed": 1,
+  "elapsed_s": 204.0,
+  "results": [
+    {
+      "folder": "03152025_Order_totai",
+      "staged": 6,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "03-11786-67235",
+            "supplier": "eBay",
+            "format": "la_parts_order_number",
+            "items": 2,
+            "matched": 0,
+            "classified": 0,
+            "total": 27.89,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Order_totai.out/HAWB9591350-Declaration_combined.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Order_totai.out/03-11786-67235.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Order_totai.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_Order_totai.out/_email_params.json",
+        "validation": {
+          "total_issues": 8,
+          "fixed": 5,
+          "unfixed": 3,
+          "per_file": [
+            {
+              "file": "HAWB9591350-Declaration_combined.xlsx",
+              "supplier": "eBay",
+              "issues": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "current": "00000000",
+                  "description": "= Oey, if Seller koduste 10813, NW 30TH STREET, BLDG 115GRE Shipping Free Pay... (+1 more) (2 items)",
+                  "qty": 2,
+                  "total_cost": 24.2,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"= Oey, if Seller koduste 10813, NW 30TH STREET, BLDG 115GRE \" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 3,
+                  "current": "00000000",
+                  "description": "= Oey, if Seller koduste 10813, NW 30TH STREET, BLDG 115GRE Shipping Free Pay...",
+                  "qty": 1,
+                  "total_cost": 1.69,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"= Oey, if Seller koduste 10813, NW 30TH STREET, BLDG 115GRE \" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 4,
+                  "current": "00000000",
+                  "description": "SpeedPAK Standard",
+                  "qty": 1,
+                  "total_cost": 22.51,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"SpeedPAK Standard\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 29,
+                  "current": "00000000",
+                  "description": "= Oey, if Seller koduste 10813, NW 30TH STREET, BLDG 115GRE Shipping Free Pay... (+2 more) (3 items)",
+                  "qty": 3,
+                  "total_cost": 24.2,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"= Oey, if Seller koduste 10813, NW 30TH STREET, BLDG 115GRE \" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 30,
+                  "current": "00000000",
+                  "description": "= Oey, if Seller koduste 10813, NW 30TH STREET, BLDG 115GRE Shipping Free Pay...",
+                  "qty": 1,
+                  "total_cost": 1.69,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"= Oey, if Seller koduste 10813, NW 30TH STREET, BLDG 115GRE \" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 31,
+                  "current": "00000000",
+                  "description": "SpeedPAK Standard",
+                  "qty": 1,
+                  "total_cost": 4.2,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"SpeedPAK Standard\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 32,
+                  "current": "00000000",
+                  "description": "Seller\tkoduste Rickado C Thomas Miami, Florida 33172-5068 (125925680646)\tSpee...",
+                  "qty": 1,
+                  "total_cost": 18.31,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"Seller\tkoduste Rickado C Thomas Miami, Florida 33172-5068 (1\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "VARIANCE",
+                  "variance": 1.7,
+                  "invoice_total": 27.89,
+                  "sum_items": 24.2,
+                  "freight": 0,
+                  "insurance": 0,
+                  "tax": 1.99,
+                  "deduction": 0,
+                  "block": 1,
+                  "block_header_row": 2,
+                  "block_adjustments_row": 13,
+                  "why": "Block 1 (row 2) variance $+1.70. InvoiceTotal($27.89) != NetTotal($26.19).",
+                  "how": "Open source PDF for this invoice and rerun pipeline \u2014 per-invoice variance_fixer should resolve before combining."
+                }
+              ],
+              "fixes": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "old": "00000000",
+                  "new": "87082900",
+                  "method": "LLM: Item is '2pcs Right Side Exterior Door Handle End Cap Fit Fo",
+                  "description": "= Oey, if Seller koduste 10813, NW 30TH STREET, BL"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 3,
+                  "old": "00000000",
+                  "new": "97060000",
+                  "method": "LLM: Sales tax line item - not a physical good. Using miscellaneo",
+                  "description": "= Oey, if Seller koduste 10813, NW 30TH STREET, BL"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 29,
+                  "old": "00000000",
+                  "new": "87082900",
+                  "method": "LLM: Same item as Row 2 - '2pcs Right Side Exterior Door Handle E",
+                  "description": "= Oey, if Seller koduste 10813, NW 30TH STREET, BL"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 30,
+                  "old": "00000000",
+                  "new": "97060000",
+                  "method": "LLM: Sales tax line item - not a physical good. Using miscellaneo",
+                  "description": "= Oey, if Seller koduste 10813, NW 30TH STREET, BL"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 32,
+                  "old": "00000000",
+                  "new": "87082900",
+                  "method": "LLM: Based on invoice context, this row represents the same autom",
+                  "description": "Seller\tkoduste Rickado C Thomas Miami, Florida 331"
+                }
+              ],
+              "remaining": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 4,
+                  "current": "00000000",
+                  "description": "SpeedPAK Standard",
+                  "qty": 1,
+                  "total_cost": 22.51,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"SpeedPAK Standard\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 31,
+                  "current": "00000000",
+                  "description": "SpeedPAK Standard",
+                  "qty": 1,
+                  "total_cost": 4.2,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"SpeedPAK Standard\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "VARIANCE",
+                  "variance": 1.7,
+                  "invoice_total": 27.89,
+                  "sum_items": 24.2,
+                  "freight": 0,
+                  "insurance": 0,
+                  "tax": 1.99,
+                  "deduction": 0,
+                  "block": 1,
+                  "block_header_row": 2,
+                  "block_adjustments_row": 13,
+                  "why": "Block 1 (row 2) variance $+1.70. InvoiceTotal($27.89) != NetTotal($26.19).",
+                  "how": "Open source PDF for this invoice and rerun pipeline \u2014 per-invoice variance_fixer should resolve before combining."
+                }
+              ],
+              "fixed": 5,
+              "unfixed": 3
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "HAWB9591350-Declaration_combined.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": false,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            },
+            {
+              "check": "unfixed_tariff",
+              "severity": "block",
+              "message": "2 item(s) have invalid/missing tariff codes.",
+              "field": "validation.tariff",
+              "value": "2",
+              "fix_hint": "For each item below, use lookup_tariff with the item description to find the correct 8-digit CET end-node code. Then edit the XLSX file: set column F (TariffCode) and column AK (GroupBy) to the new code. After fixing, run validate_xlsx to confirm.\n  HAWB9591350-Declaration_combined.xlsx row 4: \"SpeedPAK Standard\" [current: 00000000]\n  HAWB9591350-Declaration_combined.xlsx row 31: \"SpeedPAK Standard\" [current: 00000000]"
+            },
+            {
+              "check": "unfixed_variance",
+              "severity": "warn",
+              "message": "1 block(s)/file(s) have unresolved variance.",
+              "field": "validation.variance",
+              "value": "1",
+              "fix_hint": "For each file: read_file the XLSX to see line items and totals (row 2 cols S=InvoiceTotal, T=Freight, U=Insurance, V=Tax, W=Deduction). Read the source invoice PDF to find unextracted charges. Use edit_file to correct values. Variance = InvoiceTotal - (SumItems + Freight + Insurance + Tax - Deduction). After fixing, run validate_xlsx to confirm.\n  HAWB9591350-Declaration_combined.xlsx: Block 1 (row 2) variance $+1.70. InvoiceTotal($27.89) != NetTotal($26.19)."
+            }
+          ],
+          "blocker_count": 1,
+          "warning_count": 2
+        }
+      },
+      "error": null,
+      "elapsed_s": 204.0
+    }
+  ]
+}
