@@ -216,6 +216,139 @@ def _avg_cet_rate_for_items(items: list) -> float:
     return (weighted / total) if total > 0 else 0.20
 
 
+# ---------------------------------------------------------------------------
+# Partition scoring helpers (minimax-relative objective + pathological guard).
+# Used by Strategy 1 / 1b / 1c in _split_items_per_declaration.
+# ---------------------------------------------------------------------------
+_PARTITION_EPS = 1e-6
+
+
+def _partition_score(sum0: float, sum1: float, t0: float, t1: float) -> tuple:
+    """Return (primary, secondary) score tuple for a 2-way partition.
+
+    Lower is better. Primary = minimax relative deviation across decls.
+    Secondary = sum of absolute gaps (tiebreaker).
+    """
+    dev0 = abs(sum0 - t0) / max(t0, _PARTITION_EPS)
+    dev1 = abs(sum1 - t1) / max(t1, _PARTITION_EPS)
+    primary = max(dev0, dev1)
+    secondary = abs(sum0 - t0) + abs(sum1 - t1)
+    return (primary, secondary)
+
+
+def _partition_score_n(sums: list, targets: list) -> tuple:
+    """N-way generalisation of ``_partition_score``."""
+    devs = [
+        abs(sums[d] - targets[d]) / max(targets[d], _PARTITION_EPS)
+        for d in range(len(targets))
+    ]
+    abs_gaps = [abs(sums[d] - targets[d]) for d in range(len(targets))]
+    return (max(devs), sum(abs_gaps))
+
+
+def _best_2way_partition(
+    item_costs: list, target0: float, target1: float
+) -> tuple:
+    """Exhaustive 2-way subset-sum partition using minimax-relative scoring.
+
+    Only NON-EMPTY partitions are considered (each declaration must receive at
+    least one item); the empty partition is never a valid allocation per
+    downstream post-validation.
+
+    Returns (assignment_list, best_score_tuple) where assignment[i] is 0 or 1.
+    """
+    n = len(item_costs)
+    best_assignment = None
+    best_score = (float('inf'), float('inf'))
+    # Skip mask=0 (everything on BL1, BL0 empty) and mask=(1<<n)-1.
+    for mask in range(1, (1 << n) - 1):
+        sum0 = sum(item_costs[i] for i in range(n) if mask & (1 << i))
+        sum1 = sum(item_costs[i] for i in range(n) if not (mask & (1 << i)))
+        score = _partition_score(sum0, sum1, target0, target1)
+        if score < best_score:
+            best_score = score
+            best_assignment = [
+                0 if (mask & (1 << i)) else 1 for i in range(n)
+            ]
+    return best_assignment, best_score
+
+
+def _best_nway_partition(
+    item_costs: list, targets: list, exhaustive_limit: int = 15
+) -> tuple:
+    """N-way partition using minimax-relative scoring.
+
+    - If n_items <= ``exhaustive_limit`` and n_decl <= 4, enumerate all
+      n_decl ** n_items assignments (non-empty only).
+    - Otherwise fall back to a largest-first greedy that places each item on
+      the declaration whose per-placement score increment is smallest.
+    """
+    n_items = len(item_costs)
+    n_decl = len(targets)
+
+    if n_items <= exhaustive_limit and n_decl <= 4 and n_items >= n_decl:
+        best_assignment = None
+        best_score = (float('inf'), float('inf'))
+        total = n_decl ** n_items
+        for code in range(total):
+            assignment = [0] * n_items
+            c = code
+            for i in range(n_items):
+                assignment[i] = c % n_decl
+                c //= n_decl
+            if len(set(assignment)) < n_decl:
+                continue
+            sums = [0.0] * n_decl
+            for i, d in enumerate(assignment):
+                sums[d] += item_costs[i]
+            score = _partition_score_n(sums, targets)
+            if score < best_score:
+                best_score = score
+                best_assignment = assignment
+        return best_assignment, best_score
+
+    # Greedy fallback
+    sorted_indices = sorted(
+        range(n_items), key=lambda i: item_costs[i], reverse=True
+    )
+    assignment = [0] * n_items
+    sums = [0.0] * n_decl
+    for idx in sorted_indices:
+        cost = item_costs[idx]
+        best_d = 0
+        best_score_incr = (float('inf'), float('inf'))
+        for d in range(n_decl):
+            trial_sums = list(sums)
+            trial_sums[d] += cost
+            score = _partition_score_n(trial_sums, targets)
+            if score < best_score_incr:
+                best_score_incr = score
+                best_d = d
+        assignment[idx] = best_d
+        sums[best_d] += cost
+    best_score = _partition_score_n(sums, targets)
+    return assignment, best_score
+
+
+def _partition_is_pathological(best_score: tuple, targets: list) -> bool:
+    """Reject the partition result only when reverse-calc itself is unreliable.
+
+    Per ``feedback_reverse_calc_allocation.md``, reverse-calc targets derived
+    from pencil duties are AUTHORITATIVE even when their sum is much smaller
+    than the invoice items total (few-item waybills). So we drop the absolute-
+    gap rejection and only fall through when:
+      - min(targets) < 1.0: a near-zero target means reverse-calc probably
+        failed (a duty of zero is not meaningful customs signal).
+      - best_score[0] > 5.0: even the optimal partition has >500% relative
+        deviation on its worst side.
+    """
+    if not targets or min(targets) < 1.0:
+        return True
+    if best_score[0] > 5.0:
+        return True
+    return False
+
+
 def _split_items_per_declaration(
     all_declarations: list,
     results: list,
@@ -375,80 +508,29 @@ def _split_items_per_declaration(
         )
 
     if all(t is not None for t in customs_targets) and len(customs_targets) == n_decl:
-        # Subset-sum matching: find the item partition across declarations
-        # that minimises total deviation from declared customs values.
-        # For typical shipments (2-20 items, 2-3 declarations) this is
-        # fast enough to try all 2-way partitions exhaustively.
+        # Subset-sum matching with minimax-relative objective. Reverse-calc
+        # targets are AUTHORITATIVE per feedback_reverse_calc_allocation.md —
+        # the pencil duty value on each declaration uniquely determines how
+        # much customs-value that BL carries, even when targets don't sum to
+        # the full invoice (undeclared payment/discount/garbage lines).
         n_items = len(all_items)
         item_costs = [float(it.get('total_cost', 0) or 0) for it in all_items]
 
-        best_assignment = None
-        best_total_gap = float('inf')
-
         if n_decl == 2:
-            # Exhaustive 2-way partition: try all subsets for declaration 0
-            # Rest goes to declaration 1.  2^20 = ~1M is fine.
-            # Skip partitions that leave either declaration empty — the
-            # reverse-calc targets are approximate, and empty-decl splits
-            # produce useless XLSX output. The caller wants an even split
-            # when possible.
-            target0 = customs_targets[0]
-            target1 = customs_targets[1]
-            for mask in range(1, (1 << n_items) - 1):  # exclude 0 and all-ones
-                sum0 = sum(item_costs[i] for i in range(n_items) if mask & (1 << i))
-                sum1 = sum(item_costs[i] for i in range(n_items) if not (mask & (1 << i)))
-                gap = abs(sum0 - target0) + abs(sum1 - target1)
-                if gap < best_total_gap:
-                    best_total_gap = gap
-                    best_assignment = [
-                        0 if (mask & (1 << i)) else 1
-                        for i in range(n_items)
-                    ]
-        else:
-            # Multi-way: greedy assign items to declaration with largest
-            # positive remaining target.  Sort items largest-first.
-            sorted_indices = sorted(
-                range(n_items), key=lambda i: item_costs[i], reverse=True
+            best_assignment, best_score = _best_2way_partition(
+                item_costs, customs_targets[0], customs_targets[1]
             )
-            assignment = [0] * n_items
-            rem = list(customs_targets)
-            for idx in sorted_indices:
-                cost = item_costs[idx]
-                # Prefer declarations with room (remaining > 0)
-                best_d = 0
-                best_rem = float('inf')
-                for d in range(n_decl):
-                    if rem[d] >= cost:
-                        # Fits: prefer smallest remaining after assignment
-                        after = rem[d] - cost
-                        if after < best_rem:
-                            best_rem = after
-                            best_d = d
-                if best_rem == float('inf'):
-                    # Doesn't fit anywhere perfectly — pick largest remaining
-                    best_d = max(range(n_decl), key=lambda d: rem[d])
-                assignment[idx] = best_d
-                rem[best_d] -= cost
-            best_assignment = assignment
-            best_total_gap = sum(abs(r) for r in rem)
+        else:
+            best_assignment, best_score = _best_nway_partition(
+                item_costs, list(customs_targets)
+            )
 
-        # Build item lists from assignment. Reverse-calc targets have
-        # inherent estimation error (avg_cet_rate assumption, freight
-        # allocation, pencil rounding, duty rounding by declarant). The
-        # BEST partition is what the handwritten duty values point to —
-        # accept it unless the gap exceeds 50% of total items, which
-        # means the reverse-calc model fundamentally disagrees with the
-        # item set (suggesting items missing from the receipt, not a
-        # splitter problem).
-        _gap_tolerance = max(15.0, 0.50 * all_items_total)
-        if best_assignment is not None and best_total_gap <= _gap_tolerance:
+        if best_assignment is not None and not _partition_is_pathological(
+            best_score, list(customs_targets)
+        ):
             candidate = [[] for _ in range(n_decl)]
             for i, d in enumerate(best_assignment):
                 candidate[d].append(all_items[i])
-
-            # Validate: ALL declarations must get at least one item. An
-            # empty allocation means this strategy produced a lopsided
-            # split — let later strategies try.
             valid = all(len(candidate[d]) > 0 for d in range(n_decl))
             if valid:
                 decl_items = candidate
@@ -458,15 +540,14 @@ def _split_items_per_declaration(
                     logger.info(
                         f"Reverse-calc split: {wbl} → {len(decl_items[d])} items "
                         f"${actual:.2f} (implied target ${customs_targets[d]:.2f}, "
-                        f"gap ${abs(actual - customs_targets[d]):.2f})"
+                        f"rel-dev {abs(actual - customs_targets[d]) / max(customs_targets[d], _PARTITION_EPS):.1%})"
                     )
             else:
-                logger.warning("Reverse-calc split left a declaration empty — "
-                               "falling back")
+                logger.warning("Reverse-calc split left a declaration empty — falling back")
         else:
             logger.warning(
-                f"Reverse-calc split gap ${best_total_gap:.2f} > tolerance "
-                f"${_gap_tolerance:.2f} — falling back"
+                f"Reverse-calc partition pathological (score {best_score[0]:.2f}, "
+                f"targets {customs_targets}) — falling back"
             )
 
     # Strategy 1b: CC-charge-guided distribution.
@@ -486,43 +567,30 @@ def _split_items_per_declaration(
         cc_targets_pre_tax = [c / (1 + tax_ratio_est) for c in cc_charges]
 
         best_perm = None
-        best_perm_gap = float('inf')
+        best_perm_score: tuple = (float('inf'), float('inf'))
         best_perm_assignment = None
 
         for perm in permutations(range(len(cc_charges))):
             targets = [cc_targets_pre_tax[perm[d]] for d in range(n_decl)]
 
             if n_decl == 2:
-                local_best = None
-                local_gap = float('inf')
-                # Exclude empty-decl masks (0 and all-ones)
-                for mask in range(1, (1 << n_items) - 1):
-                    s0 = sum(item_costs[i] for i in range(n_items) if mask & (1 << i))
-                    s1 = sum(item_costs[i] for i in range(n_items) if not (mask & (1 << i)))
-                    gap = abs(s0 - targets[0]) + abs(s1 - targets[1])
-                    if gap < local_gap:
-                        local_gap = gap
-                        local_best = [0 if (mask & (1 << i)) else 1 for i in range(n_items)]
+                local_best, local_score = _best_2way_partition(
+                    item_costs, targets[0], targets[1]
+                )
             else:
-                sorted_indices = sorted(range(n_items), key=lambda i: item_costs[i], reverse=True)
-                local_best = [0] * n_items
-                rem = list(targets)
-                for idx_s in sorted_indices:
-                    cost = item_costs[idx_s]
-                    best_d = max(range(n_decl), key=lambda d: rem[d])
-                    for d in range(n_decl):
-                        if rem[d] >= cost and (rem[d] - cost) < rem[best_d]:
-                            best_d = d
-                    local_best[idx_s] = best_d
-                    rem[best_d] -= cost
-                local_gap = sum(abs(r) for r in rem)
+                local_best, local_score = _best_nway_partition(
+                    item_costs, targets
+                )
 
-            if local_gap < best_perm_gap:
-                best_perm_gap = local_gap
+            if local_best is not None and local_score < best_perm_score:
+                best_perm_score = local_score
                 best_perm = perm
                 best_perm_assignment = local_best
 
-        if best_perm_assignment is not None and best_perm_gap <= 3.0:
+        if best_perm_assignment is not None and best_perm is not None and not _partition_is_pathological(
+            best_perm_score,
+            [cc_targets_pre_tax[best_perm[d]] for d in range(n_decl)]
+        ):
             candidate = [[] for _ in range(n_decl)]
             for i, d in enumerate(best_perm_assignment):
                 candidate[d].append(all_items[i])
@@ -581,44 +649,17 @@ def _split_items_per_declaration(
             item_costs = [float(it.get('total_cost', 0) or 0) for it in all_items]
 
             if n_decl == 2:
-                best_assignment = None
-                best_total_gap = float('inf')
-                t0, t1 = filled_targets[0], filled_targets[1]
-                # Exclude empty-decl masks (0 and all-ones)
-                for mask in range(1, (1 << n_items) - 1):
-                    s0 = sum(item_costs[i] for i in range(n_items) if mask & (1 << i))
-                    s1 = sum(item_costs[i] for i in range(n_items) if not (mask & (1 << i)))
-                    gap = abs(s0 - t0) + abs(s1 - t1)
-                    if gap < best_total_gap:
-                        best_total_gap = gap
-                        best_assignment = [
-                            0 if (mask & (1 << i)) else 1
-                            for i in range(n_items)
-                        ]
-            else:
-                # Multi-way greedy (same as Strategy 1)
-                sorted_indices = sorted(
-                    range(n_items), key=lambda i: item_costs[i], reverse=True
+                best_assignment, best_score = _best_2way_partition(
+                    item_costs, filled_targets[0], filled_targets[1]
                 )
-                best_assignment = [0] * n_items
-                rem = list(filled_targets)
-                for idx in sorted_indices:
-                    cost = item_costs[idx]
-                    best_d = 0
-                    best_rem = float('inf')
-                    for d in range(n_decl):
-                        if rem[d] >= cost:
-                            after = rem[d] - cost
-                            if after < best_rem:
-                                best_rem = after
-                                best_d = d
-                    if best_rem == float('inf'):
-                        best_d = max(range(n_decl), key=lambda d: rem[d])
-                    best_assignment[idx] = best_d
-                    rem[best_d] -= cost
-                best_total_gap = sum(abs(r) for r in rem)
+            else:
+                best_assignment, best_score = _best_nway_partition(
+                    item_costs, list(filled_targets)
+                )
 
-            if best_assignment is not None and best_total_gap <= 5.0:
+            if best_assignment is not None and not _partition_is_pathological(
+                best_score, list(filled_targets)
+            ):
                 candidate = [[] for _ in range(n_decl)]
                 for i, d in enumerate(best_assignment):
                     candidate[d].append(all_items[i])
