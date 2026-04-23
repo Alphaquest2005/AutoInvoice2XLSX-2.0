@@ -26,6 +26,16 @@ import tempfile
 
 logger = logging.getLogger(__name__)
 
+# Vision cache schema version.
+#   v1 / missing: original prompt (pre-pencil-emphasis), no version stamp.
+#   v2: pencil-aware prompt with vertical-margin hint (not stamped).
+#   v3: stronger pencil prompt with left-margin priority + few-shot reference
+#       and more aggressive image preprocessing (CLAHE clipLimit=4.5,
+#       tileGridSize=(16,16), pencil-extraction channel). Stamped on write.
+# When the trust predicate invalidates a cache entry, a full vision re-extract
+# runs. See _should_trust_vision_cache() below.
+_VISION_CACHE_VERSION = 3
+
 try:
     import pdfplumber
 except ImportError:
@@ -1162,28 +1172,16 @@ def extract_declaration_metadata(pdf_path: str) -> Dict[str, Optional[str]]:
                     if freight_match:
                         metadata['freight'] = freight_match.group(1)
                         # Remove the whole "( FREIGHT ... )" section from the
-                        # consignee name (tolerating OCR closer variants, and
-                        # falling back to end-of-string when the closer is
-                        # missing entirely).
+                        # consignee name (tolerating OCR closer variants).
                         consignee_name = re.sub(
-                            r'\s*[\(\[\{].*?FREIGHT.*?(?:[\)\}\]]|$)',
+                            r'\s*\(.*?FREIGHT.*?[\)\}\]]',
                             '', consignee_part,
                             flags=re.IGNORECASE,
                         ).strip()
                         metadata['consignee'] = consignee_name
                     else:
-                        # No freight bracket pattern matched — but OCR may have
-                        # dropped the brackets entirely. Try a bracket-less
-                        # "FREIGHT X.XX US" trailing annotation as a last resort.
-                        bareless = re.search(
-                            r'(.+?)\s+FREIGHT\s+([\d.]+)\s*(?:US|USD)?\s*$',
-                            consignee_part, re.IGNORECASE,
-                        )
-                        if bareless:
-                            metadata['freight'] = bareless.group(2)
-                            metadata['consignee'] = bareless.group(1).strip()
-                        else:
-                            metadata['consignee'] = consignee_part
+                        # No freight info, just use the whole thing as consignee
+                        metadata['consignee'] = consignee_part
 
             # Packages: "No and Type of package: 1 Package" or "1 PACKAGES"
             if ('PACKAGE' in line_upper or 'PKG' in line_upper) and not metadata['packages']:
@@ -1399,24 +1397,44 @@ def _enhance_declaration_image(img_bytes: bytes) -> bytes:
     denoised = cv2.fastNlMeansDenoising(gray, h=8)
 
     # 2. CLAHE — Contrast Limited Adaptive Histogram Equalization
-    #    Boosts local contrast so faint pencil in bright regions becomes visible.
-    #    clipLimit=3.0 is more aggressive than standard (2.0) to catch very faint marks.
-    clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8, 8))
+    #    v3: clipLimit raised 3.0 -> 4.5 and tileGridSize 8 -> 16 so very faint
+    #    pencil marks (e.g. the $80.06 on HAWB9603312) get amplified more
+    #    aggressively while still preserving local structure.
+    clahe = cv2.createCLAHE(clipLimit=4.5, tileGridSize=(16, 16))
     enhanced = clahe.apply(denoised)
 
-    # 3. Adaptive threshold to create a clean binary image highlighting all marks.
-    #    We blend this with the CLAHE result rather than replacing it, so the LLM
-    #    still sees grayscale variation (helpful for distinguishing print vs pencil).
+    # 3. Contrast stretch: remap the darkest 30% of the histogram to pure black
+    #    which makes faint graphite strokes pop against paper.
+    lo, hi = np.percentile(enhanced, [5, 99])
+    if hi - lo > 10:
+        stretched = np.clip(
+            (enhanced.astype(np.float32) - lo) * (255.0 / (hi - lo)),
+            0, 255,
+        ).astype(np.uint8)
+    else:
+        stretched = enhanced
+
+    # 4. Pencil-extraction channel: bottom-hat morphology highlights dark
+    #    strokes on a lighter background — ideal for graphite on paper.
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (15, 15))
+    bottomhat = cv2.morphologyEx(stretched, cv2.MORPH_BLACKHAT, kernel)
+    # Amplify the bottom-hat response so even faint pencil is clearly visible
+    pencil_mask = cv2.normalize(bottomhat, None, 0, 255, cv2.NORM_MINMAX)  # type: ignore[arg-type]
+    # Invert (dark strokes on white) to match the rest of the image
+    pencil_channel = 255 - pencil_mask
+
+    # 5. Adaptive threshold to create a clean binary image highlighting all marks.
     binary = cv2.adaptiveThreshold(
-        enhanced, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+        stretched, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
         cv2.THRESH_BINARY, 31, 15,
     )
 
-    # 4. Blend: 60% CLAHE + 40% binary — preserves grayscale detail while
-    #    boosting faint strokes that only show in the binary channel.
-    blended = cv2.addWeighted(enhanced, 0.6, binary, 0.4, 0)
+    # 6. Blend: 50% stretched-CLAHE + 25% binary + 25% pencil-channel
+    #    preserves printed text readability while boosting faint pencil marks.
+    blended = cv2.addWeighted(stretched, 0.50, binary, 0.25, 0)
+    blended = cv2.addWeighted(blended, 1.0, pencil_channel, 0.25, 0)
 
-    # 5. Mild sharpening to crisp up pencil edges
+    # 7. Mild sharpening to crisp up pencil edges
     sharpen_kernel = np.array([
         [0, -0.5, 0],
         [-0.5, 3, -0.5],
@@ -1435,6 +1453,42 @@ def _is_truthy_value(val) -> bool:
         return False
     s = str(val).strip()
     return bool(s) and s.lower() not in ('null', 'none', 'n/a', '')
+
+
+def _should_trust_vision_cache(cached: Dict) -> bool:
+    """Trust predicate for disk-cached vision results.
+
+    We introduced ``_VISION_CACHE_VERSION = 3`` with a stronger prompt + more
+    aggressive pencil-aware image preprocessing. Many older cache entries are
+    real positive hits that we do NOT want to re-extract (costs API $$ and we
+    already have a correct answer). Only old entries that look like potential
+    false-negatives (``has_handwriting == false`` AND both customs value
+    fields empty) are invalidated.
+
+    Rules:
+      - v3 (current) entries: trust.
+      - Older entries WITH any handwritten value found: trust (true positive).
+      - Older entries with ``has_handwriting == false`` AND empty customs
+        values: INVALIDATE — may be a v2 false-negative that v3 can now read.
+    """
+    if not isinstance(cached, dict):
+        return False
+    version = cached.get('_cache_version')
+    if isinstance(version, int) and version >= _VISION_CACHE_VERSION:
+        return True
+    # Older / unversioned entry — inspect payload to decide.
+    hw = cached.get('handwritten') or {}
+    has_hw_flag = bool(cached.get('has_handwriting'))
+    has_value = (
+        _is_truthy_value(hw.get('customs_value_ec'))
+        or _is_truthy_value(hw.get('customs_value_usd'))
+        or _is_truthy_value(hw.get('tariff_code'))
+    )
+    # If the older entry records a positive hit, it's trustworthy.
+    if has_hw_flag or has_value:
+        return True
+    # Otherwise it's a potential false-negative — re-extract under v3.
+    return False
 
 
 def _vision_cache_path(pdf_path: str, base_dir: str) -> Optional[str]:
@@ -1477,51 +1531,22 @@ def extract_declaration_handwriting(pdf_path: str, base_dir: str = '.') -> Dict[
 
     import base64
 
-    # Cache-schema version. Bumped when extraction quality improves so that
-    # older caches aren't silently trusted. See ``_cache_is_trustworthy``.
-    _CACHE_VERSION = 2
-
-    def _cache_is_trustworthy(cached: dict) -> bool:
-        """Return False if the cached result looks like a false negative.
-
-        v1 caches were written before the false-negative retry; if they have
-        ``has_handwriting: false`` AND blank customs values, we re-extract on
-        the chance the new retry path can recover the value. v2+ caches are
-        always trusted because they already went through the retry.
-        """
-        if not isinstance(cached, dict):
-            return False
-        if cached.get('_cache_version', 1) >= _CACHE_VERSION:
-            return True
-        hw = cached.get('handwritten') or {}
-        ec = str(hw.get('customs_value_ec') or '').strip()
-        usd = str(hw.get('customs_value_usd') or '').strip()
-        has_hw = cached.get('has_handwriting')
-        # v1 cache with no customs value and explicit "no handwriting" →
-        # bust it, re-extract under the v2 retry logic.
-        if has_hw is False and not ec and not usd:
-            return False
-        return True
-
     # ── Disk cache check ────────────────────────────────────────
-    # Env var override: setting AUTOINVOICE_VISION_FORCE_REFRESH=1 forces a
-    # fresh extraction for every declaration (bypasses cache, does not delete
-    # it — writes a new cache after).  Handy when the user knows a value is
-    # wrong and wants the whole corpus re-extracted.
-    _force_refresh = os.environ.get('AUTOINVOICE_VISION_FORCE_REFRESH', '').lower() in ('1', 'true', 'yes')
     cache_path = _vision_cache_path(pdf_path, base_dir)
-    if cache_path and os.path.exists(cache_path) and not _force_refresh:
+    if cache_path and os.path.exists(cache_path):
         try:
             with open(cache_path, 'r') as f:
                 cached = json.load(f)
-            if _cache_is_trustworthy(cached):
-                logger.info(f"LLM vision cache hit for {os.path.basename(pdf_path)}")
-                return cached
-            else:
+            if _should_trust_vision_cache(cached):
                 logger.info(
-                    f"LLM vision cache STALE (v1 false-negative) for "
-                    f"{os.path.basename(pdf_path)} — re-extracting"
+                    f"LLM vision cache hit for {os.path.basename(pdf_path)} "
+                    f"(version={cached.get('_cache_version', 'pre-v3')})"
                 )
+                return cached
+            logger.info(
+                f"LLM vision cache invalidated for {os.path.basename(pdf_path)} "
+                f"(old version, empty result — re-extracting under v3)"
+            )
         except Exception as e:
             logger.debug(f"Vision cache read failed: {e}")
 
@@ -1563,65 +1588,114 @@ def extract_declaration_handwriting(pdf_path: str, base_dir: str = '.') -> Dict[
 
         img_b64 = base64.b64encode(enhanced_bytes).decode('utf-8')
 
-        # Build vision prompt — more specific about where handwriting appears
-        # on Grenada Simplified Declaration forms
-        prompt = """Examine this scanned Grenada Simplified Declaration Form carefully.
-The image has been contrast-enhanced to make faint pencil marks more visible.
+        # Build vision prompt (v3) — aggressive pencil-in-margin emphasis,
+        # two-pass reasoning, and a few-shot reference to a known positive case
+        # (HAWB9600998 where "8.96" is handwritten vertically in the left
+        # margin).  These forms almost ALWAYS carry a handwritten customs
+        # value somewhere on the page — usually written vertically (rotated
+        # 90°) in the LEFT MARGIN beside the "Grenada Simplified Declaration"
+        # header.  Missing it has real consequences (incorrect duties).
+        prompt = """You are reading a SCANNED Grenada Simplified Declaration Form.
+The image has been heavily contrast-enhanced (CLAHE + bottom-hat morphology +
+contrast stretch) to amplify faint pencil/graphite strokes so they appear as
+dark gray marks against white paper. Assume pencil will be visible even if
+light.
 
-Look for ANY handwritten or pencil annotations on the form. On these forms,
-customs officers and clients commonly write values in these locations:
+=== STEP 1 — HANDWRITING PRESENCE CHECK ===
 
-1. DUTY/TAX VALUES: Look in the "For Official Use Only" section at the bottom,
-   AND near the consignee name area. Values may be written VERTICALLY along the
-   left margin or near the consignee field. Look for numbers like "$125.36" or
-   "58.83" or "EC$340.00" written in pencil/pen anywhere on the form.
+Examine the ENTIRE page, especially these high-priority regions:
 
-2. TARIFF CODES: 8-digit codes (e.g. "63079090", "56081990") often handwritten
-   in the "Particulars of declaration by Importer" table or in margins.
+  (A) THE LEFT MARGIN, beside and above the "Grenada Simplified Declaration
+      Form" header — a small vertical band roughly 3-5% of the page width on
+      the very left edge. On these forms the client's customs value is
+      almost always written HERE, ROTATED 90° COUNTER-CLOCKWISE (read
+      bottom-to-top).  Example: numbers like "8.96", "80.06", "122.66",
+      "340.00" appear as vertical pencil digits stacked downward.  Decimal
+      points may look like tiny dots or short horizontal dashes between
+      digit groups.
 
-3. The "Particulars of declaration by Importer" table rows — check each column:
-   Marks, numbers, HS Code, Description, Qty, Weight, Value, Duty Rate, Duty.
+  (B) The "For Official Use Only" table at the bottom.
 
-4. ANY pencil/pen marks in margins, between fields, or rotated/sideways text.
+  (C) The "Particulars of declaration by Importer" table rows.
 
-Also extract the printed form data:
-- Consignee name (without the FREIGHT part)
-- Freight amount (from the consignee line, e.g. "FREIGHT 11.00 US")
-- WayBill Number (starts with HAWB)
-- Man Reg Number
-- Customs Office code (e.g. GDWBS, GDSGO)
-- Gross Mass / Weight
-- Number of packages
+  (D) Margins, between-field gaps, and any rotated/sideways text anywhere.
 
-Return a JSON object with these fields:
+Look for ANY darker strokes that are not part of the printed form layout
+(boxes, labels, printed text).  Pencil strokes are typically less uniform
+than printed text, and in the enhanced image they render as slightly
+smudged gray lines rather than crisp black.
+
+=== STEP 2 — EXTRACT HANDWRITTEN VALUES ===
+
+ONLY IF you see handwriting, extract:
+  - customs_value_ec: the pencil-written customs value in EC$, numeric only.
+    On this form this value is almost always in the LEFT MARGIN, vertical.
+    Typical range: $5 - $2000.  Decimal format like 80.06, 8.96, 340.00.
+  - customs_value_usd: same but in USD, if the user noted the currency.
+  - tariff_code: 8-digit HS / tariff code, if handwritten.
+  - duty_rate: percentage, if handwritten.
+  - weight / description / other_notes: as applicable.
+
+=== FEW-SHOT EXAMPLE (ground-truth reference) ===
+
+On a VERY similar form (HAWB9600998, same consignee ROSALIE LA GRENADE),
+the customs value "8.96" appears written vertically in pencil in the left
+margin beside the header.  The correct extraction was:
+  {"customs_value_ec": "8.96", "has_handwriting": true,
+   "other_notes": "8.96 written vertically on the left margin"}
+
+Another similar form carries "80.06" in the same location — also in pencil,
+also vertical, also in the left margin of the header.  That value is
+legitimate and should be extracted the same way even if the graphite is
+faint.
+
+=== STEP 3 — PRINTED FIELDS ===
+
+Also extract the printed form fields:
+  - consignee (name only, without "(FREIGHT x.xx US)")
+  - freight (numeric amount from the consignee parenthetical)
+  - waybill (HAWB number)
+  - man_reg (manifest registry, e.g. 2024/28)
+  - office (customs office code, e.g. GDWBS)
+  - weight (gross mass, numeric)
+  - packages (number of packages, numeric)
+
+=== OUTPUT ===
+
+Return ONLY this JSON, no prose, no code fence:
 {
   "handwritten": {
-    "customs_value_ec": "numeric value in EC$ if visible, e.g. 340.00",
-    "customs_value_usd": "numeric value in USD if visible, e.g. 125.36",
-    "tariff_code": "tariff/HS code if visible, e.g. 63079090",
-    "duty_rate": "duty rate percentage if visible, e.g. 20",
-    "weight": "weight if handwritten",
-    "description": "goods description if handwritten",
-    "other_notes": "any other handwritten annotations including their location on the form"
+    "customs_value_ec": "numeric string or empty",
+    "customs_value_usd": "numeric string or empty",
+    "tariff_code": "string or empty",
+    "duty_rate": "string or empty",
+    "weight": "string or empty",
+    "description": "string or empty",
+    "other_notes": "describe EXACTLY where you saw handwriting and what it said"
   },
   "printed": {
-    "consignee": "name without freight",
-    "freight": "freight amount as number",
-    "waybill": "waybill/HAWB number",
-    "man_reg": "manifest registry number",
-    "office": "customs office code",
-    "weight": "gross mass",
-    "packages": "number of packages"
+    "consignee": "...",
+    "freight": <number>,
+    "waybill": "...",
+    "man_reg": "...",
+    "office": "...",
+    "weight": <number>,
+    "packages": <number>
   },
-  "has_handwriting": true/false
+  "has_handwriting": true or false
 }
 
-IMPORTANT:
-- Faint pencil marks appear as light gray strokes in this enhanced image.
-- Numbers may be written sideways/vertically — still extract them.
-- If you see ANY numeric values that appear handwritten, set has_handwriting to true.
-- For customs_value_ec and customs_value_usd, return ONLY the numeric value (no $ sign).
-Return ONLY valid JSON, no other text."""
+CRITICAL RULES:
+  - If you see ANY pencil/handwritten mark anywhere (especially in the left
+    margin of the header), set has_handwriting = true AND describe its
+    location in other_notes, even if you cannot read it confidently.
+  - Numbers written VERTICALLY are still numbers — read them bottom-to-top
+    or top-to-bottom as appropriate.
+  - Do not invent values.  If truly no handwriting is present, return
+    has_handwriting = false and leave all handwritten.* fields empty.
+  - For customs_value_ec / customs_value_usd return ONLY the numeric value
+    (no "$", no "EC").
+"""
 
         # Z.AI vision API uses OpenAI-compatible format with image_url
         # Base64 images use data URI: data:image/png;base64,...
@@ -1706,105 +1780,10 @@ Return ONLY valid JSON, no other text."""
                                 f"Recovered handwritten customs value EC${val} "
                                 f"from other_notes: {notes}"
                             )
-
-            # ── False-negative retry (Fix C) ──────────────────────────────
-            # If the first attempt returned ``has_handwriting: false`` AND
-            # both customs value fields are blank, try once more with a
-            # prompt that focuses specifically on pencil/pen marks near the
-            # consignee and in the margins. glm-4.6v occasionally misses
-            # faint vertical pencil annotations on its first pass.
-            def _blank(h):
-                return not (
-                    _is_truthy_value(h.get('customs_value_ec'))
-                    or _is_truthy_value(h.get('customs_value_usd'))
-                )
-
-            if parsed.get('has_handwriting') is False and _blank(parsed.get('handwritten') or {}):
-                focused_prompt = """Second-pass handwriting review. The first review said no handwriting was present, but many of these declarations have SUBTLE pencil marks that are easy to miss.
-
-Please look VERY carefully for:
-1. FAINT pencil digits anywhere on the form — including rotated 90°, written vertically along a margin, or squeezed between printed fields.
-2. Numbers near the consignee line, in the "For Official Use Only" box at bottom, or under/beside a printed field value.
-3. A small handwritten total in the right margin (very common — often shows the customs value in EC$).
-4. Any number that does NOT match a printed form value — if you see a digit that looks hand-drawn, extract it.
-
-Return the same JSON structure as before:
-{
-  "handwritten": {
-    "customs_value_ec": "numeric EC$ value if found",
-    "customs_value_usd": "numeric USD value if found",
-    "tariff_code": "",
-    "duty_rate": "",
-    "weight": "",
-    "description": "",
-    "other_notes": "describe WHERE on the form you found any handwritten marks"
-  },
-  "printed": {},
-  "has_handwriting": true or false
-}
-
-If you still see no handwriting at all, return has_handwriting:false and leave the handwritten fields blank. Only set values you can actually see.
-Return ONLY valid JSON."""
-
-                retry_request = json.dumps({
-                    "model": vision_model,
-                    "max_tokens": 2000,
-                    "messages": [{
-                        "role": "user",
-                        "content": [
-                            {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{img_b64}"}},
-                            {"type": "text", "text": focused_prompt},
-                        ],
-                    }]
-                }).encode('utf-8')
-                try:
-                    req2 = Request(
-                        vision_endpoint,
-                        data=retry_request,
-                        headers={
-                            'Content-Type': 'application/json',
-                            'Authorization': f'Bearer {api_key}',
-                        }
-                    )
-                    with urlopen(req2, timeout=120) as r2:
-                        result2 = json.loads(r2.read().decode('utf-8'))
-                    resp2 = result2['choices'][0]['message']['content'].strip()
-                    c2 = re.sub(r'^```(?:json)?\s*', '', resp2)
-                    c2 = re.sub(r'\s*```$', '', c2)
-                    m2 = re.search(r'\{[\s\S]+\}', c2)
-                    if m2:
-                        parsed2 = json.loads(m2.group())
-                        hw2 = parsed2.get('handwritten') or {}
-                        if parsed2.get('has_handwriting') and not _blank(hw2):
-                            # Retry recovered a value — merge into parsed.
-                            logger.info(
-                                f"Vision retry (focused prompt) recovered handwriting "
-                                f"for {os.path.basename(pdf_path)}: "
-                                f"ec={hw2.get('customs_value_ec')!r} usd={hw2.get('customs_value_usd')!r}"
-                            )
-                            parsed['has_handwriting'] = True
-                            ph = parsed.setdefault('handwritten', {})
-                            for k in ('customs_value_ec', 'customs_value_usd',
-                                      'tariff_code', 'duty_rate', 'weight',
-                                      'description', 'other_notes'):
-                                if _is_truthy_value(hw2.get(k)):
-                                    ph[k] = hw2[k]
-                            parsed['_retry_recovered'] = True
-                        else:
-                            logger.info(
-                                f"Vision retry confirmed no handwriting for "
-                                f"{os.path.basename(pdf_path)}"
-                            )
-                except Exception as e:
-                    logger.warning(
-                        f"Vision false-negative retry failed for "
-                        f"{os.path.basename(pdf_path)}: {e}"
-                    )
-
-            # Stamp cache version so future runs know this result went
-            # through the v2 false-negative retry and can be trusted.
-            parsed['_cache_version'] = _CACHE_VERSION
-
+            # Stamp cache version so the trust predicate can distinguish v3
+            # entries (fully trusted) from older unversioned entries (trusted
+            # only if they already carry a positive hit).
+            parsed['_cache_version'] = _VISION_CACHE_VERSION
             # Persist to disk cache so subsequent runs skip the API call.
             if cache_path:
                 try:

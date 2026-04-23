@@ -1,22 +1,22 @@
 {
   "handwritten": {
-    "customs_value_ec": "",
+    "customs_value_ec": "80.06",
     "customs_value_usd": "",
     "tariff_code": "",
     "duty_rate": "",
     "weight": "",
     "description": "",
-    "other_notes": ""
+    "other_notes": "80.06 written vertically in the left margin beside the header"
   },
   "printed": {
     "consignee": "ROSALIE LA GRENADE",
-    "freight": "9.00",
+    "freight": 9.0,
     "waybill": "HAWB9603312",
     "man_reg": "2024/28",
     "office": "GDWBS",
-    "weight": "4.0",
-    "packages": "1"
+    "weight": 4.0,
+    "packages": 1
   },
-  "has_handwriting": false,
-  "_cache_version": 2
+  "has_handwriting": true,
+  "_cache_version": 3
 }
