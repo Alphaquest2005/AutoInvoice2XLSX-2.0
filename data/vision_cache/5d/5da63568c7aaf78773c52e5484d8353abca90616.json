@@ -1,12 +1,12 @@
 {
   "handwritten": {
-    "customs_value_ec": "",
+    "customs_value_ec": "80.06",
     "customs_value_usd": "",
     "tariff_code": "",
     "duty_rate": "",
     "weight": "",
     "description": "",
-    "other_notes": ""
+    "other_notes": "80.06 written vertically in the left margin beside the header"
   },
   "printed": {
     "consignee": "ROSALIE LA GRENADE",
@@ -17,5 +17,6 @@
     "weight": 4.0,
     "packages": 1
   },
-  "has_handwriting": false
+  "has_handwriting": true,
+  "_cache_version": 3
 }
