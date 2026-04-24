@@ -1,8 +1,8 @@
 {
-  "session_start": "2026-04-23T17:28:07.189514+00:00",
+  "session_start": "2026-04-23T18:55:41.762066+00:00",
   "total_folders": 1,
   "processed": 1,
-  "elapsed_s": 82.0,
+  "elapsed_s": 102.3,
   "results": [
     {
       "folder": "03152025_RECEIPT",
@@ -28,16 +28,16 @@
             "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_RECEIPT.out/1504495444.pdf"
           }
         ],
-        "email_sent": false,
+        "email_sent": true,
         "email_params_paths": [
           "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_RECEIPT.out/_email_params.json",
           "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_RECEIPT.out/_email_params_2.json"
         ],
         "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_RECEIPT.out/_email_params.json",
         "validation": {
-          "total_issues": 7,
-          "fixed": 4,
-          "unfixed": 3,
+          "total_issues": 8,
+          "fixed": 7,
+          "unfixed": 1,
           "per_file": [
             {
               "file": "HAWB9600998-Declaration_combined.xlsx",
@@ -87,11 +87,11 @@
                   "type": "MISSING_TARIFF",
                   "row": 46,
                   "current": "00000000",
-                  "description": "\u2014\u2014 (1 items)",
-                  "qty": 1,
-                  "total_cost": 20.99,
+                  "description": "\u2014\u2014 (+1 more) (2 items)",
+                  "qty": 2,
+                  "total_cost": 38.98,
                   "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
-                  "how": "Classify \"\u2014\u2014 (1 items)\" using CARICOM CET schedule based on material and function."
+                  "how": "Classify \"\u2014\u2014 (+1 more) (2 items)\" using CARICOM CET schedule based on material and function."
                 },
                 {
                   "type": "MISSING_TARIFF",
@@ -104,6 +104,16 @@
                   "how": "Classify \"\u2014\u2014\" using CARICOM CET schedule based on material and function."
                 },
                 {
+                  "type": "MISSING_TARIFF",
+                  "row": 48,
+                  "current": "00000000",
+                  "description": "Siri",
+                  "qty": 1,
+                  "total_cost": 17.99,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"Siri\" using CARICOM CET schedule based on material and function."
+                },
+                {
                   "type": "VARIANCE",
                   "variance": 56.97,
                   "invoice_total": 128.93,
@@ -114,7 +124,7 @@
                   "deduction": 0,
                   "block": 2,
                   "block_header_row": 43,
-                  "block_adjustments_row": 58,
+                  "block_adjustments_row": 57,
                   "why": "Block 2 (row 43) variance $+56.97. InvoiceTotal($128.93) != NetTotal($71.96).",
                   "how": "Open source PDF for this invoice and rerun pipeline \u2014 per-invoice variance_fixer should resolve before combining."
                 }
@@ -124,56 +134,60 @@
                   "type": "INVALID_TARIFF",
                   "row": 9,
                   "old": "99999999",
-                  "new": "65040000",
-                  "method": "LLM: Payment method line item; $19.99 price matches Straw Hat (ar",
+                  "new": "62044200",
+                  "method": "LLM: Row groups multiple items including a dress. From invoice, '",
                   "description": "METHOD Paypal $67.98 (1 items)"
                 },
                 {
                   "type": "INVALID_TARIFF",
                   "row": 10,
                   "old": "99999999",
-                  "new": "65040000",
-                  "method": "LLM: Duplicate payment method line for Straw Hat at $19.99. Same ",
+                  "new": "62044200",
+                  "method": "LLM: Same grouping as Row 9. 'Twist-detail Shirt Dress' is the pr",
                   "description": "METHOD Paypal $67.98"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 11,
+                  "old": "00000000",
+                  "new": "71171900",
+                  "method": "LLM: OCR fragment 'eee' corresponds to 'Pendant Necklace' (Gold-c",
+                  "description": "eee (1 items)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 12,
+                  "old": "00000000",
+                  "new": "71171900",
+                  "method": "LLM: Same item as Row 11. 'Pendant Necklace' - imitation jewelry ",
+                  "description": "eee"
                 },
                 {
                   "type": "MISSING_TARIFF",
                   "row": 46,
                   "old": "00000000",
-                  "new": "62046290",
-                  "method": "LLM: OCR artifact '\u2014\u2014' at $20.99 matches Flared Twill Pants (art ",
-                  "description": "\u2014\u2014 (1 items)"
+                  "new": "62044200",
+                  "method": "LLM: Row groups 2 items totaling $38.98. The 'Twist-detail Shirt ",
+                  "description": "\u2014\u2014 (+1 more) (2 items)"
                 },
                 {
                   "type": "MISSING_TARIFF",
                   "row": 47,
                   "old": "00000000",
-                  "new": "62046290",
-                  "method": "LLM: Duplicate entry for Flared Twill Pants at $20.99. Same class",
+                  "new": "62044200",
+                  "method": "LLM: Single item at $20.99 matching 'Twist-detail Shirt Dress' or",
                   "description": "\u2014\u2014"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 48,
+                  "old": "00000000",
+                  "new": "71171900",
+                  "method": "LLM: 'Siri' is OCR corruption of 'Straw' from 'Straw Hat' at $17.",
+                  "description": "Siri"
                 }
               ],
               "remaining": [
-                {
-                  "type": "MISSING_TARIFF",
-                  "row": 11,
-                  "current": "00000000",
-                  "description": "eee (1 items)",
-                  "qty": 1,
-                  "total_cost": 5.99,
-                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
-                  "how": "Classify \"eee (1 items)\" using CARICOM CET schedule based on material and function."
-                },
-                {
-                  "type": "MISSING_TARIFF",
-                  "row": 12,
-                  "current": "00000000",
-                  "description": "eee",
-                  "qty": 1,
-                  "total_cost": 5.99,
-                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
-                  "how": "Classify \"eee\" using CARICOM CET schedule based on material and function."
-                },
                 {
                   "type": "VARIANCE",
                   "variance": 56.97,
@@ -185,13 +199,13 @@
                   "deduction": 0,
                   "block": 2,
                   "block_header_row": 43,
-                  "block_adjustments_row": 58,
+                  "block_adjustments_row": 57,
                   "why": "Block 2 (row 43) variance $+56.97. InvoiceTotal($128.93) != NetTotal($71.96).",
                   "how": "Open source PDF for this invoice and rerun pipeline \u2014 per-invoice variance_fixer should resolve before combining."
                 }
               ],
-              "fixed": 4,
-              "unfixed": 3
+              "fixed": 7,
+              "unfixed": 1
             }
           ],
           "package_check": {
@@ -215,7 +229,7 @@
         }
       },
       "error": null,
-      "elapsed_s": 82.0
+      "elapsed_s": 102.3
     }
   ]
 }

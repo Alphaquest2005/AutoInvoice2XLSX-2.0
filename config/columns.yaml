@@ -6,6 +6,33 @@
 # The XLSX generator (bl_xlsx_generator.py) loads this file dynamically.
 # Do NOT hardcode column numbers, headers, or widths in Python code.
 
+_meta:
+  purpose: "37-column XLSX output schema (A-AK) for CARICOM customs declarations"
+  covers:
+    - "Column headers, widths, indices"
+    - "group_value / detail_value templates with ${variable} substitution"
+    - "Styling: fill colors, font sizes, alignment, borders"
+    - "Formula templates (Total, TotalCost Vs Total, variance_check, ...)"
+    - "Currency formatting and number formats"
+    - "Critical column flags (SupplierCode=Z must populate per invoice)"
+  match_patterns:
+    - "column"
+    - "header"
+    - "width"
+    - "group_value"
+    - "detail_value"
+    - "formula"
+    - "fill_color"
+    - "font_color"
+  loader: "pipeline.config_loader:load_columns"
+  examples:
+    - "load_columns()['A']['header']      -> 'Document Type'"
+    - "load_columns()['A']['group_value'] -> '${document_type}'"
+    - "load_columns()['Z']['importance']  -> 'CRITICAL'"
+  update_checklist:
+    - "Run tests/pipeline/test_document_type_cell.py"
+    - "Verify A-AK columns still present (preserve_all_columns=true)"
+
 version: "2.0.0"
 
 # Critical production rules
@@ -42,6 +69,40 @@ styles:
   border:
     style: "thin"
 
+  # added by Wave 1 for pipeline/bl_xlsx_generator.py
+  # Uncertainty / recovery fills — applied to OCR-recovered or
+  # variance-absorbed cells so reviewers see reconstructed values at a
+  # glance.
+  uncertain:
+    fill_color: "FFEBCC"
+    fill_type: "solid"
+    font_color: "9C5700"
+  recovered:
+    fill_color: "FFF2CC"
+    fill_type: "solid"
+
+  # Duty-estimation section (classification cross-check block).
+  # added by Wave 1 for pipeline/bl_xlsx_generator.py
+  duty_section:
+    header_fill_color: "D6E4F0"
+    header_font_color: "1F4E79"
+    label_font_color:  "1F4E79"
+    value_font_color:  "1F4E79"
+    warn_font_color:   "CC0000"
+    font_size: 10
+
+  # Reference-section styling (items from other declaration(s)).
+  # added by Wave 1 for pipeline/bl_xlsx_generator.py
+  reference_section:
+    header_fill_color: "E2EFDA"
+    header_font_color: "375623"
+    detail_font_color: "808080"
+    font_size: 10
+
+# Comment author attribution for openpyxl cell comments on recovered values.
+# added by Wave 1 for pipeline/bl_xlsx_generator.py
+comment_author: "AutoInvoice"
+
 # Currency formatting
 currency:
   format: "#,##0.00"
@@ -56,10 +117,10 @@ columns:
     name: "DocumentType"
     header: "Document Type"
     width: 14
-    group_value: "4000-000"
+    group_value: "${document_type}"
     detail_value: null
     populate_on: first_group_per_invoice
-    notes: "FIRST group row per invoice=4000-000, subsequent group rows=BLANK, Detail=BLANK"
+    notes: "FIRST group row per invoice=resolved doc_type (e.g. 4000-000 standard, 7400-000 warehouse), subsequent group rows=BLANK, Detail=BLANK. Resolved from consignee rule via resolve_doc_type in run.py."
 
   B:
     index: 2

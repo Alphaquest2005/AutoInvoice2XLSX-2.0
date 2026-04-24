@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "2024.0",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten diagonal mark '2024-07-29' visible across the middle of the page. This is not a Grenada Simplified Declaration Form but an Amazon order receipt."
+  },
+  "printed": {
+    "consignee": "",
+    "freight": 0,
+    "waybill": "",
+    "man_reg": "",
+    "office": "",
+    "weight": 0,
+    "packages": 0
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

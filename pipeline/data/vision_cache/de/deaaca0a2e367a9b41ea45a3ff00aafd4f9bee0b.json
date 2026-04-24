@@ -1,12 +1,12 @@
 {
   "handwritten": {
     "customs_value_ec": "43.46",
-    "customs_value_usd": null,
-    "tariff_code": null,
-    "duty_rate": null,
-    "weight": null,
-    "description": null,
-    "other_notes": "43.46 written vertically on left margin"
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "43.46 written vertically in the left margin beside the header"
   },
   "printed": {
     "consignee": "JARRON SIMMONS",
@@ -17,5 +17,6 @@
     "weight": 1.0,
     "packages": 1
   },
-  "has_handwriting": true
+  "has_handwriting": true,
+  "_cache_version": 4
 }

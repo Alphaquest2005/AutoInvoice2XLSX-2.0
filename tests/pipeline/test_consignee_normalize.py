@@ -22,19 +22,24 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "pipeline
 # one must be mirrored in the other; this test pins the contract.
 # ---------------------------------------------------------------------------
 
+
 def _normalize_consignee(name: str) -> str:
     """Mirror of run._extract_consignee._normalize_consignee (closure-local)."""
     if not name:
         return name
     cleaned = re.sub(
-        r'\s*[\(\[\{]\s*FREIGHT\b.*?(?:[\)\]\}]|$)',
-        '', name, flags=re.IGNORECASE,
+        r"\s*[\(\[\{]\s*FREIGHT\b.*?(?:[\)\]\}]|$)",
+        "",
+        name,
+        flags=re.IGNORECASE,
     ).strip()
     cleaned = re.sub(
-        r'\s+FREIGHT\s+[\d.]+\s*(?:US|USD)?\s*$',
-        '', cleaned, flags=re.IGNORECASE,
+        r"\s+FREIGHT\s+[\d.]+\s*(?:US|USD)?\s*$",
+        "",
+        cleaned,
+        flags=re.IGNORECASE,
     ).strip()
-    cleaned = re.sub(r'[\s,;:\-]+$', '', cleaned).strip()
+    cleaned = re.sub(r"[\s,;:\-]+$", "", cleaned).strip()
     return cleaned
 
 
@@ -92,6 +97,7 @@ def test_case_insensitive_freight():
 # pdf_splitter source-of-truth: the consignee line extraction
 # ---------------------------------------------------------------------------
 
+
 def test_pdf_splitter_strips_freight_in_consignee_line():
     """Simulate the pdf_splitter declaration-metadata regex end-to-end.
 
@@ -100,18 +106,21 @@ def test_pdf_splitter_strips_freight_in_consignee_line():
     """
     # Simulate OCR declaration text with consignee line
     line_clean = "Consignee: ROSALIE LA GRENADE (FREIGHT 5.00 US)"
-    consignee_part = line_clean.split(':', 1)[1].strip()
+    consignee_part = line_clean.split(":", 1)[1].strip()
 
     freight_match = re.search(
-        r'\(\s*FREIGHT\s+([\d.]+)\s*(?:US)?\s*[\)\}\]]',
-        consignee_part, re.IGNORECASE,
+        r"\(\s*FREIGHT\s+([\d.]+)\s*(?:US)?\s*[\)\}\]]",
+        consignee_part,
+        re.IGNORECASE,
     )
     assert freight_match is not None
     assert freight_match.group(1) == "5.00"
 
     consignee_name = re.sub(
-        r'\s*[\(\[\{].*?FREIGHT.*?(?:[\)\}\]]|$)',
-        '', consignee_part, flags=re.IGNORECASE,
+        r"\s*[\(\[\{].*?FREIGHT.*?(?:[\)\}\]]|$)",
+        "",
+        consignee_part,
+        flags=re.IGNORECASE,
     ).strip()
     assert consignee_name == "ROSALIE LA GRENADE"
 
@@ -122,15 +131,17 @@ def test_pdf_splitter_bareless_fallback():
 
     # Primary bracket regex fails
     freight_match = re.search(
-        r'\(\s*FREIGHT\s+([\d.]+)\s*(?:US)?\s*[\)\}\]]',
-        consignee_part, re.IGNORECASE,
+        r"\(\s*FREIGHT\s+([\d.]+)\s*(?:US)?\s*[\)\}\]]",
+        consignee_part,
+        re.IGNORECASE,
     )
     assert freight_match is None
 
     # Fallback bareless regex succeeds
     bareless = re.search(
-        r'(.+?)\s+FREIGHT\s+([\d.]+)\s*(?:US|USD)?\s*$',
-        consignee_part, re.IGNORECASE,
+        r"(.+?)\s+FREIGHT\s+([\d.]+)\s*(?:US|USD)?\s*$",
+        consignee_part,
+        re.IGNORECASE,
     )
     assert bareless is not None
     assert bareless.group(1).strip() == "ROSALIE LA GRENADE"

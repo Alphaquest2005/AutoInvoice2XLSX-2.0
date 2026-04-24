@@ -6,7 +6,7 @@
     "duty_rate": "",
     "weight": "",
     "description": "",
-    "other_notes": "90.95 written vertically in left margin"
+    "other_notes": "Handwritten customs value \"90.95\" appears vertically (rotated 90\u00b0 counterclockwise) in the left margin beside the \"Grenada Simplified Declaration Form\" header, read bottom-to-top."
   },
   "printed": {
     "consignee": "AARON WILSON",
@@ -17,5 +17,6 @@
     "weight": 8.0,
     "packages": 1
   },
-  "has_handwriting": true
+  "has_handwriting": true,
+  "_cache_version": 4
 }

@@ -33,9 +33,7 @@ _BASELINE = _REPO_ROOT / "tests" / "integration" / "_monotonic_baseline.json"
 def _count_py_files(root: Path) -> int:
     if not root.exists():
         return 0
-    return sum(
-        1 for p in root.rglob("*.py") if "__pycache__" not in p.parts
-    )
+    return sum(1 for p in root.rglob("*.py") if "__pycache__" not in p.parts)
 
 
 def _loc(path: Path) -> int:

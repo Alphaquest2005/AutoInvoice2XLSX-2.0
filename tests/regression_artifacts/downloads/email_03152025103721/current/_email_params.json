@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9428169",
+  "consignee_name": "SANASHA JOHN",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "6.0",
+  "country_origin": "US",
+  "freight": "13.00",
+  "man_reg": "2024 22",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_033/out/PO-211-11245253311353900.pdf",
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_033/out/PO-211-11245253311353900.xlsx",
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_033/out/HAWB9428169-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

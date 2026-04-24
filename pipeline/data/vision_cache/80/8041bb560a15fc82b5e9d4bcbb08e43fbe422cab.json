@@ -6,7 +6,7 @@
     "duty_rate": "",
     "weight": "",
     "description": "",
-    "other_notes": "Handwritten '3a.02' visible near the Man Reg Number field"
+    "other_notes": "3a.02 written in the right margin near Man Reg / WayBill Number fields"
   },
   "printed": {
     "consignee": "BRITANA BOWEN",
@@ -17,5 +17,6 @@
     "weight": 4.0,
     "packages": 1
   },
-  "has_handwriting": true
+  "has_handwriting": true,
+  "_cache_version": 4
 }

@@ -1,0 +1,4423 @@
+{
+  "HAWB9685992-Declaration_combined.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Combined Invoices": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "A54": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AA54": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AB54": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AC54": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK10": {
+          "value": "'85098090'"
+        },
+        "AK11": {
+          "value": "'34011990'"
+        },
+        "AK12": {
+          "value": "'34011990'"
+        },
+        "AK13": {
+          "value": "'63079090'"
+        },
+        "AK15": {
+          "value": "'85098090'"
+        },
+        "AK17": {
+          "value": "'42029200'"
+        },
+        "AK19": {
+          "value": "'96190090'"
+        },
+        "AK2": {
+          "value": "'61112090'"
+        },
+        "AK54": {
+          "value": "'61112090'"
+        },
+        "AK61": {
+          "value": "'85098090'"
+        },
+        "AK62": {
+          "value": "'85098090'"
+        },
+        "AK63": {
+          "value": "'85098090'"
+        },
+        "AK64": {
+          "value": "'34011990'"
+        },
+        "AK65": {
+          "value": "'34011990'"
+        },
+        "AK66": {
+          "value": "'63026000'"
+        },
+        "AK68": {
+          "value": "'42029200'"
+        },
+        "AK70": {
+          "value": "'96190090'"
+        },
+        "AK71": {
+          "value": "'96190090'"
+        },
+        "AK9": {
+          "value": "'85098090'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C11": {
+          "value": "'112-8635667-8526641'"
+        },
+        "C13": {
+          "value": "'112-8635667-8526641'"
+        },
+        "C15": {
+          "value": "'112-8635667-8526641'"
+        },
+        "C17": {
+          "value": "'112-8635667-8526641'"
+        },
+        "C19": {
+          "value": "'112-8635667-8526641'"
+        },
+        "C2": {
+          "value": "'112-8635667-8526641'"
+        },
+        "C54": {
+          "value": "'112-8635667-8526641'"
+        },
+        "C61": {
+          "value": "'112-8635667-8526641'"
+        },
+        "C64": {
+          "value": "'112-8635667-8526641'"
+        },
+        "C66": {
+          "value": "'112-8635667-8526641'"
+        },
+        "C68": {
+          "value": "'112-8635667-8526641'"
+        },
+        "C70": {
+          "value": "'112-8635667-8526641'"
+        },
+        "C9": {
+          "value": "'112-8635667-8526641'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E11": {
+          "value": "'SOAP & BODY WASH'"
+        },
+        "E13": {
+          "value": "'MARINE HARDWARE'"
+        },
+        "E15": {
+          "value": "'Other appliances'"
+        },
+        "E17": {
+          "value": "'BAGS & LUGGAGE'"
+        },
+        "E19": {
+          "value": "'Of other materials'"
+        },
+        "E2": {
+          "value": "'Apparel - Knitted'"
+        },
+        "E54": {
+          "value": "'Apparel - Knitted'"
+        },
+        "E61": {
+          "value": "'Ozone therapy, oxygen therapy, aerosol therapy, artificial respiration or oth...'"
+        },
+        "E64": {
+          "value": "'SOAP & BODY WASH'"
+        },
+        "E66": {
+          "value": "'Toilet linen and kitchen linen, of terry towelling or similar terry fabrics, ...'"
+        },
+        "E68": {
+          "value": "'BAGS & LUGGAGE'"
+        },
+        "E70": {
+          "value": "'Paper products'"
+        },
+        "E9": {
+          "value": "'Ozone therapy, oxygen therapy, aerosol therapy, artificial respiration or oth...'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F10": {
+          "value": "'85098090'"
+        },
+        "F11": {
+          "value": "'34011990'"
+        },
+        "F12": {
+          "value": "'34011990'"
+        },
+        "F13": {
+          "value": "'63079090'"
+        },
+        "F14": {
+          "value": "'63079090'"
+        },
+        "F15": {
+          "value": "'85098090'"
+        },
+        "F16": {
+          "value": "'85098090'"
+        },
+        "F17": {
+          "value": "'42029200'"
+        },
+        "F18": {
+          "value": "'42029200'"
+        },
+        "F19": {
+          "value": "'96190090'"
+        },
+        "F2": {
+          "value": "'61112090'"
+        },
+        "F20": {
+          "value": "'96190090'"
+        },
+        "F3": {
+          "value": "'61112090'"
+        },
+        "F4": {
+          "value": "'61112090'"
+        },
+        "F5": {
+          "value": "'61112090'"
+        },
+        "F54": {
+          "value": "'61112090'"
+        },
+        "F55": {
+          "value": "'61112090'"
+        },
+        "F56": {
+          "value": "'61112090'"
+        },
+        "F57": {
+          "value": "'61112090'"
+        },
+        "F58": {
+          "value": "'61112090'"
+        },
+        "F59": {
+          "value": "'61112090'"
+        },
+        "F6": {
+          "value": "'61112090'"
+        },
+        "F60": {
+          "value": "'61112090'"
+        },
+        "F61": {
+          "value": "'85098090'"
+        },
+        "F62": {
+          "value": "'85098090'"
+        },
+        "F63": {
+          "value": "'85098090'"
+        },
+        "F64": {
+          "value": "'34011990'"
+        },
+        "F65": {
+          "value": "'34011990'"
+        },
+        "F66": {
+          "value": "'63026000'"
+        },
+        "F67": {
+          "value": "'63026000'"
+        },
+        "F68": {
+          "value": "'42029200'"
+        },
+        "F69": {
+          "value": "'42029200'"
+        },
+        "F7": {
+          "value": "'61112090'"
+        },
+        "F70": {
+          "value": "'96190090'"
+        },
+        "F71": {
+          "value": "'96190090'"
+        },
+        "F8": {
+          "value": "'61112090'"
+        },
+        "F9": {
+          "value": "'85098090'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I10": {
+          "value": "'AMZ-4'"
+        },
+        "I11": {
+          "value": "'34011910'"
+        },
+        "I12": {
+          "value": "'AMZ-6'"
+        },
+        "I13": {
+          "value": "'63079090'"
+        },
+        "I14": {
+          "value": "'AMZ-7'"
+        },
+        "I15": {
+          "value": "'85098090'"
+        },
+        "I16": {
+          "value": "'AMZ-9'"
+        },
+        "I17": {
+          "value": "'42029200'"
+        },
+        "I18": {
+          "value": "'AMZ-11'"
+        },
+        "I19": {
+          "value": "'96190090'"
+        },
+        "I2": {
+          "value": "'61112090'"
+        },
+        "I20": {
+          "value": "'AMZ-12'"
+        },
+        "I3": {
+          "value": "'AMZ-1'"
+        },
+        "I4": {
+          "value": "'AMZ-2'"
+        },
+        "I5": {
+          "value": "'AMZ-3'"
+        },
+        "I54": {
+          "value": "'61112090'"
+        },
+        "I55": {
+          "value": "'AMZ-1'"
+        },
+        "I56": {
+          "value": "'AMZ-2'"
+        },
+        "I57": {
+          "value": "'AMZ-3'"
+        },
+        "I58": {
+          "value": "'AMZ-5'"
+        },
+        "I59": {
+          "value": "'AMZ-8'"
+        },
+        "I6": {
+          "value": "'AMZ-5'"
+        },
+        "I60": {
+          "value": "'AMZ-10'"
+        },
+        "I61": {
+          "value": "'90192000'"
+        },
+        "I62": {
+          "value": "'AMZ-4'"
+        },
+        "I63": {
+          "value": "'AMZ-9'"
+        },
+        "I64": {
+          "value": "'34011910'"
+        },
+        "I65": {
+          "value": "'AMZ-6'"
+        },
+        "I66": {
+          "value": "'63026000'"
+        },
+        "I67": {
+          "value": "'AMZ-7'"
+        },
+        "I68": {
+          "value": "'42029200'"
+        },
+        "I69": {
+          "value": "'AMZ-11'"
+        },
+        "I7": {
+          "value": "'AMZ-8'"
+        },
+        "I70": {
+          "value": "'48189000'"
+        },
+        "I71": {
+          "value": "'AMZ-12'"
+        },
+        "I8": {
+          "value": "'AMZ-10'"
+        },
+        "I9": {
+          "value": "'90192000'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'Wearable Breast Pump Hands Free Breast Pump 12 Levels 3 Modes Electric Breast...'"
+        },
+        "J100": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J101": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J102": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J11": {
+          "value": "'Huggies Natural Care Sensitive Baby Wipes , Unscented , Hypoallergenic , 99 %... (1 items)'"
+        },
+        "J12": {
+          "value": "'Huggies Natural Care Sensitive Baby Wipes , Unscented , Hypoallergenic , 99 %...'"
+        },
+        "J13": {
+          "value": "'Cute Castle Ultra - Soft Baby Washcloths , 16 Pack - 9 \" by 9 \" , Gentle on S... (1 items)'"
+        },
+        "J14": {
+          "value": "'Cute Castle Ultra - Soft Baby Washcloths , 16 Pack - 9 \" by 9 \" , Gentle on S...'"
+        },
+        "J15": {
+          "value": "'MUOCOBU Electric Breast Pump , Breast Pump Electric Breastfeeding Pump 3 Mode... (1 items)'"
+        },
+        "J16": {
+          "value": "'MUOCOBU Electric Breast Pump , Breast Pump Electric Breastfeeding Pump 3 Mode...'"
+        },
+        "J17": {
+          "value": "'strom Large Diaper Bag , 29 L - 45 L Expandable Diaper Bag Backpack for 2 Kid... (1 items)'"
+        },
+        "J18": {
+          "value": "'strom Large Diaper Bag , 29 L - 45 L Expandable Diaper Bag Backpack for 2 Kid...'"
+        },
+        "J19": {
+          "value": "'Huggies Size 1 Diapers , Snug & Dry Newborn Diapers , Size 1 ( 8 - 14 Ibs, 25... (1 items)'"
+        },
+        "J2": {
+          "value": "\"Onesies Brand Baby Boy ' s 8 - Pack Short Sleeve Mix & tdatch Bodysuits , Gre... (+5 more) (6 items)\""
+        },
+        "J20": {
+          "value": "'Huggies Size 1 Diapers , Snug & Dry Newborn Diapers , Size 1 ( 8 - 14 Ibs, 25...'"
+        },
+        "J21": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J22": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J23": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J25": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J26": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J27": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J28": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J29": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J3": {
+          "value": "\"Onesies Brand Baby Boy ' s 8 - Pack Short Sleeve Mix & tdatch Bodysuits , Gre...\""
+        },
+        "J31": {
+          "value": "'NET TOTAL'"
+        },
+        "J32": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J34": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J36": {
+          "value": "'INVOICE NOTES: Structural item count mismatch: 20 price lines found between section markers but 12 items extracted'"
+        },
+        "J38": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J39": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J4": {
+          "value": "\"Gerber Baby Boy ' s 8 - Pack Short Sleeve Onesies Bodysuits , Tiger Green , 3...\""
+        },
+        "J40": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J41": {
+          "value": "'CET (weighted avg 18.3%)'"
+        },
+        "J42": {
+          "value": "'  \u2514 34011910: 20% CET (3% of value)'"
+        },
+        "J43": {
+          "value": "'  \u2514 42029200: 20% CET (10% of value)'"
+        },
+        "J44": {
+          "value": "'  \u2514 61112090: 20% CET (22% of value)'"
+        },
+        "J45": {
+          "value": "'  \u2514 63079090: 0% CET (2% of value)'"
+        },
+        "J46": {
+          "value": "'  \u2514 85098090: 20% CET (8% of value)'"
+        },
+        "J47": {
+          "value": "'  \u2514 90192000: 10% CET (13% of value)'"
+        },
+        "J48": {
+          "value": "'  \u2514 96190090: 20% CET (43% of value)'"
+        },
+        "J49": {
+          "value": "'CSC (6%)'"
+        },
+        "J5": {
+          "value": "\"Simple Joys by Carter ' s Baby Boys \u2019 6 - Pack Short - Sleeve Bodysuit , Mult...\""
+        },
+        "J50": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J51": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J52": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J54": {
+          "value": "\"Onesies Brand Baby Boy ' s 8 - Pack Short Sleeve Mix & tdatch Bodysuits , Gre... (+5 more) (6 items)\""
+        },
+        "J55": {
+          "value": "\"Onesies Brand Baby Boy ' s 8 - Pack Short Sleeve Mix & tdatch Bodysuits , Gre...\""
+        },
+        "J56": {
+          "value": "\"Gerber Baby Boy ' s 8 - Pack Short Sleeve Onesies Bodysuits , Tiger Green , 3...\""
+        },
+        "J57": {
+          "value": "\"Simple Joys by Carter ' s Baby Boys \u2019 6 - Pack Short - Sleeve Bodysuit , Mult...\""
+        },
+        "J58": {
+          "value": "'Onesies Brand Unisex Baby 12 - Piece Cap and Mitten Set , Sayings Board , 0 -...'"
+        },
+        "J59": {
+          "value": "'Onesies Brand Unisex Baby 12 - Piece Cap and Mitten Set , stripe , 0 - 6 Months'"
+        },
+        "J6": {
+          "value": "'Onesies Brand Unisex Baby 12 - Piece Cap and Mitten Set , Sayings Board , 0 -...'"
+        },
+        "J60": {
+          "value": "\"Simple Joys Baby Boy ' s 6 piece Little Character sets Sleepwear , Green / Gr...\""
+        },
+        "J61": {
+          "value": "'Wearable Breast Pump Hands Free Breast Pump 12 Levels 3 Modes Electric Breast... (+1 more) (2 items)'"
+        },
+        "J62": {
+          "value": "'Wearable Breast Pump Hands Free Breast Pump 12 Levels 3 Modes Electric Breast...'"
+        },
+        "J63": {
+          "value": "'MUOCOBU Electric Breast Pump , Breast Pump Electric Breastfeeding Pump 3 Mode...'"
+        },
+        "J64": {
+          "value": "'Huggies Natural Care Sensitive Baby Wipes , Unscented , Hypoallergenic , 99 %... (1 items)'"
+        },
+        "J65": {
+          "value": "'Huggies Natural Care Sensitive Baby Wipes , Unscented , Hypoallergenic , 99 %...'"
+        },
+        "J66": {
+          "value": "'Cute Castle Ultra - Soft Baby Washcloths , 16 Pack - 9 \" by 9 \" , Gentle on S... (1 items)'"
+        },
+        "J67": {
+          "value": "'Cute Castle Ultra - Soft Baby Washcloths , 16 Pack - 9 \" by 9 \" , Gentle on S...'"
+        },
+        "J68": {
+          "value": "'strom Large Diaper Bag , 29 L - 45 L Expandable Diaper Bag Backpack for 2 Kid... (1 items)'"
+        },
+        "J69": {
+          "value": "'strom Large Diaper Bag , 29 L - 45 L Expandable Diaper Bag Backpack for 2 Kid...'"
+        },
+        "J7": {
+          "value": "'Onesies Brand Unisex Baby 12 - Piece Cap and Mitten Set , stripe , 0 - 6 Months'"
+        },
+        "J70": {
+          "value": "'Huggies Size 1 Diapers , Snug & Dry Newborn Diapers , Size 1 ( 8 - 14 Ibs, 25... (1 items)'"
+        },
+        "J71": {
+          "value": "'Huggies Size 1 Diapers , Snug & Dry Newborn Diapers , Size 1 ( 8 - 14 Ibs, 25...'"
+        },
+        "J72": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J73": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J74": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J76": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J77": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J78": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J79": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J8": {
+          "value": "\"Simple Joys Baby Boy ' s 6 piece Little Character sets Sleepwear , Green / Gr...\""
+        },
+        "J80": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J82": {
+          "value": "'NET TOTAL'"
+        },
+        "J83": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J85": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J87": {
+          "value": "'INVOICE NOTES: Structural item count mismatch: 20 price lines found between section markers but 12 items extracted'"
+        },
+        "J89": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J9": {
+          "value": "'Wearable Breast Pump Hands Free Breast Pump 12 Levels 3 Modes Electric Breast... (1 items)'"
+        },
+        "J90": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J91": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J92": {
+          "value": "'CET (weighted avg 18.0%)'"
+        },
+        "J93": {
+          "value": "'  \u2514 34011910: 20% CET (3% of value)'"
+        },
+        "J94": {
+          "value": "'  \u2514 42029200: 20% CET (10% of value)'"
+        },
+        "J95": {
+          "value": "'  \u2514 48189000: 20% CET (43% of value)'"
+        },
+        "J96": {
+          "value": "'  \u2514 61112090: 20% CET (22% of value)'"
+        },
+        "J97": {
+          "value": "'  \u2514 63026000: 20% CET (2% of value)'"
+        },
+        "J98": {
+          "value": "'  \u2514 90192000: 10% CET (20% of value)'"
+        },
+        "J99": {
+          "value": "'CSC (6%)'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K10": {
+          "value": "1"
+        },
+        "K11": {
+          "value": "1"
+        },
+        "K12": {
+          "value": "1"
+        },
+        "K13": {
+          "value": "1"
+        },
+        "K14": {
+          "value": "1"
+        },
+        "K15": {
+          "value": "1"
+        },
+        "K16": {
+          "value": "1"
+        },
+        "K17": {
+          "value": "1"
+        },
+        "K18": {
+          "value": "1"
+        },
+        "K19": {
+          "value": "1"
+        },
+        "K2": {
+          "value": "6"
+        },
+        "K20": {
+          "value": "1"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "K5": {
+          "value": "1"
+        },
+        "K54": {
+          "value": "6"
+        },
+        "K55": {
+          "value": "1"
+        },
+        "K56": {
+          "value": "1"
+        },
+        "K57": {
+          "value": "1"
+        },
+        "K58": {
+          "value": "1"
+        },
+        "K59": {
+          "value": "1"
+        },
+        "K6": {
+          "value": "1"
+        },
+        "K60": {
+          "value": "1"
+        },
+        "K61": {
+          "value": "2"
+        },
+        "K62": {
+          "value": "1"
+        },
+        "K63": {
+          "value": "1"
+        },
+        "K64": {
+          "value": "1"
+        },
+        "K65": {
+          "value": "1"
+        },
+        "K66": {
+          "value": "1"
+        },
+        "K67": {
+          "value": "1"
+        },
+        "K68": {
+          "value": "1"
+        },
+        "K69": {
+          "value": "1"
+        },
+        "K7": {
+          "value": "1"
+        },
+        "K70": {
+          "value": "1"
+        },
+        "K71": {
+          "value": "1"
+        },
+        "K8": {
+          "value": "1"
+        },
+        "K9": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "L105": {
+          "value": "'\u2550\u2550\u2550 COMBINED GRAND SUMMARY \u2550\u2550\u2550'"
+        },
+        "L106": {
+          "value": "'Invoice 112-8635667-8526641'"
+        },
+        "L107": {
+          "value": "'Invoice 112-8635667-8526641'"
+        },
+        "L109": {
+          "value": "'GRAND TOTAL'"
+        },
+        "L110": {
+          "value": "'GRAND VARIANCE CHECK'"
+        },
+        "L111": {
+          "value": "'Combined 2 invoice files'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N10": {
+          "value": "'USD'"
+        },
+        "N11": {
+          "value": "'USD'"
+        },
+        "N12": {
+          "value": "'USD'"
+        },
+        "N13": {
+          "value": "'USD'"
+        },
+        "N14": {
+          "value": "'USD'"
+        },
+        "N15": {
+          "value": "'USD'"
+        },
+        "N16": {
+          "value": "'USD'"
+        },
+        "N17": {
+          "value": "'USD'"
+        },
+        "N18": {
+          "value": "'USD'"
+        },
+        "N19": {
+          "value": "'USD'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N20": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "N54": {
+          "value": "'USD'"
+        },
+        "N55": {
+          "value": "'USD'"
+        },
+        "N56": {
+          "value": "'USD'"
+        },
+        "N57": {
+          "value": "'USD'"
+        },
+        "N58": {
+          "value": "'USD'"
+        },
+        "N59": {
+          "value": "'USD'"
+        },
+        "N6": {
+          "value": "'USD'"
+        },
+        "N60": {
+          "value": "'USD'"
+        },
+        "N61": {
+          "value": "'USD'"
+        },
+        "N62": {
+          "value": "'USD'"
+        },
+        "N63": {
+          "value": "'USD'"
+        },
+        "N64": {
+          "value": "'USD'"
+        },
+        "N65": {
+          "value": "'USD'"
+        },
+        "N66": {
+          "value": "'USD'"
+        },
+        "N67": {
+          "value": "'USD'"
+        },
+        "N68": {
+          "value": "'USD'"
+        },
+        "N69": {
+          "value": "'USD'"
+        },
+        "N7": {
+          "value": "'USD'"
+        },
+        "N70": {
+          "value": "'USD'"
+        },
+        "N71": {
+          "value": "'USD'"
+        },
+        "N8": {
+          "value": "'USD'"
+        },
+        "N9": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O10": {
+          "value": "62.99"
+        },
+        "O11": {
+          "value": "13.7"
+        },
+        "O12": {
+          "value": "13.7"
+        },
+        "O13": {
+          "value": "9.99"
+        },
+        "O14": {
+          "value": "9.99"
+        },
+        "O15": {
+          "value": "39.98"
+        },
+        "O16": {
+          "value": "39.98"
+        },
+        "O17": {
+          "value": "48.04"
+        },
+        "O18": {
+          "value": "48.04"
+        },
+        "O19": {
+          "value": "216.14"
+        },
+        "O2": {
+          "value": "18.65"
+        },
+        "O20": {
+          "value": "216.14"
+        },
+        "O3": {
+          "value": "18.99"
+        },
+        "O4": {
+          "value": "21.99"
+        },
+        "O5": {
+          "value": "15.98"
+        },
+        "O54": {
+          "value": "18.65"
+        },
+        "O55": {
+          "value": "18.99"
+        },
+        "O56": {
+          "value": "21.99"
+        },
+        "O57": {
+          "value": "15.98"
+        },
+        "O58": {
+          "value": "17.99"
+        },
+        "O59": {
+          "value": "16.99"
+        },
+        "O6": {
+          "value": "17.99"
+        },
+        "O60": {
+          "value": "19.96"
+        },
+        "O61": {
+          "value": "51.485"
+        },
+        "O62": {
+          "value": "62.99"
+        },
+        "O63": {
+          "value": "39.98"
+        },
+        "O64": {
+          "value": "13.7"
+        },
+        "O65": {
+          "value": "13.7"
+        },
+        "O66": {
+          "value": "9.99"
+        },
+        "O67": {
+          "value": "9.99"
+        },
+        "O68": {
+          "value": "48.04"
+        },
+        "O69": {
+          "value": "48.04"
+        },
+        "O7": {
+          "value": "16.99"
+        },
+        "O70": {
+          "value": "216.14"
+        },
+        "O71": {
+          "value": "216.14"
+        },
+        "O8": {
+          "value": "19.96"
+        },
+        "O9": {
+          "value": "62.99"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "62.99"
+        },
+        "P100": {
+          "value": "254.81"
+        },
+        "P101": {
+          "value": "583.06"
+        },
+        "P102": {
+          "value": "0.4254483895918159"
+        },
+        "P106": {
+          "value": "3809.85"
+        },
+        "P107": {
+          "value": "3791.88"
+        },
+        "P109": {
+          "value": "7601.73"
+        },
+        "P11": {
+          "value": "13.7"
+        },
+        "P110": {
+          "value": "-6592.889999999999"
+        },
+        "P12": {
+          "value": "13.7"
+        },
+        "P13": {
+          "value": "9.99"
+        },
+        "P14": {
+          "value": "9.99"
+        },
+        "P15": {
+          "value": "39.98"
+        },
+        "P16": {
+          "value": "39.98"
+        },
+        "P17": {
+          "value": "48.04"
+        },
+        "P18": {
+          "value": "48.04"
+        },
+        "P19": {
+          "value": "216.14"
+        },
+        "P2": {
+          "value": "111.9"
+        },
+        "P20": {
+          "value": "216.14"
+        },
+        "P21": {
+          "formula": "=P2+P9+P11+P13+P15+P17+P19"
+        },
+        "P22": {
+          "formula": "=SUM(P2:P20)-P21"
+        },
+        "P23": {
+          "formula": "=P21-P22"
+        },
+        "P25": {
+          "value": "0"
+        },
+        "P26": {
+          "value": "0"
+        },
+        "P27": {
+          "value": "1.68"
+        },
+        "P28": {
+          "value": "0"
+        },
+        "P29": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P3": {
+          "value": "18.99"
+        },
+        "P31": {
+          "formula": "=P21+P29"
+        },
+        "P32": {
+          "formula": "=S2"
+        },
+        "P34": {
+          "formula": "=S2-P31"
+        },
+        "P39": {
+          "value": "504.42"
+        },
+        "P4": {
+          "value": "21.99"
+        },
+        "P40": {
+          "value": "1370.46"
+        },
+        "P41": {
+          "value": "251.47"
+        },
+        "P42": {
+          "value": "7.47"
+        },
+        "P43": {
+          "value": "26.19"
+        },
+        "P44": {
+          "value": "61.01"
+        },
+        "P45": {
+          "value": "0"
+        },
+        "P46": {
+          "value": "21.8"
+        },
+        "P47": {
+          "value": "17.17"
+        },
+        "P48": {
+          "value": "117.84"
+        },
+        "P49": {
+          "value": "82.23"
+        },
+        "P5": {
+          "value": "15.98"
+        },
+        "P50": {
+          "value": "255.62"
+        },
+        "P51": {
+          "value": "589.32"
+        },
+        "P52": {
+          "value": "0.4300161989405017"
+        },
+        "P54": {
+          "value": "111.9"
+        },
+        "P55": {
+          "value": "18.99"
+        },
+        "P56": {
+          "value": "21.99"
+        },
+        "P57": {
+          "value": "15.98"
+        },
+        "P58": {
+          "value": "17.99"
+        },
+        "P59": {
+          "value": "16.99"
+        },
+        "P6": {
+          "value": "17.99"
+        },
+        "P60": {
+          "value": "19.96"
+        },
+        "P61": {
+          "value": "102.97"
+        },
+        "P62": {
+          "value": "62.99"
+        },
+        "P63": {
+          "value": "39.98"
+        },
+        "P64": {
+          "value": "13.7"
+        },
+        "P65": {
+          "value": "13.7"
+        },
+        "P66": {
+          "value": "9.99"
+        },
+        "P67": {
+          "value": "9.99"
+        },
+        "P68": {
+          "value": "48.04"
+        },
+        "P69": {
+          "value": "48.04"
+        },
+        "P7": {
+          "value": "16.99"
+        },
+        "P70": {
+          "value": "216.14"
+        },
+        "P71": {
+          "value": "216.14"
+        },
+        "P72": {
+          "formula": "=P54+P61+P64+P66+P68+P70"
+        },
+        "P73": {
+          "formula": "=SUM(P54:P71)-P72"
+        },
+        "P74": {
+          "formula": "=P72-P73"
+        },
+        "P76": {
+          "value": "0"
+        },
+        "P77": {
+          "value": "0"
+        },
+        "P78": {
+          "value": "1.68"
+        },
+        "P79": {
+          "value": "0"
+        },
+        "P8": {
+          "value": "19.96"
+        },
+        "P80": {
+          "formula": "=(T54+U54+V54-W54)"
+        },
+        "P82": {
+          "formula": "=P72+P80"
+        },
+        "P83": {
+          "formula": "=S54"
+        },
+        "P85": {
+          "formula": "=S54-P82"
+        },
+        "P9": {
+          "value": "62.99"
+        },
+        "P90": {
+          "value": "504.42"
+        },
+        "P91": {
+          "value": "1370.46"
+        },
+        "P92": {
+          "value": "246.02"
+        },
+        "P93": {
+          "value": "7.47"
+        },
+        "P94": {
+          "value": "26.19"
+        },
+        "P95": {
+          "value": "117.84"
+        },
+        "P96": {
+          "value": "61.01"
+        },
+        "P97": {
+          "value": "5.45"
+        },
+        "P98": {
+          "value": "28.07"
+        },
+        "P99": {
+          "value": "82.23"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q10": {
+          "formula": "=O10*K10"
+        },
+        "Q106": {
+          "value": "-3305.43"
+        },
+        "Q107": {
+          "value": "-3287.46"
+        },
+        "Q11": {
+          "formula": "=O11*K11"
+        },
+        "Q12": {
+          "formula": "=O12*K12"
+        },
+        "Q13": {
+          "formula": "=O13*K13"
+        },
+        "Q14": {
+          "formula": "=O14*K14"
+        },
+        "Q15": {
+          "formula": "=O15*K15"
+        },
+        "Q16": {
+          "formula": "=O16*K16"
+        },
+        "Q17": {
+          "formula": "=O17*K17"
+        },
+        "Q18": {
+          "formula": "=O18*K18"
+        },
+        "Q19": {
+          "formula": "=O19*K19"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q20": {
+          "formula": "=O20*K20"
+        },
+        "Q21": {
+          "formula": "=Q2+Q9+Q11+Q13+Q15+Q17+Q19"
+        },
+        "Q22": {
+          "formula": "=SUM(Q2:Q20)-Q21"
+        },
+        "Q23": {
+          "formula": "=Q21-Q22"
+        },
+        "Q29": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q31": {
+          "formula": "=Q21+Q29"
+        },
+        "Q34": {
+          "formula": "=S2-Q31"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q54": {
+          "formula": "=O54*K54"
+        },
+        "Q55": {
+          "formula": "=O55*K55"
+        },
+        "Q56": {
+          "formula": "=O56*K56"
+        },
+        "Q57": {
+          "formula": "=O57*K57"
+        },
+        "Q58": {
+          "formula": "=O58*K58"
+        },
+        "Q59": {
+          "formula": "=O59*K59"
+        },
+        "Q6": {
+          "formula": "=O6*K6"
+        },
+        "Q60": {
+          "formula": "=O60*K60"
+        },
+        "Q61": {
+          "formula": "=O61*K61"
+        },
+        "Q62": {
+          "formula": "=O62*K62"
+        },
+        "Q63": {
+          "formula": "=O63*K63"
+        },
+        "Q64": {
+          "formula": "=O64*K64"
+        },
+        "Q65": {
+          "formula": "=O65*K65"
+        },
+        "Q66": {
+          "formula": "=O66*K66"
+        },
+        "Q67": {
+          "formula": "=O67*K67"
+        },
+        "Q68": {
+          "formula": "=O68*K68"
+        },
+        "Q69": {
+          "formula": "=O69*K69"
+        },
+        "Q7": {
+          "formula": "=O7*K7"
+        },
+        "Q70": {
+          "formula": "=O70*K70"
+        },
+        "Q71": {
+          "formula": "=O71*K71"
+        },
+        "Q72": {
+          "formula": "=Q54+Q61+Q64+Q66+Q68+Q70"
+        },
+        "Q73": {
+          "formula": "=SUM(Q54:Q71)-Q72"
+        },
+        "Q74": {
+          "formula": "=Q72-Q73"
+        },
+        "Q8": {
+          "formula": "=O8*K8"
+        },
+        "Q80": {
+          "formula": "=(T54+U54+V54-W54)"
+        },
+        "Q82": {
+          "formula": "=Q72+Q80"
+        },
+        "Q85": {
+          "formula": "=S54-Q82"
+        },
+        "Q9": {
+          "formula": "=O9*K9"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R10": {
+          "formula": "=P10-Q10"
+        },
+        "R11": {
+          "formula": "=P11-Q11"
+        },
+        "R12": {
+          "formula": "=P12-Q12"
+        },
+        "R13": {
+          "formula": "=P13-Q13"
+        },
+        "R14": {
+          "formula": "=P14-Q14"
+        },
+        "R15": {
+          "formula": "=P15-Q15"
+        },
+        "R16": {
+          "formula": "=P16-Q16"
+        },
+        "R17": {
+          "formula": "=P17-Q17"
+        },
+        "R18": {
+          "formula": "=P18-Q18"
+        },
+        "R19": {
+          "formula": "=P19-Q19"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R20": {
+          "formula": "=P20-Q20"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "R54": {
+          "formula": "=P54-Q54"
+        },
+        "R55": {
+          "formula": "=P55-Q55"
+        },
+        "R56": {
+          "formula": "=P56-Q56"
+        },
+        "R57": {
+          "formula": "=P57-Q57"
+        },
+        "R58": {
+          "formula": "=P58-Q58"
+        },
+        "R59": {
+          "formula": "=P59-Q59"
+        },
+        "R6": {
+          "formula": "=P6-Q6"
+        },
+        "R60": {
+          "formula": "=P60-Q60"
+        },
+        "R61": {
+          "formula": "=P61-Q61"
+        },
+        "R62": {
+          "formula": "=P62-Q62"
+        },
+        "R63": {
+          "formula": "=P63-Q63"
+        },
+        "R64": {
+          "formula": "=P64-Q64"
+        },
+        "R65": {
+          "formula": "=P65-Q65"
+        },
+        "R66": {
+          "formula": "=P66-Q66"
+        },
+        "R67": {
+          "formula": "=P67-Q67"
+        },
+        "R68": {
+          "formula": "=P68-Q68"
+        },
+        "R69": {
+          "formula": "=P69-Q69"
+        },
+        "R7": {
+          "formula": "=P7-Q7"
+        },
+        "R70": {
+          "formula": "=P70-Q70"
+        },
+        "R71": {
+          "formula": "=P71-Q71"
+        },
+        "R8": {
+          "formula": "=P8-Q8"
+        },
+        "R9": {
+          "formula": "=P9-Q9"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "504.42"
+        },
+        "S54": {
+          "value": "504.42"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "T54": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "U54": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "1.68"
+        },
+        "V54": {
+          "value": "1.68"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "W54": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        },
+        "Z54": {
+          "value": "'AMAZON'"
+        }
+      },
+      "OCR Notes": {
+        "A1": {
+          "value": "'PDF File'"
+        },
+        "A2": {
+          "value": "'112-8635667-8526641.pdf'"
+        },
+        "A3": {
+          "value": "'HAWB9686021-Manifest_Invoice.pdf'"
+        },
+        "B1": {
+          "value": "'Quality Score'"
+        },
+        "B2": {
+          "value": "'100/100'"
+        },
+        "B3": {
+          "value": "'100/100'"
+        },
+        "C1": {
+          "value": "'Rating'"
+        },
+        "C2": {
+          "value": "'GOOD'"
+        },
+        "C3": {
+          "value": "'GOOD'"
+        },
+        "D1": {
+          "value": "'Details'"
+        },
+        "D2": {
+          "value": "'Text: 6583 chars; Prices: 30 ($-sign), 28 (decimal); Total: $504.42; Invoice#: 112-8635667-8526641; Real items: 12/12; Structure words: 8/12'"
+        },
+        "D3": {
+          "value": "'Text: 6585 chars; Prices: 30 ($-sign), 28 (decimal); Total: $504.42; Invoice#: 112-8635667-8526641; Real items: 12/12; Structure words: 8/12'"
+        },
+        "E1": {
+          "value": "'OCR Text (first 2000 chars)'"
+        },
+        "E2": {
+          "value": "\"8 / 21 / 24 , 4 : 30 PM Amazon . com - Order 112 - 8635667 - 852664 1\\namazoncoy\\n\u201c eae .\\nFinal Details for Order # 112-8635667-8526641\\nPrint this page for your records .\\nOrder Placed : August 5 , 2024\\nAmazon . com order number : 112-8635667-8526641\\nOrder Total : $504.42\\nShipped on August 11 , 2024\\nItems Ordered Price\\n1 of: Onesies Brand Baby Boy ' s 8 - Pack Short Sleeve Mix & tdatch Bodysuits , Grey Dino , 6 - 9 Months $18.99\\ntd by : Amazon . com Services , Inc\\nSL sorta by : Other\\nCondition : New\\n1 of: Gerber Baby Boy ' s 8 - Pack Short Sleeve Onesies Bodysuits , Tiger Green , 3 - 6 Months $21.99\\nScld by : Amazon . com Services , Inc .\\n, Supplied by: Other\\nCondition : New\\n1 of: Simple Joys by Carter ' s Baby Boys \u2019 6 - Pack Short - Sleeve Bodysuit , Multicolor / Dinosaur / Sports / Stripe , 0 - 3 Months $15.98\\nSold by: Amazon . com Services , Inc Q\\nSupplied by: Other Sr\\nCondition : New \\\\ O\\n1 of: Wearable Breast Pump Hands Free Breast Pump 12 Levels 3 Modes Electric Breast Pump with 1200 mAh Battery , Leak - Proof $62.99\\nDesign , Low Noise , 21 / 24 / 27 mm Flange Inserts , All - in - One Painless Breastfeeding , 2 Pack\\n' Sold by: Amazon . com Services , Inc\\n\u201c Supplied by: Other\\nCondition : New\\n1 of: Onesies Brand Unisex Baby 12 - Piece Cap and Mitten Set , Sayings Board , 0 - 6 Months $17.99\\n. \u00b0 Sold by: Amazon . com Services , Inc :\\nSupplied by: Other\\nCondition : New\\n. 1 of: Simple Joys by Carter ' s Baby 3 - Pack Thermal Pants , Black / Dark Blue Stripe / Navy , 3 - 6 Months $12.71\\nSold by: Amazon . com Services , Inc\\n\u2018 Supplied by: Other\\nCondition : New\\n: 1 of: Tommee Tippee Natural Start Grow with Baby Bottle Set , 50 z , 90 z and 110 z , Slow , Medium and Thicker Flow Nipples , $23.10\\nRemovable Bottle Handles , Self - Sterilizing\\n\u2019 Sold by: Amazon . com Services , Inc\\nSupplied by: Other\\nCondition : New\\n1 of: Huggies Natural Care Sensitive Baby Wipes , Unscented , Hypoallergenic , 99 % Purified Water , 8 Flip - Top Packs ( 448 Wipes $13.70\\nTotal\\nSold by: Amazon \""
+        },
+        "E3": {
+          "value": "\"8 / 21 / 24 , 4 : 30 PM Amazon . com - Order 112 - 8635667 - 852664 1\\namazoncoy\\n\u201c eae .\\nFinal Details for Order # 112-8635667-8526641\\nPrint this page for your records .\\nOrder Placed : August 5 , 2024\\nAmazon . com order number : 112-8635667-8526641\\nOrder Total : $504.42\\nShipped on August 11 , 2024\\nItems Ordered Price\\n1 of: Onesies Brand Baby Boy ' s 8 - Pack Short Sleeve Mix & tdatch Bodysuits , Grey Dino , 6 - 9 Months $18.99\\ntd by : Amazon . com Services , Inc\\nSL sorta by : Other\\nCondition : New\\n1 of: Gerber Baby Boy ' s 8 - Pack Short Sleeve Onesies Bodysuits , Tiger Green , 3 - 6 Months $21.99\\nScld by : Amazon . com Services , Inc .\\n, Supplied by: Other\\nCondition : New\\n1 of: Simple Joys by Carter ' s Baby Boys \u2019 6 - Pack Short - Sleeve Bodysuit , Multicolor / Dinosaur / Sports / Stripe , 0 - 3 Months $15.98\\nSold by: Amazon . com Services , Inc Q\\nSupplied by: Other Sr\\nCondition : New \\\\ O\\n1 of: Wearable Breast Pump Hands Free Breast Pump 12 Levels 3 Modes Electric Breast Pump with 1200 mAh Battery , Leak - Proof $62.99\\nDesign , Low Noise , 21 / 24 / 27 mm Flange Inserts , All - in - One Painless Breastfeeding , 2 Pack\\n' Sold by: Amazon . com Services , Inc\\n\u201c Supplied by: Other\\nCondition : New\\n1 of: Onesies Brand Unisex Baby 12 - Piece Cap and Mitten Set , Sayings Board , 0 - 6 Months $17.99\\n. \u00b0 Sold by: Amazon . com Services , Inc :\\nSupplied by: Other\\nCondition : New\\n. 1 of: Simple Joys by Carter ' s Baby 3 - Pack Thermal Pants , Black / Dark Blue Stripe / Navy , 3 - 6 Months $12.71\\nSold by: Amazon . com Services , Inc\\n\u2018 Supplied by: Other\\nCondition : New\\n: 1 of: Tommee Tippee Natural Start Grow with Baby Bottle Set , 50 z , 90 z and 110 z , Slow , Medium and Thicker Flow Nipples , $23.10\\nRemovable Bottle Handles , Self - Sterilizing\\n\u2019 Sold by: Amazon . com Services , Inc\\nSupplied by: Other\\nCondition : New\\n1 of: Huggies Natural Care Sensitive Baby Wipes , Unscented , Hypoallergenic , 99 % Purified Water , 8 Flip - Top Packs ( 448 Wipes $13.70\\nTotal\\nSold by: Amazon \""
+        }
+      }
+    }
+  },
+  "HAWB9685992.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'61112090'"
+        },
+        "AK5": {
+          "value": "'90192000'"
+        },
+        "AK7": {
+          "value": "'63079090'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'112-8635667-8526641'"
+        },
+        "C5": {
+          "value": "'112-8635667-8526641'"
+        },
+        "C7": {
+          "value": "'112-8635667-8526641'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Apparel - Knitted'"
+        },
+        "E39": {
+          "value": "'Apparel - Knitted'"
+        },
+        "E44": {
+          "value": "'BAGS & LUGGAGE'"
+        },
+        "E46": {
+          "value": "'In the form of bars, cakes, moulded pieces or shapes, for laundry and othe'"
+        },
+        "E48": {
+          "value": "'Other appliances'"
+        },
+        "E5": {
+          "value": "'Ozone therapy, oxygen therapy, aerosol therapy, artificial respiration or oth...'"
+        },
+        "E50": {
+          "value": "'Of other materials'"
+        },
+        "E7": {
+          "value": "'MARINE HARDWARE'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'61112090'"
+        },
+        "F3": {
+          "value": "'61112090'"
+        },
+        "F39": {
+          "value": "'61112090'"
+        },
+        "F4": {
+          "value": "'61112090'"
+        },
+        "F44": {
+          "value": "'42029200'"
+        },
+        "F46": {
+          "value": "'34011910'"
+        },
+        "F48": {
+          "value": "'85098090'"
+        },
+        "F5": {
+          "value": "'90192000'"
+        },
+        "F50": {
+          "value": "'96190090'"
+        },
+        "F6": {
+          "value": "'90192000'"
+        },
+        "F7": {
+          "value": "'63079090'"
+        },
+        "F8": {
+          "value": "'63079090'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'61112090'"
+        },
+        "I3": {
+          "value": "'AMZ-1'"
+        },
+        "I4": {
+          "value": "'AMZ-10'"
+        },
+        "I40": {
+          "value": "'AMZ-2'"
+        },
+        "I41": {
+          "value": "'AMZ-5'"
+        },
+        "I42": {
+          "value": "'AMZ-8'"
+        },
+        "I43": {
+          "value": "'AMZ-3'"
+        },
+        "I45": {
+          "value": "'AMZ-11'"
+        },
+        "I47": {
+          "value": "'AMZ-6'"
+        },
+        "I49": {
+          "value": "'AMZ-9'"
+        },
+        "I5": {
+          "value": "'90192000'"
+        },
+        "I51": {
+          "value": "'AMZ-12'"
+        },
+        "I6": {
+          "value": "'AMZ-4'"
+        },
+        "I7": {
+          "value": "'63079090'"
+        },
+        "I8": {
+          "value": "'AMZ-7'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J11": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J13": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J14": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J15": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J16": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J17": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J19": {
+          "value": "'NET TOTAL'"
+        },
+        "J2": {
+          "value": "\"Onesies Brand Baby Boy ' s 8 - Pack Short Sleeve Mix & tdatch Bodysuits , Gre... (+1 more) (2 items)\""
+        },
+        "J20": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J22": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J24": {
+          "value": "'INVOICE NOTES: Structural item count mismatch: 20 price lines found between section markers but 12 items extracted'"
+        },
+        "J26": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J27": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J28": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J29": {
+          "value": "'CET (weighted avg 12.6%)'"
+        },
+        "J3": {
+          "value": "\"Onesies Brand Baby Boy ' s 8 - Pack Short Sleeve Mix & tdatch Bodysuits , Gre...\""
+        },
+        "J30": {
+          "value": "'  \u2514 61112090: 20% CET (35% of value)'"
+        },
+        "J31": {
+          "value": "'  \u2514 63079090: 0% CET (9% of value)'"
+        },
+        "J32": {
+          "value": "'  \u2514 90192000: 10% CET (56% of value)'"
+        },
+        "J33": {
+          "value": "'CSC (6%)'"
+        },
+        "J34": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J35": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J36": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J38": {
+          "value": "'Items on other declaration(s) (8 items)'"
+        },
+        "J39": {
+          "value": "\"Gerber Baby Boy ' s 8 - Pack Short Sleeve Onesies Bodysuits , Tiger Green , 3... (+3 more) (4 items)\""
+        },
+        "J4": {
+          "value": "\"Simple Joys Baby Boy ' s 6 piece Little Character sets Sleepwear , Green / Gr...\""
+        },
+        "J40": {
+          "value": "\"Gerber Baby Boy ' s 8 - Pack Short Sleeve Onesies Bodysuits , Tiger Green , 3...\""
+        },
+        "J41": {
+          "value": "'Onesies Brand Unisex Baby 12 - Piece Cap and Mitten Set , Sayings Board , 0 -...'"
+        },
+        "J42": {
+          "value": "'Onesies Brand Unisex Baby 12 - Piece Cap and Mitten Set , stripe , 0 - 6 Months'"
+        },
+        "J43": {
+          "value": "\"Simple Joys by Carter ' s Baby Boys \u2019 6 - Pack Short - Sleeve Bodysuit , Mult...\""
+        },
+        "J44": {
+          "value": "'strom Large Diaper Bag , 29 L - 45 L Expandable Diaper Bag Backpack for 2 Kid... (1 items)'"
+        },
+        "J45": {
+          "value": "'strom Large Diaper Bag , 29 L - 45 L Expandable Diaper Bag Backpack for 2 Kid...'"
+        },
+        "J46": {
+          "value": "'Huggies Natural Care Sensitive Baby Wipes , Unscented , Hypoallergenic , 99 %... (1 items)'"
+        },
+        "J47": {
+          "value": "'Huggies Natural Care Sensitive Baby Wipes , Unscented , Hypoallergenic , 99 %...'"
+        },
+        "J48": {
+          "value": "'MUOCOBU Electric Breast Pump , Breast Pump Electric Breastfeeding Pump 3 Mode... (1 items)'"
+        },
+        "J49": {
+          "value": "'MUOCOBU Electric Breast Pump , Breast Pump Electric Breastfeeding Pump 3 Mode...'"
+        },
+        "J5": {
+          "value": "'Wearable Breast Pump Hands Free Breast Pump 12 Levels 3 Modes Electric Breast... (1 items)'"
+        },
+        "J50": {
+          "value": "'Huggies Size 1 Diapers , Snug & Dry Newborn Diapers , Size 1 ( 8 - 14 Ibs, 25... (1 items)'"
+        },
+        "J51": {
+          "value": "'Huggies Size 1 Diapers , Snug & Dry Newborn Diapers , Size 1 ( 8 - 14 Ibs, 25...'"
+        },
+        "J52": {
+          "value": "'REFERENCE SUBTOTAL'"
+        },
+        "J53": {
+          "value": "'REFERENCE FREIGHT'"
+        },
+        "J54": {
+          "value": "'REFERENCE INSURANCE'"
+        },
+        "J55": {
+          "value": "'REFERENCE OTHER COST'"
+        },
+        "J56": {
+          "value": "'REFERENCE DEDUCTION'"
+        },
+        "J57": {
+          "value": "'REFERENCE ADJUSTMENTS'"
+        },
+        "J58": {
+          "value": "'REFERENCE NET TOTAL'"
+        },
+        "J6": {
+          "value": "'Wearable Breast Pump Hands Free Breast Pump 12 Levels 3 Modes Electric Breast...'"
+        },
+        "J60": {
+          "value": "'COMBINED ITEMS TOTAL'"
+        },
+        "J61": {
+          "value": "'FULL INVOICE FREIGHT'"
+        },
+        "J62": {
+          "value": "'FULL INVOICE INSURANCE'"
+        },
+        "J63": {
+          "value": "'FULL INVOICE OTHER COST'"
+        },
+        "J64": {
+          "value": "'FULL INVOICE DEDUCTION'"
+        },
+        "J65": {
+          "value": "'FULL ADJUSTMENTS'"
+        },
+        "J66": {
+          "value": "'COMBINED NET TOTAL'"
+        },
+        "J67": {
+          "value": "'FULL INVOICE TOTAL'"
+        },
+        "J68": {
+          "value": "'COMBINED VARIANCE CHECK'"
+        },
+        "J7": {
+          "value": "'Cute Castle Ultra - Soft Baby Washcloths , 16 Pack - 9 \" by 9 \" , Gentle on S... (1 items)'"
+        },
+        "J8": {
+          "value": "'Cute Castle Ultra - Soft Baby Washcloths , 16 Pack - 9 \" by 9 \" , Gentle on S...'"
+        },
+        "J9": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "2"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K39": {
+          "value": "4"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "K40": {
+          "value": "1"
+        },
+        "K41": {
+          "value": "1"
+        },
+        "K42": {
+          "value": "1"
+        },
+        "K43": {
+          "value": "1"
+        },
+        "K44": {
+          "value": "1"
+        },
+        "K45": {
+          "value": "1"
+        },
+        "K46": {
+          "value": "1"
+        },
+        "K47": {
+          "value": "1"
+        },
+        "K48": {
+          "value": "1"
+        },
+        "K49": {
+          "value": "1"
+        },
+        "K5": {
+          "value": "1"
+        },
+        "K50": {
+          "value": "1"
+        },
+        "K51": {
+          "value": "1"
+        },
+        "K6": {
+          "value": "1"
+        },
+        "K7": {
+          "value": "1"
+        },
+        "K8": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N39": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N40": {
+          "value": "'USD'"
+        },
+        "N41": {
+          "value": "'USD'"
+        },
+        "N42": {
+          "value": "'USD'"
+        },
+        "N43": {
+          "value": "'USD'"
+        },
+        "N44": {
+          "value": "'USD'"
+        },
+        "N45": {
+          "value": "'USD'"
+        },
+        "N46": {
+          "value": "'USD'"
+        },
+        "N47": {
+          "value": "'USD'"
+        },
+        "N48": {
+          "value": "'USD'"
+        },
+        "N49": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "N50": {
+          "value": "'USD'"
+        },
+        "N51": {
+          "value": "'USD'"
+        },
+        "N6": {
+          "value": "'USD'"
+        },
+        "N7": {
+          "value": "'USD'"
+        },
+        "N8": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "19.475"
+        },
+        "O3": {
+          "value": "18.99"
+        },
+        "O39": {
+          "value": "18.2375"
+        },
+        "O4": {
+          "value": "19.96"
+        },
+        "O40": {
+          "value": "21.99"
+        },
+        "O41": {
+          "value": "17.99"
+        },
+        "O42": {
+          "value": "16.99"
+        },
+        "O43": {
+          "value": "15.98"
+        },
+        "O44": {
+          "value": "48.04"
+        },
+        "O45": {
+          "value": "48.04"
+        },
+        "O46": {
+          "value": "13.7"
+        },
+        "O47": {
+          "value": "13.7"
+        },
+        "O48": {
+          "value": "39.98"
+        },
+        "O49": {
+          "value": "39.98"
+        },
+        "O5": {
+          "value": "62.99"
+        },
+        "O50": {
+          "value": "216.14"
+        },
+        "O51": {
+          "value": "216.14"
+        },
+        "O6": {
+          "value": "62.99"
+        },
+        "O7": {
+          "value": "9.99"
+        },
+        "O8": {
+          "value": "9.99"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "formula": "=SUM(P2:P8)-P9"
+        },
+        "P11": {
+          "formula": "=P9-P10"
+        },
+        "P13": {
+          "value": "7"
+        },
+        "P14": {
+          "value": "0"
+        },
+        "P15": {
+          "value": "0.37"
+        },
+        "P16": {
+          "value": "0"
+        },
+        "P17": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P19": {
+          "formula": "=P9+P17"
+        },
+        "P2": {
+          "value": "38.95"
+        },
+        "P20": {
+          "formula": "=S2"
+        },
+        "P22": {
+          "formula": "=S2-P19"
+        },
+        "P27": {
+          "value": "126.3"
+        },
+        "P28": {
+          "value": "343.14"
+        },
+        "P29": {
+          "value": "43.19"
+        },
+        "P3": {
+          "value": "18.99"
+        },
+        "P30": {
+          "value": "23.88"
+        },
+        "P31": {
+          "value": "0"
+        },
+        "P32": {
+          "value": "19.31"
+        },
+        "P33": {
+          "value": "20.59"
+        },
+        "P34": {
+          "value": "61.04"
+        },
+        "P35": {
+          "value": "124.82"
+        },
+        "P36": {
+          "value": "0.3637582327912805"
+        },
+        "P39": {
+          "value": "72.95"
+        },
+        "P4": {
+          "value": "19.96"
+        },
+        "P40": {
+          "value": "21.99"
+        },
+        "P41": {
+          "value": "17.99"
+        },
+        "P42": {
+          "value": "16.99"
+        },
+        "P43": {
+          "value": "15.98"
+        },
+        "P44": {
+          "value": "48.04"
+        },
+        "P45": {
+          "value": "48.04"
+        },
+        "P46": {
+          "value": "13.7"
+        },
+        "P47": {
+          "value": "13.7"
+        },
+        "P48": {
+          "value": "39.98"
+        },
+        "P49": {
+          "value": "39.98"
+        },
+        "P5": {
+          "value": "62.99"
+        },
+        "P50": {
+          "value": "216.14"
+        },
+        "P51": {
+          "value": "216.14"
+        },
+        "P52": {
+          "value": "390.8099999999999"
+        },
+        "P53": {
+          "value": "100"
+        },
+        "P54": {
+          "value": "0"
+        },
+        "P55": {
+          "value": "1.31"
+        },
+        "P56": {
+          "value": "0"
+        },
+        "P57": {
+          "formula": "=P53+P54+P55-P56"
+        },
+        "P58": {
+          "formula": "=P52+P57"
+        },
+        "P6": {
+          "value": "62.99"
+        },
+        "P60": {
+          "formula": "=P9+P52"
+        },
+        "P61": {
+          "formula": "=P13+P53"
+        },
+        "P62": {
+          "formula": "=P14+P54"
+        },
+        "P63": {
+          "formula": "=P15+P55"
+        },
+        "P64": {
+          "formula": "=P16+P56"
+        },
+        "P65": {
+          "formula": "=P61+P62+P63-P64"
+        },
+        "P66": {
+          "formula": "=P60+P65"
+        },
+        "P67": {
+          "value": "611.42"
+        },
+        "P68": {
+          "formula": "=P67-P66"
+        },
+        "P7": {
+          "value": "9.99"
+        },
+        "P8": {
+          "value": "9.99"
+        },
+        "P9": {
+          "formula": "=P2+P5+P7"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q10": {
+          "formula": "=SUM(Q2:Q8)-Q9"
+        },
+        "Q11": {
+          "formula": "=Q9-Q10"
+        },
+        "Q17": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q19": {
+          "formula": "=Q9+Q17"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q22": {
+          "formula": "=S2-Q19"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q6": {
+          "formula": "=O6*K6"
+        },
+        "Q7": {
+          "formula": "=O7*K7"
+        },
+        "Q8": {
+          "formula": "=O8*K8"
+        },
+        "Q9": {
+          "formula": "=Q2+Q5+Q7"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "R6": {
+          "formula": "=P6-Q6"
+        },
+        "R7": {
+          "formula": "=P7-Q7"
+        },
+        "R8": {
+          "formula": "=P8-Q8"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "119.3"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "7"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0.37"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        }
+      }
+    }
+  },
+  "HAWB9686021.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'61112090'"
+        },
+        "AK6": {
+          "value": "'42029200'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'112-8635667-8526641'"
+        },
+        "C6": {
+          "value": "'112-8635667-8526641'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Apparel - Knitted'"
+        },
+        "E42": {
+          "value": "'Apparel - Knitted'"
+        },
+        "E46": {
+          "value": "'Ozone therapy, oxygen therapy, aerosol therapy, artificial respiration or oth...'"
+        },
+        "E48": {
+          "value": "'MARINE HARDWARE'"
+        },
+        "E50": {
+          "value": "'In the form of bars, cakes, moulded pieces or shapes, for laundry and othe'"
+        },
+        "E52": {
+          "value": "'Other appliances'"
+        },
+        "E54": {
+          "value": "'Of other materials'"
+        },
+        "E6": {
+          "value": "'BAGS & LUGGAGE'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'61112090'"
+        },
+        "F3": {
+          "value": "'61112090'"
+        },
+        "F4": {
+          "value": "'61112090'"
+        },
+        "F42": {
+          "value": "'61112090'"
+        },
+        "F46": {
+          "value": "'90192000'"
+        },
+        "F48": {
+          "value": "'63079090'"
+        },
+        "F5": {
+          "value": "'61112090'"
+        },
+        "F50": {
+          "value": "'34011910'"
+        },
+        "F52": {
+          "value": "'85098090'"
+        },
+        "F54": {
+          "value": "'96190090'"
+        },
+        "F6": {
+          "value": "'42029200'"
+        },
+        "F7": {
+          "value": "'42029200'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'61112090'"
+        },
+        "I3": {
+          "value": "'AMZ-2'"
+        },
+        "I4": {
+          "value": "'AMZ-5'"
+        },
+        "I43": {
+          "value": "'AMZ-1'"
+        },
+        "I44": {
+          "value": "'AMZ-10'"
+        },
+        "I45": {
+          "value": "'AMZ-3'"
+        },
+        "I47": {
+          "value": "'AMZ-4'"
+        },
+        "I49": {
+          "value": "'AMZ-7'"
+        },
+        "I5": {
+          "value": "'AMZ-8'"
+        },
+        "I51": {
+          "value": "'AMZ-6'"
+        },
+        "I53": {
+          "value": "'AMZ-9'"
+        },
+        "I55": {
+          "value": "'AMZ-12'"
+        },
+        "I6": {
+          "value": "'42029200'"
+        },
+        "I7": {
+          "value": "'AMZ-11'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J12": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J13": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J14": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J15": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J16": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J18": {
+          "value": "'NET TOTAL'"
+        },
+        "J19": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J2": {
+          "value": "\"Gerber Baby Boy ' s 8 - Pack Short Sleeve Onesies Bodysuits , Tiger Green , 3... (+2 more) (3 items)\""
+        },
+        "J21": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J23": {
+          "value": "'INVOICE NOTES: Structural item count mismatch: 20 price lines found between section markers but 12 items extracted'"
+        },
+        "J25": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J26": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J27": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J28": {
+          "value": "'CET (weighted avg 20.0%)'"
+        },
+        "J29": {
+          "value": "'  \u2514 42029200: 20% CET (46% of value)'"
+        },
+        "J3": {
+          "value": "\"Gerber Baby Boy ' s 8 - Pack Short Sleeve Onesies Bodysuits , Tiger Green , 3...\""
+        },
+        "J30": {
+          "value": "'  \u2514 61112090: 20% CET (54% of value)'"
+        },
+        "J31": {
+          "value": "'CSC (6%)'"
+        },
+        "J32": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J33": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J34": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J35": {
+          "value": "'CLIENT DECLARED DUTIES'"
+        },
+        "J36": {
+          "value": "'DUTY VARIANCE (Client \u2212 Estimated)'"
+        },
+        "J37": {
+          "value": "'IMPLIED CIF (from declared duty @ 20% CET, XCD)'"
+        },
+        "J38": {
+          "value": "'IMPLIED ITEMS VALUE (USD, net of freight/insurance)'"
+        },
+        "J39": {
+          "value": "'\u26a0 ITEM ALLOCATION CHECK: actual $105.01 USD vs implied $1,126.14 USD \u2014 UNDER-ALLOCATED (items from another waybill may belong here)'"
+        },
+        "J4": {
+          "value": "'Onesies Brand Unisex Baby 12 - Piece Cap and Mitten Set , Sayings Board , 0 -...'"
+        },
+        "J41": {
+          "value": "'Items on other declaration(s) (8 items)'"
+        },
+        "J42": {
+          "value": "\"Onesies Brand Baby Boy ' s 8 - Pack Short Sleeve Mix & tdatch Bodysuits , Gre... (+2 more) (3 items)\""
+        },
+        "J43": {
+          "value": "\"Onesies Brand Baby Boy ' s 8 - Pack Short Sleeve Mix & tdatch Bodysuits , Gre...\""
+        },
+        "J44": {
+          "value": "\"Simple Joys Baby Boy ' s 6 piece Little Character sets Sleepwear , Green / Gr...\""
+        },
+        "J45": {
+          "value": "\"Simple Joys by Carter ' s Baby Boys \u2019 6 - Pack Short - Sleeve Bodysuit , Mult...\""
+        },
+        "J46": {
+          "value": "'Wearable Breast Pump Hands Free Breast Pump 12 Levels 3 Modes Electric Breast... (1 items)'"
+        },
+        "J47": {
+          "value": "'Wearable Breast Pump Hands Free Breast Pump 12 Levels 3 Modes Electric Breast...'"
+        },
+        "J48": {
+          "value": "'Cute Castle Ultra - Soft Baby Washcloths , 16 Pack - 9 \" by 9 \" , Gentle on S... (1 items)'"
+        },
+        "J49": {
+          "value": "'Cute Castle Ultra - Soft Baby Washcloths , 16 Pack - 9 \" by 9 \" , Gentle on S...'"
+        },
+        "J5": {
+          "value": "'Onesies Brand Unisex Baby 12 - Piece Cap and Mitten Set , stripe , 0 - 6 Months'"
+        },
+        "J50": {
+          "value": "'Huggies Natural Care Sensitive Baby Wipes , Unscented , Hypoallergenic , 99 %... (1 items)'"
+        },
+        "J51": {
+          "value": "'Huggies Natural Care Sensitive Baby Wipes , Unscented , Hypoallergenic , 99 %...'"
+        },
+        "J52": {
+          "value": "'MUOCOBU Electric Breast Pump , Breast Pump Electric Breastfeeding Pump 3 Mode... (1 items)'"
+        },
+        "J53": {
+          "value": "'MUOCOBU Electric Breast Pump , Breast Pump Electric Breastfeeding Pump 3 Mode...'"
+        },
+        "J54": {
+          "value": "'Huggies Size 1 Diapers , Snug & Dry Newborn Diapers , Size 1 ( 8 - 14 Ibs, 25... (1 items)'"
+        },
+        "J55": {
+          "value": "'Huggies Size 1 Diapers , Snug & Dry Newborn Diapers , Size 1 ( 8 - 14 Ibs, 25...'"
+        },
+        "J56": {
+          "value": "'REFERENCE SUBTOTAL'"
+        },
+        "J57": {
+          "value": "'REFERENCE FREIGHT'"
+        },
+        "J58": {
+          "value": "'REFERENCE INSURANCE'"
+        },
+        "J59": {
+          "value": "'REFERENCE OTHER COST'"
+        },
+        "J6": {
+          "value": "'strom Large Diaper Bag , 29 L - 45 L Expandable Diaper Bag Backpack for 2 Kid... (1 items)'"
+        },
+        "J60": {
+          "value": "'REFERENCE DEDUCTION'"
+        },
+        "J61": {
+          "value": "'REFERENCE ADJUSTMENTS'"
+        },
+        "J62": {
+          "value": "'REFERENCE NET TOTAL'"
+        },
+        "J64": {
+          "value": "'COMBINED ITEMS TOTAL'"
+        },
+        "J65": {
+          "value": "'FULL INVOICE FREIGHT'"
+        },
+        "J66": {
+          "value": "'FULL INVOICE INSURANCE'"
+        },
+        "J67": {
+          "value": "'FULL INVOICE OTHER COST'"
+        },
+        "J68": {
+          "value": "'FULL INVOICE DEDUCTION'"
+        },
+        "J69": {
+          "value": "'FULL ADJUSTMENTS'"
+        },
+        "J7": {
+          "value": "'strom Large Diaper Bag , 29 L - 45 L Expandable Diaper Bag Backpack for 2 Kid...'"
+        },
+        "J70": {
+          "value": "'COMBINED NET TOTAL'"
+        },
+        "J71": {
+          "value": "'FULL INVOICE TOTAL'"
+        },
+        "J72": {
+          "value": "'COMBINED VARIANCE CHECK'"
+        },
+        "J8": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J9": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "3"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "K42": {
+          "value": "3"
+        },
+        "K43": {
+          "value": "1"
+        },
+        "K44": {
+          "value": "1"
+        },
+        "K45": {
+          "value": "1"
+        },
+        "K46": {
+          "value": "1"
+        },
+        "K47": {
+          "value": "1"
+        },
+        "K48": {
+          "value": "1"
+        },
+        "K49": {
+          "value": "1"
+        },
+        "K5": {
+          "value": "1"
+        },
+        "K50": {
+          "value": "1"
+        },
+        "K51": {
+          "value": "1"
+        },
+        "K52": {
+          "value": "1"
+        },
+        "K53": {
+          "value": "1"
+        },
+        "K54": {
+          "value": "1"
+        },
+        "K55": {
+          "value": "1"
+        },
+        "K6": {
+          "value": "1"
+        },
+        "K7": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N42": {
+          "value": "'USD'"
+        },
+        "N43": {
+          "value": "'USD'"
+        },
+        "N44": {
+          "value": "'USD'"
+        },
+        "N45": {
+          "value": "'USD'"
+        },
+        "N46": {
+          "value": "'USD'"
+        },
+        "N47": {
+          "value": "'USD'"
+        },
+        "N48": {
+          "value": "'USD'"
+        },
+        "N49": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "N50": {
+          "value": "'USD'"
+        },
+        "N51": {
+          "value": "'USD'"
+        },
+        "N52": {
+          "value": "'USD'"
+        },
+        "N53": {
+          "value": "'USD'"
+        },
+        "N54": {
+          "value": "'USD'"
+        },
+        "N55": {
+          "value": "'USD'"
+        },
+        "N6": {
+          "value": "'USD'"
+        },
+        "N7": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "18.99"
+        },
+        "O3": {
+          "value": "21.99"
+        },
+        "O4": {
+          "value": "17.99"
+        },
+        "O42": {
+          "value": "18.31"
+        },
+        "O43": {
+          "value": "18.99"
+        },
+        "O44": {
+          "value": "19.96"
+        },
+        "O45": {
+          "value": "15.98"
+        },
+        "O46": {
+          "value": "62.99"
+        },
+        "O47": {
+          "value": "62.99"
+        },
+        "O48": {
+          "value": "9.99"
+        },
+        "O49": {
+          "value": "9.99"
+        },
+        "O5": {
+          "value": "16.99"
+        },
+        "O50": {
+          "value": "13.7"
+        },
+        "O51": {
+          "value": "13.7"
+        },
+        "O52": {
+          "value": "39.98"
+        },
+        "O53": {
+          "value": "39.98"
+        },
+        "O54": {
+          "value": "216.14"
+        },
+        "O55": {
+          "value": "216.14"
+        },
+        "O6": {
+          "value": "48.04"
+        },
+        "O7": {
+          "value": "48.04"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "formula": "=P8-P9"
+        },
+        "P12": {
+          "value": "43"
+        },
+        "P13": {
+          "value": "0"
+        },
+        "P14": {
+          "value": "0.35"
+        },
+        "P15": {
+          "value": "0"
+        },
+        "P16": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P18": {
+          "formula": "=P8+P16"
+        },
+        "P19": {
+          "formula": "=S2"
+        },
+        "P2": {
+          "value": "56.97"
+        },
+        "P21": {
+          "formula": "=S2-P18"
+        },
+        "P26": {
+          "value": "191.36"
+        },
+        "P27": {
+          "value": "519.91"
+        },
+        "P28": {
+          "value": "103.98"
+        },
+        "P29": {
+          "value": "47.57"
+        },
+        "P3": {
+          "value": "21.99"
+        },
+        "P30": {
+          "value": "56.41"
+        },
+        "P31": {
+          "value": "31.19"
+        },
+        "P32": {
+          "value": "98.26"
+        },
+        "P33": {
+          "value": "233.43"
+        },
+        "P34": {
+          "value": "0.4489815544998173"
+        },
+        "P35": {
+          "value": "1426.22"
+        },
+        "P36": {
+          "value": "1192.79"
+        },
+        "P37": {
+          "value": "3176.44"
+        },
+        "P38": {
+          "value": "1126.14"
+        },
+        "P4": {
+          "value": "17.99"
+        },
+        "P42": {
+          "value": "54.93000000000001"
+        },
+        "P43": {
+          "value": "18.99"
+        },
+        "P44": {
+          "value": "19.96"
+        },
+        "P45": {
+          "value": "15.98"
+        },
+        "P46": {
+          "value": "62.99"
+        },
+        "P47": {
+          "value": "62.99"
+        },
+        "P48": {
+          "value": "9.99"
+        },
+        "P49": {
+          "value": "9.99"
+        },
+        "P5": {
+          "value": "16.99"
+        },
+        "P50": {
+          "value": "13.7"
+        },
+        "P51": {
+          "value": "13.7"
+        },
+        "P52": {
+          "value": "39.98"
+        },
+        "P53": {
+          "value": "39.98"
+        },
+        "P54": {
+          "value": "216.14"
+        },
+        "P55": {
+          "value": "216.14"
+        },
+        "P56": {
+          "value": "397.73"
+        },
+        "P57": {
+          "value": "64"
+        },
+        "P58": {
+          "value": "0"
+        },
+        "P59": {
+          "value": "1.33"
+        },
+        "P6": {
+          "value": "48.04"
+        },
+        "P60": {
+          "value": "0"
+        },
+        "P61": {
+          "formula": "=P57+P58+P59-P60"
+        },
+        "P62": {
+          "formula": "=P56+P61"
+        },
+        "P64": {
+          "formula": "=P8+P56"
+        },
+        "P65": {
+          "formula": "=P12+P57"
+        },
+        "P66": {
+          "formula": "=P13+P58"
+        },
+        "P67": {
+          "formula": "=P14+P59"
+        },
+        "P68": {
+          "formula": "=P15+P60"
+        },
+        "P69": {
+          "formula": "=P65+P66+P67-P68"
+        },
+        "P7": {
+          "value": "48.04"
+        },
+        "P70": {
+          "formula": "=P64+P69"
+        },
+        "P71": {
+          "value": "611.42"
+        },
+        "P72": {
+          "formula": "=P71-P70"
+        },
+        "P8": {
+          "formula": "=P2+P6"
+        },
+        "P9": {
+          "formula": "=SUM(P2:P7)-P8"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q10": {
+          "formula": "=Q8-Q9"
+        },
+        "Q16": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q18": {
+          "formula": "=Q8+Q16"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q21": {
+          "formula": "=S2-Q18"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q6": {
+          "formula": "=O6*K6"
+        },
+        "Q7": {
+          "formula": "=O7*K7"
+        },
+        "Q8": {
+          "formula": "=Q2+Q6"
+        },
+        "Q9": {
+          "formula": "=SUM(Q2:Q7)-Q8"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "R6": {
+          "formula": "=P6-Q6"
+        },
+        "R7": {
+          "formula": "=P7-Q7"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "148.36"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "43"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0.35"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        }
+      }
+    }
+  },
+  "HAWB9686876.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'61112090'"
+        },
+        "AK4": {
+          "value": "'34011910'"
+        },
+        "AK6": {
+          "value": "'85098090'"
+        },
+        "AK8": {
+          "value": "'96190090'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'112-8635667-8526641'"
+        },
+        "C4": {
+          "value": "'112-8635667-8526641'"
+        },
+        "C6": {
+          "value": "'112-8635667-8526641'"
+        },
+        "C8": {
+          "value": "'112-8635667-8526641'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Apparel - Knitted'"
+        },
+        "E4": {
+          "value": "'SOAP & BODY WASH'"
+        },
+        "E48": {
+          "value": "'Apparel - Knitted'"
+        },
+        "E54": {
+          "value": "'Ozone therapy, oxygen therapy, aerosol therapy, artificial respiration or oth...'"
+        },
+        "E56": {
+          "value": "'MARINE HARDWARE'"
+        },
+        "E58": {
+          "value": "'BAGS & LUGGAGE'"
+        },
+        "E6": {
+          "value": "'Other appliances'"
+        },
+        "E8": {
+          "value": "'Of other materials'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'61112090'"
+        },
+        "F3": {
+          "value": "'61112090'"
+        },
+        "F4": {
+          "value": "'34011910'"
+        },
+        "F48": {
+          "value": "'61112090'"
+        },
+        "F5": {
+          "value": "'34011910'"
+        },
+        "F54": {
+          "value": "'90192000'"
+        },
+        "F56": {
+          "value": "'63079090'"
+        },
+        "F58": {
+          "value": "'42029200'"
+        },
+        "F6": {
+          "value": "'85098090'"
+        },
+        "F7": {
+          "value": "'85098090'"
+        },
+        "F8": {
+          "value": "'96190090'"
+        },
+        "F9": {
+          "value": "'96190090'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'61112090'"
+        },
+        "I3": {
+          "value": "'AMZ-3'"
+        },
+        "I4": {
+          "value": "'34011910'"
+        },
+        "I49": {
+          "value": "'AMZ-1'"
+        },
+        "I5": {
+          "value": "'AMZ-6'"
+        },
+        "I50": {
+          "value": "'AMZ-10'"
+        },
+        "I51": {
+          "value": "'AMZ-2'"
+        },
+        "I52": {
+          "value": "'AMZ-5'"
+        },
+        "I53": {
+          "value": "'AMZ-8'"
+        },
+        "I55": {
+          "value": "'AMZ-4'"
+        },
+        "I57": {
+          "value": "'AMZ-7'"
+        },
+        "I59": {
+          "value": "'AMZ-11'"
+        },
+        "I6": {
+          "value": "'85098090'"
+        },
+        "I7": {
+          "value": "'AMZ-9'"
+        },
+        "I8": {
+          "value": "'96190090'"
+        },
+        "I9": {
+          "value": "'AMZ-12'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J11": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J12": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J14": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J15": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J16": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J17": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J18": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J2": {
+          "value": "\"Simple Joys by Carter ' s Baby Boys \u2019 6 - Pack Short - Sleeve Bodysuit , Mult... (1 items)\""
+        },
+        "J20": {
+          "value": "'NET TOTAL'"
+        },
+        "J21": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J23": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J25": {
+          "value": "'INVOICE NOTES: Structural item count mismatch: 20 price lines found between section markers but 12 items extracted'"
+        },
+        "J27": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J28": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J29": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J3": {
+          "value": "\"Simple Joys by Carter ' s Baby Boys \u2019 6 - Pack Short - Sleeve Bodysuit , Mult...\""
+        },
+        "J30": {
+          "value": "'CET (weighted avg 20.0%)'"
+        },
+        "J31": {
+          "value": "'  \u2514 34011910: 20% CET (5% of value)'"
+        },
+        "J32": {
+          "value": "'  \u2514 61112090: 20% CET (6% of value)'"
+        },
+        "J33": {
+          "value": "'  \u2514 85098090: 20% CET (14% of value)'"
+        },
+        "J34": {
+          "value": "'  \u2514 96190090: 20% CET (76% of value)'"
+        },
+        "J35": {
+          "value": "'CSC (6%)'"
+        },
+        "J36": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J37": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J38": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J39": {
+          "value": "'CLIENT DECLARED DUTIES'"
+        },
+        "J4": {
+          "value": "'Huggies Natural Care Sensitive Baby Wipes , Unscented , Hypoallergenic , 99 %... (1 items)'"
+        },
+        "J40": {
+          "value": "'DUTY VARIANCE (Client \u2212 Estimated)'"
+        },
+        "J41": {
+          "value": "'IMPLIED CET RATE (from client value)'"
+        },
+        "J42": {
+          "value": "'\u26a0 CET MISMATCH: System=20% vs Client\u22481% \u2014 review classification'"
+        },
+        "J43": {
+          "value": "'IMPLIED CIF (from declared duty @ 20% CET, XCD)'"
+        },
+        "J44": {
+          "value": "'IMPLIED ITEMS VALUE (USD, net of freight/insurance)'"
+        },
+        "J45": {
+          "value": "'\u26a0 ITEM ALLOCATION CHECK: actual $285.80 USD vs implied $147.39 USD \u2014 OVER-ALLOCATED (items should move to another waybill)'"
+        },
+        "J47": {
+          "value": "'Items on other declaration(s) (8 items)'"
+        },
+        "J48": {
+          "value": "\"Onesies Brand Baby Boy ' s 8 - Pack Short Sleeve Mix & tdatch Bodysuits , Gre... (+4 more) (5 items)\""
+        },
+        "J49": {
+          "value": "\"Onesies Brand Baby Boy ' s 8 - Pack Short Sleeve Mix & tdatch Bodysuits , Gre...\""
+        },
+        "J5": {
+          "value": "'Huggies Natural Care Sensitive Baby Wipes , Unscented , Hypoallergenic , 99 %...'"
+        },
+        "J50": {
+          "value": "\"Simple Joys Baby Boy ' s 6 piece Little Character sets Sleepwear , Green / Gr...\""
+        },
+        "J51": {
+          "value": "\"Gerber Baby Boy ' s 8 - Pack Short Sleeve Onesies Bodysuits , Tiger Green , 3...\""
+        },
+        "J52": {
+          "value": "'Onesies Brand Unisex Baby 12 - Piece Cap and Mitten Set , Sayings Board , 0 -...'"
+        },
+        "J53": {
+          "value": "'Onesies Brand Unisex Baby 12 - Piece Cap and Mitten Set , stripe , 0 - 6 Months'"
+        },
+        "J54": {
+          "value": "'Wearable Breast Pump Hands Free Breast Pump 12 Levels 3 Modes Electric Breast... (1 items)'"
+        },
+        "J55": {
+          "value": "'Wearable Breast Pump Hands Free Breast Pump 12 Levels 3 Modes Electric Breast...'"
+        },
+        "J56": {
+          "value": "'Cute Castle Ultra - Soft Baby Washcloths , 16 Pack - 9 \" by 9 \" , Gentle on S... (1 items)'"
+        },
+        "J57": {
+          "value": "'Cute Castle Ultra - Soft Baby Washcloths , 16 Pack - 9 \" by 9 \" , Gentle on S...'"
+        },
+        "J58": {
+          "value": "'strom Large Diaper Bag , 29 L - 45 L Expandable Diaper Bag Backpack for 2 Kid... (1 items)'"
+        },
+        "J59": {
+          "value": "'strom Large Diaper Bag , 29 L - 45 L Expandable Diaper Bag Backpack for 2 Kid...'"
+        },
+        "J6": {
+          "value": "'MUOCOBU Electric Breast Pump , Breast Pump Electric Breastfeeding Pump 3 Mode... (1 items)'"
+        },
+        "J60": {
+          "value": "'REFERENCE SUBTOTAL'"
+        },
+        "J61": {
+          "value": "'REFERENCE FREIGHT'"
+        },
+        "J62": {
+          "value": "'REFERENCE INSURANCE'"
+        },
+        "J63": {
+          "value": "'REFERENCE OTHER COST'"
+        },
+        "J64": {
+          "value": "'REFERENCE DEDUCTION'"
+        },
+        "J65": {
+          "value": "'REFERENCE ADJUSTMENTS'"
+        },
+        "J66": {
+          "value": "'REFERENCE NET TOTAL'"
+        },
+        "J68": {
+          "value": "'COMBINED ITEMS TOTAL'"
+        },
+        "J69": {
+          "value": "'FULL INVOICE FREIGHT'"
+        },
+        "J7": {
+          "value": "'MUOCOBU Electric Breast Pump , Breast Pump Electric Breastfeeding Pump 3 Mode...'"
+        },
+        "J70": {
+          "value": "'FULL INVOICE INSURANCE'"
+        },
+        "J71": {
+          "value": "'FULL INVOICE OTHER COST'"
+        },
+        "J72": {
+          "value": "'FULL INVOICE DEDUCTION'"
+        },
+        "J73": {
+          "value": "'FULL ADJUSTMENTS'"
+        },
+        "J74": {
+          "value": "'COMBINED NET TOTAL'"
+        },
+        "J75": {
+          "value": "'FULL INVOICE TOTAL'"
+        },
+        "J76": {
+          "value": "'COMBINED VARIANCE CHECK'"
+        },
+        "J8": {
+          "value": "'Huggies Size 1 Diapers , Snug & Dry Newborn Diapers , Size 1 ( 8 - 14 Ibs, 25... (1 items)'"
+        },
+        "J9": {
+          "value": "'Huggies Size 1 Diapers , Snug & Dry Newborn Diapers , Size 1 ( 8 - 14 Ibs, 25...'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "K48": {
+          "value": "5"
+        },
+        "K49": {
+          "value": "1"
+        },
+        "K5": {
+          "value": "1"
+        },
+        "K50": {
+          "value": "1"
+        },
+        "K51": {
+          "value": "1"
+        },
+        "K52": {
+          "value": "1"
+        },
+        "K53": {
+          "value": "1"
+        },
+        "K54": {
+          "value": "1"
+        },
+        "K55": {
+          "value": "1"
+        },
+        "K56": {
+          "value": "1"
+        },
+        "K57": {
+          "value": "1"
+        },
+        "K58": {
+          "value": "1"
+        },
+        "K59": {
+          "value": "1"
+        },
+        "K6": {
+          "value": "1"
+        },
+        "K7": {
+          "value": "1"
+        },
+        "K8": {
+          "value": "1"
+        },
+        "K9": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N48": {
+          "value": "'USD'"
+        },
+        "N49": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "N50": {
+          "value": "'USD'"
+        },
+        "N51": {
+          "value": "'USD'"
+        },
+        "N52": {
+          "value": "'USD'"
+        },
+        "N53": {
+          "value": "'USD'"
+        },
+        "N54": {
+          "value": "'USD'"
+        },
+        "N55": {
+          "value": "'USD'"
+        },
+        "N56": {
+          "value": "'USD'"
+        },
+        "N57": {
+          "value": "'USD'"
+        },
+        "N58": {
+          "value": "'USD'"
+        },
+        "N59": {
+          "value": "'USD'"
+        },
+        "N6": {
+          "value": "'USD'"
+        },
+        "N7": {
+          "value": "'USD'"
+        },
+        "N8": {
+          "value": "'USD'"
+        },
+        "N9": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "15.98"
+        },
+        "O3": {
+          "value": "15.98"
+        },
+        "O4": {
+          "value": "13.7"
+        },
+        "O48": {
+          "value": "19.184"
+        },
+        "O49": {
+          "value": "18.99"
+        },
+        "O5": {
+          "value": "13.7"
+        },
+        "O50": {
+          "value": "19.96"
+        },
+        "O51": {
+          "value": "21.99"
+        },
+        "O52": {
+          "value": "17.99"
+        },
+        "O53": {
+          "value": "16.99"
+        },
+        "O54": {
+          "value": "62.99"
+        },
+        "O55": {
+          "value": "62.99"
+        },
+        "O56": {
+          "value": "9.99"
+        },
+        "O57": {
+          "value": "9.99"
+        },
+        "O58": {
+          "value": "48.04"
+        },
+        "O59": {
+          "value": "48.04"
+        },
+        "O6": {
+          "value": "39.98"
+        },
+        "O7": {
+          "value": "39.98"
+        },
+        "O8": {
+          "value": "216.14"
+        },
+        "O9": {
+          "value": "216.14"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "formula": "=P2+P4+P6+P8"
+        },
+        "P11": {
+          "formula": "=SUM(P2:P9)-P10"
+        },
+        "P12": {
+          "formula": "=P10-P11"
+        },
+        "P14": {
+          "value": "57"
+        },
+        "P15": {
+          "value": "0"
+        },
+        "P16": {
+          "value": "0.96"
+        },
+        "P17": {
+          "value": "0"
+        },
+        "P18": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P2": {
+          "value": "15.98"
+        },
+        "P20": {
+          "formula": "=P10+P18"
+        },
+        "P21": {
+          "formula": "=S2"
+        },
+        "P23": {
+          "formula": "=S2-P20"
+        },
+        "P28": {
+          "value": "400.76"
+        },
+        "P29": {
+          "value": "1088.82"
+        },
+        "P3": {
+          "value": "15.98"
+        },
+        "P30": {
+          "value": "217.76"
+        },
+        "P31": {
+          "value": "10.44"
+        },
+        "P32": {
+          "value": "12.18"
+        },
+        "P33": {
+          "value": "30.46"
+        },
+        "P34": {
+          "value": "164.69"
+        },
+        "P35": {
+          "value": "65.33"
+        },
+        "P36": {
+          "value": "205.79"
+        },
+        "P37": {
+          "value": "488.88"
+        },
+        "P38": {
+          "value": "0.4489998346834188"
+        },
+        "P39": {
+          "value": "249.33"
+        },
+        "P4": {
+          "value": "13.7"
+        },
+        "P40": {
+          "value": "-239.55"
+        },
+        "P41": {
+          "value": "0.008687841564421967"
+        },
+        "P43": {
+          "value": "555.3"
+        },
+        "P44": {
+          "value": "147.39"
+        },
+        "P48": {
+          "value": "95.91999999999999"
+        },
+        "P49": {
+          "value": "18.99"
+        },
+        "P5": {
+          "value": "13.7"
+        },
+        "P50": {
+          "value": "19.96"
+        },
+        "P51": {
+          "value": "21.99"
+        },
+        "P52": {
+          "value": "17.99"
+        },
+        "P53": {
+          "value": "16.99"
+        },
+        "P54": {
+          "value": "62.99"
+        },
+        "P55": {
+          "value": "62.99"
+        },
+        "P56": {
+          "value": "9.99"
+        },
+        "P57": {
+          "value": "9.99"
+        },
+        "P58": {
+          "value": "48.04"
+        },
+        "P59": {
+          "value": "48.04"
+        },
+        "P6": {
+          "value": "39.98"
+        },
+        "P60": {
+          "value": "216.94"
+        },
+        "P61": {
+          "value": "50"
+        },
+        "P62": {
+          "value": "0"
+        },
+        "P63": {
+          "value": "0.72"
+        },
+        "P64": {
+          "value": "0"
+        },
+        "P65": {
+          "formula": "=P61+P62+P63-P64"
+        },
+        "P66": {
+          "formula": "=P60+P65"
+        },
+        "P68": {
+          "formula": "=P10+P60"
+        },
+        "P69": {
+          "formula": "=P14+P61"
+        },
+        "P7": {
+          "value": "39.98"
+        },
+        "P70": {
+          "formula": "=P15+P62"
+        },
+        "P71": {
+          "formula": "=P16+P63"
+        },
+        "P72": {
+          "formula": "=P17+P64"
+        },
+        "P73": {
+          "formula": "=P69+P70+P71-P72"
+        },
+        "P74": {
+          "formula": "=P68+P73"
+        },
+        "P75": {
+          "value": "611.42"
+        },
+        "P76": {
+          "formula": "=P75-P74"
+        },
+        "P8": {
+          "value": "216.14"
+        },
+        "P9": {
+          "value": "216.14"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q10": {
+          "formula": "=Q2+Q4+Q6+Q8"
+        },
+        "Q11": {
+          "formula": "=SUM(Q2:Q9)-Q10"
+        },
+        "Q12": {
+          "formula": "=Q10-Q11"
+        },
+        "Q18": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q20": {
+          "formula": "=Q10+Q18"
+        },
+        "Q23": {
+          "formula": "=S2-Q20"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q6": {
+          "formula": "=O6*K6"
+        },
+        "Q7": {
+          "formula": "=O7*K7"
+        },
+        "Q8": {
+          "formula": "=O8*K8"
+        },
+        "Q9": {
+          "formula": "=O9*K9"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "R6": {
+          "formula": "=P6-Q6"
+        },
+        "R7": {
+          "formula": "=P7-Q7"
+        },
+        "R8": {
+          "formula": "=P8-Q8"
+        },
+        "R9": {
+          "formula": "=P9-Q9"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "343.76"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "57"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0.96"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "112-8635667-8526641_2.pdf",
+        "HAWB9685992-Declaration.pdf",
+        "HAWB9685992.xlsx"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "ARLENA MITCHELL",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "7.00",
+      "location": "WebSource",
+      "man_reg": "2024 31",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 1,
+      "waybill": "HAWB9685992",
+      "weight": "3.0"
+    }
+  }
+}

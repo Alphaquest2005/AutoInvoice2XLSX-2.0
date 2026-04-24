@@ -78,7 +78,10 @@ def _render_first_page_png(pdf_path: str, dpi: int = 150) -> Optional[bytes]:
 # ── Cache ─────────────────────────────────────────────────────
 
 def _cache_dir() -> Path:
-    from pipeline.stages import supplier_resolver
+    try:
+        from pipeline.stages import supplier_resolver  # type: ignore
+    except ImportError:
+        from stages import supplier_resolver  # type: ignore
     root = Path(supplier_resolver._get_base_dir())
     d = root / _CACHE_SUBDIR
     d.mkdir(parents=True, exist_ok=True)
@@ -115,17 +118,28 @@ def _cache_put(key: str, data: Dict[str, Any]) -> None:
 # ── Tier 1 — Vision LLM brand recognition ─────────────────────
 
 _VISION_PROMPT = (
-    "You are looking at the first page of an invoice or receipt. "
-    "Identify the merchant / brand / supplier from any visible logo, "
-    "letterhead, product listings, customer-service phone number, or "
-    "branding text on the page. Well-known consumer brands (H&M, "
-    "Fashion Nova, Temu, Walmart, Amazon, SHEIN, etc.) should be "
-    "returned by their canonical name.\n\n"
+    "You are looking at the first page of an invoice or receipt. Your job "
+    "is to identify the merchant / brand / supplier STRICTLY from what is "
+    "actually visible on the page — a logo, letterhead, header, footer, "
+    "customer-service phone number, return-address, domain name, or "
+    "branded wordmark. Do NOT guess. Do NOT rely on document layout or "
+    "product categories alone — many merchants share similar invoice "
+    "templates. If no brand text or logo is visible, return brand=\"\".\n\n"
+    "Before answering, internally locate the specific visible element "
+    "(logo wordmark, domain in footer, phone number, etc.) that "
+    "identifies the brand. Echo it verbatim in the \"evidence\" field. "
+    "If you cannot point to a concrete on-page element, you MUST return "
+    'brand="" with confidence="low".\n\n'
+    "Return canonical brand names (e.g., 'H&M' not 'Hennes & Mauritz'; "
+    "'Fashion Nova'; 'Temu'; 'SHEIN'; 'Walmart'; 'Amazon').\n\n"
     "Return ONLY a JSON object with exactly these keys:\n"
-    '  "brand": canonical brand name, or "" if unidentifiable\n'
-    '  "confidence": one of "high", "medium", "low"\n'
+    '  "brand": canonical brand name, or "" if not clearly visible\n'
+    '  "evidence": the exact text / wordmark / domain / phone you saw '
+    'on the page that justifies the brand (quote verbatim), or "" if none\n'
+    '  "confidence": one of "high", "medium", "low" — use "high" ONLY '
+    'when a clear logo/wordmark is visible and unambiguous\n'
     '  "country_code": 2-letter ISO code of the merchant\'s primary '
-    'country (e.g., US, CN, GB), or "" if unknown\n'
+    'country (e.g., US, CN, GB, SE), or "" if unknown\n'
     '  "visible_address": any supplier/merchant address printed on '
     'the page, or "" if none\n'
     "No commentary, no code fences — JSON only."
@@ -134,26 +148,71 @@ _VISION_PROMPT = (
 
 def _parse_vision_json(text: str) -> Dict[str, Any]:
     """Extract a JSON object from an LLM response that may be wrapped
-    in code fences or surrounded by prose."""
+    in code fences or surrounded by prose.
+
+    Scans for the FIRST balanced ``{ ... }`` block and attempts to parse
+    it. Tolerates models that loop on formatting and emit several
+    partial copies of the JSON — we only need the first complete one.
+    If no complete block is found, attempts a lenient key-extraction
+    on the first fragment so partial responses still surface the
+    brand name etc.
+    """
     if not text:
         return {}
     cleaned = text.strip()
     cleaned = re.sub(r"^```(?:json)?\s*", "", cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r"\s*```$", "", cleaned)
-    m = re.search(r"\{[\s\S]*\}", cleaned)
-    if not m:
-        return {}
-    try:
-        return json.loads(m.group(0))
-    except json.JSONDecodeError:
-        return {}
+
+    # Find the first balanced JSON object via brace tracking.
+    start = cleaned.find("{")
+    while start != -1:
+        depth = 0
+        in_str = False
+        escape = False
+        for i in range(start, len(cleaned)):
+            ch = cleaned[i]
+            if escape:
+                escape = False
+                continue
+            if ch == "\\" and in_str:
+                escape = True
+                continue
+            if ch == '"':
+                in_str = not in_str
+                continue
+            if in_str:
+                continue
+            if ch == "{":
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+                if depth == 0:
+                    candidate = cleaned[start:i + 1]
+                    try:
+                        return json.loads(candidate)
+                    except json.JSONDecodeError:
+                        break  # try next '{'
+        start = cleaned.find("{", start + 1)
+
+    # Lenient fallback: pull "key": "value" pairs out of whatever fragment
+    # we got. Useful when the model truncated mid-address with max_tokens.
+    out: Dict[str, Any] = {}
+    for key in ("brand", "evidence", "country_code", "address",
+                "visible_address", "confidence"):
+        m = re.search(rf'"{key}"\s*:\s*"([^"]*)"', cleaned)
+        if m:
+            out[key] = m.group(1)
+    return out
 
 
 def _resolve_api_key() -> str:
     """Mirror ``pipeline.multi_ocr._resolve_api_key`` but avoid a hard
     import cycle if multi_ocr is unavailable in a minimal test env."""
     try:
-        from pipeline.multi_ocr import _resolve_api_key as _mo_resolve
+        try:
+            from pipeline.multi_ocr import _resolve_api_key as _mo_resolve  # type: ignore
+        except ImportError:
+            from multi_ocr import _resolve_api_key as _mo_resolve  # type: ignore
         return _mo_resolve()
     except Exception:
         return os.environ.get("ANTHROPIC_API_KEY") or \
@@ -221,6 +280,132 @@ def identify_from_logo_vision(pdf_path: str) -> Dict[str, Any]:
         "address": (parsed.get("visible_address") or "").strip(),
         "confidence": (parsed.get("confidence") or "medium").lower(),
         "source": "vision",
+    }
+
+
+# ── Tier 2 — OCR-text → in-app LLM brand resolution ───────────
+#
+# Vision logo identification on Z.AI glm-4.7 hallucinates badly on
+# scanned receipts (returns "Temu"/"Uber"/"Tiger Airways" for H&M).
+# The regular pipeline OCR (tesseract/paddleocr via
+# ``extract_pdf_text``) reliably captures the brand wordmark as plain
+# text — e.g. "H&M" ends up on line 0 of the OCR output.  This tier
+# feeds that OCR text to the in-app text LLM and asks it to identify
+# the merchant and supply its canonical name, country, and registered
+# address from its training-set world-knowledge.  No web call required.
+
+_OCR_BRAND_PROMPT = (
+    "You are given the OCR text from the first page of an invoice or "
+    "receipt.  Identify the merchant / brand / supplier based STRICTLY "
+    "on text that is actually present in the OCR (logos often appear "
+    "as plain text like 'H&M', 'TEMU', 'SHEIN', etc.).  Do not guess.\n\n"
+    "This data is used for CARICOM customs brokerage, so we need the "
+    "**country and address the goods actually shipped FROM**, not the "
+    "brand's global headquarters.  For a North-American consumer "
+    "receipt paid in USD, this is almost always the brand's US "
+    "operating-company address (fulfilment centre or US HQ), not the "
+    "parent company's registered office.  Examples of the correct "
+    "'ship-from' address to return:\n"
+    "  - H&M (US receipt, USD): 'H & M Hennes & Mauritz L.P., 1600 "
+    "River Road, Burlington, NJ 08016, USA', country_code='US'.\n"
+    "  - Fashion Nova: 'Fashion Nova Inc., 2801 E 46th St, Vernon, CA "
+    "90058, USA', country_code='US'.\n"
+    "  - Temu / Shein (Chinese-fulfilled): CN address, country_code='CN'.\n"
+    "Only fall back to the global HQ when the receipt clearly shipped "
+    "internationally (non-USD currency, foreign address on doc, etc.).\n\n"
+    "Return ONLY a JSON object with these keys:\n"
+    '  "brand": canonical brand name (e.g. "H&M", "Fashion Nova"), '
+    'or "" if not identifiable from the OCR text\n'
+    '  "evidence": the exact substring from the OCR text that '
+    'identifies the brand (quote verbatim), or "" if none\n'
+    '  "country_code": 2-letter ISO country code of the '
+    'ship-from country (US / CN / etc.), or "" if unknown\n'
+    '  "address": full ship-from address (US operating company for US '
+    'receipts), or "" if unknown\n'
+    '  "confidence": one of "high", "medium", "low"\n'
+    "No commentary, no code fences — JSON only.\n\n"
+    "OCR TEXT:\n"
+    "----------\n"
+    "{ocr_text}\n"
+    "----------"
+)
+
+
+def identify_from_ocr_text(pdf_path: str) -> Dict[str, Any]:
+    """Tier 2: run the pipeline's text OCR on page 1, then ask the
+    in-app text LLM to identify the merchant and fill in canonical
+    name/country/address from its world-knowledge.
+
+    This is more reliable than Tier 1 vision for scanned receipts
+    because pipeline OCR (tesseract/paddleocr) captures wordmark text
+    like 'H&M' deterministically, and the text LLM recognises well-known
+    brand names without hallucinating the way the vision endpoint does.
+
+    Returns ``{name, country_code, address, confidence, source}`` or
+    ``{}`` on failure."""
+    api_key = _resolve_api_key()
+    if not api_key:
+        return {}
+
+    # Render the page and run the pipeline OCR exactly as the rest of
+    # the extraction flow does, so we work from the same text the format
+    # parser sees.
+    try:
+        try:
+            from pipeline.stages.supplier_resolver import extract_pdf_text  # type: ignore
+        except ImportError:
+            from stages.supplier_resolver import extract_pdf_text  # type: ignore
+    except Exception as e:
+        logger.debug(f"extract_pdf_text import failed: {e}")
+        return {}
+    try:
+        ocr_text = extract_pdf_text(pdf_path)
+    except Exception as e:
+        logger.debug(f"OCR failed for {pdf_path}: {e}")
+        return {}
+    if not ocr_text or not ocr_text.strip():
+        return {}
+
+    # Keep the prompt small: send the first ~1500 chars (header always
+    # contains the brand wordmark).
+    snippet = ocr_text[:1500]
+
+    try:
+        from anthropic import Anthropic  # type: ignore
+    except ImportError:
+        logger.debug("anthropic SDK not installed — skipping OCR-text brand ID")
+        return {}
+
+    base_url = os.environ.get("ANTHROPIC_BASE_URL",
+                              "https://api.z.ai/api/anthropic")
+    model = os.environ.get("BRAND_TEXT_MODEL",
+                           os.environ.get("VISION_MODEL", "glm-4.7"))
+
+    try:
+        client = Anthropic(api_key=api_key, base_url=base_url)
+        response = client.messages.create(
+            model=model,
+            max_tokens=800,
+            messages=[{
+                "role": "user",
+                "content": _OCR_BRAND_PROMPT.format(ocr_text=snippet),
+            }],
+        )
+        raw = response.content[0].text if response.content else ""
+    except Exception as e:
+        logger.debug(f"OCR-text brand-id call failed: {e}")
+        return {}
+
+    parsed = _parse_vision_json(raw)
+    brand = (parsed.get("brand") or "").strip()
+    if not brand:
+        return {}
+    return {
+        "name": brand,
+        "country_code": (parsed.get("country_code") or "").strip().upper()[:2],
+        "address": (parsed.get("address") or "").strip(),
+        "confidence": (parsed.get("confidence") or "medium").lower(),
+        "source": "ocr_text_llm",
     }
 
 
@@ -369,8 +554,16 @@ def identify_supplier_from_pdf(
     try_reverse: bool = True,
     use_cache: bool = True,
 ) -> Dict[str, Any]:
-    """Run Tier 1 (vision LLM) then Tier 3 (reverse image search) until
-    a brand is identified.
+    """Run the supplier-identification tiers in order until a brand is
+    found:
+
+      1. OCR-text → in-app text LLM (``identify_from_ocr_text``) —
+         cheapest and most reliable for brands whose wordmark is
+         captured by tesseract/paddleocr (H&M, TEMU, SHEIN, ...).
+      2. Vision logo LLM (``identify_from_logo_vision``) — covers docs
+         where only the logo graphic is present (no wordmark text).
+      3. Reverse image search (``reverse_image_search``) — final
+         fallback for obscure merchants; requires ``SERPAPI_API_KEY``.
 
     Returns a dict of the shape
     ``{"name", "country_code", "address", "confidence", "source"}``
@@ -394,12 +587,23 @@ def identify_supplier_from_pdf(
                 return cached
 
     result: Dict[str, Any] = {}
+
+    # Tier 1 — OCR text → in-app LLM
     try:
-        result = identify_from_logo_vision(pdf_path)
+        result = identify_from_ocr_text(pdf_path)
     except Exception as e:
-        logger.debug(f"vision tier raised: {e}")
+        logger.debug(f"ocr-text tier raised: {e}")
         result = {}
 
+    # Tier 2 — vision logo LLM (fallback when OCR text had no brand wordmark)
+    if not result.get("name"):
+        try:
+            result = identify_from_logo_vision(pdf_path)
+        except Exception as e:
+            logger.debug(f"vision tier raised: {e}")
+            result = {}
+
+    # Tier 3 — reverse image search
     if not result.get("name") and try_reverse:
         try:
             result = reverse_image_search(pdf_path)

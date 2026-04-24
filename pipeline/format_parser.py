@@ -1162,6 +1162,14 @@ class FormatParser:
                     if 'total_cost' not in item and 'line_total' in item:
                         item['total_cost'] = item.pop('line_total')
 
+                    # Default quantity to 1 — most multiline receipts
+                    # (AURORA, H&M-style) list one unit per line and the
+                    # format YAML doesn't map a quantity field. Setting
+                    # the default here keeps downstream grouping and
+                    # XLSX generation consistent.
+                    if 'quantity' not in item:
+                        item['quantity'] = 1
+
                     # Calculate total_cost
                     if 'total_cost' not in item and 'unit_price' in item:
                         qty = item.get('quantity', 1)

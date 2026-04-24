@@ -1,12 +1,12 @@
 {
   "handwritten": {
-    "customs_value_ec": null,
-    "customs_value_usd": "95.86",
-    "tariff_code": null,
-    "duty_rate": null,
-    "weight": null,
-    "description": null,
-    "other_notes": "Handwritten '95.86' in left margin"
+    "customs_value_ec": "95.86",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "95.86 written vertically in the left margin beside the header"
   },
   "printed": {
     "consignee": "MAURINE WILSON",
@@ -17,5 +17,6 @@
     "weight": 6.0,
     "packages": 1
   },
-  "has_handwriting": true
+  "has_handwriting": true,
+  "_cache_version": 4
 }

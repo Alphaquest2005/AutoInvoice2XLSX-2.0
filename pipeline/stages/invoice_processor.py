@@ -385,8 +385,10 @@ def process_single_invoice(
     print(f"    Classified: {classified_count}"
           f"{f' (unclassified: {unclassified})' if unclassified else ''}")
 
-    # 6. Build supplier info: invoice PDF → suppliers.json → web search
-    supplier_info = get_supplier_info(supplier_name, supplier_db, invoice_data)
+    # 6. Build supplier info: invoice PDF → suppliers.json → vision logo → web search
+    supplier_info = get_supplier_info(
+        supplier_name, supplier_db, invoice_data, pdf_path=pdf_path
+    )
     display_name = supplier_info.get('name', '') or supplier_name
 
     # Persist resolved supplier data back to suppliers.json (in-memory)

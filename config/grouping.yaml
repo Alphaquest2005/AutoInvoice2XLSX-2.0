@@ -4,6 +4,27 @@
 # This file is the SINGLE SOURCE OF TRUTH for grouping behavior.
 # The XLSX generator (bl_xlsx_generator.py) loads this file dynamically.
 
+_meta:
+  purpose: "Tariff-code grouping rules for XLSX output (group row + detail rows)"
+  covers:
+    - "Primary grouping field (tariff_code)"
+    - "Group row placement (top vs bottom)"
+    - "Group vs detail row visual formatting (fill color, font)"
+    - "Sort order within groups"
+  match_patterns:
+    - "grouping"
+    - "group_by"
+    - "group_row"
+    - "detail_row"
+    - "preserve_order"
+  loader: "pipeline.config_loader:load_grouping"
+  examples:
+    - "load_grouping()['grouping']['group_by']                 -> 'tariff_code'"
+    - "load_grouping()['group_row']['formatting']['fill_color'] -> 'D9E1F2'"
+  update_checklist:
+    - "Run tests/pipeline/test_xlsx_grouping.py if it exists"
+    - "Re-run a known-good shipment to confirm group rows intact"
+
 version: "2.0.0"
 
 grouping:

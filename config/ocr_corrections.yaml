@@ -1,0 +1,55 @@
+# OCR correction dictionary.
+# When PDF text extraction hits scanned / handwritten pages, common OCR
+# misreads get normalized via these substitutions.
+
+_meta:
+  purpose: "OCR misread corrections for scanned/handwritten invoice pages"
+  covers:
+    - "Character-level substitutions ('O' ↔ '0', 'l' ↔ '1', ...)"
+    - "Currency symbol recovery ('S' → '$', ...)"
+    - "Tariff-code-specific fixups"
+    - "Whitespace / punctuation normalization"
+  match_patterns:
+    - "ocr"
+    - "correction"
+    - "misread"
+    - "fixup"
+  loader: "pipeline.config_loader:load_ocr_corrections"
+  examples:
+    - "load_ocr_corrections()['numeric_chars']['O'] -> '0'"
+  update_checklist:
+    - "Run tests/pipeline/test_ocr_corrections.py if it exists"
+    - "Add new misreads to learned_fixes cache rather than here when"
+    - "  they are invoice-specific rather than universal"
+
+version: "1.0.0"
+
+# Character confusions in NUMERIC contexts only.
+# These apply when we know the surrounding context is a number (tariff
+# code, quantity, amount). Never apply blindly to text fields.
+numeric_chars:
+  O: "0"
+  o: "0"
+  l: "1"
+  I: "1"
+  S: "5"      # sometimes; use with confidence check
+  B: "8"
+  Z: "2"
+  G: "6"
+
+# Currency symbol recovery.
+currency_symbols:
+  S:   "$"
+  USS: "US$"
+  us$: "$"
+
+# Tariff-code-specific fixups (only applied when 8-digit context is expected).
+tariff_fixups:
+  # Single-char replacements only valid within 8-digit tariff codes.
+  enabled_when: "context == 'tariff_code'"
+
+# Whitespace / punctuation normalization.
+whitespace:
+  collapse_runs: true
+  trim_edges:    true
+  normalize_nbsp: true

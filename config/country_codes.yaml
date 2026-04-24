@@ -1,0 +1,61 @@
+# ISO country codes and CARICOM-specific country-of-origin mappings.
+# The CARICOM 2-letter country code system follows ISO 3166-1 alpha-2 in
+# most cases; exceptions ("QN" for the Netherlands-dependent territories)
+# are noted explicitly.
+
+_meta:
+  purpose: "ISO / CARICOM country codes and country-of-origin mappings"
+  covers:
+    - "Default country-of-origin sentinel"
+    - "ISO alpha-2 codes used in customs declarations"
+    - "CARICOM-specific overrides (QN for Sint Maarten etc.)"
+    - "Region aliases"
+  match_patterns:
+    - "country_code"
+    - "country_of_origin"
+    - "origin"
+    - "iso_code"
+  loader: "pipeline.config_loader:load_country_codes"
+  examples:
+    - "load_country_codes()['default_origin']       -> 'US'"
+    - "load_country_codes()['caricom_overrides']['Sint Maarten'] -> 'QN'"
+  update_checklist:
+    - "If adding a new country, verify it matches ASYCUDA 2-letter canon"
+
+version: "1.0.0"
+
+# Default for unknown origin (most suppliers we see ship from the US).
+default_origin: "US"
+
+# ISO alpha-2 codes we encounter frequently. Not exhaustive.
+common_iso_codes:
+  US: "United States"
+  CA: "Canada"
+  GB: "United Kingdom"
+  DE: "Germany"
+  FR: "France"
+  IT: "Italy"
+  NL: "Netherlands"
+  CN: "China"
+  JP: "Japan"
+  GD: "Grenada"
+  TT: "Trinidad and Tobago"
+  BB: "Barbados"
+  JM: "Jamaica"
+
+# CARICOM-specific non-ISO overrides.
+# QN = Sint Maarten (SX in ISO 3166-1, but CARICOM customs uses QN).
+caricom_overrides:
+  "Sint Maarten":   "QN"
+  "Saint Martin":   "QN"
+  "Cole Bay":       "QN"
+
+# Currency defaults by region.
+currency_by_country:
+  US: "USD"
+  CA: "CAD"
+  GB: "GBP"
+  GD: "XCD"
+  TT: "TTD"
+  BB: "BBD"
+  JM: "JMD"

@@ -1,0 +1,68 @@
+# Variance / validation tolerances.
+# These are APPLICATION policy (what counts as "close enough") — NOT law.
+# Changes affect whether an invoice passes variance_check.
+
+_meta:
+  purpose: "Variance and validation tolerances for invoice totals and row-level comparisons"
+  covers:
+    - "Max absolute variance vs stated invoice total"
+    - "Max relative variance (fraction of invoice total)"
+    - "Decimal rounding for currency comparisons"
+    - "Floating-point equality epsilons"
+    - "Row-count expectations (minimum items, maximum categories)"
+  match_patterns:
+    - "tolerance"
+    - "epsilon"
+    - "variance"
+    - "threshold"
+    - "round"
+    - "decimal_places"
+  loader: "pipeline.config_loader:load_validation_tolerances"
+  examples:
+    - "load_validation_tolerances()['variance_abs_max'] -> 0.02"
+    - "load_validation_tolerances()['variance_rel_max'] -> 0.005"
+  update_checklist:
+    - "Run tests/pipeline/test_variance_analysis.py"
+    - "Run tests/pipeline/test_xlsx_validator.py"
+
+version: "1.0.0"
+
+# Invoice-level variance: |calculated_total - stated_total|.
+# variance_abs_max: absolute dollar tolerance.
+# variance_rel_max: relative tolerance (0.005 = 0.5% of stated total).
+variance_abs_max: 0.02
+variance_rel_max: 0.005
+
+# Currency display uses 2 decimals; internal math uses 4 for stability.
+currency_decimals_display: 2
+currency_decimals_internal: 4
+
+# Floating-point "close enough" for non-currency comparisons.
+float_epsilon: 0.0001
+
+# Minimum row counts expected in a well-formed XLSX.
+min_groups_per_invoice: 1
+min_items_per_group: 1
+
+# Ratios used by variance_fixer to detect bundles / double-counting.
+bundle_variance_ratio_min: 0.2    # calculated/stated > 1.2 == suspicious
+bundle_variance_ratio_max: 0.75   # upper bound for legit bundle patterns
+
+# Reverse-calc tolerance when inferring CIF from declared duties.
+# Below this, accept the declared value as authoritative; do NOT flag.
+declared_duty_min_usd: 0.01
+
+# added by Wave 1 for pipeline/bl_xlsx_generator.py
+# Duty-variance warning threshold (USD). Above this a row is styled with the
+# warning font to flag attention on the classification cross-check section.
+duty_variance_warn_usd: 1.0
+
+# added by Wave 1 for pipeline/bl_xlsx_generator.py
+# CET rate mismatch threshold (absolute rate delta). Above this, the
+# classification cross-check emits a "CET MISMATCH" warning.
+cet_rate_mismatch_threshold: 0.02
+
+# added by Wave 1 for pipeline/bl_xlsx_generator.py
+# Item allocation tolerance (relative gap) for the reverse-calc CIF
+# allocation check. Above this, the section flags OVER/UNDER allocation.
+item_allocation_relative_gap: 0.35

@@ -1,0 +1,395 @@
+{
+  "114-0217971-2548268.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'95069190'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'114-0217971-2548268'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Toys, games and sports requisites'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'95069190'"
+        },
+        "F3": {
+          "value": "'95069190'"
+        },
+        "F4": {
+          "value": "'95069190'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'95069190'"
+        },
+        "I3": {
+          "value": "'AMZ-1'"
+        },
+        "I4": {
+          "value": "'AMZ-2'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J11": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J12": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J13": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J15": {
+          "value": "'NET TOTAL'"
+        },
+        "J16": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J18": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J2": {
+          "value": "'FLYFE Grip Strength Trainer , Plastic , 2 Pack 11 - 132 ibs , Forearm Strengt... (+1 more) (2 items)'"
+        },
+        "J20": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J21": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J22": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J23": {
+          "value": "'CET (20%) \u2014 Tariff 95069190'"
+        },
+        "J24": {
+          "value": "'CSC (6%)'"
+        },
+        "J25": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J26": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J27": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J3": {
+          "value": "'FLYFE Grip Strength Trainer , Plastic , 2 Pack 11 - 132 ibs , Forearm Strengt...'"
+        },
+        "J4": {
+          "value": "'Resistance Bands , Heavy Exercise Bands with Handles , Fitness Bands for Work...'"
+        },
+        "J5": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J6": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J7": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J9": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "2"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "22.34"
+        },
+        "O3": {
+          "value": "11.04"
+        },
+        "O4": {
+          "value": "33.64"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "0"
+        },
+        "P11": {
+          "value": "3.12"
+        },
+        "P12": {
+          "value": "0"
+        },
+        "P13": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P15": {
+          "formula": "=P5+P13"
+        },
+        "P16": {
+          "formula": "=S2"
+        },
+        "P18": {
+          "formula": "=S2-P15"
+        },
+        "P2": {
+          "value": "44.68"
+        },
+        "P21": {
+          "value": "47.8"
+        },
+        "P22": {
+          "value": "129.87"
+        },
+        "P23": {
+          "value": "25.97"
+        },
+        "P24": {
+          "value": "7.79"
+        },
+        "P25": {
+          "value": "24.54"
+        },
+        "P26": {
+          "value": "58.3"
+        },
+        "P27": {
+          "value": "0.4489104489104489"
+        },
+        "P3": {
+          "value": "11.04"
+        },
+        "P4": {
+          "value": "33.64"
+        },
+        "P5": {
+          "formula": "=P2"
+        },
+        "P6": {
+          "formula": "=SUM(P2:P4)-P5"
+        },
+        "P7": {
+          "formula": "=P5-P6"
+        },
+        "P9": {
+          "value": "0"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q13": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q15": {
+          "formula": "=Q5+Q13"
+        },
+        "Q18": {
+          "formula": "=S2-Q15"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=Q2"
+        },
+        "Q6": {
+          "formula": "=SUM(Q2:Q4)-Q5"
+        },
+        "Q7": {
+          "formula": "=Q5-Q6"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "47.8"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "3.12"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "114-0217971-2548268.pdf",
+        "114-0217971-2548268.xlsx",
+        "HAWB9595164-Declaration.pdf"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "KEVON TUITT",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "13.00",
+      "location": "WebSource",
+      "man_reg": "2024 28",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 1,
+      "waybill": "HAWB9595164",
+      "weight": "6.0"
+    }
+  }
+}

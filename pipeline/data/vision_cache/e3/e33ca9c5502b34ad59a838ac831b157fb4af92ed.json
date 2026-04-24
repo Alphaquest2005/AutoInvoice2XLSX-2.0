@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "36.59",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "36.59 written vertically in the left margin beside the header"
+  },
+  "printed": {
+    "consignee": "RAPHAEL CHARLES",
+    "freight": 3.0,
+    "waybill": "HAWB9551129",
+    "man_reg": "2024/27",
+    "office": "GDWBS",
+    "weight": 1.0,
+    "packages": 1
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

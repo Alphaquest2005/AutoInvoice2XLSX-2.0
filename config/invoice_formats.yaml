@@ -11,6 +11,28 @@
 #   page_markers: strings that indicate a page header (skip these lines)
 #   totals_markers: strings that indicate the totals section (stop parsing items)
 
+_meta:
+  purpose: "Per-supplier invoice text format definitions for text_parser.py"
+  covers:
+    - "Format detection tokens (must-match strings)"
+    - "Metadata extraction regexes (invoice number, date, totals)"
+    - "Line item parsing rules per supplier format"
+    - "Page header / totals section markers"
+  match_patterns:
+    - "format"
+    - "invoice_format"
+    - "detect"
+    - "metadata"
+    - "items"
+    - "page_markers"
+    - "totals_markers"
+  loader: "pipeline.config_loader:load_invoice_formats"
+  examples:
+    - "load_invoice_formats()['formats'][0]['name'] -> 'amazon_order'"
+  update_checklist:
+    - "Run tests/pipeline/test_alibaba_format.py (or supplier-specific test)"
+    - "Run tests/pipeline/test_format_detection.py if it exists"
+
 formats:
 
   # ─── Format 1: Amazon Orders — Print-friendly order summary ─────────

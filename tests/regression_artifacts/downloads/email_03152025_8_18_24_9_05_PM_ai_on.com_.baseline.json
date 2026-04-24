@@ -1,0 +1,676 @@
+{
+  "HAWB9671027-Declaration_combined.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Combined Invoices": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "A30": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AA30": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AB30": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AC30": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'70099100'"
+        },
+        "AK30": {
+          "value": "'70099100'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'112-1892394-4362604'"
+        },
+        "C30": {
+          "value": "'112-1892394-4362604'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "D2": {
+          "value": "'2024-07-31'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'MIRRORS'"
+        },
+        "E30": {
+          "value": "'MIRRORS'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'70099100'"
+        },
+        "F3": {
+          "value": "'70099100'"
+        },
+        "F30": {
+          "value": "'70099100'"
+        },
+        "F31": {
+          "value": "'70099100'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'70099100'"
+        },
+        "I3": {
+          "value": "'AMZ-1'"
+        },
+        "I30": {
+          "value": "'70099100'"
+        },
+        "I31": {
+          "value": "'AMZ-1'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J11": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J12": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J14": {
+          "value": "'NET TOTAL'"
+        },
+        "J15": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J17": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J19": {
+          "value": "'INVOICE NOTES: Invoice total uncertain'"
+        },
+        "J2": {
+          "value": "'Dorman 56768 Driver Side Door Mirror Glass Compatible with Select Mitsubishi ... (1 items)'"
+        },
+        "J21": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J22": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J23": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J24": {
+          "value": "'CET (5%) \u2014 Tariff 70099100'"
+        },
+        "J25": {
+          "value": "'CSC (6%)'"
+        },
+        "J26": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J27": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J28": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J3": {
+          "value": "'Dorman 56768 Driver Side Door Mirror Glass Compatible with Select Mitsubishi ...'"
+        },
+        "J30": {
+          "value": "'Dorman 56768 Driver Side Door Mirror Glass Compatible with Select Mitsubishi ... (1 items)'"
+        },
+        "J31": {
+          "value": "'Dorman 56768 Driver Side Door Mirror Glass Compatible with Select Mitsubishi ...'"
+        },
+        "J32": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J33": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J34": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J36": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J37": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J38": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J39": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J4": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J40": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J42": {
+          "value": "'NET TOTAL'"
+        },
+        "J43": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J45": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J47": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J48": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J49": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J5": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J50": {
+          "value": "'CET (5%) \u2014 Tariff 70099100'"
+        },
+        "J51": {
+          "value": "'CSC (6%)'"
+        },
+        "J52": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J53": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J54": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J6": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J8": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J9": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K30": {
+          "value": "1"
+        },
+        "K31": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "L57": {
+          "value": "'\u2550\u2550\u2550 COMBINED GRAND SUMMARY \u2550\u2550\u2550'"
+        },
+        "L58": {
+          "value": "'Invoice 112-1892394-4362604'"
+        },
+        "L59": {
+          "value": "'Invoice 112-1892394-4362604'"
+        },
+        "L61": {
+          "value": "'GRAND TOTAL'"
+        },
+        "L62": {
+          "value": "'GRAND VARIANCE CHECK'"
+        },
+        "L63": {
+          "value": "'Combined 2 invoice files'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N30": {
+          "value": "'USD'"
+        },
+        "N31": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "14.81"
+        },
+        "O3": {
+          "value": "14.81"
+        },
+        "O30": {
+          "value": "14.81"
+        },
+        "O31": {
+          "value": "14.81"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "1.04"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P14": {
+          "formula": "=P4+P12"
+        },
+        "P15": {
+          "formula": "=S2"
+        },
+        "P17": {
+          "formula": "=S2-P14"
+        },
+        "P2": {
+          "value": "14.81"
+        },
+        "P22": {
+          "value": "0"
+        },
+        "P23": {
+          "value": "0"
+        },
+        "P24": {
+          "value": "0"
+        },
+        "P25": {
+          "value": "0"
+        },
+        "P26": {
+          "value": "0"
+        },
+        "P27": {
+          "value": "0"
+        },
+        "P28": {
+          "value": "0"
+        },
+        "P3": {
+          "value": "14.81"
+        },
+        "P30": {
+          "value": "14.81"
+        },
+        "P31": {
+          "value": "14.81"
+        },
+        "P32": {
+          "formula": "=P30"
+        },
+        "P33": {
+          "formula": "=SUM(P30:P31)-P32"
+        },
+        "P34": {
+          "formula": "=P32-P33"
+        },
+        "P36": {
+          "value": "0"
+        },
+        "P37": {
+          "value": "-15.85"
+        },
+        "P38": {
+          "value": "0.04"
+        },
+        "P39": {
+          "value": "0"
+        },
+        "P4": {
+          "formula": "=P2"
+        },
+        "P40": {
+          "formula": "=(T30+U30+V30-W30)"
+        },
+        "P42": {
+          "formula": "=P32+P40"
+        },
+        "P43": {
+          "formula": "=S30"
+        },
+        "P45": {
+          "formula": "=S30-P42"
+        },
+        "P48": {
+          "value": "14.83"
+        },
+        "P49": {
+          "value": "40.29"
+        },
+        "P5": {
+          "formula": "=SUM(P2:P3)-P4"
+        },
+        "P50": {
+          "value": "2.01"
+        },
+        "P51": {
+          "value": "2.42"
+        },
+        "P52": {
+          "value": "6.71"
+        },
+        "P53": {
+          "value": "11.14"
+        },
+        "P54": {
+          "value": "0.2764954082898983"
+        },
+        "P58": {
+          "value": "0"
+        },
+        "P59": {
+          "value": "76.68"
+        },
+        "P6": {
+          "formula": "=P4-P5"
+        },
+        "P61": {
+          "value": "76.68"
+        },
+        "P62": {
+          "value": "-61.85"
+        },
+        "P8": {
+          "value": "0"
+        },
+        "P9": {
+          "value": "-15.85"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q14": {
+          "formula": "=Q4+Q12"
+        },
+        "Q17": {
+          "formula": "=S2-Q14"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q30": {
+          "formula": "=O30*K30"
+        },
+        "Q31": {
+          "formula": "=O31*K31"
+        },
+        "Q32": {
+          "formula": "=Q30"
+        },
+        "Q33": {
+          "formula": "=SUM(Q30:Q31)-Q32"
+        },
+        "Q34": {
+          "formula": "=Q32-Q33"
+        },
+        "Q4": {
+          "formula": "=Q2"
+        },
+        "Q40": {
+          "formula": "=(T30+U30+V30-W30)"
+        },
+        "Q42": {
+          "formula": "=Q32+Q40"
+        },
+        "Q45": {
+          "formula": "=S30-Q42"
+        },
+        "Q5": {
+          "formula": "=SUM(Q2:Q3)-Q4"
+        },
+        "Q59": {
+          "value": "-61.85"
+        },
+        "Q6": {
+          "formula": "=Q4-Q5"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R30": {
+          "formula": "=P30-Q30"
+        },
+        "R31": {
+          "formula": "=P31-Q31"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "0"
+        },
+        "S30": {
+          "value": "14.83"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "T30": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "-15.85"
+        },
+        "U30": {
+          "value": "-15.85"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "1.04"
+        },
+        "V30": {
+          "value": "0.04"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "W30": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        },
+        "Z30": {
+          "value": "'AMAZON'"
+        }
+      },
+      "OCR Notes": {
+        "A1": {
+          "value": "'PDF File'"
+        },
+        "A2": {
+          "value": "'112-1892394-4362604.pdf'"
+        },
+        "A3": {
+          "value": "'HAWB9671027-Manifest_Invoice.pdf'"
+        },
+        "B1": {
+          "value": "'Quality Score'"
+        },
+        "B2": {
+          "value": "'70/100'"
+        },
+        "B3": {
+          "value": "'90/100'"
+        },
+        "C1": {
+          "value": "'Rating'"
+        },
+        "C2": {
+          "value": "'GOOD'"
+        },
+        "C3": {
+          "value": "'GOOD'"
+        },
+        "D1": {
+          "value": "'Details'"
+        },
+        "D2": {
+          "value": "'Text: 1421 chars; Prices: 7 ($-sign), 3 (decimal); Total: MISSING; Invoice#: 112-1892394-4362604; Real items: 1/1; Structure words: 8/12'"
+        },
+        "D3": {
+          "value": "'Text: 1507 chars; Prices: 8 ($-sign), 4 (decimal); Total: $14.83; Invoice#: 112-1892394-4362604; Real items: 1/1; Structure words: 9/12'"
+        },
+        "E1": {
+          "value": "'OCR Text (first 2000 chars)'"
+        },
+        "E2": {
+          "value": "'Aug 2, 2024, 9:05 PM\\nAmazon.com\\nAmazon.com - Order 112-1892394-4362604\\n\\nFinal Details for Order #112-1892394-4362604\\nPrint this page for your records.\\n\\nOrder Placed: July 31, 2024\\nAmazon.com order number: 112-1892394-4362604\\nOrder Total: $0.00\\n\\nShipped on August 2, 2024\\n\\nItems Ordered\\n1 of: Dorman 56768 Driver Side Door Mirror Glass Compatible with Select Mitsubishi Models\\nSold by: Amazon.com Services, Inc\\nSupplied by: Other\\n\\nCondition: New\\n\\nShipping Address:\\nDesean Emery\\n10813 NW 30TH ST STE 115 GRE 7265\\nMIAMI, FL 33172-2191\\nUnited States\\n\\nShipping Speed:\\nFREE Prime Delivery\\n\\nPayment information\\n\\nPayment Method:\\nAmazon gift card balance\\nItem(s) Subtotal: $14.81\\nShipping & Handling: $0.00\\n------\\nBilling address\\nTotal before tax: $14.81\\nDesean Emery\\nEstimated tax to be collected: $1.04\\n10813 NW 30TH ST STE 115 GRE 7265\\nGift Card Amount: -$15.85\\nMIAMI, FL 33172-2191\\n------\\nUnited States\\nGrand Total: $0.00\\n\\nTo view the status of your order, return to Order Summary.\\n\\nHave an issue with your gift card? Read about common issues or contact us.\\n\\nConditions of Use | Privacy Notice \u00a9 1996-2024, Amazon.com, Inc. or its affiliates\\n\\nEnglish United States Help\\n\\nConditions of Use Privacy Notice Consumer Health Data Privacy Disclosure Your Ads Privacy Choices\\n\u00a9 1996-2024, Amazon.com, Inc. or its affiliates\\n\\nhttps://www.amazon.com/gp/css/summary/print.html?orderID=112-1892394-4362604&ref=ppx_yo2ov_dt_b_invoice#\\n1/1'"
+        },
+        "E3": {
+          "value": "'( ane 9 : 05 PM Amazon . com - Order 112-1892394-4362604\\namazoncom\\neee \u201d\\nFinal Details for Order # 112-1892394-4362604\\nPrint this page for your records .\\nOrder Placed : July 31 , 2024\\nAmazon . com order number : 112-1892394-4362604\\nOrder Total : $0.00\\nShipped on August 2 , 2024\\nItems Ordered Price\\n1 of: Dorman 56768 Driver Side Door Mirror Glass Compatible with Select Mitsubishi Models $14.81\\nSold by: Amazon . com Services , Inc\\nSupplied by: Other\\nCondition : New\\nShipping Address :\\nDesean Emery\\n10813 NW 30 TH ST STE 115 GRE 7265\\nMIAMI , FL 33172 - 2191\\nUnited States\\nShipping Speed :\\nFREE Prime Delivery\\nPayment information\\nPayment Method : Item ( s ) Subtotal : $14.81\\nAmazon gift card balance Shipping & Handling : $0.00\\nBilling address Total before tax : $14.81\\nDesean Emery Estimated tax to be collected : $1.04\\n10813 NW 30 TH ST STE 115 GRE 7265 Gift Card Amount : - $15.85\\nMIAMI , FL 33172 - 2191 - - - - -\\nUnited States Grand Total : $0.00\\nTo view the status of your order , return to Order Summary .\\nHave an issue with your gift card ? Read about common issues or contact us .\\nConditions of Use | Privacy Notice \u00a9 1996 - 2024 , Amazon . com , Inc . or its affiliates\\n| English | | United States | Hele\\nCarditions of Use Privacy Notice Consumer Health Data Privacy Disclosure Your Ads Privacy Choices\\n% 1996 - 2024 , Amiuzan . cain , inc . or ics attitiates\\nhttps : / Avww . amazon . com / gp / css / summary / print . html ? orderlD = 112-1892394-4362604 & ref = ppx yo 2 ov dt b invoice # WwW'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "112-1892394-4362604_2.pdf",
+        "HAWB9671027-Declaration.pdf",
+        "HAWB9671027-Declaration_combined.xlsx"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "DESEAN EMERY",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "3.00",
+      "location": "WebSource",
+      "man_reg": "2024 30",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 2,
+      "waybill": "HAWB9671027",
+      "weight": "1.0"
+    }
+  }
+}

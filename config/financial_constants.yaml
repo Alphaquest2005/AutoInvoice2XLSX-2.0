@@ -1,0 +1,80 @@
+# Financial constants — statutory CARICOM tax rates and duty math.
+# Values here reflect LAW / regulation. Change only when the rate actually
+# changes by published CARICOM/Grenada customs notice.
+
+_meta:
+  purpose: "Statutory CARICOM duty rates used in ASYCUDA duty reverse-calc"
+  covers:
+    - "CET (Common External Tariff) nominal rate fractions"
+    - "CSC (Customs Service Charge) rate"
+    - "VAT rate applied to CIF + CET + CSC"
+    - "Currency defaults (USD base)"
+    - "Tax precedence (order of application) and rounding precision"
+  match_patterns:
+    - "duty"
+    - "duty_rate"
+    - "cet"
+    - "csc"
+    - "vat"
+    - "tax_rate"
+    - "currency"
+    - "USD"
+  loader: "pipeline.config_loader:load_financial_constants"
+  examples:
+    - "load_financial_constants()['csc_rate'] -> 0.06"
+    - "load_financial_constants()['vat_rate'] -> 0.15"
+    - "base_currency()                        -> 'USD'"
+  update_checklist:
+    - "Cross-check with reference/asycuda_duty_formula memory"
+    - "Run tests/pipeline/test_duty_reverse_calc.py if it exists"
+
+version: "1.0.0"
+
+# CARICOM statutory rates (fractions, not percentages).
+# ASYCUDA duty formula (memory ref: reference_asycuda_duty_formula):
+#   duty = CET + CSC(6% of CIF) + VAT(15% of CIF+CET+CSC)
+csc_rate: 0.06        # Customs Service Charge, applied to CIF
+vat_rate: 0.15        # VAT, applied to CIF + CET + CSC
+cif_components:       # Components that sum to CIF
+  - cost
+  - insurance
+  - freight
+
+# Eastern Caribbean Dollar exchange rate (USD -> XCD).
+# ECCB pegged rate; change only on published ECCB notice.
+# added by Wave 1 for pipeline/bl_xlsx_generator.py
+xcd_rate: 2.7169
+
+# Default CET duty rate used when a tariff code has no CET lookup hit.
+# 20% is the most common rate for consumer goods under CARICOM CET.
+# added by Wave 1 for pipeline/bl_xlsx_generator.py
+default_cet_rate: 0.20
+
+# Percentage conversion factor (rate * pct_conversion -> display percent).
+# Used only for human-readable % rendering in duty section labels.
+# added by Wave 1 for pipeline/bl_xlsx_generator.py
+pct_conversion: 100
+
+# Reverse-calc composite-rate coefficients (duty_ratio = CET*a + b).
+# Derived from the ASYCUDA formula:
+#   total_duty = CIF*(CET + CSC + VAT*(1+CET+CSC))
+#              = CIF*(CET*(1+VAT) + CSC*(1+VAT))
+#              = CIF*(CET*1.15 + 0.219)   given VAT=0.15, CSC=0.06
+# These are derived constants; keep as-is unless VAT or CSC change.
+# added by Wave 1 for pipeline/bl_xlsx_generator.py
+composite_duty:
+  cet_coefficient:    1.15    # 1 + vat_rate
+  base_coefficient:   0.219   # csc_rate * (1 + vat_rate)
+
+# Default currency for invoice totals and cost columns.
+base_currency: "USD"
+
+# Number formatting for monetary columns.
+currency_format: "#,##0.00"
+
+# Precision policy.
+# - Cost column (O): group row = total_cost / sum_quantity FULL PRECISION.
+# - Currency display uses 2 decimals.
+precision:
+  cost_group:   "full"
+  cost_display: 2

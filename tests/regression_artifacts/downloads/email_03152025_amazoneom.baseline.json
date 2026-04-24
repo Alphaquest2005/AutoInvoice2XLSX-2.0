@@ -1,0 +1,404 @@
+{
+  "111-1857051-8425001.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'111-1857051-8425001'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'85111000'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'111-1857051-8425001'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'ENGINE PARTS'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'85111000'"
+        },
+        "F3": {
+          "value": "'85111000'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'85111000'"
+        },
+        "I3": {
+          "value": "'AMZ-1'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J11": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J12": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J14": {
+          "value": "'NET TOTAL'"
+        },
+        "J15": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J17": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J19": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J2": {
+          "value": "'A - Premium iridium Platinum Spark Plugs Compatible with Subaru Outback , For... (1 items)'"
+        },
+        "J20": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J21": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J22": {
+          "value": "'CET (20%) \u2014 Tariff 85111000'"
+        },
+        "J23": {
+          "value": "'CSC (6%)'"
+        },
+        "J24": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J25": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J26": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J27": {
+          "value": "'CLIENT DECLARED DUTIES'"
+        },
+        "J28": {
+          "value": "'DUTY VARIANCE (Client \u2212 Estimated)'"
+        },
+        "J29": {
+          "value": "'IMPLIED CET RATE (from client value)'"
+        },
+        "J3": {
+          "value": "'A - Premium iridium Platinum Spark Plugs Compatible with Subaru Outback , For...'"
+        },
+        "J30": {
+          "value": "'\u26a0 CET MISMATCH: System=20% vs Client\u224886% \u2014 review classification'"
+        },
+        "J31": {
+          "value": "'IMPLIED CIF (from declared duty @ 20% CET, XCD)'"
+        },
+        "J32": {
+          "value": "'IMPLIED ITEMS VALUE (USD, net of freight/insurance)'"
+        },
+        "J33": {
+          "value": "'\u26a0 ITEM ALLOCATION CHECK: actual $20.19 USD vs implied $63.40 USD \u2014 UNDER-ALLOCATED (items from another waybill may belong here)'"
+        },
+        "J4": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J5": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J6": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J8": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J9": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "20.19"
+        },
+        "O3": {
+          "value": "20.19"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "1.41"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P14": {
+          "formula": "=P4+P12"
+        },
+        "P15": {
+          "formula": "=S2"
+        },
+        "P17": {
+          "formula": "=S2-P14"
+        },
+        "P2": {
+          "value": "20.19"
+        },
+        "P20": {
+          "value": "24.6"
+        },
+        "P21": {
+          "value": "66.84"
+        },
+        "P22": {
+          "value": "13.37"
+        },
+        "P23": {
+          "value": "4.01"
+        },
+        "P24": {
+          "value": "12.63"
+        },
+        "P25": {
+          "value": "30.01"
+        },
+        "P26": {
+          "value": "0.448982645122681"
+        },
+        "P27": {
+          "value": "81"
+        },
+        "P28": {
+          "value": "50.99"
+        },
+        "P29": {
+          "value": "0.8633471235656858"
+        },
+        "P3": {
+          "value": "20.19"
+        },
+        "P31": {
+          "value": "180.4"
+        },
+        "P32": {
+          "value": "63.4"
+        },
+        "P4": {
+          "formula": "=P2"
+        },
+        "P5": {
+          "formula": "=SUM(P2:P3)-P4"
+        },
+        "P6": {
+          "formula": "=P4-P5"
+        },
+        "P8": {
+          "value": "0"
+        },
+        "P9": {
+          "value": "0"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q14": {
+          "formula": "=Q4+Q12"
+        },
+        "Q17": {
+          "formula": "=S2-Q14"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=Q2"
+        },
+        "Q5": {
+          "formula": "=SUM(Q2:Q3)-Q4"
+        },
+        "Q6": {
+          "formula": "=Q4-Q5"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "21.6"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "1.41"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "111-1857051-8425001.pdf",
+        "111-1857051-8425001.xlsx",
+        "HAWB9557813-Declaration.pdf"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "TRAVIS JOHN",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "3.00",
+      "location": "WebSource",
+      "man_reg": "2024 27",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 1,
+      "waybill": "HAWB9557813",
+      "weight": "1.0"
+    }
+  }
+}

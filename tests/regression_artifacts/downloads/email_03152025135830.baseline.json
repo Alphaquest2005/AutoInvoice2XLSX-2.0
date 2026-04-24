@@ -1,0 +1,29 @@
+{
+  "PO-211-06504032894070385.xlsx": {
+    "__type__": "xlsx",
+    "error": "Bad magic number for central directory"
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "HAWB9600960-Declaration.pdf",
+        "PO-211-06504032894070385.pdf",
+        "PO-211-06504032894070385.xlsx"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "SAMANTHA MC QUEEN",
+      "country_origin": "CN",
+      "expected_entries": 2,
+      "freight": "5.98",
+      "location": "WebSource",
+      "man_reg": "2024 28",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 2,
+      "waybill": "HAWB9600960",
+      "weight": "2.0"
+    }
+  }
+}

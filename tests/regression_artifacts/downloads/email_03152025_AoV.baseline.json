@@ -1,0 +1,3472 @@
+{
+  "HAWB9584275-Declaration_combined.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Combined Invoices": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "A43": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AA43": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AB43": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AC43": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK10": {
+          "value": "'33049990'"
+        },
+        "AK11": {
+          "value": "'33049990'"
+        },
+        "AK12": {
+          "value": "'42029200'"
+        },
+        "AK2": {
+          "value": "'33049990'"
+        },
+        "AK43": {
+          "value": "'33049990'"
+        },
+        "AK46": {
+          "value": "'61071200'"
+        },
+        "AK48": {
+          "value": "'61071100'"
+        },
+        "AK49": {
+          "value": "'96091010'"
+        },
+        "AK5": {
+          "value": "'61071200'"
+        },
+        "AK50": {
+          "value": "'96091010'"
+        },
+        "AK51": {
+          "value": "'33049990'"
+        },
+        "AK52": {
+          "value": "'33049990'"
+        },
+        "AK53": {
+          "value": "'42029200'"
+        },
+        "AK7": {
+          "value": "'61071100'"
+        },
+        "AK8": {
+          "value": "'96091010'"
+        },
+        "AK9": {
+          "value": "'96091010'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C10": {
+          "value": "'111-1616806-9805016'"
+        },
+        "C12": {
+          "value": "'111-1616806-9805016'"
+        },
+        "C2": {
+          "value": "'111-1616806-9805016'"
+        },
+        "C43": {
+          "value": "'111-1616806-9805016'"
+        },
+        "C46": {
+          "value": "'111-1616806-9805016'"
+        },
+        "C49": {
+          "value": "'111-1616806-9805016'"
+        },
+        "C5": {
+          "value": "'111-1616806-9805016'"
+        },
+        "C51": {
+          "value": "'111-1616806-9805016'"
+        },
+        "C53": {
+          "value": "'111-1616806-9805016'"
+        },
+        "C8": {
+          "value": "'111-1616806-9805016'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E10": {
+          "value": "'LIP CARE'"
+        },
+        "E12": {
+          "value": "'BAGS & LUGGAGE'"
+        },
+        "E2": {
+          "value": "'OTHER BEAUTY PRODUCTS'"
+        },
+        "E43": {
+          "value": "'OTHER BEAUTY PRODUCTS'"
+        },
+        "E46": {
+          "value": "'Of man-made fibres'"
+        },
+        "E49": {
+          "value": "'Crayons'"
+        },
+        "E5": {
+          "value": "'Of man-made fibres'"
+        },
+        "E51": {
+          "value": "'LIP CARE'"
+        },
+        "E53": {
+          "value": "'BAGS & LUGGAGE'"
+        },
+        "E8": {
+          "value": "'Crayons'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F10": {
+          "value": "'33049990'"
+        },
+        "F11": {
+          "value": "'33049990'"
+        },
+        "F12": {
+          "value": "'42029200'"
+        },
+        "F13": {
+          "value": "'42029200'"
+        },
+        "F2": {
+          "value": "'33049990'"
+        },
+        "F3": {
+          "value": "'33049990'"
+        },
+        "F4": {
+          "value": "'33049990'"
+        },
+        "F43": {
+          "value": "'33049990'"
+        },
+        "F44": {
+          "value": "'33049990'"
+        },
+        "F45": {
+          "value": "'33049990'"
+        },
+        "F46": {
+          "value": "'61071200'"
+        },
+        "F47": {
+          "value": "'61071200'"
+        },
+        "F48": {
+          "value": "'61071100'"
+        },
+        "F49": {
+          "value": "'96091010'"
+        },
+        "F5": {
+          "value": "'61071200'"
+        },
+        "F50": {
+          "value": "'96091010'"
+        },
+        "F51": {
+          "value": "'33049990'"
+        },
+        "F52": {
+          "value": "'33049990'"
+        },
+        "F53": {
+          "value": "'42029200'"
+        },
+        "F54": {
+          "value": "'42029200'"
+        },
+        "F6": {
+          "value": "'61071200'"
+        },
+        "F7": {
+          "value": "'61071100'"
+        },
+        "F8": {
+          "value": "'96091010'"
+        },
+        "F9": {
+          "value": "'96091010'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I10": {
+          "value": "'33049900'"
+        },
+        "I11": {
+          "value": "'AMZ-5'"
+        },
+        "I12": {
+          "value": "'42029200'"
+        },
+        "I13": {
+          "value": "'AMZ-7'"
+        },
+        "I2": {
+          "value": "'33049990'"
+        },
+        "I3": {
+          "value": "'AMZ-1'"
+        },
+        "I4": {
+          "value": "'AMZ-3'"
+        },
+        "I43": {
+          "value": "'33049990'"
+        },
+        "I44": {
+          "value": "'AMZ-1'"
+        },
+        "I45": {
+          "value": "'AMZ-3'"
+        },
+        "I46": {
+          "value": "'61071200'"
+        },
+        "I47": {
+          "value": "'AMZ-2'"
+        },
+        "I48": {
+          "value": "'AMZ-6'"
+        },
+        "I49": {
+          "value": "'96091020'"
+        },
+        "I5": {
+          "value": "'61071200'"
+        },
+        "I50": {
+          "value": "'AMZ-4'"
+        },
+        "I51": {
+          "value": "'33049900'"
+        },
+        "I52": {
+          "value": "'AMZ-5'"
+        },
+        "I53": {
+          "value": "'42029200'"
+        },
+        "I54": {
+          "value": "'AMZ-7'"
+        },
+        "I6": {
+          "value": "'AMZ-2'"
+        },
+        "I7": {
+          "value": "'AMZ-6'"
+        },
+        "I8": {
+          "value": "'96091020'"
+        },
+        "I9": {
+          "value": "'AMZ-4'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'CeraVe Vitamin C Serum with Hyaluronic AcidSkin Brightening Serum for Face wi... (1 items)'"
+        },
+        "J11": {
+          "value": "'CeraVe Vitamin C Serum with Hyaluronic AcidSkin Brightening Serum for Face wi...'"
+        },
+        "J12": {
+          "value": "'adidas Originals Originals Trefoil Pocket Backpack , Black , One Size (1 items)'"
+        },
+        "J13": {
+          "value": "'adidas Originals Originals Trefoil Pocket Backpack , Black , One Size'"
+        },
+        "J14": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J15": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J16": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J18": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J19": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J2": {
+          "value": "'8 FL . Oz Glycolic Acid 7 % Exfoliating Toner , Glycolic Acid 7 % Toning Resu... (+1 more) (2 items)'"
+        },
+        "J20": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J21": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J22": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J24": {
+          "value": "'NET TOTAL'"
+        },
+        "J25": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J27": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J29": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J3": {
+          "value": "'8 FL . Oz Glycolic Acid 7 % Exfoliating Toner , Glycolic Acid 7 % Toning Resu...'"
+        },
+        "J30": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J31": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J32": {
+          "value": "'CET (weighted avg 20.0%)'"
+        },
+        "J33": {
+          "value": "'  \u2514 33049900: 20% CET (14% of value)'"
+        },
+        "J34": {
+          "value": "'  \u2514 33049990: 20% CET (19% of value)'"
+        },
+        "J35": {
+          "value": "'  \u2514 42029200: 20% CET (29% of value)'"
+        },
+        "J36": {
+          "value": "'  \u2514 61071200: 20% CET (31% of value)'"
+        },
+        "J37": {
+          "value": "'  \u2514 96091020: 20% CET (6% of value)'"
+        },
+        "J38": {
+          "value": "'CSC (6%)'"
+        },
+        "J39": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J4": {
+          "value": "'CeraVe Foaming Facial CleanserDaily Face Wash for Oily Skin with Hyaluronic A...'"
+        },
+        "J40": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J41": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J43": {
+          "value": "'8 FL . Oz Glycolic Acid 7 % Exfoliating Toner , Glycolic Acid 7 % Toning Resu... (+1 more) (2 items)'"
+        },
+        "J44": {
+          "value": "'8 FL . Oz Glycolic Acid 7 % Exfoliating Toner , Glycolic Acid 7 % Toning Resu...'"
+        },
+        "J45": {
+          "value": "'CeraVe Foaming Facial CleanserDaily Face Wash for Oily Skin with Hyaluronic A...'"
+        },
+        "J46": {
+          "value": "\"Hanes Boys ' and Toddler Underwear , Comfort Flex and ComfortSoft Boxer Brief... (+1 more) (2 items)\""
+        },
+        "J47": {
+          "value": "\"Hanes Boys ' and Toddler Underwear , Comfort Flex and ComfortSoft Boxer Brief...\""
+        },
+        "J48": {
+          "value": "'Hanes Boys \u2019 Tank Undershirt , EcoSmart Cotton Shirt , Multiple Packs Availab...'"
+        },
+        "J49": {
+          "value": "'V - Opitos Wood - Cased2 HB Pencils , 50 Pack Pre - Sharpened Pencils with To... (1 items)'"
+        },
+        "J5": {
+          "value": "\"Hanes Boys ' and Toddler Underwear , Comfort Flex and ComfortSoft Boxer Brief... (+1 more) (2 items)\""
+        },
+        "J50": {
+          "value": "'V - Opitos Wood - Cased2 HB Pencils , 50 Pack Pre - Sharpened Pencils with To...'"
+        },
+        "J51": {
+          "value": "'CeraVe Vitamin C Serum with Hyaluronic AcidSkin Brightening Serum for Face wi... (1 items)'"
+        },
+        "J52": {
+          "value": "'CeraVe Vitamin C Serum with Hyaluronic AcidSkin Brightening Serum for Face wi...'"
+        },
+        "J53": {
+          "value": "'adidas Originals Originals Trefoil Pocket Backpack , Black , One Size (1 items)'"
+        },
+        "J54": {
+          "value": "'adidas Originals Originals Trefoil Pocket Backpack , Black , One Size'"
+        },
+        "J55": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J56": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J57": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J59": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J6": {
+          "value": "\"Hanes Boys ' and Toddler Underwear , Comfort Flex and ComfortSoft Boxer Brief...\""
+        },
+        "J60": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J61": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J62": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J63": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J65": {
+          "value": "'NET TOTAL'"
+        },
+        "J66": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J68": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J7": {
+          "value": "'Hanes Boys \u2019 Tank Undershirt , EcoSmart Cotton Shirt , Multiple Packs Availab...'"
+        },
+        "J70": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J71": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J72": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J73": {
+          "value": "'CET (weighted avg 20.0%)'"
+        },
+        "J74": {
+          "value": "'  \u2514 33049900: 20% CET (14% of value)'"
+        },
+        "J75": {
+          "value": "'  \u2514 33049990: 20% CET (19% of value)'"
+        },
+        "J76": {
+          "value": "'  \u2514 42029200: 20% CET (29% of value)'"
+        },
+        "J77": {
+          "value": "'  \u2514 61071200: 20% CET (31% of value)'"
+        },
+        "J78": {
+          "value": "'  \u2514 96091020: 20% CET (6% of value)'"
+        },
+        "J79": {
+          "value": "'CSC (6%)'"
+        },
+        "J8": {
+          "value": "'V - Opitos Wood - Cased2 HB Pencils , 50 Pack Pre - Sharpened Pencils with To... (1 items)'"
+        },
+        "J80": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J81": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J82": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J9": {
+          "value": "'V - Opitos Wood - Cased2 HB Pencils , 50 Pack Pre - Sharpened Pencils with To...'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K10": {
+          "value": "1"
+        },
+        "K11": {
+          "value": "1"
+        },
+        "K12": {
+          "value": "1"
+        },
+        "K13": {
+          "value": "1"
+        },
+        "K2": {
+          "value": "2"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "K43": {
+          "value": "2"
+        },
+        "K44": {
+          "value": "1"
+        },
+        "K45": {
+          "value": "1"
+        },
+        "K46": {
+          "value": "2"
+        },
+        "K47": {
+          "value": "1"
+        },
+        "K48": {
+          "value": "1"
+        },
+        "K49": {
+          "value": "1"
+        },
+        "K5": {
+          "value": "2"
+        },
+        "K50": {
+          "value": "1"
+        },
+        "K51": {
+          "value": "1"
+        },
+        "K52": {
+          "value": "1"
+        },
+        "K53": {
+          "value": "1"
+        },
+        "K54": {
+          "value": "1"
+        },
+        "K6": {
+          "value": "1"
+        },
+        "K7": {
+          "value": "1"
+        },
+        "K8": {
+          "value": "1"
+        },
+        "K9": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "L85": {
+          "value": "'\u2550\u2550\u2550 COMBINED GRAND SUMMARY \u2550\u2550\u2550'"
+        },
+        "L86": {
+          "value": "'Invoice 111-1616806-9805016'"
+        },
+        "L87": {
+          "value": "'Invoice 111-1616806-9805016'"
+        },
+        "L89": {
+          "value": "'GRAND TOTAL'"
+        },
+        "L90": {
+          "value": "'GRAND VARIANCE CHECK'"
+        },
+        "L91": {
+          "value": "'Combined 2 invoice files'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N10": {
+          "value": "'USD'"
+        },
+        "N11": {
+          "value": "'USD'"
+        },
+        "N12": {
+          "value": "'USD'"
+        },
+        "N13": {
+          "value": "'USD'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N43": {
+          "value": "'USD'"
+        },
+        "N44": {
+          "value": "'USD'"
+        },
+        "N45": {
+          "value": "'USD'"
+        },
+        "N46": {
+          "value": "'USD'"
+        },
+        "N47": {
+          "value": "'USD'"
+        },
+        "N48": {
+          "value": "'USD'"
+        },
+        "N49": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "N50": {
+          "value": "'USD'"
+        },
+        "N51": {
+          "value": "'USD'"
+        },
+        "N52": {
+          "value": "'USD'"
+        },
+        "N53": {
+          "value": "'USD'"
+        },
+        "N54": {
+          "value": "'USD'"
+        },
+        "N6": {
+          "value": "'USD'"
+        },
+        "N7": {
+          "value": "'USD'"
+        },
+        "N8": {
+          "value": "'USD'"
+        },
+        "N9": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O10": {
+          "value": "18.24"
+        },
+        "O11": {
+          "value": "18.24"
+        },
+        "O12": {
+          "value": "38.52"
+        },
+        "O13": {
+          "value": "38.52"
+        },
+        "O2": {
+          "value": "12.735"
+        },
+        "O3": {
+          "value": "9.99"
+        },
+        "O4": {
+          "value": "15.48"
+        },
+        "O43": {
+          "value": "12.735"
+        },
+        "O44": {
+          "value": "9.99"
+        },
+        "O45": {
+          "value": "15.48"
+        },
+        "O46": {
+          "value": "20.745"
+        },
+        "O47": {
+          "value": "18.49"
+        },
+        "O48": {
+          "value": "23"
+        },
+        "O49": {
+          "value": "8.48"
+        },
+        "O5": {
+          "value": "20.745"
+        },
+        "O50": {
+          "value": "8.48"
+        },
+        "O51": {
+          "value": "18.24"
+        },
+        "O52": {
+          "value": "18.24"
+        },
+        "O53": {
+          "value": "38.52"
+        },
+        "O54": {
+          "value": "38.52"
+        },
+        "O6": {
+          "value": "18.49"
+        },
+        "O7": {
+          "value": "23"
+        },
+        "O8": {
+          "value": "8.48"
+        },
+        "O9": {
+          "value": "8.48"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "18.24"
+        },
+        "P11": {
+          "value": "18.24"
+        },
+        "P12": {
+          "value": "38.52"
+        },
+        "P13": {
+          "value": "38.52"
+        },
+        "P14": {
+          "formula": "=P2+P5+P8+P10+P12"
+        },
+        "P15": {
+          "formula": "=SUM(P2:P13)-P14"
+        },
+        "P16": {
+          "formula": "=P14-P15"
+        },
+        "P18": {
+          "value": "0"
+        },
+        "P19": {
+          "value": "0"
+        },
+        "P2": {
+          "value": "25.47"
+        },
+        "P20": {
+          "value": "9.25"
+        },
+        "P21": {
+          "value": "0"
+        },
+        "P22": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P24": {
+          "formula": "=P14+P22"
+        },
+        "P25": {
+          "formula": "=S2"
+        },
+        "P27": {
+          "formula": "=S2-P24"
+        },
+        "P3": {
+          "value": "9.99"
+        },
+        "P30": {
+          "value": "141.45"
+        },
+        "P31": {
+          "value": "384.31"
+        },
+        "P32": {
+          "value": "76.86"
+        },
+        "P33": {
+          "value": "10.6"
+        },
+        "P34": {
+          "value": "14.81"
+        },
+        "P35": {
+          "value": "22.4"
+        },
+        "P36": {
+          "value": "24.12"
+        },
+        "P37": {
+          "value": "4.93"
+        },
+        "P38": {
+          "value": "23.06"
+        },
+        "P39": {
+          "value": "72.63"
+        },
+        "P4": {
+          "value": "15.48"
+        },
+        "P40": {
+          "value": "172.55"
+        },
+        "P41": {
+          "value": "0.4489864952772502"
+        },
+        "P43": {
+          "value": "25.47"
+        },
+        "P44": {
+          "value": "9.99"
+        },
+        "P45": {
+          "value": "15.48"
+        },
+        "P46": {
+          "value": "41.48999999999999"
+        },
+        "P47": {
+          "value": "18.49"
+        },
+        "P48": {
+          "value": "23"
+        },
+        "P49": {
+          "value": "8.48"
+        },
+        "P5": {
+          "value": "41.48999999999999"
+        },
+        "P50": {
+          "value": "8.48"
+        },
+        "P51": {
+          "value": "18.24"
+        },
+        "P52": {
+          "value": "18.24"
+        },
+        "P53": {
+          "value": "38.52"
+        },
+        "P54": {
+          "value": "38.52"
+        },
+        "P55": {
+          "formula": "=P43+P46+P49+P51+P53"
+        },
+        "P56": {
+          "formula": "=SUM(P43:P54)-P55"
+        },
+        "P57": {
+          "formula": "=P55-P56"
+        },
+        "P59": {
+          "value": "0"
+        },
+        "P6": {
+          "value": "18.49"
+        },
+        "P60": {
+          "value": "0"
+        },
+        "P61": {
+          "value": "9.25"
+        },
+        "P62": {
+          "value": "0"
+        },
+        "P63": {
+          "formula": "=(T43+U43+V43-W43)"
+        },
+        "P65": {
+          "formula": "=P55+P63"
+        },
+        "P66": {
+          "formula": "=S43"
+        },
+        "P68": {
+          "formula": "=S43-P65"
+        },
+        "P7": {
+          "value": "23"
+        },
+        "P71": {
+          "value": "141.45"
+        },
+        "P72": {
+          "value": "384.31"
+        },
+        "P73": {
+          "value": "76.86"
+        },
+        "P74": {
+          "value": "10.6"
+        },
+        "P75": {
+          "value": "14.81"
+        },
+        "P76": {
+          "value": "22.4"
+        },
+        "P77": {
+          "value": "24.12"
+        },
+        "P78": {
+          "value": "4.93"
+        },
+        "P79": {
+          "value": "23.06"
+        },
+        "P8": {
+          "value": "8.48"
+        },
+        "P80": {
+          "value": "72.63"
+        },
+        "P81": {
+          "value": "172.55"
+        },
+        "P82": {
+          "value": "0.4489864952772502"
+        },
+        "P86": {
+          "value": "1089.62"
+        },
+        "P87": {
+          "value": "1089.62"
+        },
+        "P89": {
+          "value": "2179.24"
+        },
+        "P9": {
+          "value": "8.48"
+        },
+        "P90": {
+          "value": "-1896.34"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q10": {
+          "formula": "=O10*K10"
+        },
+        "Q11": {
+          "formula": "=O11*K11"
+        },
+        "Q12": {
+          "formula": "=O12*K12"
+        },
+        "Q13": {
+          "formula": "=O13*K13"
+        },
+        "Q14": {
+          "formula": "=Q2+Q5+Q8+Q10+Q12"
+        },
+        "Q15": {
+          "formula": "=SUM(Q2:Q13)-Q14"
+        },
+        "Q16": {
+          "formula": "=Q14-Q15"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q22": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q24": {
+          "formula": "=Q14+Q22"
+        },
+        "Q27": {
+          "formula": "=S2-Q24"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q43": {
+          "formula": "=O43*K43"
+        },
+        "Q44": {
+          "formula": "=O44*K44"
+        },
+        "Q45": {
+          "formula": "=O45*K45"
+        },
+        "Q46": {
+          "formula": "=O46*K46"
+        },
+        "Q47": {
+          "formula": "=O47*K47"
+        },
+        "Q48": {
+          "formula": "=O48*K48"
+        },
+        "Q49": {
+          "formula": "=O49*K49"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q50": {
+          "formula": "=O50*K50"
+        },
+        "Q51": {
+          "formula": "=O51*K51"
+        },
+        "Q52": {
+          "formula": "=O52*K52"
+        },
+        "Q53": {
+          "formula": "=O53*K53"
+        },
+        "Q54": {
+          "formula": "=O54*K54"
+        },
+        "Q55": {
+          "formula": "=Q43+Q46+Q49+Q51+Q53"
+        },
+        "Q56": {
+          "formula": "=SUM(Q43:Q54)-Q55"
+        },
+        "Q57": {
+          "formula": "=Q55-Q56"
+        },
+        "Q6": {
+          "formula": "=O6*K6"
+        },
+        "Q63": {
+          "formula": "=(T43+U43+V43-W43)"
+        },
+        "Q65": {
+          "formula": "=Q55+Q63"
+        },
+        "Q68": {
+          "formula": "=S43-Q65"
+        },
+        "Q7": {
+          "formula": "=O7*K7"
+        },
+        "Q8": {
+          "formula": "=O8*K8"
+        },
+        "Q86": {
+          "value": "-948.17"
+        },
+        "Q87": {
+          "value": "-948.17"
+        },
+        "Q9": {
+          "formula": "=O9*K9"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R10": {
+          "formula": "=P10-Q10"
+        },
+        "R11": {
+          "formula": "=P11-Q11"
+        },
+        "R12": {
+          "formula": "=P12-Q12"
+        },
+        "R13": {
+          "formula": "=P13-Q13"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R43": {
+          "formula": "=P43-Q43"
+        },
+        "R44": {
+          "formula": "=P44-Q44"
+        },
+        "R45": {
+          "formula": "=P45-Q45"
+        },
+        "R46": {
+          "formula": "=P46-Q46"
+        },
+        "R47": {
+          "formula": "=P47-Q47"
+        },
+        "R48": {
+          "formula": "=P48-Q48"
+        },
+        "R49": {
+          "formula": "=P49-Q49"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "R50": {
+          "formula": "=P50-Q50"
+        },
+        "R51": {
+          "formula": "=P51-Q51"
+        },
+        "R52": {
+          "formula": "=P52-Q52"
+        },
+        "R53": {
+          "formula": "=P53-Q53"
+        },
+        "R54": {
+          "formula": "=P54-Q54"
+        },
+        "R6": {
+          "formula": "=P6-Q6"
+        },
+        "R7": {
+          "formula": "=P7-Q7"
+        },
+        "R8": {
+          "formula": "=P8-Q8"
+        },
+        "R9": {
+          "formula": "=P9-Q9"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "141.45"
+        },
+        "S43": {
+          "value": "141.45"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "T43": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "U43": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "9.25"
+        },
+        "V43": {
+          "value": "9.25"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "W43": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        },
+        "Z43": {
+          "value": "'AMAZON'"
+        }
+      },
+      "OCR Notes": {
+        "A1": {
+          "value": "'PDF File'"
+        },
+        "A2": {
+          "value": "'111-1616806-9805016.pdf'"
+        },
+        "A3": {
+          "value": "'HAWB9586702-Manifest_Invoice.pdf'"
+        },
+        "B1": {
+          "value": "'Quality Score'"
+        },
+        "B2": {
+          "value": "'100/100'"
+        },
+        "B3": {
+          "value": "'100/100'"
+        },
+        "C1": {
+          "value": "'Rating'"
+        },
+        "C2": {
+          "value": "'GOOD'"
+        },
+        "C3": {
+          "value": "'GOOD'"
+        },
+        "D1": {
+          "value": "'Details'"
+        },
+        "D2": {
+          "value": "'Text: 3582 chars; Prices: 10 ($-sign), 13 (decimal); Total: $141.45; Invoice#: 111-1616806-9805016; Real items: 7/7; Structure words: 8/12'"
+        },
+        "D3": {
+          "value": "'Text: 3597 chars; Prices: 10 ($-sign), 13 (decimal); Total: $141.45; Invoice#: 111-1616806-9805016; Real items: 7/7; Structure words: 8/12'"
+        },
+        "E1": {
+          "value": "'OCR Text (first 2000 chars)'"
+        },
+        "E2": {
+          "value": "'7 / 31 / 24 , 8 : 35 AM Amazon . com - Order 111-1616806-9805016\\nama zoneomn\\n- Final Details for Order # 111-1616806-9805016\\nPrint this page for your records .\\nOrder Placed : July 16 , 2024\\nAmazon . com order number : 111-1616806-9805016\\nOrder Total : USD 141.45\\nShipped on July 19 , 2024\\nItems Ordered Price\\n1 of: 8 FL . Oz Glycolic Acid 7 % Exfoliating Toner , Glycolic Acid 7 % Toning Resurfacing Solution , Reduces Skin Blemishes , $9.99\\nRejuvenate Your Skin ( 240 ML ) D\\nSold by: KOQ - US ( seller profile ) an\\nSupplied by ; KOQ - US ( seller profile\\n\\\\ a \" Condition : New\\nShipping Address :\\nRochelle Ragbasingh\\n10813 NW 30 TH ST BLDG 115\\nGRE 8479\\nMIAMI , FL 33172 - 5068\\nUnited States\\nShipping Speed :\\nFREE Shipping\\nShipped on July 19 , 2024\\nItems Ordered Price\\n1 of: Hanes Boys \\' and Toddler Underwear , Comfort Flex and ComfortSoft Boxer Briefs , Multiple Packs Available , Solids / Prints $18.49\\nAssorted - 10 , X - Large\\nSold by: Amazon . com Services , Inc\\nSupplied by: Other\\nCondition : New\\n1 of: CeraVe Foaming Facial Cleanser | Daily Face Wash for Oily Skin with Hyaluronic Acid , Ceramides , and Niacinamide | $15.48\\nFragrance Free | 16 Fluid Ounce\\nc Sold by: Amazon . com Services , Inc\\n\u00bb Supplied by: Other\\nCondition : New\\n1 of: V - Opitos Wood - Cased # 2 HB Pencils , 50 Pack Pre - Sharpened Pencils with Top Erasers , Bulk Yellow Pencils for School $8.48\\nTeacher Supplies , Writing , Drawing and Sketching\\nSold by: MELAIS ( seller profile\\nSupplied by: MELAIS ( seller profile\\nCondition : New\\n1 of: CeraVe Vitamin C Serum with Hyaluronic Acid | Skin Brightening Serum for Face with 10 % Pure Vitamin C | Fragrance $18.24\\nFree | 1 Fl . Oz\\nSold by: Ace Plaza ( seller profile\\nSupplied by: Ace Plaza ( seller profile\\nCondition : New\\n1 of: Hanes Boys \u2019 Tank Undershirt , EcoSmart Cotton Shirt , Multiple Packs Available , White - 10 , Medium $23.00\\nSold by: Amazon . com Services , Inc\\nSupplied by: Other gh b ot .\\nhttps : / / www . amazon . com / gp / css / summary / print . html ? o'"
+        },
+        "E3": {
+          "value": "\"7 / 31 / 24 , 8 : 35 AM Amazon . com - Order 111-1616806-9805016\\ns .\\nama zoneomn ;\\n- Final Details for Order # 111-1616806-9805016\\nPrint this page for your records .\\nOrder Placed : July 16 , 2024\\nAmazon . com order number : 111-1616806-9805016\\nOrder Total : USD 141.45\\nShipped on July 19 , 2024\\nItems Ordered Price\\n1 of: 8 FL . Oz Glycolic Acid 7 % Exfoliating Toner , Glycolic Acid 7 % Toning Resurfacing Solution , Reduces Skin Blemishes , $9.99\\nRejuvenate Your Skin ( 240 ML ) D\\nSold by: KOQ - US ( seller profile ) an\\nSupplied by ; KOQ - US ( seller profile\\nLG\\n\\\\ a Condition : New\\nShipping Address :\\nRochelle Ragbasingh\\n10813 NW 30 TH ST BLDG 115\\nGRE 8479\\nMIAMI , FL 33172 - 5068\\nUnited States\\nShipping Speed :\\nFREE Shipping\\nShipped on July 19 , 2024\\nItems Ordered Price\\n1 of: Hanes Boys ' and Toddler Underwear , Comfort Flex and ComfortSoft Boxer Briefs , Multiple Packs Available , Solids / Prints $18.49\\nAssorted - 10 , X - Large\\nSold by: Amazon . com Services , Inc\\nSupplied by: Other\\nCondition : New\\n1 of: CeraVe Foaming Facial Cleanser | Daily Face Wash for Oily Skin with Hyaluronic Acid , Ceramides , and Niacinamide | $15.48\\nFragrance Free | 16 Fluid Ounce\\nc f Sold by: Amazon . com Services , Inc\\n\u00bb Supplied by: Other\\ni .\\n~ Condition : New\\n1 of: V - Opitos Wood - Cased # 2 HB Pencils , 50 Pack Pre - Sharpened Pencils with Top Erasers , Bulk Yellow Pencils for School $8.48\\nTeacher Supplies , Writing , Drawing and Sketching\\nSold by: MELAIS ( seller profile\\nSupplied by: MELAIS ( seller profile\\nCondition : New\\n1 of: CeraVe Vitamin C Serum with Hyaluronic Acid | Skin Brightening Serum for Face with 10 % Pure Vitamin C | Fragrance $18.24\\nFree | 1 Fl . Oz\\nSold by: Ace Plaza ( seller profile\\nSupplied by: Ace Plaza ( seller profile\\nCondition : New\\n1 of: Hanes Boys \u2019 Tank Undershirt , EcoSmart Cotton Shirt , Multiple Packs Available , White - 10 , Medium $23.00\\nSold by: Amazon . com Services , Inc A\\nSupplied by: Other gh b\\n4\\nhttps : / / www . amazon . com / gp / css / summary / pr\""
+        }
+      }
+    }
+  },
+  "HAWB9584275.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'61071200'"
+        },
+        "AK5": {
+          "value": "'33049990'"
+        },
+        "AK7": {
+          "value": "'96091020'"
+        },
+        "AK9": {
+          "value": "'33049900'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'111-1616806-9805016'"
+        },
+        "C5": {
+          "value": "'111-1616806-9805016'"
+        },
+        "C7": {
+          "value": "'111-1616806-9805016'"
+        },
+        "C9": {
+          "value": "'111-1616806-9805016'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Of man-made fibres'"
+        },
+        "E46": {
+          "value": "'LIP CARE'"
+        },
+        "E48": {
+          "value": "'BAGS & LUGGAGE'"
+        },
+        "E5": {
+          "value": "'OTHER BEAUTY PRODUCTS'"
+        },
+        "E7": {
+          "value": "'Crayons'"
+        },
+        "E9": {
+          "value": "'LIP CARE'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F10": {
+          "value": "'33049900'"
+        },
+        "F2": {
+          "value": "'61071200'"
+        },
+        "F3": {
+          "value": "'61071200'"
+        },
+        "F4": {
+          "value": "'61071200'"
+        },
+        "F46": {
+          "value": "'33049990'"
+        },
+        "F48": {
+          "value": "'42029200'"
+        },
+        "F5": {
+          "value": "'33049990'"
+        },
+        "F6": {
+          "value": "'33049990'"
+        },
+        "F7": {
+          "value": "'96091020'"
+        },
+        "F8": {
+          "value": "'96091020'"
+        },
+        "F9": {
+          "value": "'33049900'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I10": {
+          "value": "'AMZ-5'"
+        },
+        "I2": {
+          "value": "'61071200'"
+        },
+        "I3": {
+          "value": "'AMZ-2'"
+        },
+        "I4": {
+          "value": "'AMZ-6'"
+        },
+        "I47": {
+          "value": "'AMZ-1'"
+        },
+        "I49": {
+          "value": "'AMZ-7'"
+        },
+        "I5": {
+          "value": "'33049990'"
+        },
+        "I6": {
+          "value": "'AMZ-3'"
+        },
+        "I7": {
+          "value": "'96091020'"
+        },
+        "I8": {
+          "value": "'AMZ-4'"
+        },
+        "I9": {
+          "value": "'33049900'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'CeraVe Vitamin C Serum with Hyaluronic AcidSkin Brightening Serum for Face wi...'"
+        },
+        "J11": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J12": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J13": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J15": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J16": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J17": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J18": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J19": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J2": {
+          "value": "\"Hanes Boys ' and Toddler Underwear , Comfort Flex and ComfortSoft Boxer Brief... (+1 more) (2 items)\""
+        },
+        "J21": {
+          "value": "'NET TOTAL'"
+        },
+        "J22": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J24": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J26": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J27": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J28": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J29": {
+          "value": "'CET (weighted avg 20.0%)'"
+        },
+        "J3": {
+          "value": "\"Hanes Boys ' and Toddler Underwear , Comfort Flex and ComfortSoft Boxer Brief...\""
+        },
+        "J30": {
+          "value": "'  \u2514 33049900: 20% CET (22% of value)'"
+        },
+        "J31": {
+          "value": "'  \u2514 33049990: 20% CET (18% of value)'"
+        },
+        "J32": {
+          "value": "'  \u2514 61071200: 20% CET (50% of value)'"
+        },
+        "J33": {
+          "value": "'  \u2514 96091020: 20% CET (10% of value)'"
+        },
+        "J34": {
+          "value": "'CSC (6%)'"
+        },
+        "J35": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J36": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J37": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J38": {
+          "value": "'CLIENT DECLARED DUTIES'"
+        },
+        "J39": {
+          "value": "'DUTY VARIANCE (Client \u2212 Estimated)'"
+        },
+        "J4": {
+          "value": "'Hanes Boys \u2019 Tank Undershirt , EcoSmart Cotton Shirt , Multiple Packs Availab...'"
+        },
+        "J40": {
+          "value": "'IMPLIED CET RATE (from client value)'"
+        },
+        "J41": {
+          "value": "'\u26a0 CET MISMATCH: System=20% vs Client\u224816% \u2014 review classification'"
+        },
+        "J42": {
+          "value": "'IMPLIED CIF (from declared duty @ 20% CET, XCD)'"
+        },
+        "J43": {
+          "value": "'IMPLIED ITEMS VALUE (USD, net of freight/insurance)'"
+        },
+        "J45": {
+          "value": "'Items on other declaration(s) (2 items)'"
+        },
+        "J46": {
+          "value": "'8 FL . Oz Glycolic Acid 7 % Exfoliating Toner , Glycolic Acid 7 % Toning Resu... (1 items)'"
+        },
+        "J47": {
+          "value": "'8 FL . Oz Glycolic Acid 7 % Exfoliating Toner , Glycolic Acid 7 % Toning Resu...'"
+        },
+        "J48": {
+          "value": "'adidas Originals Originals Trefoil Pocket Backpack , Black , One Size (1 items)'"
+        },
+        "J49": {
+          "value": "'adidas Originals Originals Trefoil Pocket Backpack , Black , One Size'"
+        },
+        "J5": {
+          "value": "'CeraVe Foaming Facial CleanserDaily Face Wash for Oily Skin with Hyaluronic A... (1 items)'"
+        },
+        "J50": {
+          "value": "'REFERENCE SUBTOTAL'"
+        },
+        "J51": {
+          "value": "'REFERENCE FREIGHT'"
+        },
+        "J52": {
+          "value": "'REFERENCE INSURANCE'"
+        },
+        "J53": {
+          "value": "'REFERENCE OTHER COST'"
+        },
+        "J54": {
+          "value": "'REFERENCE DEDUCTION'"
+        },
+        "J55": {
+          "value": "'REFERENCE ADJUSTMENTS'"
+        },
+        "J56": {
+          "value": "'REFERENCE NET TOTAL'"
+        },
+        "J58": {
+          "value": "'COMBINED ITEMS TOTAL'"
+        },
+        "J59": {
+          "value": "'FULL INVOICE FREIGHT'"
+        },
+        "J6": {
+          "value": "'CeraVe Foaming Facial CleanserDaily Face Wash for Oily Skin with Hyaluronic A...'"
+        },
+        "J60": {
+          "value": "'FULL INVOICE INSURANCE'"
+        },
+        "J61": {
+          "value": "'FULL INVOICE OTHER COST'"
+        },
+        "J62": {
+          "value": "'FULL INVOICE DEDUCTION'"
+        },
+        "J63": {
+          "value": "'FULL ADJUSTMENTS'"
+        },
+        "J64": {
+          "value": "'COMBINED NET TOTAL'"
+        },
+        "J65": {
+          "value": "'FULL INVOICE TOTAL'"
+        },
+        "J66": {
+          "value": "'COMBINED VARIANCE CHECK'"
+        },
+        "J7": {
+          "value": "'V - Opitos Wood - Cased2 HB Pencils , 50 Pack Pre - Sharpened Pencils with To... (1 items)'"
+        },
+        "J8": {
+          "value": "'V - Opitos Wood - Cased2 HB Pencils , 50 Pack Pre - Sharpened Pencils with To...'"
+        },
+        "J9": {
+          "value": "'CeraVe Vitamin C Serum with Hyaluronic AcidSkin Brightening Serum for Face wi... (1 items)'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K10": {
+          "value": "1"
+        },
+        "K2": {
+          "value": "2"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "K46": {
+          "value": "1"
+        },
+        "K47": {
+          "value": "1"
+        },
+        "K48": {
+          "value": "1"
+        },
+        "K49": {
+          "value": "1"
+        },
+        "K5": {
+          "value": "1"
+        },
+        "K6": {
+          "value": "1"
+        },
+        "K7": {
+          "value": "1"
+        },
+        "K8": {
+          "value": "1"
+        },
+        "K9": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N10": {
+          "value": "'USD'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N46": {
+          "value": "'USD'"
+        },
+        "N47": {
+          "value": "'USD'"
+        },
+        "N48": {
+          "value": "'USD'"
+        },
+        "N49": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "N6": {
+          "value": "'USD'"
+        },
+        "N7": {
+          "value": "'USD'"
+        },
+        "N8": {
+          "value": "'USD'"
+        },
+        "N9": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O10": {
+          "value": "18.24"
+        },
+        "O2": {
+          "value": "20.745"
+        },
+        "O3": {
+          "value": "18.49"
+        },
+        "O4": {
+          "value": "23"
+        },
+        "O46": {
+          "value": "9.99"
+        },
+        "O47": {
+          "value": "9.99"
+        },
+        "O48": {
+          "value": "38.52"
+        },
+        "O49": {
+          "value": "38.52"
+        },
+        "O5": {
+          "value": "15.48"
+        },
+        "O6": {
+          "value": "15.48"
+        },
+        "O7": {
+          "value": "8.48"
+        },
+        "O8": {
+          "value": "8.48"
+        },
+        "O9": {
+          "value": "18.24"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "18.24"
+        },
+        "P11": {
+          "formula": "=P2+P5+P7+P9"
+        },
+        "P12": {
+          "formula": "=SUM(P2:P10)-P11"
+        },
+        "P13": {
+          "formula": "=P11-P12"
+        },
+        "P15": {
+          "value": "11"
+        },
+        "P16": {
+          "value": "0"
+        },
+        "P17": {
+          "value": "5.86"
+        },
+        "P18": {
+          "value": "0"
+        },
+        "P19": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P2": {
+          "value": "41.48999999999999"
+        },
+        "P21": {
+          "formula": "=P11+P19"
+        },
+        "P22": {
+          "formula": "=S2"
+        },
+        "P24": {
+          "formula": "=S2-P21"
+        },
+        "P27": {
+          "value": "111.55"
+        },
+        "P28": {
+          "value": "303.07"
+        },
+        "P29": {
+          "value": "60.61"
+        },
+        "P3": {
+          "value": "18.49"
+        },
+        "P30": {
+          "value": "13.21"
+        },
+        "P31": {
+          "value": "11.21"
+        },
+        "P32": {
+          "value": "30.05"
+        },
+        "P33": {
+          "value": "6.14"
+        },
+        "P34": {
+          "value": "18.18"
+        },
+        "P35": {
+          "value": "57.28"
+        },
+        "P36": {
+          "value": "136.07"
+        },
+        "P37": {
+          "value": "0.4489721846438117"
+        },
+        "P38": {
+          "value": "122.66"
+        },
+        "P39": {
+          "value": "-13.41"
+        },
+        "P4": {
+          "value": "23"
+        },
+        "P40": {
+          "value": "0.1614999835021612"
+        },
+        "P42": {
+          "value": "273.18"
+        },
+        "P43": {
+          "value": "89.55"
+        },
+        "P46": {
+          "value": "9.99"
+        },
+        "P47": {
+          "value": "9.99"
+        },
+        "P48": {
+          "value": "38.52"
+        },
+        "P49": {
+          "value": "38.52"
+        },
+        "P5": {
+          "value": "15.48"
+        },
+        "P50": {
+          "value": "48.51000000000001"
+        },
+        "P51": {
+          "value": "10"
+        },
+        "P52": {
+          "value": "0"
+        },
+        "P53": {
+          "value": "3.39"
+        },
+        "P54": {
+          "value": "0"
+        },
+        "P55": {
+          "formula": "=P51+P52+P53-P54"
+        },
+        "P56": {
+          "formula": "=P50+P55"
+        },
+        "P58": {
+          "formula": "=P11+P50"
+        },
+        "P59": {
+          "formula": "=P15+P51"
+        },
+        "P6": {
+          "value": "15.48"
+        },
+        "P60": {
+          "formula": "=P16+P52"
+        },
+        "P61": {
+          "formula": "=P17+P53"
+        },
+        "P62": {
+          "formula": "=P18+P54"
+        },
+        "P63": {
+          "formula": "=P59+P60+P61-P62"
+        },
+        "P64": {
+          "formula": "=P58+P63"
+        },
+        "P65": {
+          "value": "162.45"
+        },
+        "P66": {
+          "formula": "=P65-P64"
+        },
+        "P7": {
+          "value": "8.48"
+        },
+        "P8": {
+          "value": "8.48"
+        },
+        "P9": {
+          "value": "18.24"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q10": {
+          "formula": "=O10*K10"
+        },
+        "Q11": {
+          "formula": "=Q2+Q5+Q7+Q9"
+        },
+        "Q12": {
+          "formula": "=SUM(Q2:Q10)-Q11"
+        },
+        "Q13": {
+          "formula": "=Q11-Q12"
+        },
+        "Q19": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q21": {
+          "formula": "=Q11+Q19"
+        },
+        "Q24": {
+          "formula": "=S2-Q21"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q6": {
+          "formula": "=O6*K6"
+        },
+        "Q7": {
+          "formula": "=O7*K7"
+        },
+        "Q8": {
+          "formula": "=O8*K8"
+        },
+        "Q9": {
+          "formula": "=O9*K9"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R10": {
+          "formula": "=P10-Q10"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "R6": {
+          "formula": "=P6-Q6"
+        },
+        "R7": {
+          "formula": "=P7-Q7"
+        },
+        "R8": {
+          "formula": "=P8-Q8"
+        },
+        "R9": {
+          "formula": "=P9-Q9"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "100.55"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "11"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "5.86"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        }
+      }
+    }
+  },
+  "HAWB9586702.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'33049990'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'111-1616806-9805016'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'OTHER BEAUTY PRODUCTS'"
+        },
+        "E29": {
+          "value": "'Of man-made fibres'"
+        },
+        "E32": {
+          "value": "'LIP CARE'"
+        },
+        "E34": {
+          "value": "'Crayons'"
+        },
+        "E36": {
+          "value": "'LIP CARE'"
+        },
+        "E38": {
+          "value": "'BAGS & LUGGAGE'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'33049990'"
+        },
+        "F29": {
+          "value": "'61071200'"
+        },
+        "F3": {
+          "value": "'33049990'"
+        },
+        "F32": {
+          "value": "'33049990'"
+        },
+        "F34": {
+          "value": "'96091020'"
+        },
+        "F36": {
+          "value": "'33049900'"
+        },
+        "F38": {
+          "value": "'42029200'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'33049990'"
+        },
+        "I3": {
+          "value": "'AMZ-1'"
+        },
+        "I30": {
+          "value": "'AMZ-2'"
+        },
+        "I31": {
+          "value": "'AMZ-6'"
+        },
+        "I33": {
+          "value": "'AMZ-3'"
+        },
+        "I35": {
+          "value": "'AMZ-4'"
+        },
+        "I37": {
+          "value": "'AMZ-5'"
+        },
+        "I39": {
+          "value": "'AMZ-7'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J11": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J12": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J14": {
+          "value": "'NET TOTAL'"
+        },
+        "J15": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J17": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J19": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J2": {
+          "value": "'8 FL . Oz Glycolic Acid 7 % Exfoliating Toner , Glycolic Acid 7 % Toning Resu... (1 items)'"
+        },
+        "J20": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J21": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J22": {
+          "value": "'CET (20%) \u2014 Tariff 33049990'"
+        },
+        "J23": {
+          "value": "'CSC (6%)'"
+        },
+        "J24": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J25": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J26": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J28": {
+          "value": "'Items on other declaration(s) (6 items)'"
+        },
+        "J29": {
+          "value": "\"Hanes Boys ' and Toddler Underwear , Comfort Flex and ComfortSoft Boxer Brief... (+1 more) (2 items)\""
+        },
+        "J3": {
+          "value": "'8 FL . Oz Glycolic Acid 7 % Exfoliating Toner , Glycolic Acid 7 % Toning Resu...'"
+        },
+        "J30": {
+          "value": "\"Hanes Boys ' and Toddler Underwear , Comfort Flex and ComfortSoft Boxer Brief...\""
+        },
+        "J31": {
+          "value": "'Hanes Boys \u2019 Tank Undershirt , EcoSmart Cotton Shirt , Multiple Packs Availab...'"
+        },
+        "J32": {
+          "value": "'CeraVe Foaming Facial CleanserDaily Face Wash for Oily Skin with Hyaluronic A... (1 items)'"
+        },
+        "J33": {
+          "value": "'CeraVe Foaming Facial CleanserDaily Face Wash for Oily Skin with Hyaluronic A...'"
+        },
+        "J34": {
+          "value": "'V - Opitos Wood - Cased2 HB Pencils , 50 Pack Pre - Sharpened Pencils with To... (1 items)'"
+        },
+        "J35": {
+          "value": "'V - Opitos Wood - Cased2 HB Pencils , 50 Pack Pre - Sharpened Pencils with To...'"
+        },
+        "J36": {
+          "value": "'CeraVe Vitamin C Serum with Hyaluronic AcidSkin Brightening Serum for Face wi... (1 items)'"
+        },
+        "J37": {
+          "value": "'CeraVe Vitamin C Serum with Hyaluronic AcidSkin Brightening Serum for Face wi...'"
+        },
+        "J38": {
+          "value": "'adidas Originals Originals Trefoil Pocket Backpack , Black , One Size (1 items)'"
+        },
+        "J39": {
+          "value": "'adidas Originals Originals Trefoil Pocket Backpack , Black , One Size'"
+        },
+        "J4": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J40": {
+          "value": "'REFERENCE SUBTOTAL'"
+        },
+        "J41": {
+          "value": "'REFERENCE FREIGHT'"
+        },
+        "J42": {
+          "value": "'REFERENCE INSURANCE'"
+        },
+        "J43": {
+          "value": "'REFERENCE OTHER COST'"
+        },
+        "J44": {
+          "value": "'REFERENCE DEDUCTION'"
+        },
+        "J45": {
+          "value": "'REFERENCE ADJUSTMENTS'"
+        },
+        "J46": {
+          "value": "'REFERENCE NET TOTAL'"
+        },
+        "J48": {
+          "value": "'COMBINED ITEMS TOTAL'"
+        },
+        "J49": {
+          "value": "'FULL INVOICE FREIGHT'"
+        },
+        "J5": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J50": {
+          "value": "'FULL INVOICE INSURANCE'"
+        },
+        "J51": {
+          "value": "'FULL INVOICE OTHER COST'"
+        },
+        "J52": {
+          "value": "'FULL INVOICE DEDUCTION'"
+        },
+        "J53": {
+          "value": "'FULL ADJUSTMENTS'"
+        },
+        "J54": {
+          "value": "'COMBINED NET TOTAL'"
+        },
+        "J55": {
+          "value": "'FULL INVOICE TOTAL'"
+        },
+        "J56": {
+          "value": "'COMBINED VARIANCE CHECK'"
+        },
+        "J6": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J8": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J9": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "K29": {
+          "value": "2"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K30": {
+          "value": "1"
+        },
+        "K31": {
+          "value": "1"
+        },
+        "K32": {
+          "value": "1"
+        },
+        "K33": {
+          "value": "1"
+        },
+        "K34": {
+          "value": "1"
+        },
+        "K35": {
+          "value": "1"
+        },
+        "K36": {
+          "value": "1"
+        },
+        "K37": {
+          "value": "1"
+        },
+        "K38": {
+          "value": "1"
+        },
+        "K39": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N29": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N30": {
+          "value": "'USD'"
+        },
+        "N31": {
+          "value": "'USD'"
+        },
+        "N32": {
+          "value": "'USD'"
+        },
+        "N33": {
+          "value": "'USD'"
+        },
+        "N34": {
+          "value": "'USD'"
+        },
+        "N35": {
+          "value": "'USD'"
+        },
+        "N36": {
+          "value": "'USD'"
+        },
+        "N37": {
+          "value": "'USD'"
+        },
+        "N38": {
+          "value": "'USD'"
+        },
+        "N39": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "9.99"
+        },
+        "O29": {
+          "value": "20.745"
+        },
+        "O3": {
+          "value": "9.99"
+        },
+        "O30": {
+          "value": "18.49"
+        },
+        "O31": {
+          "value": "23"
+        },
+        "O32": {
+          "value": "15.48"
+        },
+        "O33": {
+          "value": "15.48"
+        },
+        "O34": {
+          "value": "8.48"
+        },
+        "O35": {
+          "value": "8.48"
+        },
+        "O36": {
+          "value": "18.24"
+        },
+        "O37": {
+          "value": "18.24"
+        },
+        "O38": {
+          "value": "38.52"
+        },
+        "O39": {
+          "value": "38.52"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "0.7"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P14": {
+          "formula": "=P4+P12"
+        },
+        "P15": {
+          "formula": "=S2"
+        },
+        "P17": {
+          "formula": "=S2-P14"
+        },
+        "P2": {
+          "value": "9.99"
+        },
+        "P20": {
+          "value": "24.69"
+        },
+        "P21": {
+          "value": "67.08"
+        },
+        "P22": {
+          "value": "13.42"
+        },
+        "P23": {
+          "value": "4.02"
+        },
+        "P24": {
+          "value": "12.68"
+        },
+        "P25": {
+          "value": "30.12"
+        },
+        "P26": {
+          "value": "0.4490161001788909"
+        },
+        "P29": {
+          "value": "41.48999999999999"
+        },
+        "P3": {
+          "value": "9.99"
+        },
+        "P30": {
+          "value": "18.49"
+        },
+        "P31": {
+          "value": "23"
+        },
+        "P32": {
+          "value": "15.48"
+        },
+        "P33": {
+          "value": "15.48"
+        },
+        "P34": {
+          "value": "8.48"
+        },
+        "P35": {
+          "value": "8.48"
+        },
+        "P36": {
+          "value": "18.24"
+        },
+        "P37": {
+          "value": "18.24"
+        },
+        "P38": {
+          "value": "38.52"
+        },
+        "P39": {
+          "value": "38.52"
+        },
+        "P4": {
+          "formula": "=P2"
+        },
+        "P40": {
+          "value": "122.21"
+        },
+        "P41": {
+          "value": "14"
+        },
+        "P42": {
+          "value": "0"
+        },
+        "P43": {
+          "value": "8.55"
+        },
+        "P44": {
+          "value": "0"
+        },
+        "P45": {
+          "formula": "=P41+P42+P43-P44"
+        },
+        "P46": {
+          "formula": "=P40+P45"
+        },
+        "P48": {
+          "formula": "=P4+P40"
+        },
+        "P49": {
+          "formula": "=P8+P41"
+        },
+        "P5": {
+          "formula": "=SUM(P2:P3)-P4"
+        },
+        "P50": {
+          "formula": "=P9+P42"
+        },
+        "P51": {
+          "formula": "=P10+P43"
+        },
+        "P52": {
+          "formula": "=P11+P44"
+        },
+        "P53": {
+          "formula": "=P49+P50+P51-P52"
+        },
+        "P54": {
+          "formula": "=P48+P53"
+        },
+        "P55": {
+          "value": "162.45"
+        },
+        "P56": {
+          "formula": "=P55-P54"
+        },
+        "P6": {
+          "formula": "=P4-P5"
+        },
+        "P8": {
+          "value": "7"
+        },
+        "P9": {
+          "value": "0"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q14": {
+          "formula": "=Q4+Q12"
+        },
+        "Q17": {
+          "formula": "=S2-Q14"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=Q2"
+        },
+        "Q5": {
+          "formula": "=SUM(Q2:Q3)-Q4"
+        },
+        "Q6": {
+          "formula": "=Q4-Q5"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "17.69"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "7"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0.7"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        }
+      }
+    }
+  },
+  "HAWB9591668.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'42029200'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'111-1616806-9805016'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'BAGS & LUGGAGE'"
+        },
+        "E34": {
+          "value": "'Of man-made fibres'"
+        },
+        "E37": {
+          "value": "'LIP CARE'"
+        },
+        "E40": {
+          "value": "'Crayons'"
+        },
+        "E42": {
+          "value": "'LIP CARE'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'42029200'"
+        },
+        "F3": {
+          "value": "'42029200'"
+        },
+        "F34": {
+          "value": "'61071200'"
+        },
+        "F37": {
+          "value": "'33049990'"
+        },
+        "F40": {
+          "value": "'96091020'"
+        },
+        "F42": {
+          "value": "'33049900'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'42029200'"
+        },
+        "I3": {
+          "value": "'AMZ-7'"
+        },
+        "I35": {
+          "value": "'AMZ-2'"
+        },
+        "I36": {
+          "value": "'AMZ-6'"
+        },
+        "I38": {
+          "value": "'AMZ-3'"
+        },
+        "I39": {
+          "value": "'AMZ-1'"
+        },
+        "I41": {
+          "value": "'AMZ-4'"
+        },
+        "I43": {
+          "value": "'AMZ-5'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J11": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J12": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J14": {
+          "value": "'NET TOTAL'"
+        },
+        "J15": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J17": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J19": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J2": {
+          "value": "'adidas Originals Originals Trefoil Pocket Backpack , Black , One Size (1 items)'"
+        },
+        "J20": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J21": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J22": {
+          "value": "'CET (20%) \u2014 Tariff 42029200'"
+        },
+        "J23": {
+          "value": "'CSC (6%)'"
+        },
+        "J24": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J25": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J26": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J27": {
+          "value": "'CLIENT DECLARED DUTIES'"
+        },
+        "J28": {
+          "value": "'DUTY VARIANCE (Client \u2212 Estimated)'"
+        },
+        "J29": {
+          "value": "'IMPLIED CIF (from declared duty @ 20% CET, XCD)'"
+        },
+        "J3": {
+          "value": "'adidas Originals Originals Trefoil Pocket Backpack , Black , One Size'"
+        },
+        "J30": {
+          "value": "'IMPLIED ITEMS VALUE (USD, net of freight/insurance)'"
+        },
+        "J31": {
+          "value": "'\u26a0 ITEM ALLOCATION CHECK: actual $38.52 USD vs implied $10.69 USD \u2014 OVER-ALLOCATED (items should move to another waybill)'"
+        },
+        "J33": {
+          "value": "'Items on other declaration(s) (6 items)'"
+        },
+        "J34": {
+          "value": "\"Hanes Boys ' and Toddler Underwear , Comfort Flex and ComfortSoft Boxer Brief... (+1 more) (2 items)\""
+        },
+        "J35": {
+          "value": "\"Hanes Boys ' and Toddler Underwear , Comfort Flex and ComfortSoft Boxer Brief...\""
+        },
+        "J36": {
+          "value": "'Hanes Boys \u2019 Tank Undershirt , EcoSmart Cotton Shirt , Multiple Packs Availab...'"
+        },
+        "J37": {
+          "value": "'CeraVe Foaming Facial CleanserDaily Face Wash for Oily Skin with Hyaluronic A... (+1 more) (2 items)'"
+        },
+        "J38": {
+          "value": "'CeraVe Foaming Facial CleanserDaily Face Wash for Oily Skin with Hyaluronic A...'"
+        },
+        "J39": {
+          "value": "'8 FL . Oz Glycolic Acid 7 % Exfoliating Toner , Glycolic Acid 7 % Toning Resu...'"
+        },
+        "J4": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J40": {
+          "value": "'V - Opitos Wood - Cased2 HB Pencils , 50 Pack Pre - Sharpened Pencils with To... (1 items)'"
+        },
+        "J41": {
+          "value": "'V - Opitos Wood - Cased2 HB Pencils , 50 Pack Pre - Sharpened Pencils with To...'"
+        },
+        "J42": {
+          "value": "'CeraVe Vitamin C Serum with Hyaluronic AcidSkin Brightening Serum for Face wi... (1 items)'"
+        },
+        "J43": {
+          "value": "'CeraVe Vitamin C Serum with Hyaluronic AcidSkin Brightening Serum for Face wi...'"
+        },
+        "J44": {
+          "value": "'REFERENCE SUBTOTAL'"
+        },
+        "J45": {
+          "value": "'REFERENCE FREIGHT'"
+        },
+        "J46": {
+          "value": "'REFERENCE INSURANCE'"
+        },
+        "J47": {
+          "value": "'REFERENCE OTHER COST'"
+        },
+        "J48": {
+          "value": "'REFERENCE DEDUCTION'"
+        },
+        "J49": {
+          "value": "'REFERENCE ADJUSTMENTS'"
+        },
+        "J5": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J50": {
+          "value": "'REFERENCE NET TOTAL'"
+        },
+        "J52": {
+          "value": "'COMBINED ITEMS TOTAL'"
+        },
+        "J53": {
+          "value": "'FULL INVOICE FREIGHT'"
+        },
+        "J54": {
+          "value": "'FULL INVOICE INSURANCE'"
+        },
+        "J55": {
+          "value": "'FULL INVOICE OTHER COST'"
+        },
+        "J56": {
+          "value": "'FULL INVOICE DEDUCTION'"
+        },
+        "J57": {
+          "value": "'FULL ADJUSTMENTS'"
+        },
+        "J58": {
+          "value": "'COMBINED NET TOTAL'"
+        },
+        "J59": {
+          "value": "'FULL INVOICE TOTAL'"
+        },
+        "J6": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J60": {
+          "value": "'COMBINED VARIANCE CHECK'"
+        },
+        "J8": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J9": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K34": {
+          "value": "2"
+        },
+        "K35": {
+          "value": "1"
+        },
+        "K36": {
+          "value": "1"
+        },
+        "K37": {
+          "value": "2"
+        },
+        "K38": {
+          "value": "1"
+        },
+        "K39": {
+          "value": "1"
+        },
+        "K40": {
+          "value": "1"
+        },
+        "K41": {
+          "value": "1"
+        },
+        "K42": {
+          "value": "1"
+        },
+        "K43": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N34": {
+          "value": "'USD'"
+        },
+        "N35": {
+          "value": "'USD'"
+        },
+        "N36": {
+          "value": "'USD'"
+        },
+        "N37": {
+          "value": "'USD'"
+        },
+        "N38": {
+          "value": "'USD'"
+        },
+        "N39": {
+          "value": "'USD'"
+        },
+        "N40": {
+          "value": "'USD'"
+        },
+        "N41": {
+          "value": "'USD'"
+        },
+        "N42": {
+          "value": "'USD'"
+        },
+        "N43": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "38.52"
+        },
+        "O3": {
+          "value": "38.52"
+        },
+        "O34": {
+          "value": "20.745"
+        },
+        "O35": {
+          "value": "18.49"
+        },
+        "O36": {
+          "value": "23"
+        },
+        "O37": {
+          "value": "12.735"
+        },
+        "O38": {
+          "value": "15.48"
+        },
+        "O39": {
+          "value": "9.99"
+        },
+        "O40": {
+          "value": "8.48"
+        },
+        "O41": {
+          "value": "8.48"
+        },
+        "O42": {
+          "value": "18.24"
+        },
+        "O43": {
+          "value": "18.24"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "2.7"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P14": {
+          "formula": "=P4+P12"
+        },
+        "P15": {
+          "formula": "=S2"
+        },
+        "P17": {
+          "formula": "=S2-P14"
+        },
+        "P2": {
+          "value": "38.52"
+        },
+        "P20": {
+          "value": "47.22"
+        },
+        "P21": {
+          "value": "128.29"
+        },
+        "P22": {
+          "value": "25.66"
+        },
+        "P23": {
+          "value": "7.7"
+        },
+        "P24": {
+          "value": "24.25"
+        },
+        "P25": {
+          "value": "57.61"
+        },
+        "P26": {
+          "value": "0.449060721802167"
+        },
+        "P27": {
+          "value": "16.7"
+        },
+        "P28": {
+          "value": "-40.91"
+        },
+        "P29": {
+          "value": "37.19"
+        },
+        "P3": {
+          "value": "38.52"
+        },
+        "P30": {
+          "value": "10.69"
+        },
+        "P34": {
+          "value": "41.48999999999999"
+        },
+        "P35": {
+          "value": "18.49"
+        },
+        "P36": {
+          "value": "23"
+        },
+        "P37": {
+          "value": "25.47"
+        },
+        "P38": {
+          "value": "15.48"
+        },
+        "P39": {
+          "value": "9.99"
+        },
+        "P4": {
+          "formula": "=P2"
+        },
+        "P40": {
+          "value": "8.48"
+        },
+        "P41": {
+          "value": "8.48"
+        },
+        "P42": {
+          "value": "18.24"
+        },
+        "P43": {
+          "value": "18.24"
+        },
+        "P44": {
+          "value": "93.67999999999999"
+        },
+        "P45": {
+          "value": "18"
+        },
+        "P46": {
+          "value": "0"
+        },
+        "P47": {
+          "value": "6.55"
+        },
+        "P48": {
+          "value": "0"
+        },
+        "P49": {
+          "formula": "=P45+P46+P47-P48"
+        },
+        "P5": {
+          "formula": "=SUM(P2:P3)-P4"
+        },
+        "P50": {
+          "formula": "=P44+P49"
+        },
+        "P52": {
+          "formula": "=P4+P44"
+        },
+        "P53": {
+          "formula": "=P8+P45"
+        },
+        "P54": {
+          "formula": "=P9+P46"
+        },
+        "P55": {
+          "formula": "=P10+P47"
+        },
+        "P56": {
+          "formula": "=P11+P48"
+        },
+        "P57": {
+          "formula": "=P53+P54+P55-P56"
+        },
+        "P58": {
+          "formula": "=P52+P57"
+        },
+        "P59": {
+          "value": "162.45"
+        },
+        "P6": {
+          "formula": "=P4-P5"
+        },
+        "P60": {
+          "formula": "=P59-P58"
+        },
+        "P8": {
+          "value": "3"
+        },
+        "P9": {
+          "value": "0"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q14": {
+          "formula": "=Q4+Q12"
+        },
+        "Q17": {
+          "formula": "=S2-Q14"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=Q2"
+        },
+        "Q5": {
+          "formula": "=SUM(Q2:Q3)-Q4"
+        },
+        "Q6": {
+          "formula": "=Q4-Q5"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "44.22"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "3"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "2.7"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "111-1616806-9805016.pdf",
+        "HAWB9584275-Declaration.pdf",
+        "HAWB9584275.xlsx"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "ROCHELLE RAGBASINGH",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "11.00",
+      "location": "WebSource",
+      "man_reg": "2024 28",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 1,
+      "waybill": "HAWB9584275",
+      "weight": "5.0"
+    }
+  }
+}

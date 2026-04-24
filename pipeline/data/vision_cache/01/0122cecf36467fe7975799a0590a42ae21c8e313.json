@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": ""
+  },
+  "printed": {
+    "consignee": "REANNAH CHARLES",
+    "freight": 19.0,
+    "waybill": "HAWB9580391",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": 9.0,
+    "packages": 1
+  },
+  "has_handwriting": false,
+  "_cache_version": 4
+}

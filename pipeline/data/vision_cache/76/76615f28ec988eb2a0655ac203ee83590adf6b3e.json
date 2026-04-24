@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "1220.0",
+    "customs_value_usd": "",
+    "tariff_code": "1220",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten '1220' appears between the two item rows, below the first item's seller name ('By aimaduo') and above the second item's seller name ('By Yanren Yanren')"
+  },
+  "printed": {
+    "consignee": "",
+    "freight": null,
+    "waybill": "",
+    "man_reg": "",
+    "office": "",
+    "weight": null,
+    "packages": null
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

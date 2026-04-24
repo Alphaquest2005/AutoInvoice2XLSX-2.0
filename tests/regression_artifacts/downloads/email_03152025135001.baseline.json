@@ -1,0 +1,2203 @@
+{
+  "111-7220046-1575437.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK12": {
+          "value": "'39241090'"
+        },
+        "AK2": {
+          "value": "'95062900'"
+        },
+        "AK4": {
+          "value": "'61071100'"
+        },
+        "AK6": {
+          "value": "'62121000'"
+        },
+        "AK7": {
+          "value": "'64041990'"
+        },
+        "AK9": {
+          "value": "'63079090'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C12": {
+          "value": "'111-7220046-1575437'"
+        },
+        "C2": {
+          "value": "'111-7220046-1575437'"
+        },
+        "C4": {
+          "value": "'111-7220046-1575437'"
+        },
+        "C7": {
+          "value": "'111-7220046-1575437'"
+        },
+        "C9": {
+          "value": "'111-7220046-1575437'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E12": {
+          "value": "'Plastics and articles thereof'"
+        },
+        "E2": {
+          "value": "'WATER SPORTS'"
+        },
+        "E4": {
+          "value": "'Of cotton'"
+        },
+        "E7": {
+          "value": "'Footwear'"
+        },
+        "E9": {
+          "value": "'MARINE HARDWARE'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F10": {
+          "value": "'63079090'"
+        },
+        "F11": {
+          "value": "'63079090'"
+        },
+        "F12": {
+          "value": "'39241090'"
+        },
+        "F13": {
+          "value": "'39241090'"
+        },
+        "F2": {
+          "value": "'95062900'"
+        },
+        "F3": {
+          "value": "'95062900'"
+        },
+        "F4": {
+          "value": "'61071100'"
+        },
+        "F5": {
+          "value": "'61071100'"
+        },
+        "F6": {
+          "value": "'62121000'"
+        },
+        "F7": {
+          "value": "'64041990'"
+        },
+        "F8": {
+          "value": "'64041990'"
+        },
+        "F9": {
+          "value": "'63079090'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I10": {
+          "value": "'AMZ-4'"
+        },
+        "I11": {
+          "value": "'AMZ-7'"
+        },
+        "I12": {
+          "value": "'39241090'"
+        },
+        "I13": {
+          "value": "'AMZ-5'"
+        },
+        "I2": {
+          "value": "'95062900'"
+        },
+        "I3": {
+          "value": "'AMZ-1'"
+        },
+        "I4": {
+          "value": "'61071100'"
+        },
+        "I5": {
+          "value": "'AMZ-2'"
+        },
+        "I6": {
+          "value": "'AMZ-6'"
+        },
+        "I7": {
+          "value": "'64041990'"
+        },
+        "I8": {
+          "value": "'AMZ-3'"
+        },
+        "I9": {
+          "value": "'63079090'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'Baby Carrier Newborn to Toddler - TSRETE Baby Ergonomic and Cozy Infant Carri...'"
+        },
+        "J11": {
+          "value": "'Popsicle Holder for Kids , 6 Pieces Ice Pop Neoprene Insulator Sleeves , Free...'"
+        },
+        "J12": {
+          "value": "'4 Pack Drip - Free Silicone Popsicie Holders , AODISTUCE Popsicle Holder with... (1 items)'"
+        },
+        "J13": {
+          "value": "'4 Pack Drip - Free Silicone Popsicie Holders , AODISTUCE Popsicle Holder with...'"
+        },
+        "J14": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J15": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J16": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J18": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J19": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J2": {
+          "value": "'EZIGO Baby Pool Float with Canopy UPF 50 + Sun Protection , Inflatable Kids P... (1 items)'"
+        },
+        "J20": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J21": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J22": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J24": {
+          "value": "'NET TOTAL'"
+        },
+        "J25": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J27": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J29": {
+          "value": "'INVOICE NOTES: Structural item count mismatch: 8 price lines found between section markers but 7 items extracted'"
+        },
+        "J3": {
+          "value": "'EZIGO Baby Pool Float with Canopy UPF 50 + Sun Protection , Inflatable Kids P...'"
+        },
+        "J31": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J32": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J33": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J34": {
+          "value": "'CET (weighted avg 12.3%)'"
+        },
+        "J35": {
+          "value": "'  \u2514 39241090: 20% CET (7% of value)'"
+        },
+        "J36": {
+          "value": "'  \u2514 61071100: 20% CET (19% of value)'"
+        },
+        "J37": {
+          "value": "'  \u2514 63079090: 0% CET (38% of value)'"
+        },
+        "J38": {
+          "value": "'  \u2514 64041990: 20% CET (19% of value)'"
+        },
+        "J39": {
+          "value": "'  \u2514 95062900: 20% CET (16% of value)'"
+        },
+        "J4": {
+          "value": "\"Fruit of the Loom Men ' s Coolzone Boxer Briefs , Moisture Wicking & Breathab... (+1 more) (2 items)\""
+        },
+        "J40": {
+          "value": "'CSC (6%)'"
+        },
+        "J41": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J42": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J43": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J5": {
+          "value": "\"Fruit of the Loom Men ' s Coolzone Boxer Briefs , Moisture Wicking & Breathab...\""
+        },
+        "J6": {
+          "value": "'PLAYTEX Womens 18 Hour Wireless Seamiess Full - coverage T - shirt With Smoot...'"
+        },
+        "J7": {
+          "value": "'BMCITYBM Baby High Top Sneakers Boy Girl Walking Shoes Infant First Walker Sh... (1 items)'"
+        },
+        "J8": {
+          "value": "'BMCITYBM Baby High Top Sneakers Boy Girl Walking Shoes Infant First Walker Sh...'"
+        },
+        "J9": {
+          "value": "'Baby Carrier Newborn to Toddler - TSRETE Baby Ergonomic and Cozy Infant Carri... (+1 more) (2 items)'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K10": {
+          "value": "1"
+        },
+        "K11": {
+          "value": "1"
+        },
+        "K12": {
+          "value": "1"
+        },
+        "K13": {
+          "value": "1"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "2"
+        },
+        "K5": {
+          "value": "1"
+        },
+        "K6": {
+          "value": "1"
+        },
+        "K7": {
+          "value": "1"
+        },
+        "K8": {
+          "value": "1"
+        },
+        "K9": {
+          "value": "2"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N10": {
+          "value": "'USD'"
+        },
+        "N11": {
+          "value": "'USD'"
+        },
+        "N12": {
+          "value": "'USD'"
+        },
+        "N13": {
+          "value": "'USD'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "N6": {
+          "value": "'USD'"
+        },
+        "N7": {
+          "value": "'USD'"
+        },
+        "N8": {
+          "value": "'USD'"
+        },
+        "N9": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O10": {
+          "value": "24.99"
+        },
+        "O11": {
+          "value": "38.97"
+        },
+        "O12": {
+          "value": "11.99"
+        },
+        "O13": {
+          "value": "11.99"
+        },
+        "O2": {
+          "value": "26.99"
+        },
+        "O3": {
+          "value": "26.99"
+        },
+        "O4": {
+          "value": "16.235"
+        },
+        "O5": {
+          "value": "17.48"
+        },
+        "O6": {
+          "value": "14.99"
+        },
+        "O7": {
+          "value": "31.19"
+        },
+        "O8": {
+          "value": "31.19"
+        },
+        "O9": {
+          "value": "31.98"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "24.99"
+        },
+        "P11": {
+          "value": "38.97"
+        },
+        "P12": {
+          "value": "11.99"
+        },
+        "P13": {
+          "value": "11.99"
+        },
+        "P14": {
+          "formula": "=P2+P4+P7+P9+P12"
+        },
+        "P15": {
+          "formula": "=SUM(P2:P13)-P14"
+        },
+        "P16": {
+          "formula": "=P14-P15"
+        },
+        "P18": {
+          "value": "0"
+        },
+        "P19": {
+          "value": "-8.5"
+        },
+        "P2": {
+          "value": "26.99"
+        },
+        "P20": {
+          "value": "3.77"
+        },
+        "P21": {
+          "value": "0"
+        },
+        "P22": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P24": {
+          "formula": "=P14+P22"
+        },
+        "P25": {
+          "formula": "=S2"
+        },
+        "P27": {
+          "formula": "=S2-P24"
+        },
+        "P3": {
+          "value": "26.99"
+        },
+        "P32": {
+          "value": "161.87"
+        },
+        "P33": {
+          "value": "439.78"
+        },
+        "P34": {
+          "value": "54.19"
+        },
+        "P35": {
+          "value": "6.33"
+        },
+        "P36": {
+          "value": "17.14"
+        },
+        "P37": {
+          "value": "0"
+        },
+        "P38": {
+          "value": "16.47"
+        },
+        "P39": {
+          "value": "14.25"
+        },
+        "P4": {
+          "value": "32.47"
+        },
+        "P40": {
+          "value": "26.39"
+        },
+        "P41": {
+          "value": "78.05"
+        },
+        "P42": {
+          "value": "158.63"
+        },
+        "P43": {
+          "value": "0.3607030788121334"
+        },
+        "P5": {
+          "value": "17.48"
+        },
+        "P6": {
+          "value": "14.99"
+        },
+        "P7": {
+          "value": "31.19"
+        },
+        "P8": {
+          "value": "31.19"
+        },
+        "P9": {
+          "value": "63.95999999999999"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q10": {
+          "formula": "=O10*K10"
+        },
+        "Q11": {
+          "formula": "=O11*K11"
+        },
+        "Q12": {
+          "formula": "=O12*K12"
+        },
+        "Q13": {
+          "formula": "=O13*K13"
+        },
+        "Q14": {
+          "formula": "=Q2+Q4+Q7+Q9+Q12"
+        },
+        "Q15": {
+          "formula": "=SUM(Q2:Q13)-Q14"
+        },
+        "Q16": {
+          "formula": "=Q14-Q15"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q22": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q24": {
+          "formula": "=Q14+Q22"
+        },
+        "Q27": {
+          "formula": "=S2-Q24"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q6": {
+          "formula": "=O6*K6"
+        },
+        "Q7": {
+          "formula": "=O7*K7"
+        },
+        "Q8": {
+          "formula": "=O8*K8"
+        },
+        "Q9": {
+          "formula": "=O9*K9"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R10": {
+          "formula": "=P10-Q10"
+        },
+        "R11": {
+          "formula": "=P11-Q11"
+        },
+        "R12": {
+          "formula": "=P12-Q12"
+        },
+        "R13": {
+          "formula": "=P13-Q13"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "R6": {
+          "formula": "=P6-Q6"
+        },
+        "R7": {
+          "formula": "=P7-Q7"
+        },
+        "R8": {
+          "formula": "=P8-Q8"
+        },
+        "R9": {
+          "formula": "=P9-Q9"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "161.87"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "-8.5"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "3.77"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        }
+      }
+    }
+  },
+  "HAWB9597711.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'95062900'"
+        },
+        "AK4": {
+          "value": "'61071100'"
+        },
+        "AK6": {
+          "value": "'39241090'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'111-7220046-1575437'"
+        },
+        "C4": {
+          "value": "'111-7220046-1575437'"
+        },
+        "C6": {
+          "value": "'111-7220046-1575437'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'WATER SPORTS'"
+        },
+        "E4": {
+          "value": "'Of cotton'"
+        },
+        "E45": {
+          "value": "'Footwear'"
+        },
+        "E47": {
+          "value": "'MARINE HARDWARE'"
+        },
+        "E50": {
+          "value": "'Of cotton'"
+        },
+        "E6": {
+          "value": "'Plastics and articles thereof'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'95062900'"
+        },
+        "F3": {
+          "value": "'95062900'"
+        },
+        "F4": {
+          "value": "'61071100'"
+        },
+        "F45": {
+          "value": "'64041990'"
+        },
+        "F47": {
+          "value": "'63079090'"
+        },
+        "F5": {
+          "value": "'61071100'"
+        },
+        "F50": {
+          "value": "'61071100'"
+        },
+        "F6": {
+          "value": "'39241090'"
+        },
+        "F7": {
+          "value": "'39241090'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'95062900'"
+        },
+        "I3": {
+          "value": "'AMZ-1'"
+        },
+        "I4": {
+          "value": "'61071100'"
+        },
+        "I46": {
+          "value": "'AMZ-3'"
+        },
+        "I48": {
+          "value": "'AMZ-4'"
+        },
+        "I49": {
+          "value": "'AMZ-7'"
+        },
+        "I5": {
+          "value": "'AMZ-2'"
+        },
+        "I51": {
+          "value": "'AMZ-6'"
+        },
+        "I6": {
+          "value": "'39241090'"
+        },
+        "I7": {
+          "value": "'AMZ-5'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J12": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J13": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J14": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J15": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J16": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J18": {
+          "value": "'NET TOTAL'"
+        },
+        "J19": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J2": {
+          "value": "'EZIGO Baby Pool Float with Canopy UPF 50 + Sun Protection , Inflatable Kids P... (1 items)'"
+        },
+        "J21": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J23": {
+          "value": "'INVOICE NOTES: Structural item count mismatch: 8 price lines found between section markers but 7 items extracted'"
+        },
+        "J25": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J26": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J27": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J28": {
+          "value": "'CET (weighted avg 20.0%)'"
+        },
+        "J29": {
+          "value": "'  \u2514 39241090: 20% CET (21% of value)'"
+        },
+        "J3": {
+          "value": "'EZIGO Baby Pool Float with Canopy UPF 50 + Sun Protection , Inflatable Kids P...'"
+        },
+        "J30": {
+          "value": "'  \u2514 61071100: 20% CET (31% of value)'"
+        },
+        "J31": {
+          "value": "'  \u2514 95062900: 20% CET (48% of value)'"
+        },
+        "J32": {
+          "value": "'CSC (6%)'"
+        },
+        "J33": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J34": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J35": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J36": {
+          "value": "'CLIENT DECLARED DUTIES'"
+        },
+        "J37": {
+          "value": "'DUTY VARIANCE (Client \u2212 Estimated)'"
+        },
+        "J38": {
+          "value": "'IMPLIED CET RATE (from client value)'"
+        },
+        "J39": {
+          "value": "'\u26a0 CET MISMATCH: System=20% vs Client\u224838% \u2014 review classification'"
+        },
+        "J4": {
+          "value": "\"Fruit of the Loom Men ' s Coolzone Boxer Briefs , Moisture Wicking & Breathab... (1 items)\""
+        },
+        "J40": {
+          "value": "'IMPLIED CIF (from declared duty @ 20% CET, XCD)'"
+        },
+        "J41": {
+          "value": "'IMPLIED ITEMS VALUE (USD, net of freight/insurance)'"
+        },
+        "J42": {
+          "value": "'\u26a0 ITEM ALLOCATION CHECK: actual $56.46 USD vs implied $107.96 USD \u2014 UNDER-ALLOCATED (items from another waybill may belong here)'"
+        },
+        "J44": {
+          "value": "'Items on other declaration(s) (4 items)'"
+        },
+        "J45": {
+          "value": "'BMCITYBM Baby High Top Sneakers Boy Girl Walking Shoes Infant First Walker Sh... (1 items)'"
+        },
+        "J46": {
+          "value": "'BMCITYBM Baby High Top Sneakers Boy Girl Walking Shoes Infant First Walker Sh...'"
+        },
+        "J47": {
+          "value": "'Baby Carrier Newborn to Toddler - TSRETE Baby Ergonomic and Cozy Infant Carri... (+1 more) (2 items)'"
+        },
+        "J48": {
+          "value": "'Baby Carrier Newborn to Toddler - TSRETE Baby Ergonomic and Cozy Infant Carri...'"
+        },
+        "J49": {
+          "value": "'Popsicle Holder for Kids , 6 Pieces Ice Pop Neoprene Insulator Sleeves , Free...'"
+        },
+        "J5": {
+          "value": "\"Fruit of the Loom Men ' s Coolzone Boxer Briefs , Moisture Wicking & Breathab...\""
+        },
+        "J50": {
+          "value": "'PLAYTEX Womens 18 Hour Wireless Seamiess Full - coverage T - shirt With Smoot... (1 items)'"
+        },
+        "J51": {
+          "value": "'PLAYTEX Womens 18 Hour Wireless Seamiess Full - coverage T - shirt With Smoot...'"
+        },
+        "J52": {
+          "value": "'REFERENCE SUBTOTAL'"
+        },
+        "J53": {
+          "value": "'REFERENCE FREIGHT'"
+        },
+        "J54": {
+          "value": "'REFERENCE INSURANCE'"
+        },
+        "J55": {
+          "value": "'REFERENCE OTHER COST'"
+        },
+        "J56": {
+          "value": "'REFERENCE DEDUCTION'"
+        },
+        "J57": {
+          "value": "'REFERENCE ADJUSTMENTS'"
+        },
+        "J58": {
+          "value": "'REFERENCE NET TOTAL'"
+        },
+        "J6": {
+          "value": "'4 Pack Drip - Free Silicone Popsicie Holders , AODISTUCE Popsicle Holder with... (1 items)'"
+        },
+        "J60": {
+          "value": "'COMBINED ITEMS TOTAL'"
+        },
+        "J61": {
+          "value": "'FULL INVOICE FREIGHT'"
+        },
+        "J62": {
+          "value": "'FULL INVOICE INSURANCE'"
+        },
+        "J63": {
+          "value": "'FULL INVOICE OTHER COST'"
+        },
+        "J64": {
+          "value": "'FULL INVOICE DEDUCTION'"
+        },
+        "J65": {
+          "value": "'FULL ADJUSTMENTS'"
+        },
+        "J66": {
+          "value": "'COMBINED NET TOTAL'"
+        },
+        "J67": {
+          "value": "'FULL INVOICE TOTAL'"
+        },
+        "J68": {
+          "value": "'COMBINED VARIANCE CHECK'"
+        },
+        "J7": {
+          "value": "'4 Pack Drip - Free Silicone Popsicie Holders , AODISTUCE Popsicle Holder with...'"
+        },
+        "J8": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J9": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "K45": {
+          "value": "1"
+        },
+        "K46": {
+          "value": "1"
+        },
+        "K47": {
+          "value": "2"
+        },
+        "K48": {
+          "value": "1"
+        },
+        "K49": {
+          "value": "1"
+        },
+        "K5": {
+          "value": "1"
+        },
+        "K50": {
+          "value": "1"
+        },
+        "K51": {
+          "value": "1"
+        },
+        "K6": {
+          "value": "1"
+        },
+        "K7": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N45": {
+          "value": "'USD'"
+        },
+        "N46": {
+          "value": "'USD'"
+        },
+        "N47": {
+          "value": "'USD'"
+        },
+        "N48": {
+          "value": "'USD'"
+        },
+        "N49": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "N50": {
+          "value": "'USD'"
+        },
+        "N51": {
+          "value": "'USD'"
+        },
+        "N6": {
+          "value": "'USD'"
+        },
+        "N7": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "26.99"
+        },
+        "O3": {
+          "value": "26.99"
+        },
+        "O4": {
+          "value": "17.48"
+        },
+        "O45": {
+          "value": "31.19"
+        },
+        "O46": {
+          "value": "31.19"
+        },
+        "O47": {
+          "value": "31.98"
+        },
+        "O48": {
+          "value": "24.99"
+        },
+        "O49": {
+          "value": "38.97"
+        },
+        "O5": {
+          "value": "17.48"
+        },
+        "O50": {
+          "value": "14.99"
+        },
+        "O51": {
+          "value": "14.99"
+        },
+        "O6": {
+          "value": "11.99"
+        },
+        "O7": {
+          "value": "11.99"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "formula": "=P8-P9"
+        },
+        "P12": {
+          "value": "15"
+        },
+        "P13": {
+          "value": "-2.88"
+        },
+        "P14": {
+          "value": "1.28"
+        },
+        "P15": {
+          "value": "0"
+        },
+        "P16": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P18": {
+          "formula": "=P8+P16"
+        },
+        "P19": {
+          "formula": "=S2"
+        },
+        "P2": {
+          "value": "26.99"
+        },
+        "P21": {
+          "formula": "=S2-P18"
+        },
+        "P26": {
+          "value": "84.86"
+        },
+        "P27": {
+          "value": "230.56"
+        },
+        "P28": {
+          "value": "46.11"
+        },
+        "P29": {
+          "value": "9.79"
+        },
+        "P3": {
+          "value": "26.99"
+        },
+        "P30": {
+          "value": "14.28"
+        },
+        "P31": {
+          "value": "22.04"
+        },
+        "P32": {
+          "value": "13.83"
+        },
+        "P33": {
+          "value": "43.57"
+        },
+        "P34": {
+          "value": "103.51"
+        },
+        "P35": {
+          "value": "0.4489503816793893"
+        },
+        "P36": {
+          "value": "150"
+        },
+        "P37": {
+          "value": "46.49"
+        },
+        "P38": {
+          "value": "0.3752955375192349"
+        },
+        "P4": {
+          "value": "17.48"
+        },
+        "P40": {
+          "value": "334.08"
+        },
+        "P41": {
+          "value": "107.96"
+        },
+        "P45": {
+          "value": "31.19"
+        },
+        "P46": {
+          "value": "31.19"
+        },
+        "P47": {
+          "value": "63.95999999999999"
+        },
+        "P48": {
+          "value": "24.99"
+        },
+        "P49": {
+          "value": "38.97"
+        },
+        "P5": {
+          "value": "17.48"
+        },
+        "P50": {
+          "value": "14.99"
+        },
+        "P51": {
+          "value": "14.99"
+        },
+        "P52": {
+          "value": "110.14"
+        },
+        "P53": {
+          "value": "5"
+        },
+        "P54": {
+          "value": "-5.62"
+        },
+        "P55": {
+          "value": "2.49"
+        },
+        "P56": {
+          "value": "0"
+        },
+        "P57": {
+          "formula": "=P53+P54+P55-P56"
+        },
+        "P58": {
+          "formula": "=P52+P57"
+        },
+        "P6": {
+          "value": "11.99"
+        },
+        "P60": {
+          "formula": "=P8+P52"
+        },
+        "P61": {
+          "formula": "=P12+P53"
+        },
+        "P62": {
+          "formula": "=P13+P54"
+        },
+        "P63": {
+          "formula": "=P14+P55"
+        },
+        "P64": {
+          "formula": "=P15+P56"
+        },
+        "P65": {
+          "formula": "=P61+P62+P63-P64"
+        },
+        "P66": {
+          "formula": "=P60+P65"
+        },
+        "P67": {
+          "value": "181.87"
+        },
+        "P68": {
+          "formula": "=P67-P66"
+        },
+        "P7": {
+          "value": "11.99"
+        },
+        "P8": {
+          "formula": "=P2+P4+P6"
+        },
+        "P9": {
+          "formula": "=SUM(P2:P7)-P8"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q10": {
+          "formula": "=Q8-Q9"
+        },
+        "Q16": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q18": {
+          "formula": "=Q8+Q16"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q21": {
+          "formula": "=S2-Q18"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q6": {
+          "formula": "=O6*K6"
+        },
+        "Q7": {
+          "formula": "=O7*K7"
+        },
+        "Q8": {
+          "formula": "=Q2+Q4+Q6"
+        },
+        "Q9": {
+          "formula": "=SUM(Q2:Q7)-Q8"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "R6": {
+          "formula": "=P6-Q6"
+        },
+        "R7": {
+          "formula": "=P7-Q7"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "69.86"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "15"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "-2.88"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "1.28"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        }
+      }
+    }
+  },
+  "HAWBS9605575.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'64041990'"
+        },
+        "AK4": {
+          "value": "'63079090'"
+        },
+        "AK7": {
+          "value": "'61071100'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'111-7220046-1575437'"
+        },
+        "C4": {
+          "value": "'111-7220046-1575437'"
+        },
+        "C7": {
+          "value": "'111-7220046-1575437'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Footwear'"
+        },
+        "E39": {
+          "value": "'WATER SPORTS'"
+        },
+        "E4": {
+          "value": "'MARINE HARDWARE'"
+        },
+        "E41": {
+          "value": "'Of cotton'"
+        },
+        "E43": {
+          "value": "'Plastics and articles thereof'"
+        },
+        "E7": {
+          "value": "'Of cotton'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'64041990'"
+        },
+        "F3": {
+          "value": "'64041990'"
+        },
+        "F39": {
+          "value": "'95062900'"
+        },
+        "F4": {
+          "value": "'63079090'"
+        },
+        "F41": {
+          "value": "'61071100'"
+        },
+        "F43": {
+          "value": "'39241090'"
+        },
+        "F5": {
+          "value": "'63079090'"
+        },
+        "F6": {
+          "value": "'63079090'"
+        },
+        "F7": {
+          "value": "'61071100'"
+        },
+        "F8": {
+          "value": "'61071100'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'64041990'"
+        },
+        "I3": {
+          "value": "'AMZ-3'"
+        },
+        "I4": {
+          "value": "'63079090'"
+        },
+        "I40": {
+          "value": "'AMZ-1'"
+        },
+        "I42": {
+          "value": "'AMZ-2'"
+        },
+        "I44": {
+          "value": "'AMZ-5'"
+        },
+        "I5": {
+          "value": "'AMZ-4'"
+        },
+        "I6": {
+          "value": "'AMZ-7'"
+        },
+        "I7": {
+          "value": "'61071100'"
+        },
+        "I8": {
+          "value": "'AMZ-6'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J11": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J13": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J14": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J15": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J16": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J17": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J19": {
+          "value": "'NET TOTAL'"
+        },
+        "J2": {
+          "value": "'BMCITYBM Baby High Top Sneakers Boy Girl Walking Shoes Infant First Walker Sh... (1 items)'"
+        },
+        "J20": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J22": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J24": {
+          "value": "'INVOICE NOTES: Structural item count mismatch: 8 price lines found between section markers but 7 items extracted'"
+        },
+        "J26": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J27": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J28": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J29": {
+          "value": "'CET (weighted avg 8.4%)'"
+        },
+        "J3": {
+          "value": "'BMCITYBM Baby High Top Sneakers Boy Girl Walking Shoes Infant First Walker Sh...'"
+        },
+        "J30": {
+          "value": "'  \u2514 61071100: 20% CET (14% of value)'"
+        },
+        "J31": {
+          "value": "'  \u2514 63079090: 0% CET (58% of value)'"
+        },
+        "J32": {
+          "value": "'  \u2514 64041990: 20% CET (28% of value)'"
+        },
+        "J33": {
+          "value": "'CSC (6%)'"
+        },
+        "J34": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J35": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J36": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J38": {
+          "value": "'Items on other declaration(s) (3 items)'"
+        },
+        "J39": {
+          "value": "'EZIGO Baby Pool Float with Canopy UPF 50 + Sun Protection , Inflatable Kids P... (1 items)'"
+        },
+        "J4": {
+          "value": "'Baby Carrier Newborn to Toddler - TSRETE Baby Ergonomic and Cozy Infant Carri... (+1 more) (2 items)'"
+        },
+        "J40": {
+          "value": "'EZIGO Baby Pool Float with Canopy UPF 50 + Sun Protection , Inflatable Kids P...'"
+        },
+        "J41": {
+          "value": "\"Fruit of the Loom Men ' s Coolzone Boxer Briefs , Moisture Wicking & Breathab... (1 items)\""
+        },
+        "J42": {
+          "value": "\"Fruit of the Loom Men ' s Coolzone Boxer Briefs , Moisture Wicking & Breathab...\""
+        },
+        "J43": {
+          "value": "'4 Pack Drip - Free Silicone Popsicie Holders , AODISTUCE Popsicle Holder with... (1 items)'"
+        },
+        "J44": {
+          "value": "'4 Pack Drip - Free Silicone Popsicie Holders , AODISTUCE Popsicle Holder with...'"
+        },
+        "J45": {
+          "value": "'REFERENCE SUBTOTAL'"
+        },
+        "J46": {
+          "value": "'REFERENCE FREIGHT'"
+        },
+        "J47": {
+          "value": "'REFERENCE INSURANCE'"
+        },
+        "J48": {
+          "value": "'REFERENCE OTHER COST'"
+        },
+        "J49": {
+          "value": "'REFERENCE DEDUCTION'"
+        },
+        "J5": {
+          "value": "'Baby Carrier Newborn to Toddler - TSRETE Baby Ergonomic and Cozy Infant Carri...'"
+        },
+        "J50": {
+          "value": "'REFERENCE ADJUSTMENTS'"
+        },
+        "J51": {
+          "value": "'REFERENCE NET TOTAL'"
+        },
+        "J53": {
+          "value": "'COMBINED ITEMS TOTAL'"
+        },
+        "J54": {
+          "value": "'FULL INVOICE FREIGHT'"
+        },
+        "J55": {
+          "value": "'FULL INVOICE INSURANCE'"
+        },
+        "J56": {
+          "value": "'FULL INVOICE OTHER COST'"
+        },
+        "J57": {
+          "value": "'FULL INVOICE DEDUCTION'"
+        },
+        "J58": {
+          "value": "'FULL ADJUSTMENTS'"
+        },
+        "J59": {
+          "value": "'COMBINED NET TOTAL'"
+        },
+        "J6": {
+          "value": "'Popsicle Holder for Kids , 6 Pieces Ice Pop Neoprene Insulator Sleeves , Free...'"
+        },
+        "J60": {
+          "value": "'FULL INVOICE TOTAL'"
+        },
+        "J61": {
+          "value": "'COMBINED VARIANCE CHECK'"
+        },
+        "J7": {
+          "value": "'PLAYTEX Womens 18 Hour Wireless Seamiess Full - coverage T - shirt With Smoot... (1 items)'"
+        },
+        "J8": {
+          "value": "'PLAYTEX Womens 18 Hour Wireless Seamiess Full - coverage T - shirt With Smoot...'"
+        },
+        "J9": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K39": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "2"
+        },
+        "K40": {
+          "value": "1"
+        },
+        "K41": {
+          "value": "1"
+        },
+        "K42": {
+          "value": "1"
+        },
+        "K43": {
+          "value": "1"
+        },
+        "K44": {
+          "value": "1"
+        },
+        "K5": {
+          "value": "1"
+        },
+        "K6": {
+          "value": "1"
+        },
+        "K7": {
+          "value": "1"
+        },
+        "K8": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N39": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N40": {
+          "value": "'USD'"
+        },
+        "N41": {
+          "value": "'USD'"
+        },
+        "N42": {
+          "value": "'USD'"
+        },
+        "N43": {
+          "value": "'USD'"
+        },
+        "N44": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "N6": {
+          "value": "'USD'"
+        },
+        "N7": {
+          "value": "'USD'"
+        },
+        "N8": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "31.19"
+        },
+        "O3": {
+          "value": "31.19"
+        },
+        "O39": {
+          "value": "26.99"
+        },
+        "O4": {
+          "value": "31.98"
+        },
+        "O40": {
+          "value": "26.99"
+        },
+        "O41": {
+          "value": "17.48"
+        },
+        "O42": {
+          "value": "17.48"
+        },
+        "O43": {
+          "value": "11.99"
+        },
+        "O44": {
+          "value": "11.99"
+        },
+        "O5": {
+          "value": "24.99"
+        },
+        "O6": {
+          "value": "38.97"
+        },
+        "O7": {
+          "value": "14.99"
+        },
+        "O8": {
+          "value": "14.99"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "formula": "=SUM(P2:P8)-P9"
+        },
+        "P11": {
+          "formula": "=P9-P10"
+        },
+        "P13": {
+          "value": "5"
+        },
+        "P14": {
+          "value": "-5.62"
+        },
+        "P15": {
+          "value": "2.49"
+        },
+        "P16": {
+          "value": "0"
+        },
+        "P17": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P19": {
+          "formula": "=P9+P17"
+        },
+        "P2": {
+          "value": "31.19"
+        },
+        "P20": {
+          "formula": "=S2"
+        },
+        "P22": {
+          "formula": "=S2-P19"
+        },
+        "P27": {
+          "value": "117.01"
+        },
+        "P28": {
+          "value": "317.9"
+        },
+        "P29": {
+          "value": "26.66"
+        },
+        "P3": {
+          "value": "31.19"
+        },
+        "P30": {
+          "value": "8.65"
+        },
+        "P31": {
+          "value": "0"
+        },
+        "P32": {
+          "value": "18"
+        },
+        "P33": {
+          "value": "19.07"
+        },
+        "P34": {
+          "value": "54.54"
+        },
+        "P35": {
+          "value": "100.27"
+        },
+        "P36": {
+          "value": "0.3154136520918528"
+        },
+        "P39": {
+          "value": "26.99"
+        },
+        "P4": {
+          "value": "63.95999999999999"
+        },
+        "P40": {
+          "value": "26.99"
+        },
+        "P41": {
+          "value": "17.48"
+        },
+        "P42": {
+          "value": "17.48"
+        },
+        "P43": {
+          "value": "11.99"
+        },
+        "P44": {
+          "value": "11.99"
+        },
+        "P45": {
+          "value": "56.46"
+        },
+        "P46": {
+          "value": "15"
+        },
+        "P47": {
+          "value": "-2.88"
+        },
+        "P48": {
+          "value": "1.28"
+        },
+        "P49": {
+          "value": "0"
+        },
+        "P5": {
+          "value": "24.99"
+        },
+        "P50": {
+          "formula": "=P46+P47+P48-P49"
+        },
+        "P51": {
+          "formula": "=P45+P50"
+        },
+        "P53": {
+          "formula": "=P9+P45"
+        },
+        "P54": {
+          "formula": "=P13+P46"
+        },
+        "P55": {
+          "formula": "=P14+P47"
+        },
+        "P56": {
+          "formula": "=P15+P48"
+        },
+        "P57": {
+          "formula": "=P16+P49"
+        },
+        "P58": {
+          "formula": "=P54+P55+P56-P57"
+        },
+        "P59": {
+          "formula": "=P53+P58"
+        },
+        "P6": {
+          "value": "38.97"
+        },
+        "P60": {
+          "value": "181.87"
+        },
+        "P61": {
+          "formula": "=P60-P59"
+        },
+        "P7": {
+          "value": "14.99"
+        },
+        "P8": {
+          "value": "14.99"
+        },
+        "P9": {
+          "formula": "=P2+P4+P7"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q10": {
+          "formula": "=SUM(Q2:Q8)-Q9"
+        },
+        "Q11": {
+          "formula": "=Q9-Q10"
+        },
+        "Q17": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q19": {
+          "formula": "=Q9+Q17"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q22": {
+          "formula": "=S2-Q19"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q6": {
+          "formula": "=O6*K6"
+        },
+        "Q7": {
+          "formula": "=O7*K7"
+        },
+        "Q8": {
+          "formula": "=O8*K8"
+        },
+        "Q9": {
+          "formula": "=Q2+Q4+Q7"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "R6": {
+          "formula": "=P6-Q6"
+        },
+        "R7": {
+          "formula": "=P7-Q7"
+        },
+        "R8": {
+          "formula": "=P8-Q8"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "112.01"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "5"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "-5.62"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "2.49"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "111-7220046-1575437.pdf",
+        "HAWB9597711-Declaration.pdf",
+        "HAWB9597711.xlsx"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "REGINA DECOTEAU",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "15.00",
+      "location": "WebSource",
+      "man_reg": "2024 28",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 1,
+      "waybill": "HAWB9597711",
+      "weight": "7.0"
+    }
+  }
+}

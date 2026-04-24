@@ -1,0 +1,81 @@
+# Canonical directory names and file extensions used across the pipeline.
+# Everything that looks like a path literal in Python code should read from
+# here.
+
+_meta:
+  purpose: "Canonical directory names and file extensions used across the pipeline"
+  covers:
+    - "Relative directory names (workspace/, data/, config/, prompts/, ...)"
+    - "File extensions (.xlsx, .pdf, .json, .yaml)"
+    - "Output subdirectory conventions per-shipment"
+    - "Sentinel filenames (_email_params.json, _manifest.json, ...)"
+  match_patterns:
+    - "path"
+    - "directory"
+    - "dir"
+    - "folder"
+    - "extension"
+    - "workspace"
+    - "data"
+    - ".xlsx"
+    - ".pdf"
+  loader: "pipeline.config_loader:load_file_paths"
+  examples:
+    - "load_file_paths()['dirs']['workspace']    -> 'workspace'"
+    - "load_file_paths()['extensions']['xlsx']   -> '.xlsx'"
+    - "load_file_paths()['sentinels']['email_params'] -> '_email_params.json'"
+  update_checklist:
+    - "Don't rename a directory without migrating existing shipments"
+
+version: "1.0.0"
+
+# Top-level directories (relative to repo root).
+dirs:
+  workspace:      "workspace"
+  shipments:      "workspace/shipments"
+  data:           "data"
+  config:         "config"
+  prompts:        "prompts"
+  rules:          "rules"
+  templates:      "templates"
+  scripts:        "scripts"
+  docs:           "docs"
+  tests:          "tests"
+  vision_cache:   "data/vision_cache"
+  ocr_cache:      "data/ocr_cache"
+  product_cache:  "data/product_cache"
+  learned_fixes:  "data/learned_fixes"
+
+# Common file extensions.
+extensions:
+  xlsx: ".xlsx"
+  pdf:  ".pdf"
+  json: ".json"
+  yaml: ".yaml"
+  yml:  ".yml"
+  xml:  ".xml"
+  txt:  ".txt"
+  png:  ".png"
+  jpg:  ".jpg"
+  csv:  ".csv"
+
+# Per-shipment sentinel filenames.
+sentinels:
+  email_params: "_email_params.json"
+  manifest:     "_manifest.json"
+  bl_pdf_suffix: "-BL.pdf"
+
+# Reference data files.
+references:
+  caricom_cet: "data/caricom_cet.xlsx"
+  po_template: "templates/POTemplate.xlsx"
+  # added by Wave 1 for pipeline/bl_xlsx_generator.py
+  cet_database: "data/cet.db"
+  # Fallback read-write temp copy name (lives under tempfile.gettempdir()).
+  cet_database_temp_name: "cet_readonly.db"
+
+# Top-level source code directory (relative to repo root).
+# added by Wave 1 for pipeline/bl_xlsx_generator.py
+source_dirs:
+  src:  "src"
+  pipeline: "pipeline"

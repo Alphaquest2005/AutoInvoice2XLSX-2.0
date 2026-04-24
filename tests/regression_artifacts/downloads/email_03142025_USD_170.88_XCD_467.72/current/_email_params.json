@@ -1,0 +1,24 @@
+{
+  "waybill": "HAWB9590375",
+  "consignee_name": "KIRLA SYLVESTER",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "5.0",
+  "country_origin": "CN",
+  "freight": "11.00",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_031/out/112-9925042-2903468.pdf",
+    "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_031/out/HAWB9590375.xlsx",
+    "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_031/out/HAWB9590375-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS",
+  "ocr_warnings": [
+    "112-9925042-2903468.pdf: OCR quality POOR (score 30/100)"
+  ],
+  "notes": "WARNING: Some pages have poor OCR quality. Check the \"OCR Notes\" sheet in the combined XLSX for details. Consider asking sender to rescan and resubmit."
+}

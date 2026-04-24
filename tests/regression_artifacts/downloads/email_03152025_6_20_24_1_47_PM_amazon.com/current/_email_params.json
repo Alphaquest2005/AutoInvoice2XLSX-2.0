@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9438625",
+  "consignee_name": "DONNICA LEWIS",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 2,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "2.0",
+  "country_origin": "US",
+  "freight": "5.00",
+  "man_reg": "2024 23",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0319/out/112-9428156-0802636.pdf",
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0319/out/HAWB9438625-Declaration_combined.xlsx",
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0319/out/HAWB9438625-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

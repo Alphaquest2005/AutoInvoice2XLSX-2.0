@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9579167",
+  "consignee_name": "TIMOTHY WALKER",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "1.0",
+  "country_origin": "CN",
+  "freight": "3.00",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0317/out/113-8373453-4570669_2.pdf",
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0317/out/HAWB9579167.xlsx",
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0317/out/HAWB9579167-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

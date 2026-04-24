@@ -1,0 +1,608 @@
+{
+  "PO-211-11245253311353900.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'PO-211-11245253311353900'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'31 St. James Avenue, Suite 355, Boston, MA 02116'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'61112090'"
+        },
+        "AK8": {
+          "value": "'85362000'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'PO-211-11245253311353900'"
+        },
+        "C8": {
+          "value": "'PO-211-11245253311353900'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "D2": {
+          "value": "'2024-06-03'"
+        },
+        "D8": {
+          "value": "'2024-06-03'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "\"Babies' Garments\""
+        },
+        "E8": {
+          "value": "'MARINE ELECTRICAL'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F10": {
+          "value": "'85362000'"
+        },
+        "F2": {
+          "value": "'61112090'"
+        },
+        "F3": {
+          "value": "'61112090'"
+        },
+        "F4": {
+          "value": "'61112090'"
+        },
+        "F5": {
+          "value": "'61112090'"
+        },
+        "F6": {
+          "value": "'61112090'"
+        },
+        "F7": {
+          "value": "'61112090'"
+        },
+        "F8": {
+          "value": "'85362000'"
+        },
+        "F9": {
+          "value": "'85362000'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I10": {
+          "value": "'ITEM-007'"
+        },
+        "I2": {
+          "value": "'61112090'"
+        },
+        "I3": {
+          "value": "'ITEM-001'"
+        },
+        "I4": {
+          "value": "'ITEM-002'"
+        },
+        "I5": {
+          "value": "'ITEM-003'"
+        },
+        "I6": {
+          "value": "'ITEM-004'"
+        },
+        "I7": {
+          "value": "'ITEM-005'"
+        },
+        "I8": {
+          "value": "'85362000'"
+        },
+        "I9": {
+          "value": "'ITEM-006'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'Automatic-2'"
+        },
+        "J11": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J12": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J13": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J15": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J16": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J17": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J18": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J19": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J2": {
+          "value": "'20pcs (+4 more) (5 items)'"
+        },
+        "J21": {
+          "value": "'NET TOTAL'"
+        },
+        "J22": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J24": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J26": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J27": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J28": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J29": {
+          "value": "'CET (weighted avg 20.0%)'"
+        },
+        "J3": {
+          "value": "'20pcs'"
+        },
+        "J30": {
+          "value": "'  \u2514 61112090: 20% CET (68% of value)'"
+        },
+        "J31": {
+          "value": "'  \u2514 85362000: 20% CET (32% of value)'"
+        },
+        "J32": {
+          "value": "'CSC (6%)'"
+        },
+        "J33": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J34": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J35": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J36": {
+          "value": "'CLIENT DECLARED DUTIES'"
+        },
+        "J37": {
+          "value": "'DUTY VARIANCE (Client \u2212 Estimated)'"
+        },
+        "J38": {
+          "value": "'IMPLIED CET RATE (from client value)'"
+        },
+        "J39": {
+          "value": "'IMPLIED CIF (from declared duty @ 20% CET, XCD)'"
+        },
+        "J4": {
+          "value": "'L(4-7years old) / Black'"
+        },
+        "J40": {
+          "value": "'IMPLIED ITEMS VALUE (USD, net of freight/insurance)'"
+        },
+        "J5": {
+          "value": "'S'"
+        },
+        "J6": {
+          "value": "'Black / 9-10Y'"
+        },
+        "J7": {
+          "value": "'Black'"
+        },
+        "J8": {
+          "value": "'Automatic-3 (+1 more) (2 items)'"
+        },
+        "J9": {
+          "value": "'Automatic-3'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K10": {
+          "value": "0"
+        },
+        "K2": {
+          "value": "0"
+        },
+        "K3": {
+          "value": "0"
+        },
+        "K4": {
+          "value": "0"
+        },
+        "K5": {
+          "value": "0"
+        },
+        "K6": {
+          "value": "0"
+        },
+        "K7": {
+          "value": "0"
+        },
+        "K8": {
+          "value": "0"
+        },
+        "K9": {
+          "value": "0"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N10": {
+          "value": "'USD'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "N6": {
+          "value": "'USD'"
+        },
+        "N7": {
+          "value": "'USD'"
+        },
+        "N8": {
+          "value": "'USD'"
+        },
+        "N9": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O10": {
+          "value": "9.36"
+        },
+        "O3": {
+          "value": "3.49"
+        },
+        "O4": {
+          "value": "6.74"
+        },
+        "O5": {
+          "value": "11.47"
+        },
+        "O6": {
+          "value": "8.99"
+        },
+        "O7": {
+          "value": "7.19"
+        },
+        "O9": {
+          "value": "8.84"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "9.36"
+        },
+        "P11": {
+          "formula": "=P2+P8"
+        },
+        "P12": {
+          "formula": "=SUM(P2:P10)-P11"
+        },
+        "P13": {
+          "formula": "=P11-P12"
+        },
+        "P15": {
+          "value": "0"
+        },
+        "P16": {
+          "value": "0"
+        },
+        "P17": {
+          "value": "0"
+        },
+        "P18": {
+          "value": "0"
+        },
+        "P19": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P2": {
+          "value": "37.88"
+        },
+        "P21": {
+          "formula": "=P11+P19"
+        },
+        "P22": {
+          "formula": "=S2"
+        },
+        "P24": {
+          "formula": "=S2-P21"
+        },
+        "P27": {
+          "value": "73"
+        },
+        "P28": {
+          "value": "198.33"
+        },
+        "P29": {
+          "value": "39.67"
+        },
+        "P3": {
+          "value": "3.49"
+        },
+        "P30": {
+          "value": "26.79"
+        },
+        "P31": {
+          "value": "12.87"
+        },
+        "P32": {
+          "value": "11.9"
+        },
+        "P33": {
+          "value": "37.48"
+        },
+        "P34": {
+          "value": "89.05"
+        },
+        "P35": {
+          "value": "0.4489991428427368"
+        },
+        "P36": {
+          "value": "89.96"
+        },
+        "P37": {
+          "value": "0.91"
+        },
+        "P38": {
+          "value": "0.2039890915229119"
+        },
+        "P39": {
+          "value": "200.36"
+        },
+        "P4": {
+          "value": "6.74"
+        },
+        "P40": {
+          "value": "60.74"
+        },
+        "P5": {
+          "value": "11.47"
+        },
+        "P6": {
+          "value": "8.99"
+        },
+        "P7": {
+          "value": "7.19"
+        },
+        "P8": {
+          "value": "18.2"
+        },
+        "P9": {
+          "value": "8.84"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q10": {
+          "formula": "=O10*K10"
+        },
+        "Q11": {
+          "formula": "=Q2+Q8"
+        },
+        "Q12": {
+          "formula": "=SUM(Q2:Q10)-Q11"
+        },
+        "Q13": {
+          "formula": "=Q11-Q12"
+        },
+        "Q19": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q21": {
+          "formula": "=Q11+Q19"
+        },
+        "Q24": {
+          "formula": "=S2-Q21"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q6": {
+          "formula": "=O6*K6"
+        },
+        "Q7": {
+          "formula": "=O7*K7"
+        },
+        "Q8": {
+          "formula": "=O8*K8"
+        },
+        "Q9": {
+          "formula": "=O9*K9"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R10": {
+          "formula": "=P10-Q10"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "R6": {
+          "formula": "=P6-Q6"
+        },
+        "R7": {
+          "formula": "=P7-Q7"
+        },
+        "R8": {
+          "formula": "=P8-Q8"
+        },
+        "R9": {
+          "formula": "=P9-Q9"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "60"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'ROSE'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "HAWB9428169-Declaration.pdf",
+        "PO-211-11245253311353900.pdf",
+        "PO-211-11245253311353900.xlsx"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "SANASHA JOHN",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "13.00",
+      "location": "WebSource",
+      "man_reg": "2024 22",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 1,
+      "waybill": "HAWB9428169",
+      "weight": "6.0"
+    }
+  }
+}

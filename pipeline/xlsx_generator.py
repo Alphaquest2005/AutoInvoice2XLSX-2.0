@@ -168,6 +168,15 @@ def run(input_path: str, output_path: str, config: Dict = None, context: Dict = 
     groups = data.get('groups', [])
     metadata = data.get('invoice_metadata', {})
 
+    # Document type: context > grouped.json metadata > config default.
+    # Hardcoding '4000-000' here would silently override the consignee-rule
+    # resolution done by run.py::resolve_doc_type (e.g. Budget Marine → 7400-000).
+    document_type = (
+        (context or {}).get('document_type')
+        or metadata.get('document_type')
+        or '4000-000'
+    )
+
     if not groups:
         return {'status': 'error', 'error': 'No groups to generate'}
 
@@ -240,7 +249,7 @@ def run(input_path: str, output_path: str, config: Dict = None, context: Dict = 
 
         # Only FIRST group row per invoice gets Document Type
         if row_num == 2:
-            ws.cell(row_num, column=1, value='4000-000')
+            ws.cell(row_num, column=1, value=document_type)
         else:
             ws.cell(row_num, column=1, value=None)
             
@@ -329,9 +338,18 @@ def run(input_path: str, output_path: str, config: Dict = None, context: Dict = 
 
         for item in group['items']:
             detail_row_nums.append(row_num)
-            item_qty = item.get('quantity', 0)
+            # Quantity defaults to 1 when the format parser didn't map a
+            # quantity field (most multiline receipts — AURORA, etc.).
+            # qty=0 with a positive unit_cost/total_cost produces
+            # Q=O*K=0 and spurious variance in R (TotalCost vs Total).
+            item_qty = item.get('quantity', 1)
             item_cost = item.get('unit_cost', 0)
             item_total = item.get('total_cost', 0)
+            # Back-derive unit_cost when only total_cost was extracted
+            # (e.g. "$36.99" price line with no separate unit price).
+            # Skip when qty==0 to avoid ZeroDivisionError.
+            if not item_cost and item_total and item_qty:
+                item_cost = round(item_total / item_qty, 2)
             # Only add to detail total if item is billable (matches grouping_engine logic)
             if item.get('billable', True):
                 computed_detail_total += item_total

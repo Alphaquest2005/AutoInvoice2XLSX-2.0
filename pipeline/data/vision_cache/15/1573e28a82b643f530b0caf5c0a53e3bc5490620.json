@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": ""
+  },
+  "printed": {
+    "consignee": "Nakisha Cornwall",
+    "freight": 0.0,
+    "waybill": "INVUS20240718001281670",
+    "man_reg": "",
+    "office": "",
+    "weight": null,
+    "packages": 1
+  },
+  "has_handwriting": false,
+  "_cache_version": 4
+}

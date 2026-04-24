@@ -1,0 +1,3459 @@
+{
+  "03152025_Free_returns_within_90_days_Invoice_1_combined.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Combined Invoices": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A119": {
+          "value": "'4000-000'"
+        },
+        "A147": {
+          "value": "'4000-000'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "A44": {
+          "value": "'4000-000'"
+        },
+        "A86": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA119": {
+          "value": "'Home Depot'"
+        },
+        "AA147": {
+          "value": "'Home Depot'"
+        },
+        "AA2": {
+          "value": "'TEMU'"
+        },
+        "AA44": {
+          "value": "'TEMU'"
+        },
+        "AA86": {
+          "value": "'unknown_'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB119": {
+          "value": "'2455 Paces Ferry Rd. Atlanta, GA 30339'"
+        },
+        "AB147": {
+          "value": "'2455 Paces Ferry Rd. Atlanta, GA 30339'"
+        },
+        "AB2": {
+          "value": "'31 St. James Avenue, Suite 355, Boston, MA 02116'"
+        },
+        "AB44": {
+          "value": "'31 St. James Avenue, Suite 355, Boston, MA 02116'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC119": {
+          "value": "'US'"
+        },
+        "AC147": {
+          "value": "'US'"
+        },
+        "AC2": {
+          "value": "'CN'"
+        },
+        "AC44": {
+          "value": "'CN'"
+        },
+        "AC86": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK10": {
+          "value": "'85176200'"
+        },
+        "AK11": {
+          "value": "'91021100'"
+        },
+        "AK119": {
+          "value": "'00000000'"
+        },
+        "AK147": {
+          "value": "'99999999'"
+        },
+        "AK2": {
+          "value": "'71171900'"
+        },
+        "AK44": {
+          "value": "'71171900'"
+        },
+        "AK47": {
+          "value": "'64041990'"
+        },
+        "AK48": {
+          "value": "'64041990'"
+        },
+        "AK49": {
+          "value": "'85131000'"
+        },
+        "AK5": {
+          "value": "'64059000'"
+        },
+        "AK50": {
+          "value": "'85131000'"
+        },
+        "AK51": {
+          "value": "'85176200'"
+        },
+        "AK53": {
+          "value": "'91021100'"
+        },
+        "AK7": {
+          "value": "'85131000'"
+        },
+        "AK8": {
+          "value": "'85131000'"
+        },
+        "AK86": {
+          "value": "'42022200'"
+        },
+        "AK89": {
+          "value": "'92089000'"
+        },
+        "AK9": {
+          "value": "'85176200'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C11": {
+          "value": "'03152025_Free_returns_within_90_days_Invoice_1'"
+        },
+        "C119": {
+          "value": "'PO-211-071185147948703851'"
+        },
+        "C147": {
+          "value": "'03152025_Free_returns_within_90_days_Invoice'"
+        },
+        "C2": {
+          "value": "'03152025_Free_returns_within_90_days_Invoice_1'"
+        },
+        "C44": {
+          "value": "'03152025_Free_returns_within_90_days_Invoice_1_2_Invoice'"
+        },
+        "C47": {
+          "value": "'03152025_Free_returns_within_90_days_Invoice_1_2_Invoice'"
+        },
+        "C49": {
+          "value": "'03152025_Free_returns_within_90_days_Invoice_1_2_Invoice'"
+        },
+        "C5": {
+          "value": "'03152025_Free_returns_within_90_days_Invoice_1'"
+        },
+        "C51": {
+          "value": "'03152025_Free_returns_within_90_days_Invoice_1_2_Invoice'"
+        },
+        "C53": {
+          "value": "'03152025_Free_returns_within_90_days_Invoice_1_2_Invoice'"
+        },
+        "C7": {
+          "value": "'03152025_Free_returns_within_90_days_Invoice_1'"
+        },
+        "C86": {
+          "value": "'CKETS_Invoice'"
+        },
+        "C89": {
+          "value": "'CKETS_Invoice'"
+        },
+        "C9": {
+          "value": "'03152025_Free_returns_within_90_days_Invoice_1'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E11": {
+          "value": "'Clocks and watches'"
+        },
+        "E119": {
+          "value": "'Non-physical/Financial entry'"
+        },
+        "E147": {
+          "value": "'Non-physical/Financial entry'"
+        },
+        "E2": {
+          "value": "'IMITATION JEWELRY'"
+        },
+        "E44": {
+          "value": "'IMITATION JEWELRY'"
+        },
+        "E47": {
+          "value": "'With outer soles of rubber or plastics and upper straps and thongs of textile...'"
+        },
+        "E49": {
+          "value": "'SIGNALING EQUIPMENT'"
+        },
+        "E5": {
+          "value": "'Footwear'"
+        },
+        "E51": {
+          "value": "'MARINE ELECTRONICS'"
+        },
+        "E53": {
+          "value": "'Clocks and watches'"
+        },
+        "E7": {
+          "value": "'SIGNALING EQUIPMENT'"
+        },
+        "E86": {
+          "value": "'BAGS & LUGGAGE'"
+        },
+        "E89": {
+          "value": "'SIGNALING INSTRUMENTS'"
+        },
+        "E9": {
+          "value": "'Parts'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F10": {
+          "value": "'85176200'"
+        },
+        "F11": {
+          "value": "'91021100'"
+        },
+        "F119": {
+          "value": "'00000000'"
+        },
+        "F12": {
+          "value": "'91021100'"
+        },
+        "F120": {
+          "value": "'00000000'"
+        },
+        "F147": {
+          "value": "'99999999'"
+        },
+        "F148": {
+          "value": "'99999999'"
+        },
+        "F2": {
+          "value": "'71171900'"
+        },
+        "F3": {
+          "value": "'71171900'"
+        },
+        "F4": {
+          "value": "'71171900'"
+        },
+        "F44": {
+          "value": "'71171900'"
+        },
+        "F45": {
+          "value": "'71171900'"
+        },
+        "F46": {
+          "value": "'71171900'"
+        },
+        "F47": {
+          "value": "'64041990'"
+        },
+        "F48": {
+          "value": "'64041990'"
+        },
+        "F49": {
+          "value": "'85131000'"
+        },
+        "F5": {
+          "value": "'64059000'"
+        },
+        "F50": {
+          "value": "'85131000'"
+        },
+        "F51": {
+          "value": "'85176200'"
+        },
+        "F52": {
+          "value": "'85176200'"
+        },
+        "F53": {
+          "value": "'91021100'"
+        },
+        "F54": {
+          "value": "'91021100'"
+        },
+        "F6": {
+          "value": "'64059000'"
+        },
+        "F7": {
+          "value": "'85131000'"
+        },
+        "F8": {
+          "value": "'85131000'"
+        },
+        "F86": {
+          "value": "'42022200'"
+        },
+        "F87": {
+          "value": "'42022200'"
+        },
+        "F88": {
+          "value": "'42022200'"
+        },
+        "F89": {
+          "value": "'92089000'"
+        },
+        "F9": {
+          "value": "'85176200'"
+        },
+        "F90": {
+          "value": "'92089000'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I10": {
+          "value": "'TEMU-4'"
+        },
+        "I11": {
+          "value": "'91021100'"
+        },
+        "I119": {
+          "value": "'00000000'"
+        },
+        "I12": {
+          "value": "'TEMU-6'"
+        },
+        "I120": {
+          "value": "'HD-1'"
+        },
+        "I147": {
+          "value": "'99999999'"
+        },
+        "I148": {
+          "value": "'HD-1'"
+        },
+        "I2": {
+          "value": "'71171900'"
+        },
+        "I3": {
+          "value": "'TEMU-1'"
+        },
+        "I4": {
+          "value": "'TEMU-5'"
+        },
+        "I44": {
+          "value": "'71171900'"
+        },
+        "I45": {
+          "value": "'TEMU-1'"
+        },
+        "I46": {
+          "value": "'TEMU-5'"
+        },
+        "I47": {
+          "value": "'64041910'"
+        },
+        "I48": {
+          "value": "'TEMU-2'"
+        },
+        "I49": {
+          "value": "'85319000'"
+        },
+        "I5": {
+          "value": "'64059000'"
+        },
+        "I50": {
+          "value": "'TEMU-3'"
+        },
+        "I51": {
+          "value": "'85176200'"
+        },
+        "I52": {
+          "value": "'TEMU-4'"
+        },
+        "I53": {
+          "value": "'91021100'"
+        },
+        "I54": {
+          "value": "'TEMU-6'"
+        },
+        "I6": {
+          "value": "'TEMU-2'"
+        },
+        "I7": {
+          "value": "'85319000'"
+        },
+        "I8": {
+          "value": "'TEMU-3'"
+        },
+        "I86": {
+          "value": "'42022200'"
+        },
+        "I87": {
+          "value": "'ITEM-001'"
+        },
+        "I88": {
+          "value": "'ITEM-002'"
+        },
+        "I89": {
+          "value": "'92089000'"
+        },
+        "I9": {
+          "value": "'85177000'"
+        },
+        "I90": {
+          "value": "'ITEM-003'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'Smart Watch With Wireless Calling/Dialing, Multiple Sports Modes, Fitness Tracker, Customizable Wallpaper, Compatible With iPhone/Android, Sporty Smartwatch With Health Monitoring Black'"
+        },
+        "J101": {
+          "value": "'NET TOTAL'"
+        },
+        "J102": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J104": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J106": {
+          "value": "'INVOICE NOTES: Structural item count mismatch: 1 price lines found between section markers but 3 items extracted'"
+        },
+        "J108": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J109": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J11": {
+          "value": "\"Elegant Adjustable Rhinestone Bracelet Quartz Watch, Fashionable Luxury Style, Versatile, Women's Accessory Golden (1 items)\""
+        },
+        "J110": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J111": {
+          "value": "'CET (weighted avg 20.0%)'"
+        },
+        "J112": {
+          "value": "'  \u2514 42022200: 20% CET (67% of value)'"
+        },
+        "J113": {
+          "value": "'  \u2514 92089000: 20% CET (33% of value)'"
+        },
+        "J114": {
+          "value": "'CSC (6%)'"
+        },
+        "J115": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J116": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J117": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J119": {
+          "value": "'Item ( s ) discount : - $200.14 (1 items)'"
+        },
+        "J12": {
+          "value": "\"Elegant Adjustable Rhinestone Bracelet Quartz Watch, Fashionable Luxury Style, Versatile, Women's Accessory Golden\""
+        },
+        "J120": {
+          "value": "'Item ( s ) discount : - $200.14'"
+        },
+        "J121": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J122": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J123": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J125": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J126": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J127": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J128": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J129": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J13": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J131": {
+          "value": "'NET TOTAL'"
+        },
+        "J132": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J134": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J136": {
+          "value": "'INVOICE NOTES: Invoice total uncertain'"
+        },
+        "J138": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J139": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J14": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J140": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J141": {
+          "value": "'CET (20%) \u2014 Tariff 00000000'"
+        },
+        "J142": {
+          "value": "'CSC (6%)'"
+        },
+        "J143": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J144": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J145": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J147": {
+          "value": "'Item ( s ) discount : - $200.14 (1 items)'"
+        },
+        "J148": {
+          "value": "'Item ( s ) discount : - $200.14'"
+        },
+        "J149": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J15": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J150": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J151": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J153": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J154": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J155": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J156": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J157": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J159": {
+          "value": "'NET TOTAL'"
+        },
+        "J160": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J162": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J164": {
+          "value": "'INVOICE NOTES: Invoice total uncertain'"
+        },
+        "J166": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J167": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J168": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J169": {
+          "value": "'CET (20%) \u2014 Tariff 99999999'"
+        },
+        "J17": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J170": {
+          "value": "'CSC (6%)'"
+        },
+        "J171": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J172": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J173": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J18": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J19": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J2": {
+          "value": "'Item details (8) 2pcs Simple Stainless Steel Bracelet Necklace Set For Men Silvery (+1 more) (2 items)'"
+        },
+        "J20": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J21": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J23": {
+          "value": "'NET TOTAL'"
+        },
+        "J24": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J26": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J28": {
+          "value": "'INVOICE NOTES: Invoice total uncertain'"
+        },
+        "J3": {
+          "value": "'Item details (8) 2pcs Simple Stainless Steel Bracelet Necklace Set For Men Silvery'"
+        },
+        "J30": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J31": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J32": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J33": {
+          "value": "'CET (weighted avg 13.1%)'"
+        },
+        "J34": {
+          "value": "'  \u2514 64059000: 20% CET (27% of value)'"
+        },
+        "J35": {
+          "value": "'  \u2514 71171900: 20% CET (18% of value)'"
+        },
+        "J36": {
+          "value": "'  \u2514 85177000: 5% CET (26% of value)'"
+        },
+        "J37": {
+          "value": "'  \u2514 85319000: 5% CET (21% of value)'"
+        },
+        "J38": {
+          "value": "'  \u2514 91021100: 20% CET (8% of value)'"
+        },
+        "J39": {
+          "value": "'CSC (6%)'"
+        },
+        "J4": {
+          "value": "'Exaggerated Design Earrings and Necklace Set for Party Outfits - Stand Out and Be the Most Special One at Any Party Female / Exquisite'"
+        },
+        "J40": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J41": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J42": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J44": {
+          "value": "'Item details (8) 2pcs Simple Stainless Steel Bracelet Necklace Set For Men Silvery (+1 more) (2 items)'"
+        },
+        "J45": {
+          "value": "'Item details (8) 2pcs Simple Stainless Steel Bracelet Necklace Set For Men Silvery'"
+        },
+        "J46": {
+          "value": "'Exaggerated Design Earrings and Necklace Set for Party Outfits - Stand Out and Be the Most Special One at Any Party Female / Exquisite'"
+        },
+        "J47": {
+          "value": "\"Lightweight Non-Slip Women's Knitted Loafers for Casual Walking 7.5 / Black (1 items)\""
+        },
+        "J48": {
+          "value": "\"Lightweight Non-Slip Women's Knitted Loafers for Casual Walking 7.5 / Black\""
+        },
+        "J49": {
+          "value": "'Waterproof LED Solar Lamp Bulb for Outdoor Hiking, Fishing, and Emergency Lighting 7w With Solar Panel (1 items)'"
+        },
+        "J5": {
+          "value": "\"Lightweight Non-Slip Women's Knitted Loafers for Casual Walking 7.5 / Black (1 items)\""
+        },
+        "J50": {
+          "value": "'Waterproof LED Solar Lamp Bulb for Outdoor Hiking, Fishing, and Emergency Lighting 7w With Solar Panel'"
+        },
+        "J51": {
+          "value": "'Smart Watch With Wireless Calling/Dialing, Multiple Sports Modes, Fitness Tracker, Customizable Wallpaper, Compatible With iPhone/Android, Sporty Smartwatch With Health Monitoring Black (1 items)'"
+        },
+        "J52": {
+          "value": "'Smart Watch With Wireless Calling/Dialing, Multiple Sports Modes, Fitness Tracker, Customizable Wallpaper, Compatible With iPhone/Android, Sporty Smartwatch With Health Monitoring Black'"
+        },
+        "J53": {
+          "value": "\"Elegant Adjustable Rhinestone Bracelet Quartz Watch, Fashionable Luxury Style, Versatile, Women's Accessory Golden (1 items)\""
+        },
+        "J54": {
+          "value": "\"Elegant Adjustable Rhinestone Bracelet Quartz Watch, Fashionable Luxury Style, Versatile, Women's Accessory Golden\""
+        },
+        "J55": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J56": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J57": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J59": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J6": {
+          "value": "\"Lightweight Non-Slip Women's Knitted Loafers for Casual Walking 7.5 / Black\""
+        },
+        "J60": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J61": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J62": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J63": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J65": {
+          "value": "'NET TOTAL'"
+        },
+        "J66": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J68": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J7": {
+          "value": "'Waterproof LED Solar Lamp Bulb for Outdoor Hiking, Fishing, and Emergency Lighting 7w With Solar Panel (1 items)'"
+        },
+        "J70": {
+          "value": "'INVOICE NOTES: Invoice total uncertain'"
+        },
+        "J72": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J73": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J74": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J75": {
+          "value": "'CET (weighted avg 16.9%)'"
+        },
+        "J76": {
+          "value": "'  \u2514 64041910: 20% CET (27% of value)'"
+        },
+        "J77": {
+          "value": "'  \u2514 71171900: 20% CET (18% of value)'"
+        },
+        "J78": {
+          "value": "'  \u2514 85176200: 20% CET (26% of value)'"
+        },
+        "J79": {
+          "value": "'  \u2514 85319000: 5% CET (21% of value)'"
+        },
+        "J8": {
+          "value": "'Waterproof LED Solar Lamp Bulb for Outdoor Hiking, Fishing, and Emergency Lighting 7w With Solar Panel'"
+        },
+        "J80": {
+          "value": "'  \u2514 91021100: 20% CET (8% of value)'"
+        },
+        "J81": {
+          "value": "'CSC (6%)'"
+        },
+        "J82": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J83": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J84": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J86": {
+          "value": "'Compact Business Laptop Bag, Suitable For Travel, With Shoulder Straps For Both Men And (+1 more) (2 items)'"
+        },
+        "J87": {
+          "value": "'Compact Business Laptop Bag, Suitable For Travel, With Shoulder Straps For Both Men And'"
+        },
+        "J88": {
+          "value": "'> Faux Leather Tote Bag, Multi Pockets Large Handbag For Work School Travel'"
+        },
+        "J89": {
+          "value": "'3/3 (1 items)'"
+        },
+        "J9": {
+          "value": "'Smart Watch With Wireless Calling/Dialing, Multiple Sports Modes, Fitness Tracker, Customizable Wallpaper, Compatible With iPhone/Android, Sporty Smartwatch With Health Monitoring Black (1 items)'"
+        },
+        "J90": {
+          "value": "'3/3'"
+        },
+        "J91": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J92": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J93": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J95": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J96": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J97": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J98": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J99": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K10": {
+          "value": "1"
+        },
+        "K11": {
+          "value": "1"
+        },
+        "K119": {
+          "value": "0"
+        },
+        "K12": {
+          "value": "1"
+        },
+        "K120": {
+          "value": "0"
+        },
+        "K147": {
+          "value": "0"
+        },
+        "K148": {
+          "value": "0"
+        },
+        "K2": {
+          "value": "2"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "K44": {
+          "value": "2"
+        },
+        "K45": {
+          "value": "1"
+        },
+        "K46": {
+          "value": "1"
+        },
+        "K47": {
+          "value": "1"
+        },
+        "K48": {
+          "value": "1"
+        },
+        "K49": {
+          "value": "1"
+        },
+        "K5": {
+          "value": "1"
+        },
+        "K50": {
+          "value": "1"
+        },
+        "K51": {
+          "value": "1"
+        },
+        "K52": {
+          "value": "1"
+        },
+        "K53": {
+          "value": "1"
+        },
+        "K54": {
+          "value": "1"
+        },
+        "K6": {
+          "value": "1"
+        },
+        "K7": {
+          "value": "1"
+        },
+        "K8": {
+          "value": "1"
+        },
+        "K86": {
+          "value": "0"
+        },
+        "K87": {
+          "value": "0"
+        },
+        "K88": {
+          "value": "0"
+        },
+        "K89": {
+          "value": "0"
+        },
+        "K9": {
+          "value": "1"
+        },
+        "K90": {
+          "value": "0"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "L176": {
+          "value": "'\u2550\u2550\u2550 COMBINED GRAND SUMMARY \u2550\u2550\u2550'"
+        },
+        "L177": {
+          "value": "'Invoice 03152025_Free_returns_within_90_days_Invoice_1'"
+        },
+        "L178": {
+          "value": "'Invoice 03152025_Free_returns_within_90_days_Invoice_1_2_Invoice'"
+        },
+        "L179": {
+          "value": "'Invoice CKETS_Invoice'"
+        },
+        "L180": {
+          "value": "'Invoice PO-211-071185147948703851'"
+        },
+        "L181": {
+          "value": "'Invoice 03152025_Free_returns_within_90_days_Invoice'"
+        },
+        "L183": {
+          "value": "'GRAND TOTAL'"
+        },
+        "L184": {
+          "value": "'GRAND VARIANCE CHECK'"
+        },
+        "L185": {
+          "value": "'Combined 5 invoice files'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N10": {
+          "value": "'USD'"
+        },
+        "N11": {
+          "value": "'USD'"
+        },
+        "N119": {
+          "value": "'USD'"
+        },
+        "N12": {
+          "value": "'USD'"
+        },
+        "N120": {
+          "value": "'USD'"
+        },
+        "N147": {
+          "value": "'USD'"
+        },
+        "N148": {
+          "value": "'USD'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N44": {
+          "value": "'USD'"
+        },
+        "N45": {
+          "value": "'USD'"
+        },
+        "N46": {
+          "value": "'USD'"
+        },
+        "N47": {
+          "value": "'USD'"
+        },
+        "N48": {
+          "value": "'USD'"
+        },
+        "N49": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "N50": {
+          "value": "'USD'"
+        },
+        "N51": {
+          "value": "'USD'"
+        },
+        "N52": {
+          "value": "'USD'"
+        },
+        "N53": {
+          "value": "'USD'"
+        },
+        "N54": {
+          "value": "'USD'"
+        },
+        "N6": {
+          "value": "'USD'"
+        },
+        "N7": {
+          "value": "'USD'"
+        },
+        "N8": {
+          "value": "'USD'"
+        },
+        "N86": {
+          "value": "'USD'"
+        },
+        "N87": {
+          "value": "'USD'"
+        },
+        "N88": {
+          "value": "'USD'"
+        },
+        "N89": {
+          "value": "'USD'"
+        },
+        "N9": {
+          "value": "'USD'"
+        },
+        "N90": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O10": {
+          "value": "7.47"
+        },
+        "O11": {
+          "value": "2.33"
+        },
+        "O12": {
+          "value": "2.33"
+        },
+        "O120": {
+          "value": "200.14"
+        },
+        "O148": {
+          "value": "200.14"
+        },
+        "O2": {
+          "value": "2.685"
+        },
+        "O3": {
+          "value": "1.98"
+        },
+        "O4": {
+          "value": "3.39"
+        },
+        "O44": {
+          "value": "2.685"
+        },
+        "O45": {
+          "value": "1.98"
+        },
+        "O46": {
+          "value": "3.39"
+        },
+        "O47": {
+          "value": "7.99"
+        },
+        "O48": {
+          "value": "7.99"
+        },
+        "O49": {
+          "value": "5.98"
+        },
+        "O5": {
+          "value": "7.99"
+        },
+        "O50": {
+          "value": "5.98"
+        },
+        "O51": {
+          "value": "7.47"
+        },
+        "O52": {
+          "value": "7.47"
+        },
+        "O53": {
+          "value": "2.33"
+        },
+        "O54": {
+          "value": "2.33"
+        },
+        "O6": {
+          "value": "7.99"
+        },
+        "O7": {
+          "value": "5.98"
+        },
+        "O8": {
+          "value": "5.98"
+        },
+        "O87": {
+          "value": "5.91"
+        },
+        "O88": {
+          "value": "6.14"
+        },
+        "O9": {
+          "value": "7.47"
+        },
+        "O90": {
+          "value": "5.91"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "7.47"
+        },
+        "P101": {
+          "formula": "=P91+P99"
+        },
+        "P102": {
+          "formula": "=S86"
+        },
+        "P104": {
+          "formula": "=S86-P101"
+        },
+        "P109": {
+          "value": "17.96"
+        },
+        "P11": {
+          "value": "2.33"
+        },
+        "P110": {
+          "value": "48.8"
+        },
+        "P111": {
+          "value": "9.76"
+        },
+        "P112": {
+          "value": "6.55"
+        },
+        "P113": {
+          "value": "3.21"
+        },
+        "P114": {
+          "value": "2.93"
+        },
+        "P115": {
+          "value": "9.22"
+        },
+        "P116": {
+          "value": "21.91"
+        },
+        "P117": {
+          "value": "0.4489754098360656"
+        },
+        "P119": {
+          "value": "200.14"
+        },
+        "P12": {
+          "value": "2.33"
+        },
+        "P120": {
+          "value": "200.14"
+        },
+        "P121": {
+          "formula": "=P119"
+        },
+        "P122": {
+          "formula": "=SUM(P119:P120)-P121"
+        },
+        "P123": {
+          "formula": "=P121-P122"
+        },
+        "P125": {
+          "value": "0"
+        },
+        "P126": {
+          "value": "0"
+        },
+        "P127": {
+          "value": "0"
+        },
+        "P128": {
+          "value": "0"
+        },
+        "P129": {
+          "formula": "=(T119+U119+V119-W119)"
+        },
+        "P13": {
+          "formula": "=P2+P5+P7+P9+P11"
+        },
+        "P131": {
+          "formula": "=P121+P129"
+        },
+        "P132": {
+          "formula": "=S119"
+        },
+        "P134": {
+          "formula": "=S119-P131"
+        },
+        "P139": {
+          "value": "200.14"
+        },
+        "P14": {
+          "formula": "=SUM(P2:P12)-P13"
+        },
+        "P140": {
+          "value": "543.76"
+        },
+        "P141": {
+          "value": "108.75"
+        },
+        "P142": {
+          "value": "32.63"
+        },
+        "P143": {
+          "value": "102.77"
+        },
+        "P144": {
+          "value": "244.15"
+        },
+        "P145": {
+          "value": "0.4490032367220833"
+        },
+        "P147": {
+          "value": "200.14"
+        },
+        "P148": {
+          "value": "200.14"
+        },
+        "P149": {
+          "formula": "=P147"
+        },
+        "P15": {
+          "formula": "=P13-P14"
+        },
+        "P150": {
+          "formula": "=SUM(P147:P148)-P149"
+        },
+        "P151": {
+          "formula": "=P149-P150"
+        },
+        "P153": {
+          "value": "0"
+        },
+        "P154": {
+          "value": "0"
+        },
+        "P155": {
+          "value": "0"
+        },
+        "P156": {
+          "value": "0"
+        },
+        "P157": {
+          "formula": "=(T147+U147+V147-W147)"
+        },
+        "P159": {
+          "formula": "=P149+P157"
+        },
+        "P160": {
+          "formula": "=S147"
+        },
+        "P162": {
+          "formula": "=S147-P159"
+        },
+        "P167": {
+          "value": "200.14"
+        },
+        "P168": {
+          "value": "543.76"
+        },
+        "P169": {
+          "value": "108.75"
+        },
+        "P17": {
+          "value": "0"
+        },
+        "P170": {
+          "value": "32.63"
+        },
+        "P171": {
+          "value": "102.77"
+        },
+        "P172": {
+          "value": "244.15"
+        },
+        "P173": {
+          "value": "0.4490032367220833"
+        },
+        "P177": {
+          "value": "206.65"
+        },
+        "P178": {
+          "value": "216.76"
+        },
+        "P179": {
+          "value": "138.75"
+        },
+        "P18": {
+          "value": "0"
+        },
+        "P180": {
+          "value": "1432.79"
+        },
+        "P181": {
+          "value": "1432.79"
+        },
+        "P183": {
+          "value": "3427.74"
+        },
+        "P184": {
+          "value": "-2951.22"
+        },
+        "P19": {
+          "value": "0"
+        },
+        "P2": {
+          "value": "5.37"
+        },
+        "P20": {
+          "value": "0"
+        },
+        "P21": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P23": {
+          "formula": "=P13+P21"
+        },
+        "P24": {
+          "formula": "=S2"
+        },
+        "P26": {
+          "formula": "=S2-P23"
+        },
+        "P3": {
+          "value": "1.98"
+        },
+        "P31": {
+          "value": "29.14"
+        },
+        "P32": {
+          "value": "79.17"
+        },
+        "P33": {
+          "value": "10.35"
+        },
+        "P34": {
+          "value": "4.34"
+        },
+        "P35": {
+          "value": "2.92"
+        },
+        "P36": {
+          "value": "1.01"
+        },
+        "P37": {
+          "value": "0.81"
+        },
+        "P38": {
+          "value": "1.27"
+        },
+        "P39": {
+          "value": "4.75"
+        },
+        "P4": {
+          "value": "3.39"
+        },
+        "P40": {
+          "value": "14.14"
+        },
+        "P41": {
+          "value": "29.24"
+        },
+        "P42": {
+          "value": "0.3693318176076796"
+        },
+        "P44": {
+          "value": "5.37"
+        },
+        "P45": {
+          "value": "1.98"
+        },
+        "P46": {
+          "value": "3.39"
+        },
+        "P47": {
+          "value": "7.99"
+        },
+        "P48": {
+          "value": "7.99"
+        },
+        "P49": {
+          "value": "5.98"
+        },
+        "P5": {
+          "value": "7.99"
+        },
+        "P50": {
+          "value": "5.98"
+        },
+        "P51": {
+          "value": "7.47"
+        },
+        "P52": {
+          "value": "7.47"
+        },
+        "P53": {
+          "value": "2.33"
+        },
+        "P54": {
+          "value": "2.33"
+        },
+        "P55": {
+          "formula": "=P44+P47+P49+P51+P53"
+        },
+        "P56": {
+          "formula": "=SUM(P44:P54)-P55"
+        },
+        "P57": {
+          "formula": "=P55-P56"
+        },
+        "P59": {
+          "value": "0"
+        },
+        "P6": {
+          "value": "7.99"
+        },
+        "P60": {
+          "value": "0"
+        },
+        "P61": {
+          "value": "0"
+        },
+        "P62": {
+          "value": "0"
+        },
+        "P63": {
+          "formula": "=(T44+U44+V44-W44)"
+        },
+        "P65": {
+          "formula": "=P55+P63"
+        },
+        "P66": {
+          "formula": "=S44"
+        },
+        "P68": {
+          "formula": "=S44-P65"
+        },
+        "P7": {
+          "value": "5.98"
+        },
+        "P73": {
+          "value": "29.14"
+        },
+        "P74": {
+          "value": "79.17"
+        },
+        "P75": {
+          "value": "13.4"
+        },
+        "P76": {
+          "value": "4.34"
+        },
+        "P77": {
+          "value": "2.92"
+        },
+        "P78": {
+          "value": "4.06"
+        },
+        "P79": {
+          "value": "0.81"
+        },
+        "P8": {
+          "value": "5.98"
+        },
+        "P80": {
+          "value": "1.27"
+        },
+        "P81": {
+          "value": "4.75"
+        },
+        "P82": {
+          "value": "14.6"
+        },
+        "P83": {
+          "value": "32.75"
+        },
+        "P84": {
+          "value": "0.4136667929771378"
+        },
+        "P86": {
+          "value": "12.05"
+        },
+        "P87": {
+          "value": "5.91"
+        },
+        "P88": {
+          "value": "6.14"
+        },
+        "P89": {
+          "value": "5.91"
+        },
+        "P9": {
+          "value": "7.47"
+        },
+        "P90": {
+          "value": "5.91"
+        },
+        "P91": {
+          "formula": "=P86+P89"
+        },
+        "P92": {
+          "formula": "=SUM(P86:P90)-P91"
+        },
+        "P93": {
+          "formula": "=P91-P92"
+        },
+        "P95": {
+          "value": "0"
+        },
+        "P96": {
+          "value": "0"
+        },
+        "P97": {
+          "value": "0"
+        },
+        "P98": {
+          "value": "0"
+        },
+        "P99": {
+          "formula": "=(T86+U86+V86-W86)"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q10": {
+          "formula": "=O10*K10"
+        },
+        "Q101": {
+          "formula": "=Q91+Q99"
+        },
+        "Q104": {
+          "formula": "=S86-Q101"
+        },
+        "Q11": {
+          "formula": "=O11*K11"
+        },
+        "Q119": {
+          "formula": "=O119*K119"
+        },
+        "Q12": {
+          "formula": "=O12*K12"
+        },
+        "Q120": {
+          "formula": "=O120*K120"
+        },
+        "Q121": {
+          "formula": "=Q119"
+        },
+        "Q122": {
+          "formula": "=SUM(Q119:Q120)-Q121"
+        },
+        "Q123": {
+          "formula": "=Q121-Q122"
+        },
+        "Q129": {
+          "formula": "=(T119+U119+V119-W119)"
+        },
+        "Q13": {
+          "formula": "=Q2+Q5+Q7+Q9+Q11"
+        },
+        "Q131": {
+          "formula": "=Q121+Q129"
+        },
+        "Q134": {
+          "formula": "=S119-Q131"
+        },
+        "Q14": {
+          "formula": "=SUM(Q2:Q12)-Q13"
+        },
+        "Q147": {
+          "formula": "=O147*K147"
+        },
+        "Q148": {
+          "formula": "=O148*K148"
+        },
+        "Q149": {
+          "formula": "=Q147"
+        },
+        "Q15": {
+          "formula": "=Q13-Q14"
+        },
+        "Q150": {
+          "formula": "=SUM(Q147:Q148)-Q149"
+        },
+        "Q151": {
+          "formula": "=Q149-Q150"
+        },
+        "Q157": {
+          "formula": "=(T147+U147+V147-W147)"
+        },
+        "Q159": {
+          "formula": "=Q149+Q157"
+        },
+        "Q162": {
+          "formula": "=S147-Q159"
+        },
+        "Q177": {
+          "value": "-177.51"
+        },
+        "Q178": {
+          "value": "-187.62"
+        },
+        "Q179": {
+          "value": "-120.79"
+        },
+        "Q180": {
+          "value": "-1232.65"
+        },
+        "Q181": {
+          "value": "-1232.65"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q21": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q23": {
+          "formula": "=Q13+Q21"
+        },
+        "Q26": {
+          "formula": "=S2-Q23"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q44": {
+          "formula": "=O44*K44"
+        },
+        "Q45": {
+          "formula": "=O45*K45"
+        },
+        "Q46": {
+          "formula": "=O46*K46"
+        },
+        "Q47": {
+          "formula": "=O47*K47"
+        },
+        "Q48": {
+          "formula": "=O48*K48"
+        },
+        "Q49": {
+          "formula": "=O49*K49"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q50": {
+          "formula": "=O50*K50"
+        },
+        "Q51": {
+          "formula": "=O51*K51"
+        },
+        "Q52": {
+          "formula": "=O52*K52"
+        },
+        "Q53": {
+          "formula": "=O53*K53"
+        },
+        "Q54": {
+          "formula": "=O54*K54"
+        },
+        "Q55": {
+          "formula": "=Q44+Q47+Q49+Q51+Q53"
+        },
+        "Q56": {
+          "formula": "=SUM(Q44:Q54)-Q55"
+        },
+        "Q57": {
+          "formula": "=Q55-Q56"
+        },
+        "Q6": {
+          "formula": "=O6*K6"
+        },
+        "Q63": {
+          "formula": "=(T44+U44+V44-W44)"
+        },
+        "Q65": {
+          "formula": "=Q55+Q63"
+        },
+        "Q68": {
+          "formula": "=S44-Q65"
+        },
+        "Q7": {
+          "formula": "=O7*K7"
+        },
+        "Q8": {
+          "formula": "=O8*K8"
+        },
+        "Q86": {
+          "formula": "=O86*K86"
+        },
+        "Q87": {
+          "formula": "=O87*K87"
+        },
+        "Q88": {
+          "formula": "=O88*K88"
+        },
+        "Q89": {
+          "formula": "=O89*K89"
+        },
+        "Q9": {
+          "formula": "=O9*K9"
+        },
+        "Q90": {
+          "formula": "=O90*K90"
+        },
+        "Q91": {
+          "formula": "=Q86+Q89"
+        },
+        "Q92": {
+          "formula": "=SUM(Q86:Q90)-Q91"
+        },
+        "Q93": {
+          "formula": "=Q91-Q92"
+        },
+        "Q99": {
+          "formula": "=(T86+U86+V86-W86)"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R10": {
+          "formula": "=P10-Q10"
+        },
+        "R11": {
+          "formula": "=P11-Q11"
+        },
+        "R119": {
+          "formula": "=P119-Q119"
+        },
+        "R12": {
+          "formula": "=P12-Q12"
+        },
+        "R120": {
+          "formula": "=P120-Q120"
+        },
+        "R147": {
+          "formula": "=P147-Q147"
+        },
+        "R148": {
+          "formula": "=P148-Q148"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R44": {
+          "formula": "=P44-Q44"
+        },
+        "R45": {
+          "formula": "=P45-Q45"
+        },
+        "R46": {
+          "formula": "=P46-Q46"
+        },
+        "R47": {
+          "formula": "=P47-Q47"
+        },
+        "R48": {
+          "formula": "=P48-Q48"
+        },
+        "R49": {
+          "formula": "=P49-Q49"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "R50": {
+          "formula": "=P50-Q50"
+        },
+        "R51": {
+          "formula": "=P51-Q51"
+        },
+        "R52": {
+          "formula": "=P52-Q52"
+        },
+        "R53": {
+          "formula": "=P53-Q53"
+        },
+        "R54": {
+          "formula": "=P54-Q54"
+        },
+        "R6": {
+          "formula": "=P6-Q6"
+        },
+        "R7": {
+          "formula": "=P7-Q7"
+        },
+        "R8": {
+          "formula": "=P8-Q8"
+        },
+        "R86": {
+          "formula": "=P86-Q86"
+        },
+        "R87": {
+          "formula": "=P87-Q87"
+        },
+        "R88": {
+          "formula": "=P88-Q88"
+        },
+        "R89": {
+          "formula": "=P89-Q89"
+        },
+        "R9": {
+          "formula": "=P9-Q9"
+        },
+        "R90": {
+          "formula": "=P90-Q90"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S119": {
+          "value": "200.14"
+        },
+        "S147": {
+          "value": "200.14"
+        },
+        "S2": {
+          "value": "29.14"
+        },
+        "S44": {
+          "value": "29.14"
+        },
+        "S86": {
+          "value": "17.96"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T119": {
+          "value": "0"
+        },
+        "T147": {
+          "value": "0"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "T44": {
+          "value": "0"
+        },
+        "T86": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U119": {
+          "value": "0"
+        },
+        "U147": {
+          "value": "0"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "U44": {
+          "value": "0"
+        },
+        "U86": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V119": {
+          "value": "0"
+        },
+        "V147": {
+          "value": "0"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "V44": {
+          "value": "0"
+        },
+        "V86": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W119": {
+          "value": "0"
+        },
+        "W147": {
+          "value": "0"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "W44": {
+          "value": "0"
+        },
+        "W86": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z119": {
+          "value": "'HOME'"
+        },
+        "Z147": {
+          "value": "'HOME'"
+        },
+        "Z2": {
+          "value": "'TEMU'"
+        },
+        "Z44": {
+          "value": "'TEMU'"
+        },
+        "Z86": {
+          "value": "'UNKNOWN_'"
+        }
+      },
+      "OCR Notes": {
+        "A1": {
+          "value": "'PDF File'"
+        },
+        "A2": {
+          "value": "'03152025_Free_returns_within_90_days_Invoice_1.pdf'"
+        },
+        "A3": {
+          "value": "'03152025_Free_returns_within_90_days_Invoice_1_2_Invoice.pdf'"
+        },
+        "A4": {
+          "value": "'CKETS_Invoice.pdf'"
+        },
+        "A5": {
+          "value": "'PO-211-071185147948703851.pdf'"
+        },
+        "A6": {
+          "value": "'03152025_Free_returns_within_90_days_Invoice.pdf'"
+        },
+        "B1": {
+          "value": "'Quality Score'"
+        },
+        "B2": {
+          "value": "'63/100'"
+        },
+        "B3": {
+          "value": "'63/100'"
+        },
+        "B4": {
+          "value": "'58/100'"
+        },
+        "B5": {
+          "value": "'60/100'"
+        },
+        "B6": {
+          "value": "'60/100'"
+        },
+        "C1": {
+          "value": "'Rating'"
+        },
+        "C2": {
+          "value": "'FAIR'"
+        },
+        "C3": {
+          "value": "'FAIR'"
+        },
+        "C4": {
+          "value": "'FAIR'"
+        },
+        "C5": {
+          "value": "'FAIR'"
+        },
+        "C6": {
+          "value": "'FAIR'"
+        },
+        "D1": {
+          "value": "'Details'"
+        },
+        "D2": {
+          "value": "'Text: 854 chars; Prices: 6 ($-sign), 0 (decimal); Total: MISSING; Invoice#: MISSING; Real items: 6/6; Structure words: 1/12'"
+        },
+        "D3": {
+          "value": "'Text: 852 chars; Prices: 6 ($-sign), 0 (decimal); Total: MISSING; Invoice#: MISSING; Real items: 6/6; Structure words: 1/12'"
+        },
+        "D4": {
+          "value": "'Text: 539 chars; Prices: 4 ($-sign), 0 (decimal); Total: MISSING; Invoice#: MISSING; Real items: 3/3; Structure words: 2/12'"
+        },
+        "D5": {
+          "value": "'Text: 1602 chars; Prices: 10 ($-sign), 6 (decimal); Total: MISSING; Invoice#: MISSING; Real items: 1/1; Structure words: 6/12'"
+        },
+        "D6": {
+          "value": "'Text: 2999 chars; Prices: 20 ($-sign), 6 (decimal); Total: MISSING; Invoice#: MISSING; Real items: 1/1; Structure words: 6/12'"
+        },
+        "E1": {
+          "value": "'OCR Text (first 2000 chars)'"
+        },
+        "E2": {
+          "value": "\"Item details (8)\\n2pcs Simple Stainless Steel Bracelet Necklace Set For Men\\nSilvery\\n$1.98 x1\\nBy \u2014 LovelyThings\\nLightweight Non-Slip Women's Knitted Loafers for Casual Walking\\n7.5 / Black\\n$7.99 x1\\nBy \u2014 KAMUCC\\n1pc Waterproof LED Solar Lamp Bulb for Outdoor Hiking, Fishing, and Emergency Lighting\\n7w With Solar Panel\\n$5.98 x1\\nBy \u25b2 ABT factory\\nSmart Watch With Wireless Calling/Dialing, Multiple Sports Modes, Fitness Tracker, Customizable Wallpaper, Compatible With iPhone/Android, Sporty Smartwatch With Health Monitoring\\nBlack\\n$7.47 x1\\nBy \u2014 GUYN\\n3pcs Exaggerated Design Earrings and Necklace Set for Party Outfits - Stand Out and Be the Most Special One at Any Party\\nFemale / Exquisite\\n$3.39 x1\\nBy \u263a ATHENAA\\nElegant Adjustable Rhinestone Bracelet Quartz Watch, Fashionable Luxury Style, Versatile, Women's Accessory\\nGolden\\n$2.33 x1\\nBy \u263a New Time Clock\\n2/3\""
+        },
+        "E3": {
+          "value": "\"Item details (8)\\n2pcs Simple Stainless Steel Bracelet Necklace Set For Men\\nSilvery\\n$1.98 x1\\nBy \u2014 LovelyThings\\nLightweight Non-Slip Women's Knitted Loafers for Casual Walking\\n7.5 / Black\\n$7.99 x1\\nBy \u2014 KAMUCC\\n1pc Waterproof LED Solar Lamp Bulb for Outdoor Hiking, Fishing, and Emergency Lighting\\n7w With Solar Panel\\n$5.98 x1\\nBy \u25b2 ABT factory\\nSmart Watch With Wireless Calling/Dialing, Multiple Sports Modes, Fitness Tracker, Customizable Wallpaper, Compatible With iPhone/Android, Sporty Smartwatch With Health Monitoring\\nBlack\\n$7.47 x1\\nBy \u2014 GUYN\\n3pcs Exaggerated Design Earrings and Necklace Set for Party Outfits - Stand Out and Be the Most Special One at Any Party\\nFemale / Exquisite\\n$3.39 x1\\nBy @ ATHENAA\\nElegant Adjustable Rhinestone Bracelet Quartz Watch, Fashionable Luxury Style, Versatile, Women's Accessory\\nGolden\\n$2.33 x1\\nBy New Time Clock\\n2/3\""
+        },
+        "E4": {
+          "value": "'Compact Business Laptop Bag, Suitable For Travel, With Shoulder Straps For Both Men And $5.91\\n: Women, Also Suitable For Students \u201c1\\n\u2018 . Rar \u2018 ; Black\\nBy Lucky Backpack\\n> Faux Leather Tote Bag, Multi Pockets Large Handbag For Work School Travel $6.14\\niw\\njee By = COJAY\\nFree returns within 90 days\\nFree returns are available for you.\\n1.You can return the Item for any reason In new and unused condition: no shipping charges.\\n2.This Item can be returned In Its original condition for a full refund within 90 days of purchase.\\n3/3\\n$5.91\\n$6.14'"
+        },
+        "E5": {
+          "value": "'\" a on 2024 / 07 / 15 09 : 41\\n\u2018 . a 2 e . > .\\n@ As we \\' re committed to reducing our environmental impact , we have climinated paper receipt .\\nOrder Summary\\nOrder ID : PO - 211 - 07118514794870851\\nOrder time : Jul 14 , 2024\\nitem ( s ) total : $241.33\\nItem ( s ) discount : - $200.14 200.14\\nSubtotal : $41.19\\nShipping : FREE\\nSales tax : $2.88\\nOrder total : $44.07\\nShipping address\\nutillta Mitchell + 1 ( 473 ) 449 - 3366 , 10813 NW 30 th Street , BLOG 115 GRE 7515 , MIAMI , FL 33172 , United\\nStates\\nPayment method\\n\u00a9 Your payment Information ts safe with us . Temu does not share your Information with the sellers .\\nMastercard . . . 3651 $19.01\\n\u2018 Pald on Jul 14 , 2024\\nBilling address : tiffany Charlos + 1 ( 473 ) 449 - 3366 , 12 pinohurst at boston , apt 2 , BOSTON , MA 02131 ,\\nUnited States\\nMastorcard . . . 3651 $7.99\\nPald on Jul 14 , 2024 by one - click pay\\nBilling address : tiffany Charios + 1 ( 473 ) 449 - 3366 , 12 pinohurst at boston , apt 2 , BOSTON , MA 02131 ,\\nUnited States\\n@ Mastercard . . . 3651 $6.40\\nPald on Jul 15 , 2024 by one - click pay\\nBilling address : tiffany Charles + 1 ( 473 ) 449 - 3366 , 12 pinehurst at boston , apt 2 , BOSTON , MA 02131 ,\\nUnited States\\nMastercard . . . 3651 $8.55\\nmeer Paid on Jul 15 , 2024 by one - click pay\\nBilling address : tiffany Cherles + 1 ( 473 ) 449 - 3366 , 12 pinehurst at boston , ept 2 , BOSTON , MA 02131 ,\\nUnited States\\n\u20ac Mastercard . . . 3651 $2.12\\nPald on Jul 15 , 2024 by ane - cllck pay\\nBilling address : tiffany Charles + 1 ( 473 ) 449 - 3366 , 12 pinehurst at boston , apt 2 , BOSTON , MA 02131 ,\\nUnited States\\n\u2018 ye 43\\nQom - O % /'"
+        },
+        "E6": {
+          "value": "'Item details (8)\\n2pcs Simple Stainless Steel Bracelet Necklace Set For Men\\nSilvery\\n$1.98\\nx1\\nBy \u2014 LovelyThings\\nLightweight Non-Slip Women\\'s Knitted Loafers for Casual Walking\\n7.5 / Black\\n$7.99\\nx1\\nBy \u2014 KAMUCC\\n1pc Waterproof LED Solar Lamp Bulb for Outdoor Hiking, Fishing, and Emergency Lighting\\n7w With Solar Panel\\n$5.98\\nx1\\nBy \u25b2 ABT factory\\nSmart Watch With Wireless Calling/Dialing, Multiple Sports Modes, Fitness Tracker, Customizable\\nWallpaper, Compatible With iPhone/Android, Sporty Smartwatch With Health Monitoring\\nBlack\\n$7.47\\nx1\\nBy \u2014 GUYN\\n3pcs Exaggerated Design Earrings and Necklace Set for Party Outfits - Stand Out and Be the\\nMost Special One at Any Party\\nFemale / Exquisite\\n$3.39\\nx1\\nBy \u263b ATHENAA\\nElegant Adjustable Rhinestone Bracelet Quartz Watch, Fashionable Luxury Style, Versatile,\\nWomen\\'s Accessory\\nGolden\\n$2.33\\nx1\\nBy \u263c New Time Clock\\n2/3\\n\\nCompact Business Laptop Bag, Suitable For Travel, With Shoulder Straps For Both Men And $5.91\\n: Women, Also Suitable For Students \u201c1\\n\u2018 . Rar \u2018 ; Black\\nBy Lucky Backpack\\n> Faux Leather Tote Bag, Multi Pockets Large Handbag For Work School Travel $6.14\\niw\\njee By = COJAY\\nFree returns within 90 days\\nFree returns are available for you.\\n1.You can return the Item for any reason In new and unused condition: no shipping charges.\\n2.This Item can be returned In Its original condition for a full refund within 90 days of purchase.\\n3/3\\n$5.91\\n$6.14\\n\\n\" a on 2024 / 07 / 15 09 : 41\\n\u2018 . a 2 e . > .\\n@ As we \\' re committed to reducing our environmental impact , we have climinated paper receipt .\\nOrder Summary\\nOrder ID : PO - 211 - 07118514794870851\\nOrder time : Jul 14 , 2024\\nitem ( s ) total : $241.33\\nItem ( s ) discount : - $200.14 200.14\\nSubtotal : $41.19\\nShipping : FREE\\nSales tax : $2.88\\nOrder total : $44.07\\nShipping address\\nutillta Mitchell + 1 ( 473 ) 449 - 3366 , 10813 NW 30 th Street , BLOG 115 GRE 7515 , MIAMI , FL 33172 , United\\nStates\\nPayment method\\n\u00a9 Your payment Information ts safe with us . Temu does not share your Information with th'"
+        }
+      }
+    }
+  },
+  "HAWB9600432.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'TEMU'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'31 St. James Avenue, Suite 355, Boston, MA 02116'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'CN'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'71171900'"
+        },
+        "AK5": {
+          "value": "'85319000'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'03152025_Free_returns_within_90_days_Invoice_1'"
+        },
+        "C5": {
+          "value": "'03152025_Free_returns_within_90_days_Invoice_1'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'IMITATION JEWELRY'"
+        },
+        "E36": {
+          "value": "'Footwear'"
+        },
+        "E38": {
+          "value": "'Parts'"
+        },
+        "E40": {
+          "value": "'Clocks and watches'"
+        },
+        "E5": {
+          "value": "'SIGNALING EQUIPMENT'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'71171900'"
+        },
+        "F3": {
+          "value": "'71171900'"
+        },
+        "F36": {
+          "value": "'64059000'"
+        },
+        "F38": {
+          "value": "'85177000'"
+        },
+        "F4": {
+          "value": "'71171900'"
+        },
+        "F40": {
+          "value": "'91021100'"
+        },
+        "F5": {
+          "value": "'85319000'"
+        },
+        "F6": {
+          "value": "'85319000'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'71171900'"
+        },
+        "I3": {
+          "value": "'TEMU-1'"
+        },
+        "I37": {
+          "value": "'TEMU-2'"
+        },
+        "I39": {
+          "value": "'TEMU-4'"
+        },
+        "I4": {
+          "value": "'TEMU-5'"
+        },
+        "I41": {
+          "value": "'TEMU-6'"
+        },
+        "I5": {
+          "value": "'85319000'"
+        },
+        "I6": {
+          "value": "'TEMU-3'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J11": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J12": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J13": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J14": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J15": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J17": {
+          "value": "'NET TOTAL'"
+        },
+        "J18": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J2": {
+          "value": "'Item details (8) 2pcs Simple Stainless Steel Bracelet Necklace Set For Men Silvery (+1 more) (2 items)'"
+        },
+        "J20": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J22": {
+          "value": "'INVOICE NOTES: Invoice total uncertain'"
+        },
+        "J24": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J25": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J26": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J27": {
+          "value": "'CET (weighted avg 12.1%)'"
+        },
+        "J28": {
+          "value": "'  \u2514 71171900: 20% CET (47% of value)'"
+        },
+        "J29": {
+          "value": "'  \u2514 85319000: 5% CET (53% of value)'"
+        },
+        "J3": {
+          "value": "'Item details (8) 2pcs Simple Stainless Steel Bracelet Necklace Set For Men Silvery'"
+        },
+        "J30": {
+          "value": "'CSC (6%)'"
+        },
+        "J31": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J32": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J33": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J35": {
+          "value": "'Items on other declaration(s) (3 items)'"
+        },
+        "J36": {
+          "value": "\"Lightweight Non-Slip Women's Knitted Loafers for Casual Walking 7.5 / Black (1 items)\""
+        },
+        "J37": {
+          "value": "\"Lightweight Non-Slip Women's Knitted Loafers for Casual Walking 7.5 / Black\""
+        },
+        "J38": {
+          "value": "'Smart Watch With Wireless Calling/Dialing, Multiple Sports Modes, Fitness Tracker, Customizable Wallpaper, Compatible With iPhone/Android, Sporty Smartwatch With Health Monitoring Black (1 items)'"
+        },
+        "J39": {
+          "value": "'Smart Watch With Wireless Calling/Dialing, Multiple Sports Modes, Fitness Tracker, Customizable Wallpaper, Compatible With iPhone/Android, Sporty Smartwatch With Health Monitoring Black'"
+        },
+        "J4": {
+          "value": "'Exaggerated Design Earrings and Necklace Set for Party Outfits - Stand Out and Be the Most Special One at Any Party Female / Exquisite'"
+        },
+        "J40": {
+          "value": "\"Elegant Adjustable Rhinestone Bracelet Quartz Watch, Fashionable Luxury Style, Versatile, Women's Accessory Golden (1 items)\""
+        },
+        "J41": {
+          "value": "\"Elegant Adjustable Rhinestone Bracelet Quartz Watch, Fashionable Luxury Style, Versatile, Women's Accessory Golden\""
+        },
+        "J42": {
+          "value": "'REFERENCE SUBTOTAL'"
+        },
+        "J44": {
+          "value": "'COMBINED ITEMS TOTAL'"
+        },
+        "J45": {
+          "value": "'FULL INVOICE FREIGHT'"
+        },
+        "J46": {
+          "value": "'FULL INVOICE INSURANCE'"
+        },
+        "J47": {
+          "value": "'FULL INVOICE OTHER COST'"
+        },
+        "J48": {
+          "value": "'FULL INVOICE DEDUCTION'"
+        },
+        "J49": {
+          "value": "'FULL ADJUSTMENTS'"
+        },
+        "J5": {
+          "value": "'Waterproof LED Solar Lamp Bulb for Outdoor Hiking, Fishing, and Emergency Lighting 7w With Solar Panel (1 items)'"
+        },
+        "J50": {
+          "value": "'COMBINED NET TOTAL'"
+        },
+        "J51": {
+          "value": "'FULL INVOICE TOTAL'"
+        },
+        "J52": {
+          "value": "'COMBINED VARIANCE CHECK'"
+        },
+        "J6": {
+          "value": "'Waterproof LED Solar Lamp Bulb for Outdoor Hiking, Fishing, and Emergency Lighting 7w With Solar Panel'"
+        },
+        "J7": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J8": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J9": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "2"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K36": {
+          "value": "1"
+        },
+        "K37": {
+          "value": "1"
+        },
+        "K38": {
+          "value": "1"
+        },
+        "K39": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "K40": {
+          "value": "1"
+        },
+        "K41": {
+          "value": "1"
+        },
+        "K5": {
+          "value": "1"
+        },
+        "K6": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N36": {
+          "value": "'USD'"
+        },
+        "N37": {
+          "value": "'USD'"
+        },
+        "N38": {
+          "value": "'USD'"
+        },
+        "N39": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N40": {
+          "value": "'USD'"
+        },
+        "N41": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "N6": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "2.685"
+        },
+        "O3": {
+          "value": "1.98"
+        },
+        "O36": {
+          "value": "7.99"
+        },
+        "O37": {
+          "value": "7.99"
+        },
+        "O38": {
+          "value": "7.47"
+        },
+        "O39": {
+          "value": "7.47"
+        },
+        "O4": {
+          "value": "3.39"
+        },
+        "O40": {
+          "value": "2.33"
+        },
+        "O41": {
+          "value": "2.33"
+        },
+        "O5": {
+          "value": "5.98"
+        },
+        "O6": {
+          "value": "5.98"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P11": {
+          "value": "7"
+        },
+        "P12": {
+          "value": "0"
+        },
+        "P13": {
+          "value": "0"
+        },
+        "P14": {
+          "value": "0"
+        },
+        "P15": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P17": {
+          "formula": "=P7+P15"
+        },
+        "P18": {
+          "formula": "=S2"
+        },
+        "P2": {
+          "value": "5.37"
+        },
+        "P20": {
+          "formula": "=S2-P17"
+        },
+        "P25": {
+          "value": "25.35"
+        },
+        "P26": {
+          "value": "68.87"
+        },
+        "P27": {
+          "value": "8.33"
+        },
+        "P28": {
+          "value": "6.52"
+        },
+        "P29": {
+          "value": "1.81"
+        },
+        "P3": {
+          "value": "1.98"
+        },
+        "P30": {
+          "value": "4.13"
+        },
+        "P31": {
+          "value": "12.2"
+        },
+        "P32": {
+          "value": "24.66"
+        },
+        "P33": {
+          "value": "0.3580659213010018"
+        },
+        "P36": {
+          "value": "7.99"
+        },
+        "P37": {
+          "value": "7.99"
+        },
+        "P38": {
+          "value": "7.47"
+        },
+        "P39": {
+          "value": "7.47"
+        },
+        "P4": {
+          "value": "3.39"
+        },
+        "P40": {
+          "value": "2.33"
+        },
+        "P41": {
+          "value": "2.33"
+        },
+        "P42": {
+          "value": "17.79"
+        },
+        "P44": {
+          "formula": "=P7+P42"
+        },
+        "P45": {
+          "formula": "=P11/P7*P44"
+        },
+        "P46": {
+          "formula": "=P12/P7*P44"
+        },
+        "P47": {
+          "formula": "=P13/P7*P44"
+        },
+        "P48": {
+          "formula": "=P14/P7*P44"
+        },
+        "P49": {
+          "formula": "=P45+P46+P47-P48"
+        },
+        "P5": {
+          "value": "5.98"
+        },
+        "P50": {
+          "formula": "=P44+P49"
+        },
+        "P51": {
+          "value": "36.14"
+        },
+        "P52": {
+          "formula": "=P51-P50"
+        },
+        "P6": {
+          "value": "5.98"
+        },
+        "P7": {
+          "formula": "=P2+P5"
+        },
+        "P8": {
+          "formula": "=SUM(P2:P6)-P7"
+        },
+        "P9": {
+          "formula": "=P7-P8"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q15": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q17": {
+          "formula": "=Q7+Q15"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q20": {
+          "formula": "=S2-Q17"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q6": {
+          "formula": "=O6*K6"
+        },
+        "Q7": {
+          "formula": "=Q2+Q5"
+        },
+        "Q8": {
+          "formula": "=SUM(Q2:Q6)-Q7"
+        },
+        "Q9": {
+          "formula": "=Q7-Q8"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "R6": {
+          "formula": "=P6-Q6"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "18.35"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "7"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'TEMU'"
+        }
+      }
+    }
+  },
+  "None.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'TEMU'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'31 St. James Avenue, Suite 355, Boston, MA 02116'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'CN'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'64059000'"
+        },
+        "AK4": {
+          "value": "'85177000'"
+        },
+        "AK6": {
+          "value": "'91021100'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'03152025_Free_returns_within_90_days_Invoice_1'"
+        },
+        "C4": {
+          "value": "'03152025_Free_returns_within_90_days_Invoice_1'"
+        },
+        "C6": {
+          "value": "'03152025_Free_returns_within_90_days_Invoice_1'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Footwear'"
+        },
+        "E38": {
+          "value": "'IMITATION JEWELRY'"
+        },
+        "E4": {
+          "value": "'Parts'"
+        },
+        "E41": {
+          "value": "'SIGNALING EQUIPMENT'"
+        },
+        "E6": {
+          "value": "'Clocks and watches'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'64059000'"
+        },
+        "F3": {
+          "value": "'64059000'"
+        },
+        "F38": {
+          "value": "'71171900'"
+        },
+        "F4": {
+          "value": "'85177000'"
+        },
+        "F41": {
+          "value": "'85319000'"
+        },
+        "F5": {
+          "value": "'85177000'"
+        },
+        "F6": {
+          "value": "'91021100'"
+        },
+        "F7": {
+          "value": "'91021100'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'64059000'"
+        },
+        "I3": {
+          "value": "'TEMU-2'"
+        },
+        "I39": {
+          "value": "'TEMU-1'"
+        },
+        "I4": {
+          "value": "'85177000'"
+        },
+        "I40": {
+          "value": "'TEMU-5'"
+        },
+        "I42": {
+          "value": "'TEMU-3'"
+        },
+        "I5": {
+          "value": "'TEMU-4'"
+        },
+        "I6": {
+          "value": "'91021100'"
+        },
+        "I7": {
+          "value": "'TEMU-6'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J12": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J13": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J14": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J15": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J16": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J18": {
+          "value": "'NET TOTAL'"
+        },
+        "J19": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J2": {
+          "value": "\"Lightweight Non-Slip Women's Knitted Loafers for Casual Walking 7.5 / Black (1 items)\""
+        },
+        "J21": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J23": {
+          "value": "'INVOICE NOTES: Invoice total uncertain'"
+        },
+        "J25": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J26": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J27": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J28": {
+          "value": "'CET (weighted avg 13.7%)'"
+        },
+        "J29": {
+          "value": "'  \u2514 64059000: 20% CET (45% of value)'"
+        },
+        "J3": {
+          "value": "\"Lightweight Non-Slip Women's Knitted Loafers for Casual Walking 7.5 / Black\""
+        },
+        "J30": {
+          "value": "'  \u2514 85177000: 5% CET (42% of value)'"
+        },
+        "J31": {
+          "value": "'  \u2514 91021100: 20% CET (13% of value)'"
+        },
+        "J32": {
+          "value": "'CSC (6%)'"
+        },
+        "J33": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J34": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J35": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J37": {
+          "value": "'Items on other declaration(s) (3 items)'"
+        },
+        "J38": {
+          "value": "'Item details (8) 2pcs Simple Stainless Steel Bracelet Necklace Set For Men Silvery (+1 more) (2 items)'"
+        },
+        "J39": {
+          "value": "'Item details (8) 2pcs Simple Stainless Steel Bracelet Necklace Set For Men Silvery'"
+        },
+        "J4": {
+          "value": "'Smart Watch With Wireless Calling/Dialing, Multiple Sports Modes, Fitness Tracker, Customizable Wallpaper, Compatible With iPhone/Android, Sporty Smartwatch With Health Monitoring Black (1 items)'"
+        },
+        "J40": {
+          "value": "'Exaggerated Design Earrings and Necklace Set for Party Outfits - Stand Out and Be the Most Special One at Any Party Female / Exquisite'"
+        },
+        "J41": {
+          "value": "'Waterproof LED Solar Lamp Bulb for Outdoor Hiking, Fishing, and Emergency Lighting 7w With Solar Panel (1 items)'"
+        },
+        "J42": {
+          "value": "'Waterproof LED Solar Lamp Bulb for Outdoor Hiking, Fishing, and Emergency Lighting 7w With Solar Panel'"
+        },
+        "J43": {
+          "value": "'REFERENCE SUBTOTAL'"
+        },
+        "J44": {
+          "value": "'REFERENCE FREIGHT'"
+        },
+        "J45": {
+          "value": "'REFERENCE INSURANCE'"
+        },
+        "J46": {
+          "value": "'REFERENCE OTHER COST'"
+        },
+        "J47": {
+          "value": "'REFERENCE DEDUCTION'"
+        },
+        "J48": {
+          "value": "'REFERENCE ADJUSTMENTS'"
+        },
+        "J49": {
+          "value": "'REFERENCE NET TOTAL'"
+        },
+        "J5": {
+          "value": "'Smart Watch With Wireless Calling/Dialing, Multiple Sports Modes, Fitness Tracker, Customizable Wallpaper, Compatible With iPhone/Android, Sporty Smartwatch With Health Monitoring Black'"
+        },
+        "J51": {
+          "value": "'COMBINED ITEMS TOTAL'"
+        },
+        "J52": {
+          "value": "'FULL INVOICE FREIGHT'"
+        },
+        "J53": {
+          "value": "'FULL INVOICE INSURANCE'"
+        },
+        "J54": {
+          "value": "'FULL INVOICE OTHER COST'"
+        },
+        "J55": {
+          "value": "'FULL INVOICE DEDUCTION'"
+        },
+        "J56": {
+          "value": "'FULL ADJUSTMENTS'"
+        },
+        "J57": {
+          "value": "'COMBINED NET TOTAL'"
+        },
+        "J58": {
+          "value": "'FULL INVOICE TOTAL'"
+        },
+        "J59": {
+          "value": "'COMBINED VARIANCE CHECK'"
+        },
+        "J6": {
+          "value": "\"Elegant Adjustable Rhinestone Bracelet Quartz Watch, Fashionable Luxury Style, Versatile, Women's Accessory Golden (1 items)\""
+        },
+        "J7": {
+          "value": "\"Elegant Adjustable Rhinestone Bracelet Quartz Watch, Fashionable Luxury Style, Versatile, Women's Accessory Golden\""
+        },
+        "J8": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J9": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K38": {
+          "value": "2"
+        },
+        "K39": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "K40": {
+          "value": "1"
+        },
+        "K41": {
+          "value": "1"
+        },
+        "K42": {
+          "value": "1"
+        },
+        "K5": {
+          "value": "1"
+        },
+        "K6": {
+          "value": "1"
+        },
+        "K7": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N38": {
+          "value": "'USD'"
+        },
+        "N39": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N40": {
+          "value": "'USD'"
+        },
+        "N41": {
+          "value": "'USD'"
+        },
+        "N42": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "N6": {
+          "value": "'USD'"
+        },
+        "N7": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "7.99"
+        },
+        "O3": {
+          "value": "7.99"
+        },
+        "O38": {
+          "value": "2.685"
+        },
+        "O39": {
+          "value": "1.98"
+        },
+        "O4": {
+          "value": "7.47"
+        },
+        "O40": {
+          "value": "3.39"
+        },
+        "O41": {
+          "value": "5.98"
+        },
+        "O42": {
+          "value": "5.98"
+        },
+        "O5": {
+          "value": "7.47"
+        },
+        "O6": {
+          "value": "2.33"
+        },
+        "O7": {
+          "value": "2.33"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "formula": "=P8-P9"
+        },
+        "P12": {
+          "value": "0"
+        },
+        "P13": {
+          "value": "0"
+        },
+        "P14": {
+          "value": "0"
+        },
+        "P15": {
+          "value": "0"
+        },
+        "P16": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P18": {
+          "formula": "=P8+P16"
+        },
+        "P19": {
+          "formula": "=S2"
+        },
+        "P2": {
+          "value": "7.99"
+        },
+        "P21": {
+          "formula": "=S2-P18"
+        },
+        "P26": {
+          "value": "17.79"
+        },
+        "P27": {
+          "value": "48.33"
+        },
+        "P28": {
+          "value": "6.62"
+        },
+        "P29": {
+          "value": "4.34"
+        },
+        "P3": {
+          "value": "7.99"
+        },
+        "P30": {
+          "value": "1.01"
+        },
+        "P31": {
+          "value": "1.27"
+        },
+        "P32": {
+          "value": "2.9"
+        },
+        "P33": {
+          "value": "8.68"
+        },
+        "P34": {
+          "value": "18.2"
+        },
+        "P35": {
+          "value": "0.3765776950134492"
+        },
+        "P38": {
+          "value": "5.37"
+        },
+        "P39": {
+          "value": "1.98"
+        },
+        "P4": {
+          "value": "7.47"
+        },
+        "P40": {
+          "value": "3.39"
+        },
+        "P41": {
+          "value": "5.98"
+        },
+        "P42": {
+          "value": "5.98"
+        },
+        "P43": {
+          "value": "11.35"
+        },
+        "P44": {
+          "value": "7"
+        },
+        "P45": {
+          "value": "0"
+        },
+        "P46": {
+          "value": "0"
+        },
+        "P47": {
+          "value": "0"
+        },
+        "P48": {
+          "formula": "=P44+P45+P46-P47"
+        },
+        "P49": {
+          "formula": "=P43+P48"
+        },
+        "P5": {
+          "value": "7.47"
+        },
+        "P51": {
+          "formula": "=P8+P43"
+        },
+        "P52": {
+          "formula": "=P12+P44"
+        },
+        "P53": {
+          "formula": "=P13+P45"
+        },
+        "P54": {
+          "formula": "=P14+P46"
+        },
+        "P55": {
+          "formula": "=P15+P47"
+        },
+        "P56": {
+          "formula": "=P52+P53+P54-P55"
+        },
+        "P57": {
+          "formula": "=P51+P56"
+        },
+        "P58": {
+          "value": "36.14"
+        },
+        "P59": {
+          "formula": "=P58-P57"
+        },
+        "P6": {
+          "value": "2.33"
+        },
+        "P7": {
+          "value": "2.33"
+        },
+        "P8": {
+          "formula": "=P2+P4+P6"
+        },
+        "P9": {
+          "formula": "=SUM(P2:P7)-P8"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q10": {
+          "formula": "=Q8-Q9"
+        },
+        "Q16": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q18": {
+          "formula": "=Q8+Q16"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q21": {
+          "formula": "=S2-Q18"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q6": {
+          "formula": "=O6*K6"
+        },
+        "Q7": {
+          "formula": "=O7*K7"
+        },
+        "Q8": {
+          "formula": "=Q2+Q4+Q6"
+        },
+        "Q9": {
+          "formula": "=SUM(Q2:Q7)-Q8"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "R6": {
+          "formula": "=P6-Q6"
+        },
+        "R7": {
+          "formula": "=P7-Q7"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "17.79"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'TEMU'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "03152025_Free_returns_within_90_days_Invoice.pdf",
+        "03152025_Free_returns_within_90_days_Invoice_1.pdf",
+        "CKETS_Invoice.pdf",
+        "HAWB9600432-Declaration.pdf",
+        "HAWB9600432.xlsx",
+        "PO-211-071185147948703851.pdf"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "UTILLIA MICTHELL",
+      "country_origin": "CN",
+      "expected_entries": 1,
+      "freight": "7.00",
+      "location": "WebSource",
+      "man_reg": "2024 28",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 1,
+      "waybill": "HAWB9600432",
+      "weight": "3.0"
+    }
+  }
+}

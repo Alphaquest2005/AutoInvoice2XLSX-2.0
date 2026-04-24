@@ -1,0 +1,54 @@
+# Harmonized System (HS) / CARICOM CET tariff structure.
+# Governs how HS codes are sliced, validated, and matched against the CET.
+
+_meta:
+  purpose: "HS / CARICOM tariff code structure, slice positions, and validation constants"
+  covers:
+    - "HS code slice positions (chapter=2, heading=4, subheading=6, tariff=8 digits)"
+    - "Zero-tariff sentinel values ('00000000', null)"
+    - "Tariff-code validation length and character set"
+    - "CET reference file columns required for lookup"
+  match_patterns:
+    - "tariff"
+    - "hs_code"
+    - "tariff_code"
+    - "chapter"
+    - "heading"
+    - "subheading"
+    - "cet"
+  loader: "pipeline.config_loader:load_hs_structure"
+  examples:
+    - "load_hs_structure()['slice']['chapter']     -> 2"
+    - "load_hs_structure()['zero_sentinels'][0]    -> '00000000'"
+  update_checklist:
+    - "Run tests/pipeline/test_tariff_classification.py if it exists"
+
+version: "1.0.0"
+
+# Digit-position slices used when computing broader tariff groups.
+slice:
+  chapter:    2   # first 2 digits
+  heading:    4   # first 4 digits
+  subheading: 6   # first 6 digits
+  tariff:     8   # end-node, full code
+
+# Valid tariff code attributes.
+tariff_length: 8
+tariff_charset: "0123456789"
+
+# Values that mean "no tariff assigned / unknown".
+zero_sentinels:
+  - "00000000"
+  - "0"
+  - ""
+  - null
+
+# Columns required in the CET reference file (data/caricom_cet.xlsx).
+cet_required_columns:
+  - "DUTY RATE"
+  - "UNIT"
+  - "SITC REV 4"
+
+# Category defaults.
+default_category: "UNKNOWN"
+default_category_source: "tariff_chapter"

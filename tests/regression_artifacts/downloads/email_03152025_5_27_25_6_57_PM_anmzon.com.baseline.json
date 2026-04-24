@@ -1,0 +1,733 @@
+{
+  "HAWB9333496-Declaration_combined.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Combined Invoices": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "A31": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'eBay'"
+        },
+        "AA31": {
+          "value": "'eBay'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'2025 Hamilton Avenue, San Jose, CA 95125'"
+        },
+        "AB31": {
+          "value": "'2025 Hamilton Avenue, San Jose, CA 95125'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AC31": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'63049290'"
+        },
+        "AK31": {
+          "value": "'63049290'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'112-7624326-9358635'"
+        },
+        "C31": {
+          "value": "'HAWB9333496-Manifest_Invoice'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Other Not knitted or crocheted, of cotton'"
+        },
+        "E31": {
+          "value": "'Other Not knitted or crocheted, of cotton'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'63049290'"
+        },
+        "F3": {
+          "value": "'63049290'"
+        },
+        "F31": {
+          "value": "'63049290'"
+        },
+        "F32": {
+          "value": "'63049290'"
+        },
+        "F33": {
+          "value": "'63049290'"
+        },
+        "F4": {
+          "value": "'63049290'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'63049290'"
+        },
+        "I3": {
+          "value": "'EBAY-1'"
+        },
+        "I31": {
+          "value": "'63049290'"
+        },
+        "I32": {
+          "value": "'EBAY-1'"
+        },
+        "I33": {
+          "value": "'EBAY-2'"
+        },
+        "I4": {
+          "value": "'EBAY-2'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J11": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J12": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J13": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J15": {
+          "value": "'NET TOTAL'"
+        },
+        "J16": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J18": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J2": {
+          "value": "\"\u00ab 5 / 27 / 24 , 6 : 57 PM Amazon . com - Order 112 - 7624326 - 9358635 amazoncony Scee ? ? ' 1 | . bo . . mF Final Details for Order # 112 - 7624326 - 9358635 a Print this page for your records , t } \u2018 Order Placed : May 17 , 2024 1 Amazon . com order number : 112 - 7624326 - 9358635 1 ' fc ! - og Wor Shipped on May 20 , 2024 Items , Ordered Price 1 of : CAMPROS Tent - 8 - Person - Camping - Tents , Waterproof Windproof Family Tent , 5 Large Mesh Windows , Double Layer , (+1 more) (2 items)\""
+        },
+        "J20": {
+          "value": "'INVOICE NOTES: Invoice total uncertain'"
+        },
+        "J22": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J23": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J24": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J25": {
+          "value": "'CET (20%) \u2014 Tariff 63049290'"
+        },
+        "J26": {
+          "value": "'CSC (6%)'"
+        },
+        "J27": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J28": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J29": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J3": {
+          "value": "\"\u00ab 5 / 27 / 24 , 6 : 57 PM Amazon . com - Order 112 - 7624326 - 9358635 amazoncony Scee ? ? ' 1 | . bo . . mF Final Details for Order # 112 - 7624326 - 9358635 a Print this page for your records , t } \u2018 Order Placed : May 17 , 2024 1 Amazon . com order number : 112 - 7624326 - 9358635 1 ' fc ! - og Wor Shipped on May 20 , 2024 Items , Ordered Price 1 of : CAMPROS Tent - 8 - Person - Camping - Tents , Waterproof Windproof Family Tent , 5 Large Mesh Windows , Double Layer ,\""
+        },
+        "J31": {
+          "value": "\"\u00ab 5 / 27 / 24 , 6 : 57 PM Amazon . com - Order 112 - 7624326 - 9358635 amazoncony Scee ? ? ' 1 | . bo . . mF Final Details for Order # 112 - 7624326 - 9358635 a Print this page for your records , t } \u2018 Order Placed : May 17 , 2024 1 Amazon . com order number : 112 - 7624326 - 9358635 1 ' fc ! - og Wor Shipped on May 20 , 2024 Items , Ordered Price 1 of : CAMPROS Tent - 8 - Person - Camping - Tents , Waterproof Windproof Family Tent , 5 Large Mesh Windows , Double Layer , (+1 more) (2 items)\""
+        },
+        "J32": {
+          "value": "\"\u00ab 5 / 27 / 24 , 6 : 57 PM Amazon . com - Order 112 - 7624326 - 9358635 amazoncony Scee ? ? ' 1 | . bo . . mF Final Details for Order # 112 - 7624326 - 9358635 a Print this page for your records , t } \u2018 Order Placed : May 17 , 2024 1 Amazon . com order number : 112 - 7624326 - 9358635 1 ' fc ! - og Wor Shipped on May 20 , 2024 Items , Ordered Price 1 of : CAMPROS Tent - 8 - Person - Camping - Tents , Waterproof Windproof Family Tent , 5 Large Mesh Windows , Double Layer ,\""
+        },
+        "J33": {
+          "value": "'it Divided Curtain for Separated Room , Portable with Carry Bag - Blue 1 . Sold by : CAMPROS OUTDOOR ( seller profite ) | Product question ? Ask Seller : Supplied by : CAMPROS OUTDOOR ( seller profile ) Condition : New reba calliste GRE 9212 \u00a9 MIAMI , FL 33172 - 2191 United States FREE Shipping eee ee | ie . Payment information visa ending in 3621 Shipping & Handling : USD 14.88 oy ! Free Shipping : - USD 14.88 Billing address - o - - - reba \u2019 catliste Total before tax : USD 127.99 GRE 9212 arn - - MIAMI , FL 33172 - 2191 Grand Total : USD 136.95 United States Payment Grand Total : XCD 374.85 Credit : Card transactions Visa ending in 3621 : May 20 , 2024 :'"
+        },
+        "J34": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J35": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J36": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J38": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J39": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J4": {
+          "value": "'it Divided Curtain for Separated Room , Portable with Carry Bag - Blue 1 . Sold by : CAMPROS OUTDOOR ( seller profite ) | Product question ? Ask Seller : Supplied by : CAMPROS OUTDOOR ( seller profile ) Condition : New reba calliste GRE 9212 \u00a9 MIAMI , FL 33172 - 2191 United States FREE Shipping eee ee | ie . Payment information visa ending in 3621 Shipping & Handling : USD 14.88 oy ! Free Shipping : - USD 14.88 Billing address - o - - - reba \u2019 catliste Total before tax : USD 127.99 GRE 9212 arn - - MIAMI , FL 33172 - 2191 Grand Total : USD 136.95 United States Payment Grand Total : XCD 374.85 Credit : Card transactions Visa ending in 3621 : May 20 , 2024 :'"
+        },
+        "J40": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J41": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J42": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J44": {
+          "value": "'NET TOTAL'"
+        },
+        "J45": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J47": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J49": {
+          "value": "'INVOICE NOTES: Invoice total uncertain'"
+        },
+        "J5": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J51": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J52": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J53": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J54": {
+          "value": "'CET (20%) \u2014 Tariff 63049290'"
+        },
+        "J55": {
+          "value": "'CSC (6%)'"
+        },
+        "J56": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J57": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J58": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J6": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J7": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J9": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "2"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K31": {
+          "value": "2"
+        },
+        "K32": {
+          "value": "1"
+        },
+        "K33": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "L61": {
+          "value": "'\u2550\u2550\u2550 COMBINED GRAND SUMMARY \u2550\u2550\u2550'"
+        },
+        "L62": {
+          "value": "'Invoice 112-7624326-9358635'"
+        },
+        "L63": {
+          "value": "'Invoice HAWB9333496-Manifest_Invoice'"
+        },
+        "L65": {
+          "value": "'GRAND TOTAL'"
+        },
+        "L66": {
+          "value": "'GRAND VARIANCE CHECK'"
+        },
+        "L67": {
+          "value": "'Combined 2 invoice files'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N31": {
+          "value": "'USD'"
+        },
+        "N32": {
+          "value": "'USD'"
+        },
+        "N33": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "132.47"
+        },
+        "O3": {
+          "value": "127.99"
+        },
+        "O31": {
+          "value": "132.47"
+        },
+        "O32": {
+          "value": "127.99"
+        },
+        "O33": {
+          "value": "136.95"
+        },
+        "O4": {
+          "value": "136.95"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "0"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "value": "0"
+        },
+        "P13": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P15": {
+          "formula": "=P5+P13"
+        },
+        "P16": {
+          "formula": "=S2"
+        },
+        "P18": {
+          "formula": "=S2-P15"
+        },
+        "P2": {
+          "value": "264.94"
+        },
+        "P23": {
+          "value": "264.94"
+        },
+        "P24": {
+          "value": "719.82"
+        },
+        "P25": {
+          "value": "143.96"
+        },
+        "P26": {
+          "value": "43.19"
+        },
+        "P27": {
+          "value": "136.05"
+        },
+        "P28": {
+          "value": "323.2"
+        },
+        "P29": {
+          "value": "0.4490011391736823"
+        },
+        "P3": {
+          "value": "127.99"
+        },
+        "P31": {
+          "value": "264.94"
+        },
+        "P32": {
+          "value": "127.99"
+        },
+        "P33": {
+          "value": "136.95"
+        },
+        "P34": {
+          "formula": "=P31"
+        },
+        "P35": {
+          "formula": "=SUM(P31:P33)-P34"
+        },
+        "P36": {
+          "formula": "=P34-P35"
+        },
+        "P38": {
+          "value": "0"
+        },
+        "P39": {
+          "value": "0"
+        },
+        "P4": {
+          "value": "136.95"
+        },
+        "P40": {
+          "value": "0"
+        },
+        "P41": {
+          "value": "0"
+        },
+        "P42": {
+          "formula": "=(T31+U31+V31-W31)"
+        },
+        "P44": {
+          "formula": "=P34+P42"
+        },
+        "P45": {
+          "formula": "=S31"
+        },
+        "P47": {
+          "formula": "=S31-P44"
+        },
+        "P5": {
+          "formula": "=P2"
+        },
+        "P52": {
+          "value": "264.94"
+        },
+        "P53": {
+          "value": "719.82"
+        },
+        "P54": {
+          "value": "143.96"
+        },
+        "P55": {
+          "value": "43.19"
+        },
+        "P56": {
+          "value": "136.05"
+        },
+        "P57": {
+          "value": "323.2"
+        },
+        "P58": {
+          "value": "0.4490011391736823"
+        },
+        "P6": {
+          "formula": "=SUM(P2:P4)-P5"
+        },
+        "P62": {
+          "value": "1896.55"
+        },
+        "P63": {
+          "value": "1896.55"
+        },
+        "P65": {
+          "value": "3793.1"
+        },
+        "P66": {
+          "value": "-3263.22"
+        },
+        "P7": {
+          "formula": "=P5-P6"
+        },
+        "P9": {
+          "value": "0"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q13": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q15": {
+          "formula": "=Q5+Q13"
+        },
+        "Q18": {
+          "formula": "=S2-Q15"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q31": {
+          "formula": "=O31*K31"
+        },
+        "Q32": {
+          "formula": "=O32*K32"
+        },
+        "Q33": {
+          "formula": "=O33*K33"
+        },
+        "Q34": {
+          "formula": "=Q31"
+        },
+        "Q35": {
+          "formula": "=SUM(Q31:Q33)-Q34"
+        },
+        "Q36": {
+          "formula": "=Q34-Q35"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q42": {
+          "formula": "=(T31+U31+V31-W31)"
+        },
+        "Q44": {
+          "formula": "=Q34+Q42"
+        },
+        "Q47": {
+          "formula": "=S31-Q44"
+        },
+        "Q5": {
+          "formula": "=Q2"
+        },
+        "Q6": {
+          "formula": "=SUM(Q2:Q4)-Q5"
+        },
+        "Q62": {
+          "value": "-1631.61"
+        },
+        "Q63": {
+          "value": "-1631.61"
+        },
+        "Q7": {
+          "formula": "=Q5-Q6"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R31": {
+          "formula": "=P31-Q31"
+        },
+        "R32": {
+          "formula": "=P32-Q32"
+        },
+        "R33": {
+          "formula": "=P33-Q33"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "264.94"
+        },
+        "S31": {
+          "value": "264.94"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "T31": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "U31": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "V31": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "W31": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'EBAY'"
+        },
+        "Z31": {
+          "value": "'EBAY'"
+        }
+      },
+      "OCR Notes": {
+        "A1": {
+          "value": "'PDF File'"
+        },
+        "A2": {
+          "value": "'112-7624326-9358635.pdf'"
+        },
+        "A3": {
+          "value": "'HAWB9333496-Manifest_Invoice.pdf'"
+        },
+        "B1": {
+          "value": "'Quality Score'"
+        },
+        "B2": {
+          "value": "'47/100'"
+        },
+        "B3": {
+          "value": "'47/100'"
+        },
+        "C1": {
+          "value": "'Rating'"
+        },
+        "C2": {
+          "value": "'FAIR'"
+        },
+        "C3": {
+          "value": "'FAIR'"
+        },
+        "D1": {
+          "value": "'Details'"
+        },
+        "D2": {
+          "value": "'Text: 1864 chars; Prices: 2 ($-sign), 9 (decimal); Total: MISSING; Invoice#: MISSING; Real items: 2/2; Structure words: 8/12'"
+        },
+        "D3": {
+          "value": "'Text: 1864 chars; Prices: 2 ($-sign), 9 (decimal); Total: MISSING; Invoice#: MISSING; Real items: 2/2; Structure words: 8/12'"
+        },
+        "E1": {
+          "value": "'OCR Text (first 2000 chars)'"
+        },
+        "E2": {
+          "value": "'\u00ab 5 / 27 / 24 , 6 : 57 PM Amazon . com - Order 112 - 7624326 - 9358635\\namazoncony\\nScee ? ? \\' 1\\n| . bo . .\\nmF Final Details for Order # 112 - 7624326 - 9358635\\na Print this page for your records ,\\nt } \u2018\\nOrder Placed : May 17 , 2024\\n1 Amazon . com order number : 112 - 7624326 - 9358635\\nOrder Total : USD 136.95\\n1 \\' fc ! -\\nog Wor Shipped on May 20 , 2024\\nItems , Ordered Price\\n1 of : CAMPROS Tent - 8 - Person - Camping - Tents , Waterproof Windproof Family Tent , 5 Large Mesh Windows , Double Layer , $127.99\\nit Divided Curtain for Separated Room , Portable with Carry Bag - Blue\\n1 . Sold by : CAMPROS OUTDOOR ( seller profite ) | Product question ? Ask Seller\\n: Supplied by : CAMPROS OUTDOOR ( seller profile )\\nCondition : New\\nShipping Address :\\nreba calliste\\n10813 NW 30 TH ST BLDG 115\\nGRE 9212 \u00a9\\nMIAMI , FL 33172 - 2191\\nUnited States\\nShipping Speed :\\nFREE Shipping\\neee ee\\n| ie . Payment information\\nPayment Method : Item ( s ) Subtotal : USD 127.99\\nvisa ending in 3621 Shipping & Handling : USD 14.88\\noy ! Free Shipping : - USD 14.88\\nBilling address - o - - -\\nreba \u2019 catliste Total before tax : USD 127.99\\n10813 NW 30 TH ST BLOG 115 Estimated tax to be collected : USD 8.96\\nGRE 9212 arn - -\\nMIAMI , FL 33172 - 2191 Grand Total : USD 136.95\\nUnited States Payment Grand Total : XCD 374.85\\nCredit : Card transactions Visa ending in 3621 : May 20 , 2024 : $136.95\\nTo view the status of your order , return to Order Summary .\\nConditions of Use [ Privacy Notice \u00a9 1996 - 2024 , Amazon . com , Inc . or its affiliates\\n| |\\nof .\\n{ co\\n| | English | | United States Hed\\n1 a ene !\\n| Conditions of Use Privacy Nottes | Comscumer Health Dara origac y dit sun PMT Cte ,\\n1 19 1990 - 2024 , Amazon . cam , dee or oy atin\\n7 !\\nhttps : / / www . amazon . com / gp / css / summary / print . html ? orderID = 112 - 7624326 - 93586358 ref = ppx yo 2 ov dt b invoice 1 / 1\\ni \" | \u2018\\nJk :'"
+        },
+        "E3": {
+          "value": "'\u00ab 5 / 27 / 24 , 6 : 57 PM Amazon . com - Order 112 - 7624326 - 9358635\\namazoncony\\nScee ? ? \\' 1\\n| . bo . .\\nmF Final Details for Order # 112 - 7624326 - 9358635\\na Print this page for your records ,\\nt } \u2018\\nOrder Placed : May 17 , 2024\\n1 Amazon . com order number : 112 - 7624326 - 9358635\\nOrder Total : USD 136.95\\n1 \\' fc ! -\\nog Wor Shipped on May 20 , 2024\\nItems , Ordered Price\\n1 of : CAMPROS Tent - 8 - Person - Camping - Tents , Waterproof Windproof Family Tent , 5 Large Mesh Windows , Double Layer , $127.99\\nit Divided Curtain for Separated Room , Portable with Carry Bag - Blue\\n1 . Sold by : CAMPROS OUTDOOR ( seller profite ) | Product question ? Ask Seller\\n: Supplied by : CAMPROS OUTDOOR ( seller profile )\\nCondition : New\\nShipping Address :\\nreba calliste\\n10813 NW 30 TH ST BLDG 115\\nGRE 9212 \u00a9\\nMIAMI , FL 33172 - 2191\\nUnited States\\nShipping Speed :\\nFREE Shipping\\neee ee\\n| ie . Payment information\\nPayment Method : Item ( s ) Subtotal : USD 127.99\\nvisa ending in 3621 Shipping & Handling : USD 14.88\\noy ! Free Shipping : - USD 14.88\\nBilling address - o - - -\\nreba \u2019 catliste Total before tax : USD 127.99\\n10813 NW 30 TH ST BLOG 115 Estimated tax to be collected : USD 8.96\\nGRE 9212 arn - -\\nMIAMI , FL 33172 - 2191 Grand Total : USD 136.95\\nUnited States Payment Grand Total : XCD 374.85\\nCredit : Card transactions Visa ending in 3621 : May 20 , 2024 : $136.95\\nTo view the status of your order , return to Order Summary .\\nConditions of Use [ Privacy Notice \u00a9 1996 - 2024 , Amazon . com , Inc . or its affiliates\\n| |\\nof .\\n{ co\\n| | English | | United States Hed\\n1 a ene !\\n| Conditions of Use Privacy Nottes | Comscumer Health Dara origac y dit sun PMT Cte ,\\n1 19 1990 - 2024 , Amazon . cam , dee or oy atin\\n7 !\\nhttps : / / www . amazon . com / gp / css / summary / print . html ? orderID = 112 - 7624326 - 93586358 ref = ppx yo 2 ov dt b invoice 1 / 1\\ni \" | \u2018\\nJk :'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "112-7624326-9358635.pdf",
+        "HAWB9333496-Declaration.pdf",
+        "HAWB9333496-Declaration_combined.xlsx"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "REBA CALLISTE",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "39.00",
+      "location": "WebSource",
+      "man_reg": "2024 19",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 2,
+      "waybill": "HAWB9333496",
+      "weight": "19.0"
+    }
+  }
+}

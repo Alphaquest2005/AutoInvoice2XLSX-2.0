@@ -1,0 +1,760 @@
+{
+  "HAWB39662041-Declaration_combined.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Combined Invoices": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "A29": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'AUROLA'"
+        },
+        "AA29": {
+          "value": "'AUROLA'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'9950 Wakeman Dr Manassas, VA 20110'"
+        },
+        "AB29": {
+          "value": "'9950 Wakeman Dr Manassas, VA 20110'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AC29": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'61046200'"
+        },
+        "AK29": {
+          "value": "'61046200'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'AU236542'"
+        },
+        "C29": {
+          "value": "'AU236542'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "D2": {
+          "value": "'2024-07-30'"
+        },
+        "D29": {
+          "value": "'2024-07-30'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Of cotton'"
+        },
+        "E29": {
+          "value": "'Of cotton'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'61046200'"
+        },
+        "F29": {
+          "value": "'61046200'"
+        },
+        "F3": {
+          "value": "'61046200'"
+        },
+        "F30": {
+          "value": "'61046200'"
+        },
+        "F31": {
+          "value": "'61046200'"
+        },
+        "F32": {
+          "value": "'61046200'"
+        },
+        "F4": {
+          "value": "'61046200'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'61046200'"
+        },
+        "I29": {
+          "value": "'61046200'"
+        },
+        "I3": {
+          "value": "'AUROLA-1'"
+        },
+        "I30": {
+          "value": "'AUROLA-1'"
+        },
+        "I31": {
+          "value": "'AUROLA-2'"
+        },
+        "I32": {
+          "value": "'AUROLA-3'"
+        },
+        "I4": {
+          "value": "'AUROLA-2'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J11": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J12": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J13": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J15": {
+          "value": "'NET TOTAL'"
+        },
+        "J16": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J18": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J2": {
+          "value": "'AUROLA Dream Leggings Naval Academy / XL (+1 more) (2 items)'"
+        },
+        "J20": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J21": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J22": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J23": {
+          "value": "'CET (20%) \u2014 Tariff 61046200'"
+        },
+        "J24": {
+          "value": "'CSC (6%)'"
+        },
+        "J25": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J26": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J27": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J29": {
+          "value": "'AUROLA Dream Leggings Naval Academy / XL (+2 more) (3 items)'"
+        },
+        "J3": {
+          "value": "'AUROLA Dream Leggings Naval Academy / XL'"
+        },
+        "J30": {
+          "value": "'AUROLA Dream Leggings Naval Academy / XL'"
+        },
+        "J31": {
+          "value": "'ee AUROLA Dream Leggings ee = Serenity Blue / XL'"
+        },
+        "J32": {
+          "value": "'as \u2018\u201c a Quantity : 1 AUROLA fb cont AUROLA tapes'"
+        },
+        "J33": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J34": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J35": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J37": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J38": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J39": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J4": {
+          "value": "'AUROLA Dream Leggings Serenity Blue / XL'"
+        },
+        "J40": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J41": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J43": {
+          "value": "'NET TOTAL'"
+        },
+        "J44": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J46": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J48": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J49": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J5": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J50": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J51": {
+          "value": "'CET (20%) \u2014 Tariff 61046200'"
+        },
+        "J52": {
+          "value": "'CSC (6%)'"
+        },
+        "J53": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J54": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J55": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J6": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J7": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J9": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "K29": {
+          "value": "1"
+        },
+        "K3": {
+          "value": "0"
+        },
+        "K30": {
+          "value": "0"
+        },
+        "K31": {
+          "value": "0"
+        },
+        "K32": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "L58": {
+          "value": "'\u2550\u2550\u2550 COMBINED GRAND SUMMARY \u2550\u2550\u2550'"
+        },
+        "L59": {
+          "value": "'Invoice AU236542'"
+        },
+        "L60": {
+          "value": "'Invoice AU236542'"
+        },
+        "L62": {
+          "value": "'GRAND TOTAL'"
+        },
+        "L63": {
+          "value": "'GRAND VARIANCE CHECK'"
+        },
+        "L64": {
+          "value": "'Combined 2 invoice files'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N29": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N30": {
+          "value": "'USD'"
+        },
+        "N31": {
+          "value": "'USD'"
+        },
+        "N32": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "140.56"
+        },
+        "O29": {
+          "value": "140.56"
+        },
+        "O3": {
+          "value": "36.99"
+        },
+        "O30": {
+          "value": "36.99"
+        },
+        "O31": {
+          "value": "36.99"
+        },
+        "O32": {
+          "value": "66.58"
+        },
+        "O4": {
+          "value": "103.57"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "0"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "value": "0"
+        },
+        "P13": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P15": {
+          "formula": "=P5+P13"
+        },
+        "P16": {
+          "formula": "=S2"
+        },
+        "P18": {
+          "formula": "=S2-P15"
+        },
+        "P2": {
+          "value": "140.56"
+        },
+        "P21": {
+          "value": "140.56"
+        },
+        "P22": {
+          "value": "381.89"
+        },
+        "P23": {
+          "value": "76.38"
+        },
+        "P24": {
+          "value": "22.91"
+        },
+        "P25": {
+          "value": "72.18"
+        },
+        "P26": {
+          "value": "171.47"
+        },
+        "P27": {
+          "value": "0.449003639791563"
+        },
+        "P29": {
+          "value": "140.56"
+        },
+        "P3": {
+          "value": "36.99"
+        },
+        "P30": {
+          "value": "36.99"
+        },
+        "P31": {
+          "value": "36.99"
+        },
+        "P32": {
+          "value": "66.58"
+        },
+        "P33": {
+          "formula": "=P29"
+        },
+        "P34": {
+          "formula": "=SUM(P29:P32)-P33"
+        },
+        "P35": {
+          "formula": "=P33-P34"
+        },
+        "P37": {
+          "value": "0"
+        },
+        "P38": {
+          "value": "0"
+        },
+        "P39": {
+          "value": "0"
+        },
+        "P4": {
+          "value": "103.57"
+        },
+        "P40": {
+          "value": "0"
+        },
+        "P41": {
+          "formula": "=(T29+U29+V29-W29)"
+        },
+        "P43": {
+          "formula": "=P33+P41"
+        },
+        "P44": {
+          "formula": "=S29"
+        },
+        "P46": {
+          "formula": "=S29-P43"
+        },
+        "P49": {
+          "value": "140.56"
+        },
+        "P5": {
+          "formula": "=P2"
+        },
+        "P50": {
+          "value": "381.89"
+        },
+        "P51": {
+          "value": "76.38"
+        },
+        "P52": {
+          "value": "22.91"
+        },
+        "P53": {
+          "value": "72.18"
+        },
+        "P54": {
+          "value": "171.47"
+        },
+        "P55": {
+          "value": "0.449003639791563"
+        },
+        "P59": {
+          "value": "1006.4"
+        },
+        "P6": {
+          "formula": "=SUM(P2:P4)-P5"
+        },
+        "P60": {
+          "value": "1006.4"
+        },
+        "P62": {
+          "value": "2012.8"
+        },
+        "P63": {
+          "value": "-1731.68"
+        },
+        "P7": {
+          "formula": "=P5-P6"
+        },
+        "P9": {
+          "value": "0"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q13": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q15": {
+          "formula": "=Q5+Q13"
+        },
+        "Q18": {
+          "formula": "=S2-Q15"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q29": {
+          "formula": "=O29*K29"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q30": {
+          "formula": "=O30*K30"
+        },
+        "Q31": {
+          "formula": "=O31*K31"
+        },
+        "Q32": {
+          "formula": "=O32*K32"
+        },
+        "Q33": {
+          "formula": "=Q29"
+        },
+        "Q34": {
+          "formula": "=SUM(Q29:Q32)-Q33"
+        },
+        "Q35": {
+          "formula": "=Q33-Q34"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q41": {
+          "formula": "=(T29+U29+V29-W29)"
+        },
+        "Q43": {
+          "formula": "=Q33+Q41"
+        },
+        "Q46": {
+          "formula": "=S29-Q43"
+        },
+        "Q5": {
+          "formula": "=Q2"
+        },
+        "Q59": {
+          "value": "-865.84"
+        },
+        "Q6": {
+          "formula": "=SUM(Q2:Q4)-Q5"
+        },
+        "Q60": {
+          "value": "-865.84"
+        },
+        "Q7": {
+          "formula": "=Q5-Q6"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R29": {
+          "formula": "=P29-Q29"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R30": {
+          "formula": "=P30-Q30"
+        },
+        "R31": {
+          "formula": "=P31-Q31"
+        },
+        "R32": {
+          "formula": "=P32-Q32"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "140.56"
+        },
+        "S29": {
+          "value": "140.56"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "T29": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "U29": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "V29": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "W29": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AUROLA'"
+        },
+        "Z29": {
+          "value": "'AUROLA'"
+        }
+      },
+      "OCR Notes": {
+        "A1": {
+          "value": "'PDF File'"
+        },
+        "A2": {
+          "value": "'AU236542.pdf'"
+        },
+        "A3": {
+          "value": "'HAWB9662044-Manifest_Invoice.pdf'"
+        },
+        "B1": {
+          "value": "'Quality Score'"
+        },
+        "B2": {
+          "value": "'90/100'"
+        },
+        "B3": {
+          "value": "'100/100'"
+        },
+        "C1": {
+          "value": "'Rating'"
+        },
+        "C2": {
+          "value": "'GOOD'"
+        },
+        "C3": {
+          "value": "'GOOD'"
+        },
+        "D1": {
+          "value": "'Details'"
+        },
+        "D2": {
+          "value": "'Text: 1058 chars; Prices: 11 ($-sign), 7 (decimal); Total: $140.56; Invoice#: AU236542; Real items: 2/2; Structure words: 9/12'"
+        },
+        "D3": {
+          "value": "'Text: 1292 chars; Prices: 12 ($-sign), 8 (decimal); Total: $140.56; Invoice#: AU236542; Real items: 3/3; Structure words: 9/12'"
+        },
+        "E1": {
+          "value": "'OCR Text (first 2000 chars)'"
+        },
+        "E2": {
+          "value": "'AUROLA Dream Leggings\\nUltimate Grey / XL\\nQuantity : 1\\n$36.99\\nAUROLA Dream Leggings\\nDark Black / XL\\nQuantity : 1\\n$36.99\\nSubtotal\\n$140.56\\nShipping\\n$0.00\\nTax\\n$0.00\\nDiscount WELCOME\\n-$7.40\\nTotal Due\\n$140.56 USD\\nyou saved $7.40\\nShipping Address\\nNaomi Coutain\\n10813, NW 30TH STREET\\nBLDG 115 GRE 4607\\nMiami FL 33172\\nUnited States\\nBilling Address\\nNaomi Coutain\\n10813, NW 30TH STREET\\nBLDG 115 GRE 4607\\nMiami FL 33172\\nUnited States\\nShipping Method\\nExpress(7-14 days)\\nPayment Method\\nVISA - xxxx - 3909 \u2014 $140.56\\nGet in Touch\\nFrom: AUROLA store+60461646017@t.shopifyemail.com\\nSubject: Order from AUROLA AU236542 confirmed\\nDate: 30 July 2024 at 11:27 PM\\nTo: naomicoutaingnd@icloud.com\\nAUROLA\\nHelp center\\nPurchase confirmation\\nThanks for your purchase. Your order will be\\nshipped soon! You will get delivery notifications\\nonce they are ready!\\nGet special goods and gifts only on our site.\\nGO TO SITE\\nor View your order\\nOrder Code AU236542\\nItems Price\\nAUROLA Dream Leggings\\nNaval Academy / XL\\nQuantity : 1\\n$36.99\\nAUROLA Dream Leggings\\nSerenity Blue / XL\\nQuantity : 1\\n$36.99'"
+        },
+        "E3": {
+          "value": "\"AUROLA Dream Leggings\\nUltimate Grey / XL\\nQuantity : 1\\n$36.99\\nAUROLA Dream Leggings\\nDark Black / XL\\nQuantity : 1\\n$36.99\\nSubtotal\\n$140.56\\nShipping\\n$0.00\\nTax\\n$0.00\\nDiscount WELCOME\\n-$7.40\\nTotal Due\\n$140.56 USD\\nyou saved $7.40\\nShipping Address\\nNaomi Coutain\\n10813, NW 30TH STREET\\nBLDG 115 GRE 4607\\nMiami FL 33172\\nUnited States\\nBilling Address\\nNaomi Coutain\\n10813, NW 30TH STREET\\nBLDG 115 GRE 4607\\nMiami FL 33172\\nUnited States\\nShipping Method\\nExpress(7-14 days)\\nPayment Method\\nVISA - xxxx - 3909 \u2014 $140.56\\nGet in Touch\\nFrom: AUROLA store+60461646017 @t.shopifyemail.com\\nSubject: Order from AUROLA AU236542 confirmed\\nDate: 30 July 2024 at 11:27PM\\nTo: naomicoutaingnd@icloud.com\\nAUROLA recone\\nPurchase confirmation = =\\n___ Thanks for your purchase. Your order willbe \u2014\\n-_ shipped soon! You will get delivery notifications \u2014_\\npose). 8\u00a5. omeeithey are ready) tae ee\\nis . tug peel special goods and gifts only on our site. ! RO 3\\neee '  GOTOSITE ~\u2014\\npee ee Be ee ae : ees\\n- ne ad pes Fr a or View your order a 5 : bps 3\\nOrder Code AU236542 Items Price\\nAUROLA Dream Leggings\\nNaval Academy / XL $36.99\\nQuantity : 1\\nee AUROLA Dream Leggings\\nee = Serenity Blue / XL $36.99\\nas \u2018\u201c a Quantity : 1\\nAUROLA fb cont\\nonce they are ready!\\nAUROLA tapes\\nAUROLA\\nHelp center\\nOrder Code AU236542\\n$36.99\\nSerenity Blue / XL\""
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "AU236542.pdf",
+        "HAWB39662041-Declaration_combined.xlsx",
+        "HAWB9662041-Declaration.pdf"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "NOAMI COUTAIN",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "7.00",
+      "location": "WebSource",
+      "man_reg": "2024 30",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 2,
+      "waybill": "HAWB9662041",
+      "weight": "3.0"
+    }
+  }
+}

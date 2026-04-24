@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "6117.0",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten '6117' appears near the 'Items Ordered' section, above the first item."
+  },
+  "printed": {
+    "consignee": "Shanice St. Bernard",
+    "freight": 0,
+    "waybill": "",
+    "man_reg": "",
+    "office": "",
+    "weight": 0,
+    "packages": 0
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

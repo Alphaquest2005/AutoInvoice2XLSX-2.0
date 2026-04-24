@@ -452,3 +452,227 @@ def test_andrea_regression_dash_suffix_quantity():
     assert "1" in tokens
     assert "4-" not in tokens
     assert "6.57" in tokens
+
+
+# ─── Vision-authoritative short-circuit (H&M 1504495444 regression) ────
+#
+# Background: on the H&M receipt 1504495444.pdf the cached OCR had 7
+# tesseract variants agree on mangled SKUs ("Heaite", "Fe ise", "Sis
+# 002008", "ff eee") while glm_ocr read every 13-digit ART.NO cleanly.
+# Token-level majority voting inherited the tesseract garbage and threw
+# away glm_ocr's correct reads. The vision-authoritative path ensures
+# that whenever a purpose-built vision OCR engine produced a non-trivial
+# structured result, its text is used verbatim.
+
+
+def _hm_receipt_variants():
+    """Shared fixture: mimics the real cache observed on 1504495444.pdf.
+
+    glm_ocr reads the full 13-digit SKUs cleanly; every tesseract variant
+    produces an identical mangled prefix column. The M/56 Beige Straw Hat
+    line also diverges on price ($8.99 correct vs $6.99 tesseract-only).
+    """
+    glm_text = (
+        "ORDER SUMMARY\n"
+        "ART.NO\tDESC.\tSIZE\tCOLOUR\tQTY.\tUNIT PRICE\tDISCOUNT\tTOTAL PRICE\n"
+        "1206305006007\tFlared Twill Pants\t12\tDark gray\t1\t$20.99\t-$13.00\t$7.99\n"
+        "1215205001003\tStraw Hat\tM/56\tBeige\t1\t$19.99\t-$11.00\t$8.99\n"
+        "1206305005007\tFlared Twill Pants\t12\tLight gray\t1\t$20.99\t-$13.00\t$7.99\n"
+        "1057731002004\tStraw Hat\tL/58\tLight beige\t1\t$17.99\t-$8.00\t$9.99\n"
+        "1229647001004\tFrayed-edge Straw Hat\tL/58\tLight beige\t1\t$12.99\t-$7.00\t$5.99\n"
+        "1187610004005\tTwist-detail Shirt Dress\tL\tYellow/tie-dye\t1\t$29.99\t-$17.00\t$12.99\n"
+        "1073337004001\tPendant Necklace\tNOSIZE\tGold-colored\t1\t$5.99\t-$2.00\t$3.99\n"
+        "SUBTOTAL: $57.93\nTOTAL: $67.98"
+    )
+    mangled_tess = (
+        "Heaite Flared Twill Pants 12 Dark gray 1 $20.99 -$13.00 $7.99\n"
+        "Fe ise Straw Hat M56 Beige 1 $19.99 -$11.00 $6.99\n"
+        "1206305005007 Flared Twill Pants 12 Light gray 1 $20.99 -$13.00 $7.99\n"
+        "Sis 002008 Straw Hat U58 Light beige 1 $17.99 -$8.00 $9.99\n"
+        "1229647001004 Frayed-edge Straw Hat OG hs Light beige 1 $1299 -$7.00 $5.99\n"
+        "_AMfe7610004005 Twist-detail Shirt Dress L Yellowhie-dye 1 $29.99 -$17.00 $12.99\n"
+        "ff eee Pendant Necklace NOSIZE Gold- 1 $5.99 -$2.00 $3.99\n"
+        "SUBTOTAL: $57.93\nTOTAL: $67.98"
+    )
+    return {
+        "original+glm_ocr": glm_text,
+        "original+tesseract_psm6": mangled_tess,
+        "upscale_2x+tesseract_psm6": mangled_tess,
+        "clahe_otsu+tesseract_psm6": mangled_tess,
+        "adaptive_gaussian+tesseract_psm6": mangled_tess,
+        "upscale_2x+tesseract_psm4": mangled_tess,
+        "clahe_otsu+tesseract_psm4": mangled_tess,
+    }
+
+
+def test_build_consensus_vision_authoritative_preserves_full_skus():
+    """The H&M 1504495444 reference case: glm_ocr's clean 13-digit SKUs
+    must survive unmodified even when 6 tesseract variants outvote it
+    with mangled alphanumeric hallucinations."""
+    variants = _hm_receipt_variants()
+    result = multi_ocr.build_consensus(variants)
+    # Full 13-digit SKUs intact from glm_ocr
+    for sku in (
+        "1206305006007",
+        "1215205001003",
+        "1057731002004",
+        "1229647001004",
+        "1187610004005",
+        "1073337004001",
+    ):
+        assert sku in result.text, f"missing SKU {sku}"
+    # Tesseract garbage does NOT leak into consensus text
+    for garbage in ("Heaite", "Fe ise", "Sis 002008", "_AMfe7610004005", "ff eee"):
+        assert garbage not in result.text, f"garbage {garbage!r} leaked in"
+    # engine_used labels the authoritative base
+    assert result.engine_used == "authoritative(original+glm_ocr)"
+    assert result.confidence == 1.0
+
+
+def test_build_consensus_vision_authoritative_picks_correct_price():
+    """The M/56 Beige Straw Hat disagreement — glm_ocr says $8.99
+    (reconciles with $57.93 subtotal), 6 tesseract variants say $6.99.
+    Authoritative path keeps $8.99; $6.99 must not appear on that row."""
+    variants = _hm_receipt_variants()
+    result = multi_ocr.build_consensus(variants)
+    # Authoritative text is the glm_ocr base — its M/56 row has $8.99.
+    m56_lines = [ln for ln in result.text.splitlines() if "M/56" in ln or "M56" in ln]
+    assert m56_lines, "M/56 Beige row missing"
+    assert any("$8.99" in ln for ln in m56_lines)
+    # The tesseract-only $6.99 is never on the authoritative row
+    for line in m56_lines:
+        assert "$6.99" not in line
+
+
+def test_build_consensus_vision_authoritative_still_populates_token_map():
+    """Authoritative mode keeps the full cross-variant token_map so
+    downstream parsers can still cross-reference any engine's reads."""
+    variants = _hm_receipt_variants()
+    result = multi_ocr.build_consensus(variants)
+    # $6.99 only comes from tesseract variants — token_map must still
+    # record those sightings even though the consensus text ignores them
+    assert "6.99" in result.token_map
+    engines = {vid for vid, _ in result.token_map["6.99"]}
+    assert any("tesseract" in e for e in engines)
+    # And $8.99 should be sourced from glm_ocr
+    assert "8.99" in result.token_map
+    assert any("glm_ocr" in vid for vid, _ in result.token_map["8.99"])
+
+
+def test_build_consensus_skips_authoritative_when_no_vision_engine():
+    """Without any vision engine, the normal hybrid consensus path runs."""
+    variant_texts = {
+        "upscale_2x+tesseract_psm6": "SHEIN Skirt 1 $8.19\nGrand Total $67.80",
+        "clahe_otsu+tesseract_psm6": "SHEIN Skirt 1 $8.19\nGrand Total $67.80",
+        "original+paddleocr": "SHEIN Skirt + $8.19\nGrand Total $67.80",
+    }
+    result = multi_ocr.build_consensus(variant_texts)
+    assert not result.engine_used.startswith("authoritative(")
+    assert result.engine_used.startswith("hybrid(")
+    assert "8.19" in result.text
+
+
+def test_build_consensus_skips_authoritative_when_vision_empty():
+    """An empty glm_ocr output (API failure) must NOT trigger the
+    authoritative path — the short-circuit gate rejects it and we
+    fall through to the normal consensus code path."""
+    variant_texts = {
+        "original+glm_ocr": "",
+        "upscale_2x+tesseract_psm6": "SHEIN Skirt 1 $8.19\nGrand Total $67.80",
+        "clahe_otsu+tesseract_psm6": "SHEIN Skirt 1 $8.19\nGrand Total $67.80",
+    }
+    result = multi_ocr.build_consensus(variant_texts)
+    assert not result.engine_used.startswith("authoritative(")
+    # The _vision_authoritative_pick gate rejected the empty variant
+    assert multi_ocr._vision_authoritative_pick(variant_texts) is None
+
+
+def test_build_consensus_skips_authoritative_when_vision_too_short():
+    """Short vision output (e.g. error message with no prices) must not
+    trigger authoritative mode."""
+    variant_texts = {
+        "original+glm_ocr": "Error: unable to parse.",  # <100 chars, 0 prices
+        "upscale_2x+tesseract_psm6": (
+            "SHEIN Skirt 1 $8.19\nGrand Total $67.80\nShipping $5.00\nTax $1.00"
+        ),
+        "clahe_otsu+tesseract_psm6": (
+            "SHEIN Skirt 1 $8.19\nGrand Total $67.80\nShipping $5.00\nTax $1.00"
+        ),
+    }
+    result = multi_ocr.build_consensus(variant_texts)
+    assert not result.engine_used.startswith("authoritative(")
+
+
+def test_build_consensus_skips_authoritative_when_vision_lacks_prices():
+    """Vision output that is long but has <3 prices is not trustworthy
+    as a structured read — fall through to normal consensus."""
+    long_prose = "This is a long paragraph without any numeric pricing. " * 5
+    variant_texts = {
+        "original+glm_ocr": long_prose + " Total cost was $5.00.",  # only 1 price
+        "upscale_2x+tesseract_psm6": "SHEIN $8.19\nTotal $67.80\nTax $5.00\nMore $3.00",
+        "clahe_otsu+tesseract_psm6": "SHEIN $8.19\nTotal $67.80\nTax $5.00\nMore $3.00",
+    }
+    result = multi_ocr.build_consensus(variant_texts)
+    assert not result.engine_used.startswith("authoritative(")
+
+
+def test_vision_authoritative_prefers_glm_ocr_over_vision_api():
+    """glm_ocr (priority 110) must beat vision_api (priority 100) when
+    both qualify, so the more specialised document engine wins."""
+    filler = " filler text to reach minimum chars " * 5
+    variant_texts = {
+        "original+glm_ocr": ("Line A $1.00\nLine B $2.00\nLine C $3.00" + filler),
+        "original+vision_api": ("Other A $4.00\nOther B $5.00\nOther C $6.00" + filler),
+    }
+    result = multi_ocr.build_consensus(variant_texts)
+    assert result.engine_used == "authoritative(original+glm_ocr)"
+    # glm_ocr's content is the one that survives
+    assert "Line A" in result.text
+    assert "Other A" not in result.text
+
+
+def test_vision_authoritative_pick_returns_none_for_empty_input():
+    assert multi_ocr._vision_authoritative_pick({}) is None
+
+
+def test_vision_authoritative_pick_returns_none_when_no_vision_engine():
+    """Only tesseract variants — no vision engine exists to be authoritative."""
+    variants = {
+        "upscale_2x+tesseract_psm6": "SHEIN Skirt 1 $8.19\nGrand Total $67.80\nTax $5.00",
+        "clahe_otsu+tesseract_psm6": "SHEIN Skirt 1 $8.19\nGrand Total $67.80\nTax $5.00",
+    }
+    assert multi_ocr._vision_authoritative_pick(variants) is None
+
+
+def test_cache_load_retro_applies_vision_authoritative(tmp_path):
+    """A cache written BEFORE the authoritative short-circuit existed
+    stored a mangled hybrid-consensus text alongside a clean glm_ocr
+    variant. On load we detect this and swap the stored text for the
+    vision read without forcing a re-OCR."""
+    variants = _hm_receipt_variants()
+    # Simulate the stale cache: an ugly hybrid consensus text instead
+    # of glm_ocr's clean one.
+    stale = multi_ocr.MultiOcrResult(
+        text=(
+            "Heaite Flared Twill Pants 12 Dark gray 1 $20.99 -$13.00 $7.99\n"
+            "ff eee Pendant Necklace NOSIZE Gold- 1 $5.99 -$2.00 $3.99"
+        ),
+        variants=variants,
+        token_map={"7.99": [("original+glm_ocr", "x")]},
+        confidence=0.30,
+        method_stats={vid: len(t) for vid, t in variants.items()},
+        page_count=1,
+        engine_used="hybrid(adaptive_gaussian+tesseract_psm6,clahe_otsu+tesseract_psm6,"
+        "clahe_otsu+tesseract_psm4,original+glm_ocr,original+tesseract_psm6,"
+        "upscale_2x+tesseract_psm4,upscale_2x+tesseract_psm6)",
+    )
+    multi_ocr.cache_save("hm_hash", stale, base_dir=str(tmp_path))
+
+    loaded = multi_ocr.cache_load("hm_hash", base_dir=str(tmp_path))
+    assert loaded is not None
+    # Retro-fixed text is glm_ocr's clean output
+    assert "1206305006007" in loaded.text
+    assert "Heaite" not in loaded.text
+    assert "ff eee" not in loaded.text
+    assert loaded.engine_used == "authoritative(original+glm_ocr)"
+    assert loaded.confidence == 1.0

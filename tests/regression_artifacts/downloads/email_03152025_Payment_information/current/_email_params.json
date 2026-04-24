@@ -1,0 +1,21 @@
+{
+  "waybill": "HAWB9474997",
+  "consignee_name": "TERRIE ANN CHARLES",
+  "consignee_code": "PERSONAL",
+  "consignee_address": "",
+  "total_invoices": 3,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "3.0",
+  "country_origin": "US",
+  "freight": "7.00",
+  "man_reg": "2024 24",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0343/out/114-1223151-7141036_2.pdf",
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0343/out/114-1223151-7141036_Invoice_1.pdf",
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0343/out/HAWB9474997-Declaration_combined.xlsx",
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0343/out/HAWB9474997-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

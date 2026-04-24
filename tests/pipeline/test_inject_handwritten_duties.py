@@ -29,6 +29,7 @@ def _make_result(waybill: str = "HAWB9999999"):
 # Single-decl (legacy dict) path
 # ---------------------------------------------------------------------------
 
+
 def test_single_decl_dict_with_ec_value_injects():
     """Legacy single-decl dict path: EC value is wired into invoice_data."""
     decl_meta = {"_customs_value_ec": "80.06", "freight": "5.00"}
@@ -67,6 +68,7 @@ def test_single_decl_usd_converts_to_xcd():
 # ---------------------------------------------------------------------------
 # Multi-decl contamination guard (the Fix A regression gate)
 # ---------------------------------------------------------------------------
+
 
 def test_multi_decl_list_skipped_no_mutation():
     """Two decls → batch injector must NOT mutate ANY result (per-decl path handles it).

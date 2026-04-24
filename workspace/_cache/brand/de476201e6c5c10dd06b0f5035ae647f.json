@@ -1,0 +1,7 @@
+{
+  "name": "Amazon",
+  "country_code": "US",
+  "address": "Amazon.com, Inc.",
+  "confidence": "high",
+  "source": "ocr_text_llm"
+}

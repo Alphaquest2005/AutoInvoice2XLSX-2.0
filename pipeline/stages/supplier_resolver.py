@@ -378,13 +378,17 @@ def _lookup_supplier_web(supplier_name: str) -> Dict:
 
 
 def get_supplier_info(supplier_name: str, supplier_db: Dict,
-                      invoice_data: Dict = None) -> Dict:
+                      invoice_data: Dict = None,
+                      pdf_path: str = None) -> Dict:
     """
-    Build supplier info with priority: invoice PDF data → suppliers.json → web search.
+    Build supplier info with priority: invoice PDF data → suppliers.json →
+    vision logo ID → web search.
 
     Priority chain:
       1. Invoice PDF extracted data (supplier_name, supplier_address, country_code)
       2. suppliers.json database (fills gaps — especially supplier code)
+      2.5 Vision logo / reverse-image supplier identification (when the
+          format YAML had no supplier section and the DB missed)
       3. Web search fallback (for address/country when both above are empty)
 
     Args:
@@ -392,6 +396,9 @@ def get_supplier_info(supplier_name: str, supplier_db: Dict,
         supplier_db: Supplier database from suppliers.json
         invoice_data: Parsed invoice metadata (may contain supplier, country_code,
                       supplier_address from format parser)
+        pdf_path: Optional path to the source invoice PDF — enables the
+                  Tier 2.5 vision / reverse-image supplier identification
+                  when text-based lookup yields no name.
 
     Returns:
         Dict with keys: code, name, address, country
@@ -463,6 +470,34 @@ def get_supplier_info(supplier_name: str, supplier_db: Dict,
         elif name_upper.endswith(' GMBH') or name_upper.endswith(', GMBH'):
             if not inv_country and not db_info.get('country'):
                 resolved_country = 'DE'
+
+    # ── Source 2.5: Vision logo / reverse-image identification ──
+    # Only fires when text-based lookup left the name blank (format YAML
+    # had no supplier section AND the DB missed) and a PDF path is on hand.
+    if not resolved_name and pdf_path:
+        try:
+            # Import lazily, handling both layouts: ``pipeline.stages.*``
+            # (tests/direct calls from repo root) and ``stages.*``
+            # (subprocess runs via ``pipeline/run.py``, which puts
+            # ``pipeline/`` on sys.path).
+            try:
+                from pipeline.stages.supplier_identify import identify_supplier_from_pdf
+            except ImportError:
+                from stages.supplier_identify import identify_supplier_from_pdf  # type: ignore
+            vision_info = identify_supplier_from_pdf(pdf_path)
+        except Exception as e:
+            logger.debug(f"Vision supplier ID raised for {pdf_path}: {e}")
+            vision_info = {}
+        if vision_info.get('name'):
+            resolved_name = vision_info['name']
+            if not resolved_address and vision_info.get('address'):
+                resolved_address = vision_info['address']
+            if not resolved_country and vision_info.get('country_code'):
+                resolved_country = vision_info['country_code']
+            # Regenerate code now that we have a name (earlier code fell back to 'UNK')
+            if code == 'UNK':
+                first_word = resolved_name.strip().split()[0].upper()
+                code = first_word[:8] if len(first_word) > 8 else first_word
 
     # ── Source 3: Web search fallback (only if address or country still missing) ──
     if not resolved_address or not resolved_country:

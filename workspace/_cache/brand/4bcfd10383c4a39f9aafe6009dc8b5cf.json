@@ -1,0 +1,7 @@
+{
+  "name": "H&M",
+  "country_code": "US",
+  "address": "H & M Hennes & Mauritz L.P., 1600 River Road, Burlington, NJ 08016, USA",
+  "confidence": "high",
+  "source": "ocr_text_llm"
+}

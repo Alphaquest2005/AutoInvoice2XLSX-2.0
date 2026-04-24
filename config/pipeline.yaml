@@ -1,6 +1,27 @@
 # CARICOM Invoice Processing Pipeline Configuration
 # All pipeline behavior is controlled by this file
 
+_meta:
+  purpose: "Global pipeline configuration and stage sequencing"
+  covers:
+    - "Pipeline metadata (name, version, description)"
+    - "Global settings (CET reference, template paths, strict_validation)"
+    - "Stage sequence (extract → classify → generate → validate → combine)"
+    - "Per-stage input/output wiring and validation schema"
+  match_patterns:
+    - "pipeline"
+    - "stages"
+    - "strict_validation"
+    - "learning_enabled"
+    - "cet_reference"
+  loader: "pipeline.config_loader:load_pipeline"
+  examples:
+    - "load_pipeline()['settings']['cet_reference'] -> 'data/caricom_cet.xlsx'"
+    - "load_pipeline()['stages'][0]['name']         -> 'extract'"
+  update_checklist:
+    - "Run tests/pipeline/test_pipeline_stages.py if it exists"
+    - "End-to-end smoke test on a known-good shipment"
+
 pipeline:
   name: "CARICOM Invoice Processing"
   version: "1.0.0"
@@ -13,6 +34,16 @@ settings:
   learning_enabled: true
   strict_validation: true
   auto_open_output: true  # Auto-open XLSX file after pipeline completion
+
+# added by Wave 1 for pipeline/bl_xlsx_generator.py
+# SQLite query used by the CET description cache. The column order
+# (hs_code, description, duty_rate) is contractual with the cet.db schema.
+cet_db:
+  query: "SELECT hs_code, description, duty_rate FROM cet_codes"
+  ro_uri_mode: "ro"              # sqlite file:...?mode=ro
+  # Literal values considered "free / zero duty" when parsing duty_rate text.
+  free_rate_literals:
+    - "free"
   
 # Pipeline stages - executed in order
 stages:

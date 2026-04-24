@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "81",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "81 written vertically in the left margin beside the header"
+  },
+  "printed": {
+    "consignee": "TRAVIS JOHN",
+    "freight": 3.0,
+    "waybill": "HAWB9557813",
+    "man_reg": "2024/27",
+    "office": "GDWBS",
+    "weight": 1.0,
+    "packages": 1
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

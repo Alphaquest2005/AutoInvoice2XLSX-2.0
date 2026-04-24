@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "89.96",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "89.96 written vertically on the left margin beside the header"
+  },
+  "printed": {
+    "consignee": "SANASHA JOHN",
+    "freight": 13.0,
+    "waybill": "HAWB9428169",
+    "man_reg": "2024/22",
+    "office": "GDWBS",
+    "weight": 6.0,
+    "packages": 1
+  },
+  "has_handwriting": true,
+  "_cache_version": 3
+}

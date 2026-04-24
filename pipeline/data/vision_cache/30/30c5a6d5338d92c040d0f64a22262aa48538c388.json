@@ -1,12 +1,12 @@
 {
   "handwritten": {
     "customs_value_ec": "58.29",
-    "customs_value_usd": null,
-    "tariff_code": null,
-    "duty_rate": null,
-    "weight": null,
-    "description": null,
-    "other_notes": "Handwritten number '58.29' visible vertically on the left margin of the form."
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "58.29 written vertically in the left margin beside the header"
   },
   "printed": {
     "consignee": "DONNICA LEWIS",
@@ -14,8 +14,9 @@
     "waybill": "HAWB9438625",
     "man_reg": "2024/23",
     "office": "GDWBS",
-    "weight": "2.0",
-    "packages": "1"
+    "weight": 2.0,
+    "packages": 1
   },
-  "has_handwriting": true
+  "has_handwriting": true,
+  "_cache_version": 4
 }

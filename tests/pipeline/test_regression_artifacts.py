@@ -9,7 +9,6 @@ downloads test.
 from __future__ import annotations
 
 import json
-import os
 from pathlib import Path
 
 import pytest
@@ -100,16 +99,22 @@ def test_formula_vs_value_do_not_collide(isolated_baseline_dir, tmp_path):
 def test_email_params_attachment_path_noise_is_ignored(isolated_baseline_dir, tmp_path):
     output_dir = tmp_path / "out"
     output_dir.mkdir()
-    _make_email_params(output_dir / "_email_params.json", {
-        "waybill": "ABC123",
-        "attachment_paths": ["/tmp/runA/INV.xlsx", "/tmp/runA/INV.pdf"],
-    })
+    _make_email_params(
+        output_dir / "_email_params.json",
+        {
+            "waybill": "ABC123",
+            "attachment_paths": ["/tmp/runA/INV.xlsx", "/tmp/runA/INV.pdf"],
+        },
+    )
     ra.snapshot_and_compare("EMAIL", output_dir)
 
-    _make_email_params(output_dir / "_email_params.json", {
-        "waybill": "ABC123",
-        "attachment_paths": ["/tmp/runB/INV.pdf", "/tmp/runB/INV.xlsx"],
-    })
+    _make_email_params(
+        output_dir / "_email_params.json",
+        {
+            "waybill": "ABC123",
+            "attachment_paths": ["/tmp/runB/INV.pdf", "/tmp/runB/INV.xlsx"],
+        },
+    )
     result = ra.snapshot_and_compare("EMAIL", output_dir)
     # Different full paths + reordering but same basenames → no drift.
     assert result["status"] == "match"

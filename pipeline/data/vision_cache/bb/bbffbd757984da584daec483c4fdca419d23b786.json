@@ -1,12 +1,12 @@
 {
   "handwritten": {
-    "customs_value_ec": "90.05",
+    "customs_value_ec": "",
     "customs_value_usd": "",
     "tariff_code": "",
     "duty_rate": "",
     "weight": "",
     "description": "",
-    "other_notes": "Faint pencil marks '90.05' visible in left margin"
+    "other_notes": ""
   },
   "printed": {
     "consignee": "AARON S WILSON",
@@ -17,5 +17,6 @@
     "weight": 8.0,
     "packages": 1
   },
-  "has_handwriting": true
+  "has_handwriting": false,
+  "_cache_version": 4
 }

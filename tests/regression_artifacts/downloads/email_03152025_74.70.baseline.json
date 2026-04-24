@@ -1,0 +1,408 @@
+{
+  "DYI5VCW2Tremeretrue_combined.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'DYI5VCW2Tremeretrue_combined'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'11771 Sunningdale Pl, Waldorf, MD 20602'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'21069090'"
+        },
+        "AK3": {
+          "value": "'21069090'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'DYI5VCW2Tremeretrue'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "D2": {
+          "value": "'Jul 28, 2024, 08:14 PM'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Unclassifiable product'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'21069090'"
+        },
+        "F3": {
+          "value": "'21069090'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'00000000'"
+        },
+        "I3": {
+          "value": "'TRE-1'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J11": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J12": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J14": {
+          "value": "'NET TOTAL'"
+        },
+        "J15": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J17": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J19": {
+          "value": "'INVOICE NOTES: Invoice total uncertain'"
+        },
+        "J2": {
+          "value": "'Tremeretrue Purchase (1 items)'"
+        },
+        "J21": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J22": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J23": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J24": {
+          "value": "'CET (20%) \u2014 Tariff 00000000'"
+        },
+        "J25": {
+          "value": "'CSC (6%)'"
+        },
+        "J26": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J27": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J28": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J29": {
+          "value": "'CLIENT DECLARED DUTIES'"
+        },
+        "J3": {
+          "value": "'Tremeretrue Purchase'"
+        },
+        "J30": {
+          "value": "'DUTY VARIANCE (Client \u2212 Estimated)'"
+        },
+        "J31": {
+          "value": "'IMPLIED CET RATE (from client value)'"
+        },
+        "J32": {
+          "value": "'IMPLIED CIF (from declared duty @ 20% CET, XCD)'"
+        },
+        "J33": {
+          "value": "'IMPLIED ITEMS VALUE (USD, net of freight/insurance)'"
+        },
+        "J4": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J5": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J6": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J8": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J9": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "63.95"
+        },
+        "O3": {
+          "value": "63.95"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "0"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P14": {
+          "formula": "=P4+P12"
+        },
+        "P15": {
+          "formula": "=S2"
+        },
+        "P17": {
+          "formula": "=S2-P14"
+        },
+        "P2": {
+          "value": "63.95"
+        },
+        "P22": {
+          "value": "77.7"
+        },
+        "P23": {
+          "value": "211.1"
+        },
+        "P24": {
+          "value": "42.22"
+        },
+        "P25": {
+          "value": "12.67"
+        },
+        "P26": {
+          "value": "39.9"
+        },
+        "P27": {
+          "value": "94.79"
+        },
+        "P28": {
+          "value": "0.4490288962576978"
+        },
+        "P29": {
+          "value": "94.79"
+        },
+        "P3": {
+          "value": "63.95"
+        },
+        "P30": {
+          "value": "0"
+        },
+        "P31": {
+          "value": "0.2000251271806068"
+        },
+        "P32": {
+          "value": "211.11"
+        },
+        "P33": {
+          "value": "74.7"
+        },
+        "P4": {
+          "formula": "=P2"
+        },
+        "P5": {
+          "formula": "=SUM(P2:P3)-P4"
+        },
+        "P6": {
+          "formula": "=P4-P5"
+        },
+        "P8": {
+          "value": "10.75"
+        },
+        "P9": {
+          "value": "0"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q14": {
+          "formula": "=Q4+Q12"
+        },
+        "Q17": {
+          "formula": "=S2-Q14"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=Q2"
+        },
+        "Q5": {
+          "formula": "=SUM(Q2:Q3)-Q4"
+        },
+        "Q6": {
+          "formula": "=Q4-Q5"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "74.7"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "10.75"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'TREMERET'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "DYI5VCW2Tremeretrue.pdf",
+        "DYI5VCW2Tremeretrue_2.pdf",
+        "DYI5VCW2Tremeretrue_combined.xlsx",
+        "HAWB9671284-Declaration.pdf"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "ANKITA MOORE",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "10.75",
+      "location": "WebSource",
+      "man_reg": "2024 30",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 2,
+      "waybill": "HAWB9671284",
+      "weight": "1.0"
+    }
+  }
+}

@@ -1,0 +1,673 @@
+{
+  "HAWB9605543-Declaration_combined.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Combined Invoices": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "A28": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AA28": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AB28": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AC28": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'85122000'"
+        },
+        "AK28": {
+          "value": "'85122000'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'114-1708026-9220253'"
+        },
+        "C28": {
+          "value": "'114-1708026-9220253'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Other lighting or visual signalling equipment'"
+        },
+        "E28": {
+          "value": "'Other lighting or visual signalling equipment'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'85122000'"
+        },
+        "F28": {
+          "value": "'85122000'"
+        },
+        "F29": {
+          "value": "'85122000'"
+        },
+        "F3": {
+          "value": "'85122000'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'85122000'"
+        },
+        "I28": {
+          "value": "'85122000'"
+        },
+        "I29": {
+          "value": "'AMZ-1'"
+        },
+        "I3": {
+          "value": "'AMZ-1'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J11": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J12": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J14": {
+          "value": "'NET TOTAL'"
+        },
+        "J15": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J17": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J19": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J2": {
+          "value": "'LASFIT H 4 9003 Bulbs , HB 2 / H 19 / H 1 S / P 43 T High / Low Lights , 400 ... (1 items)'"
+        },
+        "J20": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J21": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J22": {
+          "value": "'CET (5%) \u2014 Tariff 85122000'"
+        },
+        "J23": {
+          "value": "'CSC (6%)'"
+        },
+        "J24": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J25": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J26": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J28": {
+          "value": "'LASFIT H 4 9003 Bulbs , HB 2 / H 19 / H 1 S / P 43 T High / Low Lights , 400 ... (1 items)'"
+        },
+        "J29": {
+          "value": "'LASFIT H 4 9003 Bulbs , HB 2 / H 19 / H 1 S / P 43 T High / Low Lights , 400 ...'"
+        },
+        "J3": {
+          "value": "'LASFIT H 4 9003 Bulbs , HB 2 / H 19 / H 1 S / P 43 T High / Low Lights , 400 ...'"
+        },
+        "J30": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J31": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J32": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J34": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J35": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J36": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J37": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J38": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J4": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J40": {
+          "value": "'NET TOTAL'"
+        },
+        "J41": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J43": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J45": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J46": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J47": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J48": {
+          "value": "'CET (5%) \u2014 Tariff 85122000'"
+        },
+        "J49": {
+          "value": "'CSC (6%)'"
+        },
+        "J5": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J50": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J51": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J52": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J6": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J8": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J9": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "K28": {
+          "value": "1"
+        },
+        "K29": {
+          "value": "1"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "L55": {
+          "value": "'\u2550\u2550\u2550 COMBINED GRAND SUMMARY \u2550\u2550\u2550'"
+        },
+        "L56": {
+          "value": "'Invoice 114-1708026-9220253'"
+        },
+        "L57": {
+          "value": "'Invoice 114-1708026-9220253'"
+        },
+        "L59": {
+          "value": "'GRAND TOTAL'"
+        },
+        "L60": {
+          "value": "'GRAND VARIANCE CHECK'"
+        },
+        "L61": {
+          "value": "'Combined 2 invoice files'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N28": {
+          "value": "'USD'"
+        },
+        "N29": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "59.99"
+        },
+        "O28": {
+          "value": "59.99"
+        },
+        "O29": {
+          "value": "59.99"
+        },
+        "O3": {
+          "value": "59.99"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "4.57"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P14": {
+          "formula": "=P4+P12"
+        },
+        "P15": {
+          "formula": "=S2"
+        },
+        "P17": {
+          "formula": "=S2-P14"
+        },
+        "P2": {
+          "value": "59.99"
+        },
+        "P20": {
+          "value": "64.56"
+        },
+        "P21": {
+          "value": "175.4"
+        },
+        "P22": {
+          "value": "8.77"
+        },
+        "P23": {
+          "value": "10.52"
+        },
+        "P24": {
+          "value": "29.2"
+        },
+        "P25": {
+          "value": "48.49"
+        },
+        "P26": {
+          "value": "0.2764538198403649"
+        },
+        "P28": {
+          "value": "59.99"
+        },
+        "P29": {
+          "value": "59.99"
+        },
+        "P3": {
+          "value": "59.99"
+        },
+        "P30": {
+          "formula": "=P28"
+        },
+        "P31": {
+          "formula": "=SUM(P28:P29)-P30"
+        },
+        "P32": {
+          "formula": "=P30-P31"
+        },
+        "P34": {
+          "value": "0"
+        },
+        "P35": {
+          "value": "-9"
+        },
+        "P36": {
+          "value": "4.57"
+        },
+        "P37": {
+          "value": "0"
+        },
+        "P38": {
+          "formula": "=(T28+U28+V28-W28)"
+        },
+        "P4": {
+          "formula": "=P2"
+        },
+        "P40": {
+          "formula": "=P30+P38"
+        },
+        "P41": {
+          "formula": "=S28"
+        },
+        "P43": {
+          "formula": "=S28-P40"
+        },
+        "P46": {
+          "value": "64.56"
+        },
+        "P47": {
+          "value": "175.4"
+        },
+        "P48": {
+          "value": "8.77"
+        },
+        "P49": {
+          "value": "10.52"
+        },
+        "P5": {
+          "formula": "=SUM(P2:P3)-P4"
+        },
+        "P50": {
+          "value": "29.2"
+        },
+        "P51": {
+          "value": "48.49"
+        },
+        "P52": {
+          "value": "0.2764538198403649"
+        },
+        "P56": {
+          "value": "392.78"
+        },
+        "P57": {
+          "value": "392.78"
+        },
+        "P59": {
+          "value": "785.56"
+        },
+        "P6": {
+          "formula": "=P4-P5"
+        },
+        "P60": {
+          "value": "-656.44"
+        },
+        "P8": {
+          "value": "0"
+        },
+        "P9": {
+          "value": "-9"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q14": {
+          "formula": "=Q4+Q12"
+        },
+        "Q17": {
+          "formula": "=S2-Q14"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q28": {
+          "formula": "=O28*K28"
+        },
+        "Q29": {
+          "formula": "=O29*K29"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q30": {
+          "formula": "=Q28"
+        },
+        "Q31": {
+          "formula": "=SUM(Q28:Q29)-Q30"
+        },
+        "Q32": {
+          "formula": "=Q30-Q31"
+        },
+        "Q38": {
+          "formula": "=(T28+U28+V28-W28)"
+        },
+        "Q4": {
+          "formula": "=Q2"
+        },
+        "Q40": {
+          "formula": "=Q30+Q38"
+        },
+        "Q43": {
+          "formula": "=S28-Q40"
+        },
+        "Q5": {
+          "formula": "=SUM(Q2:Q3)-Q4"
+        },
+        "Q56": {
+          "value": "-328.22"
+        },
+        "Q57": {
+          "value": "-328.22"
+        },
+        "Q6": {
+          "formula": "=Q4-Q5"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R28": {
+          "formula": "=P28-Q28"
+        },
+        "R29": {
+          "formula": "=P29-Q29"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "64.56"
+        },
+        "S28": {
+          "value": "64.56"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "T28": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "-9"
+        },
+        "U28": {
+          "value": "-9"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "4.57"
+        },
+        "V28": {
+          "value": "4.57"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "W28": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        },
+        "Z28": {
+          "value": "'AMAZON'"
+        }
+      },
+      "OCR Notes": {
+        "A1": {
+          "value": "'PDF File'"
+        },
+        "A2": {
+          "value": "'114-1708026-9220253.pdf'"
+        },
+        "A3": {
+          "value": "'HAWB9605543-Manifest_Invoice.pdf'"
+        },
+        "B1": {
+          "value": "'Quality Score'"
+        },
+        "B2": {
+          "value": "'77/100'"
+        },
+        "B3": {
+          "value": "'77/100'"
+        },
+        "C1": {
+          "value": "'Rating'"
+        },
+        "C2": {
+          "value": "'GOOD'"
+        },
+        "C3": {
+          "value": "'GOOD'"
+        },
+        "D1": {
+          "value": "'Details'"
+        },
+        "D2": {
+          "value": "'Text: 1713 chars; Prices: 2 ($-sign), 7 (decimal); Total: $64.56; Invoice#: 114-1708026-9220253; Real items: 1/1; Structure words: 8/12'"
+        },
+        "D3": {
+          "value": "'Text: 1713 chars; Prices: 2 ($-sign), 7 (decimal); Total: $64.56; Invoice#: 114-1708026-9220253; Real items: 1/1; Structure words: 8/12'"
+        },
+        "E1": {
+          "value": "'OCR Text (first 2000 chars)'"
+        },
+        "E2": {
+          "value": "'7 / 28 / 24 , 10 : 16 AM Amazon . com - Order 114-1708026-9220253\\n. amazoncom\\nFinal Details for Order # 114-1708026-9220253\\nPrint this page for your records .\\nOrder Placed : July 19 , 2024\\nAmazon . com order number : 114-1708026-9220253\\nOrder Total : USD 54.56\\nen\\nShipped on July 24 , 2024\\nItems Ordered Price\\n1 of: LASFIT H 4 9003 Bulbs , HB 2 / H 19 / H 1 S / P 43 T High / Low Lights , 400 % Super Bright 60 W 6000 LM 6000 K White , 360 $59.99\\nAdjustable Beam , Plug & Play ( 2 bulbs\\nSold by: CT AUTO ( seller profile ) | Product question ? Ask Selter\\nSupplied by: CT AUTO ( seller profile\\nCondition : New\\nShipping Address :\\nLeslie Anne Johnson\\n10813 NW 30 TH ST BLDG 115 GRE 882\\nMIAMI , FL 33172 - 5068\\nUnited States\\nShipping Speed :\\nFREE Shipping\\nPayment information\\nPayment Method : Item ( s ) Subtotal : USD 59.99\\nVisa ending in 0706 Shipping & Handling : USD 7.27\\nFree Shipping : - USD 7.27\\nBilling address Your Coupon Savings : - USD 9.00\\nLestie Anne Johnson - - - - -\\n10813 NW 30 TH ST BLDG 115 GRE 882 Total before tax : USD 50.99\\nMIAMI , FL 33172 - 5068 Estimated tax to be collected : USD 3.57\\nUnited States veren\\nGrand Total : USD 54.56\\nPayment Grand Total : XCD 149.34\\nCredit Card transactions Visa ending in 0706 : July 24 , 2024 : $54.56\\nTo view the status of your order , return to Order Summary .\\nConditions of Use | Privacy Notice \u00a9 1996 - 2024 , Amazon . com , Inc . or its affiliates\\nBack to top\\nConditions of Use Privacy Notice Consumer Health Data Privacy Disclosure Your Ads Privacy Choices\\n\u00a9 7996 - 2024 , Ariazon . com , Inc . or its affiliates\\nhttps : / / www . amazon . com / gp / css / summary / print . htm ! ? orderlID = 114-1708026-9220253 & ref = ppx yo 2 ov dt b invoice # 1 / 1'"
+        },
+        "E3": {
+          "value": "'7 / 28 / 24 , 10 : 16 AM Amazon . com - Order 114-1708026-9220253\\n. amazoncom\\nFinal Details for Order # 114-1708026-9220253\\nPrint this page for your records .\\nOrder Placed : July 19 , 2024\\nAmazon . com order number : 114-1708026-9220253\\nOrder Total : USD 54.56\\nen\\nShipped on July 24 , 2024\\nItems Ordered Price\\n1 of: LASFIT H 4 9003 Bulbs , HB 2 / H 19 / H 1 S / P 43 T High / Low Lights , 400 % Super Bright 60 W 6000 LM 6000 K White , 360 $59.99\\nAdjustable Beam , Plug & Play ( 2 bulbs\\nSold by: CT AUTO ( seller profile ) | Product question ? Ask Selter\\nSupplied by: CT AUTO ( seller profile\\nCondition : New\\nShipping Address :\\nLeslie Anne Johnson\\n10813 NW 30 TH ST BLDG 115 GRE 882\\nMIAMI , FL 33172 - 5068\\nUnited States\\nShipping Speed :\\nFREE Shipping\\nPayment information\\nPayment Method : Item ( s ) Subtotal : USD 59.99\\nVisa ending in 0706 Shipping & Handling : USD 7.27\\nFree Shipping : - USD 7.27\\nBilling address Your Coupon Savings : - USD 9.00\\nLestie Anne Johnson - - - - -\\n10813 NW 30 TH ST BLDG 115 GRE 882 Total before tax : USD 50.99\\nMIAMI , FL 33172 - 5068 Estimated tax to be collected : USD 3.57\\nUnited States veren\\nGrand Total : USD 54.56\\nPayment Grand Total : XCD 149.34\\nCredit Card transactions Visa ending in 0706 : July 24 , 2024 : $54.56\\nTo view the status of your order , return to Order Summary .\\nConditions of Use | Privacy Notice \u00a9 1996 - 2024 , Amazon . com , Inc . or its affiliates\\nBack to top\\nConditions of Use Privacy Notice Consumer Health Data Privacy Disclosure Your Ads Privacy Choices\\n\u00a9 7996 - 2024 , Ariazon . com , Inc . or its affiliates\\nhttps : / / www . amazon . com / gp / css / summary / print . htm ! ? orderlID = 114-1708026-9220253 & ref = ppx yo 2 ov dt b invoice # 1 / 1'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "114-1708026-9220253_2.pdf",
+        "HAWB9605543-Declaration.pdf",
+        "HAWB9605543-Declaration_combined.xlsx"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "LESLIE ANN JOHNSON",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "3.00",
+      "location": "WebSource",
+      "man_reg": "2024 28",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 2,
+      "waybill": "HAWB9605543",
+      "weight": "4.0"
+    }
+  }
+}

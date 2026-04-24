@@ -1,0 +1,1740 @@
+{
+  "HAWB9579167-Declaration_combined.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Combined Invoices": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "A31": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'TEMU'"
+        },
+        "AA31": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'31 St. James Avenue, Suite 355, Boston, MA 02116'"
+        },
+        "AB31": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'CN'"
+        },
+        "AC31": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'99999999'"
+        },
+        "AK31": {
+          "value": "'90041000'"
+        },
+        "AK32": {
+          "value": "'90041000'"
+        },
+        "AK33": {
+          "value": "'85183000'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'113-8373453-4570669'"
+        },
+        "C31": {
+          "value": "'113-8373453-4570669'"
+        },
+        "C33": {
+          "value": "'113-8373453-4570669'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Miscellaneous/Commercial documents or services'"
+        },
+        "E31": {
+          "value": "'DIVING EQUIPMENT'"
+        },
+        "E33": {
+          "value": "'Headphones and earphones, whether or not combined with a microphone, and sets...'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'99999999'"
+        },
+        "F3": {
+          "value": "'99999999'"
+        },
+        "F31": {
+          "value": "'90041000'"
+        },
+        "F32": {
+          "value": "'90041000'"
+        },
+        "F33": {
+          "value": "'85183000'"
+        },
+        "F34": {
+          "value": "'85183000'"
+        },
+        "F4": {
+          "value": "'99999999'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'99999999'"
+        },
+        "I3": {
+          "value": "'TEMU-1'"
+        },
+        "I31": {
+          "value": "'90049000'"
+        },
+        "I32": {
+          "value": "'AMZ-1'"
+        },
+        "I33": {
+          "value": "'85183000'"
+        },
+        "I34": {
+          "value": "'AMZ-2'"
+        },
+        "I4": {
+          "value": "'TEMU-3'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J11": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J12": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J13": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J15": {
+          "value": "'NET TOTAL'"
+        },
+        "J16": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J18": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J2": {
+          "value": "'Timothy Walker/ Icon of the seas 2051 SE 35TH ST FORT LAUDERDALE, FL 33316-4019 United States Total before tax: (+1 more) (2 items)'"
+        },
+        "J20": {
+          "value": "'INVOICE NOTES: Invoice total uncertain'"
+        },
+        "J22": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J23": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J24": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J25": {
+          "value": "'CET (20%) \u2014 Tariff 99999999'"
+        },
+        "J26": {
+          "value": "'CSC (6%)'"
+        },
+        "J27": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J28": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J29": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J3": {
+          "value": "'Timothy Walker/ Icon of the seas 2051 SE 35TH ST FORT LAUDERDALE, FL 33316-4019 United States Total before tax:'"
+        },
+        "J31": {
+          "value": "'aisswzber Fashion Vintage Classic Semi - Rimless Half Frame Clear Lens Glasse... (1 items)'"
+        },
+        "J32": {
+          "value": "'aisswzber Fashion Vintage Classic Semi - Rimless Half Frame Clear Lens Glasse...'"
+        },
+        "J33": {
+          "value": "'Soundcore by Anker P 20 i True Wireless Earbuds , 10 mm Drivers with Big Bass... (1 items)'"
+        },
+        "J34": {
+          "value": "'Soundcore by Anker P 20 i True Wireless Earbuds , 10 mm Drivers with Big Bass...'"
+        },
+        "J35": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J36": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J37": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J39": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J4": {
+          "value": "'Grand Total:'"
+        },
+        "J40": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J41": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J42": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J43": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J45": {
+          "value": "'NET TOTAL'"
+        },
+        "J46": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J48": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J5": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J50": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J51": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J52": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J53": {
+          "value": "'CET (weighted avg 20.0%)'"
+        },
+        "J54": {
+          "value": "'  \u2514 85183000: 20% CET (63% of value)'"
+        },
+        "J55": {
+          "value": "'  \u2514 90049000: 20% CET (37% of value)'"
+        },
+        "J56": {
+          "value": "'CSC (6%)'"
+        },
+        "J57": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J58": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J59": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J6": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J7": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J9": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "0"
+        },
+        "K3": {
+          "value": "0"
+        },
+        "K31": {
+          "value": "1"
+        },
+        "K32": {
+          "value": "1"
+        },
+        "K33": {
+          "value": "1"
+        },
+        "K34": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "0"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "L62": {
+          "value": "'\u2550\u2550\u2550 COMBINED GRAND SUMMARY \u2550\u2550\u2550'"
+        },
+        "L63": {
+          "value": "'Invoice 113-8373453-4570669'"
+        },
+        "L64": {
+          "value": "'Invoice 113-8373453-4570669'"
+        },
+        "L66": {
+          "value": "'GRAND TOTAL'"
+        },
+        "L67": {
+          "value": "'GRAND VARIANCE CHECK'"
+        },
+        "L68": {
+          "value": "'Combined 2 invoice files'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N31": {
+          "value": "'USD'"
+        },
+        "N32": {
+          "value": "'USD'"
+        },
+        "N33": {
+          "value": "'USD'"
+        },
+        "N34": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O3": {
+          "value": "25.58"
+        },
+        "O31": {
+          "value": "9.59"
+        },
+        "O32": {
+          "value": "9.59"
+        },
+        "O33": {
+          "value": "15.99"
+        },
+        "O34": {
+          "value": "15.99"
+        },
+        "O4": {
+          "value": "25.58"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "0"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "value": "0"
+        },
+        "P13": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P15": {
+          "formula": "=P5+P13"
+        },
+        "P16": {
+          "formula": "=S2"
+        },
+        "P18": {
+          "formula": "=S2-P15"
+        },
+        "P2": {
+          "value": "51.16"
+        },
+        "P23": {
+          "value": "51.16"
+        },
+        "P24": {
+          "value": "139"
+        },
+        "P25": {
+          "value": "27.8"
+        },
+        "P26": {
+          "value": "8.34"
+        },
+        "P27": {
+          "value": "26.27"
+        },
+        "P28": {
+          "value": "62.41"
+        },
+        "P29": {
+          "value": "0.4489928057553957"
+        },
+        "P3": {
+          "value": "25.58"
+        },
+        "P31": {
+          "value": "9.59"
+        },
+        "P32": {
+          "value": "9.59"
+        },
+        "P33": {
+          "value": "15.99"
+        },
+        "P34": {
+          "value": "15.99"
+        },
+        "P35": {
+          "formula": "=P31+P33"
+        },
+        "P36": {
+          "formula": "=SUM(P31:P34)-P35"
+        },
+        "P37": {
+          "formula": "=P35-P36"
+        },
+        "P39": {
+          "value": "0"
+        },
+        "P4": {
+          "value": "25.58"
+        },
+        "P40": {
+          "value": "0"
+        },
+        "P41": {
+          "value": "0"
+        },
+        "P42": {
+          "value": "0"
+        },
+        "P43": {
+          "formula": "=(T31+U31+V31-W31)"
+        },
+        "P45": {
+          "formula": "=P35+P43"
+        },
+        "P46": {
+          "formula": "=S31"
+        },
+        "P48": {
+          "formula": "=S31-P45"
+        },
+        "P5": {
+          "formula": "=P2"
+        },
+        "P51": {
+          "value": "25.58"
+        },
+        "P52": {
+          "value": "69.5"
+        },
+        "P53": {
+          "value": "13.9"
+        },
+        "P54": {
+          "value": "8.69"
+        },
+        "P55": {
+          "value": "5.21"
+        },
+        "P56": {
+          "value": "4.17"
+        },
+        "P57": {
+          "value": "13.14"
+        },
+        "P58": {
+          "value": "31.21"
+        },
+        "P59": {
+          "value": "0.4490647482014389"
+        },
+        "P6": {
+          "formula": "=SUM(P2:P4)-P5"
+        },
+        "P63": {
+          "value": "366.59"
+        },
+        "P64": {
+          "value": "197.43"
+        },
+        "P66": {
+          "value": "564.02"
+        },
+        "P67": {
+          "value": "-487.28"
+        },
+        "P7": {
+          "formula": "=P5-P6"
+        },
+        "P9": {
+          "value": "0"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q13": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q15": {
+          "formula": "=Q5+Q13"
+        },
+        "Q18": {
+          "formula": "=S2-Q15"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q31": {
+          "formula": "=O31*K31"
+        },
+        "Q32": {
+          "formula": "=O32*K32"
+        },
+        "Q33": {
+          "formula": "=O33*K33"
+        },
+        "Q34": {
+          "formula": "=O34*K34"
+        },
+        "Q35": {
+          "formula": "=Q31+Q33"
+        },
+        "Q36": {
+          "formula": "=SUM(Q31:Q34)-Q35"
+        },
+        "Q37": {
+          "formula": "=Q35-Q36"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q43": {
+          "formula": "=(T31+U31+V31-W31)"
+        },
+        "Q45": {
+          "formula": "=Q35+Q43"
+        },
+        "Q48": {
+          "formula": "=S31-Q45"
+        },
+        "Q5": {
+          "formula": "=Q2"
+        },
+        "Q6": {
+          "formula": "=SUM(Q2:Q4)-Q5"
+        },
+        "Q63": {
+          "value": "-315.43"
+        },
+        "Q64": {
+          "value": "-171.85"
+        },
+        "Q7": {
+          "formula": "=Q5-Q6"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R31": {
+          "formula": "=P31-Q31"
+        },
+        "R32": {
+          "formula": "=P32-Q32"
+        },
+        "R33": {
+          "formula": "=P33-Q33"
+        },
+        "R34": {
+          "formula": "=P34-Q34"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "51.16"
+        },
+        "S31": {
+          "value": "25.58"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "T31": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "U31": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "V31": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "W31": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'TEMU'"
+        },
+        "Z31": {
+          "value": "'AMAZON'"
+        }
+      },
+      "OCR Notes": {
+        "A1": {
+          "value": "'PDF File'"
+        },
+        "A2": {
+          "value": "'113-8373453-4570669.pdf'"
+        },
+        "A3": {
+          "value": "'HAWB9579167-Manifest_Invoice.pdf'"
+        },
+        "B1": {
+          "value": "'Quality Score'"
+        },
+        "B2": {
+          "value": "'52/100'"
+        },
+        "B3": {
+          "value": "'90/100'"
+        },
+        "C1": {
+          "value": "'Rating'"
+        },
+        "C2": {
+          "value": "'FAIR'"
+        },
+        "C3": {
+          "value": "'GOOD'"
+        },
+        "D1": {
+          "value": "'Details'"
+        },
+        "D2": {
+          "value": "'Text: 640 chars; Prices: 3 ($-sign), 2 (decimal); Total: MISSING; Invoice#: MISSING; Real items: 2/3; Structure words: 4/12'"
+        },
+        "D3": {
+          "value": "'Text: 2080 chars; Prices: 8 ($-sign), 5 (decimal); Total: $25.58; Invoice#: 113-8373453-4570669; Real items: 2/2; Structure words: 8/12'"
+        },
+        "E1": {
+          "value": "'OCR Text (first 2000 chars)'"
+        },
+        "E2": {
+          "value": "'Billing address\\nTimothy Walker/ Icon of the seas\\n2051 SE 35TH ST\\nFORT LAUDERDALE, FL 33316-4019\\nUnited States\\nTotal before tax: $25.58\\nEstimated tax to be collected: $0.00\\nGrand Total: $25.58\\n\\nTo view the status of your order, return to Order Summary.\\n\\nConditions of Use | Privacy Notice \u00a9 1996-2024, Amazon.com, Inc. or its affiliates\\n\\nBack to top\\n\\nEnglish United States Help\\n\\nConditions of Use Privacy Notice Consumer Health Data Privacy Disclosure Your Ads Privacy Choices\\n\u00a9 1996-2024, Amazon.com, Inc. or its affiliates\\n\\nhttps://www.amazon.com/gp/css/summary/print.html?orderID=113-8373453-4570669&ref=ppx_yo2ov_dt_b_invoice Page 2 of 2'"
+        },
+        "E3": {
+          "value": "'rr\\namazon . com . \u2018\\nenter ?\\nFinal Details for Order # 113-8373453-4570669\\nPrint this page for your records ,\\nOrder Placed : July 17 , 2024\\nAmazon . com order number : 113-8373453-4570669\\nOrder Total : $25.58\\nmY\\nShipped on July 18 , 2024\\nItems Ordered Price\\n1 of: aisswzber Fashion Vintage Classic Semi - Rimless Half Frame Clear Lens Glasses 3016 - gold & silver $9.59\\nSold by: Aisswzber ( seller profile\\n| Supplied by: Aisswzber ( seller profile\\nKyo\\nCondition : New\\nShipping Address :\\nTimothy Walker\\n10813 NW 30 TH ST BLDG 115\\nGRE 4170\\nMIAMI , FL 33172 - 2191\\nUnited States\\nShipping Speed :\\nFREE Prime Delivery\\na\\nShipped on July 18 , 2024\\nItems Ordered Price\\n1 of: Soundcore by Anker P 20 i True Wireless Earbuds , 10 mm Drivers with Big Bass , Bluetooth 5.3 , 30 H Long Playtime , Water - $15.99\\nResistant , 2 Mics for AI Clear Calls , 22 Preset EQs , Customization via App , Soundcore\\nOy : Y | Sold by: AnkerDirect ( seller profile ) | Product question ? Ask Seller\\n\u201c Supplied by: AnkerDirect ( seller profile\\nCondition : New\\nShipping Address :\\nTimothy Walker\\n10813 NW 30 TH ST BLDG 115\\nGRE 4170\\nMIAMI , FL 33172 - 2191\\nUnited States\\nShipping Speed :\\nFREE Prime Delivery\\nPayment information\\nPayment Method : Item ( s ) Subtotal : $25.58\\nMastercard ending in 4145 Shipping & Handling : $0.00\\nhttps : / / www . amazon . com / gp / css / summary / print . html ? orderlD = 113-8373453-4570669 & ref = ppx yo 2 ov dt b invoice Page 1 of 2\\n\\nBilling address\\nTimothy Walker/ Icon of the seas\\n2051 SE 35TH ST\\nFORT LAUDERDALE, FL 33316-4019\\nUnited States\\n\\nTotal before tax: $25.58\\nEstimated tax to be collected: $0.00\\nGrand Total: $25.58\\n\\nTo view the status of your order, return to Order Summary.\\n\\nConditions of Use | Privacy Notice \u00a9 1996-2024, Amazon.com, Inc. or its affiliates\\n\\nBack to top\\n\\nEnglish United States Help\\n\\nConditions of Use Privacy Notice Consumer Health Data Privacy Disclosure Your Ads Privacy Choices\\n\u00a9 1996-2024, Amazon.com, Inc. or its affiliates\\n\\nhttps://www.amazon.com/gp/css/summa'"
+        }
+      }
+    }
+  },
+  "HAWB9579167.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'TEMU'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'31 St. James Avenue, Suite 355, Boston, MA 02116'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'CN'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'99999999'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'113-8373453-4570669'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Miscellaneous/Commercial documents or services'"
+        },
+        "E31": {
+          "value": "'Miscellaneous/Commercial documents or services'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'99999999'"
+        },
+        "F3": {
+          "value": "'99999999'"
+        },
+        "F31": {
+          "value": "'99999999'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'99999999'"
+        },
+        "I3": {
+          "value": "'TEMU-1'"
+        },
+        "I32": {
+          "value": "'TEMU-3'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J11": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J12": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J14": {
+          "value": "'NET TOTAL'"
+        },
+        "J15": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J17": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J19": {
+          "value": "'INVOICE NOTES: Invoice total uncertain'"
+        },
+        "J2": {
+          "value": "'Timothy Walker/ Icon of the seas 2051 SE 35TH ST FORT LAUDERDALE, FL 33316-4019 United States Total before tax: (1 items)'"
+        },
+        "J21": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J22": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J23": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J24": {
+          "value": "'CET (20%) \u2014 Tariff 99999999'"
+        },
+        "J25": {
+          "value": "'CSC (6%)'"
+        },
+        "J26": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J27": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J28": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J3": {
+          "value": "'Timothy Walker/ Icon of the seas 2051 SE 35TH ST FORT LAUDERDALE, FL 33316-4019 United States Total before tax:'"
+        },
+        "J30": {
+          "value": "'Items on other declaration(s) (1 items)'"
+        },
+        "J31": {
+          "value": "'Grand Total: (1 items)'"
+        },
+        "J32": {
+          "value": "'Grand Total:'"
+        },
+        "J33": {
+          "value": "'REFERENCE SUBTOTAL'"
+        },
+        "J34": {
+          "value": "'REFERENCE FREIGHT'"
+        },
+        "J35": {
+          "value": "'REFERENCE INSURANCE'"
+        },
+        "J36": {
+          "value": "'REFERENCE OTHER COST'"
+        },
+        "J37": {
+          "value": "'REFERENCE DEDUCTION'"
+        },
+        "J38": {
+          "value": "'REFERENCE ADJUSTMENTS'"
+        },
+        "J39": {
+          "value": "'REFERENCE NET TOTAL'"
+        },
+        "J4": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J41": {
+          "value": "'COMBINED ITEMS TOTAL'"
+        },
+        "J42": {
+          "value": "'FULL INVOICE FREIGHT'"
+        },
+        "J43": {
+          "value": "'FULL INVOICE INSURANCE'"
+        },
+        "J44": {
+          "value": "'FULL INVOICE OTHER COST'"
+        },
+        "J45": {
+          "value": "'FULL INVOICE DEDUCTION'"
+        },
+        "J46": {
+          "value": "'FULL ADJUSTMENTS'"
+        },
+        "J47": {
+          "value": "'COMBINED NET TOTAL'"
+        },
+        "J48": {
+          "value": "'FULL INVOICE TOTAL'"
+        },
+        "J49": {
+          "value": "'COMBINED VARIANCE CHECK'"
+        },
+        "J5": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J6": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J8": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J9": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "0"
+        },
+        "K3": {
+          "value": "0"
+        },
+        "K31": {
+          "value": "0"
+        },
+        "K32": {
+          "value": "0"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N31": {
+          "value": "'USD'"
+        },
+        "N32": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O3": {
+          "value": "25.58"
+        },
+        "O31": {
+          "value": "25.58"
+        },
+        "O32": {
+          "value": "25.58"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "0"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P14": {
+          "formula": "=P4+P12"
+        },
+        "P15": {
+          "formula": "=S2"
+        },
+        "P17": {
+          "formula": "=S2-P14"
+        },
+        "P2": {
+          "value": "25.58"
+        },
+        "P22": {
+          "value": "31.58"
+        },
+        "P23": {
+          "value": "85.8"
+        },
+        "P24": {
+          "value": "17.16"
+        },
+        "P25": {
+          "value": "5.15"
+        },
+        "P26": {
+          "value": "16.22"
+        },
+        "P27": {
+          "value": "38.53"
+        },
+        "P28": {
+          "value": "0.4490675990675991"
+        },
+        "P3": {
+          "value": "25.58"
+        },
+        "P31": {
+          "value": "25.58"
+        },
+        "P32": {
+          "value": "25.58"
+        },
+        "P33": {
+          "value": "25.58"
+        },
+        "P34": {
+          "value": "3"
+        },
+        "P35": {
+          "value": "0"
+        },
+        "P36": {
+          "value": "0"
+        },
+        "P37": {
+          "value": "0"
+        },
+        "P38": {
+          "formula": "=P34+P35+P36-P37"
+        },
+        "P39": {
+          "formula": "=P33+P38"
+        },
+        "P4": {
+          "formula": "=P2"
+        },
+        "P41": {
+          "formula": "=P4+P33"
+        },
+        "P42": {
+          "formula": "=P8+P34"
+        },
+        "P43": {
+          "formula": "=P9+P35"
+        },
+        "P44": {
+          "formula": "=P10+P36"
+        },
+        "P45": {
+          "formula": "=P11+P37"
+        },
+        "P46": {
+          "formula": "=P42+P43+P44-P45"
+        },
+        "P47": {
+          "formula": "=P41+P46"
+        },
+        "P48": {
+          "value": "57.16"
+        },
+        "P49": {
+          "formula": "=P48-P47"
+        },
+        "P5": {
+          "formula": "=SUM(P2:P3)-P4"
+        },
+        "P6": {
+          "formula": "=P4-P5"
+        },
+        "P8": {
+          "value": "3"
+        },
+        "P9": {
+          "value": "0"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q14": {
+          "formula": "=Q4+Q12"
+        },
+        "Q17": {
+          "formula": "=S2-Q14"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=Q2"
+        },
+        "Q5": {
+          "formula": "=SUM(Q2:Q3)-Q4"
+        },
+        "Q6": {
+          "formula": "=Q4-Q5"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "28.58"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "3"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'TEMU'"
+        }
+      }
+    }
+  },
+  "HAWB9579469.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'TEMU'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'31 St. James Avenue, Suite 355, Boston, MA 02116'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'CN'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'99999999'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'113-8373453-4570669'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Miscellaneous/Commercial documents or services'"
+        },
+        "E31": {
+          "value": "'Miscellaneous/Commercial documents or services'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'99999999'"
+        },
+        "F3": {
+          "value": "'99999999'"
+        },
+        "F31": {
+          "value": "'99999999'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'99999999'"
+        },
+        "I3": {
+          "value": "'TEMU-3'"
+        },
+        "I32": {
+          "value": "'TEMU-1'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J11": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J12": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J14": {
+          "value": "'NET TOTAL'"
+        },
+        "J15": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J17": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J19": {
+          "value": "'INVOICE NOTES: Invoice total uncertain'"
+        },
+        "J2": {
+          "value": "'Grand Total: (1 items)'"
+        },
+        "J21": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J22": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J23": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J24": {
+          "value": "'CET (20%) \u2014 Tariff 99999999'"
+        },
+        "J25": {
+          "value": "'CSC (6%)'"
+        },
+        "J26": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J27": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J28": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J3": {
+          "value": "'Grand Total:'"
+        },
+        "J30": {
+          "value": "'Items on other declaration(s) (1 items)'"
+        },
+        "J31": {
+          "value": "'Timothy Walker/ Icon of the seas 2051 SE 35TH ST FORT LAUDERDALE, FL 33316-4019 United States Total before tax: (1 items)'"
+        },
+        "J32": {
+          "value": "'Timothy Walker/ Icon of the seas 2051 SE 35TH ST FORT LAUDERDALE, FL 33316-4019 United States Total before tax:'"
+        },
+        "J33": {
+          "value": "'REFERENCE SUBTOTAL'"
+        },
+        "J34": {
+          "value": "'REFERENCE FREIGHT'"
+        },
+        "J35": {
+          "value": "'REFERENCE INSURANCE'"
+        },
+        "J36": {
+          "value": "'REFERENCE OTHER COST'"
+        },
+        "J37": {
+          "value": "'REFERENCE DEDUCTION'"
+        },
+        "J38": {
+          "value": "'REFERENCE ADJUSTMENTS'"
+        },
+        "J39": {
+          "value": "'REFERENCE NET TOTAL'"
+        },
+        "J4": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J41": {
+          "value": "'COMBINED ITEMS TOTAL'"
+        },
+        "J42": {
+          "value": "'FULL INVOICE FREIGHT'"
+        },
+        "J43": {
+          "value": "'FULL INVOICE INSURANCE'"
+        },
+        "J44": {
+          "value": "'FULL INVOICE OTHER COST'"
+        },
+        "J45": {
+          "value": "'FULL INVOICE DEDUCTION'"
+        },
+        "J46": {
+          "value": "'FULL ADJUSTMENTS'"
+        },
+        "J47": {
+          "value": "'COMBINED NET TOTAL'"
+        },
+        "J48": {
+          "value": "'FULL INVOICE TOTAL'"
+        },
+        "J49": {
+          "value": "'COMBINED VARIANCE CHECK'"
+        },
+        "J5": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J6": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J8": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J9": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "0"
+        },
+        "K3": {
+          "value": "0"
+        },
+        "K31": {
+          "value": "0"
+        },
+        "K32": {
+          "value": "0"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N31": {
+          "value": "'USD'"
+        },
+        "N32": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O3": {
+          "value": "25.58"
+        },
+        "O31": {
+          "value": "25.58"
+        },
+        "O32": {
+          "value": "25.58"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "0"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P14": {
+          "formula": "=P4+P12"
+        },
+        "P15": {
+          "formula": "=S2"
+        },
+        "P17": {
+          "formula": "=S2-P14"
+        },
+        "P2": {
+          "value": "25.58"
+        },
+        "P22": {
+          "value": "31.58"
+        },
+        "P23": {
+          "value": "85.8"
+        },
+        "P24": {
+          "value": "17.16"
+        },
+        "P25": {
+          "value": "5.15"
+        },
+        "P26": {
+          "value": "16.22"
+        },
+        "P27": {
+          "value": "38.53"
+        },
+        "P28": {
+          "value": "0.4490675990675991"
+        },
+        "P3": {
+          "value": "25.58"
+        },
+        "P31": {
+          "value": "25.58"
+        },
+        "P32": {
+          "value": "25.58"
+        },
+        "P33": {
+          "value": "25.58"
+        },
+        "P34": {
+          "value": "3"
+        },
+        "P35": {
+          "value": "0"
+        },
+        "P36": {
+          "value": "0"
+        },
+        "P37": {
+          "value": "0"
+        },
+        "P38": {
+          "formula": "=P34+P35+P36-P37"
+        },
+        "P39": {
+          "formula": "=P33+P38"
+        },
+        "P4": {
+          "formula": "=P2"
+        },
+        "P41": {
+          "formula": "=P4+P33"
+        },
+        "P42": {
+          "formula": "=P8+P34"
+        },
+        "P43": {
+          "formula": "=P9+P35"
+        },
+        "P44": {
+          "formula": "=P10+P36"
+        },
+        "P45": {
+          "formula": "=P11+P37"
+        },
+        "P46": {
+          "formula": "=P42+P43+P44-P45"
+        },
+        "P47": {
+          "formula": "=P41+P46"
+        },
+        "P48": {
+          "value": "57.16"
+        },
+        "P49": {
+          "formula": "=P48-P47"
+        },
+        "P5": {
+          "formula": "=SUM(P2:P3)-P4"
+        },
+        "P6": {
+          "formula": "=P4-P5"
+        },
+        "P8": {
+          "value": "3"
+        },
+        "P9": {
+          "value": "0"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q14": {
+          "formula": "=Q4+Q12"
+        },
+        "Q17": {
+          "formula": "=S2-Q14"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=Q2"
+        },
+        "Q5": {
+          "formula": "=SUM(Q2:Q3)-Q4"
+        },
+        "Q6": {
+          "formula": "=Q4-Q5"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "28.58"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "3"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'TEMU'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "113-8373453-4570669.pdf",
+        "HAWB9579167-Declaration.pdf",
+        "HAWB9579167.xlsx"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "TIMOTHY WALKER",
+      "country_origin": "CN",
+      "expected_entries": 1,
+      "freight": "3.00",
+      "location": "WebSource",
+      "man_reg": "2024 28",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 1,
+      "waybill": "HAWB9579167",
+      "weight": "1.0"
+    }
+  }
+}

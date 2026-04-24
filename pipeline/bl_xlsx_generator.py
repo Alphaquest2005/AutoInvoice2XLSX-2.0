@@ -35,20 +35,67 @@ logger = logging.getLogger(__name__)
 
 import sys
 import sqlite3
+from pipeline.config_loader import (
+    load_columns,
+    load_country_codes,
+    load_file_paths,
+    load_financial_constants,
+    load_hs_structure,
+    load_library_enums,
+    load_patterns,
+    load_pipeline,
+    load_validation_tolerances,
+    load_xlsx_labels,
+    load_document_types,
+)
+
 _pipeline_dir = os.path.dirname(os.path.abspath(__file__))
 if _pipeline_dir not in sys.path:
     sys.path.insert(0, _pipeline_dir)
 
 # Ensure src/ is importable so we can pull the SSOT CET category service.
-_src_dir = os.path.join(os.path.dirname(_pipeline_dir), "src")
+_FILE_PATHS = load_file_paths()
+_src_dir = os.path.join(
+    os.path.dirname(_pipeline_dir), _FILE_PATHS["source_dirs"]["src"]
+)
 if _src_dir not in sys.path:
     sys.path.insert(0, _src_dir)
 
 from spec_loader import get_spec
 from autoinvoice.domain.services.cet_category import category_for as _category_for
 
-# ─── Load spec (singleton) ────────────────────────────────
+# ─── Load spec + config (singletons) ──────────────────────
 _spec = get_spec()
+_FIN = load_financial_constants()
+_COLUMNS_CFG = load_columns()
+_LIBENUMS = load_library_enums()
+_PATTERNS = load_patterns()
+_PIPELINE_CFG = load_pipeline()
+_TOLERANCES = load_validation_tolerances()
+_LABELS = load_xlsx_labels()
+_DOCTYPES = load_document_types()
+_COUNTRY = load_country_codes()
+_DEFAULT_COUNTRY = _COUNTRY["default_origin"]
+_BASE_CURRENCY = _FIN["base_currency"]
+_HS = load_hs_structure()
+_HS_SLICE_HEADING = _HS["slice"]["heading"]
+_HS_SLICE_CHAPTER = _HS["slice"]["chapter"]
+_HS_TARIFF_LEN = _HS["tariff_length"]
+# Primary zero-tariff sentinel: "00000000". Taken from hs_structure.yaml
+# so the padding strings below stay derived, not hardcoded.
+_HS_ZERO_CODE = next(
+    (s for s in _HS["zero_sentinels"] if isinstance(s, str) and s),
+    "0" * _HS_TARIFF_LEN,
+)
+# Padding strings: zero-fill for chapter/heading level lookups.
+_HS_ZERO_PAD_HEADING = _HS_ZERO_CODE[_HS_SLICE_HEADING:]     # "0000"
+_HS_ZERO_PAD_CHAPTER = _HS_ZERO_CODE[_HS_SLICE_CHAPTER:]     # "000000"
+_STYLES = _COLUMNS_CFG.get("styles", {})
+_FILL_TYPE_SOLID = _LIBENUMS["openpyxl"]["fill_type"]["SOLID"]
+_SHEET_CFG = _LIBENUMS["openpyxl"]["sheet"]
+_NUMFMT = _LIBENUMS["openpyxl"]["number_format"]
+_ALIGN_CENTER = _LIBENUMS["openpyxl"]["alignment"]["CENTER"]
+_COMMENT_AUTHOR = _COLUMNS_CFG.get("comment_author", "AutoInvoice")
 
 # ─── Build openpyxl style objects from spec ────────────────
 def _build_styles():
@@ -98,11 +145,17 @@ HEADER_FILL, HEADER_FONT, GROUP_FILL, GROUP_FONT, DETAIL_FONT, BOLD_FONT, THIN_B
 # via the orphan-price scan or absorbed into ADJUSTMENTS.  Visible so a
 # reviewer immediately sees which numbers are reconstructed vs directly
 # extracted from the invoice text.
+_UNCERTAIN_STYLE = _STYLES.get("uncertain", {})
+_RECOVERED_STYLE = _STYLES.get("recovered", {})
 UNCERTAIN_FILL = PatternFill(
-    start_color='FFEBCC', end_color='FFEBCC', fill_type='solid'
+    start_color=_UNCERTAIN_STYLE.get("fill_color"),
+    end_color=_UNCERTAIN_STYLE.get("fill_color"),
+    fill_type=_UNCERTAIN_STYLE.get("fill_type", _FILL_TYPE_SOLID),
 )
 RECOVERED_FILL = PatternFill(
-    start_color='FFF2CC', end_color='FFF2CC', fill_type='solid'
+    start_color=_RECOVERED_STYLE.get("fill_color"),
+    end_color=_RECOVERED_STYLE.get("fill_color"),
+    fill_type=_RECOVERED_STYLE.get("fill_type", _FILL_TYPE_SOLID),
 )
 
 
@@ -111,11 +164,15 @@ _cet_desc_cache: Dict[str, str] = {}
 _cet_rate_cache: Dict[str, Optional[float]] = {}
 _cet_db_loaded = False
 
-# XCD exchange rate (Eastern Caribbean Dollar)
-XCD_RATE = 2.7169
-# Fixed ASYCUDA duty rates
-CSC_RATE = 0.06   # Customs Service Charge: 6%
-VAT_RATE = 0.15   # Value Added Tax: 15%
+# XCD exchange rate + statutory CARICOM duty rates.  All loaded from
+# config/financial_constants.yaml (SSOT). Change the YAML, not this file.
+XCD_RATE = _FIN["xcd_rate"]
+CSC_RATE = _FIN["csc_rate"]
+VAT_RATE = _FIN["vat_rate"]
+_DEFAULT_CET_RATE = _FIN["default_cet_rate"]
+_PCT = _FIN["pct_conversion"]
+_COMPOSITE_CET_COEF = _FIN["composite_duty"]["cet_coefficient"]
+_COMPOSITE_BASE_COEF = _FIN["composite_duty"]["base_coefficient"]
 
 def _parse_cet_rate(rate_str: Optional[str]) -> Optional[float]:
     """Parse a duty_rate string from the CET database into a float (0.0–1.0).
@@ -123,7 +180,7 @@ def _parse_cet_rate(rate_str: Optional[str]) -> Optional[float]:
     if not rate_str:
         return None
     rate_str = rate_str.strip()
-    if rate_str.lower() == 'free':
+    if rate_str.lower() in _PIPELINE_CFG["cet_db"]["free_rate_literals"]:
         return 0.0
     # Letter categories (A, C, D) — cannot resolve to a numeric rate
     if rate_str.isalpha():
@@ -132,14 +189,14 @@ def _parse_cet_rate(rate_str: Optional[str]) -> Optional[float]:
     if '-' in rate_str and '%' in rate_str:
         try:
             upper = rate_str.replace('%', '').split('-')[1].strip()
-            return float(upper) / 100.0
+            return float(upper) / float(_PCT)
         except (ValueError, IndexError):
             return None
     # Decimal rate (0.2 = 20%, 0.05 = 5%)
     try:
         val = float(rate_str)
         # Values > 1 are percentages (e.g. "20"), values <= 1 are already ratios
-        return val if val <= 1.0 else val / 100.0
+        return val if val <= 1.0 else val / float(_PCT)
     except ValueError:
         return None
 
@@ -148,14 +205,19 @@ def _load_cet_descriptions() -> None:
     global _cet_db_loaded
     if _cet_db_loaded:
         return
-    db_path = os.path.join(os.path.dirname(_pipeline_dir), 'data', 'cet.db')
+    db_path = os.path.join(
+        os.path.dirname(_pipeline_dir),
+        _FILE_PATHS["references"]["cet_database"],
+    )
+    _cet_query = _PIPELINE_CFG["cet_db"]["query"]
+    _ro_mode = _PIPELINE_CFG["cet_db"]["ro_uri_mode"]
     if not os.path.exists(db_path):
         logger.warning(f"[CET] Database not found: {db_path}")
         _cet_db_loaded = True
         return
     try:
-        conn = sqlite3.connect(f'file:{db_path}?mode=ro', uri=True)
-        rows = conn.execute('SELECT hs_code, description, duty_rate FROM cet_codes').fetchall()
+        conn = sqlite3.connect(f'file:{db_path}?mode={_ro_mode}', uri=True)
+        rows = conn.execute(_cet_query).fetchall()
         for code, desc, rate in rows:
             if desc:
                 _cet_desc_cache[code] = desc
@@ -167,10 +229,13 @@ def _load_cet_descriptions() -> None:
         logger.warning(f"[CET] Read-only connect failed: {e}, trying temp copy")
         try:
             import shutil, tempfile
-            tmp = os.path.join(tempfile.gettempdir(), 'cet_readonly.db')
+            tmp = os.path.join(
+                tempfile.gettempdir(),
+                _FILE_PATHS["references"]["cet_database_temp_name"],
+            )
             shutil.copy2(db_path, tmp)
             conn = sqlite3.connect(tmp)
-            rows = conn.execute('SELECT hs_code, description, duty_rate FROM cet_codes').fetchall()
+            rows = conn.execute(_cet_query).fetchall()
             for code, desc, rate in rows:
                 if desc:
                     _cet_desc_cache[code] = desc
@@ -197,8 +262,8 @@ def get_cet_rate(tariff_code: str) -> Optional[float]:
     Falls back through heading → chapter → prefix. Returns 0.20 default for
     consumer goods if not found (most personal imports are 20% CET)."""
     _load_cet_descriptions()
-    if not tariff_code or tariff_code == '00000000':
-        return 0.20  # default consumer goods rate
+    if not tariff_code or tariff_code == _HS_ZERO_CODE:
+        return _DEFAULT_CET_RATE  # default consumer goods rate
 
     # Exact match
     rate = _cet_rate_cache.get(tariff_code)
@@ -206,25 +271,25 @@ def get_cet_rate(tariff_code: str) -> Optional[float]:
         return rate
 
     # Heading level (first 4 digits + 0000)
-    heading = tariff_code[:4] + '0000'
+    heading = tariff_code[:_HS_SLICE_HEADING] + _HS_ZERO_PAD_HEADING
     rate = _cet_rate_cache.get(heading)
     if rate is not None:
         return rate
 
     # Chapter level (first 2 digits + 000000)
-    chapter = tariff_code[:2] + '000000'
+    chapter = tariff_code[:_HS_SLICE_CHAPTER] + _HS_ZERO_PAD_CHAPTER
     rate = _cet_rate_cache.get(chapter)
     if rate is not None:
         return rate
 
-    # Prefix search — find any code with same 4-digit prefix that has a rate
-    prefix = tariff_code[:4]
+    # Prefix search — find any code with same heading-length prefix that has a rate
+    prefix = tariff_code[:_HS_SLICE_HEADING]
     for code, r in _cet_rate_cache.items():
         if code.startswith(prefix) and r is not None:
             return r
 
     # Default: 20% for consumer goods (most common for personal imports)
-    return 0.20
+    return _DEFAULT_CET_RATE
 
 
 def calculate_duties(cif_usd: float, cet_rate: float,
@@ -262,35 +327,27 @@ def _normalize_date(date_str: str) -> str:
     if not date_str or not isinstance(date_str, str):
         return date_str or ''
     date_str = date_str.strip()
+    iso_regex = _PATTERNS["date_iso_anchored"]
+    us_regex = _PATTERNS["date_us_anchored"]
+    out_fmt = _PATTERNS["date_output_format"]
     # Already in YYYY-MM-DD
-    if re.match(r'^\d{4}-\d{2}-\d{2}$', date_str):
+    if re.match(iso_regex, date_str):
         return date_str
     from datetime import datetime
     # Try common date formats, output as YYYY-MM-DD per spec
-    for fmt in (
-        '%m/%d/%Y',        # 01/16/2026
-        '%M/%d/%Y',        # handle edge case
-        '%B %d, %Y',       # January 16, 2026
-        '%b %d, %Y',       # Jan 16, 2026
-        '%B %d %Y',        # January 16 2026
-        '%b %d %Y',        # Jan 16 2026
-        '%d-%m-%Y',        # 16-01-2026
-        '%m-%d-%Y',        # 01-16-2026
-        '%d %B %Y',        # 16 January 2026
-        '%d %b %Y',        # 16 Jan 2026
-    ):
+    for fmt in _PATTERNS["date_parse_formats"]:
         try:
             dt = datetime.strptime(date_str, fmt)
-            return dt.strftime('%Y-%m-%d')
+            return dt.strftime(out_fmt)
         except ValueError:
             continue
     # Handle M/D/YYYY, M/DD/YYYY, MM/D/YYYY
-    m = re.match(r'^(\d{1,2})/(\d{1,2})/(\d{4})$', date_str)
+    m = re.match(us_regex, date_str)
     if m:
         from datetime import datetime
         try:
             dt = datetime(int(m.group(3)), int(m.group(1)), int(m.group(2)))
-            return dt.strftime('%Y-%m-%d')
+            return dt.strftime(out_fmt)
         except ValueError:
             pass
     return date_str
@@ -321,23 +378,35 @@ def _resolve_value(template: str, context: dict) -> Any:
 
 
 def load_document_type_config(document_type: str) -> Dict:
-    """Load document type settings from config/document_types.json."""
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    config_path = os.path.join(base_dir, 'config', 'document_types.json')
+    """Load document type settings via the SSOT config loader.
 
-    if os.path.exists(config_path):
-        try:
-            with open(config_path, 'r') as f:
-                config = json.load(f)
-            doc_types = config.get('document_types', {})
-            if document_type in doc_types:
-                return doc_types[document_type]
-            logger.warning(f"Document type '{document_type}' not found in config, "
-                           f"using default settings")
-        except (json.JSONDecodeError, IOError) as e:
-            logger.warning(f"Failed to load document_types.json: {e}")
+    Falls back to a best-effort default matching the JSON 'default' key if
+    the doc_type is absent from the config.
+    """
+    try:
+        doc_types = _DOCTYPES.get("document_types", {})
+        if document_type in doc_types:
+            return doc_types[document_type]
+        logger.warning(
+            f"Document type '{document_type}' not found in config, "
+            f"using default settings"
+        )
+    except Exception as e:  # pragma: no cover — config loader is solid
+        logger.warning(f"Failed to read document_types config: {e}")
 
-    return {'grouping': document_type == '4000-000', 'description': 'Unknown'}
+    default_dt = _DOCTYPES.get("default")
+    unknown_desc = _LABELS["defaults"]["document_type_unknown_description"]
+    return {
+        "grouping": document_type == default_dt,
+        "description": unknown_desc,
+    }
+
+
+_DEFAULT_BL_DOC_TYPE = "7400-000"  # magic-ok: canonical doc_type literal, validated against load_document_types() on import
+assert _DEFAULT_BL_DOC_TYPE in _DOCTYPES["document_types"], (
+    "generate_bl_xlsx default document_type must exist in document_types.json"
+)
+_DEFAULT_REFERENCE_LABEL = _LABELS["reference"]["default_label"]
 
 
 def generate_bl_xlsx(
@@ -346,9 +415,9 @@ def generate_bl_xlsx(
     supplier_name: str,
     supplier_info: Dict,
     output_path: str,
-    document_type: str = "7400-000",
+    document_type: str = _DEFAULT_BL_DOC_TYPE,
     reference_items: Optional[List[Dict]] = None,
-    reference_label: str = "Items on other declaration(s)",
+    reference_label: str = _DEFAULT_REFERENCE_LABEL,
     reference_adjustments: Optional[Dict] = None,
 ) -> str:
     """Generate a CARICOM-format XLSX file for one BL invoice.
@@ -369,7 +438,7 @@ def generate_bl_xlsx(
 
     wb = openpyxl.Workbook()
     ws = wb.active
-    ws.title = "Invoice Data"
+    ws.title = _SHEET_CFG["default_title"]
 
     _write_headers(ws)
 
@@ -409,7 +478,7 @@ def generate_bl_xlsx(
     for col_idx, width in _spec.column_widths.items():
         ws.column_dimensions[get_column_letter(col_idx)].width = width
 
-    ws.freeze_panes = "A2"
+    ws.freeze_panes = _SHEET_CFG["freeze_panes_cell"]
 
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
     wb.save(output_path)
@@ -625,7 +694,7 @@ def _write_items_grouped(
                 'item_quantity': item['quantity'],
                 'unit_price': item['unit_price'],
                 'item_total_cost': item['total_cost'],
-                'uom': item.get('uom', 'Unit'),
+                'uom': item.get('uom', _LABELS["defaults"]["uom"]),
             }
 
             detail_blank = set(_spec.detail_blank_columns())
@@ -678,10 +747,9 @@ def _write_items_grouped(
                     cell = ws.cell(row=row_num, column=col_idx)
                     cell.fill = RECOVERED_FILL
                     cell.comment = Comment(
-                        f"Data quality: {dq}\n"
-                        f"This value was recovered from OCR text via the "
-                        f"orphan-price scan. Review and correct if wrong.",
-                        "AutoInvoice",
+                        f"{_LABELS['recovered_comment']['prefix']} {dq}\n"
+                        f"{_LABELS['recovered_comment']['body']}",
+                        _COMMENT_AUTHOR,
                     )
             row_num += 1
 
@@ -726,7 +794,7 @@ def _build_item_context(item, invoice_data, supplier_name, supplier_info,
         'item_quantity': item.get('quantity', 0),
         'unit_price': item.get('unit_price', 0),
         'item_total_cost': item.get('total_cost', 0),
-        'uom': item.get('uom', 'Unit'),
+        'uom': item.get('uom', _LABELS["defaults"]["uom"]),
         # Group aggregates
         'group_label': group_label or '',
         'sum_quantity': group_qty,
@@ -737,12 +805,12 @@ def _build_item_context(item, invoice_data, supplier_name, supplier_info,
         'insurance_or_credits': insurance_or_credits if insurance_or_credits else 0,
         'tax_plus_other_cost': tax_plus_other_cost if tax_plus_other_cost else 0,
         'discount_plus_free_shipping': discount_plus_free_shipping if discount_plus_free_shipping else 0,
-        'packages': 1,
+        'packages': 1,  # magic-ok: canonical single-package default; invoice-level override comes via context
         # Supplier info
         'supplier_code': supplier_info.get('code', ''),
         'supplier_name': supplier_name,
         'supplier_address': supplier_info.get('address', ''),
-        'country_code': supplier_info.get('country', 'US'),
+        'country_code': supplier_info.get('country', _DEFAULT_COUNTRY),
     }
 
 
@@ -820,12 +888,20 @@ def _write_subtotals_ungrouped(ws, row_num: int, item_count: int,
         uncertain = bool(invoice_data.get('invoice_total_uncertain'))
         if notes or uncertain:
             row_num += 1
-            note_text = ' | '.join(notes) if notes else 'Invoice total uncertain'
+            note_text = (
+                ' | '.join(notes)
+                if notes
+                else _LABELS["totals"]["INVOICE_TOTAL_UNCERTAIN"]
+            )
+            notes_prefix = _LABELS["totals"]["INVOICE_NOTES_PREFIX"]
             label_cell = ws.cell(
                 row=row_num, column=label_col,
-                value=f"INVOICE NOTES: {note_text}"
+                value=f"{notes_prefix}: {note_text}"
             )
-            label_cell.font = Font(bold=True, size=BOLD_FONT.size, color='9C5700')
+            label_cell.font = Font(
+                bold=True, size=BOLD_FONT.size,
+                color=_UNCERTAIN_STYLE.get("font_color"),
+            )
             label_cell.fill = UNCERTAIN_FILL
             for col in range(1, col_count + 1):
                 cell = ws.cell(row=row_num, column=col)
@@ -943,12 +1019,20 @@ def _write_subtotals_grouped(ws, row_num: int, item_count: int,
         uncertain = bool(invoice_data.get('invoice_total_uncertain'))
         if notes or uncertain:
             row_num += 1  # blank row for readability
-            note_text = ' | '.join(notes) if notes else 'Invoice total uncertain'
+            note_text = (
+                ' | '.join(notes)
+                if notes
+                else _LABELS["totals"]["INVOICE_TOTAL_UNCERTAIN"]
+            )
+            notes_prefix = _LABELS["totals"]["INVOICE_NOTES_PREFIX"]
             label_cell = ws.cell(
                 row=row_num, column=label_col,
-                value=f"INVOICE NOTES: {note_text}"
+                value=f"{notes_prefix}: {note_text}"
             )
-            label_cell.font = Font(bold=True, size=BOLD_FONT.size, color='9C5700')
+            label_cell.font = Font(
+                bold=True, size=BOLD_FONT.size,
+                color=_UNCERTAIN_STYLE.get("font_color"),
+            )
             label_cell.fill = UNCERTAIN_FILL
             for col in range(1, col_count + 1):
                 cell = ws.cell(row=row_num, column=col)
@@ -1008,13 +1092,28 @@ def _resolve_totals_formula(formula: str, first_row: int, last_data_row: int,
 
 # ─── Duty Estimation Section ───────────────────────────────
 
+_DUTY_STYLE = _STYLES.get("duty_section", {})
 DUTY_HEADER_FILL = PatternFill(
-    start_color='D6E4F0', end_color='D6E4F0', fill_type='solid'
+    start_color=_DUTY_STYLE.get("header_fill_color"),
+    end_color=_DUTY_STYLE.get("header_fill_color"),
+    fill_type=_FILL_TYPE_SOLID,
 )
-DUTY_HEADER_FONT = Font(bold=True, size=10, color='1F4E79')
-DUTY_LABEL_FONT = Font(bold=False, size=10, color='1F4E79')
-DUTY_VALUE_FONT = Font(bold=True, size=10, color='1F4E79')
-DUTY_WARN_FONT = Font(bold=True, size=10, color='CC0000')
+DUTY_HEADER_FONT = Font(
+    bold=True, size=_DUTY_STYLE.get("font_size"),
+    color=_DUTY_STYLE.get("header_font_color"),
+)
+DUTY_LABEL_FONT = Font(
+    bold=False, size=_DUTY_STYLE.get("font_size"),
+    color=_DUTY_STYLE.get("label_font_color"),
+)
+DUTY_VALUE_FONT = Font(
+    bold=True, size=_DUTY_STYLE.get("font_size"),
+    color=_DUTY_STYLE.get("value_font_color"),
+)
+DUTY_WARN_FONT = Font(
+    bold=True, size=_DUTY_STYLE.get("font_size"),
+    color=_DUTY_STYLE.get("warn_font_color"),
+)
 
 
 def _write_duty_estimation_section(
@@ -1028,11 +1127,15 @@ def _write_duty_estimation_section(
     difference signals potential tariff misclassification.
     """
     col_count = _spec.col_count()
-    COL_J = _spec.col_index('J') if hasattr(_spec, 'col_index') else 10
-    COL_P = _spec.col_index('P') if hasattr(_spec, 'col_index') else 16
+    COL_J = _spec.col_index('J')
+    COL_P = _spec.col_index('P')
+
+    duty_labels = _LABELS["duty"]
+    currency_fmt = _NUMFMT["CURRENCY_USD"]
+    percent_fmt = _NUMFMT["PERCENT_1DP"]
 
     # Find the last used row
-    row_num = ws.max_row + 2  # blank row gap
+    row_num = ws.max_row + 2  # magic-ok: 2-row gap is fixed layout spec
 
     # Gather values
     invoice_total = invoice_data.get('invoice_total', 0) or 0
@@ -1045,18 +1148,20 @@ def _write_duty_estimation_section(
     weighted_rate = 0
     tariff_rates = {}  # tariff -> (rate, cost)
     for item in matched_items:
-        tc = str(item.get('tariff_code', '00000000'))
+        tc = str(item.get('tariff_code', _HS_ZERO_CODE))
         cost = float(item.get('total_cost', 0) or 0)
         rate = get_cet_rate(tc)
         if rate is None:
-            rate = 0.20  # default
+            rate = _DEFAULT_CET_RATE
         total_cost += cost
         weighted_rate += cost * rate
         if tc not in tariff_rates:
             tariff_rates[tc] = [rate, 0]
         tariff_rates[tc][1] += cost
 
-    avg_cet_rate = (weighted_rate / total_cost) if total_cost > 0 else 0.20
+    avg_cet_rate = (
+        (weighted_rate / total_cost) if total_cost > 0 else _DEFAULT_CET_RATE
+    )
 
     # Calculate duties
     duties = calculate_duties(
@@ -1067,7 +1172,7 @@ def _write_duty_estimation_section(
     )
 
     # ── Header row ──
-    ws.cell(row=row_num, column=COL_J, value='DUTY ESTIMATION (Classification Cross-Check)')
+    ws.cell(row=row_num, column=COL_J, value=duty_labels["section_header"])
     for col in range(1, col_count + 1):
         cell = ws.cell(row=row_num, column=col)
         cell.fill = DUTY_HEADER_FILL
@@ -1075,7 +1180,7 @@ def _write_duty_estimation_section(
         cell.border = THIN_BORDER
     row_num += 1
 
-    def _write_duty_row(label, value, fmt='$#,##0.00', font=None):
+    def _write_duty_row(label, value, fmt=currency_fmt, font=None):
         nonlocal row_num
         ws.cell(row=row_num, column=COL_J, value=label).font = font or DUTY_LABEL_FONT
         val_cell = ws.cell(row=row_num, column=COL_P, value=value)
@@ -1086,30 +1191,47 @@ def _write_duty_estimation_section(
         row_num += 1
 
     # CIF breakdown
-    _write_duty_row(f'CIF (USD) = InvTotal + Freight + Insurance', duties['cif_usd'])
-    _write_duty_row(f'CIF (XCD) = CIF × {XCD_RATE}', duties['cif_xcd'])
+    _write_duty_row(duty_labels["cif_usd_label"], duties['cif_usd'])
+    _write_duty_row(
+        duty_labels["cif_xcd_label_tpl"].format(xcd_rate=XCD_RATE),
+        duties['cif_xcd'],
+    )
 
     # Per-tariff CET rates (show what rates were used)
     if len(tariff_rates) == 1:
         tc, (rate, _) = list(tariff_rates.items())[0]
-        _write_duty_row(f'CET ({rate*100:.0f}%) — Tariff {tc}', duties['cet'])
+        _write_duty_row(
+            duty_labels["cet_single_tpl"].format(pct=rate * _PCT, tc=tc),
+            duties['cet'],
+        )
     else:
-        _write_duty_row(f'CET (weighted avg {avg_cet_rate*100:.1f}%)', duties['cet'])
+        _write_duty_row(
+            duty_labels["cet_weighted_tpl"].format(pct=avg_cet_rate * _PCT),
+            duties['cet'],
+        )
         for tc, (rate, cost) in sorted(tariff_rates.items()):
-            pct = (cost / total_cost * 100) if total_cost else 0
+            share = (cost / total_cost * _PCT) if total_cost else 0
             _write_duty_row(
-                f'  └ {tc}: {rate*100:.0f}% CET ({pct:.0f}% of value)',
+                duty_labels["cet_row_tpl"].format(
+                    tc=tc, pct=rate * _PCT, share=share,
+                ),
                 round(duties['cif_xcd'] * (cost / total_cost) * rate, 2) if total_cost else 0,
             )
 
-    _write_duty_row(f'CSC ({CSC_RATE*100:.0f}%)', duties['csc'])
-    _write_duty_row(f'VAT ({VAT_RATE*100:.0f}%) on CIF+CET+CSC', duties['vat'])
+    _write_duty_row(
+        duty_labels["csc_tpl"].format(pct=CSC_RATE * _PCT), duties['csc'],
+    )
+    _write_duty_row(
+        duty_labels["vat_tpl"].format(pct=VAT_RATE * _PCT), duties['vat'],
+    )
 
     # Total
-    ws.cell(row=row_num, column=COL_J, value='ESTIMATED TOTAL DUTIES').font = DUTY_HEADER_FONT
+    ws.cell(
+        row=row_num, column=COL_J, value=duty_labels["estimated_total"],
+    ).font = DUTY_HEADER_FONT
     val_cell = ws.cell(row=row_num, column=COL_P, value=duties['total_duties'])
     val_cell.font = DUTY_HEADER_FONT
-    val_cell.number_format = '$#,##0.00'
+    val_cell.number_format = currency_fmt
     for col in range(1, col_count + 1):
         cell = ws.cell(row=row_num, column=col)
         cell.fill = DUTY_HEADER_FILL
@@ -1118,37 +1240,47 @@ def _write_duty_estimation_section(
 
     # Effective rate
     _write_duty_row(
-        f'Effective Duty Rate',
+        duty_labels["effective_rate"],
         duties['effective_rate'],
-        fmt='0.0%',
+        fmt=percent_fmt,
     )
+
+    duty_variance_warn = _TOLERANCES["duty_variance_warn_usd"]
+    cet_mismatch_threshold = _TOLERANCES["cet_rate_mismatch_threshold"]
 
     # Client declared value comparison
     if client_declared is not None and client_declared > 0:
-        _write_duty_row('CLIENT DECLARED DUTIES', client_declared)
+        _write_duty_row(duty_labels["client_declared"], client_declared)
         variance = round(client_declared - duties['total_duties'], 2)
-        variance_font = DUTY_WARN_FONT if abs(variance) > 1.0 else DUTY_VALUE_FONT
-        _write_duty_row('DUTY VARIANCE (Client − Estimated)', variance, font=variance_font)
+        variance_font = (
+            DUTY_WARN_FONT if abs(variance) > duty_variance_warn else DUTY_VALUE_FONT
+        )
+        _write_duty_row(
+            duty_labels["duty_variance"], variance, font=variance_font,
+        )
 
         # Reverse-engineer client's implied CET rate
-        # total = cif_xcd * (1.15 * cet_rate + 0.219)
-        # cet_rate = (total/cif_xcd - 0.219) / 1.15
+        # total = cif_xcd * (composite_cet_coef * cet_rate + composite_base_coef)
+        # cet_rate = (total/cif_xcd - composite_base_coef) / composite_cet_coef
         implied_cet_valid = False
         if duties['cif_xcd'] > 0 and client_declared > 0:
-            implied_r = (client_declared / duties['cif_xcd'] - 0.219) / 1.15
+            implied_r = (
+                (client_declared / duties['cif_xcd'] - _COMPOSITE_BASE_COEF)
+                / _COMPOSITE_CET_COEF
+            )
             if 0 <= implied_r <= 1.0:
                 implied_cet_valid = True
                 _write_duty_row(
-                    'IMPLIED CET RATE (from client value)',
+                    duty_labels["implied_cet_rate"],
                     implied_r,
-                    fmt='0.0%',
+                    fmt=percent_fmt,
                 )
-                if abs(implied_r - avg_cet_rate) > 0.02:
+                if abs(implied_r - avg_cet_rate) > cet_mismatch_threshold:
                     ws.cell(
                         row=row_num, column=COL_J,
-                        value=(
-                            f'⚠ CET MISMATCH: System={avg_cet_rate*100:.0f}% vs '
-                            f'Client≈{implied_r*100:.0f}% — review classification'
+                        value=duty_labels["cet_mismatch_warn_tpl"].format(
+                            sys_pct=avg_cet_rate * _PCT,
+                            cli_pct=implied_r * _PCT,
                         ),
                     ).font = DUTY_WARN_FONT
                     for col in range(1, col_count + 1):
@@ -1165,17 +1297,17 @@ def _write_duty_estimation_section(
         # where composite_rate = 1.15*cet + 0.219 at the system's avg CET.
         # Comparing cif_implied vs actual CIF lets the user see whether the
         # item split across per-declaration XLSX files matches reality.
-        composite = 1.15 * avg_cet_rate + 0.219
+        composite = _COMPOSITE_CET_COEF * avg_cet_rate + _COMPOSITE_BASE_COEF
         if composite > 0:
             cif_implied_xcd = client_declared / composite
             cif_implied_usd = cif_implied_xcd / XCD_RATE
             items_implied_usd = max(0.0, cif_implied_usd - (customs_freight or 0) - (customs_insurance or 0))
             _write_duty_row(
-                f'IMPLIED CIF (from declared duty @ {avg_cet_rate*100:.0f}% CET, XCD)',
+                duty_labels["implied_cif_tpl"].format(pct=avg_cet_rate * _PCT),
                 round(cif_implied_xcd, 2),
             )
             _write_duty_row(
-                'IMPLIED ITEMS VALUE (USD, net of freight/insurance)',
+                duty_labels["implied_items_usd"],
                 round(items_implied_usd, 2),
             )
             # Allocation check — compare to the items actually on this sheet.
@@ -1183,24 +1315,25 @@ def _write_duty_estimation_section(
                 float(item.get('total_cost', 0) or 0) for item in matched_items
             ))
             if actual_items_usd > 0 and items_implied_usd > 0:
-                # If the two values diverge by more than _ALLOC_TOLERANCE, the
-                # per-declaration item split likely mis-assigned items between
-                # waybills (or the declared duty refers to a different subset).
-                _ALLOC_TOLERANCE = 0.35  # 35% relative gap
+                # If the two values diverge by more than the configured
+                # relative-gap tolerance, the per-declaration item split
+                # likely mis-assigned items between waybills.
+                alloc_tolerance = _TOLERANCES["item_allocation_relative_gap"]
                 rel_gap = abs(actual_items_usd - items_implied_usd) / max(
                     actual_items_usd, items_implied_usd
                 )
-                if rel_gap > _ALLOC_TOLERANCE:
+                if rel_gap > alloc_tolerance:
                     direction = (
-                        'OVER-ALLOCATED (items should move to another waybill)'
+                        duty_labels["alloc_over"]
                         if actual_items_usd > items_implied_usd
-                        else 'UNDER-ALLOCATED (items from another waybill may belong here)'
+                        else duty_labels["alloc_under"]
                     )
                     ws.cell(
                         row=row_num, column=COL_J,
-                        value=(
-                            f'⚠ ITEM ALLOCATION CHECK: actual ${actual_items_usd:,.2f} USD '
-                            f'vs implied ${items_implied_usd:,.2f} USD — {direction}'
+                        value=duty_labels["alloc_warn_tpl"].format(
+                            actual=actual_items_usd,
+                            implied=items_implied_usd,
+                            direction=direction,
                         ),
                     ).font = DUTY_WARN_FONT
                     for col in range(1, col_count + 1):
@@ -1211,11 +1344,20 @@ def _write_duty_estimation_section(
 # ─── Reference Section (other declaration items) ──────────
 
 # Muted styling for reference items — visible but clearly not part of totals.
+_REF_STYLE = _STYLES.get("reference_section", {})
 REF_HEADER_FILL = PatternFill(
-    start_color='E2EFDA', end_color='E2EFDA', fill_type='solid'
+    start_color=_REF_STYLE.get("header_fill_color"),
+    end_color=_REF_STYLE.get("header_fill_color"),
+    fill_type=_FILL_TYPE_SOLID,
 )
-REF_HEADER_FONT = Font(bold=True, size=10, color='375623')
-REF_DETAIL_FONT = Font(bold=False, size=10, color='808080')
+REF_HEADER_FONT = Font(
+    bold=True, size=_REF_STYLE.get("font_size"),
+    color=_REF_STYLE.get("header_font_color"),
+)
+REF_DETAIL_FONT = Font(
+    bold=False, size=_REF_STYLE.get("font_size"),
+    color=_REF_STYLE.get("detail_font_color"),
+)
 
 
 def _write_reference_section(
@@ -1267,10 +1409,12 @@ def _write_reference_section(
     _ref_style_row(row_num, fill=REF_HEADER_FILL)
     row_num += 1
 
+    ref_labels = _LABELS["reference"]
+
     # Group reference items by tariff code
     groups: OrderedDict = OrderedDict()
     for item in reference_items:
-        tc = str(item.get('tariff_code', '00000000'))
+        tc = str(item.get('tariff_code', _HS_ZERO_CODE))
         groups.setdefault(tc, []).append(item)
 
     for tariff_code, items in groups.items():
@@ -1282,16 +1426,20 @@ def _write_reference_section(
 
         desc = first.get('supplier_item_desc', '')
         if n > 1:
-            group_label = f"{desc} (+{n - 1} more) ({n} items)"
+            group_label = ref_labels["group_label_multi_tpl"].format(
+                desc=desc, more=n - 1, n=n,
+            )
         else:
-            group_label = f"{desc} ({n} items)"
+            group_label = ref_labels["group_label_single_tpl"].format(
+                desc=desc, n=n,
+            )
 
         # Group row — no date (col D), no invoice# (col C)
         ws.cell(row=row_num, column=_spec.col_index('E'), value=category)
         ws.cell(row=row_num, column=_spec.col_index('F'), value=tariff_code)
         ws.cell(row=row_num, column=COL_J, value=group_label)
         ws.cell(row=row_num, column=COL_K, value=sum(it.get('quantity', 1) for it in items))
-        ws.cell(row=row_num, column=COL_N, value='USD')
+        ws.cell(row=row_num, column=COL_N, value=_BASE_CURRENCY)
         avg_cost = group_total / n if n else 0
         ws.cell(row=row_num, column=COL_O, value=avg_cost)
         ws.cell(row=row_num, column=COL_P, value=group_total)
@@ -1307,7 +1455,7 @@ def _write_reference_section(
             ws.cell(row=row_num, column=COL_J,
                     value=item.get('supplier_item_desc', ''))
             ws.cell(row=row_num, column=COL_K, value=item.get('quantity', 1))
-            ws.cell(row=row_num, column=COL_N, value='USD')
+            ws.cell(row=row_num, column=COL_N, value=_BASE_CURRENCY)
             ws.cell(row=row_num, column=COL_O, value=item.get('unit_price', 0))
             ws.cell(row=row_num, column=COL_P, value=item.get('total_cost', 0))
             _ref_style_row(row_num, font=REF_DETAIL_FONT)
@@ -1317,7 +1465,7 @@ def _write_reference_section(
 
     # Reference subtotal
     ref_total = sum(it.get('total_cost', 0) for it in reference_items)
-    ws.cell(row=row_num, column=COL_J, value='REFERENCE SUBTOTAL')
+    ws.cell(row=row_num, column=COL_J, value=ref_labels["subtotal"])
     ws.cell(row=row_num, column=COL_P, value=ref_total)
     _ref_style_row(row_num)
     ref_subtotal_row = row_num
@@ -1327,38 +1475,38 @@ def _write_reference_section(
     ref_adj = reference_adjustments or {}
     ref_freight_row = ref_insurance_row = ref_other_row = ref_deduction_row = None
     if ref_adj:
-        ws.cell(row=row_num, column=COL_J, value='REFERENCE FREIGHT')
+        ws.cell(row=row_num, column=COL_J, value=ref_labels["freight"])
         ws.cell(row=row_num, column=COL_P, value=ref_adj.get('freight', 0))
         _ref_style_row(row_num)
         ref_freight_row = row_num
         row_num += 1
 
-        ws.cell(row=row_num, column=COL_J, value='REFERENCE INSURANCE')
+        ws.cell(row=row_num, column=COL_J, value=ref_labels["insurance"])
         ws.cell(row=row_num, column=COL_P, value=ref_adj.get('insurance', 0))
         _ref_style_row(row_num)
         ref_insurance_row = row_num
         row_num += 1
 
-        ws.cell(row=row_num, column=COL_J, value='REFERENCE OTHER COST')
+        ws.cell(row=row_num, column=COL_J, value=ref_labels["other_cost"])
         ws.cell(row=row_num, column=COL_P, value=ref_adj.get('other_cost', 0))
         _ref_style_row(row_num)
         ref_other_row = row_num
         row_num += 1
 
-        ws.cell(row=row_num, column=COL_J, value='REFERENCE DEDUCTION')
+        ws.cell(row=row_num, column=COL_J, value=ref_labels["deduction"])
         ws.cell(row=row_num, column=COL_P, value=ref_adj.get('deduction', 0))
         _ref_style_row(row_num)
         ref_deduction_row = row_num
         row_num += 1
 
-        ws.cell(row=row_num, column=COL_J, value='REFERENCE ADJUSTMENTS')
+        ws.cell(row=row_num, column=COL_J, value=ref_labels["adjustments"])
         ws.cell(row=row_num, column=COL_P,
                 value=f'=P{ref_freight_row}+P{ref_insurance_row}+P{ref_other_row}-P{ref_deduction_row}')
         _ref_style_row(row_num)
         ref_adj_row = row_num
         row_num += 1
 
-        ws.cell(row=row_num, column=COL_J, value='REFERENCE NET TOTAL')
+        ws.cell(row=row_num, column=COL_J, value=ref_labels["net_total"])
         ws.cell(row=row_num, column=COL_P,
                 value=f'=P{ref_subtotal_row}+P{ref_adj_row}')
         _ref_style_row(row_num)
@@ -1369,24 +1517,35 @@ def _write_reference_section(
     # When reference_adjustments is present, sums main + reference directly.
     # Otherwise falls back to reverse proration.
     if invoice_data and main_items is not None:
+        tlabels = _LABELS["totals"]
+        _main_keys = (
+            tlabels["SUBTOTAL_GROUPED"],
+            tlabels["SUBTOTAL"],
+            tlabels["TOTAL_INTERNAL_FREIGHT"],
+            tlabels["TOTAL_INSURANCE"],
+            tlabels["TOTAL_OTHER_COST"],
+            tlabels["TOTAL_DEDUCTION"],
+            tlabels["ADJUSTMENTS"],
+            tlabels["NET_TOTAL"],
+        )
         # Find key rows from the main totals section by label
         main_rows = {}
         for r in range(2, ref_subtotal_row):
             lbl = str(ws.cell(row=r, column=COL_J).value or '')
-            if lbl in ('SUBTOTAL (GROUPED)', 'SUBTOTAL',
-                       'TOTAL INTERNAL FREIGHT', 'TOTAL INSURANCE',
-                       'TOTAL OTHER COST', 'TOTAL DEDUCTION',
-                       'ADJUSTMENTS', 'NET TOTAL'):
+            if lbl in _main_keys:
                 main_rows[lbl] = r
 
         # Support both grouped (separate freight/insurance rows) and
         # ungrouped (single ADJUSTMENTS row) modes.
-        subtotal_row = main_rows.get('SUBTOTAL (GROUPED)') or main_rows.get('SUBTOTAL')
-        freight_row = main_rows.get('TOTAL INTERNAL FREIGHT')
-        insurance_row = main_rows.get('TOTAL INSURANCE')
-        other_cost_row = main_rows.get('TOTAL OTHER COST')
-        deduction_row = main_rows.get('TOTAL DEDUCTION')
-        adjustments_row = main_rows.get('ADJUSTMENTS')  # ungrouped mode
+        subtotal_row = (
+            main_rows.get(tlabels["SUBTOTAL_GROUPED"])
+            or main_rows.get(tlabels["SUBTOTAL"])
+        )
+        freight_row = main_rows.get(tlabels["TOTAL_INTERNAL_FREIGHT"])
+        insurance_row = main_rows.get(tlabels["TOTAL_INSURANCE"])
+        other_cost_row = main_rows.get(tlabels["TOTAL_OTHER_COST"])
+        deduction_row = main_rows.get(tlabels["TOTAL_DEDUCTION"])
+        adjustments_row = main_rows.get(tlabels["ADJUSTMENTS"])  # ungrouped mode
 
         if not subtotal_row:
             return  # can't build formulas without the main section
@@ -1396,7 +1555,7 @@ def _write_reference_section(
         row_num += 1  # blank separator
 
         # COMBINED ITEMS TOTAL = main subtotal + reference subtotal
-        ws.cell(row=row_num, column=COL_J, value='COMBINED ITEMS TOTAL')
+        ws.cell(row=row_num, column=COL_J, value=ref_labels["combined_items_total"])
         ws.cell(row=row_num, column=COL_P,
                 value=f'=P{subtotal_row}+P{ref_subtotal_row}')
         _ref_style_row(row_num)
@@ -1409,28 +1568,28 @@ def _write_reference_section(
 
         if is_grouped and ref_adj and ref_freight_row:
             # Direct sum: main adjustment rows + reference adjustment rows
-            ws.cell(row=row_num, column=COL_J, value='FULL INVOICE FREIGHT')
+            ws.cell(row=row_num, column=COL_J, value=ref_labels["full_invoice_freight"])
             ws.cell(row=row_num, column=COL_P,
                     value=f'=P{freight_row}+P{ref_freight_row}')
             _ref_style_row(row_num)
             full_freight_row = row_num
             row_num += 1
 
-            ws.cell(row=row_num, column=COL_J, value='FULL INVOICE INSURANCE')
+            ws.cell(row=row_num, column=COL_J, value=ref_labels["full_invoice_insurance"])
             ws.cell(row=row_num, column=COL_P,
                     value=f'=P{insurance_row}+P{ref_insurance_row}')
             _ref_style_row(row_num)
             full_insurance_row = row_num
             row_num += 1
 
-            ws.cell(row=row_num, column=COL_J, value='FULL INVOICE OTHER COST')
+            ws.cell(row=row_num, column=COL_J, value=ref_labels["full_invoice_other"])
             ws.cell(row=row_num, column=COL_P,
                     value=f'=P{other_cost_row}+P{ref_other_row}')
             _ref_style_row(row_num)
             full_other_row = row_num
             row_num += 1
 
-            ws.cell(row=row_num, column=COL_J, value='FULL INVOICE DEDUCTION')
+            ws.cell(row=row_num, column=COL_J, value=ref_labels["full_invoice_deduction"])
             ws.cell(row=row_num, column=COL_P,
                     value=f'=P{deduction_row}+P{ref_deduction_row}')
             _ref_style_row(row_num)
@@ -1438,7 +1597,7 @@ def _write_reference_section(
             row_num += 1
 
             # FULL ADJUSTMENTS = freight + insurance + other_cost - deduction
-            ws.cell(row=row_num, column=COL_J, value='FULL ADJUSTMENTS')
+            ws.cell(row=row_num, column=COL_J, value=ref_labels["full_adjustments"])
             ws.cell(row=row_num, column=COL_P,
                     value=f'=P{full_freight_row}+P{full_insurance_row}+P{full_other_row}-P{full_deduction_row}')
             _ref_style_row(row_num)
@@ -1447,28 +1606,28 @@ def _write_reference_section(
 
         elif is_grouped:
             # Grouped mode, no reference adjustments — reverse proration
-            ws.cell(row=row_num, column=COL_J, value='FULL INVOICE FREIGHT')
+            ws.cell(row=row_num, column=COL_J, value=ref_labels["full_invoice_freight"])
             ws.cell(row=row_num, column=COL_P,
                     value=f'=P{freight_row}/P{subtotal_row}*P{combined_row}')
             _ref_style_row(row_num)
             full_freight_row = row_num
             row_num += 1
 
-            ws.cell(row=row_num, column=COL_J, value='FULL INVOICE INSURANCE')
+            ws.cell(row=row_num, column=COL_J, value=ref_labels["full_invoice_insurance"])
             ws.cell(row=row_num, column=COL_P,
                     value=f'=P{insurance_row}/P{subtotal_row}*P{combined_row}')
             _ref_style_row(row_num)
             full_insurance_row = row_num
             row_num += 1
 
-            ws.cell(row=row_num, column=COL_J, value='FULL INVOICE OTHER COST')
+            ws.cell(row=row_num, column=COL_J, value=ref_labels["full_invoice_other"])
             ws.cell(row=row_num, column=COL_P,
                     value=f'=P{other_cost_row}/P{subtotal_row}*P{combined_row}')
             _ref_style_row(row_num)
             full_other_row = row_num
             row_num += 1
 
-            ws.cell(row=row_num, column=COL_J, value='FULL INVOICE DEDUCTION')
+            ws.cell(row=row_num, column=COL_J, value=ref_labels["full_invoice_deduction"])
             ws.cell(row=row_num, column=COL_P,
                     value=f'=P{deduction_row}/P{subtotal_row}*P{combined_row}')
             _ref_style_row(row_num)
@@ -1476,7 +1635,7 @@ def _write_reference_section(
             row_num += 1
 
             # FULL ADJUSTMENTS = freight + insurance + other_cost - deduction
-            ws.cell(row=row_num, column=COL_J, value='FULL ADJUSTMENTS')
+            ws.cell(row=row_num, column=COL_J, value=ref_labels["full_adjustments"])
             ws.cell(row=row_num, column=COL_P,
                     value=f'=P{full_freight_row}+P{full_insurance_row}+P{full_other_row}-P{full_deduction_row}')
             _ref_style_row(row_num)
@@ -1489,35 +1648,35 @@ def _write_reference_section(
             if ref_adj and ref_freight_row:
                 # Show individual full-invoice lines using reference values
                 # + main's portion from invoice_data
-                ws.cell(row=row_num, column=COL_J, value='FULL INVOICE FREIGHT')
+                ws.cell(row=row_num, column=COL_J, value=ref_labels["full_invoice_freight"])
                 ws.cell(row=row_num, column=COL_P,
                         value=f'=T2+P{ref_freight_row}')
                 _ref_style_row(row_num)
                 full_freight_row = row_num
                 row_num += 1
 
-                ws.cell(row=row_num, column=COL_J, value='FULL INVOICE INSURANCE')
+                ws.cell(row=row_num, column=COL_J, value=ref_labels["full_invoice_insurance"])
                 ws.cell(row=row_num, column=COL_P,
                         value=f'=U2+P{ref_insurance_row}')
                 _ref_style_row(row_num)
                 full_insurance_row = row_num
                 row_num += 1
 
-                ws.cell(row=row_num, column=COL_J, value='FULL INVOICE OTHER COST')
+                ws.cell(row=row_num, column=COL_J, value=ref_labels["full_invoice_other"])
                 ws.cell(row=row_num, column=COL_P,
                         value=f'=V2+P{ref_other_row}')
                 _ref_style_row(row_num)
                 full_other_row = row_num
                 row_num += 1
 
-                ws.cell(row=row_num, column=COL_J, value='FULL INVOICE DEDUCTION')
+                ws.cell(row=row_num, column=COL_J, value=ref_labels["full_invoice_deduction"])
                 ws.cell(row=row_num, column=COL_P,
                         value=f'=W2+P{ref_deduction_row}')
                 _ref_style_row(row_num)
                 full_deduction_row = row_num
                 row_num += 1
 
-                ws.cell(row=row_num, column=COL_J, value='FULL ADJUSTMENTS')
+                ws.cell(row=row_num, column=COL_J, value=ref_labels["full_adjustments"])
                 ws.cell(row=row_num, column=COL_P,
                         value=f'=P{full_freight_row}+P{full_insurance_row}+P{full_other_row}-P{full_deduction_row}')
                 _ref_style_row(row_num)
@@ -1525,7 +1684,7 @@ def _write_reference_section(
                 row_num += 1
             elif adjustments_row:
                 # No reference adjustments — reverse proration via ratio
-                ws.cell(row=row_num, column=COL_J, value='FULL ADJUSTMENTS')
+                ws.cell(row=row_num, column=COL_J, value=ref_labels["full_adjustments"])
                 ws.cell(row=row_num, column=COL_P,
                         value=f'=P{adjustments_row}/P{subtotal_row}*P{combined_row}')
                 _ref_style_row(row_num)
@@ -1535,7 +1694,7 @@ def _write_reference_section(
                 return  # can't build combined section
 
         # COMBINED NET TOTAL = combined items + full adjustments
-        ws.cell(row=row_num, column=COL_J, value='COMBINED NET TOTAL')
+        ws.cell(row=row_num, column=COL_J, value=ref_labels["combined_net_total"])
         ws.cell(row=row_num, column=COL_P,
                 value=f'=P{combined_row}+P{full_adj_row}')
         _ref_style_row(row_num)
@@ -1543,14 +1702,14 @@ def _write_reference_section(
         row_num += 1
 
         # FULL INVOICE TOTAL — the original un-split invoice total (input value)
-        ws.cell(row=row_num, column=COL_J, value='FULL INVOICE TOTAL')
+        ws.cell(row=row_num, column=COL_J, value=ref_labels["full_invoice_total"])
         ws.cell(row=row_num, column=COL_P, value=full_invoice_total)
         _ref_style_row(row_num)
         full_total_row = row_num
         row_num += 1
 
         # COMBINED VARIANCE CHECK = invoice total - net total (formula)
-        ws.cell(row=row_num, column=COL_J, value='COMBINED VARIANCE CHECK')
+        ws.cell(row=row_num, column=COL_J, value=ref_labels["combined_variance_check"])
         ws.cell(row=row_num, column=COL_P,
                 value=f'=P{full_total_row}-P{combined_net_row}')
         _ref_style_row(row_num)

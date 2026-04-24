@@ -1,0 +1,7 @@
+{
+  "name": "H&M",
+  "country_code": "",
+  "address": "",
+  "confidence": "medium",
+  "source": "ocr_text_llm"
+}

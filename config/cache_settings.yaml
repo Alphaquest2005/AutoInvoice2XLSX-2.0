@@ -1,0 +1,58 @@
+# Cache settings — sizes, TTLs, and on-disk locations.
+# All cache paths are relative to the repo root unless noted.
+
+_meta:
+  purpose: "Cache sizes, TTLs, and on-disk cache directories"
+  covers:
+    - "LRU / disk cache sizes (entry counts)"
+    - "Time-to-live per cache kind"
+    - "Relative cache directory paths (vision, OCR, product, learned fixes)"
+    - "Eviction policy"
+  match_patterns:
+    - "cache"
+    - "cache_size"
+    - "cache_dir"
+    - "ttl"
+    - "lru"
+  loader: "pipeline.config_loader:load_cache_settings"
+  examples:
+    - "load_cache_settings()['vision']['dir']         -> 'data/vision_cache'"
+    - "load_cache_settings()['ocr']['max_entries']    -> 5000"
+  update_checklist:
+    - "If cache path changes, migrate existing cached data"
+
+version: "1.0.0"
+
+# Vision cache (memory ref: feedback_vision_caching — must disk-cache).
+vision:
+  dir:          "data/vision_cache"
+  max_entries:  5000
+  ttl_days:     30
+
+# OCR cache.
+ocr:
+  dir:          "data/ocr_cache"
+  max_entries:  5000
+  ttl_days:     30
+
+# Product / supplier-item cache.
+product:
+  dir:          "data/product_cache"
+  max_entries:  10000
+  ttl_days:     90
+
+# Learned fixes (user-confirmed OCR corrections etc.).
+learned_fixes:
+  dir:          "data/learned_fixes"
+  max_entries:  100000
+  ttl_days:     null   # no expiry — these are user-confirmed
+
+# In-memory LRU caches.
+lru:
+  tariff_lookup: 1024
+  format_detect: 256
+
+# File system buffer sizes.
+io:
+  read_chunk_bytes:  1024
+  write_chunk_bytes: 1024

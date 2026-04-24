@@ -1,0 +1,71 @@
+# Issue / status / severity enum vocabulary.
+# Anywhere pipeline code returns a status string or issue type, it MUST
+# come from here. Prevents typo-drift ("succss" vs "success") and keeps
+# the controlled vocabulary in one place.
+
+_meta:
+  purpose: "Controlled vocabulary for status, severity, and issue type strings"
+  covers:
+    - "Top-level pipeline status (success, error, warning, skipped)"
+    - "Severity levels (info, warning, error, critical)"
+    - "Validation outcomes (pass, fail, blocked, bypassed)"
+    - "Issue categorization (missing_field, invalid_format, variance, ...)"
+    - "Known/unknown sentinels ('UNKNOWN', 'unknown')"
+  match_patterns:
+    - "status"
+    - "severity"
+    - "issue_type"
+    - "result"
+    - "outcome"
+    - "success"
+    - "error"
+    - "UNKNOWN"
+  loader: "pipeline.config_loader:load_issue_types"
+  examples:
+    - "load_issue_types()['status']['SUCCESS'] -> 'success'"
+    - "load_issue_types()['severity']['ERROR'] -> 'error'"
+  update_checklist:
+    - "Add the new enum here first; THEN use it from code"
+
+version: "1.0.0"
+
+# Pipeline run statuses (process_single_invoice, generate_bl_xlsx, etc.).
+status:
+  SUCCESS: "success"
+  ERROR:   "error"
+  WARNING: "warning"
+  SKIPPED: "skipped"
+  PARTIAL: "partial"
+
+# Severity levels for classification / validation issues.
+severity:
+  INFO:     "info"
+  WARNING:  "warning"
+  ERROR:    "error"
+  CRITICAL: "critical"
+
+# Validation outcomes.
+validation:
+  PASS:     "pass"
+  FAIL:     "fail"
+  BLOCKED:  "blocked"
+  BYPASSED: "bypassed"
+
+# Issue type categories used in classification reports.
+issue_type:
+  MISSING_FIELD:      "missing_field"
+  INVALID_FORMAT:     "invalid_format"
+  VARIANCE_HIGH:      "variance_high"
+  VARIANCE_LOW:       "variance_low"
+  DUPLICATE:          "duplicate"
+  UNCLASSIFIED:       "unclassified"
+  TARIFF_NOT_FOUND:   "tariff_not_found"
+  SUPPLIER_NOT_FOUND: "supplier_not_found"
+  BUNDLE_DETECTED:    "bundle_detected"
+
+# Sentinel values for missing / unknown data.
+unknown:
+  UPPER: "UNKNOWN"
+  LOWER: "unknown"
+  NA:    "N/A"
+  EMPTY: ""

@@ -6,16 +6,17 @@
     "duty_rate": "",
     "weight": "",
     "description": "",
-    "other_notes": "13.86 written vertically in left margin"
+    "other_notes": "13.86 written vertically in the left margin beside the header"
   },
   "printed": {
     "consignee": "MAKEDA GIBBON",
-    "freight": "3.00",
+    "freight": 3.0,
     "waybill": "HAWB9596861",
     "man_reg": "2024/28",
     "office": "GDWBS",
-    "weight": "1.0",
-    "packages": "1"
+    "weight": 1.0,
+    "packages": 1
   },
-  "has_handwriting": true
+  "has_handwriting": true,
+  "_cache_version": 4
 }

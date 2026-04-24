@@ -22,14 +22,13 @@ from run import (  # noqa: E402
     _avg_cet_rate_for_items,
     _implied_items_usd_from_duty,
     _split_items_per_declaration,
-    _XCD_RATE,
 )
 from stages.invoice_processor import InvoiceResult  # noqa: E402
-
 
 # ---------------------------------------------------------------------------
 # Reverse-calc helper
 # ---------------------------------------------------------------------------
+
 
 def test_implied_items_matches_memory_reference_8_96():
     """Declared $8.96 @ 20% CET, $5 freight → items ≈ $2.35 USD.
@@ -65,6 +64,7 @@ def test_implied_items_guards_bad_cet_rate():
 # Avg CET rate helper
 # ---------------------------------------------------------------------------
 
+
 def test_avg_cet_rate_defaults_to_20pct_for_unknown_codes():
     items = [{"tariff_code": "99999999", "total_cost": 100.0}]
     rate = _avg_cet_rate_for_items(items)
@@ -79,6 +79,7 @@ def test_avg_cet_rate_defaults_for_empty_items():
 # ---------------------------------------------------------------------------
 # End-to-end splitter behaviour — XLSX generation is monkey-patched out
 # ---------------------------------------------------------------------------
+
 
 def _make_result(items, invoice_data=None):
     r = InvoiceResult(
@@ -105,18 +106,19 @@ def stub_xlsx(monkeypatch):
     def fake_generate(*args, **kwargs):
         # Record the items passed in — first positional arg varies, so
         # accept flexibly via kwargs or positional.
-        items = kwargs.get('matched_items')
+        items = kwargs.get("matched_items")
         if items is None and len(args) > 0:
             # try common positions
             for a in args:
-                if isinstance(a, list) and a and isinstance(a[0], dict) and 'total_cost' in a[0]:
+                if isinstance(a, list) and a and isinstance(a[0], dict) and "total_cost" in a[0]:
                     items = a
                     break
-        calls.append({'items': items or [], 'kwargs': kwargs})
+        calls.append({"items": items or [], "kwargs": kwargs})
         return "/tmp/fake.xlsx"
 
     import bl_xlsx_generator
-    monkeypatch.setattr(bl_xlsx_generator, 'generate_bl_xlsx', fake_generate)
+
+    monkeypatch.setattr(bl_xlsx_generator, "generate_bl_xlsx", fake_generate)
     return calls
 
 
@@ -131,11 +133,16 @@ def test_reverse_calc_splits_hm_receipt_correctly(stub_xlsx, tmp_path):
         {"tariff_code": "65050000", "total_cost": 12.99, "supplier_item_desc": "Hat"},
         {"tariff_code": "00000000", "total_cost": 5.99, "supplier_item_desc": "Small"},
     ]
-    results = [_make_result(all_items, {
-        "invoice_total": 60.96,
-        "_customs_freight": 14.0,   # split 5/9 across two decls
-        "_customs_insurance": 0,
-    })]
+    results = [
+        _make_result(
+            all_items,
+            {
+                "invoice_total": 60.96,
+                "_customs_freight": 14.0,  # split 5/9 across two decls
+                "_customs_insurance": 0,
+            },
+        )
+    ]
     all_declarations = [
         ({"waybill": "HAWB9600998", "_customs_value_ec": "8.96", "freight": "5"}, "a.pdf"),
         ({"waybill": "HAWB9603312", "_customs_value_ec": "80.06", "freight": "9"}, "b.pdf"),
@@ -167,9 +174,16 @@ def test_reverse_calc_with_usd_duty_field(stub_xlsx, tmp_path):
         {"tariff_code": "62034220", "total_cost": 50.0, "supplier_item_desc": "Big"},
         {"tariff_code": "62034220", "total_cost": 3.0, "supplier_item_desc": "Small"},
     ]
-    results = [_make_result(all_items, {
-        "invoice_total": 53.0, "_customs_freight": 0, "_customs_insurance": 0,
-    })]
+    results = [
+        _make_result(
+            all_items,
+            {
+                "invoice_total": 53.0,
+                "_customs_freight": 0,
+                "_customs_insurance": 0,
+            },
+        )
+    ]
     # USD duty ≈ 3.30 → XCD ≈ 8.96 (matches ec form of reference case)
     all_declarations = [
         ({"waybill": "W1", "_customs_value_usd": "3.30", "freight": "0"}, "a.pdf"),
@@ -225,15 +239,21 @@ def test_missing_per_bl_freight_uses_zero_and_warns(stub_xlsx, tmp_path, caplog)
     borrows from another BL) and logs a warning. The implied target will be
     overstated by the true freight, but we never smuggle cross-BL data."""
     import logging as _logging
+
     all_items = [
         {"tariff_code": "62034220", "total_cost": 50.0},
         {"tariff_code": "62034220", "total_cost": 3.0},
     ]
-    results = [_make_result(all_items, {
-        "invoice_total": 53.0,
-        "_customs_freight": 14.0,   # invoice-level total, should NOT leak per-BL
-        "_customs_insurance": 0,
-    })]
+    results = [
+        _make_result(
+            all_items,
+            {
+                "invoice_total": 53.0,
+                "_customs_freight": 14.0,  # invoice-level total, should NOT leak per-BL
+                "_customs_insurance": 0,
+            },
+        )
+    ]
     # Neither declaration has a 'freight' field
     all_declarations = [
         ({"waybill": "W1", "_customs_value_ec": "8.96"}, "a.pdf"),
@@ -258,9 +278,16 @@ def test_reverse_calc_survives_unknown_tariff(stub_xlsx, tmp_path):
         {"tariff_code": "99999999", "total_cost": 50.0},
         {"tariff_code": "99999999", "total_cost": 3.0},
     ]
-    results = [_make_result(all_items, {
-        "invoice_total": 53.0, "_customs_freight": 0, "_customs_insurance": 0,
-    })]
+    results = [
+        _make_result(
+            all_items,
+            {
+                "invoice_total": 53.0,
+                "_customs_freight": 0,
+                "_customs_insurance": 0,
+            },
+        )
+    ]
     all_declarations = [
         ({"waybill": "W1", "_customs_value_ec": "8.96"}, "a.pdf"),
         ({"waybill": "W2", "_customs_value_ec": "80.06"}, "b.pdf"),

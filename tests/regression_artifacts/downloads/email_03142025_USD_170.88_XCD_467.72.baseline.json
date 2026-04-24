@@ -1,0 +1,1462 @@
+{
+  "HAWB9590375-Declaration_combined.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Combined Invoices": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "A28": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'TEMU'"
+        },
+        "AA28": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'31 St. James Avenue, Suite 355, Boston, MA 02116'"
+        },
+        "AB28": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'CN'"
+        },
+        "AC28": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'00000000'"
+        },
+        "AK28": {
+          "value": "'62034290'"
+        },
+        "AK30": {
+          "value": "'85044000'"
+        },
+        "AK34": {
+          "value": "'39249090'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'112-9925042-2903468'"
+        },
+        "C28": {
+          "value": "'112-9925042-2903468'"
+        },
+        "C30": {
+          "value": "'112-9925042-2903468'"
+        },
+        "C34": {
+          "value": "'112-9925042-2903468'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "D28": {
+          "value": "'2024-07-02'"
+        },
+        "D30": {
+          "value": "'2024-07-02'"
+        },
+        "D34": {
+          "value": "'2024-07-02'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Unspecified miscellaneous goods'"
+        },
+        "E28": {
+          "value": "'Clothing'"
+        },
+        "E30": {
+          "value": "'ELECTRICAL APPLIANCES'"
+        },
+        "E34": {
+          "value": "'PLASTIC ARTICLES'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'00000000'"
+        },
+        "F28": {
+          "value": "'62034290'"
+        },
+        "F29": {
+          "value": "'62034290'"
+        },
+        "F3": {
+          "value": "'00000000'"
+        },
+        "F30": {
+          "value": "'85044000'"
+        },
+        "F31": {
+          "value": "'85044000'"
+        },
+        "F32": {
+          "value": "'85044000'"
+        },
+        "F33": {
+          "value": "'85044000'"
+        },
+        "F34": {
+          "value": "'39249090'"
+        },
+        "F35": {
+          "value": "'39249090'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'00000000'"
+        },
+        "I28": {
+          "value": "'62034290'"
+        },
+        "I29": {
+          "value": "'AMZ-1'"
+        },
+        "I3": {
+          "value": "'TEM-1'"
+        },
+        "I30": {
+          "value": "'85044000'"
+        },
+        "I31": {
+          "value": "'AMZ-2'"
+        },
+        "I32": {
+          "value": "'AMZ-3'"
+        },
+        "I33": {
+          "value": "'AMZ-4'"
+        },
+        "I34": {
+          "value": "'39249090'"
+        },
+        "I35": {
+          "value": "'AMZ-5'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J11": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J12": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J14": {
+          "value": "'NET TOTAL'"
+        },
+        "J15": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J17": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J19": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J2": {
+          "value": "'TEMU Purchase (1 items)'"
+        },
+        "J20": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J21": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J22": {
+          "value": "'CET (20%) \u2014 Tariff 00000000'"
+        },
+        "J23": {
+          "value": "'CSC (6%)'"
+        },
+        "J24": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J25": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J26": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J28": {
+          "value": "'GLASH Kids Toddler Boys Pants, Cotton Joggers, 4-Pack, Grey Camo, 5T O23S (1 items)'"
+        },
+        "J29": {
+          "value": "'GLASH Kids Toddler Boys Pants, Cotton Joggers, 4-Pack, Grey Camo, 5T O23S'"
+        },
+        "J3": {
+          "value": "'TEMU Purchase'"
+        },
+        "J30": {
+          "value": "'MSR Portable Charger, Power Bank 30000mAh Battery Pack with 22.5W Fast Chargi... (+2 more) (3 items)'"
+        },
+        "J31": {
+          "value": "'MSR Portable Charger, Power Bank 30000mAh Battery Pack with 22.5W Fast Chargi...'"
+        },
+        "J32": {
+          "value": "'Portable-Charger-Power-Bank - 50000mAh Powerbank PD 30W and QC 4.0 Fast Charg...'"
+        },
+        "J33": {
+          "value": "'VEEKTOMX Portable Charger with Built-in Cables, 10000mAh Power Bank for iPhon...'"
+        },
+        "J34": {
+          "value": "'Zak Designs 160z Riverside Kids Water Bottle with Spout Cover and Built-in Ca... (1 items)'"
+        },
+        "J35": {
+          "value": "'Zak Designs 160z Riverside Kids Water Bottle with Spout Cover and Built-in Ca...'"
+        },
+        "J36": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J37": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J38": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J4": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J40": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J41": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J42": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J43": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J44": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J46": {
+          "value": "'NET TOTAL'"
+        },
+        "J47": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J49": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J5": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J51": {
+          "value": "'INVOICE NOTES: Structural item count mismatch: 4 price lines found between section markers but 5 items extracted'"
+        },
+        "J53": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J54": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J55": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J56": {
+          "value": "'CET (weighted avg 11.3%)'"
+        },
+        "J57": {
+          "value": "'  \u2514 39249090: 20% CET (26% of value)'"
+        },
+        "J58": {
+          "value": "'  \u2514 62034290: 20% CET (17% of value)'"
+        },
+        "J59": {
+          "value": "'  \u2514 85044000: 5% CET (58% of value)'"
+        },
+        "J6": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J60": {
+          "value": "'CSC (6%)'"
+        },
+        "J61": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J62": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J63": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J8": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J9": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "K28": {
+          "value": "1"
+        },
+        "K29": {
+          "value": "1"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K30": {
+          "value": "3"
+        },
+        "K31": {
+          "value": "1"
+        },
+        "K32": {
+          "value": "1"
+        },
+        "K33": {
+          "value": "1"
+        },
+        "K34": {
+          "value": "1"
+        },
+        "K35": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "L66": {
+          "value": "'\u2550\u2550\u2550 COMBINED GRAND SUMMARY \u2550\u2550\u2550'"
+        },
+        "L67": {
+          "value": "'Invoice 112-9925042-2903468'"
+        },
+        "L68": {
+          "value": "'Invoice 112-9925042-2903468'"
+        },
+        "L70": {
+          "value": "'GRAND TOTAL'"
+        },
+        "L71": {
+          "value": "'GRAND VARIANCE CHECK'"
+        },
+        "L72": {
+          "value": "'Combined 2 invoice files'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N28": {
+          "value": "'USD'"
+        },
+        "N29": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N30": {
+          "value": "'USD'"
+        },
+        "N31": {
+          "value": "'USD'"
+        },
+        "N32": {
+          "value": "'USD'"
+        },
+        "N33": {
+          "value": "'USD'"
+        },
+        "N34": {
+          "value": "'USD'"
+        },
+        "N35": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "0.01"
+        },
+        "O28": {
+          "value": "29.49"
+        },
+        "O29": {
+          "value": "29.49"
+        },
+        "O3": {
+          "value": "0.01"
+        },
+        "O30": {
+          "value": "33.98666666666667"
+        },
+        "O31": {
+          "value": "37.99"
+        },
+        "O32": {
+          "value": "39.99"
+        },
+        "O33": {
+          "value": "23.98"
+        },
+        "O34": {
+          "value": "45.1"
+        },
+        "O35": {
+          "value": "45.1"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "0"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P14": {
+          "formula": "=P4+P12"
+        },
+        "P15": {
+          "formula": "=S2"
+        },
+        "P17": {
+          "formula": "=S2-P14"
+        },
+        "P2": {
+          "value": "0.01"
+        },
+        "P20": {
+          "value": "0.01"
+        },
+        "P21": {
+          "value": "0.03"
+        },
+        "P22": {
+          "value": "0.01"
+        },
+        "P23": {
+          "value": "0"
+        },
+        "P24": {
+          "value": "0.01"
+        },
+        "P25": {
+          "value": "0.02"
+        },
+        "P26": {
+          "value": "0.6666666666666667"
+        },
+        "P28": {
+          "value": "29.49"
+        },
+        "P29": {
+          "value": "29.49"
+        },
+        "P3": {
+          "value": "0.01"
+        },
+        "P30": {
+          "value": "101.96"
+        },
+        "P31": {
+          "value": "37.99"
+        },
+        "P32": {
+          "value": "39.99"
+        },
+        "P33": {
+          "value": "23.98"
+        },
+        "P34": {
+          "value": "45.1"
+        },
+        "P35": {
+          "value": "45.1"
+        },
+        "P36": {
+          "formula": "=P28+P30+P34"
+        },
+        "P37": {
+          "formula": "=SUM(P28:P35)-P36"
+        },
+        "P38": {
+          "formula": "=P36-P37"
+        },
+        "P4": {
+          "formula": "=P2"
+        },
+        "P40": {
+          "value": "0"
+        },
+        "P41": {
+          "value": "-13.9"
+        },
+        "P42": {
+          "value": "8.23"
+        },
+        "P43": {
+          "value": "0"
+        },
+        "P44": {
+          "formula": "=(T28+U28+V28-W28)"
+        },
+        "P46": {
+          "formula": "=P36+P44"
+        },
+        "P47": {
+          "formula": "=S28"
+        },
+        "P49": {
+          "formula": "=S28-P46"
+        },
+        "P5": {
+          "formula": "=SUM(P2:P3)-P4"
+        },
+        "P54": {
+          "value": "170.88"
+        },
+        "P55": {
+          "value": "464.26"
+        },
+        "P56": {
+          "value": "52.63"
+        },
+        "P57": {
+          "value": "23.72"
+        },
+        "P58": {
+          "value": "15.51"
+        },
+        "P59": {
+          "value": "13.41"
+        },
+        "P6": {
+          "formula": "=P4-P5"
+        },
+        "P60": {
+          "value": "27.86"
+        },
+        "P61": {
+          "value": "81.71"
+        },
+        "P62": {
+          "value": "162.2"
+        },
+        "P63": {
+          "value": "0.3493731960539353"
+        },
+        "P67": {
+          "value": "0.76"
+        },
+        "P68": {
+          "value": "1183.41"
+        },
+        "P70": {
+          "value": "1184.17"
+        },
+        "P71": {
+          "value": "-1013.28"
+        },
+        "P8": {
+          "value": "0"
+        },
+        "P9": {
+          "value": "0"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q14": {
+          "formula": "=Q4+Q12"
+        },
+        "Q17": {
+          "formula": "=S2-Q14"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q28": {
+          "formula": "=O28*K28"
+        },
+        "Q29": {
+          "formula": "=O29*K29"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q30": {
+          "formula": "=O30*K30"
+        },
+        "Q31": {
+          "formula": "=O31*K31"
+        },
+        "Q32": {
+          "formula": "=O32*K32"
+        },
+        "Q33": {
+          "formula": "=O33*K33"
+        },
+        "Q34": {
+          "formula": "=O34*K34"
+        },
+        "Q35": {
+          "formula": "=O35*K35"
+        },
+        "Q36": {
+          "formula": "=Q28+Q30+Q34"
+        },
+        "Q37": {
+          "formula": "=SUM(Q28:Q35)-Q36"
+        },
+        "Q38": {
+          "formula": "=Q36-Q37"
+        },
+        "Q4": {
+          "formula": "=Q2"
+        },
+        "Q44": {
+          "formula": "=(T28+U28+V28-W28)"
+        },
+        "Q46": {
+          "formula": "=Q36+Q44"
+        },
+        "Q49": {
+          "formula": "=S28-Q46"
+        },
+        "Q5": {
+          "formula": "=SUM(Q2:Q3)-Q4"
+        },
+        "Q6": {
+          "formula": "=Q4-Q5"
+        },
+        "Q67": {
+          "value": "-0.75"
+        },
+        "Q68": {
+          "value": "-1012.53"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R28": {
+          "formula": "=P28-Q28"
+        },
+        "R29": {
+          "formula": "=P29-Q29"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R30": {
+          "formula": "=P30-Q30"
+        },
+        "R31": {
+          "formula": "=P31-Q31"
+        },
+        "R32": {
+          "formula": "=P32-Q32"
+        },
+        "R33": {
+          "formula": "=P33-Q33"
+        },
+        "R34": {
+          "formula": "=P34-Q34"
+        },
+        "R35": {
+          "formula": "=P35-Q35"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "0.01"
+        },
+        "S28": {
+          "value": "170.88"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "T28": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "U28": {
+          "value": "-13.9"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "V28": {
+          "value": "8.23"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "W28": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'TEMU'"
+        },
+        "Z28": {
+          "value": "'AMAZON'"
+        }
+      },
+      "OCR Notes": {
+        "A1": {
+          "value": "'PDF File'"
+        },
+        "A2": {
+          "value": "'112-9925042-2903468.pdf'"
+        },
+        "A3": {
+          "value": "'HAWB9591043-Declaration_Invoice.pdf'"
+        },
+        "A5": {
+          "value": "'WARNING: OCR text quality is too bad for some pages. Consider rescanning and resubmitting the email.'"
+        },
+        "B1": {
+          "value": "'Quality Score'"
+        },
+        "B2": {
+          "value": "'30/100'"
+        },
+        "B3": {
+          "value": "'100/100'"
+        },
+        "C1": {
+          "value": "'Rating'"
+        },
+        "C2": {
+          "value": "'POOR'"
+        },
+        "C3": {
+          "value": "'GOOD'"
+        },
+        "D1": {
+          "value": "'Details'"
+        },
+        "D2": {
+          "value": "'Text: 770 chars; Prices: 0 ($-sign), 4 (decimal); Total: $0.01 (placeholder); Invoice#: MISSING; Real items: 0/1; Structure words: 4/12'"
+        },
+        "D3": {
+          "value": "'Text: 3101 chars; Prices: 6 ($-sign), 12 (decimal); Total: $170.88; Invoice#: 112-9925042-2903468; Real items: 5/5; Structure words: 8/12'"
+        },
+        "E1": {
+          "value": "'OCR Text (first 2000 chars)'"
+        },
+        "E2": {
+          "value": "'Oct 24, 1:07 PM Amazon.com - Order 112-9925042-2903468\\nBilling address\\nVictoria Virgo\\n748 BERKELEY AVE\\nORANGE, NJ 07050-2005\\nUnited States\\nYour Coupon Savings:\\n-USD 12.00\\nYour Coupon Savings:\\n-USD 1.90\\nTotal before tax:\\nUSD 162.65\\nEstimated tax to be collected:\\nUSD 8.23\\nGrand Total:\\nUSD 170.88\\nPayment Grand Total:\\nXCD 467.72\\nTo view the status of your order, return to Order Summary.\\nConditions of Use | Privacy Notice \u00a9 1996-2024, Amazon.com, Inc. or its affiliates\\nBack to top\\nEnglish United States Help\\nConditions of Use Privacy Notice Consumer Health Data Privacy Disclosure Your Ads Privacy Choices\\n\u00a9 1996-2024, Amazon.com, Inc. or its affiliates\\nhttps://www.amazon.com/gp/css/summary/print.html/ref=ppx_yo_dt_b_invoice_o01?ie=UTF8&orderID=112-9925042-2903468 2/2'"
+        },
+        "E3": {
+          "value": "'7a a c .\\n7/15/24, 1:07 PM Amazon.com - Order 112-9925042-2903468\\namazoncom\\nDetails for Order #112-9925042-2903468\\nPrint this page for your records.\\nOrder Placed: July 2, 2024\\nAmazon.com order number: 112-9925042-2903468\\nOrder Total: USD 170.88\\nGGG G,QG OO  SoOoOoOoOooo\u2014\u2014\u2014\u2014eEeeeeEeEeEEEEEEE\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014__\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014 \u2014 \u2014\\nNot Yet Shipped\\nItems Ordered Price\\n1 of: GLASH Kids Toddler Boys Pants, Cotton Joggers, 4-Pack, Grey Camo, 5T O23) S $29.49\\noe by: GLASH Kids - Apparel (seller profile) | Product question? Ask Seller\\nSupplied by: Other\\n. \u00e9\\nCondition: New \u00e9\\n1 of eae Kids Baby and Toddler Boys 4-Pack Cotton Pants Stripe size 6 {) 4, 4 ) $29.49 A\\nsol by: GLASH Kids - Apparel (seller profile) | Product question? Ask Seller\\nSupplied by: Other 1\\nCondition: New\\n1 of: MSR Portable Charger, Power Bank 30000mAh Battery Pack with 22.5W Fast Charging, 4 Outputs External Charger PD $37.99\\nW USB C for iPhone, Samsung, Pad Mini, and More O : ef\\nSold by: Recyn-US (seller profile) 4 B\\nSupplied by: Other ;\\nCondition: New VON 4% onesies\\n1 of: Portable-Charger-Power-Bank - 50000mAh Powerbank PD 30W and QC 4.0 Fast Charging External Battery Pack with USB- $39.99\\nC LED utputs & 2 Inputs Portable Charging for iPhone 15 14 13 pro, Samsung ~\\nSol : EnerwowDirect (seller profile\\nupplied by: Other\\nCondition: New\\n1 of: VEEKTOMX Portable Charger with Built-in Cables, 10000mAh Power Bank for iPhone, Slim Fast Charge USB C Battery $23.98\\nPack;Travel Essentials Powerbank Compatible with iPhone 15/14/13, Samsung, Android, etc @, \u00bb\\nae O24 3\\nold by: Amazon.com Services, Inc\\nSupplled by: Other\\nCondition: New\\n1 of: Zak Designs 160z Riverside Kids Water Bottle with Spout Cover and Built-in Carrying Loop, Made of Durable Plastic, Leak- $15.61 \u201c/\\nProof-D\u00e9sign for Travel (Dino Camo & Safari, Pack of 2) re) SD\\nold by: Amazon.com Services, Inc \u2018\\nSupplied by: Other\\nCondition: New\\nShipping Address:\\nKirla Sylvester\\n10813 NW 30TH ST STE 115 GRE 3556\\nMIAMI, FL 33172-2191\\nUnited States\\nShipping Speed:\\nFREE Shipping\\n\u2014\u2014\u2014\u2014\u2014 '"
+        }
+      }
+    }
+  },
+  "HAWB9590375.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'TEMU'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'31 St. James Avenue, Suite 355, Boston, MA 02116'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'CN'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'00000000'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'112-9925042-2903468'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Unspecified miscellaneous goods'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'00000000'"
+        },
+        "F3": {
+          "value": "'00000000'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'00000000'"
+        },
+        "I3": {
+          "value": "'TEM-1'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J11": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J12": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J14": {
+          "value": "'NET TOTAL'"
+        },
+        "J15": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J17": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J19": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J2": {
+          "value": "'TEMU Purchase (1 items)'"
+        },
+        "J20": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J21": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J22": {
+          "value": "'CET (20%) \u2014 Tariff 00000000'"
+        },
+        "J23": {
+          "value": "'CSC (6%)'"
+        },
+        "J24": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J25": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J26": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J27": {
+          "value": "'CLIENT DECLARED DUTIES'"
+        },
+        "J28": {
+          "value": "'DUTY VARIANCE (Client \u2212 Estimated)'"
+        },
+        "J29": {
+          "value": "'IMPLIED CIF (from declared duty @ 20% CET, XCD)'"
+        },
+        "J3": {
+          "value": "'TEMU Purchase'"
+        },
+        "J30": {
+          "value": "'IMPLIED ITEMS VALUE (USD, net of freight/insurance)'"
+        },
+        "J31": {
+          "value": "'\u26a0 ITEM ALLOCATION CHECK: actual $0.01 USD vs implied $116.09 USD \u2014 UNDER-ALLOCATED (items from another waybill may belong here)'"
+        },
+        "J4": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J5": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J6": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J8": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J9": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "0.01"
+        },
+        "O3": {
+          "value": "0.01"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "0"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P14": {
+          "formula": "=P4+P12"
+        },
+        "P15": {
+          "formula": "=S2"
+        },
+        "P17": {
+          "formula": "=S2-P14"
+        },
+        "P2": {
+          "value": "0.01"
+        },
+        "P20": {
+          "value": "22.01"
+        },
+        "P21": {
+          "value": "59.8"
+        },
+        "P22": {
+          "value": "11.96"
+        },
+        "P23": {
+          "value": "3.59"
+        },
+        "P24": {
+          "value": "11.3"
+        },
+        "P25": {
+          "value": "26.85"
+        },
+        "P26": {
+          "value": "0.4489966555183947"
+        },
+        "P27": {
+          "value": "155.04"
+        },
+        "P28": {
+          "value": "128.19"
+        },
+        "P29": {
+          "value": "345.3"
+        },
+        "P3": {
+          "value": "0.01"
+        },
+        "P30": {
+          "value": "116.09"
+        },
+        "P4": {
+          "formula": "=P2"
+        },
+        "P5": {
+          "formula": "=SUM(P2:P3)-P4"
+        },
+        "P6": {
+          "formula": "=P4-P5"
+        },
+        "P8": {
+          "value": "11"
+        },
+        "P9": {
+          "value": "0"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q14": {
+          "formula": "=Q4+Q12"
+        },
+        "Q17": {
+          "formula": "=S2-Q14"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=Q2"
+        },
+        "Q5": {
+          "formula": "=SUM(Q2:Q3)-Q4"
+        },
+        "Q6": {
+          "formula": "=Q4-Q5"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "11.01"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "11"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'TEMU'"
+        }
+      }
+    }
+  },
+  "HAWB9591043.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E4": {
+          "value": "'Unspecified miscellaneous goods'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F4": {
+          "value": "'00000000'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I5": {
+          "value": "'TEM-1'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'REFERENCE DEDUCTION'"
+        },
+        "J11": {
+          "value": "'REFERENCE ADJUSTMENTS'"
+        },
+        "J12": {
+          "value": "'REFERENCE NET TOTAL'"
+        },
+        "J3": {
+          "value": "'Items on other declaration(s) (1 items)'"
+        },
+        "J4": {
+          "value": "'TEMU Purchase (1 items)'"
+        },
+        "J5": {
+          "value": "'TEMU Purchase'"
+        },
+        "J6": {
+          "value": "'REFERENCE SUBTOTAL'"
+        },
+        "J7": {
+          "value": "'REFERENCE FREIGHT'"
+        },
+        "J8": {
+          "value": "'REFERENCE INSURANCE'"
+        },
+        "J9": {
+          "value": "'REFERENCE OTHER COST'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "K5": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O4": {
+          "value": "0.01"
+        },
+        "O5": {
+          "value": "0.01"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "0"
+        },
+        "P11": {
+          "formula": "=P7+P8+P9-P10"
+        },
+        "P12": {
+          "formula": "=P6+P11"
+        },
+        "P4": {
+          "value": "0.01"
+        },
+        "P5": {
+          "value": "0.01"
+        },
+        "P6": {
+          "value": "0.01"
+        },
+        "P7": {
+          "value": "11"
+        },
+        "P8": {
+          "value": "0"
+        },
+        "P9": {
+          "value": "0"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "112-9925042-2903468.pdf",
+        "HAWB9590375-Declaration.pdf",
+        "HAWB9590375.xlsx"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "KIRLA SYLVESTER",
+      "country_origin": "CN",
+      "expected_entries": 1,
+      "freight": "11.00",
+      "location": "WebSource",
+      "man_reg": "2024 28",
+      "notes": "WARNING: Some pages have poor OCR quality. Check the \"OCR Notes\" sheet in the combined XLSX for details. Consider asking sender to rescan and resubmit.",
+      "ocr_warnings": [
+        "112-9925042-2903468.pdf: OCR quality POOR (score 30/100)"
+      ],
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 1,
+      "waybill": "HAWB9590375",
+      "weight": "5.0"
+    }
+  }
+}

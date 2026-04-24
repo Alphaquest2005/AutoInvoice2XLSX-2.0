@@ -1,0 +1,466 @@
+{
+  "HAWB3670577-Declaration_combined.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'HAWB3670577-Declaration_combined'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'42022200'"
+        },
+        "AK4": {
+          "value": "'85177000'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'HAWB9670577-Manifest_Invoice_1_Invoice_1'"
+        },
+        "C4": {
+          "value": "'HAWB9670577-Manifest_Invoice_1_Invoice_1'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'BAGS & LUGGAGE'"
+        },
+        "E4": {
+          "value": "'Parts'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'42022200'"
+        },
+        "F3": {
+          "value": "'42022200'"
+        },
+        "F4": {
+          "value": "'85177000'"
+        },
+        "F5": {
+          "value": "'85177000'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'42022200'"
+        },
+        "I3": {
+          "value": "'ITEM-001'"
+        },
+        "I4": {
+          "value": "'85177000'"
+        },
+        "I5": {
+          "value": "'ITEM-002'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J11": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J12": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J13": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J14": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J16": {
+          "value": "'NET TOTAL'"
+        },
+        "J17": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J19": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J2": {
+          "value": "', ih Luxurious Faux Leather Tote Handbag - Spaciou... (1 items)'"
+        },
+        "J21": {
+          "value": "'INVOICE NOTES: Invoice total uncertain'"
+        },
+        "J23": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J24": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J25": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J26": {
+          "value": "'CET (weighted avg 15.7%)'"
+        },
+        "J27": {
+          "value": "'  \u2514 42022200: 20% CET (71% of value)'"
+        },
+        "J28": {
+          "value": "'  \u2514 85177000: 5% CET (29% of value)'"
+        },
+        "J29": {
+          "value": "'CSC (6%)'"
+        },
+        "J3": {
+          "value": "', ih Luxurious Faux Leather Tote Handbag - Spaciou...'"
+        },
+        "J30": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J31": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J32": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J33": {
+          "value": "'CLIENT DECLARED DUTIES'"
+        },
+        "J34": {
+          "value": "'DUTY VARIANCE (Client \u2212 Estimated)'"
+        },
+        "J35": {
+          "value": "'IMPLIED CIF (from declared duty @ 16% CET, XCD)'"
+        },
+        "J36": {
+          "value": "'IMPLIED ITEMS VALUE (USD, net of freight/insurance)'"
+        },
+        "J37": {
+          "value": "'\u26a0 ITEM ALLOCATION CHECK: actual $10.45 USD vs implied $95.95 USD \u2014 UNDER-ALLOCATED (items from another waybill may belong here)'"
+        },
+        "J4": {
+          "value": "'eee = For Xiaomi/Redmi Note 9 4G/Note 9S/Note 10 ... (1 items)'"
+        },
+        "J5": {
+          "value": "'eee = For Xiaomi/Redmi Note 9 4G/Note 9S/Note 10 ...'"
+        },
+        "J6": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J7": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J8": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "0"
+        },
+        "K3": {
+          "value": "0"
+        },
+        "K4": {
+          "value": "0"
+        },
+        "K5": {
+          "value": "0"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O3": {
+          "value": "7.47"
+        },
+        "O5": {
+          "value": "2.98"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "0"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "value": "0"
+        },
+        "P13": {
+          "value": "0"
+        },
+        "P14": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P16": {
+          "formula": "=P6+P14"
+        },
+        "P17": {
+          "formula": "=S2"
+        },
+        "P19": {
+          "formula": "=S2-P16"
+        },
+        "P2": {
+          "value": "7.47"
+        },
+        "P24": {
+          "value": "33.45"
+        },
+        "P25": {
+          "value": "90.88"
+        },
+        "P26": {
+          "value": "14.29"
+        },
+        "P27": {
+          "value": "12.99"
+        },
+        "P28": {
+          "value": "1.3"
+        },
+        "P29": {
+          "value": "5.45"
+        },
+        "P3": {
+          "value": "7.47"
+        },
+        "P30": {
+          "value": "16.59"
+        },
+        "P31": {
+          "value": "36.33"
+        },
+        "P32": {
+          "value": "0.3997579225352113"
+        },
+        "P33": {
+          "value": "129.21"
+        },
+        "P34": {
+          "value": "92.88"
+        },
+        "P35": {
+          "value": "323.18"
+        },
+        "P36": {
+          "value": "95.95"
+        },
+        "P4": {
+          "value": "2.98"
+        },
+        "P5": {
+          "value": "2.98"
+        },
+        "P6": {
+          "formula": "=P2+P4"
+        },
+        "P7": {
+          "formula": "=SUM(P2:P5)-P6"
+        },
+        "P8": {
+          "formula": "=P6-P7"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q14": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q16": {
+          "formula": "=Q6+Q14"
+        },
+        "Q19": {
+          "formula": "=S2-Q16"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q6": {
+          "formula": "=Q2+Q4"
+        },
+        "Q7": {
+          "formula": "=SUM(Q2:Q5)-Q6"
+        },
+        "Q8": {
+          "formula": "=Q6-Q7"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "10.45"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'UNKNOWN_'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "HAWB3670577-Declaration_combined.xlsx",
+        "HAWB9670577-Declaration.pdf",
+        "HAWB9670577-Manifest_Invoice_1_Invoice_1.pdf",
+        "PO-211-08132515666552999_2.pdf",
+        "PO-211-13630044146552999.pdf"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "ANSHA CHARLES",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "23.00",
+      "location": "WebSource",
+      "man_reg": "2024 30",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 5,
+      "waybill": "HAWB9670577",
+      "weight": "11.0"
+    }
+  }
+}

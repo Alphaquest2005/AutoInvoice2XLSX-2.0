@@ -1,0 +1,398 @@
+{
+  "112-2894545-9421810.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'73229000'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'112-2894545-9421810'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "D2": {
+          "value": "'2024-07-24'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Iron/steel articles'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'73229000'"
+        },
+        "F3": {
+          "value": "'73229000'"
+        },
+        "F4": {
+          "value": "'73229000'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'73229000'"
+        },
+        "I3": {
+          "value": "'AMZ-1'"
+        },
+        "I4": {
+          "value": "'AMZ-2'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J11": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J12": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J13": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J15": {
+          "value": "'NET TOTAL'"
+        },
+        "J16": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J18": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J2": {
+          "value": "'Fox Run Rectangular Cooling Rack, Iron/Chrome, 10-Inch x 14-Inch (+1 more) (2 items)'"
+        },
+        "J20": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J21": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J22": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J23": {
+          "value": "'CET (20%) \u2014 Tariff 73229000'"
+        },
+        "J24": {
+          "value": "'CSC (6%)'"
+        },
+        "J25": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J26": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J27": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J3": {
+          "value": "'Fox Run Rectangular Cooling Rack, Iron/Chrome, 10-Inch x 14-Inch'"
+        },
+        "J4": {
+          "value": "'Wulankd Universal Adjustable Oven Cooker Shelf Rack, Telescopic Oven Cooker S...'"
+        },
+        "J5": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J6": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J7": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J9": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "2"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "14.49"
+        },
+        "O3": {
+          "value": "10.99"
+        },
+        "O4": {
+          "value": "17.99"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "0"
+        },
+        "P11": {
+          "value": "2.03"
+        },
+        "P12": {
+          "value": "0"
+        },
+        "P13": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P15": {
+          "formula": "=P5+P13"
+        },
+        "P16": {
+          "formula": "=S2"
+        },
+        "P18": {
+          "formula": "=S2-P15"
+        },
+        "P2": {
+          "value": "28.98"
+        },
+        "P21": {
+          "value": "31.01"
+        },
+        "P22": {
+          "value": "84.25"
+        },
+        "P23": {
+          "value": "16.85"
+        },
+        "P24": {
+          "value": "5.05"
+        },
+        "P25": {
+          "value": "15.92"
+        },
+        "P26": {
+          "value": "37.82"
+        },
+        "P27": {
+          "value": "0.4489020771513353"
+        },
+        "P3": {
+          "value": "10.99"
+        },
+        "P4": {
+          "value": "17.99"
+        },
+        "P5": {
+          "formula": "=P2"
+        },
+        "P6": {
+          "formula": "=SUM(P2:P4)-P5"
+        },
+        "P7": {
+          "formula": "=P5-P6"
+        },
+        "P9": {
+          "value": "0"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q13": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q15": {
+          "formula": "=Q5+Q13"
+        },
+        "Q18": {
+          "formula": "=S2-Q15"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=Q2"
+        },
+        "Q6": {
+          "formula": "=SUM(Q2:Q4)-Q5"
+        },
+        "Q7": {
+          "formula": "=Q5-Q6"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "31.01"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "2.03"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "112-2894545-9421810.pdf",
+        "112-2894545-9421810.xlsx",
+        "HAWB9605901-Declaration.pdf"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "MICHELE MARELLI",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "7.00",
+      "location": "WebSource",
+      "man_reg": "2024 28",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 1,
+      "waybill": "HAWB9605901",
+      "weight": "3.0"
+    }
+  }
+}

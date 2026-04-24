@@ -1,12 +1,12 @@
 {
   "handwritten": {
-    "customs_value_ec": "96.0",
+    "customs_value_ec": "89.96",
     "customs_value_usd": "",
     "tariff_code": "",
     "duty_rate": "",
     "weight": "",
     "description": "",
-    "other_notes": "Page number 'pg. 96' written vertically on left margin"
+    "other_notes": "89.96 written vertically in the left margin beside the header"
   },
   "printed": {
     "consignee": "SANASHA JOHN",
@@ -17,5 +17,6 @@
     "weight": 6.0,
     "packages": 1
   },
-  "has_handwriting": true
+  "has_handwriting": true,
+  "_cache_version": 4
 }

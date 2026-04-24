@@ -832,6 +832,47 @@ def _pick_best_fallback(variant_texts: Dict[str, str]) -> Tuple[str, str]:
     return best_vid, best_text
 
 
+# Purpose-built document OCR engines that preserve tabular layout and
+# full SKU / ART.NO codes. Token-level majority voting across many
+# tesseract variants tends to corrupt these columns because tesseract
+# systematically mis-reads small-font numeric codes; vision engines
+# read them correctly. When a vision engine produced a non-trivial
+# structured result we trust it verbatim instead of diluting it.
+_VISION_ENGINES = ("glm_ocr", "vision_api")
+_VISION_AUTHORITATIVE_MIN_PRICES = 3
+_VISION_AUTHORITATIVE_MIN_CHARS = 100
+
+
+def _vision_authoritative_pick(
+    variant_texts: Dict[str, str],
+) -> Optional[Tuple[str, str]]:
+    """Return ``(variant_id, text)`` of the best vision-engine variant
+    if one produced a trustworthy structured read, otherwise ``None``.
+
+    A vision variant qualifies when its text is at least
+    ``_VISION_AUTHORITATIVE_MIN_CHARS`` long and contains at least
+    ``_VISION_AUTHORITATIVE_MIN_PRICES`` price-like tokens. Among
+    qualifying variants we prefer higher engine priority, then more
+    prices, then longer text. The variant_id is used as a stable
+    tiebreaker so behaviour is reproducible.
+    """
+    best: Optional[Tuple[Tuple[int, int, int, str], str, str]] = None
+    for vid, text in variant_texts.items():
+        if _engine_of(vid) not in _VISION_ENGINES:
+            continue
+        if not text or len(text) < _VISION_AUTHORITATIVE_MIN_CHARS:
+            continue
+        prices = len(_PRICE_PATTERN.findall(text))
+        if prices < _VISION_AUTHORITATIVE_MIN_PRICES:
+            continue
+        score = (_priority_of(vid), prices, len(text), vid)
+        if best is None or score > best[0]:
+            best = (score, vid, text)
+    if best is None:
+        return None
+    return best[1], best[2]
+
+
 def align_lines(
     variant_texts: Dict[str, str],
 ) -> List[List[Tuple[str, str]]]:
@@ -1168,12 +1209,36 @@ def build_consensus(variant_texts: Dict[str, str]) -> MultiOcrResult:
     if not variant_texts:
         return _empty_result()
 
+    token_map = build_token_map(variant_texts)
+    method_stats = {vid: len(t) for vid, t in variant_texts.items()}
+
+    # Vision-authoritative short-circuit: when a purpose-built vision
+    # OCR engine produced a non-trivial structured read, use its output
+    # verbatim. Token-level majority voting across many tesseract
+    # variants systematically corrupts SKU / ART.NO columns by averaging
+    # tesseract's mis-reads against the single correct vision read.
+    vision_pick = _vision_authoritative_pick(variant_texts)
+    if vision_pick is not None:
+        base_vid, base_text = vision_pick
+        logger.info(
+            f"Vision-authoritative: using '{base_vid}' as consensus "
+            f"(skipping token-level voting across "
+            f"{len(variant_texts) - 1} other variant(s))"
+        )
+        return MultiOcrResult(
+            text=base_text,
+            variants=dict(variant_texts),
+            token_map=token_map,
+            confidence=1.0,
+            method_stats=method_stats,
+            page_count=1,
+            engine_used=f"authoritative({base_vid})",
+        )
+
     clusters = align_lines(variant_texts)
     consensus_lines = [consensus_line(c) for c in clusters]
     consensus_text = "\n".join(l for l in consensus_lines if l)
-    token_map = build_token_map(variant_texts)
     confidence = _compute_confidence(clusters)
-    method_stats = {vid: len(t) for vid, t in variant_texts.items()}
 
     # Low-confidence fallback: build a "super text" that merges unique
     # sensible lines from ALL variants instead of picking just one.
@@ -1276,13 +1341,30 @@ def cache_load(
         confidence = r["confidence"]
         engine_used = r["engine_used"]
 
+        # Retro-apply vision-authoritative fix on cached results that
+        # predate the authoritative short-circuit. If the cache still
+        # has all variants recorded and one of them is a usable vision
+        # engine, swap the stored consensus text for that vision read.
+        if not engine_used.startswith("authoritative("):
+            vision_pick = _vision_authoritative_pick(variants)
+            if vision_pick is not None:
+                base_vid, base_text = vision_pick
+                logger.info(
+                    f"Cache hit — retro-applying vision-authoritative "
+                    f"(base '{base_vid}', replacing '{engine_used}')"
+                )
+                text = base_text
+                confidence = 1.0
+                engine_used = f"authoritative({base_vid})"
+
         # Re-apply super-text merge on cached results that used the old
         # single-variant fallback or raw consensus.
         _LOW_CONFIDENCE_THRESHOLD = 0.50
         _MIN_VARIANTS_FOR_FALLBACK = 4
         if (confidence < _LOW_CONFIDENCE_THRESHOLD
                 and len(variants) >= _MIN_VARIANTS_FOR_FALLBACK
-                and not engine_used.startswith("super(")):
+                and not engine_used.startswith("super(")
+                and not engine_used.startswith("authoritative(")):
             super_text = _build_super_text(variants)
             if super_text and len(super_text) > len(text) * 0.8:
                 best_vid = _pick_best_fallback(variants)[0]

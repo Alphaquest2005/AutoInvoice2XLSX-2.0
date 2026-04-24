@@ -36,6 +36,7 @@ _REPO_ROOT = Path(__file__).resolve().parents[2]
 
 # ── Combined variance formula ────────────────────────────────────────────────
 
+
 def _make_split_shipment_ws() -> Workbook:
     """Produce a tiny workbook that mimics a split-shipment totals section."""
     wb = Workbook()
@@ -78,6 +79,7 @@ def test_per_declaration_variance_hardcoded_zero_is_caught() -> None:
 
 # ── Per-HAWB email split ─────────────────────────────────────────────────────
 
+
 def _iter_email_params() -> list[Path]:
     """Return ``_email_params.json`` from active locations only.
 
@@ -99,8 +101,9 @@ def _iter_email_params() -> list[Path]:
 # issues blocking the test run. Each entry documents the discovered gap so
 # it can be fixed in the real pipeline (not hidden).
 KNOWN_BAD_EMAIL_PARAMS: dict[str, str] = {
-    "workspace/output/downloads-regression-emails/03152025_FASHIOMiOVA/_email_params.json":
-        "empty consignee_name — pipeline fell back without extracting the recipient",
+    "workspace/output/downloads-regression-emails/03152025_FASHIOMiOVA/_email_params.json": (
+        "empty consignee_name — pipeline fell back without extracting the recipient"
+    ),
 }
 
 
@@ -144,6 +147,7 @@ def test_known_bad_email_params_register() -> None:
 
 # ── Vision-LLM disk cache (feedback_vision_caching memory) ───────────────────
 
+
 def test_vision_llm_cache_directory_is_writable() -> None:
     """Handwritten declarations go through vision LLM calls that must disk-cache.
 
@@ -178,6 +182,7 @@ def test_vision_llm_cache_directory_is_writable() -> None:
 
 # ── Invalid-codes rules consistency ──────────────────────────────────────────
 
+
 def test_invalid_codes_corrections_are_8_digit_end_nodes() -> None:
     rules_path = _REPO_ROOT / "rules" / "invalid_codes.json"
     data = json.loads(rules_path.read_text(encoding="utf-8"))
@@ -209,6 +214,4 @@ def test_invalid_codes_no_self_reference_cycle() -> None:
                 f"{k} → {correct} but {correct} is also marked invalid → "
                 f"{target_entry['correct_code']} (chained corrections not supported)"
             )
-    assert not errors, (
-        "invalid_codes.json has broken correction chains:\n  " + "\n  ".join(errors)
-    )
+    assert not errors, "invalid_codes.json has broken correction chains:\n  " + "\n  ".join(errors)

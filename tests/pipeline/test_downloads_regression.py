@@ -47,8 +47,8 @@ from pathlib import Path
 import pytest
 from openpyxl import load_workbook
 
-from tests.pipeline.invariants import run_all_invariants
 from tests.pipeline._regression_artifacts import snapshot_and_compare
+from tests.pipeline.invariants import run_all_invariants
 
 # ── Paths ──────────────────────────────────────────────────────────────
 _REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -187,12 +187,13 @@ def _summary_reporter(tmp_path_factory):
     for cat in ("processed_pass", "processed_fail", "skipped_non_invoice", "error_crash"):
         names = buckets.get(cat, [])
         print(f"  {cat:<22} {len(names)}")
-    print(f"\n  snapshot: {len(new_baselines)} new, "
-          f"{len(drift_files)} drift, {len(promoted)} promoted")
+    print(
+        f"\n  snapshot: {len(new_baselines)} new, "
+        f"{len(drift_files)} drift, {len(promoted)} promoted"
+    )
     for r in drift_files:
         count = r.get("snapshot_diff_count", "?")
-        print(f"    DRIFT {r['filename']}  ({count} diffs)  "
-              f"→ {r.get('snapshot_current_dir', '?')}")
+        print(f"    DRIFT {r['filename']}  ({count} diffs)  → {r.get('snapshot_current_dir', '?')}")
     print(f"\nFull report: {summary_path}")
     print("=" * 72)
 

@@ -1,6 +1,28 @@
 # Shipment Processing Rules
 # These rules govern how BL documents are processed, freight is calculated,
 # and shipment emails are composed. Business rules as data, not code.
+_meta:
+  purpose: "BL identification, freight calculation, and shipment email rules"
+  covers:
+    - "Carrier BL patterns (TSCW/KOCL/MAEU/COSU — authoritative waybills)"
+    - "Source-ref patterns (shipper refs that are NOT the destination BL)"
+    - "Freight = total_usd - landing formula and components"
+    - "Email composition rules and required fields"
+  match_patterns:
+    - "bl_identification"
+    - "carrier_bl"
+    - "freight_calculation"
+    - "waybill"
+    - "TSCW"
+    - "ocean_freight"
+  loader: "pipeline.config_loader:load_shipment_rules"
+  examples:
+    - "is_carrier_bl('TSCW18629902') -> True"
+    - "load_shipment_rules()['freight_calculation']['formula'] -> 'total_usd - landing'"
+  update_checklist:
+    - "Run tests/pipeline/test_bl_identification.py if it exists"
+    - "Run tests/pipeline/test_freight_calculation.py if it exists"
+
 version: "1.1"
 updated: "2026-03-02"
 

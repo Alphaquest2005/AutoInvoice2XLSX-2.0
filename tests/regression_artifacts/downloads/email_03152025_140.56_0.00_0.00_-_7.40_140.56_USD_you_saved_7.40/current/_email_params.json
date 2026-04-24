@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9662041",
+  "consignee_name": "NOAMI COUTAIN",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 2,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "3.0",
+  "country_origin": "US",
+  "freight": "7.00",
+  "man_reg": "2024 30",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0315/out/AU236542.pdf",
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0315/out/HAWB39662041-Declaration_combined.xlsx",
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0315/out/HAWB9662041-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

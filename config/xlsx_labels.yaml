@@ -1,0 +1,107 @@
+# User-visible labels used when writing the BL XLSX output.
+# These strings appear as row labels, section headers, and comment bodies.
+# Centralizing them:
+#   - keeps wording consistent across the pipeline
+#   - lets non-developers adjust labels without editing Python
+#   - avoids magic-constant hook violations for policy-level UI strings
+#
+# Created by Wave 1 Sub-Agent #2 for pipeline/bl_xlsx_generator.py.
+
+_meta:
+  purpose: "User-visible XLSX row labels, section titles, and comment text"
+  covers:
+    - "Totals-section row labels (SUBTOTAL, ADJUSTMENTS, NET TOTAL, ...)"
+    - "Duty-estimation cross-check row labels and warnings"
+    - "Reference-section (other declaration) row labels"
+    - "Notes / comment body text for recovered-value markers"
+  match_patterns:
+    - "label"
+    - "section_title"
+    - "comment"
+    - "SUBTOTAL"
+    - "NET TOTAL"
+    - "ADJUSTMENTS"
+  loader: "pipeline.config_loader:load_xlsx_labels"
+  examples:
+    - "load_xlsx_labels()['totals']['SUBTOTAL']          -> 'SUBTOTAL'"
+    - "load_xlsx_labels()['duty']['section_header']      -> 'DUTY ESTIMATION ...'"
+  update_checklist:
+    - "Keep label wording consistent with downstream consumers (ASYCUDA, brokers)"
+    - "If a totals-row label changes, also update totals_section in columns.yaml"
+
+version: "1.0.0"
+
+# ── Totals section (main body) ──────────────────────────────────────────
+totals:
+  SUBTOTAL_GROUPED:       "SUBTOTAL (GROUPED)"
+  SUBTOTAL_DETAILS:       "SUBTOTAL (DETAILS)"
+  SUBTOTAL:               "SUBTOTAL"
+  TOTAL_INTERNAL_FREIGHT: "TOTAL INTERNAL FREIGHT"
+  TOTAL_INSURANCE:        "TOTAL INSURANCE"
+  TOTAL_OTHER_COST:       "TOTAL OTHER COST"
+  TOTAL_DEDUCTION:        "TOTAL DEDUCTION"
+  ADJUSTMENTS:            "ADJUSTMENTS"
+  NET_TOTAL:              "NET TOTAL"
+  INVOICE_NOTES_PREFIX:   "INVOICE NOTES"
+  INVOICE_TOTAL_UNCERTAIN: "Invoice total uncertain"
+
+# ── Duty estimation (classification cross-check) ─────────────────────────
+duty:
+  section_header:         "DUTY ESTIMATION (Classification Cross-Check)"
+  cif_usd_label:          "CIF (USD) = InvTotal + Freight + Insurance"
+  cif_xcd_label_tpl:      "CIF (XCD) = CIF × {xcd_rate}"
+  cet_single_tpl:         "CET ({pct:.0f}%) — Tariff {tc}"
+  cet_weighted_tpl:       "CET (weighted avg {pct:.1f}%)"
+  cet_row_tpl:            "  └ {tc}: {pct:.0f}% CET ({share:.0f}% of value)"
+  csc_tpl:                "CSC ({pct:.0f}%)"
+  vat_tpl:                "VAT ({pct:.0f}%) on CIF+CET+CSC"
+  estimated_total:        "ESTIMATED TOTAL DUTIES"
+  effective_rate:         "Effective Duty Rate"
+  client_declared:        "CLIENT DECLARED DUTIES"
+  duty_variance:          "DUTY VARIANCE (Client − Estimated)"
+  implied_cet_rate:       "IMPLIED CET RATE (from client value)"
+  cet_mismatch_warn_tpl:  "⚠ CET MISMATCH: System={sys_pct:.0f}% vs Client≈{cli_pct:.0f}% — review classification"
+  implied_cif_tpl:        "IMPLIED CIF (from declared duty @ {pct:.0f}% CET, XCD)"
+  implied_items_usd:      "IMPLIED ITEMS VALUE (USD, net of freight/insurance)"
+  alloc_over:             "OVER-ALLOCATED (items should move to another waybill)"
+  alloc_under:            "UNDER-ALLOCATED (items from another waybill may belong here)"
+  alloc_warn_tpl:         "⚠ ITEM ALLOCATION CHECK: actual ${actual:,.2f} USD vs implied ${implied:,.2f} USD — {direction}"
+
+# ── Reference section (other declaration(s)) ────────────────────────────
+reference:
+  default_label:          "Items on other declaration(s)"
+  subtotal:               "REFERENCE SUBTOTAL"
+  freight:                "REFERENCE FREIGHT"
+  insurance:              "REFERENCE INSURANCE"
+  other_cost:             "REFERENCE OTHER COST"
+  deduction:              "REFERENCE DEDUCTION"
+  adjustments:            "REFERENCE ADJUSTMENTS"
+  net_total:              "REFERENCE NET TOTAL"
+  combined_items_total:   "COMBINED ITEMS TOTAL"
+  combined_net_total:     "COMBINED NET TOTAL"
+  full_invoice_freight:   "FULL INVOICE FREIGHT"
+  full_invoice_insurance: "FULL INVOICE INSURANCE"
+  full_invoice_other:     "FULL INVOICE OTHER COST"
+  full_invoice_deduction: "FULL INVOICE DEDUCTION"
+  full_adjustments:       "FULL ADJUSTMENTS"
+  full_invoice_total:     "FULL INVOICE TOTAL"
+  combined_variance_check: "COMBINED VARIANCE CHECK"
+  group_label_single_tpl: "{desc} ({n} items)"
+  group_label_multi_tpl:  "{desc} (+{more} more) ({n} items)"
+
+# ── Recovered-value comment body ────────────────────────────────────────
+recovered_comment:
+  prefix:  "Data quality:"
+  body: |-
+    This value was recovered from OCR text via the orphan-price scan. Review and correct if wrong.
+
+# ── BL package / shipment-level column names ────────────────────────────
+bl_extra_columns:
+  freight_header:   "BLFreight"
+  insurance_header: "BLInsurance"
+
+# ── Defaults ────────────────────────────────────────────────────────────
+defaults:
+  uom:                "Unit"
+  document_type_unknown_description: "Unknown"
+  group_label_default: ""

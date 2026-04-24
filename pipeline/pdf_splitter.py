@@ -32,9 +32,15 @@ logger = logging.getLogger(__name__)
 #   v3: stronger pencil prompt with left-margin priority + few-shot reference
 #       and more aggressive image preprocessing (CLAHE clipLimit=4.5,
 #       tileGridSize=(16,16), pencil-extraction channel). Stamped on write.
+#   v4: multi-location scan — tax column / "For Official Use Only" section is
+#       now the PRIMARY target for customs_value_ec (declared duty figure).
+#       Left margin is a secondary location and also hosts handwritten
+#       4/6/8-digit classification codes.  Required to catch shipments like
+#       HAWB9590375 where the authoritative tax figure sits in the tax column
+#       and only breakdown components land in the left margin.
 # When the trust predicate invalidates a cache entry, a full vision re-extract
 # runs. See _should_trust_vision_cache() below.
-_VISION_CACHE_VERSION = 3
+_VISION_CACHE_VERSION = 4
 
 try:
     import pdfplumber
@@ -1458,18 +1464,19 @@ def _is_truthy_value(val) -> bool:
 def _should_trust_vision_cache(cached: Dict) -> bool:
     """Trust predicate for disk-cached vision results.
 
-    We introduced ``_VISION_CACHE_VERSION = 3`` with a stronger prompt + more
-    aggressive pencil-aware image preprocessing. Many older cache entries are
-    real positive hits that we do NOT want to re-extract (costs API $$ and we
-    already have a correct answer). Only old entries that look like potential
-    false-negatives (``has_handwriting == false`` AND both customs value
-    fields empty) are invalidated.
+    ``_VISION_CACHE_VERSION = 4`` adds tax-column / multi-location scanning to
+    the handwriting prompt.  Older v2/v3 positives often captured only the
+    left-margin or right-margin figure and missed the authoritative tax-column
+    figure (e.g. HAWB9590375 cached 136.57 from the right margin while the
+    real declared duty 155.04 sits in the tax column).  For v4 we therefore
+    invalidate any cache entry where we cannot be confident the tax column
+    was scanned.
 
     Rules:
-      - v3 (current) entries: trust.
-      - Older entries WITH any handwritten value found: trust (true positive).
-      - Older entries with ``has_handwriting == false`` AND empty customs
-        values: INVALIDATE — may be a v2 false-negative that v3 can now read.
+      - v4+ entries (current): trust.
+      - v3 entries with ``has_handwriting == false`` AND empty customs
+        values: trust (true negative — no handwriting to re-scan).
+      - All other pre-v4 entries: INVALIDATE — re-extract under v4.
     """
     if not isinstance(cached, dict):
         return False
@@ -1484,10 +1491,11 @@ def _should_trust_vision_cache(cached: Dict) -> bool:
         or _is_truthy_value(hw.get('customs_value_usd'))
         or _is_truthy_value(hw.get('tariff_code'))
     )
-    # If the older entry records a positive hit, it's trustworthy.
-    if has_hw_flag or has_value:
+    # True negatives (explicitly no handwriting, no fields) stay trusted —
+    # re-extracting them would just burn API budget.
+    if not has_hw_flag and not has_value:
         return True
-    # Otherwise it's a potential false-negative — re-extract under v3.
+    # Positive hits under v2/v3 may have missed the tax column — re-extract.
     return False
 
 
@@ -1628,26 +1636,64 @@ smudged gray lines rather than crisp black.
 === STEP 2 — EXTRACT HANDWRITTEN VALUES ===
 
 ONLY IF you see handwriting, extract:
-  - customs_value_ec: the pencil-written customs value in EC$, numeric only.
-    On this form this value is almost always in the LEFT MARGIN, vertical.
-    Typical range: $5 - $2000.  Decimal format like 80.06, 8.96, 340.00.
+
+  - customs_value_ec: the authoritative pencil-written customs value in EC$,
+    numeric only.  This is the DECLARED DUTY figure the customs officer
+    writes.  SEARCH THESE LOCATIONS IN ORDER OF PRIORITY:
+      1. The "For Official Use Only" section / TAX COLUMN at the bottom of
+         the form.  A single figure here (often on the tax/duty line) is
+         the highest-priority target.
+      2. The RIGHT margin near the Man Reg / WayBill Number fields.
+      3. The LEFT margin beside the header, often written vertically.
+    If you see multiple handwritten numbers, pick the one that most clearly
+    represents a total tax/duty figure (not a unit price, not a weight, not
+    a breakdown component).  Typical range: $5 - $2000.  Decimal format
+    like 155.04, 80.06, 8.96, 340.00.
+
   - customs_value_usd: same but in USD, if the user noted the currency.
-  - tariff_code: 8-digit HS / tariff code, if handwritten.
+
+  - tariff_code: handwritten HS / tariff classification code.  These are
+    usually written in the LEFT margin (sometimes stacked vertically next
+    to items) and may be 4, 6, or 8 digits (e.g. "6203", "620342",
+    "62034200").  If you see multiple codes, return them as a
+    comma-separated list in this field.
+
   - duty_rate: percentage, if handwritten.
-  - weight / description / other_notes: as applicable.
 
-=== FEW-SHOT EXAMPLE (ground-truth reference) ===
+  - weight / description / other_notes: as applicable.  If you see
+    breakdown-like figures (e.g. "136.57 + 6.37") that appear to be the
+    components summed into customs_value_ec, put them in other_notes —
+    do NOT put them in customs_value_ec.
 
-On a VERY similar form (HAWB9600998, same consignee ROSALIE LA GRENADE),
-the customs value "8.96" appears written vertically in pencil in the left
-margin beside the header.  The correct extraction was:
-  {"customs_value_ec": "8.96", "has_handwriting": true,
-   "other_notes": "8.96 written vertically on the left margin"}
+=== FEW-SHOT EXAMPLES (ground-truth references) ===
 
-Another similar form carries "80.06" in the same location — also in pencil,
-also vertical, also in the left margin of the header.  That value is
-legitimate and should be extracted the same way even if the graphite is
-faint.
+Example 1 — left-margin customs value:
+  On HAWB9600998 (consignee ROSALIE LA GRENADE), the customs value "8.96"
+  appears written vertically in pencil in the left margin beside the
+  header.  Correct extraction:
+    {"customs_value_ec": "8.96", "has_handwriting": true,
+     "other_notes": "8.96 written vertically on the left margin"}
+
+  Another similar form carries "80.06" in the same left-margin location —
+  also in pencil, also vertical.  Same extraction pattern.
+
+Example 2 — tax-column customs value with breakdown:
+  On HAWB9590375 (consignee KIRLA SYLVESTER), "155.04" is written in the
+  tax column / "For Official Use Only" section at the bottom of the form,
+  while "136.57" and "6.37" appear in the right margin as a breakdown.
+  Since 155.04 is the tax-column figure, it is the authoritative declared
+  duty.  Correct extraction:
+    {"customs_value_ec": "155.04", "has_handwriting": true,
+     "other_notes": "155.04 in tax column (For Official Use Only); "
+                    "136.57 + 6.37 appear as a breakdown in the right "
+                    "margin near Man Reg / WayBill Number"}
+
+Example 3 — left-margin classification code:
+  If the left margin shows "620342" written by hand (often stacked next
+  to item rows), that is a tariff_code, not a customs value.  Correct
+  extraction:
+    {"tariff_code": "620342", "has_handwriting": true,
+     "other_notes": "tariff code 620342 written in the left margin"}
 
 === STEP 3 — PRINTED FIELDS ===
 
@@ -1686,11 +1732,21 @@ Return ONLY this JSON, no prose, no code fence:
 }
 
 CRITICAL RULES:
-  - If you see ANY pencil/handwritten mark anywhere (especially in the left
-    margin of the header), set has_handwriting = true AND describe its
-    location in other_notes, even if you cannot read it confidently.
+  - If you see ANY pencil/handwritten mark anywhere (tax column, margins,
+    between rows, rotated text), set has_handwriting = true AND describe
+    its location in other_notes, even if you cannot read it confidently.
+  - A figure in the TAX COLUMN / "For Official Use Only" section OUTRANKS
+    a figure in the left or right margin.  Prefer the tax-column figure
+    for customs_value_ec.
   - Numbers written VERTICALLY are still numbers — read them bottom-to-top
     or top-to-bottom as appropriate.
+  - Do not confuse classification codes (4/6/8 digit integers like "6203"
+    or "62034200") with customs values (decimal numbers like 155.04).
+    Classification codes belong in tariff_code; decimal totals belong in
+    customs_value_ec.
+  - Breakdown components (two or more figures that plausibly sum to
+    another figure on the form) go in other_notes, NOT in
+    customs_value_ec.  customs_value_ec is the single authoritative total.
   - Do not invent values.  If truly no handwriting is present, return
     has_handwriting = false and leave all handwritten.* fields empty.
   - For customs_value_ec / customs_value_usd return ONLY the numeric value

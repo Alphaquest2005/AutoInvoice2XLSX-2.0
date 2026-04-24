@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "6.0",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten mark 'y6 37' in the left margin beside the header"
+  },
+  "printed": {
+    "consignee": "MICHELE MARELLI",
+    "freight": 7.0,
+    "waybill": "HAWB9605901",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": 3.0,
+    "packages": 1
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

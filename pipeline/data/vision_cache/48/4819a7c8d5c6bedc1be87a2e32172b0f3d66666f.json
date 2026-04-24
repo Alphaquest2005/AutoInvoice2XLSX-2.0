@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "129.21",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "129.21 written vertically in the left margin beside the header"
+  },
+  "printed": {
+    "consignee": "ANSHA CHARLES",
+    "freight": 23.0,
+    "waybill": "HAWB9670577",
+    "man_reg": "2024/30",
+    "office": "GDWBS",
+    "weight": 11.0,
+    "packages": 1
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

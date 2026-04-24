@@ -1,0 +1,85 @@
+# Regex patterns used across the pipeline.
+# Every pattern here is compiled ONCE by config_loader and reused.
+# If you find yourself writing re.compile(r"...") inline in pipeline code,
+# the pattern probably belongs here.
+
+_meta:
+  purpose: "Named regex patterns used across the pipeline (OCR fixups, format detection, field extraction)"
+  covers:
+    - "Tariff code patterns (8-digit HS)"
+    - "Invoice number / BL / waybill patterns"
+    - "Whitespace normalization"
+    - "OCR fixup patterns (common misreads)"
+    - "Date extraction patterns"
+    - "Currency amount patterns"
+  match_patterns:
+    - "pattern"
+    - "regex"
+    - "re.compile"
+    - "re.search"
+    - "re.match"
+  loader: "pipeline.config_loader:load_patterns"
+  examples:
+    - "load_patterns()['tariff_code_8digit'] -> '^\\\\d{8}$'"
+    - "load_patterns()['whitespace_run']     -> '\\\\s+'"
+  update_checklist:
+    - "Run tests/pipeline/test_format_detection.py"
+    - "Run tests/pipeline/test_pdf_extraction.py if it exists"
+
+version: "1.0.0"
+
+# Tariff / HS code patterns.
+tariff_code_8digit: '^\d{8}$'
+tariff_code_any:    '^\d{2,10}$'
+tariff_code_zero:   '^0+$'
+
+# Whitespace.
+whitespace_run:    '\s+'
+whitespace_strip:  '^\s+|\s+$'
+empty_or_ws_only:  '^\s*$'
+
+# Invoice identifier patterns (supplier format).
+invoice_sx_format: 'INV_SX_\d{4}_\d{6}'
+amazon_order:      '\d{3}-\d{7}-\d{7}'
+
+# BL / waybill (moved in from shipment_rules so Python can use them by name).
+bl_tscw:  'TSCW\d+'
+bl_kocl:  'KOCL\d+'
+bl_maeu:  'MAEU\d+'
+bl_cosu:  'COSU\d+'
+bl_source_ref: 'TS \d+'
+
+# Date formats commonly seen in extracted text.
+date_iso:   '\d{4}-\d{2}-\d{2}'
+date_us:    '\d{1,2}/\d{1,2}/\d{4}'
+date_named: '\w+\s+\d+,\s+\d{4}'
+
+# Full-anchored date regexes used for strict matching before strptime.
+# added by Wave 1 for pipeline/bl_xlsx_generator.py
+date_iso_anchored: '^\d{4}-\d{2}-\d{2}$'
+date_us_anchored:  '^(\d{1,2})/(\d{1,2})/(\d{4})$'
+
+# datetime.strptime format strings tried by _normalize_date — order matters,
+# the first successful parse wins.
+# added by Wave 1 for pipeline/bl_xlsx_generator.py
+date_parse_formats:
+  - "%m/%d/%Y"        # 01/16/2026
+  - "%M/%d/%Y"        # handle edge case (minute-marker misused as month)
+  - "%B %d, %Y"       # January 16, 2026
+  - "%b %d, %Y"       # Jan 16, 2026
+  - "%B %d %Y"        # January 16 2026
+  - "%b %d %Y"        # Jan 16 2026
+  - "%d-%m-%Y"        # 16-01-2026
+  - "%m-%d-%Y"        # 01-16-2026
+  - "%d %B %Y"        # 16 January 2026
+  - "%d %b %Y"        # 16 Jan 2026
+
+# Canonical output format for normalized dates.
+# added by Wave 1 for pipeline/bl_xlsx_generator.py
+date_output_format: "%Y-%m-%d"
+
+# Currency amounts.
+usd_amount: '\$?\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)'
+
+# Non-printable / control chars to strip from OCR output.
+control_chars: '[\x00-\x1f\x7f]'

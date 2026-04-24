@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "The provided image is an Amazon.com order confirmation, not a Grenada Simplified Declaration Form. No handwritten elements as described in the task (e.g., customs value in left margin, tax column, etc.) are present."
+  },
+  "printed": {
+    "consignee": "",
+    "freight": null,
+    "waybill": "",
+    "man_reg": "",
+    "office": "",
+    "weight": null,
+    "packages": null
+  },
+  "has_handwriting": false,
+  "_cache_version": 4
+}

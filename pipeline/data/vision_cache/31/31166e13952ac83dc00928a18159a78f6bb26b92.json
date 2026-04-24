@@ -1,12 +1,12 @@
 {
   "handwritten": {
-    "customs_value_ec": "11.15",
+    "customs_value_ec": "11.75",
     "customs_value_usd": "",
     "tariff_code": "",
     "duty_rate": "",
     "weight": "",
     "description": "",
-    "other_notes": "Handwritten '11.15' on left margin (vertical)"
+    "other_notes": "11.75 written vertically in the left margin beside the header"
   },
   "printed": {
     "consignee": "NAKISHA CORNWALL",
@@ -17,5 +17,6 @@
     "weight": 3.0,
     "packages": 1
   },
-  "has_handwriting": true
+  "has_handwriting": true,
+  "_cache_version": 4
 }

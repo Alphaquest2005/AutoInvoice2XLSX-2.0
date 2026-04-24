@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": ""
+  },
+  "printed": {
+    "consignee": "RONWRICK ANTOINE",
+    "freight": 33.0,
+    "waybill": "HAWB9584450",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": 16.0,
+    "packages": 1
+  },
+  "has_handwriting": false,
+  "_cache_version": 4
+}

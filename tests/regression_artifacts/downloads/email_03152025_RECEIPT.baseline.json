@@ -1,0 +1,2238 @@
+{
+  "HAWB9600998-Declaration_combined.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Combined Invoices": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "A35": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AC35": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'36041000'"
+        },
+        "AK3": {
+          "value": "'36041000'"
+        },
+        "AK35": {
+          "value": "'62046290'"
+        },
+        "AK37": {
+          "value": "'65040000'"
+        },
+        "AK38": {
+          "value": "'62046290'"
+        },
+        "AK39": {
+          "value": "'62046290'"
+        },
+        "AK4": {
+          "value": "'36041000'"
+        },
+        "AK40": {
+          "value": "'85171800'"
+        },
+        "AK5": {
+          "value": "'65040000'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'1504495444'"
+        },
+        "C35": {
+          "value": "'15046495444'"
+        },
+        "C38": {
+          "value": "'15046495444'"
+        },
+        "C40": {
+          "value": "'15046495444'"
+        },
+        "C5": {
+          "value": "'1504495444'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "D2": {
+          "value": "'2024-07-21'"
+        },
+        "D35": {
+          "value": "'2024-07-21'"
+        },
+        "D38": {
+          "value": "'2024-07-21'"
+        },
+        "D40": {
+          "value": "'2024-07-21'"
+        },
+        "D5": {
+          "value": "'2024-07-21'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Apparel'"
+        },
+        "E35": {
+          "value": "'Apparel'"
+        },
+        "E38": {
+          "value": "'Unknown'"
+        },
+        "E40": {
+          "value": "'Unknown'"
+        },
+        "E5": {
+          "value": "'HATS AND OTHER HEADGEAR, PLAITED OR MADE BY ASSEMBLING STRIPS'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'36041000'"
+        },
+        "F3": {
+          "value": "'36041000'"
+        },
+        "F35": {
+          "value": "'62046290'"
+        },
+        "F36": {
+          "value": "'62046290'"
+        },
+        "F37": {
+          "value": "'65040000'"
+        },
+        "F38": {
+          "value": "'62046290'"
+        },
+        "F39": {
+          "value": "'62046290'"
+        },
+        "F4": {
+          "value": "'36041000'"
+        },
+        "F40": {
+          "value": "'85171800'"
+        },
+        "F41": {
+          "value": "'85171800'"
+        },
+        "F5": {
+          "value": "'65040000'"
+        },
+        "F6": {
+          "value": "'65040000'"
+        },
+        "F7": {
+          "value": "'65040000'"
+        },
+        "F8": {
+          "value": "'65040000'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'62034290'"
+        },
+        "I3": {
+          "value": "'1206305006007'"
+        },
+        "I35": {
+          "value": "'62046290'"
+        },
+        "I36": {
+          "value": "'Heciiien'"
+        },
+        "I37": {
+          "value": "'Hu'"
+        },
+        "I38": {
+          "value": "'00000000'"
+        },
+        "I39": {
+          "value": "'1206305005007'"
+        },
+        "I4": {
+          "value": "'1206305005007'"
+        },
+        "I40": {
+          "value": "'85171800'"
+        },
+        "I41": {
+          "value": "'J'"
+        },
+        "I5": {
+          "value": "'65040000'"
+        },
+        "I6": {
+          "value": "'1215205001003'"
+        },
+        "I7": {
+          "value": "'1057731002004'"
+        },
+        "I8": {
+          "value": "'1229647001004'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J11": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J13": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J14": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J15": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J16": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J17": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J19": {
+          "value": "'NET TOTAL'"
+        },
+        "J2": {
+          "value": "'Flared (+1 more) (2 items)'"
+        },
+        "J20": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J22": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J24": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J25": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J26": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J27": {
+          "value": "'CET (weighted avg 20.0%)'"
+        },
+        "J28": {
+          "value": "'  \u2514 62034290: 20% CET (45% of value)'"
+        },
+        "J29": {
+          "value": "'  \u2514 65040000: 20% CET (55% of value)'"
+        },
+        "J3": {
+          "value": "'Flared'"
+        },
+        "J30": {
+          "value": "'CSC (6%)'"
+        },
+        "J31": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J32": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J33": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J35": {
+          "value": "'Flared Twill Pants 12 Dark gray 1 $20.99 -\u00a713.00 $7.99 (+1 more) (2 items)'"
+        },
+        "J36": {
+          "value": "'Flared Twill Pants 12 Dark gray 1 $20.99 -\u00a713.00 $7.99'"
+        },
+        "J37": {
+          "value": "'1229647001004 \u2014_Frayed-edge'"
+        },
+        "J38": {
+          "value": "'\u2014\u2014 (1 items)'"
+        },
+        "J39": {
+          "value": "'\u2014\u2014'"
+        },
+        "J4": {
+          "value": "'Flared'"
+        },
+        "J40": {
+          "value": "'Siri (1 items)'"
+        },
+        "J41": {
+          "value": "'Siri'"
+        },
+        "J42": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J43": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J44": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J46": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J47": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J48": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J49": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J5": {
+          "value": "'Straw Hat (+2 more) (3 items)'"
+        },
+        "J50": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J52": {
+          "value": "'NET TOTAL'"
+        },
+        "J53": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J55": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J57": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J58": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J59": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J6": {
+          "value": "'Straw Hat'"
+        },
+        "J60": {
+          "value": "'CET (weighted avg 16.2%)'"
+        },
+        "J61": {
+          "value": "'  \u2514 00000000: 20% CET (29% of value)'"
+        },
+        "J62": {
+          "value": "'  \u2514 62046290: 20% CET (46% of value)'"
+        },
+        "J63": {
+          "value": "'  \u2514 85171800: 5% CET (25% of value)'"
+        },
+        "J64": {
+          "value": "'CSC (6%)'"
+        },
+        "J65": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J66": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J67": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J7": {
+          "value": "'Straw Hat'"
+        },
+        "J8": {
+          "value": "'Frayed-edge Straw Hat'"
+        },
+        "J9": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "2"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K35": {
+          "value": "2"
+        },
+        "K36": {
+          "value": "1"
+        },
+        "K37": {
+          "value": "1"
+        },
+        "K38": {
+          "value": "1"
+        },
+        "K39": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "K40": {
+          "value": "1"
+        },
+        "K41": {
+          "value": "1"
+        },
+        "K5": {
+          "value": "3"
+        },
+        "K6": {
+          "value": "1"
+        },
+        "K7": {
+          "value": "1"
+        },
+        "K8": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "L70": {
+          "value": "'\u2550\u2550\u2550 COMBINED GRAND SUMMARY \u2550\u2550\u2550'"
+        },
+        "L71": {
+          "value": "'Invoice 1504495444'"
+        },
+        "L72": {
+          "value": "'Invoice 15046495444'"
+        },
+        "L74": {
+          "value": "'GRAND TOTAL'"
+        },
+        "L75": {
+          "value": "'GRAND VARIANCE CHECK'"
+        },
+        "L76": {
+          "value": "'Combined 2 invoice files'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N35": {
+          "value": "'USD'"
+        },
+        "N36": {
+          "value": "'USD'"
+        },
+        "N37": {
+          "value": "'USD'"
+        },
+        "N38": {
+          "value": "'USD'"
+        },
+        "N39": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N40": {
+          "value": "'USD'"
+        },
+        "N41": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "N6": {
+          "value": "'USD'"
+        },
+        "N7": {
+          "value": "'USD'"
+        },
+        "N8": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "20.99"
+        },
+        "O3": {
+          "value": "20.99"
+        },
+        "O35": {
+          "value": "16.49"
+        },
+        "O36": {
+          "value": "19.99"
+        },
+        "O37": {
+          "value": "12.99"
+        },
+        "O38": {
+          "value": "20.99"
+        },
+        "O39": {
+          "value": "20.99"
+        },
+        "O4": {
+          "value": "20.99"
+        },
+        "O40": {
+          "value": "17.99"
+        },
+        "O41": {
+          "value": "17.99"
+        },
+        "O5": {
+          "value": "16.99"
+        },
+        "O6": {
+          "value": "19.99"
+        },
+        "O7": {
+          "value": "17.99"
+        },
+        "O8": {
+          "value": "12.99"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "formula": "=SUM(P2:P8)-P9"
+        },
+        "P11": {
+          "formula": "=P9-P10"
+        },
+        "P13": {
+          "value": "0"
+        },
+        "P14": {
+          "value": "0"
+        },
+        "P15": {
+          "value": "0"
+        },
+        "P16": {
+          "value": "0"
+        },
+        "P17": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P19": {
+          "formula": "=P9+P17"
+        },
+        "P2": {
+          "value": "41.98"
+        },
+        "P20": {
+          "formula": "=S2"
+        },
+        "P22": {
+          "formula": "=S2-P19"
+        },
+        "P25": {
+          "value": "128.93"
+        },
+        "P26": {
+          "value": "350.29"
+        },
+        "P27": {
+          "value": "70.06"
+        },
+        "P28": {
+          "value": "31.64"
+        },
+        "P29": {
+          "value": "38.42"
+        },
+        "P3": {
+          "value": "20.99"
+        },
+        "P30": {
+          "value": "21.02"
+        },
+        "P31": {
+          "value": "66.21"
+        },
+        "P32": {
+          "value": "157.29"
+        },
+        "P33": {
+          "value": "0.4490279482714322"
+        },
+        "P35": {
+          "value": "32.98"
+        },
+        "P36": {
+          "value": "19.99"
+        },
+        "P37": {
+          "value": "12.99"
+        },
+        "P38": {
+          "value": "20.99"
+        },
+        "P39": {
+          "value": "20.99"
+        },
+        "P4": {
+          "value": "20.99"
+        },
+        "P40": {
+          "value": "17.99"
+        },
+        "P41": {
+          "value": "17.99"
+        },
+        "P42": {
+          "formula": "=P35+P38+P40"
+        },
+        "P43": {
+          "formula": "=SUM(P35:P41)-P42"
+        },
+        "P44": {
+          "formula": "=P42-P43"
+        },
+        "P46": {
+          "value": "0"
+        },
+        "P47": {
+          "value": "0"
+        },
+        "P48": {
+          "value": "0"
+        },
+        "P49": {
+          "value": "0"
+        },
+        "P5": {
+          "value": "50.97"
+        },
+        "P50": {
+          "formula": "=(T35+U35+V35-W35)"
+        },
+        "P52": {
+          "formula": "=P42+P50"
+        },
+        "P53": {
+          "formula": "=S35"
+        },
+        "P55": {
+          "formula": "=S35-P52"
+        },
+        "P58": {
+          "value": "128.93"
+        },
+        "P59": {
+          "value": "350.29"
+        },
+        "P6": {
+          "value": "19.99"
+        },
+        "P60": {
+          "value": "56.92"
+        },
+        "P61": {
+          "value": "20.44"
+        },
+        "P62": {
+          "value": "32.11"
+        },
+        "P63": {
+          "value": "4.38"
+        },
+        "P64": {
+          "value": "21.02"
+        },
+        "P65": {
+          "value": "64.23"
+        },
+        "P66": {
+          "value": "142.17"
+        },
+        "P67": {
+          "value": "0.4058637129235775"
+        },
+        "P7": {
+          "value": "17.99"
+        },
+        "P71": {
+          "value": "957.26"
+        },
+        "P72": {
+          "value": "892.86"
+        },
+        "P74": {
+          "value": "1850.12"
+        },
+        "P75": {
+          "value": "-1592.26"
+        },
+        "P8": {
+          "value": "12.99"
+        },
+        "P9": {
+          "formula": "=P2+P5"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q10": {
+          "formula": "=SUM(Q2:Q8)-Q9"
+        },
+        "Q11": {
+          "formula": "=Q9-Q10"
+        },
+        "Q17": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q19": {
+          "formula": "=Q9+Q17"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q22": {
+          "formula": "=S2-Q19"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q35": {
+          "formula": "=O35*K35"
+        },
+        "Q36": {
+          "formula": "=O36*K36"
+        },
+        "Q37": {
+          "formula": "=O37*K37"
+        },
+        "Q38": {
+          "formula": "=O38*K38"
+        },
+        "Q39": {
+          "formula": "=O39*K39"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q40": {
+          "formula": "=O40*K40"
+        },
+        "Q41": {
+          "formula": "=O41*K41"
+        },
+        "Q42": {
+          "formula": "=Q35+Q38+Q40"
+        },
+        "Q43": {
+          "formula": "=SUM(Q35:Q41)-Q42"
+        },
+        "Q44": {
+          "formula": "=Q42-Q43"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q50": {
+          "formula": "=(T35+U35+V35-W35)"
+        },
+        "Q52": {
+          "formula": "=Q42+Q50"
+        },
+        "Q55": {
+          "formula": "=S35-Q52"
+        },
+        "Q6": {
+          "formula": "=O6*K6"
+        },
+        "Q7": {
+          "formula": "=O7*K7"
+        },
+        "Q71": {
+          "value": "-828.33"
+        },
+        "Q72": {
+          "value": "-763.93"
+        },
+        "Q8": {
+          "formula": "=O8*K8"
+        },
+        "Q9": {
+          "formula": "=Q2+Q5"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R35": {
+          "formula": "=P35-Q35"
+        },
+        "R36": {
+          "formula": "=P36-Q36"
+        },
+        "R37": {
+          "formula": "=P37-Q37"
+        },
+        "R38": {
+          "formula": "=P38-Q38"
+        },
+        "R39": {
+          "formula": "=P39-Q39"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R40": {
+          "formula": "=P40-Q40"
+        },
+        "R41": {
+          "formula": "=P41-Q41"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "R6": {
+          "formula": "=P6-Q6"
+        },
+        "R7": {
+          "formula": "=P7-Q7"
+        },
+        "R8": {
+          "formula": "=P8-Q8"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "128.93"
+        },
+        "S35": {
+          "value": "128.93"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "T35": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "U35": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "V35": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "W35": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'UNK'"
+        },
+        "Z35": {
+          "value": "'UNK'"
+        }
+      },
+      "OCR Notes": {
+        "A1": {
+          "value": "'PDF File'"
+        },
+        "A2": {
+          "value": "'1504495444.pdf'"
+        },
+        "A3": {
+          "value": "'HAWB9603312-Manifest_Invoice.pdf'"
+        },
+        "B1": {
+          "value": "'Quality Score'"
+        },
+        "B2": {
+          "value": "'90/100'"
+        },
+        "B3": {
+          "value": "'100/100'"
+        },
+        "C1": {
+          "value": "'Rating'"
+        },
+        "C2": {
+          "value": "'GOOD'"
+        },
+        "C3": {
+          "value": "'GOOD'"
+        },
+        "D1": {
+          "value": "'Details'"
+        },
+        "D2": {
+          "value": "'Text: 1425 chars; Prices: 28 ($-sign), 16 (decimal); Total: $128.93; Invoice#: MISSING; Real items: 5/5; Structure words: 9/12'"
+        },
+        "D3": {
+          "value": "'Text: 1820 chars; Prices: 26 ($-sign), 15 (decimal); Total: $128.93; Invoice#: 15046495444; Real items: 4/4; Structure words: 7/12'"
+        },
+        "E1": {
+          "value": "'OCR Text (first 2000 chars)'"
+        },
+        "E2": {
+          "value": "'H&M\\n1/1\\nRECEIPT\\n\\nYOUR DETAILS\\nRECEIPT DATE\\n21 July 2024\\nNAME\\nRosalie la Grenade\\nRECEIPT NUMBER\\nL504495444\\nEMAIL\\nRLAGZ11@YAHOO.COM\\nORDER NUMBER\\n49669470203\\nHOME ADDRESS\\nORDER DATE\\n19 July 2024\\nPAYMENT METHOD\\nPaypal $67.98\\nDELIVERY METHOD\\nHOME DELIVERY STANDARD\\n\\nORDER SUMMARY\\nART.NO\\tDESC.\\tSIZE\\tCOLOUR\\tQTY.\\tUNIT PRICE\\tDISCOUNT\\tTAXABLE\\tTOTAL PRICE\\n1206305006007\\tFlared Twill Pants\\t12\\tDark gray\\t1\\t$20.99\\t-$13.00\\t$7.99\\n1215205001003\\tStraw Hat\\tM/56\\tBeige\\t1\\t$19.99\\t-$11.00\\t$8.99\\n1206305005007\\tFlared Twill Pants\\t12\\tLight gray\\t1\\t$20.99\\t-$13.00\\t$7.99\\n1057731002004\\tStraw Hat\\tL/58\\tLight beige\\t1\\t$17.99\\t-$8.00\\t$9.99\\n1229647001004\\tFrayed-edge Straw Hat\\tL/58\\tLight beige\\t1\\t$12.99\\t-$7.00\\t$5.99\\n1187610004005\\tTwist-detail Shirt Dress\\tL\\tYellow/tie-dye\\t1\\t$29.99\\t-$17.00\\t$12.99\\n1073337004001\\tPendant Necklace\\tNOSIZE\\tGold-colored/rhinestones\\t1\\t$5.99\\t-$2.00\\t$3.99\\n\\nMERCHANDISE TOTAL:\\n$128.93\\nDISCOUNT:\\n-$71.00\\nSUBTOTAL:\\n$57.93\\nSHIPPING & HANDLING:\\n$5.99\\nSALES TAX:\\n$4.06\\nTOTAL:\\n$67.98\\n\\nQR-code for return in store\\n\\nNote, you cannot reply to this email. If you have any questions about why you receive this email, or want to contact us, please call us toll-free at 855-466-7467.\\nFor more information about your order, log in to My H&M.\\nYou always have 30 days to decide whether the item is right for you. To learn more about returns, please read our return and refund policy. For more information, please read our privacy notice and terms of use.'"
+        },
+        "E3": {
+          "value": "'4 ws .\\n2 vr :\\nW\\nYOUR DETAILS RECEIPT DATE 21 July 2024 :\\n, RECEIPT NUMBER 15046495444\\nNAME Rosalie la Grenade Bs\\n= 7\\nEMAIL RLAGZ11@YAHOO.COM ORDER NUMBER aren ens x\\nHOME ADDRESS Caio ORDER DATE 19 July 2024 bis\\nCRED\\nPAYMENT METHOD Paypal $67.98 .\\nDELIVERY METHOD HOME DELIVERY STANDARD :\\n3 ORDER SUMMARY\\nART.NO DESC. SIZE COLOUR ary. UNIT PRICE DISCOUNT TAXABLE TOTAL PRICE\\nHeciiien Flared Twill Pants 12 Dark gray 1 $20.99 -\u00a713.00 $7.99\\nfe Straw Hat MSS Beige 1 $19.99 -$11.00 $8.99 |\\n1206305005007 \u2014\u2014 Flared Twill Pants 12 Light gray 1 $20.99 -$13.00 $7.99\\nJ Siri 02008 Straw Hat U58 Light beige 1 $17.99 -$8.00 $9.99\\nHu 1229647001004 \u2014_Frayed-edge Straw Hat OG Light beige 1 $12.99 $7.00 $5.99\\n(s _A* 7810004005 Twist-detail Shit Dress L Yellownie-dye 1 $29.99 $17.00 $1299\\n: Sn Pendant Necklace NOSIZE Gold- 1 $5.99 -$2.00 $3.99\\nMe colored/rhinestones\\nMERCHANDISE TOTAL: $128.93\\nDISCOUNT: -$71.00\\nSUBTOTAL: $57.93\\nSHIPPING & HANDLING: $5.99\\nSALES TAX: $4.06\\nTOTAL: $67.98\\n; QA-code for return in store\\n: a\\n: 5 oy - a\\n\u201c i a s 8\\n2 aEae aH\\nMe PH\\ners Coy ra\\n=a. yl So h\\nomar sb\\ns\\ns\\n;! | \" F,\\na\u201d . a a\\n4 . s L i =a\\nae a\\nfey oe\\nLi\\n[a] . a\\nNot, you Cannot reply to tha email If you have shy questions aboul why you recenve ites emai Of wont to Contac! ut, please call us too: Wes af BSS 466 7487\\nFor more intormabon about your order, tog in to My HAN\\nYou aheays have 36 days to decode whether the tom is night tor you. To learn more about returns, please read our return and relund policy For more mlormation, pease road our privacy notice and tema of use\\nET ST a rr LT I Te EL eI TT TE TT NT I EE TE ES EET FELT ORNL TET\\nYou aheays Nave 36 Gays i decode whether the tem is noni for you. To learn more about returns, please read our seturn and relund poicy For more mlormation, please road ou privacy notice and tema of use'"
+        }
+      }
+    }
+  },
+  "HAWB9600998.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'65040000'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'1504495444'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "D2": {
+          "value": "'2024-07-21'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'HATS AND OTHER HEADGEAR, PLAITED OR MADE BY ASSEMBLING STRIPS'"
+        },
+        "E34": {
+          "value": "'Apparel'"
+        },
+        "E37": {
+          "value": "'HATS AND OTHER HEADGEAR, PLAITED OR MADE BY ASSEMBLING STRIPS'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'65040000'"
+        },
+        "F3": {
+          "value": "'65040000'"
+        },
+        "F34": {
+          "value": "'62034290'"
+        },
+        "F37": {
+          "value": "'65040000'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'65040000'"
+        },
+        "I3": {
+          "value": "'1229647001004'"
+        },
+        "I35": {
+          "value": "'1206305006007'"
+        },
+        "I36": {
+          "value": "'1206305005007'"
+        },
+        "I38": {
+          "value": "'1215205001003'"
+        },
+        "I39": {
+          "value": "'1057731002004'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J11": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J12": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J14": {
+          "value": "'NET TOTAL'"
+        },
+        "J15": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J17": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J19": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J2": {
+          "value": "'Frayed-edge Straw Hat (1 items)'"
+        },
+        "J20": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J21": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J22": {
+          "value": "'CET (20%) \u2014 Tariff 65040000'"
+        },
+        "J23": {
+          "value": "'CSC (6%)'"
+        },
+        "J24": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J25": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J26": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J27": {
+          "value": "'CLIENT DECLARED DUTIES'"
+        },
+        "J28": {
+          "value": "'DUTY VARIANCE (Client \u2212 Estimated)'"
+        },
+        "J29": {
+          "value": "'IMPLIED CIF (from declared duty @ 20% CET, XCD)'"
+        },
+        "J3": {
+          "value": "'Frayed-edge Straw Hat'"
+        },
+        "J30": {
+          "value": "'IMPLIED ITEMS VALUE (USD, net of freight/insurance)'"
+        },
+        "J31": {
+          "value": "'\u26a0 ITEM ALLOCATION CHECK: actual $12.99 USD vs implied $2.34 USD \u2014 OVER-ALLOCATED (items should move to another waybill)'"
+        },
+        "J33": {
+          "value": "'Items on other declaration(s) (4 items)'"
+        },
+        "J34": {
+          "value": "'Flared (+1 more) (2 items)'"
+        },
+        "J35": {
+          "value": "'Flared'"
+        },
+        "J36": {
+          "value": "'Flared'"
+        },
+        "J37": {
+          "value": "'Straw Hat (+1 more) (2 items)'"
+        },
+        "J38": {
+          "value": "'Straw Hat'"
+        },
+        "J39": {
+          "value": "'Straw Hat'"
+        },
+        "J4": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J40": {
+          "value": "'REFERENCE SUBTOTAL'"
+        },
+        "J41": {
+          "value": "'REFERENCE FREIGHT'"
+        },
+        "J42": {
+          "value": "'REFERENCE INSURANCE'"
+        },
+        "J43": {
+          "value": "'REFERENCE OTHER COST'"
+        },
+        "J44": {
+          "value": "'REFERENCE DEDUCTION'"
+        },
+        "J45": {
+          "value": "'REFERENCE ADJUSTMENTS'"
+        },
+        "J46": {
+          "value": "'REFERENCE NET TOTAL'"
+        },
+        "J48": {
+          "value": "'COMBINED ITEMS TOTAL'"
+        },
+        "J49": {
+          "value": "'FULL INVOICE FREIGHT'"
+        },
+        "J5": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J50": {
+          "value": "'FULL INVOICE INSURANCE'"
+        },
+        "J51": {
+          "value": "'FULL INVOICE OTHER COST'"
+        },
+        "J52": {
+          "value": "'FULL INVOICE DEDUCTION'"
+        },
+        "J53": {
+          "value": "'FULL ADJUSTMENTS'"
+        },
+        "J54": {
+          "value": "'COMBINED NET TOTAL'"
+        },
+        "J55": {
+          "value": "'FULL INVOICE TOTAL'"
+        },
+        "J56": {
+          "value": "'COMBINED VARIANCE CHECK'"
+        },
+        "J6": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J8": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J9": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K34": {
+          "value": "2"
+        },
+        "K35": {
+          "value": "1"
+        },
+        "K36": {
+          "value": "1"
+        },
+        "K37": {
+          "value": "2"
+        },
+        "K38": {
+          "value": "1"
+        },
+        "K39": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N34": {
+          "value": "'USD'"
+        },
+        "N35": {
+          "value": "'USD'"
+        },
+        "N36": {
+          "value": "'USD'"
+        },
+        "N37": {
+          "value": "'USD'"
+        },
+        "N38": {
+          "value": "'USD'"
+        },
+        "N39": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "12.99"
+        },
+        "O3": {
+          "value": "12.99"
+        },
+        "O34": {
+          "value": "20.99"
+        },
+        "O35": {
+          "value": "20.99"
+        },
+        "O36": {
+          "value": "20.99"
+        },
+        "O37": {
+          "value": "18.99"
+        },
+        "O38": {
+          "value": "19.99"
+        },
+        "O39": {
+          "value": "17.99"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "0"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P14": {
+          "formula": "=P4+P12"
+        },
+        "P15": {
+          "formula": "=S2"
+        },
+        "P17": {
+          "formula": "=S2-P14"
+        },
+        "P2": {
+          "value": "12.99"
+        },
+        "P20": {
+          "value": "22.99"
+        },
+        "P21": {
+          "value": "62.46"
+        },
+        "P22": {
+          "value": "12.49"
+        },
+        "P23": {
+          "value": "3.75"
+        },
+        "P24": {
+          "value": "11.8"
+        },
+        "P25": {
+          "value": "28.04"
+        },
+        "P26": {
+          "value": "0.4489273134806276"
+        },
+        "P27": {
+          "value": "8.96"
+        },
+        "P28": {
+          "value": "-19.08"
+        },
+        "P29": {
+          "value": "19.96"
+        },
+        "P3": {
+          "value": "12.99"
+        },
+        "P30": {
+          "value": "2.34"
+        },
+        "P34": {
+          "value": "41.98"
+        },
+        "P35": {
+          "value": "20.99"
+        },
+        "P36": {
+          "value": "20.99"
+        },
+        "P37": {
+          "value": "37.98"
+        },
+        "P38": {
+          "value": "19.99"
+        },
+        "P39": {
+          "value": "17.99"
+        },
+        "P4": {
+          "formula": "=P2"
+        },
+        "P40": {
+          "value": "79.96"
+        },
+        "P41": {
+          "value": "9"
+        },
+        "P42": {
+          "value": "0"
+        },
+        "P43": {
+          "value": "0"
+        },
+        "P44": {
+          "value": "0"
+        },
+        "P45": {
+          "formula": "=P41+P42+P43-P44"
+        },
+        "P46": {
+          "formula": "=P40+P45"
+        },
+        "P48": {
+          "formula": "=P4+P40"
+        },
+        "P49": {
+          "formula": "=P8+P41"
+        },
+        "P5": {
+          "formula": "=SUM(P2:P3)-P4"
+        },
+        "P50": {
+          "formula": "=P9+P42"
+        },
+        "P51": {
+          "formula": "=P10+P43"
+        },
+        "P52": {
+          "formula": "=P11+P44"
+        },
+        "P53": {
+          "formula": "=P49+P50+P51-P52"
+        },
+        "P54": {
+          "formula": "=P48+P53"
+        },
+        "P55": {
+          "value": "128.93"
+        },
+        "P56": {
+          "formula": "=P55-P54"
+        },
+        "P6": {
+          "formula": "=P4-P5"
+        },
+        "P8": {
+          "value": "5"
+        },
+        "P9": {
+          "value": "0"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q14": {
+          "formula": "=Q4+Q12"
+        },
+        "Q17": {
+          "formula": "=S2-Q14"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=Q2"
+        },
+        "Q5": {
+          "formula": "=SUM(Q2:Q3)-Q4"
+        },
+        "Q6": {
+          "formula": "=Q4-Q5"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "17.99"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "5"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'UNK'"
+        }
+      }
+    }
+  },
+  "HAWB9603312.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'62034290'"
+        },
+        "AK5": {
+          "value": "'65040000'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'1504495444'"
+        },
+        "C5": {
+          "value": "'1504495444'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "D2": {
+          "value": "'2024-07-21'"
+        },
+        "D5": {
+          "value": "'2024-07-21'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Apparel'"
+        },
+        "E41": {
+          "value": "'HATS AND OTHER HEADGEAR, PLAITED OR MADE BY ASSEMBLING STRIPS'"
+        },
+        "E5": {
+          "value": "'HATS AND OTHER HEADGEAR, PLAITED OR MADE BY ASSEMBLING STRIPS'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'62034290'"
+        },
+        "F3": {
+          "value": "'62034290'"
+        },
+        "F4": {
+          "value": "'62034290'"
+        },
+        "F41": {
+          "value": "'65040000'"
+        },
+        "F5": {
+          "value": "'65040000'"
+        },
+        "F6": {
+          "value": "'65040000'"
+        },
+        "F7": {
+          "value": "'65040000'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'62034290'"
+        },
+        "I3": {
+          "value": "'1206305006007'"
+        },
+        "I4": {
+          "value": "'1206305005007'"
+        },
+        "I42": {
+          "value": "'1229647001004'"
+        },
+        "I5": {
+          "value": "'65040000'"
+        },
+        "I6": {
+          "value": "'1215205001003'"
+        },
+        "I7": {
+          "value": "'1057731002004'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J12": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J13": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J14": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J15": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J16": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J18": {
+          "value": "'NET TOTAL'"
+        },
+        "J19": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J2": {
+          "value": "'Flared (+1 more) (2 items)'"
+        },
+        "J21": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J23": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J24": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J25": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J26": {
+          "value": "'CET (weighted avg 20.0%)'"
+        },
+        "J27": {
+          "value": "'  \u2514 62034290: 20% CET (53% of value)'"
+        },
+        "J28": {
+          "value": "'  \u2514 65040000: 20% CET (47% of value)'"
+        },
+        "J29": {
+          "value": "'CSC (6%)'"
+        },
+        "J3": {
+          "value": "'Flared'"
+        },
+        "J30": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J31": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J32": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J33": {
+          "value": "'CLIENT DECLARED DUTIES'"
+        },
+        "J34": {
+          "value": "'DUTY VARIANCE (Client \u2212 Estimated)'"
+        },
+        "J35": {
+          "value": "'IMPLIED CET RATE (from client value)'"
+        },
+        "J36": {
+          "value": "'\u26a0 CET MISMATCH: System=20% vs Client\u22487% \u2014 review classification'"
+        },
+        "J37": {
+          "value": "'IMPLIED CIF (from declared duty @ 20% CET, XCD)'"
+        },
+        "J38": {
+          "value": "'IMPLIED ITEMS VALUE (USD, net of freight/insurance)'"
+        },
+        "J4": {
+          "value": "'Flared'"
+        },
+        "J40": {
+          "value": "'Items on other declaration(s) (1 items)'"
+        },
+        "J41": {
+          "value": "'Frayed-edge Straw Hat (1 items)'"
+        },
+        "J42": {
+          "value": "'Frayed-edge Straw Hat'"
+        },
+        "J43": {
+          "value": "'REFERENCE SUBTOTAL'"
+        },
+        "J44": {
+          "value": "'REFERENCE FREIGHT'"
+        },
+        "J45": {
+          "value": "'REFERENCE INSURANCE'"
+        },
+        "J46": {
+          "value": "'REFERENCE OTHER COST'"
+        },
+        "J47": {
+          "value": "'REFERENCE DEDUCTION'"
+        },
+        "J48": {
+          "value": "'REFERENCE ADJUSTMENTS'"
+        },
+        "J49": {
+          "value": "'REFERENCE NET TOTAL'"
+        },
+        "J5": {
+          "value": "'Straw Hat (+1 more) (2 items)'"
+        },
+        "J51": {
+          "value": "'COMBINED ITEMS TOTAL'"
+        },
+        "J52": {
+          "value": "'FULL INVOICE FREIGHT'"
+        },
+        "J53": {
+          "value": "'FULL INVOICE INSURANCE'"
+        },
+        "J54": {
+          "value": "'FULL INVOICE OTHER COST'"
+        },
+        "J55": {
+          "value": "'FULL INVOICE DEDUCTION'"
+        },
+        "J56": {
+          "value": "'FULL ADJUSTMENTS'"
+        },
+        "J57": {
+          "value": "'COMBINED NET TOTAL'"
+        },
+        "J58": {
+          "value": "'FULL INVOICE TOTAL'"
+        },
+        "J59": {
+          "value": "'COMBINED VARIANCE CHECK'"
+        },
+        "J6": {
+          "value": "'Straw Hat'"
+        },
+        "J7": {
+          "value": "'Straw Hat'"
+        },
+        "J8": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J9": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "2"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "K41": {
+          "value": "1"
+        },
+        "K42": {
+          "value": "1"
+        },
+        "K5": {
+          "value": "2"
+        },
+        "K6": {
+          "value": "1"
+        },
+        "K7": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N41": {
+          "value": "'USD'"
+        },
+        "N42": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "N6": {
+          "value": "'USD'"
+        },
+        "N7": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "20.99"
+        },
+        "O3": {
+          "value": "20.99"
+        },
+        "O4": {
+          "value": "20.99"
+        },
+        "O41": {
+          "value": "12.99"
+        },
+        "O42": {
+          "value": "12.99"
+        },
+        "O5": {
+          "value": "18.99"
+        },
+        "O6": {
+          "value": "19.99"
+        },
+        "O7": {
+          "value": "17.99"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "formula": "=P8-P9"
+        },
+        "P12": {
+          "value": "9"
+        },
+        "P13": {
+          "value": "0"
+        },
+        "P14": {
+          "value": "0"
+        },
+        "P15": {
+          "value": "0"
+        },
+        "P16": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P18": {
+          "formula": "=P8+P16"
+        },
+        "P19": {
+          "formula": "=S2"
+        },
+        "P2": {
+          "value": "41.98"
+        },
+        "P21": {
+          "formula": "=S2-P18"
+        },
+        "P24": {
+          "value": "97.96"
+        },
+        "P25": {
+          "value": "266.15"
+        },
+        "P26": {
+          "value": "53.23"
+        },
+        "P27": {
+          "value": "27.95"
+        },
+        "P28": {
+          "value": "25.28"
+        },
+        "P29": {
+          "value": "15.97"
+        },
+        "P3": {
+          "value": "20.99"
+        },
+        "P30": {
+          "value": "50.3"
+        },
+        "P31": {
+          "value": "119.5"
+        },
+        "P32": {
+          "value": "0.4489949276723653"
+        },
+        "P33": {
+          "value": "80.06"
+        },
+        "P34": {
+          "value": "-39.44"
+        },
+        "P35": {
+          "value": "0.07113723055811945"
+        },
+        "P37": {
+          "value": "178.31"
+        },
+        "P38": {
+          "value": "56.63"
+        },
+        "P4": {
+          "value": "20.99"
+        },
+        "P41": {
+          "value": "12.99"
+        },
+        "P42": {
+          "value": "12.99"
+        },
+        "P43": {
+          "value": "12.99"
+        },
+        "P44": {
+          "value": "5"
+        },
+        "P45": {
+          "value": "0"
+        },
+        "P46": {
+          "value": "0"
+        },
+        "P47": {
+          "value": "0"
+        },
+        "P48": {
+          "formula": "=P44+P45+P46-P47"
+        },
+        "P49": {
+          "formula": "=P43+P48"
+        },
+        "P5": {
+          "value": "37.98"
+        },
+        "P51": {
+          "formula": "=P8+P43"
+        },
+        "P52": {
+          "formula": "=P12+P44"
+        },
+        "P53": {
+          "formula": "=P13+P45"
+        },
+        "P54": {
+          "formula": "=P14+P46"
+        },
+        "P55": {
+          "formula": "=P15+P47"
+        },
+        "P56": {
+          "formula": "=P52+P53+P54-P55"
+        },
+        "P57": {
+          "formula": "=P51+P56"
+        },
+        "P58": {
+          "value": "128.93"
+        },
+        "P59": {
+          "formula": "=P58-P57"
+        },
+        "P6": {
+          "value": "19.99"
+        },
+        "P7": {
+          "value": "17.99"
+        },
+        "P8": {
+          "formula": "=P2+P5"
+        },
+        "P9": {
+          "formula": "=SUM(P2:P7)-P8"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q10": {
+          "formula": "=Q8-Q9"
+        },
+        "Q16": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q18": {
+          "formula": "=Q8+Q16"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q21": {
+          "formula": "=S2-Q18"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q6": {
+          "formula": "=O6*K6"
+        },
+        "Q7": {
+          "formula": "=O7*K7"
+        },
+        "Q8": {
+          "formula": "=Q2+Q5"
+        },
+        "Q9": {
+          "formula": "=SUM(Q2:Q7)-Q8"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "R6": {
+          "formula": "=P6-Q6"
+        },
+        "R7": {
+          "formula": "=P7-Q7"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "88.96"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "9"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'UNK'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "1504495444.pdf",
+        "HAWB9600998-Declaration.pdf",
+        "HAWB9600998.xlsx"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "ROSALIE LA GRENADE",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "5.0",
+      "location": "WebSource",
+      "man_reg": "2024/28",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 1,
+      "waybill": "HAWB9600998",
+      "weight": "2.0"
+    }
+  }
+}

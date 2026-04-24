@@ -1,0 +1,86 @@
+# Library-defined enum values used by openpyxl, argparse, and other
+# stdlib/third-party APIs. These are defined by the library's contract,
+# not by our policy. Keeping them here rather than inline avoids
+# stringly-typed drift and gives the magic-constant hook a single home.
+
+_meta:
+  purpose: "Library-defined enum string values (openpyxl, argparse, logging, ...)"
+  covers:
+    - "openpyxl fill types, alignment, border styles"
+    - "argparse action names (store_true, store_false, append, ...)"
+    - "logging level names (DEBUG, INFO, WARNING, ERROR, CRITICAL)"
+    - "json.dump/load encoding defaults"
+  match_patterns:
+    - "openpyxl"
+    - "argparse"
+    - "fill_type"
+    - "alignment"
+    - "store_true"
+    - "store_false"
+    - "append"
+  loader: "pipeline.config_loader:load_library_enums"
+  examples:
+    - "load_library_enums()['openpyxl']['fill_type']['SOLID']  -> 'solid'"
+    - "load_library_enums()['argparse']['action']['STORE_TRUE'] -> 'store_true'"
+  update_checklist:
+    - "Only add values the upstream library itself uses as strings"
+    - "If a value is app-policy (e.g. our hex color), it belongs elsewhere"
+
+version: "1.0.0"
+
+# openpyxl enums.
+openpyxl:
+  fill_type:
+    SOLID:    "solid"
+    NONE:     "none"
+    PATTERN:  "pattern"
+    GRADIENT: "gradient"
+  alignment:
+    LEFT:    "left"
+    CENTER:  "center"
+    RIGHT:   "right"
+    TOP:     "top"
+    MIDDLE:  "center"    # openpyxl uses 'center' for vertical too
+    BOTTOM:  "bottom"
+    WRAP_TEXT: true      # boolean flag, not a string
+  border_style:
+    THIN:       "thin"
+    MEDIUM:     "medium"
+    THICK:      "thick"
+    DOUBLE:     "double"
+    DASHED:     "dashed"
+    DOTTED:     "dotted"
+  number_format:
+    TEXT:      "@"
+    GENERAL:   "General"
+    DATE_ISO:  "YYYY-MM-DD"
+    PERCENT:   "0.00%"
+    # added by Wave 1 for pipeline/bl_xlsx_generator.py
+    CURRENCY_USD: "$#,##0.00"
+    PERCENT_1DP:  "0.0%"
+
+  # added by Wave 1 for pipeline/bl_xlsx_generator.py
+  # Default sheet / freeze conventions used by the BL XLSX generator.
+  sheet:
+    default_title:     "Invoice Data"
+    freeze_panes_cell: "A2"
+
+# argparse action names.
+argparse:
+  action:
+    STORE:       "store"
+    STORE_TRUE:  "store_true"
+    STORE_FALSE: "store_false"
+    APPEND:      "append"
+    COUNT:       "count"
+    HELP:        "help"
+    VERSION:     "version"
+
+# logging level names (in case code uses strings rather than logging.INFO).
+logging:
+  level:
+    DEBUG:    "DEBUG"
+    INFO:     "INFO"
+    WARNING:  "WARNING"
+    ERROR:    "ERROR"
+    CRITICAL: "CRITICAL"

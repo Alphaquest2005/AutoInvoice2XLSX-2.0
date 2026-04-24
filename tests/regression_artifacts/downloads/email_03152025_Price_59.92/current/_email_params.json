@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9590726",
+  "consignee_name": "KERRY FRANK",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 2,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "2.0",
+  "country_origin": "US",
+  "freight": "5.00",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0344/out/113-2477560-9595440.pdf",
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0344/out/HAWB9590726-Declaration_combined.xlsx",
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0344/out/HAWB9590726-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

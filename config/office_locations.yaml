@@ -7,6 +7,23 @@
 # Both ASYCUDA codes (GDSGO) and full names (ST GEORGES) are supported.
 # Add new mappings here; no code changes required.
 
+_meta:
+  purpose: "Customs office code → location-of-goods mapping for email composition"
+  covers:
+    - "ASYCUDA office code → location code (GDSGO → STG01)"
+    - "Full-name aliases (ST GEORGES → GDSGO)"
+  match_patterns:
+    - "office"
+    - "location"
+    - "office_code"
+    - "office_aliases"
+  loader: "pipeline.config_loader:load_office_locations"
+  examples:
+    - "load_office_locations()['offices']['GDSGO']          -> 'STG01'"
+    - "load_office_locations()['office_aliases']['ST GEORGES'] -> 'GDSGO'"
+  update_checklist:
+    - "Run tests/pipeline/test_email_compose.py if it exists"
+
 # code → {location, office_code}
 # When the manifest uses a full name like "ST GEORGES", the system maps it
 # to both the location AND the canonical office code for the email.

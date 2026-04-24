@@ -1,0 +1,1371 @@
+{
+  "HAWB9573874-Declaration_combined.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Combined Invoices": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "A30": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'TEMU'"
+        },
+        "AA30": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'31 St. James Avenue, Suite 355, Boston, MA 02116'"
+        },
+        "AB30": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'CN'"
+        },
+        "AC30": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'49090090'"
+        },
+        "AK30": {
+          "value": "'85189000'"
+        },
+        "AK32": {
+          "value": "'84145900'"
+        },
+        "AK34": {
+          "value": "'64039100'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'114-5494833-4517814'"
+        },
+        "C30": {
+          "value": "'114-5494833-4517814'"
+        },
+        "C32": {
+          "value": "'114-5494833-4517814'"
+        },
+        "C34": {
+          "value": "'114-5494833-4517814'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "D30": {
+          "value": "'2024-07-15'"
+        },
+        "D32": {
+          "value": "'2024-07-15'"
+        },
+        "D34": {
+          "value": "'2024-07-15'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Printed matter'"
+        },
+        "E30": {
+          "value": "'Parts'"
+        },
+        "E32": {
+          "value": "'Fans'"
+        },
+        "E34": {
+          "value": "'Covering the ankle'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'49090090'"
+        },
+        "F3": {
+          "value": "'49090090'"
+        },
+        "F30": {
+          "value": "'85189000'"
+        },
+        "F31": {
+          "value": "'85189000'"
+        },
+        "F32": {
+          "value": "'84145900'"
+        },
+        "F33": {
+          "value": "'84145900'"
+        },
+        "F34": {
+          "value": "'64039100'"
+        },
+        "F35": {
+          "value": "'64039100'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'49090090'"
+        },
+        "I3": {
+          "value": "'TEMU-2'"
+        },
+        "I30": {
+          "value": "'85189000'"
+        },
+        "I31": {
+          "value": "'AMZ-1'"
+        },
+        "I32": {
+          "value": "'84145900'"
+        },
+        "I33": {
+          "value": "'AMZ-2'"
+        },
+        "I34": {
+          "value": "'64039100'"
+        },
+        "I35": {
+          "value": "'AMZ-3'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J11": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J12": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J14": {
+          "value": "'NET TOTAL'"
+        },
+        "J15": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J17": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J19": {
+          "value": "'INVOICE NOTES: Invoice total uncertain'"
+        },
+        "J2": {
+          "value": "'Gift Card Amount: - (1 items)'"
+        },
+        "J21": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J22": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J23": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J24": {
+          "value": "'CET (20%) \u2014 Tariff 49090090'"
+        },
+        "J25": {
+          "value": "'CSC (6%)'"
+        },
+        "J26": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J27": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J28": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J3": {
+          "value": "'Gift Card Amount: -'"
+        },
+        "J30": {
+          "value": "'Thinp 8 Pcs Mic Stand Adapter,Aluminum Alloy Microphone Stand Screw Stand Ada... (1 items)'"
+        },
+        "J31": {
+          "value": "'Thinp 8 Pcs Mic Stand Adapter,Aluminum Alloy Microphone Stand Screw Stand Ada...'"
+        },
+        "J32": {
+          "value": "'QUETTERLEE Replacement Internal Cooling Fan for Sony PS4 Fan ps4 CUH-1000 CUH... (1 items)'"
+        },
+        "J33": {
+          "value": "'QUETTERLEE Replacement Internal Cooling Fan for Sony PS4 Fan ps4 CUH-1000 CUH...'"
+        },
+        "J34": {
+          "value": "\"Element Men's Topaz C3 Skate Shoe, Grey, 12 Reginald Andall DORAL, FL 33192-2147 (1 items)\""
+        },
+        "J35": {
+          "value": "\"Element Men's Topaz C3 Skate Shoe, Grey, 12 Reginald Andall DORAL, FL 33192-2147\""
+        },
+        "J36": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J37": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J38": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J4": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J40": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J41": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J42": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J43": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J44": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J46": {
+          "value": "'NET TOTAL'"
+        },
+        "J47": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J49": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J5": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J51": {
+          "value": "'INVOICE NOTES: Invoice total uncertain'"
+        },
+        "J53": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J54": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J55": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J56": {
+          "value": "'CET (weighted avg 15.0%)'"
+        },
+        "J57": {
+          "value": "'  \u2514 64039100: 20% CET (33% of value)'"
+        },
+        "J58": {
+          "value": "'  \u2514 84145900: 5% CET (33% of value)'"
+        },
+        "J59": {
+          "value": "'  \u2514 85189000: 20% CET (33% of value)'"
+        },
+        "J6": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J60": {
+          "value": "'CSC (6%)'"
+        },
+        "J61": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J62": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J63": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J8": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J9": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "0"
+        },
+        "K3": {
+          "value": "0"
+        },
+        "K30": {
+          "value": "1"
+        },
+        "K31": {
+          "value": "1"
+        },
+        "K32": {
+          "value": "1"
+        },
+        "K33": {
+          "value": "1"
+        },
+        "K34": {
+          "value": "1"
+        },
+        "K35": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "L66": {
+          "value": "'\u2550\u2550\u2550 COMBINED GRAND SUMMARY \u2550\u2550\u2550'"
+        },
+        "L67": {
+          "value": "'Invoice 114-5494833-4517814'"
+        },
+        "L68": {
+          "value": "'Invoice 114-5494833-4517814'"
+        },
+        "L70": {
+          "value": "'GRAND TOTAL'"
+        },
+        "L71": {
+          "value": "'GRAND VARIANCE CHECK'"
+        },
+        "L72": {
+          "value": "'Combined 2 invoice files'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N30": {
+          "value": "'USD'"
+        },
+        "N31": {
+          "value": "'USD'"
+        },
+        "N32": {
+          "value": "'USD'"
+        },
+        "N33": {
+          "value": "'USD'"
+        },
+        "N34": {
+          "value": "'USD'"
+        },
+        "N35": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O3": {
+          "value": "51.58"
+        },
+        "O30": {
+          "value": "17.19"
+        },
+        "O31": {
+          "value": "17.19"
+        },
+        "O32": {
+          "value": "17.19"
+        },
+        "O33": {
+          "value": "17.19"
+        },
+        "O34": {
+          "value": "17.2"
+        },
+        "O35": {
+          "value": "17.2"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "0"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P14": {
+          "formula": "=P4+P12"
+        },
+        "P15": {
+          "formula": "=S2"
+        },
+        "P17": {
+          "formula": "=S2-P14"
+        },
+        "P2": {
+          "value": "51.58"
+        },
+        "P22": {
+          "value": "51.58"
+        },
+        "P23": {
+          "value": "140.14"
+        },
+        "P24": {
+          "value": "28.03"
+        },
+        "P25": {
+          "value": "8.41"
+        },
+        "P26": {
+          "value": "26.49"
+        },
+        "P27": {
+          "value": "62.93"
+        },
+        "P28": {
+          "value": "0.4490509490509491"
+        },
+        "P3": {
+          "value": "51.58"
+        },
+        "P30": {
+          "value": "17.19"
+        },
+        "P31": {
+          "value": "17.19"
+        },
+        "P32": {
+          "value": "17.19"
+        },
+        "P33": {
+          "value": "17.19"
+        },
+        "P34": {
+          "value": "17.2"
+        },
+        "P35": {
+          "value": "17.2"
+        },
+        "P36": {
+          "formula": "=P30+P32+P34"
+        },
+        "P37": {
+          "formula": "=SUM(P30:P35)-P36"
+        },
+        "P38": {
+          "formula": "=P36-P37"
+        },
+        "P4": {
+          "formula": "=P2"
+        },
+        "P40": {
+          "value": "0"
+        },
+        "P41": {
+          "value": "-51.58"
+        },
+        "P42": {
+          "value": "0"
+        },
+        "P43": {
+          "value": "0"
+        },
+        "P44": {
+          "formula": "=(T30+U30+V30-W30)"
+        },
+        "P46": {
+          "formula": "=P36+P44"
+        },
+        "P47": {
+          "formula": "=S30"
+        },
+        "P49": {
+          "formula": "=S30-P46"
+        },
+        "P5": {
+          "formula": "=SUM(P2:P3)-P4"
+        },
+        "P54": {
+          "value": "0"
+        },
+        "P55": {
+          "value": "0"
+        },
+        "P56": {
+          "value": "0"
+        },
+        "P57": {
+          "value": "0"
+        },
+        "P58": {
+          "value": "0"
+        },
+        "P59": {
+          "value": "0"
+        },
+        "P6": {
+          "formula": "=P4-P5"
+        },
+        "P60": {
+          "value": "0"
+        },
+        "P61": {
+          "value": "0"
+        },
+        "P62": {
+          "value": "0"
+        },
+        "P63": {
+          "value": "0"
+        },
+        "P67": {
+          "value": "369.61"
+        },
+        "P68": {
+          "value": "0"
+        },
+        "P70": {
+          "value": "369.61"
+        },
+        "P71": {
+          "value": "-318.03"
+        },
+        "P8": {
+          "value": "0"
+        },
+        "P9": {
+          "value": "0"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q14": {
+          "formula": "=Q4+Q12"
+        },
+        "Q17": {
+          "formula": "=S2-Q14"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q30": {
+          "formula": "=O30*K30"
+        },
+        "Q31": {
+          "formula": "=O31*K31"
+        },
+        "Q32": {
+          "formula": "=O32*K32"
+        },
+        "Q33": {
+          "formula": "=O33*K33"
+        },
+        "Q34": {
+          "formula": "=O34*K34"
+        },
+        "Q35": {
+          "formula": "=O35*K35"
+        },
+        "Q36": {
+          "formula": "=Q30+Q32+Q34"
+        },
+        "Q37": {
+          "formula": "=SUM(Q30:Q35)-Q36"
+        },
+        "Q38": {
+          "formula": "=Q36-Q37"
+        },
+        "Q4": {
+          "formula": "=Q2"
+        },
+        "Q44": {
+          "formula": "=(T30+U30+V30-W30)"
+        },
+        "Q46": {
+          "formula": "=Q36+Q44"
+        },
+        "Q49": {
+          "formula": "=S30-Q46"
+        },
+        "Q5": {
+          "formula": "=SUM(Q2:Q3)-Q4"
+        },
+        "Q6": {
+          "formula": "=Q4-Q5"
+        },
+        "Q67": {
+          "value": "-318.03"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R30": {
+          "formula": "=P30-Q30"
+        },
+        "R31": {
+          "formula": "=P31-Q31"
+        },
+        "R32": {
+          "formula": "=P32-Q32"
+        },
+        "R33": {
+          "formula": "=P33-Q33"
+        },
+        "R34": {
+          "formula": "=P34-Q34"
+        },
+        "R35": {
+          "formula": "=P35-Q35"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "51.58"
+        },
+        "S30": {
+          "value": "0"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "T30": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "U30": {
+          "value": "-51.58"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "V30": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "W30": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'TEMU'"
+        },
+        "Z30": {
+          "value": "'AMAZON'"
+        }
+      },
+      "OCR Notes": {
+        "A1": {
+          "value": "'PDF File'"
+        },
+        "A2": {
+          "value": "'114-5494833-4517814.pdf'"
+        },
+        "A3": {
+          "value": "'HAWB9573874-Manifest_Invoice.pdf'"
+        },
+        "B1": {
+          "value": "'Quality Score'"
+        },
+        "B2": {
+          "value": "'55/100'"
+        },
+        "B3": {
+          "value": "'80/100'"
+        },
+        "C1": {
+          "value": "'Rating'"
+        },
+        "C2": {
+          "value": "'FAIR'"
+        },
+        "C3": {
+          "value": "'GOOD'"
+        },
+        "D1": {
+          "value": "'Details'"
+        },
+        "D2": {
+          "value": "'Text: 702 chars; Prices: 3 ($-sign), 1 (decimal); Total: MISSING; Invoice#: MISSING; Real items: 1/3; Structure words: 5/12'"
+        },
+        "D3": {
+          "value": "'Text: 2318 chars; Prices: 8 ($-sign), 3 (decimal); Total: MISSING; Invoice#: 114-5494833-4517814; Real items: 3/3; Structure words: 8/12'"
+        },
+        "E1": {
+          "value": "'OCR Text (first 2000 chars)'"
+        },
+        "E2": {
+          "value": "'Aug 24, 9:34 AM\\n~ Morne Fendue\\nSt. Patrick, St. Patrick\\nGrenada\\nAmazon.com - Order 114-5494833-4517814\\nEstimated tax to be collected: $0.00\\nGift Card Amount: -$51.58\\nGrand Total: $0.00\\n\\nTo view the status of your order, return to Order Summary.\\nHave an issue with your gift card? Read about common issues or contact us.\\nConditions of Use | Privacy Notice \u00a9 1996-2024, Amazon.com, Inc. or its affiliates\\n\\nBack to top\\n\\nEnglish\\nUnited States\\nHelp\\n\\nConditions of Use  Privacy Notice  Consumer Health Data Privacy Disclosure  Your Ads Privacy Choices\\n\u00a9 1996-2024, Amazon.com, Inc. or its affiliates\\n\\nhttps://www.amazon.com/gp/css/summary/print.html?orderID=114-5494833-4517814&ref=ppx_yo2ov_dt_b_invoice\\n2/2'"
+        },
+        "E3": {
+          "value": "\"Jul 24, 9:34 AM\\nAmazon.com\\nAmazon.com - Order 114-5494833-4517814\\n\\nFinal Details for Order #114-5494833-4517814\\nPrint this page for your records.\\n\\nOrder Placed: July 15, 2024\\nAmazon.com order number: 114-5494833-4517814\\nOrder Total: $0.00\\n\\nShipped on July 16, 2024\\n\\nItems Ordered\\n1 of: Thinp 8 Pcs Mic Stand Adapter,Aluminum Alloy Microphone Stand Screw Stand Adapter for Camera Tripod 5/8 Female to 3/8 Male 3/8 Female to 5/8 Male 5/8 Female to 1/4 Male 1/4 Female to 5/8 Male\\nSold by: shuoxun (seller profile\\nSupplied by: shuoxun (seller profile\\nCondition: New\\n1 of: QUETTERLEE Replacement Internal Cooling Fan for Sony PS4 Fan ps4 CUH-1000 CUH-1001A CUH-11XX CUH-1000AB01 CUH-1000AB02 1115A 1115B 500GB KSB0912HE Note: This Item can not fit for PS4 CUH-1200 Series\\nSold by: QUETTERLEE (seller profile) | Product question? Ask Seller\\nSupplied by: QUETTERLEE (seller profile\\nCondition: New\\n\\nShipping Address:\\nReginald Andall\\n10813 NW 30TH ST STE 115 GRE 1132\\nDORAL, FL 33192-2147\\nUnited States\\n\\nShipping Speed:\\nFREE Shipping\\n\\nShipped on July 16, 2024\\n\\nItems Ordered\\n1 of: Element Men's Topaz C3 Skate Shoe, Grey, 12\\nSold by: Amazon.com Services, Inc\\nSupplied by: Other\\n\\nCondition: New\\n\\nShipping Address:\\nReginald Andall\\n10813 NW 30TH ST STE 115 GRE 1132\\nDORAL, FL 33192-2147\\nUnited States\\n\\nShipping Speed:\\nFREE Shipping\\n\\nPayment information\\n\\nPayment Method:\\nAmazon gift card balance\\nItem(s) Subtotal: $51.58\\nShipping & Handling: $8.35\\nFree Shipping: -$8.35\\nBilling address\\nPreston Andall\\nTotal before tax: $51.58\\n\\nhttps://www.amazon.com/gp/css/summary/print.html?orderID=114-5494833-4517814&ref=ppx_yo2ov_dt_b_invoice\\n1/2\\n\\nAug 24, 9:34 AM\\n~ Morne Fendue\\nSt. Patrick, St. Patrick\\nGrenada\\nAmazon.com - Order 114-5494833-4517814\\nEstimated tax to be collected: $0.00\\nGift Card Amount: -$51.58\\nGrand Total: $0.00\\nTo view the status of your order, return to Order Summary.\\nHave an issue with your gift card? Read about common issues or contact us.\\nConditions of Use | Privacy Notice \u00a9 1996-2024, Amazon.co\""
+        }
+      }
+    }
+  },
+  "HAWB9573874.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'TEMU'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'31 St. James Avenue, Suite 355, Boston, MA 02116'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'CN'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'49090090'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'114-5494833-4517814'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Printed matter'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'49090090'"
+        },
+        "F3": {
+          "value": "'49090090'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'49090090'"
+        },
+        "I3": {
+          "value": "'TEMU-2'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J11": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J12": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J14": {
+          "value": "'NET TOTAL'"
+        },
+        "J15": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J17": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J19": {
+          "value": "'INVOICE NOTES: Invoice total uncertain'"
+        },
+        "J2": {
+          "value": "'Gift Card Amount: - (1 items)'"
+        },
+        "J21": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J22": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J23": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J24": {
+          "value": "'CET (20%) \u2014 Tariff 49090090'"
+        },
+        "J25": {
+          "value": "'CSC (6%)'"
+        },
+        "J26": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J27": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J28": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J3": {
+          "value": "'Gift Card Amount: -'"
+        },
+        "J4": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J5": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J6": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J8": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J9": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "0"
+        },
+        "K3": {
+          "value": "0"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O3": {
+          "value": "51.58"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "0"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P14": {
+          "formula": "=P4+P12"
+        },
+        "P15": {
+          "formula": "=S2"
+        },
+        "P17": {
+          "formula": "=S2-P14"
+        },
+        "P2": {
+          "value": "51.58"
+        },
+        "P22": {
+          "value": "57.58"
+        },
+        "P23": {
+          "value": "156.44"
+        },
+        "P24": {
+          "value": "31.29"
+        },
+        "P25": {
+          "value": "9.39"
+        },
+        "P26": {
+          "value": "29.57"
+        },
+        "P27": {
+          "value": "70.25"
+        },
+        "P28": {
+          "value": "0.4490539503963181"
+        },
+        "P3": {
+          "value": "51.58"
+        },
+        "P4": {
+          "formula": "=P2"
+        },
+        "P5": {
+          "formula": "=SUM(P2:P3)-P4"
+        },
+        "P6": {
+          "formula": "=P4-P5"
+        },
+        "P8": {
+          "value": "3"
+        },
+        "P9": {
+          "value": "0"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q12": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q14": {
+          "formula": "=Q4+Q12"
+        },
+        "Q17": {
+          "formula": "=S2-Q14"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=Q2"
+        },
+        "Q5": {
+          "formula": "=SUM(Q2:Q3)-Q4"
+        },
+        "Q6": {
+          "formula": "=Q4-Q5"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "54.58"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "3"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'TEMU'"
+        }
+      }
+    }
+  },
+  "HAWB9579794.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E4": {
+          "value": "'Printed matter'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F4": {
+          "value": "'49090090'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I5": {
+          "value": "'TEMU-2'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'REFERENCE DEDUCTION'"
+        },
+        "J11": {
+          "value": "'REFERENCE ADJUSTMENTS'"
+        },
+        "J12": {
+          "value": "'REFERENCE NET TOTAL'"
+        },
+        "J3": {
+          "value": "'Items on other declaration(s) (1 items)'"
+        },
+        "J4": {
+          "value": "'Gift Card Amount: - (1 items)'"
+        },
+        "J5": {
+          "value": "'Gift Card Amount: -'"
+        },
+        "J6": {
+          "value": "'REFERENCE SUBTOTAL'"
+        },
+        "J7": {
+          "value": "'REFERENCE FREIGHT'"
+        },
+        "J8": {
+          "value": "'REFERENCE INSURANCE'"
+        },
+        "J9": {
+          "value": "'REFERENCE OTHER COST'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K4": {
+          "value": "0"
+        },
+        "K5": {
+          "value": "0"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O4": {
+          "value": "51.58"
+        },
+        "O5": {
+          "value": "51.58"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "0"
+        },
+        "P11": {
+          "formula": "=P7+P8+P9-P10"
+        },
+        "P12": {
+          "formula": "=P6+P11"
+        },
+        "P4": {
+          "value": "51.58"
+        },
+        "P5": {
+          "value": "51.58"
+        },
+        "P6": {
+          "value": "51.58"
+        },
+        "P7": {
+          "value": "3"
+        },
+        "P8": {
+          "value": "0"
+        },
+        "P9": {
+          "value": "0"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "114-5494833-4517814.pdf",
+        "HAWB9573874-Declaration.pdf",
+        "HAWB9573874.xlsx"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "REGINALD ANDALL",
+      "country_origin": "CN",
+      "expected_entries": 1,
+      "freight": "3.00",
+      "location": "WebSource",
+      "man_reg": "2024 27",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 1,
+      "waybill": "HAWB9573874",
+      "weight": "1.0"
+    }
+  }
+}

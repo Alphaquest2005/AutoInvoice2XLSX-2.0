@@ -1,0 +1,1660 @@
+{
+  "114-8204840-5125866.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'85044000'"
+        },
+        "AK4": {
+          "value": "'42022900'"
+        },
+        "AK7": {
+          "value": "'70200090'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'114-8204840-5125866'"
+        },
+        "C4": {
+          "value": "'114-8204840-5125866'"
+        },
+        "C7": {
+          "value": "'114-8204840-5125866'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'ELECTRICAL APPLIANCES'"
+        },
+        "E4": {
+          "value": "'Articles of leather; saddlery and harness; travel goods, handbags'"
+        },
+        "E7": {
+          "value": "'Other articles of glass.'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'85044000'"
+        },
+        "F3": {
+          "value": "'85044000'"
+        },
+        "F4": {
+          "value": "'42022900'"
+        },
+        "F5": {
+          "value": "'42022900'"
+        },
+        "F6": {
+          "value": "'42022900'"
+        },
+        "F7": {
+          "value": "'70200090'"
+        },
+        "F8": {
+          "value": "'70200090'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'85044000'"
+        },
+        "I3": {
+          "value": "'AMZ-1'"
+        },
+        "I4": {
+          "value": "'42022900'"
+        },
+        "I5": {
+          "value": "'AMZ-2'"
+        },
+        "I6": {
+          "value": "'AMZ-4'"
+        },
+        "I7": {
+          "value": "'70200090'"
+        },
+        "I8": {
+          "value": "'AMZ-3'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J11": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J13": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J14": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J15": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J16": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J17": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J19": {
+          "value": "'NET TOTAL'"
+        },
+        "J2": {
+          "value": "'Samsung S 23 S 24 Ultra Super Fast Charger 45 W USB C Super Fast Charging Wal... (1 items)'"
+        },
+        "J20": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J22": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J24": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J25": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J26": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J27": {
+          "value": "'CET (weighted avg 19.3%)'"
+        },
+        "J28": {
+          "value": "'  \u2514 42022900: 20% CET (60% of value)'"
+        },
+        "J29": {
+          "value": "'  \u2514 70200090: 20% CET (36% of value)'"
+        },
+        "J3": {
+          "value": "'Samsung S 23 S 24 Ultra Super Fast Charger 45 W USB C Super Fast Charging Wal...'"
+        },
+        "J30": {
+          "value": "'  \u2514 85044000: 5% CET (4% of value)'"
+        },
+        "J31": {
+          "value": "'CSC (6%)'"
+        },
+        "J32": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J33": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J34": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J4": {
+          "value": "'FLIPALM for Samsung Galaxy S 24 Ultra Wallet Case with RFID Blocking Credit C... (+1 more) (2 items)'"
+        },
+        "J5": {
+          "value": "'FLIPALM for Samsung Galaxy S 24 Ultra Wallet Case with RFID Blocking Credit C...'"
+        },
+        "J6": {
+          "value": "'FLIPALM for Samsung Galaxy S 24 Ultra Wallet Case with RFID Blocking Credit C...'"
+        },
+        "J7": {
+          "value": "'amFilm Auto - Alignment OneTouch for Samsung Galaxy (1 items)'"
+        },
+        "J8": {
+          "value": "'amFilm Auto - Alignment OneTouch for Samsung Galaxy'"
+        },
+        "J9": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "2"
+        },
+        "K5": {
+          "value": "1"
+        },
+        "K6": {
+          "value": "1"
+        },
+        "K7": {
+          "value": "1"
+        },
+        "K8": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "N6": {
+          "value": "'USD'"
+        },
+        "N7": {
+          "value": "'USD'"
+        },
+        "N8": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "2.99"
+        },
+        "O3": {
+          "value": "2.99"
+        },
+        "O4": {
+          "value": "19.99"
+        },
+        "O5": {
+          "value": "19.99"
+        },
+        "O6": {
+          "value": "19.99"
+        },
+        "O7": {
+          "value": "24"
+        },
+        "O8": {
+          "value": "24"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "formula": "=SUM(P2:P8)-P9"
+        },
+        "P11": {
+          "formula": "=P9-P10"
+        },
+        "P13": {
+          "value": "0"
+        },
+        "P14": {
+          "value": "0"
+        },
+        "P15": {
+          "value": "4.69"
+        },
+        "P16": {
+          "value": "0"
+        },
+        "P17": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P19": {
+          "formula": "=P9+P17"
+        },
+        "P2": {
+          "value": "2.99"
+        },
+        "P20": {
+          "formula": "=S2"
+        },
+        "P22": {
+          "formula": "=S2-P19"
+        },
+        "P25": {
+          "value": "71.64"
+        },
+        "P26": {
+          "value": "194.64"
+        },
+        "P27": {
+          "value": "37.62"
+        },
+        "P28": {
+          "value": "23.24"
+        },
+        "P29": {
+          "value": "13.95"
+        },
+        "P3": {
+          "value": "2.99"
+        },
+        "P30": {
+          "value": "0.43"
+        },
+        "P31": {
+          "value": "11.68"
+        },
+        "P32": {
+          "value": "36.59"
+        },
+        "P33": {
+          "value": "85.89"
+        },
+        "P34": {
+          "value": "0.4412762022194822"
+        },
+        "P4": {
+          "value": "39.98"
+        },
+        "P5": {
+          "value": "19.99"
+        },
+        "P6": {
+          "value": "19.99"
+        },
+        "P7": {
+          "value": "24"
+        },
+        "P8": {
+          "value": "24"
+        },
+        "P9": {
+          "formula": "=P2+P4+P7"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q10": {
+          "formula": "=SUM(Q2:Q8)-Q9"
+        },
+        "Q11": {
+          "formula": "=Q9-Q10"
+        },
+        "Q17": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q19": {
+          "formula": "=Q9+Q17"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q22": {
+          "formula": "=S2-Q19"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q6": {
+          "formula": "=O6*K6"
+        },
+        "Q7": {
+          "formula": "=O7*K7"
+        },
+        "Q8": {
+          "formula": "=O8*K8"
+        },
+        "Q9": {
+          "formula": "=Q2+Q4+Q7"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "R6": {
+          "formula": "=P6-Q6"
+        },
+        "R7": {
+          "formula": "=P7-Q7"
+        },
+        "R8": {
+          "formula": "=P8-Q8"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "71.64"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "4.69"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        }
+      }
+    }
+  },
+  "HAWB9557912.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'85044000'"
+        },
+        "AK4": {
+          "value": "'70200090'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'114-8204840-5125866'"
+        },
+        "C4": {
+          "value": "'114-8204840-5125866'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'ELECTRICAL APPLIANCES'"
+        },
+        "E33": {
+          "value": "'Articles of leather; saddlery and harness; travel goods, handbags'"
+        },
+        "E4": {
+          "value": "'Other articles of glass.'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'85044000'"
+        },
+        "F3": {
+          "value": "'85044000'"
+        },
+        "F33": {
+          "value": "'42022900'"
+        },
+        "F4": {
+          "value": "'70200090'"
+        },
+        "F5": {
+          "value": "'70200090'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'85044000'"
+        },
+        "I3": {
+          "value": "'AMZ-1'"
+        },
+        "I34": {
+          "value": "'AMZ-2'"
+        },
+        "I35": {
+          "value": "'AMZ-4'"
+        },
+        "I4": {
+          "value": "'70200090'"
+        },
+        "I5": {
+          "value": "'AMZ-3'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J11": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J12": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J13": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J14": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J16": {
+          "value": "'NET TOTAL'"
+        },
+        "J17": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J19": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J2": {
+          "value": "'Samsung S 23 S 24 Ultra Super Fast Charger 45 W USB C Super Fast Charging Wal... (1 items)'"
+        },
+        "J21": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J22": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J23": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J24": {
+          "value": "'CET (weighted avg 18.3%)'"
+        },
+        "J25": {
+          "value": "'  \u2514 70200090: 20% CET (89% of value)'"
+        },
+        "J26": {
+          "value": "'  \u2514 85044000: 5% CET (11% of value)'"
+        },
+        "J27": {
+          "value": "'CSC (6%)'"
+        },
+        "J28": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J29": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J3": {
+          "value": "'Samsung S 23 S 24 Ultra Super Fast Charger 45 W USB C Super Fast Charging Wal...'"
+        },
+        "J30": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J32": {
+          "value": "'Items on other declaration(s) (2 items)'"
+        },
+        "J33": {
+          "value": "'FLIPALM for Samsung Galaxy S 24 Ultra Wallet Case with RFID Blocking Credit C... (+1 more) (2 items)'"
+        },
+        "J34": {
+          "value": "'FLIPALM for Samsung Galaxy S 24 Ultra Wallet Case with RFID Blocking Credit C...'"
+        },
+        "J35": {
+          "value": "'FLIPALM for Samsung Galaxy S 24 Ultra Wallet Case with RFID Blocking Credit C...'"
+        },
+        "J36": {
+          "value": "'REFERENCE SUBTOTAL'"
+        },
+        "J37": {
+          "value": "'REFERENCE FREIGHT'"
+        },
+        "J38": {
+          "value": "'REFERENCE INSURANCE'"
+        },
+        "J39": {
+          "value": "'REFERENCE OTHER COST'"
+        },
+        "J4": {
+          "value": "'amFilm Auto - Alignment OneTouch for Samsung Galaxy (1 items)'"
+        },
+        "J40": {
+          "value": "'REFERENCE DEDUCTION'"
+        },
+        "J41": {
+          "value": "'REFERENCE ADJUSTMENTS'"
+        },
+        "J42": {
+          "value": "'REFERENCE NET TOTAL'"
+        },
+        "J44": {
+          "value": "'COMBINED ITEMS TOTAL'"
+        },
+        "J45": {
+          "value": "'FULL INVOICE FREIGHT'"
+        },
+        "J46": {
+          "value": "'FULL INVOICE INSURANCE'"
+        },
+        "J47": {
+          "value": "'FULL INVOICE OTHER COST'"
+        },
+        "J48": {
+          "value": "'FULL INVOICE DEDUCTION'"
+        },
+        "J49": {
+          "value": "'FULL ADJUSTMENTS'"
+        },
+        "J5": {
+          "value": "'amFilm Auto - Alignment OneTouch for Samsung Galaxy'"
+        },
+        "J50": {
+          "value": "'COMBINED NET TOTAL'"
+        },
+        "J51": {
+          "value": "'FULL INVOICE TOTAL'"
+        },
+        "J52": {
+          "value": "'COMBINED VARIANCE CHECK'"
+        },
+        "J6": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J7": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J8": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K33": {
+          "value": "2"
+        },
+        "K34": {
+          "value": "1"
+        },
+        "K35": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "K5": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N33": {
+          "value": "'USD'"
+        },
+        "N34": {
+          "value": "'USD'"
+        },
+        "N35": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "2.99"
+        },
+        "O3": {
+          "value": "2.99"
+        },
+        "O33": {
+          "value": "19.99"
+        },
+        "O34": {
+          "value": "19.99"
+        },
+        "O35": {
+          "value": "19.99"
+        },
+        "O4": {
+          "value": "24"
+        },
+        "O5": {
+          "value": "24"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "3"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "value": "1.89"
+        },
+        "P13": {
+          "value": "0"
+        },
+        "P14": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P16": {
+          "formula": "=P6+P14"
+        },
+        "P17": {
+          "formula": "=S2"
+        },
+        "P19": {
+          "formula": "=S2-P16"
+        },
+        "P2": {
+          "value": "2.99"
+        },
+        "P22": {
+          "value": "34.88"
+        },
+        "P23": {
+          "value": "94.77"
+        },
+        "P24": {
+          "value": "17.38"
+        },
+        "P25": {
+          "value": "16.85"
+        },
+        "P26": {
+          "value": "0.52"
+        },
+        "P27": {
+          "value": "5.69"
+        },
+        "P28": {
+          "value": "17.68"
+        },
+        "P29": {
+          "value": "40.75"
+        },
+        "P3": {
+          "value": "2.99"
+        },
+        "P30": {
+          "value": "0.4299883929513559"
+        },
+        "P33": {
+          "value": "39.98"
+        },
+        "P34": {
+          "value": "19.99"
+        },
+        "P35": {
+          "value": "19.99"
+        },
+        "P36": {
+          "value": "39.98"
+        },
+        "P37": {
+          "value": "3"
+        },
+        "P38": {
+          "value": "0"
+        },
+        "P39": {
+          "value": "2.8"
+        },
+        "P4": {
+          "value": "24"
+        },
+        "P40": {
+          "value": "0"
+        },
+        "P41": {
+          "formula": "=P37+P38+P39-P40"
+        },
+        "P42": {
+          "formula": "=P36+P41"
+        },
+        "P44": {
+          "formula": "=P6+P36"
+        },
+        "P45": {
+          "formula": "=P10+P37"
+        },
+        "P46": {
+          "formula": "=P11+P38"
+        },
+        "P47": {
+          "formula": "=P12+P39"
+        },
+        "P48": {
+          "formula": "=P13+P40"
+        },
+        "P49": {
+          "formula": "=P45+P46+P47-P48"
+        },
+        "P5": {
+          "value": "24"
+        },
+        "P50": {
+          "formula": "=P44+P49"
+        },
+        "P51": {
+          "value": "77.66"
+        },
+        "P52": {
+          "formula": "=P51-P50"
+        },
+        "P6": {
+          "formula": "=P2+P4"
+        },
+        "P7": {
+          "formula": "=SUM(P2:P5)-P6"
+        },
+        "P8": {
+          "formula": "=P6-P7"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q14": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q16": {
+          "formula": "=Q6+Q14"
+        },
+        "Q19": {
+          "formula": "=S2-Q16"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q6": {
+          "formula": "=Q2+Q4"
+        },
+        "Q7": {
+          "formula": "=SUM(Q2:Q5)-Q6"
+        },
+        "Q8": {
+          "formula": "=Q6-Q7"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "31.88"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "3"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "1.89"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        }
+      }
+    }
+  },
+  "HAWB9557933.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'42022900'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'114-8204840-5125866'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Articles of leather; saddlery and harness; travel goods, handbags'"
+        },
+        "E30": {
+          "value": "'ELECTRICAL APPLIANCES'"
+        },
+        "E32": {
+          "value": "'Other articles of glass.'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'42022900'"
+        },
+        "F3": {
+          "value": "'42022900'"
+        },
+        "F30": {
+          "value": "'85044000'"
+        },
+        "F32": {
+          "value": "'70200090'"
+        },
+        "F4": {
+          "value": "'42022900'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'42022900'"
+        },
+        "I3": {
+          "value": "'AMZ-2'"
+        },
+        "I31": {
+          "value": "'AMZ-1'"
+        },
+        "I33": {
+          "value": "'AMZ-3'"
+        },
+        "I4": {
+          "value": "'AMZ-4'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J11": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J12": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J13": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J15": {
+          "value": "'NET TOTAL'"
+        },
+        "J16": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J18": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J2": {
+          "value": "'FLIPALM for Samsung Galaxy S 24 Ultra Wallet Case with RFID Blocking Credit C... (+1 more) (2 items)'"
+        },
+        "J20": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J21": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J22": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J23": {
+          "value": "'CET (20%) \u2014 Tariff 42022900'"
+        },
+        "J24": {
+          "value": "'CSC (6%)'"
+        },
+        "J25": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J26": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J27": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J29": {
+          "value": "'Items on other declaration(s) (2 items)'"
+        },
+        "J3": {
+          "value": "'FLIPALM for Samsung Galaxy S 24 Ultra Wallet Case with RFID Blocking Credit C...'"
+        },
+        "J30": {
+          "value": "'Samsung S 23 S 24 Ultra Super Fast Charger 45 W USB C Super Fast Charging Wal... (1 items)'"
+        },
+        "J31": {
+          "value": "'Samsung S 23 S 24 Ultra Super Fast Charger 45 W USB C Super Fast Charging Wal...'"
+        },
+        "J32": {
+          "value": "'amFilm Auto - Alignment OneTouch for Samsung Galaxy (1 items)'"
+        },
+        "J33": {
+          "value": "'amFilm Auto - Alignment OneTouch for Samsung Galaxy'"
+        },
+        "J34": {
+          "value": "'REFERENCE SUBTOTAL'"
+        },
+        "J35": {
+          "value": "'REFERENCE FREIGHT'"
+        },
+        "J36": {
+          "value": "'REFERENCE INSURANCE'"
+        },
+        "J37": {
+          "value": "'REFERENCE OTHER COST'"
+        },
+        "J38": {
+          "value": "'REFERENCE DEDUCTION'"
+        },
+        "J39": {
+          "value": "'REFERENCE ADJUSTMENTS'"
+        },
+        "J4": {
+          "value": "'FLIPALM for Samsung Galaxy S 24 Ultra Wallet Case with RFID Blocking Credit C...'"
+        },
+        "J40": {
+          "value": "'REFERENCE NET TOTAL'"
+        },
+        "J42": {
+          "value": "'COMBINED ITEMS TOTAL'"
+        },
+        "J43": {
+          "value": "'FULL INVOICE FREIGHT'"
+        },
+        "J44": {
+          "value": "'FULL INVOICE INSURANCE'"
+        },
+        "J45": {
+          "value": "'FULL INVOICE OTHER COST'"
+        },
+        "J46": {
+          "value": "'FULL INVOICE DEDUCTION'"
+        },
+        "J47": {
+          "value": "'FULL ADJUSTMENTS'"
+        },
+        "J48": {
+          "value": "'COMBINED NET TOTAL'"
+        },
+        "J49": {
+          "value": "'FULL INVOICE TOTAL'"
+        },
+        "J5": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J50": {
+          "value": "'COMBINED VARIANCE CHECK'"
+        },
+        "J6": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J7": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J9": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "2"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K30": {
+          "value": "1"
+        },
+        "K31": {
+          "value": "1"
+        },
+        "K32": {
+          "value": "1"
+        },
+        "K33": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N30": {
+          "value": "'USD'"
+        },
+        "N31": {
+          "value": "'USD'"
+        },
+        "N32": {
+          "value": "'USD'"
+        },
+        "N33": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "19.99"
+        },
+        "O3": {
+          "value": "19.99"
+        },
+        "O30": {
+          "value": "2.99"
+        },
+        "O31": {
+          "value": "2.99"
+        },
+        "O32": {
+          "value": "24"
+        },
+        "O33": {
+          "value": "24"
+        },
+        "O4": {
+          "value": "19.99"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "0"
+        },
+        "P11": {
+          "value": "2.8"
+        },
+        "P12": {
+          "value": "0"
+        },
+        "P13": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P15": {
+          "formula": "=P5+P13"
+        },
+        "P16": {
+          "formula": "=S2"
+        },
+        "P18": {
+          "formula": "=S2-P15"
+        },
+        "P2": {
+          "value": "39.98"
+        },
+        "P21": {
+          "value": "48.78"
+        },
+        "P22": {
+          "value": "132.53"
+        },
+        "P23": {
+          "value": "26.51"
+        },
+        "P24": {
+          "value": "7.95"
+        },
+        "P25": {
+          "value": "25.05"
+        },
+        "P26": {
+          "value": "59.51"
+        },
+        "P27": {
+          "value": "0.449030408209462"
+        },
+        "P3": {
+          "value": "19.99"
+        },
+        "P30": {
+          "value": "2.99"
+        },
+        "P31": {
+          "value": "2.99"
+        },
+        "P32": {
+          "value": "24"
+        },
+        "P33": {
+          "value": "24"
+        },
+        "P34": {
+          "value": "26.99"
+        },
+        "P35": {
+          "value": "3"
+        },
+        "P36": {
+          "value": "0"
+        },
+        "P37": {
+          "value": "1.89"
+        },
+        "P38": {
+          "value": "0"
+        },
+        "P39": {
+          "formula": "=P35+P36+P37-P38"
+        },
+        "P4": {
+          "value": "19.99"
+        },
+        "P40": {
+          "formula": "=P34+P39"
+        },
+        "P42": {
+          "formula": "=P5+P34"
+        },
+        "P43": {
+          "formula": "=P9+P35"
+        },
+        "P44": {
+          "formula": "=P10+P36"
+        },
+        "P45": {
+          "formula": "=P11+P37"
+        },
+        "P46": {
+          "formula": "=P12+P38"
+        },
+        "P47": {
+          "formula": "=P43+P44+P45-P46"
+        },
+        "P48": {
+          "formula": "=P42+P47"
+        },
+        "P49": {
+          "value": "77.66"
+        },
+        "P5": {
+          "formula": "=P2"
+        },
+        "P50": {
+          "formula": "=P49-P48"
+        },
+        "P6": {
+          "formula": "=SUM(P2:P4)-P5"
+        },
+        "P7": {
+          "formula": "=P5-P6"
+        },
+        "P9": {
+          "value": "3"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q13": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q15": {
+          "formula": "=Q5+Q13"
+        },
+        "Q18": {
+          "formula": "=S2-Q15"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=Q2"
+        },
+        "Q6": {
+          "formula": "=SUM(Q2:Q4)-Q5"
+        },
+        "Q7": {
+          "formula": "=Q5-Q6"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "45.78"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "3"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "2.8"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "114-8204840-5125866.pdf",
+        "HAWB9557912-Declaration.pdf",
+        "HAWB9557912.xlsx"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "SHEMROCK FORTUNE",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "3.00",
+      "location": "WebSource",
+      "man_reg": "2024 127",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 1,
+      "waybill": "HAWB9557912",
+      "weight": "1.0"
+    }
+  }
+}

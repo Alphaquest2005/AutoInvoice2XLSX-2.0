@@ -1,0 +1,2707 @@
+{
+  "HAW639600873.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'67041100'"
+        },
+        "AK4": {
+          "value": "'67041900'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'113-0728579-9633009'"
+        },
+        "C4": {
+          "value": "'113-0728579-9633009'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'WIGS'"
+        },
+        "E35": {
+          "value": "'WIGS'"
+        },
+        "E4": {
+          "value": "'SYNTHETIC HAIR'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'67041100'"
+        },
+        "F3": {
+          "value": "'67041100'"
+        },
+        "F35": {
+          "value": "'67041100'"
+        },
+        "F4": {
+          "value": "'67041900'"
+        },
+        "F5": {
+          "value": "'67041900'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'67041100'"
+        },
+        "I3": {
+          "value": "'AMZ-1'"
+        },
+        "I36": {
+          "value": "'AMZ-2'"
+        },
+        "I37": {
+          "value": "'AMZ-4'"
+        },
+        "I4": {
+          "value": "'67041900'"
+        },
+        "I5": {
+          "value": "'AMZ-3'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J11": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J12": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J13": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J14": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J16": {
+          "value": "'NET TOTAL'"
+        },
+        "J17": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J19": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J2": {
+          "value": "'BLOCKICE Highlight Ombre Lace Front Wig Human Hair Wigs for Black (1 items)'"
+        },
+        "J21": {
+          "value": "'INVOICE NOTES: Structural item count mismatch: 5 price lines found between section markers but 4 items extracted'"
+        },
+        "J23": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J24": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J25": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J26": {
+          "value": "'CET (weighted avg 20.0%)'"
+        },
+        "J27": {
+          "value": "'  \u2514 67041100: 20% CET (70% of value)'"
+        },
+        "J28": {
+          "value": "'  \u2514 67041900: 20% CET (30% of value)'"
+        },
+        "J29": {
+          "value": "'CSC (6%)'"
+        },
+        "J3": {
+          "value": "'BLOCKICE Highlight Ombre Lace Front Wig Human Hair Wigs for Black'"
+        },
+        "J30": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J31": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J32": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J34": {
+          "value": "'Items on other declaration(s) (2 items)'"
+        },
+        "J35": {
+          "value": "'Aauerep Deep Wave Lace Front Wigs Human Hair Wigs for Women (+1 more) (2 items)'"
+        },
+        "J36": {
+          "value": "'Aauerep Deep Wave Lace Front Wigs Human Hair Wigs for Women'"
+        },
+        "J37": {
+          "value": "'Queen Story 26 Inch Lace Front Wigs Human Hair 13 x 4 Straight Human'"
+        },
+        "J38": {
+          "value": "'REFERENCE SUBTOTAL'"
+        },
+        "J39": {
+          "value": "'REFERENCE FREIGHT'"
+        },
+        "J4": {
+          "value": "'Faux Locs Crochet Hair Soft Locs 30 inch 6 Packs Long Pre Looped Crochet (1 items)'"
+        },
+        "J40": {
+          "value": "'REFERENCE INSURANCE'"
+        },
+        "J41": {
+          "value": "'REFERENCE OTHER COST'"
+        },
+        "J42": {
+          "value": "'REFERENCE DEDUCTION'"
+        },
+        "J43": {
+          "value": "'REFERENCE ADJUSTMENTS'"
+        },
+        "J44": {
+          "value": "'REFERENCE NET TOTAL'"
+        },
+        "J46": {
+          "value": "'COMBINED ITEMS TOTAL'"
+        },
+        "J47": {
+          "value": "'FULL INVOICE FREIGHT'"
+        },
+        "J48": {
+          "value": "'FULL INVOICE INSURANCE'"
+        },
+        "J49": {
+          "value": "'FULL INVOICE OTHER COST'"
+        },
+        "J5": {
+          "value": "'Faux Locs Crochet Hair Soft Locs 30 inch 6 Packs Long Pre Looped Crochet'"
+        },
+        "J50": {
+          "value": "'FULL INVOICE DEDUCTION'"
+        },
+        "J51": {
+          "value": "'FULL ADJUSTMENTS'"
+        },
+        "J52": {
+          "value": "'COMBINED NET TOTAL'"
+        },
+        "J53": {
+          "value": "'FULL INVOICE TOTAL'"
+        },
+        "J54": {
+          "value": "'COMBINED VARIANCE CHECK'"
+        },
+        "J6": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J7": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J8": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K35": {
+          "value": "4"
+        },
+        "K36": {
+          "value": "3"
+        },
+        "K37": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "2"
+        },
+        "K5": {
+          "value": "2"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N35": {
+          "value": "'USD'"
+        },
+        "N36": {
+          "value": "'USD'"
+        },
+        "N37": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "41.99"
+        },
+        "O3": {
+          "value": "41.99"
+        },
+        "O35": {
+          "value": "248.18"
+        },
+        "O36": {
+          "value": "34.99"
+        },
+        "O37": {
+          "value": "391.39"
+        },
+        "O4": {
+          "value": "9.08"
+        },
+        "O5": {
+          "value": "9.08"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "21"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "value": "0"
+        },
+        "P13": {
+          "value": "0"
+        },
+        "P14": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P16": {
+          "formula": "=P6+P14"
+        },
+        "P17": {
+          "formula": "=S2"
+        },
+        "P19": {
+          "formula": "=S2-P16"
+        },
+        "P2": {
+          "value": "41.99"
+        },
+        "P24": {
+          "value": "102.15"
+        },
+        "P25": {
+          "value": "277.53"
+        },
+        "P26": {
+          "value": "55.51"
+        },
+        "P27": {
+          "value": "38.75"
+        },
+        "P28": {
+          "value": "16.76"
+        },
+        "P29": {
+          "value": "16.65"
+        },
+        "P3": {
+          "value": "41.99"
+        },
+        "P30": {
+          "value": "52.45"
+        },
+        "P31": {
+          "value": "124.61"
+        },
+        "P32": {
+          "value": "0.4489965048823551"
+        },
+        "P35": {
+          "value": "496.36"
+        },
+        "P36": {
+          "value": "104.97"
+        },
+        "P37": {
+          "value": "391.39"
+        },
+        "P38": {
+          "value": "496.36"
+        },
+        "P39": {
+          "value": "15"
+        },
+        "P4": {
+          "value": "18.16"
+        },
+        "P40": {
+          "value": "0"
+        },
+        "P41": {
+          "value": "0"
+        },
+        "P42": {
+          "value": "0"
+        },
+        "P43": {
+          "formula": "=P39+P40+P41-P42"
+        },
+        "P44": {
+          "formula": "=P38+P43"
+        },
+        "P46": {
+          "formula": "=P6+P38"
+        },
+        "P47": {
+          "formula": "=P10+P39"
+        },
+        "P48": {
+          "formula": "=P11+P40"
+        },
+        "P49": {
+          "formula": "=P12+P41"
+        },
+        "P5": {
+          "value": "18.16"
+        },
+        "P50": {
+          "formula": "=P13+P42"
+        },
+        "P51": {
+          "formula": "=P47+P48+P49-P50"
+        },
+        "P52": {
+          "formula": "=P46+P51"
+        },
+        "P53": {
+          "value": "592.51"
+        },
+        "P54": {
+          "formula": "=P53-P52"
+        },
+        "P6": {
+          "formula": "=P2+P4"
+        },
+        "P7": {
+          "formula": "=SUM(P2:P5)-P6"
+        },
+        "P8": {
+          "formula": "=P6-P7"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q14": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q16": {
+          "formula": "=Q6+Q14"
+        },
+        "Q19": {
+          "formula": "=S2-Q16"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q6": {
+          "formula": "=Q2+Q4"
+        },
+        "Q7": {
+          "formula": "=SUM(Q2:Q5)-Q6"
+        },
+        "Q8": {
+          "formula": "=Q6-Q7"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "81.15"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "21"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        }
+      }
+    }
+  },
+  "HAWB9600873-Declaration_combined.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Combined Invoices": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "A36": {
+          "value": "'4000-000'"
+        },
+        "A66": {
+          "value": "'4000-000'"
+        },
+        "A96": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AA36": {
+          "value": "'Amazon.com'"
+        },
+        "AA66": {
+          "value": "'Amazon.com'"
+        },
+        "AA96": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AB36": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AB66": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AB96": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AC36": {
+          "value": "'US'"
+        },
+        "AC66": {
+          "value": "'US'"
+        },
+        "AC96": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK100": {
+          "value": "'67041900'"
+        },
+        "AK2": {
+          "value": "'67041100'"
+        },
+        "AK36": {
+          "value": "'67042000'"
+        },
+        "AK38": {
+          "value": "'67041900'"
+        },
+        "AK6": {
+          "value": "'67041900'"
+        },
+        "AK66": {
+          "value": "'67042000'"
+        },
+        "AK68": {
+          "value": "'67041900'"
+        },
+        "AK96": {
+          "value": "'67041100'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C100": {
+          "value": "'113-0728579-9633009'"
+        },
+        "C2": {
+          "value": "'113-0728579-9633009'"
+        },
+        "C36": {
+          "value": "'113-0728579-9633009_Invoice_1'"
+        },
+        "C38": {
+          "value": "'113-0728579-9633009_Invoice_1'"
+        },
+        "C6": {
+          "value": "'113-0728579-9633009'"
+        },
+        "C66": {
+          "value": "'HAWB9606117-Declaration_Invoice_1'"
+        },
+        "C68": {
+          "value": "'HAWB9606117-Declaration_Invoice_1'"
+        },
+        "C96": {
+          "value": "'113-0728579-9633009'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E100": {
+          "value": "'SYNTHETIC HAIR'"
+        },
+        "E2": {
+          "value": "'WIGS'"
+        },
+        "E36": {
+          "value": "'HUMAN HAIR'"
+        },
+        "E38": {
+          "value": "'SYNTHETIC HAIR'"
+        },
+        "E6": {
+          "value": "'SYNTHETIC HAIR'"
+        },
+        "E66": {
+          "value": "'HUMAN HAIR'"
+        },
+        "E68": {
+          "value": "'SYNTHETIC HAIR'"
+        },
+        "E96": {
+          "value": "'WIGS'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F100": {
+          "value": "'67041900'"
+        },
+        "F101": {
+          "value": "'67041900'"
+        },
+        "F2": {
+          "value": "'67041100'"
+        },
+        "F3": {
+          "value": "'67041100'"
+        },
+        "F36": {
+          "value": "'67042000'"
+        },
+        "F37": {
+          "value": "'67042000'"
+        },
+        "F38": {
+          "value": "'67041900'"
+        },
+        "F39": {
+          "value": "'67041900'"
+        },
+        "F4": {
+          "value": "'67041100'"
+        },
+        "F5": {
+          "value": "'67041100'"
+        },
+        "F6": {
+          "value": "'67041900'"
+        },
+        "F66": {
+          "value": "'67042000'"
+        },
+        "F67": {
+          "value": "'67042000'"
+        },
+        "F68": {
+          "value": "'67041900'"
+        },
+        "F69": {
+          "value": "'67041900'"
+        },
+        "F7": {
+          "value": "'67041900'"
+        },
+        "F96": {
+          "value": "'67041100'"
+        },
+        "F97": {
+          "value": "'67041100'"
+        },
+        "F98": {
+          "value": "'67041100'"
+        },
+        "F99": {
+          "value": "'67041100'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I100": {
+          "value": "'67041900'"
+        },
+        "I101": {
+          "value": "'AMZ-3'"
+        },
+        "I2": {
+          "value": "'67041100'"
+        },
+        "I3": {
+          "value": "'AMZ-1'"
+        },
+        "I36": {
+          "value": "'67042000'"
+        },
+        "I37": {
+          "value": "'AMZ-1'"
+        },
+        "I38": {
+          "value": "'67041900'"
+        },
+        "I39": {
+          "value": "'AMZ-2'"
+        },
+        "I4": {
+          "value": "'AMZ-2'"
+        },
+        "I5": {
+          "value": "'AMZ-4'"
+        },
+        "I6": {
+          "value": "'67041900'"
+        },
+        "I66": {
+          "value": "'67042000'"
+        },
+        "I67": {
+          "value": "'AMZ-1'"
+        },
+        "I68": {
+          "value": "'67041900'"
+        },
+        "I69": {
+          "value": "'AMZ-2'"
+        },
+        "I7": {
+          "value": "'AMZ-3'"
+        },
+        "I96": {
+          "value": "'67041100'"
+        },
+        "I97": {
+          "value": "'AMZ-1'"
+        },
+        "I98": {
+          "value": "'AMZ-2'"
+        },
+        "I99": {
+          "value": "'AMZ-4'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J100": {
+          "value": "'Faux Locs Crochet Hair Soft Locs 30 inch 6 Packs Long Pre Looped Crochet (1 items)'"
+        },
+        "J101": {
+          "value": "'Faux Locs Crochet Hair Soft Locs 30 inch 6 Packs Long Pre Looped Crochet'"
+        },
+        "J102": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J103": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J104": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J106": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J107": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J108": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J109": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J110": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J112": {
+          "value": "'NET TOTAL'"
+        },
+        "J113": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J115": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J117": {
+          "value": "'INVOICE NOTES: Structural item count mismatch: 5 price lines found between section markers but 4 items extracted'"
+        },
+        "J119": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J12": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J120": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J121": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J122": {
+          "value": "'CET (weighted avg 20.0%)'"
+        },
+        "J123": {
+          "value": "'  \u2514 67041100: 20% CET (97% of value)'"
+        },
+        "J124": {
+          "value": "'  \u2514 67041900: 20% CET (3% of value)'"
+        },
+        "J125": {
+          "value": "'CSC (6%)'"
+        },
+        "J126": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J127": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J128": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J13": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J14": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J15": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J16": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J18": {
+          "value": "'NET TOTAL'"
+        },
+        "J19": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J2": {
+          "value": "'BLOCKICE Highlight Ombre Lace Front Wig Human Hair Wigs for Black (+2 more) (3 items)'"
+        },
+        "J21": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J23": {
+          "value": "'INVOICE NOTES: Structural item count mismatch: 5 price lines found between section markers but 4 items extracted'"
+        },
+        "J25": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J26": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J27": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J28": {
+          "value": "'CET (weighted avg 20.0%)'"
+        },
+        "J29": {
+          "value": "'  \u2514 67041100: 20% CET (97% of value)'"
+        },
+        "J3": {
+          "value": "'BLOCKICE Highlight Ombre Lace Front Wig Human Hair Wigs for Black'"
+        },
+        "J30": {
+          "value": "'  \u2514 67041900: 20% CET (3% of value)'"
+        },
+        "J31": {
+          "value": "'CSC (6%)'"
+        },
+        "J32": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J33": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J34": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J36": {
+          "value": "'Zumuer Wear And Go Glueless Wigs Human Hair Pre Plucked Pre Cut Body (1 items)'"
+        },
+        "J37": {
+          "value": "'Zumuer Wear And Go Glueless Wigs Human Hair Pre Plucked Pre Cut Body'"
+        },
+        "J38": {
+          "value": "'Faux Locs Crochet Hair Soft Locs 30 inch 6 Packs Long Pre Looped Crochet (1 items)'"
+        },
+        "J39": {
+          "value": "'Faux Locs Crochet Hair Soft Locs 30 inch 6 Packs Long Pre Looped Crochet'"
+        },
+        "J4": {
+          "value": "'Aauerep Deep Wave Lace Front Wigs Human Hair Wigs for Women'"
+        },
+        "J40": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J41": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J42": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J44": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J45": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J46": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J47": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J48": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J5": {
+          "value": "'Queen Story 26 Inch Lace Front Wigs Human Hair 13 x 4 Straight Human'"
+        },
+        "J50": {
+          "value": "'NET TOTAL'"
+        },
+        "J51": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J53": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J55": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J56": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J57": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J58": {
+          "value": "'CET (weighted avg 20.0%)'"
+        },
+        "J59": {
+          "value": "'  \u2514 67041900: 20% CET (84% of value)'"
+        },
+        "J6": {
+          "value": "'Faux Locs Crochet Hair Soft Locs 30 inch 6 Packs Long Pre Looped Crochet (1 items)'"
+        },
+        "J60": {
+          "value": "'  \u2514 67042000: 20% CET (16% of value)'"
+        },
+        "J61": {
+          "value": "'CSC (6%)'"
+        },
+        "J62": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J63": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J64": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J66": {
+          "value": "'Zumuer Wear And Go Glueless Wigs Human Hair Pre Plucked Pre Cut Body Wave Lac... (1 items)'"
+        },
+        "J67": {
+          "value": "'Zumuer Wear And Go Glueless Wigs Human Hair Pre Plucked Pre Cut Body Wave Lac...'"
+        },
+        "J68": {
+          "value": "'Faux Locs Crochet Hair Soft Locs 30 inch 6 Packs Long Pre Looped Crochet Locs... (1 items)'"
+        },
+        "J69": {
+          "value": "'Faux Locs Crochet Hair Soft Locs 30 inch 6 Packs Long Pre Looped Crochet Locs...'"
+        },
+        "J7": {
+          "value": "'Faux Locs Crochet Hair Soft Locs 30 inch 6 Packs Long Pre Looped Crochet'"
+        },
+        "J70": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J71": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J72": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J74": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J75": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J76": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J77": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J78": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J8": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J80": {
+          "value": "'NET TOTAL'"
+        },
+        "J81": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J83": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J85": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J86": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J87": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J88": {
+          "value": "'CET (weighted avg 20.0%)'"
+        },
+        "J89": {
+          "value": "'  \u2514 67041900: 20% CET (84% of value)'"
+        },
+        "J9": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J90": {
+          "value": "'  \u2514 67042000: 20% CET (16% of value)'"
+        },
+        "J91": {
+          "value": "'CSC (6%)'"
+        },
+        "J92": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J93": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J94": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J96": {
+          "value": "'BLOCKICE Highlight Ombre Lace Front Wig Human Hair Wigs for Black (+2 more) (3 items)'"
+        },
+        "J97": {
+          "value": "'BLOCKICE Highlight Ombre Lace Front Wig Human Hair Wigs for Black'"
+        },
+        "J98": {
+          "value": "'Aauerep Deep Wave Lace Front Wigs Human Hair Wigs for Women'"
+        },
+        "J99": {
+          "value": "'Queen Story 26 Inch Lace Front Wigs Human Hair 13 x 4 Straight Human'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K100": {
+          "value": "2"
+        },
+        "K101": {
+          "value": "2"
+        },
+        "K2": {
+          "value": "5"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K36": {
+          "value": "3"
+        },
+        "K37": {
+          "value": "3"
+        },
+        "K38": {
+          "value": "1"
+        },
+        "K39": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "3"
+        },
+        "K5": {
+          "value": "1"
+        },
+        "K6": {
+          "value": "2"
+        },
+        "K66": {
+          "value": "3"
+        },
+        "K67": {
+          "value": "3"
+        },
+        "K68": {
+          "value": "1"
+        },
+        "K69": {
+          "value": "1"
+        },
+        "K7": {
+          "value": "2"
+        },
+        "K96": {
+          "value": "5"
+        },
+        "K97": {
+          "value": "1"
+        },
+        "K98": {
+          "value": "3"
+        },
+        "K99": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "L131": {
+          "value": "'\u2550\u2550\u2550 COMBINED GRAND SUMMARY \u2550\u2550\u2550'"
+        },
+        "L132": {
+          "value": "'Invoice 113-0728579-9633009'"
+        },
+        "L133": {
+          "value": "'Invoice 113-0728579-9633009_Invoice_1'"
+        },
+        "L134": {
+          "value": "'Invoice HAWB9606117-Declaration_Invoice_1'"
+        },
+        "L135": {
+          "value": "'Invoice 113-0728579-9633009'"
+        },
+        "L137": {
+          "value": "'GRAND TOTAL'"
+        },
+        "L138": {
+          "value": "'GRAND VARIANCE CHECK'"
+        },
+        "L139": {
+          "value": "'Combined 4 invoice files'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N100": {
+          "value": "'USD'"
+        },
+        "N101": {
+          "value": "'USD'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N36": {
+          "value": "'USD'"
+        },
+        "N37": {
+          "value": "'USD'"
+        },
+        "N38": {
+          "value": "'USD'"
+        },
+        "N39": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "N6": {
+          "value": "'USD'"
+        },
+        "N66": {
+          "value": "'USD'"
+        },
+        "N67": {
+          "value": "'USD'"
+        },
+        "N68": {
+          "value": "'USD'"
+        },
+        "N69": {
+          "value": "'USD'"
+        },
+        "N7": {
+          "value": "'USD'"
+        },
+        "N96": {
+          "value": "'USD'"
+        },
+        "N97": {
+          "value": "'USD'"
+        },
+        "N98": {
+          "value": "'USD'"
+        },
+        "N99": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O100": {
+          "value": "9.08"
+        },
+        "O101": {
+          "value": "9.08"
+        },
+        "O2": {
+          "value": "107.67"
+        },
+        "O3": {
+          "value": "41.99"
+        },
+        "O36": {
+          "value": "28.27"
+        },
+        "O37": {
+          "value": "28.27"
+        },
+        "O38": {
+          "value": "435.3"
+        },
+        "O39": {
+          "value": "435.3"
+        },
+        "O4": {
+          "value": "34.99"
+        },
+        "O5": {
+          "value": "391.39"
+        },
+        "O6": {
+          "value": "9.08"
+        },
+        "O66": {
+          "value": "28.27"
+        },
+        "O67": {
+          "value": "28.27"
+        },
+        "O68": {
+          "value": "435.3"
+        },
+        "O69": {
+          "value": "435.3"
+        },
+        "O7": {
+          "value": "9.08"
+        },
+        "O96": {
+          "value": "107.67"
+        },
+        "O97": {
+          "value": "41.99"
+        },
+        "O98": {
+          "value": "34.99"
+        },
+        "O99": {
+          "value": "391.39"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "formula": "=P8-P9"
+        },
+        "P100": {
+          "value": "18.16"
+        },
+        "P101": {
+          "value": "18.16"
+        },
+        "P102": {
+          "formula": "=P96+P100"
+        },
+        "P103": {
+          "formula": "=SUM(P96:P101)-P102"
+        },
+        "P104": {
+          "formula": "=P102-P103"
+        },
+        "P106": {
+          "value": "0"
+        },
+        "P107": {
+          "value": "0"
+        },
+        "P108": {
+          "value": "0"
+        },
+        "P109": {
+          "value": "0"
+        },
+        "P110": {
+          "formula": "=(T96+U96+V96-W96)"
+        },
+        "P112": {
+          "formula": "=P102+P110"
+        },
+        "P113": {
+          "formula": "=S96"
+        },
+        "P115": {
+          "formula": "=S96-P112"
+        },
+        "P12": {
+          "value": "0"
+        },
+        "P120": {
+          "value": "556.51"
+        },
+        "P121": {
+          "value": "1511.98"
+        },
+        "P122": {
+          "value": "302.4"
+        },
+        "P123": {
+          "value": "292.53"
+        },
+        "P124": {
+          "value": "9.87"
+        },
+        "P125": {
+          "value": "90.72"
+        },
+        "P126": {
+          "value": "285.76"
+        },
+        "P127": {
+          "value": "678.88"
+        },
+        "P128": {
+          "value": "0.4490006481567216"
+        },
+        "P13": {
+          "value": "0"
+        },
+        "P132": {
+          "value": "4285.61"
+        },
+        "P133": {
+          "value": "4285.61"
+        },
+        "P134": {
+          "value": "4285.61"
+        },
+        "P135": {
+          "value": "4285.61"
+        },
+        "P137": {
+          "value": "17142.44"
+        },
+        "P138": {
+          "value": "-14916.4"
+        },
+        "P14": {
+          "value": "0"
+        },
+        "P15": {
+          "value": "0"
+        },
+        "P16": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P18": {
+          "formula": "=P8+P16"
+        },
+        "P19": {
+          "formula": "=S2"
+        },
+        "P2": {
+          "value": "538.35"
+        },
+        "P21": {
+          "formula": "=S2-P18"
+        },
+        "P26": {
+          "value": "556.51"
+        },
+        "P27": {
+          "value": "1511.98"
+        },
+        "P28": {
+          "value": "302.4"
+        },
+        "P29": {
+          "value": "292.53"
+        },
+        "P3": {
+          "value": "41.99"
+        },
+        "P30": {
+          "value": "9.87"
+        },
+        "P31": {
+          "value": "90.72"
+        },
+        "P32": {
+          "value": "285.76"
+        },
+        "P33": {
+          "value": "678.88"
+        },
+        "P34": {
+          "value": "0.4490006481567216"
+        },
+        "P36": {
+          "value": "84.81"
+        },
+        "P37": {
+          "value": "84.81"
+        },
+        "P38": {
+          "value": "435.3"
+        },
+        "P39": {
+          "value": "435.3"
+        },
+        "P4": {
+          "value": "104.97"
+        },
+        "P40": {
+          "formula": "=P36+P38"
+        },
+        "P41": {
+          "formula": "=SUM(P36:P39)-P40"
+        },
+        "P42": {
+          "formula": "=P40-P41"
+        },
+        "P44": {
+          "value": "0"
+        },
+        "P45": {
+          "value": "0"
+        },
+        "P46": {
+          "value": "36.4"
+        },
+        "P47": {
+          "value": "0"
+        },
+        "P48": {
+          "formula": "=(T36+U36+V36-W36)"
+        },
+        "P5": {
+          "value": "391.39"
+        },
+        "P50": {
+          "formula": "=P40+P48"
+        },
+        "P51": {
+          "formula": "=S36"
+        },
+        "P53": {
+          "formula": "=S36-P50"
+        },
+        "P56": {
+          "value": "556.51"
+        },
+        "P57": {
+          "value": "1511.98"
+        },
+        "P58": {
+          "value": "302.4"
+        },
+        "P59": {
+          "value": "253.09"
+        },
+        "P6": {
+          "value": "18.16"
+        },
+        "P60": {
+          "value": "49.31"
+        },
+        "P61": {
+          "value": "90.72"
+        },
+        "P62": {
+          "value": "285.76"
+        },
+        "P63": {
+          "value": "678.88"
+        },
+        "P64": {
+          "value": "0.4490006481567216"
+        },
+        "P66": {
+          "value": "84.81"
+        },
+        "P67": {
+          "value": "84.81"
+        },
+        "P68": {
+          "value": "435.3"
+        },
+        "P69": {
+          "value": "435.3"
+        },
+        "P7": {
+          "value": "18.16"
+        },
+        "P70": {
+          "formula": "=P66+P68"
+        },
+        "P71": {
+          "formula": "=SUM(P66:P69)-P70"
+        },
+        "P72": {
+          "formula": "=P70-P71"
+        },
+        "P74": {
+          "value": "0"
+        },
+        "P75": {
+          "value": "0"
+        },
+        "P76": {
+          "value": "36.4"
+        },
+        "P77": {
+          "value": "0"
+        },
+        "P78": {
+          "formula": "=(T66+U66+V66-W66)"
+        },
+        "P8": {
+          "formula": "=P2+P6"
+        },
+        "P80": {
+          "formula": "=P70+P78"
+        },
+        "P81": {
+          "formula": "=S66"
+        },
+        "P83": {
+          "formula": "=S66-P80"
+        },
+        "P86": {
+          "value": "556.51"
+        },
+        "P87": {
+          "value": "1511.98"
+        },
+        "P88": {
+          "value": "302.4"
+        },
+        "P89": {
+          "value": "253.09"
+        },
+        "P9": {
+          "formula": "=SUM(P2:P7)-P8"
+        },
+        "P90": {
+          "value": "49.31"
+        },
+        "P91": {
+          "value": "90.72"
+        },
+        "P92": {
+          "value": "285.76"
+        },
+        "P93": {
+          "value": "678.88"
+        },
+        "P94": {
+          "value": "0.4490006481567216"
+        },
+        "P96": {
+          "value": "538.35"
+        },
+        "P97": {
+          "value": "41.99"
+        },
+        "P98": {
+          "value": "104.97"
+        },
+        "P99": {
+          "value": "391.39"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q10": {
+          "formula": "=Q8-Q9"
+        },
+        "Q100": {
+          "formula": "=O100*K100"
+        },
+        "Q101": {
+          "formula": "=O101*K101"
+        },
+        "Q102": {
+          "formula": "=Q96+Q100"
+        },
+        "Q103": {
+          "formula": "=SUM(Q96:Q101)-Q102"
+        },
+        "Q104": {
+          "formula": "=Q102-Q103"
+        },
+        "Q110": {
+          "formula": "=(T96+U96+V96-W96)"
+        },
+        "Q112": {
+          "formula": "=Q102+Q110"
+        },
+        "Q115": {
+          "formula": "=S96-Q112"
+        },
+        "Q132": {
+          "value": "-3729.1"
+        },
+        "Q133": {
+          "value": "-3729.1"
+        },
+        "Q134": {
+          "value": "-3729.1"
+        },
+        "Q135": {
+          "value": "-3729.1"
+        },
+        "Q16": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q18": {
+          "formula": "=Q8+Q16"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q21": {
+          "formula": "=S2-Q18"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q36": {
+          "formula": "=O36*K36"
+        },
+        "Q37": {
+          "formula": "=O37*K37"
+        },
+        "Q38": {
+          "formula": "=O38*K38"
+        },
+        "Q39": {
+          "formula": "=O39*K39"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q40": {
+          "formula": "=Q36+Q38"
+        },
+        "Q41": {
+          "formula": "=SUM(Q36:Q39)-Q40"
+        },
+        "Q42": {
+          "formula": "=Q40-Q41"
+        },
+        "Q48": {
+          "formula": "=(T36+U36+V36-W36)"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q50": {
+          "formula": "=Q40+Q48"
+        },
+        "Q53": {
+          "formula": "=S36-Q50"
+        },
+        "Q6": {
+          "formula": "=O6*K6"
+        },
+        "Q66": {
+          "formula": "=O66*K66"
+        },
+        "Q67": {
+          "formula": "=O67*K67"
+        },
+        "Q68": {
+          "formula": "=O68*K68"
+        },
+        "Q69": {
+          "formula": "=O69*K69"
+        },
+        "Q7": {
+          "formula": "=O7*K7"
+        },
+        "Q70": {
+          "formula": "=Q66+Q68"
+        },
+        "Q71": {
+          "formula": "=SUM(Q66:Q69)-Q70"
+        },
+        "Q72": {
+          "formula": "=Q70-Q71"
+        },
+        "Q78": {
+          "formula": "=(T66+U66+V66-W66)"
+        },
+        "Q8": {
+          "formula": "=Q2+Q6"
+        },
+        "Q80": {
+          "formula": "=Q70+Q78"
+        },
+        "Q83": {
+          "formula": "=S66-Q80"
+        },
+        "Q9": {
+          "formula": "=SUM(Q2:Q7)-Q8"
+        },
+        "Q96": {
+          "formula": "=O96*K96"
+        },
+        "Q97": {
+          "formula": "=O97*K97"
+        },
+        "Q98": {
+          "formula": "=O98*K98"
+        },
+        "Q99": {
+          "formula": "=O99*K99"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R100": {
+          "formula": "=P100-Q100"
+        },
+        "R101": {
+          "formula": "=P101-Q101"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R36": {
+          "formula": "=P36-Q36"
+        },
+        "R37": {
+          "formula": "=P37-Q37"
+        },
+        "R38": {
+          "formula": "=P38-Q38"
+        },
+        "R39": {
+          "formula": "=P39-Q39"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "R6": {
+          "formula": "=P6-Q6"
+        },
+        "R66": {
+          "formula": "=P66-Q66"
+        },
+        "R67": {
+          "formula": "=P67-Q67"
+        },
+        "R68": {
+          "formula": "=P68-Q68"
+        },
+        "R69": {
+          "formula": "=P69-Q69"
+        },
+        "R7": {
+          "formula": "=P7-Q7"
+        },
+        "R96": {
+          "formula": "=P96-Q96"
+        },
+        "R97": {
+          "formula": "=P97-Q97"
+        },
+        "R98": {
+          "formula": "=P98-Q98"
+        },
+        "R99": {
+          "formula": "=P99-Q99"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "556.51"
+        },
+        "S36": {
+          "value": "556.51"
+        },
+        "S66": {
+          "value": "556.51"
+        },
+        "S96": {
+          "value": "556.51"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "T36": {
+          "value": "0"
+        },
+        "T66": {
+          "value": "0"
+        },
+        "T96": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "U36": {
+          "value": "0"
+        },
+        "U66": {
+          "value": "0"
+        },
+        "U96": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "V36": {
+          "value": "36.4"
+        },
+        "V66": {
+          "value": "36.4"
+        },
+        "V96": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "W36": {
+          "value": "0"
+        },
+        "W66": {
+          "value": "0"
+        },
+        "W96": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        },
+        "Z36": {
+          "value": "'AMAZON'"
+        },
+        "Z66": {
+          "value": "'AMAZON'"
+        },
+        "Z96": {
+          "value": "'AMAZON'"
+        }
+      },
+      "OCR Notes": {
+        "A1": {
+          "value": "'PDF File'"
+        },
+        "A2": {
+          "value": "'113-0728579-9633009.pdf'"
+        },
+        "A3": {
+          "value": "'113-0728579-9633009_Invoice_1.pdf'"
+        },
+        "A4": {
+          "value": "'HAWB9606117-Declaration_Invoice_1.pdf'"
+        },
+        "A5": {
+          "value": "'113-0728579-9633009.pdf'"
+        },
+        "B1": {
+          "value": "'Quality Score'"
+        },
+        "B2": {
+          "value": "'100/100'"
+        },
+        "B3": {
+          "value": "'75/100'"
+        },
+        "B4": {
+          "value": "'75/100'"
+        },
+        "B5": {
+          "value": "'100/100'"
+        },
+        "C1": {
+          "value": "'Rating'"
+        },
+        "C2": {
+          "value": "'GOOD'"
+        },
+        "C3": {
+          "value": "'GOOD'"
+        },
+        "C4": {
+          "value": "'GOOD'"
+        },
+        "C5": {
+          "value": "'GOOD'"
+        },
+        "D1": {
+          "value": "'Details'"
+        },
+        "D2": {
+          "value": "'Text: 1735 chars; Prices: 5 ($-sign), 5 (decimal); Total: $556.51; Invoice#: 113-0728579-9633009; Real items: 4/4; Structure words: 5/12'"
+        },
+        "D3": {
+          "value": "'Text: 1289 chars; Prices: 3 ($-sign), 7 (decimal); Total: $556.51; Invoice#: MISSING; Real items: 2/2; Structure words: 6/12'"
+        },
+        "D4": {
+          "value": "'Text: 1300 chars; Prices: 3 ($-sign), 7 (decimal); Total: $556.51; Invoice#: MISSING; Real items: 2/2; Structure words: 7/12'"
+        },
+        "D5": {
+          "value": "'Text: 1735 chars; Prices: 5 ($-sign), 5 (decimal); Total: $556.51; Invoice#: 113-0728579-9633009; Real items: 4/4; Structure words: 5/12'"
+        },
+        "E1": {
+          "value": "'OCR Text (first 2000 chars)'"
+        },
+        "E2": {
+          "value": "'- amazoncom\\na\\nFinal Details for Order # 113-0728579-9633009\\nPrint this page for your records .\\nOrder Placed : July 22 , 2024\\nAmazon . com order number : 113-0728579-9633009\\nOrder Total : USD 556.51\\nShipped on July 24 , 2024\\nItems Ordered Price\\n30 f : TXIXS 26 Inch Honey Blonde Lace Front Wig Human Hair 13 x 4 Ombre Lace $ . $40.99\\nFront Wig Human Hair Pre Plucked with Baby Hair 180 % Highlight Glueless Lace\\nFront Wigs Human Hair Body Wave Lace Frontal Wigs\\nSold by: TXIXS hair ( seller profile\\nSupptied by : TXIXS hair ( seller profile\\nCondition : New\\n1 of: BLOCKICE Highlight Ombre Lace Front Wig Human Hair Wigs for Black $41.99\\nWomen 4 / 27 Honey Blonde 13 x 4 Deep Wave Lace Frontal Wig Pre Plucked\\n150 % Density Deep Curly Glueless Wigs Human Hair 24 Inch\\nSold by: BLOCKICE HAIR ( seller profile\\nSupplied by: BLOCKICE HAIR ( seller profile\\nCondition : New\\n3 of: Aauerep Deep Wave Lace Front Wigs Human Hair Wigs for Women $34.99\\nBrazilian Lace Frontal Wigs Human Hair Pre Plucked with Baby Hair Natural Color\\n( 20 Inch\\nSold by: Aceolave ( seller profile\\nSupplied by: Aceolave ( seller profile\\nCondition : New\\n2 of: Faux Locs Crochet Hair Soft Locs 30 inch 6 Packs Long Pre Looped Crochet $9.08\\nLocs Goddess Locs Crochet Hair For Black Women Braiding Hair Extensions ( 30\\nInch ( Pack of 6 ) , 1 B\\nSold by: LOVE ORNAN HAIR ( seller profile\\nSupplied by: LOVE ORNAN HAIR ( seller profile\\nCondition : New\\n3 of: Queen Story 26 Inch Lace Front Wigs Human Hair 13 x 4 Straight Human $39.99\\nHair Lace Front Wigs For Black Women 180 % Density Transparent HD Lace\\nFront Wigs Human Hair Pre Plucked With Baby Hair\\nSold by: Queen Story Hair ( seller profile\\nSupplied by: Queen Story Hair ( seller profile\\nCondition : New\\nShipping Address :'"
+        },
+        "E3": {
+          "value": "'Shanice St. Bernard\\n10813 NW 30TH ST BLDG 115\\nGRE 9315\\nMIAMI, FL 33172-5068\\nUnited States\\n\\nShipping Speed:\\nFREE Prime Delivery\\n\\nShipped on July 24, 2024\\n6117\\n\\nItems Ordered\\n3 of: Zumuer Wear And Go Glueless Wigs Human Hair Pre Plucked Pre Cut Body $28.27\\nWave Lace Front Wigs Human Hair For Beginners 4x4 HD Lace Closure Wigs\\nHuman Hair Wigs for Women (24 Inch\\nSold by: Haomei hair (seller profile\\nSupplied by: Haomei hair (seller profile\\nCondition: New\\n3 of: Faux Locs Crochet Hair Soft Locs 30 inch 6 Packs Long Pre Looped Crochet $9.08\\nLocs Goddess Locs Crochet Hair For Black Women Braiding Hair Extensions (30\\nInch (Pack of 6), 1B\\nSold by: LOVE ORNAN HAIR (seller profile\\nSupplied by: LOVE ORNAN HAIR (seller profile\\nCondition: New\\n\\nShipping Address:\\nShanice St. Bernard\\n10813 NW 30TH ST BLDG 115\\nGRE 9315\\nMIAMI, FL 33172-5068\\nUnited States\\n\\nShipping Speed:\\nFREE Prime Delivery\\n\\nPayment information\\nPayment Method:\\nVisa ending in 2260\\nItem(s) Subtotal: USD 520.11\\nShipping & Handling: USD 0.00\\nBilling address\\nTotal before tax: USD 520.11\\nShanice St Bernard\\nEstimated tax to be collected: USD 36.40\\n7268 NW 25TH ST GC10398\\nMIAMI, FL 33122-1701\\nUnited States\\nGrand Total: USD 556.51\\nPayment Grand Total: XCD 1,524.83\\nCredit Card transactions\\nVisa ending in 2260: July 24, 2024: $556.51'"
+        },
+        "E4": {
+          "value": "'Shanice St. Bernard\\n10813 NW 30TH ST BLDG 115\\nGRE 9315\\nMIAMI, FL 33172-5068\\nUnited States\\n\\nShipping Speed:\\nFREE Prime Delivery\\n\\nShipped on July 24, 2024\\n6117\\n\\nItems Ordered\\nPrice\\n3 of: Zumuer Wear And Go Glueless Wigs Human Hair Pre Plucked Pre Cut Body Wave Lace Front Wigs Human Hair For Beginners 4x4 HD Lace Closure Wigs Human Hair Wigs for Women (24 Inch) $28.27\\nSold by: Haomei hair (seller profile\\nSupplied by: Haomei hair (seller profile\\nCondition: New\\n3 of: Faux Locs Crochet Hair Soft Locs 30 inch 6 Packs Long Pre Looped Crochet Locs Goddess Locs Crochet Hair For Black Women Braiding Hair Extensions (30 Inch (Pack of 6), 1B) $9.08\\nSold by: LOVE ORNAN HAIR (seller profile\\nSupplied by: LOVE ORNAN HAIR (seller profile\\nCondition: New\\n\\nShipping Address:\\nShanice St. Bernard\\n10813 NW 30TH ST BLDG 115\\nGRE 9315\\nMIAMI, FL 33172-5068\\nUnited States\\n\\nShipping Speed:\\nFREE Prime Delivery\\n\\nPayment information\\nPayment Method:\\nVisa ending in 2260\\nItem(s) Subtotal: USD 520.11\\nShipping & Handling: USD 0.00\\n\\nBilling address\\nTotal before tax: USD 520.11\\nShanice St Bernard\\n7268 NW 25TH ST GC10398\\nMIAMI, FL 33122-1701\\nUnited States\\nEstimated tax to be collected: USD 36.40\\n\\nGrand Total: USD 556.51\\nPayment Grand Total: XCD 1,524.83\\n\\nCredit Card transactions\\nVisa ending in 2260: July 24, 2024: $556.51'"
+        },
+        "E5": {
+          "value": "'- amazoncom\\na\\nFinal Details for Order # 113-0728579-9633009\\nPrint this page for your records .\\nOrder Placed : July 22 , 2024\\nAmazon . com order number : 113-0728579-9633009\\nOrder Total : USD 556.51\\nShipped on July 24 , 2024\\nItems Ordered Price\\n30 f : TXIXS 26 Inch Honey Blonde Lace Front Wig Human Hair 13 x 4 Ombre Lace $ . $40.99\\nFront Wig Human Hair Pre Plucked with Baby Hair 180 % Highlight Glueless Lace\\nFront Wigs Human Hair Body Wave Lace Frontal Wigs\\nSold by: TXIXS hair ( seller profile\\nSupptied by : TXIXS hair ( seller profile\\nCondition : New\\n1 of: BLOCKICE Highlight Ombre Lace Front Wig Human Hair Wigs for Black $41.99\\nWomen 4 / 27 Honey Blonde 13 x 4 Deep Wave Lace Frontal Wig Pre Plucked\\n150 % Density Deep Curly Glueless Wigs Human Hair 24 Inch\\nSold by: BLOCKICE HAIR ( seller profile\\nSupplied by: BLOCKICE HAIR ( seller profile\\nCondition : New\\n3 of: Aauerep Deep Wave Lace Front Wigs Human Hair Wigs for Women $34.99\\nBrazilian Lace Frontal Wigs Human Hair Pre Plucked with Baby Hair Natural Color\\n( 20 Inch\\nSold by: Aceolave ( seller profile\\nSupplied by: Aceolave ( seller profile\\nCondition : New\\n2 of: Faux Locs Crochet Hair Soft Locs 30 inch 6 Packs Long Pre Looped Crochet $9.08\\nLocs Goddess Locs Crochet Hair For Black Women Braiding Hair Extensions ( 30\\nInch ( Pack of 6 ) , 1 B\\nSold by: LOVE ORNAN HAIR ( seller profile\\nSupplied by: LOVE ORNAN HAIR ( seller profile\\nCondition : New\\n3 of: Queen Story 26 Inch Lace Front Wigs Human Hair 13 x 4 Straight Human $39.99\\nHair Lace Front Wigs For Black Women 180 % Density Transparent HD Lace\\nFront Wigs Human Hair Pre Plucked With Baby Hair\\nSold by: Queen Story Hair ( seller profile\\nSupplied by: Queen Story Hair ( seller profile\\nCondition : New\\nShipping Address :'"
+        }
+      }
+    }
+  },
+  "HAWB9606117.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'67041100'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'113-0728579-9633009'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'WIGS'"
+        },
+        "E32": {
+          "value": "'WIGS'"
+        },
+        "E34": {
+          "value": "'SYNTHETIC HAIR'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'67041100'"
+        },
+        "F3": {
+          "value": "'67041100'"
+        },
+        "F32": {
+          "value": "'67041100'"
+        },
+        "F34": {
+          "value": "'67041900'"
+        },
+        "F4": {
+          "value": "'67041100'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'67041100'"
+        },
+        "I3": {
+          "value": "'AMZ-2'"
+        },
+        "I33": {
+          "value": "'AMZ-1'"
+        },
+        "I35": {
+          "value": "'AMZ-3'"
+        },
+        "I4": {
+          "value": "'AMZ-4'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J11": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J12": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J13": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J15": {
+          "value": "'NET TOTAL'"
+        },
+        "J16": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J18": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J2": {
+          "value": "'Aauerep Deep Wave Lace Front Wigs Human Hair Wigs for Women (+1 more) (2 items)'"
+        },
+        "J20": {
+          "value": "'INVOICE NOTES: Structural item count mismatch: 5 price lines found between section markers but 4 items extracted'"
+        },
+        "J22": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J23": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J24": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J25": {
+          "value": "'CET (20%) \u2014 Tariff 67041100'"
+        },
+        "J26": {
+          "value": "'CSC (6%)'"
+        },
+        "J27": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J28": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J29": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J3": {
+          "value": "'Aauerep Deep Wave Lace Front Wigs Human Hair Wigs for Women'"
+        },
+        "J31": {
+          "value": "'Items on other declaration(s) (2 items)'"
+        },
+        "J32": {
+          "value": "'BLOCKICE Highlight Ombre Lace Front Wig Human Hair Wigs for Black (1 items)'"
+        },
+        "J33": {
+          "value": "'BLOCKICE Highlight Ombre Lace Front Wig Human Hair Wigs for Black'"
+        },
+        "J34": {
+          "value": "'Faux Locs Crochet Hair Soft Locs 30 inch 6 Packs Long Pre Looped Crochet (1 items)'"
+        },
+        "J35": {
+          "value": "'Faux Locs Crochet Hair Soft Locs 30 inch 6 Packs Long Pre Looped Crochet'"
+        },
+        "J36": {
+          "value": "'REFERENCE SUBTOTAL'"
+        },
+        "J37": {
+          "value": "'REFERENCE FREIGHT'"
+        },
+        "J38": {
+          "value": "'REFERENCE INSURANCE'"
+        },
+        "J39": {
+          "value": "'REFERENCE OTHER COST'"
+        },
+        "J4": {
+          "value": "'Queen Story 26 Inch Lace Front Wigs Human Hair 13 x 4 Straight Human'"
+        },
+        "J40": {
+          "value": "'REFERENCE DEDUCTION'"
+        },
+        "J41": {
+          "value": "'REFERENCE ADJUSTMENTS'"
+        },
+        "J42": {
+          "value": "'REFERENCE NET TOTAL'"
+        },
+        "J44": {
+          "value": "'COMBINED ITEMS TOTAL'"
+        },
+        "J45": {
+          "value": "'FULL INVOICE FREIGHT'"
+        },
+        "J46": {
+          "value": "'FULL INVOICE INSURANCE'"
+        },
+        "J47": {
+          "value": "'FULL INVOICE OTHER COST'"
+        },
+        "J48": {
+          "value": "'FULL INVOICE DEDUCTION'"
+        },
+        "J49": {
+          "value": "'FULL ADJUSTMENTS'"
+        },
+        "J5": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J50": {
+          "value": "'COMBINED NET TOTAL'"
+        },
+        "J51": {
+          "value": "'FULL INVOICE TOTAL'"
+        },
+        "J52": {
+          "value": "'COMBINED VARIANCE CHECK'"
+        },
+        "J6": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J7": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J9": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "4"
+        },
+        "K3": {
+          "value": "3"
+        },
+        "K32": {
+          "value": "1"
+        },
+        "K33": {
+          "value": "1"
+        },
+        "K34": {
+          "value": "2"
+        },
+        "K35": {
+          "value": "2"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N32": {
+          "value": "'USD'"
+        },
+        "N33": {
+          "value": "'USD'"
+        },
+        "N34": {
+          "value": "'USD'"
+        },
+        "N35": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "124.09"
+        },
+        "O3": {
+          "value": "34.99"
+        },
+        "O32": {
+          "value": "41.99"
+        },
+        "O33": {
+          "value": "41.99"
+        },
+        "O34": {
+          "value": "18.16"
+        },
+        "O35": {
+          "value": "9.08"
+        },
+        "O4": {
+          "value": "391.39"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "0"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "value": "0"
+        },
+        "P13": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P15": {
+          "formula": "=P5+P13"
+        },
+        "P16": {
+          "formula": "=S2"
+        },
+        "P18": {
+          "formula": "=S2-P15"
+        },
+        "P2": {
+          "value": "496.36"
+        },
+        "P23": {
+          "value": "526.36"
+        },
+        "P24": {
+          "value": "1430.07"
+        },
+        "P25": {
+          "value": "286.01"
+        },
+        "P26": {
+          "value": "85.8"
+        },
+        "P27": {
+          "value": "270.28"
+        },
+        "P28": {
+          "value": "642.09"
+        },
+        "P29": {
+          "value": "0.4489920073842539"
+        },
+        "P3": {
+          "value": "104.97"
+        },
+        "P32": {
+          "value": "41.99"
+        },
+        "P33": {
+          "value": "41.99"
+        },
+        "P34": {
+          "value": "18.16"
+        },
+        "P35": {
+          "value": "18.16"
+        },
+        "P36": {
+          "value": "60.15000000000001"
+        },
+        "P37": {
+          "value": "21"
+        },
+        "P38": {
+          "value": "0"
+        },
+        "P39": {
+          "value": "0"
+        },
+        "P4": {
+          "value": "391.39"
+        },
+        "P40": {
+          "value": "0"
+        },
+        "P41": {
+          "formula": "=P37+P38+P39-P40"
+        },
+        "P42": {
+          "formula": "=P36+P41"
+        },
+        "P44": {
+          "formula": "=P5+P36"
+        },
+        "P45": {
+          "formula": "=P9+P37"
+        },
+        "P46": {
+          "formula": "=P10+P38"
+        },
+        "P47": {
+          "formula": "=P11+P39"
+        },
+        "P48": {
+          "formula": "=P12+P40"
+        },
+        "P49": {
+          "formula": "=P45+P46+P47-P48"
+        },
+        "P5": {
+          "formula": "=P2"
+        },
+        "P50": {
+          "formula": "=P44+P49"
+        },
+        "P51": {
+          "value": "592.51"
+        },
+        "P52": {
+          "formula": "=P51-P50"
+        },
+        "P6": {
+          "formula": "=SUM(P2:P4)-P5"
+        },
+        "P7": {
+          "formula": "=P5-P6"
+        },
+        "P9": {
+          "value": "15"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q13": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q15": {
+          "formula": "=Q5+Q13"
+        },
+        "Q18": {
+          "formula": "=S2-Q15"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=Q2"
+        },
+        "Q6": {
+          "formula": "=SUM(Q2:Q4)-Q5"
+        },
+        "Q7": {
+          "formula": "=Q5-Q6"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "511.36"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "15"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "113-0728579-9633009.pdf",
+        "113-0728579-9633009_Invoice_1.pdf",
+        "HAW639600873-Declaration.pdf",
+        "HAW639600873.xlsx"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "SHANICE ST . BERNARD",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "21.00",
+      "location": "WebSource",
+      "man_reg": "2024 28",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 1,
+      "waybill": "HAW639600873",
+      "weight": "10.0"
+    }
+  }
+}

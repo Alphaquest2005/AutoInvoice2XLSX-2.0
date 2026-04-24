@@ -6,16 +6,17 @@
     "duty_rate": "",
     "weight": "",
     "description": "",
-    "other_notes": "Handwritten number '95.86' in the left margin (vertical)"
+    "other_notes": "Handwritten number \"95.86\" appears vertically in the left margin beside the header (read bottom-to-top)"
   },
   "printed": {
     "consignee": "MAURINE WILSON",
-    "freight": "13.00",
+    "freight": 13.0,
     "waybill": "HAWB9579071",
     "man_reg": "2024/28",
     "office": "GDWBS",
-    "weight": "6.0",
-    "packages": "1"
+    "weight": 6.0,
+    "packages": 1
   },
-  "has_handwriting": true
+  "has_handwriting": true,
+  "_cache_version": 4
 }

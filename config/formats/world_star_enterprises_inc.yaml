@@ -1,0 +1,53 @@
+# Auto-generated format spec for world_star_enterprises_inc
+# Generated on 2026-04-24T08:51:31.744830
+# Will be promoted to formats/ on successful processing
+
+name: world_star_enterprises_inc
+version: "1.0"
+description: "Invoice format for World Star Enterprises Inc"
+
+detect:
+  all_of:
+    - "WORLD STAR ENTERPRISES INC"
+  any_of:
+    - "worldstarcctv.com"
+    - "Worldst★r™"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'INVOICE\s*\n\s*(\d+)'
+    required: true
+  date:
+    patterns:
+      - 'DATE\s*\n\s*(\d{2}/\d{2}/\d{4})'
+  supplier_name:
+    value: "World Star Enterprises Inc"
+  country_code:
+    value: "US"
+  total:
+    patterns:
+      - 'TOTAL\s*\n\s*([\d,.]+)'
+    type: currency
+
+items:
+  strategy: block
+  block:
+    start_pattern: 'ACTIVITY'
+    end_pattern: 'SUBTOTAL'
+    fields:
+      description:
+        pattern: '^([A-Z]\w+)'
+        required: true
+      quantity:
+        pattern: '^[A-Z]\w+\s*\n\s*(\d+)'
+        type: integer
+      unit_price:
+        pattern: '^[A-Z]\w+\s*\n\s*\d+\s*\n\s*([\d,.]+)'
+        type: currency
+      total_price:
+        pattern: '^[A-Z]\w+\s*\n\s*\d+\s*\n\s*[\d,.]+\s*\n\s*([\d,.]+)'
+        type: currency
+
+validation:
+  min_items: 1

@@ -26,7 +26,7 @@ repository port, or a fake for tests without coupling to SQLite.
 from __future__ import annotations
 
 import re
-from typing import Callable, Mapping, Union
+from collections.abc import Callable, Mapping
 
 # Descriptions that carry no information on their own — the walk keeps going.
 _GENERIC = frozenset({"OTHER", "OTHER:", "VIRGIN", "NONE", ""})
@@ -37,7 +37,7 @@ _NEWLINE_RE = re.compile(r"[\n\r\t]+")
 _OF_SINGLE_WORD_RE = re.compile(r"^Of\s+\w+$")
 _CATEGORY_PREFIX_RE = re.compile(r"^CATEGORY:\s*", re.IGNORECASE)
 
-DescLookup = Union[Mapping[str, str], Callable[[str], Union[str, None]]]
+DescLookup = Mapping[str, str] | Callable[[str], str | None]
 
 
 def _lookup(source: DescLookup, code: str) -> str:
@@ -64,9 +64,7 @@ def _is_useful(desc: str) -> bool:
         return False
     if len(cleaned) < 3:
         return False
-    if cleaned.upper().startswith("INVALID:"):
-        return False
-    return True
+    return not cleaned.upper().startswith("INVALID:")
 
 
 def _clean(desc: str) -> str:

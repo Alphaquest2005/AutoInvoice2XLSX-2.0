@@ -7,17 +7,14 @@ The regression case is 84672900 ("Other") which previously returned
 
 from __future__ import annotations
 
-import pytest
-
 from autoinvoice.domain.services.cet_category import category_for
-
 
 # ── Fixture descriptions — a trimmed CET slice covering the regression cases ──
 
 DESCRIPTIONS = {
     # Polisher/sander chain — the bug case
-    "84672900": "Other",                          # generic leaf
-    "84672000": "Electro-mechanical hand tools:", # subheading (has trailing colon)
+    "84672900": "Other",  # generic leaf
+    "84672000": "Electro-mechanical hand tools:",  # subheading (has trailing colon)
     "84670000": "Tools for working in the hand",  # heading
     # Sibling that SHOULD NEVER be returned
     "84672100": "Drills of all kinds",
@@ -59,7 +56,7 @@ def test_generic_leaf_uses_six_digit_subheading_when_distinct() -> None:
     # For a code whose 7th–8th digits are non-zero, the subheading code is
     # distinct from the leaf and should be picked up first.
     descriptions = {
-        "84672910": "Other",                          # leaf (generic)
+        "84672910": "Other",  # leaf (generic)
         "84672900": "Electro-mechanical hand tools",  # 6-digit subheading
         "84670000": "Tools for working in the hand",  # heading
     }
@@ -88,8 +85,8 @@ def test_empty_or_invalid_code_returns_empty() -> None:
     assert category_for("", DESCRIPTIONS) == ""
     assert category_for("00000000", DESCRIPTIONS) == ""
     assert category_for("ABC", DESCRIPTIONS) == ""
-    assert category_for("1234567", DESCRIPTIONS) == ""      # 7 digits
-    assert category_for("123456789", DESCRIPTIONS) == ""    # 9 digits
+    assert category_for("1234567", DESCRIPTIONS) == ""  # 7 digits
+    assert category_for("123456789", DESCRIPTIONS) == ""  # 9 digits
 
 
 def test_accepts_callable_lookup() -> None:

@@ -1,0 +1,931 @@
+{
+  "HAWB9595151-Declaration_combined.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Combined Invoices": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "A34": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'Amazon.com'"
+        },
+        "AA34": {
+          "value": "'Amazon.com'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AB34": {
+          "value": "'410 Terry Avenue North, Seattle, WA 98109'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AC34": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'39269090'"
+        },
+        "AK34": {
+          "value": "'39269090'"
+        },
+        "AK36": {
+          "value": "'84713000'"
+        },
+        "AK4": {
+          "value": "'84713000'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'114-5488418-4405037'"
+        },
+        "C34": {
+          "value": "'114-5488418-4405037'"
+        },
+        "C36": {
+          "value": "'114-5488418-4405037'"
+        },
+        "C4": {
+          "value": "'114-5488418-4405037'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'OTHER APPARATUS'"
+        },
+        "E34": {
+          "value": "'OTHER APPARATUS'"
+        },
+        "E36": {
+          "value": "'Portable automatic data processing machines, weighing not more than 10 kg, co...'"
+        },
+        "E4": {
+          "value": "'Portable automatic data processing machines, weighing not more than 10 kg, co...'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'39269090'"
+        },
+        "F3": {
+          "value": "'39269090'"
+        },
+        "F34": {
+          "value": "'39269090'"
+        },
+        "F35": {
+          "value": "'39269090'"
+        },
+        "F36": {
+          "value": "'84713000'"
+        },
+        "F37": {
+          "value": "'84713000'"
+        },
+        "F38": {
+          "value": "'84713000'"
+        },
+        "F39": {
+          "value": "'84713000'"
+        },
+        "F4": {
+          "value": "'84713000'"
+        },
+        "F5": {
+          "value": "'84713000'"
+        },
+        "F6": {
+          "value": "'84713000'"
+        },
+        "F7": {
+          "value": "'84713000'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'39269090'"
+        },
+        "I3": {
+          "value": "'AMZ-1'"
+        },
+        "I34": {
+          "value": "'39269090'"
+        },
+        "I35": {
+          "value": "'AMZ-1'"
+        },
+        "I36": {
+          "value": "'84713000'"
+        },
+        "I37": {
+          "value": "'AMZ-2'"
+        },
+        "I38": {
+          "value": "'AMZ-3'"
+        },
+        "I39": {
+          "value": "'AMZ-4'"
+        },
+        "I4": {
+          "value": "'84713000'"
+        },
+        "I5": {
+          "value": "'AMZ-2'"
+        },
+        "I6": {
+          "value": "'AMZ-3'"
+        },
+        "I7": {
+          "value": "'AMZ-4'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J12": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J13": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J14": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J15": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J16": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J18": {
+          "value": "'NET TOTAL'"
+        },
+        "J19": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J2": {
+          "value": "'2023 All - New 10 in Tablet Case for Kids ( 2021 / 2023 Release 11 / 13 th Ge... (1 items)'"
+        },
+        "J21": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J23": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J24": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J25": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J26": {
+          "value": "'CET (weighted avg 6.3%)'"
+        },
+        "J27": {
+          "value": "'  \u2514 39269090: 20% CET (9% of value)'"
+        },
+        "J28": {
+          "value": "'  \u2514 84713000: 5% CET (91% of value)'"
+        },
+        "J29": {
+          "value": "'CSC (6%)'"
+        },
+        "J3": {
+          "value": "'2023 All - New 10 in Tablet Case for Kids ( 2021 / 2023 Release 11 / 13 th Ge...'"
+        },
+        "J30": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J31": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J32": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J34": {
+          "value": "'2023 All - New 10 in Tablet Case for Kids ( 2021 / 2023 Release 11 / 13 th Ge... (1 items)'"
+        },
+        "J35": {
+          "value": "'2023 All - New 10 in Tablet Case for Kids ( 2021 / 2023 Release 11 / 13 th Ge...'"
+        },
+        "J36": {
+          "value": "'Amazon Fire HD 10 tablet , built for relaxation , 10.1 \u00b0 vibrant Full HD scre... (+2 more) (3 items)'"
+        },
+        "J37": {
+          "value": "'Amazon Fire HD 10 tablet , built for relaxation , 10.1 \u00b0 vibrant Full HD scre...'"
+        },
+        "J38": {
+          "value": "'Amazon Fire 7 Kids tablet , ages 3 - 7 . Top - selling 7 \u00b0 kids tablet on Ama...'"
+        },
+        "J39": {
+          "value": "'Amazon Fire HD 8 Kids Pro tablet - 2022 , ages 6 - 128 \" HD screen , slim cas...'"
+        },
+        "J4": {
+          "value": "'Amazon Fire HD 10 tablet , built for relaxation , 10.1 \u00b0 vibrant Full HD scre... (+2 more) (3 items)'"
+        },
+        "J40": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J41": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J42": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "J44": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J45": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J46": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J47": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J48": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J5": {
+          "value": "'Amazon Fire HD 10 tablet , built for relaxation , 10.1 \u00b0 vibrant Full HD scre...'"
+        },
+        "J50": {
+          "value": "'NET TOTAL'"
+        },
+        "J51": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J53": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J55": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J56": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J57": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J58": {
+          "value": "'CET (weighted avg 6.3%)'"
+        },
+        "J59": {
+          "value": "'  \u2514 39269090: 20% CET (9% of value)'"
+        },
+        "J6": {
+          "value": "'Amazon Fire 7 Kids tablet , ages 3 - 7 . Top - selling 7 \u00b0 kids tablet on Ama...'"
+        },
+        "J60": {
+          "value": "'  \u2514 84713000: 5% CET (91% of value)'"
+        },
+        "J61": {
+          "value": "'CSC (6%)'"
+        },
+        "J62": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J63": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J64": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J7": {
+          "value": "'Amazon Fire HD 8 Kids Pro tablet - 2022 , ages 6 - 128 \" HD screen , slim cas...'"
+        },
+        "J8": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J9": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K34": {
+          "value": "1"
+        },
+        "K35": {
+          "value": "1"
+        },
+        "K36": {
+          "value": "3"
+        },
+        "K37": {
+          "value": "1"
+        },
+        "K38": {
+          "value": "1"
+        },
+        "K39": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "3"
+        },
+        "K5": {
+          "value": "1"
+        },
+        "K6": {
+          "value": "1"
+        },
+        "K7": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "L67": {
+          "value": "'\u2550\u2550\u2550 COMBINED GRAND SUMMARY \u2550\u2550\u2550'"
+        },
+        "L68": {
+          "value": "'Invoice 114-5488418-4405037'"
+        },
+        "L69": {
+          "value": "'Invoice 114-5488418-4405037'"
+        },
+        "L71": {
+          "value": "'GRAND TOTAL'"
+        },
+        "L72": {
+          "value": "'GRAND VARIANCE CHECK'"
+        },
+        "L73": {
+          "value": "'Combined 2 invoice files'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N34": {
+          "value": "'USD'"
+        },
+        "N35": {
+          "value": "'USD'"
+        },
+        "N36": {
+          "value": "'USD'"
+        },
+        "N37": {
+          "value": "'USD'"
+        },
+        "N38": {
+          "value": "'USD'"
+        },
+        "N39": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "N6": {
+          "value": "'USD'"
+        },
+        "N7": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "18.99"
+        },
+        "O3": {
+          "value": "18.99"
+        },
+        "O34": {
+          "value": "18.99"
+        },
+        "O35": {
+          "value": "18.99"
+        },
+        "O36": {
+          "value": "66.65666666666665"
+        },
+        "O37": {
+          "value": "74.99"
+        },
+        "O38": {
+          "value": "54.99"
+        },
+        "O39": {
+          "value": "69.99"
+        },
+        "O4": {
+          "value": "66.65666666666665"
+        },
+        "O5": {
+          "value": "74.99"
+        },
+        "O6": {
+          "value": "54.99"
+        },
+        "O7": {
+          "value": "69.99"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "formula": "=P8-P9"
+        },
+        "P12": {
+          "value": "0"
+        },
+        "P13": {
+          "value": "0"
+        },
+        "P14": {
+          "value": "15.33"
+        },
+        "P15": {
+          "value": "0"
+        },
+        "P16": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P18": {
+          "formula": "=P8+P16"
+        },
+        "P19": {
+          "formula": "=S2"
+        },
+        "P2": {
+          "value": "18.99"
+        },
+        "P21": {
+          "formula": "=S2-P18"
+        },
+        "P24": {
+          "value": "234.29"
+        },
+        "P25": {
+          "value": "636.54"
+        },
+        "P26": {
+          "value": "40.11"
+        },
+        "P27": {
+          "value": "11.04"
+        },
+        "P28": {
+          "value": "29.07"
+        },
+        "P29": {
+          "value": "38.19"
+        },
+        "P3": {
+          "value": "18.99"
+        },
+        "P30": {
+          "value": "107.23"
+        },
+        "P31": {
+          "value": "185.53"
+        },
+        "P32": {
+          "value": "0.2914663650359758"
+        },
+        "P34": {
+          "value": "18.99"
+        },
+        "P35": {
+          "value": "18.99"
+        },
+        "P36": {
+          "value": "199.97"
+        },
+        "P37": {
+          "value": "74.99"
+        },
+        "P38": {
+          "value": "54.99"
+        },
+        "P39": {
+          "value": "69.99"
+        },
+        "P4": {
+          "value": "199.97"
+        },
+        "P40": {
+          "formula": "=P34+P36"
+        },
+        "P41": {
+          "formula": "=SUM(P34:P39)-P40"
+        },
+        "P42": {
+          "formula": "=P40-P41"
+        },
+        "P44": {
+          "value": "0"
+        },
+        "P45": {
+          "value": "0"
+        },
+        "P46": {
+          "value": "15.33"
+        },
+        "P47": {
+          "value": "0"
+        },
+        "P48": {
+          "formula": "=(T34+U34+V34-W34)"
+        },
+        "P5": {
+          "value": "74.99"
+        },
+        "P50": {
+          "formula": "=P40+P48"
+        },
+        "P51": {
+          "formula": "=S34"
+        },
+        "P53": {
+          "formula": "=S34-P50"
+        },
+        "P56": {
+          "value": "234.29"
+        },
+        "P57": {
+          "value": "636.54"
+        },
+        "P58": {
+          "value": "40.11"
+        },
+        "P59": {
+          "value": "11.04"
+        },
+        "P6": {
+          "value": "54.99"
+        },
+        "P60": {
+          "value": "29.07"
+        },
+        "P61": {
+          "value": "38.19"
+        },
+        "P62": {
+          "value": "107.23"
+        },
+        "P63": {
+          "value": "185.53"
+        },
+        "P64": {
+          "value": "0.2914663650359758"
+        },
+        "P68": {
+          "value": "1516.58"
+        },
+        "P69": {
+          "value": "1516.58"
+        },
+        "P7": {
+          "value": "69.99"
+        },
+        "P71": {
+          "value": "3033.16"
+        },
+        "P72": {
+          "value": "-2564.58"
+        },
+        "P8": {
+          "formula": "=P2+P4"
+        },
+        "P9": {
+          "formula": "=SUM(P2:P7)-P8"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q10": {
+          "formula": "=Q8-Q9"
+        },
+        "Q16": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q18": {
+          "formula": "=Q8+Q16"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q21": {
+          "formula": "=S2-Q18"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q34": {
+          "formula": "=O34*K34"
+        },
+        "Q35": {
+          "formula": "=O35*K35"
+        },
+        "Q36": {
+          "formula": "=O36*K36"
+        },
+        "Q37": {
+          "formula": "=O37*K37"
+        },
+        "Q38": {
+          "formula": "=O38*K38"
+        },
+        "Q39": {
+          "formula": "=O39*K39"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q40": {
+          "formula": "=Q34+Q36"
+        },
+        "Q41": {
+          "formula": "=SUM(Q34:Q39)-Q40"
+        },
+        "Q42": {
+          "formula": "=Q40-Q41"
+        },
+        "Q48": {
+          "formula": "=(T34+U34+V34-W34)"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q50": {
+          "formula": "=Q40+Q48"
+        },
+        "Q53": {
+          "formula": "=S34-Q50"
+        },
+        "Q6": {
+          "formula": "=O6*K6"
+        },
+        "Q68": {
+          "value": "-1282.29"
+        },
+        "Q69": {
+          "value": "-1282.29"
+        },
+        "Q7": {
+          "formula": "=O7*K7"
+        },
+        "Q8": {
+          "formula": "=Q2+Q4"
+        },
+        "Q9": {
+          "formula": "=SUM(Q2:Q7)-Q8"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R34": {
+          "formula": "=P34-Q34"
+        },
+        "R35": {
+          "formula": "=P35-Q35"
+        },
+        "R36": {
+          "formula": "=P36-Q36"
+        },
+        "R37": {
+          "formula": "=P37-Q37"
+        },
+        "R38": {
+          "formula": "=P38-Q38"
+        },
+        "R39": {
+          "formula": "=P39-Q39"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "R6": {
+          "formula": "=P6-Q6"
+        },
+        "R7": {
+          "formula": "=P7-Q7"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "234.29"
+        },
+        "S34": {
+          "value": "234.29"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "T34": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "U34": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "15.33"
+        },
+        "V34": {
+          "value": "15.33"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "W34": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'AMAZON'"
+        },
+        "Z34": {
+          "value": "'AMAZON'"
+        }
+      },
+      "OCR Notes": {
+        "A1": {
+          "value": "'PDF File'"
+        },
+        "A2": {
+          "value": "'114-5488418-4405037.pdf'"
+        },
+        "A3": {
+          "value": "'HAWB9595151-Manifest_Invoice.pdf'"
+        },
+        "B1": {
+          "value": "'Quality Score'"
+        },
+        "B2": {
+          "value": "'100/100'"
+        },
+        "B3": {
+          "value": "'100/100'"
+        },
+        "C1": {
+          "value": "'Rating'"
+        },
+        "C2": {
+          "value": "'GOOD'"
+        },
+        "C3": {
+          "value": "'GOOD'"
+        },
+        "D1": {
+          "value": "'Details'"
+        },
+        "D2": {
+          "value": "'Text: 1938 chars; Prices: 5 ($-sign), 11 (decimal); Total: $234.29; Invoice#: 114-5488418-4405037; Real items: 4/4; Structure words: 7/12'"
+        },
+        "D3": {
+          "value": "'Text: 1938 chars; Prices: 5 ($-sign), 11 (decimal); Total: $234.29; Invoice#: 114-5488418-4405037; Real items: 4/4; Structure words: 7/12'"
+        },
+        "E1": {
+          "value": "'OCR Text (first 2000 chars)'"
+        },
+        "E2": {
+          "value": "'qg\\n$\\namazoncom\\nee\\n| Final Details for Order # 114-5488418-4405037\\nPrint this page for your records .\\nOrder Placed : July 17 , 2024\\nAmazon . com order number : 114-5488418-4405037\\nOrder Total : USD 234.29\\nSe\\nShipped on July 20 , 2024\\nItems Ordered Price\\n1 of: 2023 All - New 10 in Tablet Case for Kids ( 2021 / 2023 Release 11 / 13 th Generation ) , DICEKOO ipad Light Weight Anti Slip Shockproof Kids Friendly $18.99\\nCase for 10 inch Table - Black\\nSold by: DICEKOO Direct ( seller profile\\nSupplied by: DICEKOO Direct ( seller profite\\nCondition : New\\n1 of: Amazon Fire HD 10 tablet , built for relaxation , 10.1 \u00b0 vibrant Full HD screen , octa - core processor , 3 GB RAM , latest model ( 2023 release ) , 32 GB , $74.99\\nOcean\\nSold by: Amazon . com Services , tne\\nSupplied by: Other\\nCondition : New\\n1 of: Amazon Fire 7 Kids tablet , ages 3 - 7 . Top - selling 7 \u00b0 kids tablet on Amazon - 2022 | ad - free content with parental controls included , 10 - hr battery , 16 $54.99\\nGB , Red\\nSold by: Amazon . com Services , Inc\\nSupplied by: Other\\nCondition : New\\n1 of: Amazon Fire HD 8 Kids Pro tablet - 2022 , ages 6 - 12 | 8 \" HD screen , slim case for older kids , ad - free content , parental controls , 13 - hr battery , 32 GB , $69.99\\nHello Teal\\nSold by: Amazon . com Services , ( nc\\nSupplied by: Other\\nCondition : New\\nShipping Address :\\nVictoria Ayliffe\\n10813 NW 30 TH ST BLDG 115\\nGRE 1232\\nMIAMI , FL 33172 - 2191\\nUnited States\\nShipping Speed :\\nDelivery in fewer trips to your address\\nPayment information\\nPayment Method : Item ( s ) Subtotal : USD 218.96\\nVisa ending in 5275 Shipping & Handling : USD 0.00\\nBilling address Total before tax : USD 218.96\\nRichard Ayliffe Estimated tax to be collected : USD 15.33\\nLance Aux Epines \u2014\\nSt George , Grand Total : USD 234.29\\nGrenada Payment Grand Total : XCD 641.28\\nCredit Card transactions Visa ending in 5275 : July 20 , 2024 : $234.29\\nTo view the status of your order , return to Order Summary .'"
+        },
+        "E3": {
+          "value": "'qg\\n$\\namazoncom\\nee\\n| Final Details for Order # 114-5488418-4405037\\nPrint this page for your records .\\nOrder Placed : July 17 , 2024\\nAmazon . com order number : 114-5488418-4405037\\nOrder Total : USD 234.29\\nSe\\nShipped on July 20 , 2024\\nItems Ordered Price\\n1 of: 2023 All - New 10 in Tablet Case for Kids ( 2021 / 2023 Release 11 / 13 th Generation ) , DICEKOO ipad Light Weight Anti Slip Shockproof Kids Friendly $18.99\\nCase for 10 inch Table - Black\\nSold by: DICEKOO Direct ( seller profile\\nSupplied by: DICEKOO Direct ( seller profite\\nCondition : New\\n1 of: Amazon Fire HD 10 tablet , built for relaxation , 10.1 \u00b0 vibrant Full HD screen , octa - core processor , 3 GB RAM , latest model ( 2023 release ) , 32 GB , $74.99\\nOcean\\nSold by: Amazon . com Services , tne\\nSupplied by: Other\\nCondition : New\\n1 of: Amazon Fire 7 Kids tablet , ages 3 - 7 . Top - selling 7 \u00b0 kids tablet on Amazon - 2022 | ad - free content with parental controls included , 10 - hr battery , 16 $54.99\\nGB , Red\\nSold by: Amazon . com Services , Inc\\nSupplied by: Other\\nCondition : New\\n1 of: Amazon Fire HD 8 Kids Pro tablet - 2022 , ages 6 - 12 | 8 \" HD screen , slim case for older kids , ad - free content , parental controls , 13 - hr battery , 32 GB , $69.99\\nHello Teal\\nSold by: Amazon . com Services , ( nc\\nSupplied by: Other\\nCondition : New\\nShipping Address :\\nVictoria Ayliffe\\n10813 NW 30 TH ST BLDG 115\\nGRE 1232\\nMIAMI , FL 33172 - 2191\\nUnited States\\nShipping Speed :\\nDelivery in fewer trips to your address\\nPayment information\\nPayment Method : Item ( s ) Subtotal : USD 218.96\\nVisa ending in 5275 Shipping & Handling : USD 0.00\\nBilling address Total before tax : USD 218.96\\nRichard Ayliffe Estimated tax to be collected : USD 15.33\\nLance Aux Epines \u2014\\nSt George , Grand Total : USD 234.29\\nGrenada Payment Grand Total : XCD 641.28\\nCredit Card transactions Visa ending in 5275 : July 20 , 2024 : $234.29\\nTo view the status of your order , return to Order Summary .'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "114-5488418-4405037_2.pdf",
+        "HAWB9595151-Declaration.pdf",
+        "HAWB9595151-Declaration_combined.xlsx"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "VICTORIA AYLIFFE",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "11.00",
+      "location": "WebSource",
+      "man_reg": "2024 28",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 2,
+      "waybill": "HAWB9595151",
+      "weight": "5.0"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "34.13",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "34.13 written vertically in the left margin beside the header"
+  },
+  "printed": {
+    "consignee": "STEVON PETERS",
+    "freight": 3.0,
+    "waybill": "HAWB9539650",
+    "man_reg": "2024/26",
+    "office": "GDWBS",
+    "weight": 1.0,
+    "packages": 1
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

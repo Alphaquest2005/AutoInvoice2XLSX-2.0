@@ -45,7 +45,7 @@ import json
 import os
 import shutil
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 from openpyxl import load_workbook
 
@@ -57,17 +57,17 @@ _BASELINE_DIR = _REPO_ROOT / "tests" / "regression_artifacts" / "downloads"
 UPDATE_GOLDENS = os.environ.get("AUTOINVOICE_UPDATE_GOLDENS", "").strip() == "1"
 
 
-def _canonicalise_xlsx(path: Path) -> Dict[str, Any]:
+def _canonicalise_xlsx(path: Path) -> dict[str, Any]:
     """Return a deterministic, style-free representation of *path*.
 
     Only cell values and formulas are retained. Sheets are emitted in natural
     order.
     """
-    out: Dict[str, Any] = {"__type__": "xlsx", "sheets": {}}
+    out: dict[str, Any] = {"__type__": "xlsx", "sheets": {}}
     wb = load_workbook(str(path), data_only=False)
     try:
         for sheet in wb.worksheets:
-            cells: Dict[str, Dict[str, Any]] = {}
+            cells: dict[str, dict[str, Any]] = {}
             for row in sheet.iter_rows():
                 for cell in row:
                     if cell.value is None:
@@ -83,7 +83,7 @@ def _canonicalise_xlsx(path: Path) -> Dict[str, Any]:
     return out
 
 
-def _canonicalise_email_params(path: Path) -> Dict[str, Any]:
+def _canonicalise_email_params(path: Path) -> dict[str, Any]:
     """Normalise ``_email_params.json`` so tmp_path-rotating attachments and
     ordering noise don't show up as false-positive diffs.
     """
@@ -94,14 +94,14 @@ def _canonicalise_email_params(path: Path) -> Dict[str, Any]:
     return {"__type__": "email_params", "data": data}
 
 
-def _hash_snapshot(snapshot: Dict[str, Any]) -> str:
+def _hash_snapshot(snapshot: dict[str, Any]) -> str:
     encoded = json.dumps(snapshot, sort_keys=True, default=str).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()
 
 
-def _build_snapshot(output_dir: Path) -> Dict[str, Any]:
+def _build_snapshot(output_dir: Path) -> dict[str, Any]:
     """Collect + canonicalise every XLSX and email-params file under *output_dir*."""
-    snapshot: Dict[str, Any] = {}
+    snapshot: dict[str, Any] = {}
     for xlsx in sorted(output_dir.rglob("*.xlsx")):
         rel = xlsx.relative_to(output_dir).as_posix()
         try:
@@ -117,7 +117,7 @@ def _build_snapshot(output_dir: Path) -> Dict[str, Any]:
     return snapshot
 
 
-def _diff_snapshots(old: Dict[str, Any], new: Dict[str, Any]) -> list[str]:
+def _diff_snapshots(old: dict[str, Any], new: dict[str, Any]) -> list[str]:
     """Return a flat list of human-readable differences between *old* and *new*."""
     diffs: list[str] = []
     old_keys = set(old)
@@ -151,7 +151,7 @@ def _diff_snapshots(old: Dict[str, Any], new: Dict[str, Any]) -> list[str]:
 def snapshot_and_compare(
     pdf_stem: str,
     output_dir: Path,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Snapshot *output_dir* and diff against the baseline for *pdf_stem*.
 
     Returns a dict with keys:
@@ -166,7 +166,7 @@ def snapshot_and_compare(
     snapshot = _build_snapshot(output_dir)
     current_hash = _hash_snapshot(snapshot)
 
-    result: Dict[str, Any] = {
+    result: dict[str, Any] = {
         "hash": current_hash,
         "baseline_path": str(baseline_path),
         "diffs": [],
@@ -213,8 +213,11 @@ def snapshot_and_compare(
     if UPDATE_GOLDENS:
         # Archive the diff for audit, then promote.
         (_BASELINE_DIR / f"{pdf_stem}.last_diff.json").write_text(
-            json.dumps({"diffs": diffs, "old_hash": old_hash, "new_hash": current_hash},
-                       indent=2, default=str),
+            json.dumps(
+                {"diffs": diffs, "old_hash": old_hash, "new_hash": current_hash},
+                indent=2,
+                default=str,
+            ),
             encoding="utf-8",
         )
         baseline_path.write_text(

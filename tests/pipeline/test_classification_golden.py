@@ -29,7 +29,6 @@ Run with:
 from __future__ import annotations
 
 import json
-import os
 import sys
 from pathlib import Path
 
@@ -42,9 +41,9 @@ for _d in (_REPO_ROOT / "pipeline", _REPO_ROOT / "src"):
     if str(_d) not in sys.path:
         sys.path.insert(0, str(_d))
 
-from autoinvoice.domain.services.cet_category import category_for  # noqa: E402
 from classifier import validate_and_correct_code  # noqa: E402
 
+from autoinvoice.domain.services.cet_category import category_for  # noqa: E402
 
 _INVALID_CODES_PATH = _REPO_ROOT / "rules" / "invalid_codes.json"
 
@@ -81,9 +80,7 @@ def test_corpus_not_empty() -> None:
 def test_invalid_code_autocorrects(invalid: str, correct: str, reason: str) -> None:
     """Every entry in invalid_codes.json must be auto-corrected end-to-end."""
     result = validate_and_correct_code(invalid, str(_REPO_ROOT))
-    assert result == correct, (
-        f"Expected {invalid} → {correct} ({reason}); got {result}"
-    )
+    assert result == correct, f"Expected {invalid} → {correct} ({reason}); got {result}"
 
 
 # ── Handpicked historical regressions ─────────────────────────────────────────
@@ -119,12 +116,11 @@ HISTORICAL_MISCLASSIFICATIONS = [
 )
 def test_historical_misclassification(code: str, expected: str, desc: str) -> None:
     result = validate_and_correct_code(code, str(_REPO_ROOT))
-    assert result == expected, (
-        f"{desc}: expected {code} → {expected}, got {result}"
-    )
+    assert result == expected, f"{desc}: expected {code} → {expected}, got {result}"
 
 
 # ── Category label correctness — the SSOT regression that started this fix ────
+
 
 def _load_cet_descriptions() -> dict[str, str]:
     """Load the CET description cache using the same source the pipeline uses."""

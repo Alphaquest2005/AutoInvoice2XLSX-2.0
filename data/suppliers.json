@@ -567,7 +567,7 @@
       "code": "OLD",
       "name": "Old Navy",
       "full_name": "Old Navy",
-      "address": "",
+      "address": "2 Folsom Street, San Francisco, CA 94158",
       "country_code": "US",
       "country": "United States",
       "currency": "USD",
@@ -587,7 +587,7 @@
       "code": "WORLD",
       "name": "World Star Enterprises Inc",
       "full_name": "World Star Enterprises Inc",
-      "address": "",
+      "address": "00 Grand Ave, Maspeth, NY 11378",
       "country_code": "US",
       "country": "United States",
       "currency": "USD",
@@ -627,7 +627,7 @@
       "code": "PUMA",
       "name": "PUMA",
       "full_name": "PUMA",
-      "address": "",
+      "address": "455 Grand Union Boulevard SOMERVILLE, MA 02145",
       "country_code": "US",
       "country": "United States",
       "currency": "USD",
@@ -862,7 +862,37 @@
       "country": "Colombia",
       "currency": "USD",
       "notes": "Auto-added from invoice pipeline"
+    },
+    "CELSIUS": {
+      "code": "CELSIUS",
+      "name": "CELSIUS",
+      "full_name": "CELSIUS",
+      "address": "2381 NW Executive Center Drive Boca Raton, FL 33431 Transfer Agent Direct Transfer, LLC, a subsidiary of Issuer Direct Corporation One Glenwood Avenue Suite 1001 Raleigh, NC 27603",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "H&M": {
+      "code": "H&M",
+      "name": "H&M",
+      "full_name": "H&M",
+      "address": "H & M Hennes & Mauritz L.P., 1600 River Road, Burlington, NJ 08016, USA",
+      "country_code": "US",
+      "country": "United States",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "TAOBAO": {
+      "code": "TAOBAO",
+      "name": "TaoBao",
+      "full_name": "TaoBao",
+      "address": "",
+      "country_code": "CN",
+      "country": "China",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
     }
   },
-  "last_updated": "2026-04-23"
+  "last_updated": "2026-04-24"
 }

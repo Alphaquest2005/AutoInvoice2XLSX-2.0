@@ -1,0 +1,59 @@
+# External service settings — HTTP timeouts, retry counts, and API names.
+# Secrets (API keys) belong in env vars, NOT here.
+
+_meta:
+  purpose: "External service settings: timeouts, retries, URLs, model names"
+  covers:
+    - "HTTP request/connect timeouts"
+    - "Retry counts and backoff"
+    - "LLM provider model IDs"
+    - "Vision service settings (cache TTL, retry-on-timeout)"
+    - "External reference URLs"
+  match_patterns:
+    - "timeout"
+    - "retry"
+    - "http"
+    - "requests"
+    - "api_url"
+    - "model"
+    - "llm"
+    - "vision"
+  loader: "pipeline.config_loader:load_api_settings"
+  examples:
+    - "load_api_settings()['http']['connect_timeout_s'] -> 10"
+    - "load_api_settings()['llm']['vision_model']       -> 'glm-4.7'"
+  update_checklist:
+    - "NEVER put secrets here — use env vars"
+    - "Run integration tests that hit external services after change"
+
+version: "1.0.0"
+
+http:
+  connect_timeout_s: 10
+  read_timeout_s:    60
+  total_timeout_s:   120
+  max_retries:       3
+  backoff_factor:    0.5
+  user_agent: "AutoInvoice2XLSX/2.0"
+
+# LLM / vision services.
+llm:
+  default_model:  "claude-opus-4-6"
+  vision_model:   "glm-4.7"
+  temperature:    0.0
+  max_tokens:     4000
+  request_timeout_s: 120
+  # Vision-specific (memory ref: feedback_vision_caching)
+  vision_retry_attempts: 3
+  vision_retry_backoff_s: 5
+
+# Reverse-image / supplier-ID services.
+supplier_identify:
+  serpapi_timeout_s: 30
+  google_vision_timeout_s: 20
+
+# OCR service (multi_ocr.py).
+ocr:
+  page_timeout_s:  60
+  batch_size:      5
+  dpi:             300

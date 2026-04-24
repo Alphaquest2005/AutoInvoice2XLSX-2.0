@@ -1,16 +1,22 @@
 {
   "handwritten": {
-    "customs_value_usd": "136.57",
-    "other_notes": "6.37 written below 136.57 to the right of the consignee field"
+    "customs_value_ec": "155.04",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "155.04 written vertically in the left margin (beside the header); 136.57 and 6.37 appear as a breakdown in the right margin near Man Reg / WayBill Number"
   },
   "printed": {
     "consignee": "KIRLA SYLVESTER",
-    "freight": "11.00",
+    "freight": 11.0,
     "waybill": "HAWB9590375",
     "man_reg": "2024/28",
     "office": "GDWBS",
-    "weight": "5.0",
-    "packages": "1"
+    "weight": 5.0,
+    "packages": 1
   },
-  "has_handwriting": true
+  "has_handwriting": true,
+  "_cache_version": 4
 }

@@ -1,0 +1,74 @@
+# Auto-generated format spec for unknown_payment
+# Generated on 2026-04-24T00:55:29.283093
+# Will be promoted to formats/ on successful processing
+
+name: unknown_payment
+version: "1.0"
+description: "Generic payment receipt/invoice format"
+
+detect:
+  all_of:
+    - "Payment Method:"
+    - "Item(s) Subtotal:"
+    - "Grand Total:"
+  any_of:
+    - "Visa ending in"
+    - "Billing address"
+
+metadata:
+  invoice_number:
+    patterns:
+      - 'Order\s*#?\s*:?\s*(\S+)'
+    required: false
+  date:
+    patterns:
+      - 'Order(?:ed)?\s*(?:on|date)\s*:?\s*(\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4})'
+      - '(\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4})'
+  supplier_name:
+    value: "Unknown"
+  total:
+    patterns:
+      - 'Grand Total:?\s*(?:USD\s*)?([\d,]+\.\d{2})'
+    type: currency
+  subtotal:
+    patterns:
+      - "Item\\(s\\) Subtotal:\\s*(?:USD\\s*)?([\\d,]+\\.\\d{2})"
+    type: currency
+  shipping:
+    patterns:
+      - "Shipping & Handling:\\s*(?:USD\\s*)?([\\d,]+\\.\\d{2})"
+    type: currency
+  tax:
+    patterns:
+      - "Estimated tax to be collected:\\s*(?:USD\\s*)?([\\d,]+\\.\\d{2})"
+    type: currency
+
+items:
+  strategy: line
+  line:
+    pattern: '^\s*(.+?)\s+(?:USD\s*)?([\d,]+\.\d{2})\s*$'
+    field_map:
+      description: 1
+      unit_price: 2
+    types:
+      unit_price: currency
+    skip_patterns:
+      - '^Payment Method:'
+      - '^Visa ending in'
+      - '^Billing address'
+      - '^Shipping & Handling:'
+      - '^Total before tax:'
+      - '^Estimated tax'
+      - '^Grand Total:'
+      - '^Item\(s\) Subtotal:'
+      - '^------'
+      - '^\s*•'
+
+sections:
+  items_start:
+    - "Payment Method:"
+  items_end:
+    - "Grand Total:"
+
+validation:
+  min_items: 0

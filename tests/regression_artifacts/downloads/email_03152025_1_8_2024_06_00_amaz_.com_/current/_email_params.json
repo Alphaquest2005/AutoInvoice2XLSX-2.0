@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9671243",
+  "consignee_name": "JARRON SIMMONS",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 2,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "1.0",
+  "country_origin": "US",
+  "freight": "3.00",
+  "man_reg": "2024 30",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0316/out/112-1169077-3817042.pdf",
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0316/out/HAWBS671243-Declaration_combined.xlsx",
+    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0316/out/HAWB9671243-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}
