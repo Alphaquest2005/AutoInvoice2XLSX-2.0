@@ -1,0 +1,281 @@
+{
+  "E07-11813-49446.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'ISW Trading Pty. Ltd.'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'AU'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'85114000'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'E07-11813-49446'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "D2": {
+          "value": "'2024-12-07'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Starter motors and dual purpose starter-generators'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'85114000'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'ZPN-20004'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J11": {
+          "value": "'CET (20%) \u2014 Tariff 85114000'"
+        },
+        "J12": {
+          "value": "'CSC (6%)'"
+        },
+        "J13": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J14": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J15": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J2": {
+          "value": "'Starter Motor for Mitsubishi Triton MK 4cyl 2.8L 4M40'"
+        },
+        "J3": {
+          "value": "'SUBTOTAL'"
+        },
+        "J4": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J5": {
+          "value": "'NET TOTAL'"
+        },
+        "J6": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J8": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J9": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "167.95"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "737.18"
+        },
+        "P11": {
+          "value": "147.44"
+        },
+        "P12": {
+          "value": "44.23"
+        },
+        "P13": {
+          "value": "139.33"
+        },
+        "P14": {
+          "value": "331"
+        },
+        "P15": {
+          "value": "0.449008383298516"
+        },
+        "P2": {
+          "value": "167.95"
+        },
+        "P3": {
+          "formula": "=P2"
+        },
+        "P4": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P5": {
+          "formula": "=(P3+P4)"
+        },
+        "P6": {
+          "formula": "=(S2-P5)"
+        },
+        "P9": {
+          "value": "271.33"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "271.33"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'ISW'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "E07-11813-49446.pdf",
+        "E07-11813-49446.xlsx",
+        "HAWB9601082-Declaration.pdf"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "MARGARET MC LEISH",
+      "country_origin": "AU",
+      "expected_entries": 1,
+      "freight": "27.00",
+      "location": "WebSource",
+      "man_reg": "2024 28",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 1,
+      "waybill": "HAWB9601082",
+      "weight": "43.0"
+    }
+  }
+}

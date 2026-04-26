@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "116.11",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "116.11 written in the right margin near Man Reg / WayBill Number; 188.12 written vertically in the left margin beside the header"
+  },
+  "printed": {
+    "consignee": "DAWSEANNE WILLIAMS",
+    "freight": 19.0,
+    "waybill": "HAWB9728292",
+    "man_reg": "2024/32",
+    "office": "GDWBS",
+    "weight": 9.0,
+    "packages": 1
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

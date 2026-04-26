@@ -37,6 +37,19 @@ status:
   SKIPPED: "skipped"
   PARTIAL: "partial"
 
+# Granular per-invoice processing statuses emitted by
+# pipeline.workflow.batch.process_single_invoice. Distinct from the
+# top-level status block above because batch.py needs to surface which
+# pipeline stage failed (extract / parse / split / etc.) rather than
+# just the boolean success/failure.
+batch_run_status:
+  PENDING:                "pending"
+  COMPLETED:              "completed"
+  EXTRACT_FAILED:         "extract_failed"
+  PIPELINE_FAILED:        "pipeline_failed"
+  SPLIT_FAILED:           "split_failed"
+  COMPLETED_WITH_ERRORS:  "completed_with_errors"
+
 # Severity levels for classification / validation issues.
 severity:
   INFO:     "info"

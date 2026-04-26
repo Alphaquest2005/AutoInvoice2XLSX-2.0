@@ -1,0 +1,476 @@
+{
+  "INVUS20240805001997644.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'SHEIN US Services, LLC'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'777 S. Alameda St., Second Floor, Los Angeles, CA 90021'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'62063020'"
+        },
+        "AK5": {
+          "value": "'62043190'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'INVUS20240805001997644'"
+        },
+        "C5": {
+          "value": "'INVUS20240805001997644'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "D2": {
+          "value": "'2024-08-05'"
+        },
+        "D5": {
+          "value": "'2024-08-05'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Shirts'"
+        },
+        "E5": {
+          "value": "'Other Of wool or fine animal hair'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'62063020'"
+        },
+        "F3": {
+          "value": "'62063020'"
+        },
+        "F4": {
+          "value": "'62063020'"
+        },
+        "F5": {
+          "value": "'62043190'"
+        },
+        "F6": {
+          "value": "'62043190'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'62063020'"
+        },
+        "I3": {
+          "value": "'SHEIN-1'"
+        },
+        "I4": {
+          "value": "'SHEIN-3'"
+        },
+        "I5": {
+          "value": "'62043190'"
+        },
+        "I6": {
+          "value": "'SHEIN-2'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J11": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J12": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J13": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J14": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J15": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J17": {
+          "value": "'NET TOTAL'"
+        },
+        "J18": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J2": {
+          "value": "\"SHEIN LUNE Women' Vertical Striped Printed Puff Sleeve Shirt 1 (+1 more) (2 items)\""
+        },
+        "J20": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J22": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J23": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J24": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J25": {
+          "value": "'CET (weighted avg 20.0%)'"
+        },
+        "J26": {
+          "value": "'  \u2514 62043190: 20% CET (41% of value)'"
+        },
+        "J27": {
+          "value": "'  \u2514 62063020: 20% CET (59% of value)'"
+        },
+        "J28": {
+          "value": "'CSC (6%)'"
+        },
+        "J29": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J3": {
+          "value": "\"SHEIN LUNE Women' Vertical Striped Printed Puff Sleeve Shirt 1\""
+        },
+        "J30": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J31": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J4": {
+          "value": "\"SHEIN LUNE Ladies' Solid Color Simple Daily Long Sleeve Shirt 1\""
+        },
+        "J5": {
+          "value": "'SHEIN LUNE Color Block Edge Long Sleeve Tailored Blazer 1 (1 items)'"
+        },
+        "J6": {
+          "value": "'SHEIN LUNE Color Block Edge Long Sleeve Tailored Blazer 1'"
+        },
+        "J7": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J8": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J9": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "2"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "K5": {
+          "value": "1"
+        },
+        "K6": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "N6": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "8.205"
+        },
+        "O3": {
+          "value": "7.19"
+        },
+        "O4": {
+          "value": "9.22"
+        },
+        "O5": {
+          "value": "11.39"
+        },
+        "O6": {
+          "value": "11.39"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "value": "0"
+        },
+        "P13": {
+          "value": "0"
+        },
+        "P14": {
+          "value": "0"
+        },
+        "P15": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P17": {
+          "formula": "=P7+P15"
+        },
+        "P18": {
+          "formula": "=S2"
+        },
+        "P2": {
+          "value": "16.41"
+        },
+        "P20": {
+          "formula": "=S2-P17"
+        },
+        "P23": {
+          "value": "27.8"
+        },
+        "P24": {
+          "value": "75.53"
+        },
+        "P25": {
+          "value": "15.11"
+        },
+        "P26": {
+          "value": "6.19"
+        },
+        "P27": {
+          "value": "8.92"
+        },
+        "P28": {
+          "value": "4.53"
+        },
+        "P29": {
+          "value": "14.28"
+        },
+        "P3": {
+          "value": "7.19"
+        },
+        "P30": {
+          "value": "33.92"
+        },
+        "P31": {
+          "value": "0.4490930755990997"
+        },
+        "P4": {
+          "value": "9.22"
+        },
+        "P5": {
+          "value": "11.39"
+        },
+        "P6": {
+          "value": "11.39"
+        },
+        "P7": {
+          "formula": "=P2+P5"
+        },
+        "P8": {
+          "formula": "=SUM(P2:P6)-P7"
+        },
+        "P9": {
+          "formula": "=P7-P8"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q15": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q17": {
+          "formula": "=Q7+Q15"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q20": {
+          "formula": "=S2-Q17"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q6": {
+          "formula": "=O6*K6"
+        },
+        "Q7": {
+          "formula": "=Q2+Q5"
+        },
+        "Q8": {
+          "formula": "=SUM(Q2:Q6)-Q7"
+        },
+        "Q9": {
+          "formula": "=Q7-Q8"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "R6": {
+          "formula": "=P6-Q6"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "27.8"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'SHEIN'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "HAWB9676248-Declaration.pdf",
+        "INVUS20240805001997644.pdf",
+        "INVUS20240805001997644.xlsx"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "NIKIAH NOEL",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "0",
+      "location": "WebSource",
+      "man_reg": null,
+      "office": "",
+      "packages": "1",
+      "total_invoices": 1,
+      "waybill": "HAWB9676248",
+      "weight": "1.0"
+    }
+  }
+}

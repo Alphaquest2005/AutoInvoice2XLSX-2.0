@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9595164",
+  "consignee_name": "KEVON TUITT",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "6.0",
+  "country_origin": "US",
+  "freight": "13.00",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0349/out/114-0217971-2548268.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0349/out/114-0217971-2548268.xlsx",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0349/out/HAWB9595164-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

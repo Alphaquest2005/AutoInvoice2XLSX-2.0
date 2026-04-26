@@ -1,0 +1,318 @@
+{
+  "HAWB9539710_combined.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'HAWB9539710_combined'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'777 S. Alameda St., Second Floor, Los Angeles, CA 90021'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'61071100'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'INVUS20240629002627146'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "D2": {
+          "value": "'2024-06-29'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Of cotton'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'61071100'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'SHEIN-1'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J11": {
+          "value": "'CET (20%) \u2014 Tariff 61071100'"
+        },
+        "J12": {
+          "value": "'CSC (6%)'"
+        },
+        "J13": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J14": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J15": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J16": {
+          "value": "'CLIENT DECLARED DUTIES'"
+        },
+        "J17": {
+          "value": "'DUTY VARIANCE (Client \u2212 Estimated)'"
+        },
+        "J18": {
+          "value": "'IMPLIED CIF (from declared duty @ 20% CET, XCD)'"
+        },
+        "J19": {
+          "value": "'IMPLIED ITEMS VALUE (USD, net of freight/insurance)'"
+        },
+        "J2": {
+          "value": "\"Mens Underwear Boxer Briefs Shorts Waistband Comfortable Men' Long Boxer Shor...\""
+        },
+        "J20": {
+          "value": "'\u26a0 ITEM ALLOCATION CHECK: actual $5.11 USD vs implied $72.99 USD \u2014 UNDER-ALLOCATED (items from another waybill may belong here)'"
+        },
+        "J3": {
+          "value": "'SUBTOTAL'"
+        },
+        "J4": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J5": {
+          "value": "'NET TOTAL'"
+        },
+        "J6": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J8": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J9": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "5.11"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "66.48"
+        },
+        "P11": {
+          "value": "13.3"
+        },
+        "P12": {
+          "value": "3.99"
+        },
+        "P13": {
+          "value": "12.57"
+        },
+        "P14": {
+          "value": "29.86"
+        },
+        "P15": {
+          "value": "0.4491576413959085"
+        },
+        "P16": {
+          "value": "112.22"
+        },
+        "P17": {
+          "value": "82.36"
+        },
+        "P18": {
+          "value": "249.93"
+        },
+        "P19": {
+          "value": "72.99"
+        },
+        "P2": {
+          "value": "5.11"
+        },
+        "P3": {
+          "formula": "=P2"
+        },
+        "P4": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P5": {
+          "formula": "=(P3+P4)"
+        },
+        "P6": {
+          "formula": "=(S2-P5)"
+        },
+        "P9": {
+          "value": "24.47"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "5.47"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0.36"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'SHEIN'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "HAWB9539710-Declaration.pdf",
+        "HAWB9539710_combined.xlsx",
+        "INVUS20240629002605067.pdf",
+        "INVUS20240629002605079.pdf",
+        "INVUS20240629002611527.pdf",
+        "INVUS20240629002614740.pdf",
+        "INVUS20240629002615689.pdf",
+        "INVUS20240629002615691.pdf",
+        "INVUS20240629002618691.pdf",
+        "INVUS20240629002627146.pdf"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "MARGARET NOEL",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "19.00",
+      "location": "WebSource",
+      "man_reg": "2024 26",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 8,
+      "waybill": "HAWB9539710",
+      "weight": "9.0"
+    }
+  }
+}

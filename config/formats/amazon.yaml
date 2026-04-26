@@ -7,17 +7,25 @@ version: "1.0"
 description: "Amazon.com order invoices (print view)"
 
 # ─── Detection ─────────────────────────────────────────────
-# This format handles Amazon order details pages
+# This format handles Amazon order details pages.
+#
+# Detection accepts ANY of several amazon-specific phrases — we deliberately
+# do NOT require "Items Ordered" as a hard prerequisite because OCR often
+# mangles that header (e.g. "as Ordered Price"), which previously caused
+# detection to fall through to LLM auto-generation and produce bogus item
+# rows from the totals footer (HAWB9421183 / 113-3799251-0582608).
+#
+# `none_of` excludes eBay, which also uses "Sold by" and "Order total"
+# wording but has its own format spec.
 detect:
-  all_of:
-    - "Items Ordered"
   any_of:
-    - " of:"   # Quantity pattern: "1 of: Description"
-    - " of :"  # OCR space before colon: "1 of : Description"
-    - " of;"   # OCR misread: "1 of;" (semicolon instead of colon)
-    - " of ;"  # OCR misread with space: "1 of ; Description"
-    - "Sold by"
-    - "Sotd by"  # OCR misread: "Sotd" for "Sold"
+    - "Items Ordered"              # original literal (clean text)
+    - "Final Details for Order"    # amazon order-details page header (OCR-stable)
+    - "Amazon.com order number"    # body label
+    - "amazon.com order number"    # case variant
+    - "amazon . com order number"  # OCR-spaced variant
+  none_of:
+    - "Items bought from"          # eBay marker — exclude eBay invoices
 
 # ─── OCR Normalization ─────────────────────────────────────
 # Applied BEFORE parsing, in order listed

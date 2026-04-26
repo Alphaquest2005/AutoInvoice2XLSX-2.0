@@ -32,19 +32,21 @@ def _minimal_invoice():
         "invoice_total": 100.00,
         "items": [],
     }
-    matched = [{
-        "supplier_item": "TEST-1",
-        "supplier_item_desc": "Test item",
-        "quantity": 1,
-        "unit_price": 100.0,
-        "total_cost": 100.0,
-        "uom": "Each",
-        "tariff_code": "90318000",
-        "category": "MARINE ELECTRONICS",
-        "po_item_ref": "",
-        "po_item_desc": "",
-        "po_number": "",
-    }]
+    matched = [
+        {
+            "supplier_item": "TEST-1",
+            "supplier_item_desc": "Test item",
+            "quantity": 1,
+            "unit_price": 100.0,
+            "total_cost": 100.0,
+            "uom": "Each",
+            "tariff_code": "90318000",
+            "category": "MARINE ELECTRONICS",
+            "po_item_ref": "",
+            "po_item_desc": "",
+            "po_number": "",
+        }
+    ]
     supplier_info = {
         "code": "BUD",
         "name": "Budget Marine",
@@ -66,8 +68,11 @@ def test_a2_document_type_preserved_after_migration(doc_type, tmp_path):
     invoice_data, matched, supplier_info = _minimal_invoice()
     out = tmp_path / f"inv_{doc_type}.xlsx"
     generate_bl_xlsx(
-        invoice_data, matched, "Budget Marine",
-        supplier_info, str(out),
+        invoice_data,
+        matched,
+        "Budget Marine",
+        supplier_info,
+        str(out),
         document_type=doc_type,
     )
 
@@ -86,14 +91,12 @@ def test_xcd_csc_vat_match_financial_constants_yaml():
     from pipeline.config_loader import load_financial_constants
 
     fin = load_financial_constants()
-    assert bl_xlsx_generator.CSC_RATE == fin["csc_rate"]
-    assert bl_xlsx_generator.VAT_RATE == fin["vat_rate"]
+    assert fin["csc_rate"] == bl_xlsx_generator.CSC_RATE
+    assert fin["vat_rate"] == bl_xlsx_generator.VAT_RATE
     # xcd_rate may not yet be in financial_constants.yaml — this test will
     # fail until we add it, locking the migration in place.
-    assert "xcd_rate" in fin, (
-        "financial_constants.yaml must expose xcd_rate for bl_xlsx_generator"
-    )
-    assert bl_xlsx_generator.XCD_RATE == fin["xcd_rate"]
+    assert "xcd_rate" in fin, "financial_constants.yaml must expose xcd_rate for bl_xlsx_generator"
+    assert fin["xcd_rate"] == bl_xlsx_generator.XCD_RATE
 
 
 def test_calculate_duties_uses_config_rates():
@@ -102,8 +105,10 @@ def test_calculate_duties_uses_config_rates():
     from bl_xlsx_generator import calculate_duties
 
     duties = calculate_duties(
-        cif_usd=1000.0, cet_rate=0.20,
-        customs_freight=0, insurance=0,
+        cif_usd=1000.0,
+        cet_rate=0.20,
+        customs_freight=0,
+        insurance=0,
     )
     # cif_xcd = 1000 * 2.7169 = 2716.90
     assert duties["cif_xcd"] == pytest.approx(2716.90)
@@ -134,6 +139,7 @@ def test_uncertain_recovered_colors_from_config():
     """UNCERTAIN_FILL and RECOVERED_FILL must come from a config source,
     not be hardcoded in bl_xlsx_generator.py."""
     from pipeline.config_loader import load_columns
+
     cols = load_columns()
     styles = cols.get("styles", {})
     # These keys will be added under styles in columns.yaml by the migration.
@@ -152,6 +158,7 @@ def test_date_formats_come_from_config():
     """_normalize_date must iterate the formats listed in patterns.yaml,
     not a hardcoded in-function tuple."""
     from pipeline.config_loader import load_patterns
+
     pats = load_patterns()
     assert "date_parse_formats" in pats, (
         "patterns.yaml must expose date_parse_formats for bl_xlsx_generator"
@@ -163,6 +170,7 @@ def test_date_formats_come_from_config():
 def test_normalize_date_still_works():
     """Behaviour guard on _normalize_date — must not regress after migration."""
     from bl_xlsx_generator import _normalize_date
+
     assert _normalize_date("01/16/2026") == "2026-01-16"
     assert _normalize_date("January 16, 2026") == "2026-01-16"
     assert _normalize_date("2026-01-16") == "2026-01-16"
@@ -179,8 +187,11 @@ def test_sheet_title_and_reference_label_from_config(tmp_path):
     invoice_data, matched, supplier_info = _minimal_invoice()
     out = tmp_path / "sheet_title.xlsx"
     generate_bl_xlsx(
-        invoice_data, matched, "Budget Marine",
-        supplier_info, str(out),
+        invoice_data,
+        matched,
+        "Budget Marine",
+        supplier_info,
+        str(out),
         document_type="7400-000",
     )
     wb = load_workbook(str(out))
@@ -191,9 +202,10 @@ def test_sheet_title_and_reference_label_from_config(tmp_path):
 def test_default_document_type_resolves_via_config():
     """generate_bl_xlsx default kwarg '7400-000' must correspond to a valid
     document-type entry in document_types.json."""
-    from pipeline.config_loader import load_document_types
     import inspect
+
     from bl_xlsx_generator import generate_bl_xlsx
+    from pipeline.config_loader import load_document_types
 
     dt = load_document_types()
     assert "7400-000" in dt["document_types"]

@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9595459",
+  "consignee_name": "AARON WILSON",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "8.0",
+  "country_origin": "US",
+  "freight": "86.0",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_030/out/111-8019845-2302666.pdf",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_030/out/HAWB9595459.xlsx",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_030/out/HAWB9595459-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

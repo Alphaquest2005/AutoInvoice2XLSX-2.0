@@ -1,0 +1,41 @@
+# Per-fixture manifest for tests/pipeline/test_consignee_extractor.py.
+# Loaded via tests/_fixtures.py:load_test_manifest("consignee_extractor")
+# (the directory name is derived from the test module filename via
+# tests._paths.format_name_from_test_file, so neither side hard-codes it).
+#
+# Pins the regression for shipment 451185 — the West-Marine layout where
+# the document title "Invoice" appears on the line ABOVE the
+# "Bill To: Ship To: Remit To:" header, and the consignee company name
+# is on the line BELOW that header (duplicated for both columns).
+#
+# Before the fix, _extract_consignee returned "Invoice" because:
+#   (a) the invoice_multi_column regex captures the line above the labels;
+#   (b) "INVOICE" was not in field_labels, so _is_valid_consignee accepted it;
+#   (c) step-5 returns weren't routed through _is_valid_consignee anyway.
+
+format_name: consignee_extractor
+
+# OCR text fixture filename (this directory).
+ocr_fixture: 451185_ocr.txt
+
+# Filename used for the empty placeholder PDF the test creates in tmp_path
+# so os.path.exists() inside _extract_consignee returns True. Stored here
+# so the test source contains no .txt/.pdf suffix literals.
+fake_pdf_filename: 451185_invoice.pdf
+
+# What the buggy code returned (and what must NEVER be returned).
+buggy_consignee: Invoice
+
+# The correct consignee — present on the invoice in both Bill-To and
+# Ship-To columns, duplicated as "BUDGET MARINE GRENADA BUDGET MARINE GRENADA".
+expected_consignee: BUDGET MARINE GRENADA
+
+# Doc-title words that must be rejected by _is_valid_consignee
+# (kept here so the test source has no policy literals).
+required_field_label_rejects:
+  - INVOICE
+  - RECEIPT
+  - STATEMENT
+  - QUOTE
+  - ORDER
+  - PRINT

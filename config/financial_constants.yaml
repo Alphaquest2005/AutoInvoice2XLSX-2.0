@@ -50,6 +50,12 @@ xcd_rate: 2.7169
 # added by Wave 1 for pipeline/bl_xlsx_generator.py
 default_cet_rate: 0.20
 
+# Fallback tax-ratio estimate (applied ≈ 7% of invoice total) used in reverse-
+# calc when the original tax allocation is unknown. Empirical approximation
+# derived from typical line-item tax averages on small-shipment invoices.
+# added by Wave 1 for pipeline/run.py
+fallback_tax_ratio: 0.07
+
 # Percentage conversion factor (rate * pct_conversion -> display percent).
 # Used only for human-readable % rendering in duty section labels.
 # added by Wave 1 for pipeline/bl_xlsx_generator.py

@@ -1,0 +1,21 @@
+{
+  "waybill": "HAWB9728292",
+  "consignee_name": "DAWSEANNE WILLIAMS",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "9.0",
+  "country_origin": "US",
+  "freight": "19.00",
+  "man_reg": "2024 32",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0329/out/00190-US68077350.pdf",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0329/out/00190.pdf",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0329/out/HAWB9728292.xlsx",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0329/out/HAWB9728292-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

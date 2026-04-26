@@ -1,0 +1,21 @@
+{
+  "waybill": "HAWB9670577",
+  "consignee_name": "ANSHA CHARLES",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "11.0",
+  "country_origin": "US",
+  "freight": "23.00",
+  "man_reg": "2024 30",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0332/out/PO-211-08132515666552999.pdf",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0332/out/PO-211-13630044146552999.pdf",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0332/out/HAWB9670577.xlsx",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0332/out/HAWB9670577-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

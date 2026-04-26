@@ -44,6 +44,9 @@ totals:
   NET_TOTAL:              "NET TOTAL"
   INVOICE_NOTES_PREFIX:   "INVOICE NOTES"
   INVOICE_TOTAL_UNCERTAIN: "Invoice total uncertain"
+  # added by Wave 1 for pipeline/xlsx_generator.py
+  GROUP_VERIFICATION:     "GROUP VERIFICATION"
+  VARIANCE_CHECK:         "VARIANCE CHECK"
 
 # ── Duty estimation (classification cross-check) ─────────────────────────
 duty:
@@ -105,3 +108,64 @@ defaults:
   uom:                "Unit"
   document_type_unknown_description: "Unknown"
   group_label_default: ""
+  # added by Wave 1 for pipeline/xlsx_generator.py
+  category_fallback:  "PRODUCTS"
+  tariff_fallback:    "UNKNOWN"
+  invoice_number_fallback: "invoice"
+  sheet_title:        "Invoice Data"
+  # 4-space indent prefix for detail-row descriptions.
+  detail_row_indent:  "    "
+  # Template for per-group category label. Rendered with .format(n=<int>).
+  group_label_count_tpl: "{category} ({n} items)"
+  # Filename template for per-tariff split declarations.
+  split_filename_tpl: "{invoice}_{tariff}.xlsx"
+  # Pseudo-input-file template passed as context to xlsx_generator.run for
+  # split declarations so version-naming stays stable.
+  split_input_hint_tpl: "{invoice}_{tariff}.pdf"
+
+# Error-payload messages returned from xlsx_generator.run / run_split_declarations.
+# added by Wave 1 for pipeline/xlsx_generator.py
+errors:
+  openpyxl_missing_install_hint: "openpyxl not installed. Run: pip install openpyxl"
+  openpyxl_missing: "openpyxl not installed"
+  no_groups: "No groups to generate"
+
+# ── Summary-row markers (variance_fixer) ────────────────────────────────
+# added by Wave 1 for pipeline/workflow/variance_fixer.py
+# Substrings used to identify *summary* rows (subtotals, adjustments, totals)
+# so the variance-fixer can skip them when summing detail items. Case-insensitive
+# substring match against the description column.
+summary_row_markers:
+  - "SUBTOTAL"
+  - "VARIANCE"
+  - "NET TOTAL"
+  - "GROUP VERIFICATION"
+  - "ADJUSTMENTS"
+  - "INVOICE TOTAL"
+  - "TOTAL INTERNAL"
+  - "TOTAL INSURANCE"
+  - "TOTAL OTHER"
+  - "TOTAL DEDUCTION"
+
+# ── bl_allocator combined-XLSX labels ────────────────────────────────────
+# added by Wave 1 for pipeline/stages/bl_allocator.py
+# Row labels written in column L of a *combined* invoice XLSX (produced
+# when bl_allocator merges multiple same-supplier invoices into one
+# entry). Title-case — distinct from the primary XLSX totals section
+# which is UPPER-CASE. Do not unify without also migrating
+# _combine_xlsx_with_formulas.
+combiner:
+  subtotal:              "Subtotal"
+  adjustments:           "Adjustments"
+  net_total:             "Net Total"
+  variance_check:        "Variance Check"
+  subtotal_grouped:      "Subtotal Grouped"
+  subtotal_details:      "Subtotal Details"
+  group_verification:    "Group Verification"
+  grand_subtotal:        "Grand Subtotal"
+  grand_adjustments:     "Grand Adjustments"
+  grand_net_total:       "Grand Net Total"
+  grand_invoice_total:   "Grand Invoice Total"
+  grand_variance:        "Grand Variance"
+  # Sentinel string for an unparsed BL-number.
+  unknown_bl_number:     "UNKNOWN"

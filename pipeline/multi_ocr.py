@@ -1408,7 +1408,7 @@ def _is_clean_digital(text: str) -> bool:
     return bool(re.search(r"\d", text))
 
 
-def extract_text(
+def _extract_text_impl(
     pdf_path: str,
     *,
     quality: str = "standard",
@@ -1480,6 +1480,67 @@ def extract_text(
     if use_cache and pdf_sha1:
         cache_save(pdf_sha1, result, base_dir=base_dir)
     return result
+
+
+def extract_text(
+    pdf_path: str,
+    *,
+    quality: str = "standard",
+    use_cache: bool = True,
+    base_dir: Optional[str] = None,
+) -> MultiOcrResult:
+    """Wrapper around the implementation that emits a ``multi_ocr.extract_text``
+    perf-log event so we can attribute pipeline runtime to OCR.
+
+    Records: pdf basename, quality, cache_hit, engine_used, page_count, dur_s.
+    """
+    try:
+        import perf_log as _perf
+    except Exception:
+        _perf = None
+    import os as _os
+    import time as _time
+    base = _os.path.basename(pdf_path) if pdf_path else ""
+    t0 = _time.monotonic()
+    cache_hit = False
+    engine = ""
+    pages = 0
+    err = None
+    try:
+        # Pre-check whether the cache will hit so we can record cache_hit
+        # without re-running (one tiny extra hash op vs. silently absorbing
+        # multi-second OCR runs into "extract_text" phase).
+        if use_cache:
+            try:
+                _sha1 = _pdf_sha1(pdf_path)
+                if cache_load(_sha1, base_dir=base_dir) is not None:
+                    cache_hit = True
+            except Exception:
+                pass
+        result = _extract_text_impl(
+            pdf_path,
+            quality=quality,
+            use_cache=use_cache,
+            base_dir=base_dir,
+        )
+        engine = getattr(result, "engine_used", "") or ""
+        pages = int(getattr(result, "page_count", 0) or 0)
+        return result
+    except BaseException as e:  # noqa: BLE001 - we re-raise after logging
+        err = type(e).__name__
+        raise
+    finally:
+        dur = _time.monotonic() - t0
+        if _perf is not None:
+            try:
+                _perf.event(
+                    "multi_ocr.extract_text", dur,
+                    pdf=base, quality=quality, cache_hit=cache_hit,
+                    engine=engine, pages=pages,
+                    error=err if err else None,
+                )
+            except Exception:
+                pass
 
 
 # ─── CLI ───────────────────────────────────────────────────────────────

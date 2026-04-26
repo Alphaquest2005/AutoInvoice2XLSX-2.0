@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9558216",
+  "consignee_name": "JARRORNSIMMONS",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "20.0",
+  "country_origin": "US",
+  "freight": "41.00",
+  "man_reg": null,
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0348/out/112-5208922-8889850.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0348/out/112-5208922-8889850.xlsx",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0348/out/HAWB9558216-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

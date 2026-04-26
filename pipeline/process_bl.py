@@ -20,11 +20,34 @@ import logging
 import os
 import sys
 
-# Setup logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+from pipeline.config_loader import (
+    load_file_paths,
+    load_office_locations,
+    load_pipeline,
 )
+
+# ── SSOT-loaded module constants ────────────────────────────────────────
+_PIPE_CFG = load_pipeline()
+_LOGGING_FORMAT = _PIPE_CFG["logging_format"]
+_CLI_CFG = _PIPE_CFG["process_bl_cli"]
+_DEFAULT_DOC_TYPE = _CLI_CFG["default_doc_type"]
+_DEFAULT_CONSIGNEE = _CLI_CFG["default_consignee"]
+_DEFAULT_CONSIGNEE_CODE = _CLI_CFG["default_consignee_code"]
+_DEFAULT_COUNTRY_ORIGIN = _CLI_CFG["default_country_origin"]
+_DEFAULT_EMAIL_WEIGHT = _CLI_CFG["default_email_weight"]
+_SEP_WIDE = _CLI_CFG["separator_wide"]
+_SEP_TABLE = _CLI_CFG["separator_table"]
+
+_DIRS = load_file_paths()["dirs"]
+_DIR_WORKSPACE_DOCUMENTS = _DIRS["workspace_documents"]
+_DIR_SHIPMENTS = _DIRS["shipments"]
+
+_OFFICE_DEFAULTS = load_office_locations()["cli_defaults"]
+_DEFAULT_OFFICE = _OFFICE_DEFAULTS["office"]
+_DEFAULT_LOCATION = _OFFICE_DEFAULTS["location"]
+
+# Setup logging
+logging.basicConfig(level=logging.INFO, format=_LOGGING_FORMAT)
 logger = logging.getLogger(__name__)
 
 # Add pipeline directory to path
@@ -50,7 +73,7 @@ from stages.bl_allocator import allocate_bl_packages
 try:
     from format_registry import FormatRegistry
 except ImportError:
-    print("ERROR: format_registry module not found")
+    print("ERROR: format_registry module not found")  # magic-ok: CLI fatal startup message
     sys.exit(1)
 
 from po_matcher import POReader, POMatcher
@@ -64,26 +87,26 @@ def main():
     parser.add_argument('--bl', required=True,
                         help='Bill of Lading number (e.g., TSCW18489131)')
     parser.add_argument('--input-dir',
-                        default=os.path.join(BASE_DIR, 'workspace', 'documents'),
+                        default=os.path.join(BASE_DIR, _DIR_WORKSPACE_DOCUMENTS),
                         help='Directory containing PDF invoices and PO XLSX')
     parser.add_argument('--output-dir',
-                        default=os.path.join(BASE_DIR, 'workspace', 'shipments'),
+                        default=os.path.join(BASE_DIR, _DIR_SHIPMENTS),
                         help='Directory for output XLSX files')
     parser.add_argument('--po-file',
                         help='Path to PO XLSX file (auto-detected if not specified)')
-    parser.add_argument('--doc-type', default='7400-000',
+    parser.add_argument('--doc-type', default=_DEFAULT_DOC_TYPE,
                         help='CARICOM document type (e.g., 7400-000, 4000-000)')
     parser.add_argument('--send-email', action='store_true',
                         help='Send email for each invoice (same as simplified declaration)')
-    parser.add_argument('--consignee', default='BUDGET MARINE (GRENADA)',
+    parser.add_argument('--consignee', default=_DEFAULT_CONSIGNEE,
                         help='Consignee name for the shipment')
-    parser.add_argument('--consignee-code', default='07290940003049',
+    parser.add_argument('--consignee-code', default=_DEFAULT_CONSIGNEE_CODE,
                         help='Consignee code')
     parser.add_argument('--man-reg',
                         help='Manifest registration (e.g. "2026 148")')
-    parser.add_argument('--location', default='STG01',
+    parser.add_argument('--location', default=_DEFAULT_LOCATION,
                         help='Location of goods code')
-    parser.add_argument('--office', default='GDSGO',
+    parser.add_argument('--office', default=_DEFAULT_OFFICE,
                         help='Office code')
     parser.add_argument('--verbose', '-v', action='store_true',
                         help='Enable verbose logging')
@@ -96,9 +119,9 @@ def main():
     # Initialize the resolver with project base directory
     init_resolver(BASE_DIR)
 
-    print("=" * 80)
+    print("=" * _SEP_WIDE)
     print(f"Processing BL #{args.bl}  |  Document Type: {args.doc_type}")
-    print("=" * 80)
+    print("=" * _SEP_WIDE)
 
     # ── Stage 1: Setup ──
 
@@ -113,7 +136,7 @@ def main():
     print(f"    {len(po_items)} PO line items loaded")
 
     # Initialize format registry
-    print("\n[2] Initializing format registry...")
+    print("\n[2] Initializing format registry...")  # magic-ok: CLI progress banner
     registry = FormatRegistry(BASE_DIR)
     print(f"    {len(registry.list_formats())} format specs loaded")
 
@@ -177,23 +200,23 @@ def main():
 
     # ── Print summary ──
 
-    print("\n" + "=" * 80)
-    print("SUMMARY")
-    print("=" * 80)
-    print(f"{'PDF File':<30} {'Supplier':<30} {'Format':<12} "
-          f"{'Items':>6} {'Match':>6} {'Class':>6} {'Total':>12}")
-    print("-" * 108)
+    print("\n" + "=" * _SEP_WIDE)
+    print("SUMMARY")  # magic-ok: CLI summary banner
+    print("=" * _SEP_WIDE)
+    print(f"{'PDF File':<30} {'Supplier':<30} {'Format':<12} "  # magic-ok: CLI table header
+          f"{'Items':>6} {'Match':>6} {'Class':>6} {'Total':>12}")  # magic-ok: CLI table header
+    print("-" * _SEP_TABLE)
     for r in results:
         pdf_items = len(r.invoice_data.get('items', []))
         print(f"{r.pdf_file:<30} {r.supplier_info.get('name', ''):<30} "
               f"{r.format_name:<12} "
               f"{pdf_items:>6} {r.matched_count:>6} "
               f"{r.classified_count:>6} ${r.invoice_data.get('invoice_total', 0):>10.2f}")
-    print("-" * 108)
+    print("-" * _SEP_TABLE)
     total_items = sum(len(r.matched_items) for r in results)
     total_matched = sum(r.matched_count for r in results)
     total_classified = sum(r.classified_count for r in results)
-    print(f"{'TOTAL':<30} {'':<30} {'':<12} "
+    print(f"{'TOTAL':<30} {'':<30} {'':<12} "  # magic-ok: CLI table total row
           f"{total_items:>6} {total_matched:>6} {total_classified:>6}")
     print(f"\nOutput directory: {args.output_dir}")
 
@@ -201,7 +224,10 @@ def main():
 
     if args.send_email and results:
         # Determine predominant country of origin
-        countries = [r.supplier_info.get('country', 'US') for r in results]
+        countries = [
+            r.supplier_info.get('country', _DEFAULT_COUNTRY_ORIGIN)
+            for r in results
+        ]
         country_origin = max(set(countries), key=countries.count)
 
         # Use BL freight if available, else sum of invoice freight
@@ -212,7 +238,7 @@ def main():
         else:
             email_freight = sum(r.freight for r in results)
             email_packages = str(len(results))
-            email_weight = '0'
+            email_weight = _DEFAULT_EMAIL_WEIGHT
 
         email_draft = compose_email(
             waybill=args.bl,

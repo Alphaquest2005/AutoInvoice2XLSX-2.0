@@ -83,3 +83,146 @@ usd_amount: '\$?\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)'
 
 # Non-printable / control chars to strip from OCR output.
 control_chars: '[\x00-\x1f\x7f]'
+
+# added by Wave 1 for pipeline/xlsx_generator.py
+# Filename version-suffix pattern (e.g. "INVOICE#307500_v2" → base "INVOICE#307500",
+# version 2). Used to auto-increment the version on repeated runs.
+filename_version_suffix: '^(.+?)_v(\d+)$'
+
+# added by Wave 1 for pipeline/run.py
+# Windows/POSIX-reserved filename chars substituted with underscore when
+# deriving XLSX/waybill filenames from invoice numbers.
+filename_reserved_chars: '[<>:"/\\|?*]'
+
+# Rejects numeric/tag-prefixed strings when evaluating OCR-captured names
+# (SKU codes, line-item numerals) as candidate supplier/consignee names.
+name_leading_digit_or_hash: '^[\d#]'
+
+# Manifest-registry number parser. Captures (year-4-digit, sequence-digits)
+# from variants like "MNF REG # 2025-1234", "MANIFEST NUMBER: 2025/1234".
+manifest_registry: '(?:MNF|MAN(?:IFEST)?)\s*(?:(?:REG(?:ISTRY)?|NUM(?:BER)?))?\s*#?\s*:?\s*(\d{4})\s*[-/\s]\s*(\d+)'
+
+# added by Wave 1 for pipeline/run.py
+# BL-number carrier-prefix regex list. Used in order to detect a waybill
+# number embedded in a BL PDF's text (or filename). First match wins.
+# The ordering matters: more-specific patterns must come before looser
+# B/L NO: ... variants so the carrier-prefix match takes priority.
+bl_number_carrier_patterns:
+  - '(TSCW\d+)'               # Tropical Shipping container
+  - '(TS\s*\d{7,})'           # Tropical Shipping (e.g. TS 0750206)
+  - '(HBL\d+)'                # Caribconex house BL
+  - '(MEDU\d+[A-Z]*\d*)'      # Mediterranean Shipping
+  - '(HDMU[A-Z0-9]+)'         # Hyundai
+  - '(MAEU\d+)'               # Maersk
+  - '(COSU\d+)'               # COSCO
+  - 'B/L\s*(?:NO\.?|NUMBER|#)[:\s]*([A-Z0-9]+)'
+  - 'BL\s*(?:NO\.?|NUMBER|#)[:\s]*([A-Z0-9]+)'
+
+# added by Wave 1 for pipeline/run.py
+# Single-carrier extraction helpers (used outside the carrier-list scan).
+bl_tscw_search:  'TSCW\d+'
+bl_hbl_search:   'HBL(\d+)'
+bl_trailing_suffix: '[-_ ]*BL$'
+bl_header_prefix:   '^.*BILL\s*OF\s*LADING\s*[-_ ]*'
+
+# added by Wave 1 for pipeline/run.py
+# Consignee-extraction regex patterns. Named for clarity at call sites;
+# invoice layout variants are tried in turn until one matches.
+consignee_extraction:
+  invoice_multi_column:  '^(.+)\n\s*BILL\s*TO\s*:\s+SHIP\s*TO\s*:'
+  # Sibling layout (West-Marine / shipment 451185): Bill-To/Ship-To labels
+  # sit on their own line and the company name is the line BELOW them,
+  # often duplicated for both columns. Used as a fallback when the
+  # name-above pattern's capture fails _is_valid_consignee() (e.g. the
+  # line above is a doc title like "Invoice" or "Receipt").
+  invoice_multi_column_name_after: 'BILL\s*TO\s*:\s+SHIP\s*TO\s*:[^\n]*\n\s*(.+)'
+  invoice_sold_to:       '(?:SOLD\s+TO|BILL\s+TO)\s*[:\-]?\s*\n\s*(.+)'
+  invoice_ship_to:       '(?:Ship\s*(?:ped\s+)?To|Deliver(?:y)?\s*(?:To|Address)|Shipping\s+Address|Consignee)\s*[:\-]?\s*\n\s*(.+)'
+  invoice_ship_to_block: '(?:Ship\s*(?:ped\s+)?To|Deliver(?:y)?\s*(?:To|Address)|Shipping\s+Address|Consignee)\s*[:\-]?\s*\n\s*(.+(?:\n.+)*?)\n\s*(?:PRO|Article|BOL|Item|Weight|Carrier|$)'
+  bl_not_negotiable:     'CONSIGNEE\s*\(NOT NEGOTIABLE[^)]*\)[^\n]*\n\s*(.+)'
+  bl_bare_header:        '^CONSIGNEE\s*$[^\S\n]*\n\s*(.+)'
+
+# Invoice / order number extraction patterns used by batch.py's
+# _extract_invoice_number() to recover an invoice/order ID from
+# unstructured OCR text. Tried in list order; first match wins.
+batch_invoice_number_patterns:
+  - 'ORDER\s*#?\s*(\d{3}-\d{7}-\d{7})'
+  - '(\d{3}-\d{7}-\d{7})'
+  - 'ORDER\s*ID[:\s]*(PO-\d{3}-\d+)'
+  - '(?:INVOICE|ORDER)\s*(?:#|NO\.?|NUMBER)[:\s]*([A-Z0-9][A-Z0-9-]{3,})'
+
+# Single-word token regex used by the consignee rule-substring scanner
+# (config_loader.resolve_invoice_consignee). Splits OCR text into word
+# tokens so single-word aliases (e.g. 'bmgrn', 'reef') can be matched
+# with strict word boundaries — `'bmgrn'` must be a standalone word, not
+# a substring of `'bmgrnxyz'`. Multi-word aliases skip this and use
+# plain substring (whitespace already bounds them).
+consignee_alias_word_token: '\w+'
+
+# added by Wave 1 for pipeline/run.py
+# Cleanup regexes applied to captured consignee strings after extraction.
+consignee_cleanup:
+  freight_parenthetical:  '\s*[\(\[\{]\s*FREIGHT\b.*?(?:[\)\]\}]|$)'
+  freight_trailing:       '\s+FREIGHT\s+[\d.]+\s*(?:US|USD)?\s*$'
+  trailing_punct:         '[\s,;:\-]+$'
+  trailing_doc_tokens:    '\s+(?:INVOICE|ORDER|DATE|ACCOUNT|PO\s*#|REF)'
+  notify_line_start:      '^NOTIFY\b'
+  field_label_line_start: '^(DESCRIPTION|PARTICULARS|MARKS|GROSS|MEASUREMENT)\b'
+
+# added by Wave 1 for pipeline/run.py
+# Validator regex for location-code (consignee-code / office-code) format:
+# alphanumeric plus underscore/hyphen only.
+code_identifier: '^[A-Za-z0-9_-]+$'
+
+# added by Wave 1 for pipeline/run.py
+# Port-of-discharge extraction pattern (ASYCUDA BL text).
+port_of_discharge: 'PORT\s+OF\s+DISCHARGE[^\n]*\n\s*([A-Z][A-Z ]+?)(?:\s+SEAPORT|\s+PORT|\s*\()'
+
+# added by Wave 1 for pipeline/run.py
+# Credit-card payment-line extraction (captures USD amount after card-brand keyword).
+credit_card_line: '(?:Visa|Mastercard|Amex|Discover|Credit\s+Card)[^$\n]*\$\s*([\d,]+\.\d{2})'
+
+# added by Wave 1 for pipeline/run.py
+# Amazon "retail" recap parse pattern (captures order id, qty, unit, total, weight).
+amazon_recap_line: '(\d{6})\s+\w+.*?(?:CENTER|CENTRE)\s+(\d{3}-\d{7}-\d{3,7})\s+(\d+)\s+\w+\s+([\d.]+)\s+([\d.]+)(?:\s+([\d,.]+))?\s+P\s+([\d,.]+)'
+
+# added by Wave 1 for pipeline/run.py
+# BL totals line (W/R = weight/rate) parse pattern.
+bl_totals_wr_line: '(\d+)W/R\s+(\d+)\s+([\d.]+)\s+([\d.]+)'
+
+# added by Wave 1 for pipeline/stages/bl_allocator.py
+# Trailing "(N)" suffix stripped from duplicated PDF filenames before
+# invoice-number matching (e.g. "INV_123 (2)" → "INV_123").
+filename_paren_number_suffix: '\s*\(\d+\)$'
+
+# added by Wave 2 for pipeline/run.py
+# Document-type suffix tokens stripped from a candidate BL filename when
+# the surrogate-BL fallback derives a waybill number from a Declaration /
+# Manifest / WorkSheet / Invoice / Packing-List PDF basename. Without this
+# the combined XLSX ends up named like "HAWB9333496-Declaration_combined.xlsx"
+# instead of "HAWB9333496_combined.xlsx".
+filename_doc_type_suffix: '[-_ ]+(Declaration|Manifest|WorkSheet|Invoice|Packing(?:\s*List)?)$'
+
+# added by Wave 1 for pipeline/workflow/variance_fixer.py
+# ADJUSTMENTS base-formula capture. Strips prior correction so re-runs are
+# idempotent. Matches a leading '=( ... )' block, e.g. '=(T2+U2+V2-W2)'.
+adjustments_base_formula: '(=\([^)]+\))'
+
+# added by Wave 1 for pipeline/run.py
+# BL-text scoring keywords. Used to identify which PDF in a folder is the
+# true Bill of Lading (vs packing list / commercial invoice) when multiple
+# candidates exist. Each regex match contributes +1 to that file's score.
+bl_text_keywords:
+  - 'BILL\s*OF\s*LADING'
+  - 'B/?L\s*N[Oo]'
+  - 'CONSIGNEE'
+  - 'SHIPPER'
+  - 'NOTIFY\s*PARTY'
+  - 'PORT\s*OF\s*(LOADING|DISCHARGE)'
+  - 'OCEAN\s*FREIGHT'
+  - 'FREIGHT\s*(PREPAID|COLLECT|CHARGES)'
+  - 'CONTAINER\s*NO'
+  - 'SEAL\s*NO'
+  - 'VESSEL'
+  - 'PLACE\s*OF\s*(DELIVERY|RECEIPT)'
+  - 'LADEN\s*ON\s*BOARD'

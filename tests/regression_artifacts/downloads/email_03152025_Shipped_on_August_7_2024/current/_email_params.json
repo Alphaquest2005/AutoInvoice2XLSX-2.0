@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9685992",
+  "consignee_name": "ARLENA MITCHELL",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "3.0",
+  "country_origin": "US",
+  "freight": "7.00",
+  "man_reg": "2024 31",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0340/out/112-8635667-8526641.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0340/out/HAWB9685992.xlsx",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0340/out/HAWB9685992-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

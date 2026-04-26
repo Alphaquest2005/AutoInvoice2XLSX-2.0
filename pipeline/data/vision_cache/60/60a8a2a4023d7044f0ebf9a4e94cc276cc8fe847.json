@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "46.36",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "46.36 written vertically in the left margin beside the header"
+  },
+  "printed": {
+    "consignee": "REGINALD ANDALL",
+    "freight": 7.0,
+    "waybill": "HAWB9579794",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": 3.0,
+    "packages": 1
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

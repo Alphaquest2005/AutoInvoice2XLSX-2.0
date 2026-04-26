@@ -1,0 +1,3617 @@
+{
+  "shipments": [
+    {
+      "shipment": "03142025_7_24_24_3_53_PM_am_on.coiti_",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 3,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9595443.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9595443.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        },
+        {
+          "check": "item_duplicate_items_in_xlsx",
+          "severity": "warn",
+          "message": "1 occurrence(s) of \"duplicate_items_in_xlsx\" across XLSX attachment(s).",
+          "field": "xlsx_items.duplicate_items_in_xlsx",
+          "value": "1 hits",
+          "fix_hint": "Same item appears multiple times in one XLSX. May be legitimate (two of the same product) or duplicate extraction. Verify against source PDF.\nExamples: HAWB9595443.xlsx:r3 \u2014 Same description+price appears on rows [3, 30, 31] (desc=\"mesailup 16 inch led lighted liquor bott\" @ $39.99)"
+        }
+      ]
+    },
+    {
+      "shipment": "03142025_7_24_24_3_53_PM_am_on.coiti__2",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 4,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9595459.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9595459.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_duplicate_items_in_xlsx",
+          "severity": "warn",
+          "message": "1 occurrence(s) of \"duplicate_items_in_xlsx\" across XLSX attachment(s).",
+          "field": "xlsx_items.duplicate_items_in_xlsx",
+          "value": "1 hits",
+          "fix_hint": "Same item appears multiple times in one XLSX. May be legitimate (two of the same product) or duplicate extraction. Verify against source PDF.\nExamples: HAWB9595459.xlsx:r3 \u2014 Same description+price appears on rows [3, 32, 33] (desc=\"mesailup 16 inch led lighted liquor bott\" @ $39.99)"
+        }
+      ]
+    },
+    {
+      "shipment": "03142025_7_24_24_3_53_PM_am_on.coiti__3",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 3,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9596948.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9596948.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        },
+        {
+          "check": "item_duplicate_items_in_xlsx",
+          "severity": "warn",
+          "message": "1 occurrence(s) of \"duplicate_items_in_xlsx\" across XLSX attachment(s).",
+          "field": "xlsx_items.duplicate_items_in_xlsx",
+          "value": "1 hits",
+          "fix_hint": "Same item appears multiple times in one XLSX. May be legitimate (two of the same product) or duplicate extraction. Verify against source PDF.\nExamples: HAWB9596948.xlsx:r3 \u2014 Same description+price appears on rows [3, 30, 31] (desc=\"mesailup 16 inch led lighted liquor bott\" @ $39.99)"
+        }
+      ]
+    },
+    {
+      "shipment": "03142025_USD_170.88_XCD_467.72",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9591043.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9591043.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        }
+      ]
+    },
+    {
+      "shipment": "03142025_USD_170.88_XCD_467.72_2",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9590375.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9590375.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025103631",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "item_quantity_zero_with_cost",
+          "severity": "warn",
+          "message": "2 occurrence(s) of \"quantity_zero_with_cost\" across XLSX attachment(s).",
+          "field": "xlsx_items.quantity_zero_with_cost",
+          "value": "2 hits",
+          "fix_hint": "Quantity=0 with non-zero TotalCost indicates failed quantity extraction. Check the format YAML quantity capture group.\nExamples: PO-211-11245148453753900_Invoice.xlsx:r2 \u2014 Quantity=0 but TotalCost=$16.76 \u2014 extraction broke; PO-211-11245148453753900_Invoice.xlsx:r3 \u2014 Quantity=0 but TotalCost=$16.76 \u2014 extraction broke"
+        }
+      ]
+    },
+    {
+      "shipment": "03152025103721",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "item_quantity_zero_with_cost",
+          "severity": "warn",
+          "message": "2 occurrence(s) of \"quantity_zero_with_cost\" across XLSX attachment(s).",
+          "field": "xlsx_items.quantity_zero_with_cost",
+          "value": "2 hits",
+          "fix_hint": "Quantity=0 with non-zero TotalCost indicates failed quantity extraction. Check the format YAML quantity capture group.\nExamples: PO-211-11245253311353900_Invoice.xlsx:r4 \u2014 Quantity=0 but TotalCost=$11.47 \u2014 extraction broke; PO-211-11245253311353900_Invoice.xlsx:r5 \u2014 Quantity=0 but TotalCost=$11.47 \u2014 extraction broke"
+        }
+      ]
+    },
+    {
+      "shipment": "03152025103801",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025110538",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025111114",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9591179.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9591179.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025111114_2",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9591268.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9591268.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025111114_3",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9584427.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9584427.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025111114_4",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9592076.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9592076.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025111114_5",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9600067.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9600067.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025111114_6",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 3,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9590423.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9590423.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025130830",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025131854",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025135001",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWBS9605575.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWBS9605575.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025135001_2",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9597711.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9597711.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025135830",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "item_quantity_zero_with_cost",
+          "severity": "warn",
+          "message": "2 occurrence(s) of \"quantity_zero_with_cost\" across XLSX attachment(s).",
+          "field": "xlsx_items.quantity_zero_with_cost",
+          "value": "2 hits",
+          "fix_hint": "Quantity=0 with non-zero TotalCost indicates failed quantity extraction. Check the format YAML quantity capture group.\nExamples: PO-211-06504032894070385.xlsx:r2 \u2014 Quantity=0 but TotalCost=$14.98 \u2014 extraction broke; PO-211-06504032894070385.xlsx:r3 \u2014 Quantity=0 but TotalCost=$14.98 \u2014 extraction broke"
+        }
+      ]
+    },
+    {
+      "shipment": "03152025140025",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025140315",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 6,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "worksheet_pdf_in_attachments",
+          "severity": "warn",
+          "message": "2 WorkSheet PDF(s) included as attachments: HAWB9600873-WorkSheet.pdf, HAWB9606117-WorkSheet.pdf.",
+          "field": "attachment_paths",
+          "value": "2",
+          "fix_hint": "WorkSheet PDFs are auto-generated by send_shipment_email.py at send time. They should not appear in attachment_paths during pipeline output."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9606117.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9606117.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        },
+        {
+          "check": "item_quantity_zero_with_cost",
+          "severity": "warn",
+          "message": "16 occurrence(s) of \"quantity_zero_with_cost\" across XLSX attachment(s).",
+          "field": "xlsx_items.quantity_zero_with_cost",
+          "value": "16 hits",
+          "fix_hint": "Quantity=0 with non-zero TotalCost indicates failed quantity extraction. Check the format YAML quantity capture group.\nExamples: HAWB9606117.xlsx:r2 \u2014 Quantity=0 but TotalCost=$69.26 \u2014 extraction broke; HAWB9606117.xlsx:r3 \u2014 Quantity=0 but TotalCost=$28.27 \u2014 extraction broke; HAWB9606117.xlsx:r4 \u2014 Quantity=0 but TotalCost=$40.99 \u2014 extraction broke; HAWB9606117.xlsx:r5 \u2014 Quantity=0 but TotalCost=$27.24 \u2014 extraction broke; HAWB9606117.xlsx:r6 \u2014 Quantity=0 but TotalCost=$9.08 \u2014 extraction broke"
+        },
+        {
+          "check": "item_placeholder_sku",
+          "severity": "warn",
+          "message": "10 occurrence(s) of \"placeholder_sku\" across XLSX attachment(s).",
+          "field": "xlsx_items.placeholder_sku",
+          "value": "10 hits",
+          "fix_hint": "Format YAML is not extracting real SKUs \u2014 fall-back assigned ITEM-NNN. Check the format spec for this supplier (config/formats/<name>.yaml).\nExamples: HAWB9606117.xlsx:r3 \u2014 SKU \"ITEM-001\" looks auto-generated (format extraction likely failed); HAWB9606117.xlsx:r4 \u2014 SKU \"ITEM-005\" looks auto-generated (format extraction likely failed); HAWB9606117.xlsx:r6 \u2014 SKU \"ITEM-003\" looks auto-generated (format extraction likely failed); HAWB9606117.xlsx:r7 \u2014 SKU \"ITEM-009\" looks auto-generated (format extraction likely failed); HAWB9606117.xlsx:r9 \u2014 SKU \"ITEM-007\" looks auto-generated (format extraction likely failed)"
+        },
+        {
+          "check": "item_description_starts_with_tariff",
+          "severity": "warn",
+          "message": "12 occurrence(s) of \"description_starts_with_tariff\" across XLSX attachment(s).",
+          "field": "xlsx_items.description_starts_with_tariff",
+          "value": "12 hits",
+          "fix_hint": "A WorkSheet PDF was likely processed as a source invoice. WorkSheets concatenate tariff codes and item descriptions; they are not invoice data.\nExamples: HAWB9606117.xlsx:r4 \u2014 Description begins with 8-digit tariff: \"67042000 TXIXS 26 Inch Honey Blonde Lace Front Wig Human Hai\"; HAWB9606117.xlsx:r5 \u2014 Description begins with 8-digit tariff: \"67041900 67041900 Faux Locs Crochet Hair Soft Locs 30 inch 6\"; HAWB9606117.xlsx:r6 \u2014 Description begins with 8-digit tariff: \"67041900 67041900 Faux Locs Crochet Hair Soft Locs 30 inch 6\"; HAWB9606117.xlsx:r8 \u2014 Description begins with 8-digit tariff: \"67042000 Aauerep Deep Wave Lace Front Wigs Human Hair Pre Pl\"; HAWB9606117.xlsx:r9 \u2014 Description begins with 8-digit tariff: \"67042000 Aauerep Deep Wave Lace Front Wigs Human Hair Pre Pl\""
+        }
+      ]
+    },
+    {
+      "shipment": "03152025140315_2",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 7,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "worksheet_pdf_in_attachments",
+          "severity": "warn",
+          "message": "2 WorkSheet PDF(s) included as attachments: HAWB9600873-WorkSheet.pdf, HAWB9606117-WorkSheet.pdf.",
+          "field": "attachment_paths",
+          "value": "2",
+          "fix_hint": "WorkSheet PDFs are auto-generated by send_shipment_email.py at send time. They should not appear in attachment_paths during pipeline output."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9600873.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9600873.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_description_starts_with_tariff",
+          "severity": "warn",
+          "message": "12 occurrence(s) of \"description_starts_with_tariff\" across XLSX attachment(s).",
+          "field": "xlsx_items.description_starts_with_tariff",
+          "value": "12 hits",
+          "fix_hint": "A WorkSheet PDF was likely processed as a source invoice. WorkSheets concatenate tariff codes and item descriptions; they are not invoice data.\nExamples: HAWB9600873.xlsx:r2 \u2014 Description begins with 8-digit tariff: \"67042000 67042000 Zumuer Wear And Go Glueless Wigs Human Hai\"; HAWB9600873.xlsx:r3 \u2014 Description begins with 8-digit tariff: \"67042000 67042000 Zumuer Wear And Go Glueless Wigs Human Hai\"; HAWB9600873.xlsx:r5 \u2014 Description begins with 8-digit tariff: \"67042000 BLOCKICE Highlight Ombre Lace Front Wig Human Hair \"; HAWB9600873.xlsx:r6 \u2014 Description begins with 8-digit tariff: \"67042000 BLOCKICE Highlight Ombre Lace Front Wig Human Hair \"; HAWB9600873.xlsx:r7 \u2014 Description begins with 8-digit tariff: \"67042000 Queen Story 26 Inch Lace Front Wigs Human Hair 13x4\""
+        },
+        {
+          "check": "item_quantity_zero_with_cost",
+          "severity": "warn",
+          "message": "16 occurrence(s) of \"quantity_zero_with_cost\" across XLSX attachment(s).",
+          "field": "xlsx_items.quantity_zero_with_cost",
+          "value": "16 hits",
+          "fix_hint": "Quantity=0 with non-zero TotalCost indicates failed quantity extraction. Check the format YAML quantity capture group.\nExamples: HAWB9600873.xlsx:r2 \u2014 Quantity=0 but TotalCost=$125.74 \u2014 extraction broke; HAWB9600873.xlsx:r3 \u2014 Quantity=0 but TotalCost=$28.27 \u2014 extraction broke; HAWB9600873.xlsx:r4 \u2014 Quantity=0 but TotalCost=$97.47 \u2014 extraction broke; HAWB9600873.xlsx:r5 \u2014 Quantity=0 but TotalCost=$81.98 \u2014 extraction broke; HAWB9600873.xlsx:r6 \u2014 Quantity=0 but TotalCost=$41.99 \u2014 extraction broke"
+        },
+        {
+          "check": "item_placeholder_sku",
+          "severity": "warn",
+          "message": "10 occurrence(s) of \"placeholder_sku\" across XLSX attachment(s).",
+          "field": "xlsx_items.placeholder_sku",
+          "value": "10 hits",
+          "fix_hint": "Format YAML is not extracting real SKUs \u2014 fall-back assigned ITEM-NNN. Check the format spec for this supplier (config/formats/<name>.yaml).\nExamples: HAWB9600873.xlsx:r3 \u2014 SKU \"ITEM-002\" looks auto-generated (format extraction likely failed); HAWB9600873.xlsx:r4 \u2014 SKU \"ITEM-004\" looks auto-generated (format extraction likely failed); HAWB9600873.xlsx:r6 \u2014 SKU \"ITEM-006\" looks auto-generated (format extraction likely failed); HAWB9600873.xlsx:r7 \u2014 SKU \"ITEM-008\" looks auto-generated (format extraction likely failed); HAWB9600873.xlsx:r9 \u2014 SKU \"ITEM-010\" looks auto-generated (format extraction likely failed)"
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_0.00",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9573874.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9573874.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_0.00_2",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9579794.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9579794.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_140.56_0.00_0.00_-_7.40_140.56_USD_you_saved_7.40",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "item_quantity_zero_with_cost",
+          "severity": "warn",
+          "message": "2 occurrence(s) of \"quantity_zero_with_cost\" across XLSX attachment(s).",
+          "field": "xlsx_items.quantity_zero_with_cost",
+          "value": "2 hits",
+          "fix_hint": "Quantity=0 with non-zero TotalCost indicates failed quantity extraction. Check the format YAML quantity capture group.\nExamples: AU236542.xlsx:r3 \u2014 Quantity=0 but TotalCost=$36.99 \u2014 extraction broke; AU236542.xlsx:r4 \u2014 Quantity=0 but TotalCost=$36.99 \u2014 extraction broke"
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_1_8_2024_06_00_amaz_.com_",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 4,
+      "failures": [
+        {
+          "check": "weight_zero",
+          "severity": "block",
+          "message": "Weight is 0 kg. A shipment cannot weigh 0 kg.",
+          "field": "weight",
+          "value": "0",
+          "fix_hint": "Read the BL PDF and look for GRAND TOTAL line with weight in kg. Update _email_params.json field \"weight\" with the correct value."
+        },
+        {
+          "check": "freight_zero",
+          "severity": "warn",
+          "message": "Freight is $0. Ocean freight is typically > $0.",
+          "field": "freight",
+          "value": "0",
+          "fix_hint": "Check the BL cost breakdown for freight charges. If freight is genuinely $0 (e.g. prepaid/included), this may be OK."
+        },
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "worksheet_pdf_in_attachments",
+          "severity": "warn",
+          "message": "1 WorkSheet PDF(s) included as attachments: HAWBS9671243-WorkSheet.pdf.",
+          "field": "attachment_paths",
+          "value": "1",
+          "fix_hint": "WorkSheet PDFs are auto-generated by send_shipment_email.py at send time. They should not appear in attachment_paths during pipeline output."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"None\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "None",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_25.58",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 6,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "worksheet_pdf_in_attachments",
+          "severity": "warn",
+          "message": "2 WorkSheet PDF(s) included as attachments: HAWB9579167-WorkSheet.pdf, HAWB9579469-WorkSheet.pdf.",
+          "field": "attachment_paths",
+          "value": "2",
+          "fix_hint": "WorkSheet PDFs are auto-generated by send_shipment_email.py at send time. They should not appear in attachment_paths during pipeline output."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9579167.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9579167.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        },
+        {
+          "check": "item_quantity_zero_with_cost",
+          "severity": "warn",
+          "message": "8 occurrence(s) of \"quantity_zero_with_cost\" across XLSX attachment(s).",
+          "field": "xlsx_items.quantity_zero_with_cost",
+          "value": "8 hits",
+          "fix_hint": "Quantity=0 with non-zero TotalCost indicates failed quantity extraction. Check the format YAML quantity capture group.\nExamples: HAWB9579167.xlsx:r2 \u2014 Quantity=0 but TotalCost=$9.59 \u2014 extraction broke; HAWB9579167.xlsx:r3 \u2014 Quantity=0 but TotalCost=$9.59 \u2014 extraction broke; HAWB9579167.xlsx:r4 \u2014 Quantity=0 but TotalCost=$15.99 \u2014 extraction broke; HAWB9579167.xlsx:r5 \u2014 Quantity=0 but TotalCost=$15.99 \u2014 extraction broke; HAWB9579167.xlsx:r35 \u2014 Quantity=0 but TotalCost=$9.59 \u2014 extraction broke"
+        },
+        {
+          "check": "item_placeholder_sku",
+          "severity": "warn",
+          "message": "4 occurrence(s) of \"placeholder_sku\" across XLSX attachment(s).",
+          "field": "xlsx_items.placeholder_sku",
+          "value": "4 hits",
+          "fix_hint": "Format YAML is not extracting real SKUs \u2014 fall-back assigned ITEM-NNN. Check the format spec for this supplier (config/formats/<name>.yaml).\nExamples: HAWB9579167.xlsx:r3 \u2014 SKU \"ITEM-001\" looks auto-generated (format extraction likely failed); HAWB9579167.xlsx:r5 \u2014 SKU \"ITEM-003\" looks auto-generated (format extraction likely failed); HAWB9579167.xlsx:r36 \u2014 SKU \"ITEM-002\" looks auto-generated (format extraction likely failed); HAWB9579167.xlsx:r38 \u2014 SKU \"ITEM-004\" looks auto-generated (format extraction likely failed)"
+        },
+        {
+          "check": "item_description_starts_with_tariff",
+          "severity": "warn",
+          "message": "4 occurrence(s) of \"description_starts_with_tariff\" across XLSX attachment(s).",
+          "field": "xlsx_items.description_starts_with_tariff",
+          "value": "4 hits",
+          "fix_hint": "A WorkSheet PDF was likely processed as a source invoice. WorkSheets concatenate tariff codes and item descriptions; they are not invoice data.\nExamples: HAWB9579167.xlsx:r35 \u2014 Description begins with 8-digit tariff: \"90049000 90049000 aisswzber Fashion Vintage Classic Semi-Rim\"; HAWB9579167.xlsx:r36 \u2014 Description begins with 8-digit tariff: \"90049000 90049000 aisswzber Fashion Vintage Classic Semi-Rim\"; HAWB9579167.xlsx:r37 \u2014 Description begins with 8-digit tariff: \"85183000 Soundcore by Anker P20i True Wireless Earbuds 10mm \"; HAWB9579167.xlsx:r38 \u2014 Description begins with 8-digit tariff: \"85183000 Soundcore by Anker P20i True Wireless Earbuds 10mm \""
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_25.58_2",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 6,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "worksheet_pdf_in_attachments",
+          "severity": "warn",
+          "message": "2 WorkSheet PDF(s) included as attachments: HAWB9579167-WorkSheet.pdf, HAWB9579469-WorkSheet.pdf.",
+          "field": "attachment_paths",
+          "value": "2",
+          "fix_hint": "WorkSheet PDFs are auto-generated by send_shipment_email.py at send time. They should not appear in attachment_paths during pipeline output."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9579469.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9579469.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        },
+        {
+          "check": "item_description_starts_with_tariff",
+          "severity": "warn",
+          "message": "4 occurrence(s) of \"description_starts_with_tariff\" across XLSX attachment(s).",
+          "field": "xlsx_items.description_starts_with_tariff",
+          "value": "4 hits",
+          "fix_hint": "A WorkSheet PDF was likely processed as a source invoice. WorkSheets concatenate tariff codes and item descriptions; they are not invoice data.\nExamples: HAWB9579469.xlsx:r2 \u2014 Description begins with 8-digit tariff: \"90049000 90049000 aisswzber Fashion Vintage Classic Semi-Rim\"; HAWB9579469.xlsx:r3 \u2014 Description begins with 8-digit tariff: \"90049000 90049000 aisswzber Fashion Vintage Classic Semi-Rim\"; HAWB9579469.xlsx:r4 \u2014 Description begins with 8-digit tariff: \"85183000 Soundcore by Anker P20i True Wireless Earbuds 10mm \"; HAWB9579469.xlsx:r5 \u2014 Description begins with 8-digit tariff: \"85183000 Soundcore by Anker P20i True Wireless Earbuds 10mm \""
+        },
+        {
+          "check": "item_quantity_zero_with_cost",
+          "severity": "warn",
+          "message": "8 occurrence(s) of \"quantity_zero_with_cost\" across XLSX attachment(s).",
+          "field": "xlsx_items.quantity_zero_with_cost",
+          "value": "8 hits",
+          "fix_hint": "Quantity=0 with non-zero TotalCost indicates failed quantity extraction. Check the format YAML quantity capture group.\nExamples: HAWB9579469.xlsx:r2 \u2014 Quantity=0 but TotalCost=$9.59 \u2014 extraction broke; HAWB9579469.xlsx:r3 \u2014 Quantity=0 but TotalCost=$9.59 \u2014 extraction broke; HAWB9579469.xlsx:r4 \u2014 Quantity=0 but TotalCost=$15.99 \u2014 extraction broke; HAWB9579469.xlsx:r5 \u2014 Quantity=0 but TotalCost=$15.99 \u2014 extraction broke; HAWB9579469.xlsx:r37 \u2014 Quantity=0 but TotalCost=$9.59 \u2014 extraction broke"
+        },
+        {
+          "check": "item_placeholder_sku",
+          "severity": "warn",
+          "message": "4 occurrence(s) of \"placeholder_sku\" across XLSX attachment(s).",
+          "field": "xlsx_items.placeholder_sku",
+          "value": "4 hits",
+          "fix_hint": "Format YAML is not extracting real SKUs \u2014 fall-back assigned ITEM-NNN. Check the format spec for this supplier (config/formats/<name>.yaml).\nExamples: HAWB9579469.xlsx:r3 \u2014 SKU \"ITEM-002\" looks auto-generated (format extraction likely failed); HAWB9579469.xlsx:r5 \u2014 SKU \"ITEM-004\" looks auto-generated (format extraction likely failed); HAWB9579469.xlsx:r38 \u2014 SKU \"ITEM-001\" looks auto-generated (format extraction likely failed); HAWB9579469.xlsx:r40 \u2014 SKU \"ITEM-003\" looks auto-generated (format extraction likely failed)"
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_5_27_25_6_57_PM_anmzon.com",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "item_generic_purchase_description",
+          "severity": "warn",
+          "message": "1 occurrence(s) of \"generic_purchase_description\" across XLSX attachment(s).",
+          "field": "xlsx_items.generic_purchase_description",
+          "value": "1 hits",
+          "fix_hint": "Description is a marketplace-name placeholder, not the actual product. Improve the format YAML so it captures the real product title from the PDF.\nExamples: 112-7624326-9358635.xlsx:r2 \u2014 Description is a generic placeholder (\"Amazon.com Purchase\") \u2014 real product name was not extracted"
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_6_20_24_1_47_PM_amazon.com",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "worksheet_pdf_in_attachments",
+          "severity": "warn",
+          "message": "1 WorkSheet PDF(s) included as attachments: HAWB9438625-WorkSheet.pdf.",
+          "field": "attachment_paths",
+          "value": "1",
+          "fix_hint": "WorkSheet PDFs are auto-generated by send_shipment_email.py at send time. They should not appear in attachment_paths during pipeline output."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_6_4_24_10_55_AM_amazon.com-",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 4,
+      "failures": [
+        {
+          "check": "weight_zero",
+          "severity": "block",
+          "message": "Weight is 0 kg. A shipment cannot weigh 0 kg.",
+          "field": "weight",
+          "value": "0",
+          "fix_hint": "Read the BL PDF and look for GRAND TOTAL line with weight in kg. Update _email_params.json field \"weight\" with the correct value."
+        },
+        {
+          "check": "freight_zero",
+          "severity": "warn",
+          "message": "Freight is $0. Ocean freight is typically > $0.",
+          "field": "freight",
+          "value": "0",
+          "fix_hint": "Check the BL cost breakdown for freight charges. If freight is genuinely $0 (e.g. prepaid/included), this may be OK."
+        },
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "worksheet_pdf_in_attachments",
+          "severity": "warn",
+          "message": "1 WorkSheet PDF(s) included as attachments: HAWB9421183-WorkSheet.pdf.",
+          "field": "attachment_paths",
+          "value": "1",
+          "fix_hint": "WorkSheet PDFs are auto-generated by send_shipment_email.py at send time. They should not appear in attachment_paths during pipeline output."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"None\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "None",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_74.70",
+      "passed": false,
+      "blocker_count": 2,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "missing_attachments",
+          "severity": "block",
+          "message": "1 attachment file(s) not found on disk.",
+          "field": "attachment_paths",
+          "value": "1 missing",
+          "fix_hint": "Missing files: HAWB9671284-Declaration.pdf"
+        },
+        {
+          "check": "stale_tmp_path",
+          "severity": "block",
+          "message": "1 attachment path(s) point at a temp / rerun directory.",
+          "field": "attachment_paths",
+          "value": "HAWB9671284-Declaration.pdf",
+          "fix_hint": "Re-resolve attachment paths to point at the real output directory."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_7_20_24_9_02_an_zon.com_",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_7_28_24_10_16_AM_9r_on.com",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_7_29_24_2_33_PM_amazon.com",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_7_29_24_2_33_PM_amazoncom",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_7_29_24_35_PM_ai_zoncom",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_7_29_24_3_57_PM_amazon.com_",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_8_18_24_9_05_PM_ai_on.com_",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_ABOUT",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 3,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9728292.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9728292.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        },
+        {
+          "check": "item_placeholder_sku",
+          "severity": "warn",
+          "message": "6 occurrence(s) of \"placeholder_sku\" across XLSX attachment(s).",
+          "field": "xlsx_items.placeholder_sku",
+          "value": "6 hits",
+          "fix_hint": "Format YAML is not extracting real SKUs \u2014 fall-back assigned ITEM-NNN. Check the format spec for this supplier (config/formats/<name>.yaml).\nExamples: HAWB9728292.xlsx:r3 \u2014 SKU \"ITEM-1\" looks auto-generated (format extraction likely failed); HAWB9728292.xlsx:r4 \u2014 SKU \"ITEM-3\" looks auto-generated (format extraction likely failed); HAWB9728292.xlsx:r5 \u2014 SKU \"ITEM-5\" looks auto-generated (format extraction likely failed); HAWB9728292.xlsx:r38 \u2014 SKU \"ITEM-2\" looks auto-generated (format extraction likely failed); HAWB9728292.xlsx:r39 \u2014 SKU \"ITEM-4\" looks auto-generated (format extraction likely failed)"
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_ABOUT_2",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 3,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9748223.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9748223.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        },
+        {
+          "check": "item_placeholder_sku",
+          "severity": "warn",
+          "message": "6 occurrence(s) of \"placeholder_sku\" across XLSX attachment(s).",
+          "field": "xlsx_items.placeholder_sku",
+          "value": "6 hits",
+          "fix_hint": "Format YAML is not extracting real SKUs \u2014 fall-back assigned ITEM-NNN. Check the format spec for this supplier (config/formats/<name>.yaml).\nExamples: HAWB9748223.xlsx:r3 \u2014 SKU \"ITEM-2\" looks auto-generated (format extraction likely failed); HAWB9748223.xlsx:r4 \u2014 SKU \"ITEM-4\" looks auto-generated (format extraction likely failed); HAWB9748223.xlsx:r5 \u2014 SKU \"ITEM-6\" looks auto-generated (format extraction likely failed); HAWB9748223.xlsx:r36 \u2014 SKU \"ITEM-1\" looks auto-generated (format extraction likely failed); HAWB9748223.xlsx:r37 \u2014 SKU \"ITEM-3\" looks auto-generated (format extraction likely failed)"
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_ASHIONNOVA",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_AoV",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 3,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9586702.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9586702.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_AoV_2",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 3,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9591668.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9591668.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_AoV_3",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 3,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9584275.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9584275.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_COJAY",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_FASHIOMWVA",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_FASHIOMiOVA",
+      "passed": false,
+      "blocker_count": 2,
+      "warning_count": 3,
+      "failures": [
+        {
+          "check": "weight_zero",
+          "severity": "block",
+          "message": "Weight is 0 kg. A shipment cannot weigh 0 kg.",
+          "field": "weight",
+          "value": "0",
+          "fix_hint": "Read the BL PDF and look for GRAND TOTAL line with weight in kg. Update _email_params.json field \"weight\" with the correct value."
+        },
+        {
+          "check": "freight_zero",
+          "severity": "warn",
+          "message": "Freight is $0. Ocean freight is typically > $0.",
+          "field": "freight",
+          "value": "0",
+          "fix_hint": "Check the BL cost breakdown for freight charges. If freight is genuinely $0 (e.g. prepaid/included), this may be OK."
+        },
+        {
+          "check": "consignee_missing",
+          "severity": "block",
+          "message": "Consignee name is missing or placeholder: \"\".",
+          "field": "consignee_name",
+          "value": "",
+          "fix_hint": "Read the BL PDF or invoice headers to find the consignee/ship-to name."
+        },
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"None\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "None",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_Free_returns_within_90_days",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 4,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9600432.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9600432.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        },
+        {
+          "check": "item_quantity_zero_with_cost",
+          "severity": "warn",
+          "message": "6 occurrence(s) of \"quantity_zero_with_cost\" across XLSX attachment(s).",
+          "field": "xlsx_items.quantity_zero_with_cost",
+          "value": "6 hits",
+          "fix_hint": "Quantity=0 with non-zero TotalCost indicates failed quantity extraction. Check the format YAML quantity capture group.\nExamples: HAWB9600432.xlsx:r2 \u2014 Quantity=0 but TotalCost=$9.45 \u2014 extraction broke; HAWB9600432.xlsx:r3 \u2014 Quantity=0 but TotalCost=$1.98 \u2014 extraction broke; HAWB9600432.xlsx:r4 \u2014 Quantity=0 but TotalCost=$7.47 \u2014 extraction broke; HAWB9600432.xlsx:r36 \u2014 Quantity=0 but TotalCost=$8.31 \u2014 extraction broke; HAWB9600432.xlsx:r37 \u2014 Quantity=0 but TotalCost=$5.98 \u2014 extraction broke"
+        },
+        {
+          "check": "item_placeholder_sku",
+          "severity": "warn",
+          "message": "4 occurrence(s) of \"placeholder_sku\" across XLSX attachment(s).",
+          "field": "xlsx_items.placeholder_sku",
+          "value": "4 hits",
+          "fix_hint": "Format YAML is not extracting real SKUs \u2014 fall-back assigned ITEM-NNN. Check the format spec for this supplier (config/formats/<name>.yaml).\nExamples: HAWB9600432.xlsx:r3 \u2014 SKU \"ITEM-1\" looks auto-generated (format extraction likely failed); HAWB9600432.xlsx:r4 \u2014 SKU \"ITEM-3\" looks auto-generated (format extraction likely failed); HAWB9600432.xlsx:r37 \u2014 SKU \"ITEM-2\" looks auto-generated (format extraction likely failed); HAWB9600432.xlsx:r38 \u2014 SKU \"ITEM-4\" looks auto-generated (format extraction likely failed)"
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_Free_returns_within_90_days_2",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 4,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: None.xlsx.",
+          "field": "attachment_paths",
+          "value": "None.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        },
+        {
+          "check": "item_quantity_zero_with_cost",
+          "severity": "warn",
+          "message": "6 occurrence(s) of \"quantity_zero_with_cost\" across XLSX attachment(s).",
+          "field": "xlsx_items.quantity_zero_with_cost",
+          "value": "6 hits",
+          "fix_hint": "Quantity=0 with non-zero TotalCost indicates failed quantity extraction. Check the format YAML quantity capture group.\nExamples: None.xlsx:r2 \u2014 Quantity=0 but TotalCost=$8.31 \u2014 extraction broke; None.xlsx:r3 \u2014 Quantity=0 but TotalCost=$5.98 \u2014 extraction broke; None.xlsx:r4 \u2014 Quantity=0 but TotalCost=$2.33 \u2014 extraction broke; None.xlsx:r34 \u2014 Quantity=0 but TotalCost=$9.45 \u2014 extraction broke; None.xlsx:r35 \u2014 Quantity=0 but TotalCost=$1.98 \u2014 extraction broke"
+        },
+        {
+          "check": "item_placeholder_sku",
+          "severity": "warn",
+          "message": "4 occurrence(s) of \"placeholder_sku\" across XLSX attachment(s).",
+          "field": "xlsx_items.placeholder_sku",
+          "value": "4 hits",
+          "fix_hint": "Format YAML is not extracting real SKUs \u2014 fall-back assigned ITEM-NNN. Check the format spec for this supplier (config/formats/<name>.yaml).\nExamples: None.xlsx:r3 \u2014 SKU \"ITEM-2\" looks auto-generated (format extraction likely failed); None.xlsx:r4 \u2014 SKU \"ITEM-4\" looks auto-generated (format extraction likely failed); None.xlsx:r35 \u2014 SKU \"ITEM-1\" looks auto-generated (format extraction likely failed); None.xlsx:r36 \u2014 SKU \"ITEM-3\" looks auto-generated (format extraction likely failed)"
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_Grand_Total_USD_44.17_Payment_Grand_Total_XCD_120.90",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_Grenada_Simplified_Declaration_Form",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_Jul_16_2024_order_Order_2000120-11892676",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_Order_information",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_Order_totai",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_Order_total",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_Payment_Grand_TotahXCD_102.48_Visa_ending_in_9228_July",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_Payment_information",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 0,
+      "failures": []
+    },
+    {
+      "shipment": "03152025_Price_59.92",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_RECEIPT",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 5,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9600998.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9600998.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        },
+        {
+          "check": "item_description_too_short",
+          "severity": "warn",
+          "message": "1 occurrence(s) of \"description_too_short\" across XLSX attachment(s).",
+          "field": "xlsx_items.description_too_short",
+          "value": "1 hits",
+          "fix_hint": "Item description is too short to be a real product name. Re-check the format YAML and source PDF text extraction.\nExamples: HAWB9600998.xlsx:r3 \u2014 Description \"eee\" is shorter than 5 chars"
+        },
+        {
+          "check": "item_garbage_description_pattern",
+          "severity": "warn",
+          "message": "1 occurrence(s) of \"garbage_description_pattern\" across XLSX attachment(s).",
+          "field": "xlsx_items.garbage_description_pattern",
+          "value": "1 hits",
+          "fix_hint": "Description is OCR garbage / keymash. Try a higher-resolution OCR pass on this page or update the format YAML.\nExamples: HAWB9600998.xlsx:r3 \u2014 Description \"eee\" looks like keymash / OCR garbage"
+        },
+        {
+          "check": "item_payment_line_as_item",
+          "severity": "block",
+          "message": "2 occurrence(s) of \"payment_line_as_item\" across XLSX attachment(s).",
+          "field": "xlsx_items.payment_line_as_item",
+          "value": "2 hits",
+          "fix_hint": "Payment-method/Paypal lines must not be ingested as items. Add the payment-line marker to the format YAML skip rules.\nExamples: HAWB9600998.xlsx:r43 \u2014 Payment-method line treated as item: SKU=\"\", desc=\"METHOD Paypal $67.98 (1 items)\"; HAWB9600998.xlsx:r44 \u2014 Payment-method line treated as item: SKU=\"PAYMENT\", desc=\"METHOD Paypal $67.98\""
+        },
+        {
+          "check": "item_duplicate_items_in_xlsx",
+          "severity": "warn",
+          "message": "1 occurrence(s) of \"duplicate_items_in_xlsx\" across XLSX attachment(s).",
+          "field": "xlsx_items.duplicate_items_in_xlsx",
+          "value": "1 hits",
+          "fix_hint": "Same item appears multiple times in one XLSX. May be legitimate (two of the same product) or duplicate extraction. Verify against source PDF.\nExamples: HAWB9600998.xlsx:r37 \u2014 Same description+price appears on rows [37, 38] (desc=\"flared\" @ $20.99)"
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_RECEIPT_2",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 5,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9603312.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9603312.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        },
+        {
+          "check": "item_payment_line_as_item",
+          "severity": "block",
+          "message": "2 occurrence(s) of \"payment_line_as_item\" across XLSX attachment(s).",
+          "field": "xlsx_items.payment_line_as_item",
+          "value": "2 hits",
+          "fix_hint": "Payment-method/Paypal lines must not be ingested as items. Add the payment-line marker to the format YAML skip rules.\nExamples: HAWB9603312.xlsx:r9 \u2014 Payment-method line treated as item: SKU=\"99999999\", desc=\"METHOD Paypal $67.98 (1 items)\"; HAWB9603312.xlsx:r10 \u2014 Payment-method line treated as item: SKU=\"PAYMENT\", desc=\"METHOD Paypal $67.98\""
+        },
+        {
+          "check": "item_description_too_short",
+          "severity": "warn",
+          "message": "1 occurrence(s) of \"description_too_short\" across XLSX attachment(s).",
+          "field": "xlsx_items.description_too_short",
+          "value": "1 hits",
+          "fix_hint": "Item description is too short to be a real product name. Re-check the format YAML and source PDF text extraction.\nExamples: HAWB9603312.xlsx:r49 \u2014 Description \"eee\" is shorter than 5 chars"
+        },
+        {
+          "check": "item_garbage_description_pattern",
+          "severity": "warn",
+          "message": "1 occurrence(s) of \"garbage_description_pattern\" across XLSX attachment(s).",
+          "field": "xlsx_items.garbage_description_pattern",
+          "value": "1 hits",
+          "fix_hint": "Description is OCR garbage / keymash. Try a higher-resolution OCR pass on this page or update the format YAML.\nExamples: HAWB9603312.xlsx:r49 \u2014 Description \"eee\" looks like keymash / OCR garbage"
+        },
+        {
+          "check": "item_duplicate_items_in_xlsx",
+          "severity": "warn",
+          "message": "1 occurrence(s) of \"duplicate_items_in_xlsx\" across XLSX attachment(s).",
+          "field": "xlsx_items.duplicate_items_in_xlsx",
+          "value": "1 hits",
+          "fix_hint": "Same item appears multiple times in one XLSX. May be legitimate (two of the same product) or duplicate extraction. Verify against source PDF.\nExamples: HAWB9603312.xlsx:r3 \u2014 Same description+price appears on rows [3, 4] (desc=\"flared\" @ $20.99)"
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_Sales_Invoice",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_Shipped_on_August_7_2024",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9686021.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9686021.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_Shipped_on_August_7_2024_2",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9686876.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9686876.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_Shipped_on_August_7_2024_3",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "xlsx_without_source_pdf",
+          "severity": "warn",
+          "message": "1 XLSX attachment(s) have no matching source PDF: HAWB9685992.xlsx.",
+          "field": "attachment_paths",
+          "value": "HAWB9685992.xlsx",
+          "fix_hint": "Each per-invoice XLSX should ship with the source PDF it was generated from."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_Shipped_on_July_11_2024",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_Sign_Out",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "item_quantity_zero_with_cost",
+          "severity": "warn",
+          "message": "2 occurrence(s) of \"quantity_zero_with_cost\" across XLSX attachment(s).",
+          "field": "xlsx_items.quantity_zero_with_cost",
+          "value": "2 hits",
+          "fix_hint": "Quantity=0 with non-zero TotalCost indicates failed quantity extraction. Check the format YAML quantity capture group.\nExamples: HAWB9389257-Manifest_Invoice.xlsx:r2 \u2014 Quantity=0 but TotalCost=$21.97 \u2014 extraction broke; HAWB9389257-Manifest_Invoice.xlsx:r3 \u2014 Quantity=0 but TotalCost=$21.97 \u2014 extraction broke"
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_Solid_Notch_Neck_Blouse_Casual_Short_Sleeve_..._Golden",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 3,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_quantity_zero_with_cost",
+          "severity": "warn",
+          "message": "2 occurrence(s) of \"quantity_zero_with_cost\" across XLSX attachment(s).",
+          "field": "xlsx_items.quantity_zero_with_cost",
+          "value": "2 hits",
+          "fix_hint": "Quantity=0 with non-zero TotalCost indicates failed quantity extraction. Check the format YAML quantity capture group.\nExamples: PO-211-05886758334074065.xlsx:r2 \u2014 Quantity=0 but TotalCost=$2.84 \u2014 extraction broke; PO-211-05886758334074065.xlsx:r3 \u2014 Quantity=0 but TotalCost=$2.84 \u2014 extraction broke"
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_TOTAL_AMOUNT",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 4,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "item_llm_auto_format_used",
+          "severity": "warn",
+          "message": "1 occurrence(s) of \"llm_auto_format_used\" across XLSX attachment(s).",
+          "field": "xlsx_items.llm_auto_format_used",
+          "value": "1 hits",
+          "fix_hint": "No format YAML matched \u2014 pipeline auto-generated extraction via LLM. Promote the auto-generated spec into a real config/formats/*.yaml so future invoices use deterministic extraction.\nExamples: UCSJB.xlsx \u2014 format_name=high___waist_straight_shorts"
+        },
+        {
+          "check": "item_quantity_zero_with_cost",
+          "severity": "warn",
+          "message": "8 occurrence(s) of \"quantity_zero_with_cost\" across XLSX attachment(s).",
+          "field": "xlsx_items.quantity_zero_with_cost",
+          "value": "8 hits",
+          "fix_hint": "Quantity=0 with non-zero TotalCost indicates failed quantity extraction. Check the format YAML quantity capture group.\nExamples: UCSJB.xlsx:r2 \u2014 Quantity=0 but TotalCost=$13.48 \u2014 extraction broke; UCSJB.xlsx:r3 \u2014 Quantity=0 but TotalCost=$8.99 \u2014 extraction broke; UCSJB.xlsx:r4 \u2014 Quantity=0 but TotalCost=$4.49 \u2014 extraction broke; UCSJB.xlsx:r5 \u2014 Quantity=0 but TotalCost=$15.98 \u2014 extraction broke; UCSJB.xlsx:r6 \u2014 Quantity=0 but TotalCost=$6.99 \u2014 extraction broke"
+        },
+        {
+          "check": "item_placeholder_sku",
+          "severity": "warn",
+          "message": "6 occurrence(s) of \"placeholder_sku\" across XLSX attachment(s).",
+          "field": "xlsx_items.placeholder_sku",
+          "value": "6 hits",
+          "fix_hint": "Format YAML is not extracting real SKUs \u2014 fall-back assigned ITEM-NNN. Check the format spec for this supplier (config/formats/<name>.yaml).\nExamples: UCSJB.xlsx:r3 \u2014 SKU \"ITEM-001\" looks auto-generated (format extraction likely failed); UCSJB.xlsx:r4 \u2014 SKU \"ITEM-002\" looks auto-generated (format extraction likely failed); UCSJB.xlsx:r6 \u2014 SKU \"ITEM-003\" looks auto-generated (format extraction likely failed); UCSJB.xlsx:r7 \u2014 SKU \"ITEM-005\" looks auto-generated (format extraction likely failed); UCSJB.xlsx:r9 \u2014 SKU \"ITEM-004\" looks auto-generated (format extraction likely failed)"
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_USD_279.46_XCD_765.72_765.72",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_V_5_",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: 114-4890674-1042658.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_aiMzon.com",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 3,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_duplicate_items_in_xlsx",
+          "severity": "warn",
+          "message": "1 occurrence(s) of \"duplicate_items_in_xlsx\" across XLSX attachment(s).",
+          "field": "xlsx_items.duplicate_items_in_xlsx",
+          "value": "1 hits",
+          "fix_hint": "Same item appears multiple times in one XLSX. May be legitimate (two of the same product) or duplicate extraction. Verify against source PDF.\nExamples: 113-6780887-3785049.xlsx:r3 \u2014 Same description+price appears on rows [3, 4] (desc=\"ziayi 6.5\" original for samsung galaxy a\" @ $18.79)"
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_ai_zoncom",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 3,
+      "failures": [
+        {
+          "check": "freight_zero",
+          "severity": "warn",
+          "message": "Freight is $0.0. Ocean freight is typically > $0.",
+          "field": "freight",
+          "value": "0.0",
+          "fix_hint": "Check the BL cost breakdown for freight charges. If freight is genuinely $0 (e.g. prepaid/included), this may be OK."
+        },
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/27\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/27",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_amajzon.com",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_amazoacom_",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/27\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/27",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_amazon.com",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/26\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/26",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_amazon.com_001",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_amazoneom",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/27\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/27",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_ami_zoiiJCO_Ti",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_ami_zonjccpi",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 3,
+      "failures": [
+        {
+          "check": "freight_zero",
+          "severity": "warn",
+          "message": "Freight is $0.0. Ocean freight is typically > $0.",
+          "field": "freight",
+          "value": "0.0",
+          "fix_hint": "Check the BL cost breakdown for freight charges. If freight is genuinely $0 (e.g. prepaid/included), this may be OK."
+        },
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: 112-2894545-9421810.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_amzon.com",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_anmzon.com",
+      "passed": true,
+      "blocker_count": 0,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_innrrmiTtrri",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: Details.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_innrrmiTtrri_2",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: Details.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "03152025_k",
+      "passed": false,
+      "blocker_count": 2,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/27\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/27",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: 114-8204840-5125866.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        },
+        {
+          "check": "item_payment_line_as_item",
+          "severity": "block",
+          "message": "4 occurrence(s) of \"payment_line_as_item\" across XLSX attachment(s).",
+          "field": "xlsx_items.payment_line_as_item",
+          "value": "4 hits",
+          "fix_hint": "Payment-method/Paypal lines must not be ingested as items. Add the payment-line marker to the format YAML skip rules.\nExamples: 114-8204840-5125866.xlsx:r5 \u2014 Payment-method line treated as item: SKU=\"42022200\", desc=\"FLIPALM for Samsung Galaxy S24 Ultra Wallet Case with RFID B\"; 114-8204840-5125866.xlsx:r6 \u2014 Payment-method line treated as item: SKU=\"42022290\", desc=\"FLIPALM for Samsung Galaxy S24 Ultra Wallet Case with RFID B\"; 114-8204840-5125866.xlsx:r7 \u2014 Payment-method line treated as item: SKU=\"AMZ-2\", desc=\"FLIPALM for Samsung Galaxy S24 Ultra Wallet Case with RFID B\"; 114-8204840-5125866.xlsx:r8 \u2014 Payment-method line treated as item: SKU=\"AMZ-4\", desc=\"FLIPALM for Samsung Galaxy S24 Ultra Walfet Case with RFIO B\""
+        }
+      ]
+    },
+    {
+      "shipment": "05292024_SHEIN_US_Services_LLC.",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/21\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/21",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: INVUS20240529001460693.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "06252024_SHEIN_US_Services_LLC.",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: INVUS20240625003805461.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "06292024_ales_Invoice",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/26\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/26",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: INVUS20240629002615691.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "07062024_SHEIN_US_Services_LLC.",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 3,
+      "failures": [
+        {
+          "check": "freight_zero",
+          "severity": "warn",
+          "message": "Freight is $0.0. Ocean freight is typically > $0.",
+          "field": "freight",
+          "value": "0.0",
+          "fix_hint": "Check the BL cost breakdown for freight charges. If freight is genuinely $0 (e.g. prepaid/included), this may be OK."
+        },
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/27\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/27",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: INVUS20240706002809666.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "07092024_SHEIN_US_Services_LLC.",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: INVUS20240709000586047.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "07102024_SHEIN_US_Services_LLC.",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: INVUS20240710001147870.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "07112024_ales_Invoice",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: INVUS20240711002806785.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "07122024_SHEIN_US_Services_LLC.",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/27\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/27",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: GSUNJOQ60WOO0R6F.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "07122024_ales_Invoice",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/27\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/27",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: INVUS20240712001528805.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "07152024_SHEIN_US_Services_LLC.",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: GSUNJ641400YC76.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "07162024_SHEIN_US_Services_LLC.",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: INVUS20240716000349010.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "07162024_SHEIN_US_Services_LLC._001",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: GSUNJX01MOQ04CYE.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "07172024_SHEiN_US_Services_LLC.",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: INVUS20240717002557437.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "07172024_Sales_invoice",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: GSUNJY61C00M1Q5.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "07192024_WorldStar",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: 9213.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "07202024_SHEIN_US_Services_LLC.",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/29\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/29",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: INVUS20240720003756965.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "07202024_Sales_Invoice",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: INVUS20240720002247856.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "07222024_Sales_Invoice",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/29\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/29",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: INVUS20240722005230575.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "07252024_TEMU",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 3,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: PO-211-17867849567351770.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        },
+        {
+          "check": "item_placeholder_sku",
+          "severity": "warn",
+          "message": "2 occurrence(s) of \"placeholder_sku\" across XLSX attachment(s).",
+          "field": "xlsx_items.placeholder_sku",
+          "value": "2 hits",
+          "fix_hint": "Format YAML is not extracting real SKUs \u2014 fall-back assigned ITEM-NNN. Check the format spec for this supplier (config/formats/<name>.yaml).\nExamples: PO-211-17867849567351770.xlsx:r4 \u2014 SKU \"ITEM-001\" looks auto-generated (format extraction likely failed); PO-211-17867849567351770.xlsx:r7 \u2014 SKU \"ITEM-002\" looks auto-generated (format extraction likely failed)"
+        }
+      ]
+    },
+    {
+      "shipment": "07252024_ama_on.com",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 3,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: 112-4898145-5081001.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        },
+        {
+          "check": "item_duplicate_items_in_xlsx",
+          "severity": "warn",
+          "message": "1 occurrence(s) of \"duplicate_items_in_xlsx\" across XLSX attachment(s).",
+          "field": "xlsx_items.duplicate_items_in_xlsx",
+          "value": "1 hits",
+          "fix_hint": "Same item appears multiple times in one XLSX. May be legitimate (two of the same product) or duplicate extraction. Verify against source PDF.\nExamples: 112-4898145-5081001.xlsx:r4 \u2014 Same description+price appears on rows [4, 5] (desc=\"coofandy linen shirts for men summer haw\" @ $24.99)"
+        }
+      ]
+    },
+    {
+      "shipment": "07262024_INVOICE_COPY",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 3,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: G 39411.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        },
+        {
+          "check": "item_placeholder_sku",
+          "severity": "warn",
+          "message": "1 occurrence(s) of \"placeholder_sku\" across XLSX attachment(s).",
+          "field": "xlsx_items.placeholder_sku",
+          "value": "1 hits",
+          "fix_hint": "Format YAML is not extracting real SKUs \u2014 fall-back assigned ITEM-NNN. Check the format spec for this supplier (config/formats/<name>.yaml).\nExamples: G 39411.xlsx:r4 \u2014 SKU \"ITEM-001\" looks auto-generated (format extraction likely failed)"
+        }
+      ]
+    },
+    {
+      "shipment": "07262024_SHEIN_US_Services_LLC.",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/30\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/30",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: INVUS20240726000070596.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "07292024_Order_total",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 3,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: 06-11844-17746.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        },
+        {
+          "check": "item_placeholder_sku",
+          "severity": "warn",
+          "message": "1 occurrence(s) of \"placeholder_sku\" across XLSX attachment(s).",
+          "field": "xlsx_items.placeholder_sku",
+          "value": "1 hits",
+          "fix_hint": "Format YAML is not extracting real SKUs \u2014 fall-back assigned ITEM-NNN. Check the format spec for this supplier (config/formats/<name>.yaml).\nExamples: 06-11844-17746.xlsx:r4 \u2014 SKU \"ITEM-001\" looks auto-generated (format extraction likely failed)"
+        }
+      ]
+    },
+    {
+      "shipment": "07312024_Payment_information",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/24\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/24",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: 114-5691424-8153037.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "07312024_SHEIN_US_Services_LLC.",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/30\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/30",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: INVUS2024073100.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "08052024_SHEIN_US_Services_LLC.",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/30\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/30",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: INVUS20240805001997644.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "08062024_SHEIN_US_Services_LLC.",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/34\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/34",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: GSUNVN57WO0009XF.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "08292024_Order_totai",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 3,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/33\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/33",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: 05-11975-88257.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        },
+        {
+          "check": "item_placeholder_sku",
+          "severity": "warn",
+          "message": "1 occurrence(s) of \"placeholder_sku\" across XLSX attachment(s).",
+          "field": "xlsx_items.placeholder_sku",
+          "value": "1 hits",
+          "fix_hint": "Format YAML is not extracting real SKUs \u2014 fall-back assigned ITEM-NNN. Check the format spec for this supplier (config/formats/<name>.yaml).\nExamples: 05-11975-88257.xlsx:r4 \u2014 SKU \"ITEM-001\" looks auto-generated (format extraction likely failed)"
+        }
+      ]
+    },
+    {
+      "shipment": "08292024_Order_total",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 3,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/33\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/33",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: 25-11963-01504.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        },
+        {
+          "check": "item_placeholder_sku",
+          "severity": "warn",
+          "message": "1 occurrence(s) of \"placeholder_sku\" across XLSX attachment(s).",
+          "field": "xlsx_items.placeholder_sku",
+          "value": "1 hits",
+          "fix_hint": "Format YAML is not extracting real SKUs \u2014 fall-back assigned ITEM-NNN. Check the format spec for this supplier (config/formats/<name>.yaml).\nExamples: 25-11963-01504.xlsx:r4 \u2014 SKU \"ITEM-001\" looks auto-generated (format extraction likely failed)"
+        }
+      ]
+    },
+    {
+      "shipment": "08292024_Payment_information",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/33\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/33",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: 113-2154106-7293065.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "08292024_Shipped_on_August_22_2024",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 1,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: 113-4565879-3438618.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "08292024_ama_on.com",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/33\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/33",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: 113-3750096-1047430.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "09242024_Sales_Invofce",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/38\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/38",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: INVUS2024002460.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "12072024_Margaret_Fletcher_MC_Leish_10813_NW_30TH_ST_BLDG_115_GR",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/28",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: E07-11813-.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "ANDREA_L",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/30\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/30",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: INVUS20240728002530332.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    },
+    {
+      "shipment": "BERNISHA",
+      "passed": false,
+      "blocker_count": 1,
+      "warning_count": 2,
+      "failures": [
+        {
+          "check": "consignee_code_missing",
+          "severity": "warn",
+          "message": "Consignee code is empty.",
+          "field": "consignee_code",
+          "value": "",
+          "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+        },
+        {
+          "check": "man_reg_invalid",
+          "severity": "warn",
+          "message": "man_reg \"2024/30\" does not match expected \"YYYY NN\" format.",
+          "field": "man_reg",
+          "value": "2024/30",
+          "fix_hint": "Use \"YYYY NN\" format (year + slot number)."
+        },
+        {
+          "check": "item_negative_invoice_total",
+          "severity": "block",
+          "message": "1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+          "field": "xlsx_items.negative_invoice_total",
+          "value": "1 hits",
+          "fix_hint": "InvoiceTotal must be > 0. Re-check the source invoice OCR.\nExamples: INVUS20240806002684.xlsx:r2 \u2014 InvoiceTotal is 0 (must be > 0)"
+        }
+      ]
+    }
+  ],
+  "kind_counts": {
+    "consignee_code_missing": 121,
+    "xlsx_without_source_pdf": 31,
+    "item_duplicate_items_in_xlsx": 7,
+    "man_reg_invalid": 57,
+    "item_quantity_zero_with_cost": 13,
+    "worksheet_pdf_in_attachments": 7,
+    "item_placeholder_sku": 14,
+    "item_description_starts_with_tariff": 4,
+    "weight_zero": 3,
+    "freight_zero": 6,
+    "item_generic_purchase_description": 1,
+    "missing_attachments": 1,
+    "stale_tmp_path": 1,
+    "consignee_missing": 1,
+    "item_description_too_short": 2,
+    "item_garbage_description_pattern": 2,
+    "item_payment_line_as_item": 3,
+    "item_llm_auto_format_used": 1,
+    "item_negative_invoice_total": 41
+  },
+  "severity_counts": {
+    "warn": 266,
+    "block": 50
+  },
+  "kind_examples": {
+    "consignee_code_missing": [
+      "03142025_7_24_24_3_53_PM_am_on.coiti_: Consignee code is empty.",
+      "03142025_7_24_24_3_53_PM_am_on.coiti__2: Consignee code is empty.",
+      "03142025_7_24_24_3_53_PM_am_on.coiti__3: Consignee code is empty."
+    ],
+    "xlsx_without_source_pdf": [
+      "03142025_7_24_24_3_53_PM_am_on.coiti_: 1 XLSX attachment(s) have no matching source PDF: HAWB9595443.xlsx.",
+      "03142025_7_24_24_3_53_PM_am_on.coiti__2: 1 XLSX attachment(s) have no matching source PDF: HAWB9595459.xlsx.",
+      "03142025_7_24_24_3_53_PM_am_on.coiti__3: 1 XLSX attachment(s) have no matching source PDF: HAWB9596948.xlsx."
+    ],
+    "item_duplicate_items_in_xlsx": [
+      "03142025_7_24_24_3_53_PM_am_on.coiti_: 1 occurrence(s) of \"duplicate_items_in_xlsx\" across XLSX attachment(s).",
+      "03142025_7_24_24_3_53_PM_am_on.coiti__2: 1 occurrence(s) of \"duplicate_items_in_xlsx\" across XLSX attachment(s).",
+      "03142025_7_24_24_3_53_PM_am_on.coiti__3: 1 occurrence(s) of \"duplicate_items_in_xlsx\" across XLSX attachment(s)."
+    ],
+    "man_reg_invalid": [
+      "03142025_7_24_24_3_53_PM_am_on.coiti__2: man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+      "03152025111114_6: man_reg \"2024/28\" does not match expected \"YYYY NN\" format.",
+      "03152025140315_2: man_reg \"2024/28\" does not match expected \"YYYY NN\" format."
+    ],
+    "item_quantity_zero_with_cost": [
+      "03152025103631: 2 occurrence(s) of \"quantity_zero_with_cost\" across XLSX attachment(s).",
+      "03152025103721: 2 occurrence(s) of \"quantity_zero_with_cost\" across XLSX attachment(s).",
+      "03152025135830: 2 occurrence(s) of \"quantity_zero_with_cost\" across XLSX attachment(s)."
+    ],
+    "worksheet_pdf_in_attachments": [
+      "03152025140315: 2 WorkSheet PDF(s) included as attachments: HAWB9600873-WorkSheet.pdf, HAWB9606117-WorkSheet.pdf.",
+      "03152025140315_2: 2 WorkSheet PDF(s) included as attachments: HAWB9600873-WorkSheet.pdf, HAWB9606117-WorkSheet.pdf.",
+      "03152025_1_8_2024_06_00_amaz_.com_: 1 WorkSheet PDF(s) included as attachments: HAWBS9671243-WorkSheet.pdf."
+    ],
+    "item_placeholder_sku": [
+      "03152025140315: 10 occurrence(s) of \"placeholder_sku\" across XLSX attachment(s).",
+      "03152025140315_2: 10 occurrence(s) of \"placeholder_sku\" across XLSX attachment(s).",
+      "03152025_25.58: 4 occurrence(s) of \"placeholder_sku\" across XLSX attachment(s)."
+    ],
+    "item_description_starts_with_tariff": [
+      "03152025140315: 12 occurrence(s) of \"description_starts_with_tariff\" across XLSX attachment(s).",
+      "03152025140315_2: 12 occurrence(s) of \"description_starts_with_tariff\" across XLSX attachment(s).",
+      "03152025_25.58: 4 occurrence(s) of \"description_starts_with_tariff\" across XLSX attachment(s)."
+    ],
+    "weight_zero": [
+      "03152025_1_8_2024_06_00_amaz_.com_: Weight is 0 kg. A shipment cannot weigh 0 kg.",
+      "03152025_6_4_24_10_55_AM_amazon.com-: Weight is 0 kg. A shipment cannot weigh 0 kg.",
+      "03152025_FASHIOMiOVA: Weight is 0 kg. A shipment cannot weigh 0 kg."
+    ],
+    "freight_zero": [
+      "03152025_1_8_2024_06_00_amaz_.com_: Freight is $0. Ocean freight is typically > $0.",
+      "03152025_6_4_24_10_55_AM_amazon.com-: Freight is $0. Ocean freight is typically > $0.",
+      "03152025_FASHIOMiOVA: Freight is $0. Ocean freight is typically > $0."
+    ],
+    "item_generic_purchase_description": [
+      "03152025_5_27_25_6_57_PM_anmzon.com: 1 occurrence(s) of \"generic_purchase_description\" across XLSX attachment(s)."
+    ],
+    "missing_attachments": [
+      "03152025_74.70: 1 attachment file(s) not found on disk."
+    ],
+    "stale_tmp_path": [
+      "03152025_74.70: 1 attachment path(s) point at a temp / rerun directory."
+    ],
+    "consignee_missing": [
+      "03152025_FASHIOMiOVA: Consignee name is missing or placeholder: \"\"."
+    ],
+    "item_description_too_short": [
+      "03152025_RECEIPT: 1 occurrence(s) of \"description_too_short\" across XLSX attachment(s).",
+      "03152025_RECEIPT_2: 1 occurrence(s) of \"description_too_short\" across XLSX attachment(s)."
+    ],
+    "item_garbage_description_pattern": [
+      "03152025_RECEIPT: 1 occurrence(s) of \"garbage_description_pattern\" across XLSX attachment(s).",
+      "03152025_RECEIPT_2: 1 occurrence(s) of \"garbage_description_pattern\" across XLSX attachment(s)."
+    ],
+    "item_payment_line_as_item": [
+      "03152025_RECEIPT: 2 occurrence(s) of \"payment_line_as_item\" across XLSX attachment(s).",
+      "03152025_RECEIPT_2: 2 occurrence(s) of \"payment_line_as_item\" across XLSX attachment(s).",
+      "03152025_k: 4 occurrence(s) of \"payment_line_as_item\" across XLSX attachment(s)."
+    ],
+    "item_llm_auto_format_used": [
+      "03152025_TOTAL_AMOUNT: 1 occurrence(s) of \"llm_auto_format_used\" across XLSX attachment(s)."
+    ],
+    "item_negative_invoice_total": [
+      "03152025_V_5_: 1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+      "03152025_ami_zonjccpi: 1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s).",
+      "03152025_innrrmiTtrri: 1 occurrence(s) of \"negative_invoice_total\" across XLSX attachment(s)."
+    ]
+  }
+}

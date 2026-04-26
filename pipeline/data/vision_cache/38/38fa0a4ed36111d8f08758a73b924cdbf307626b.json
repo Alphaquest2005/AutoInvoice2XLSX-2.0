@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten text 'School Book' appears between the shipping address and shipping speed sections"
+  },
+  "printed": {
+    "consignee": "Carlisha Alexander-Wilson",
+    "freight": 0,
+    "waybill": "",
+    "man_reg": "",
+    "office": "",
+    "weight": 0,
+    "packages": 0
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

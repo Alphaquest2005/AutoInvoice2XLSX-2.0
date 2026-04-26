@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9584427",
+  "consignee_name": "FRANKY LINDSAY",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "1.0",
+  "country_origin": "US",
+  "freight": "5.00",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_032/out/20-11818-51856.pdf",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_032/out/HAWB9584427.xlsx",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_032/out/HAWB9584427-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

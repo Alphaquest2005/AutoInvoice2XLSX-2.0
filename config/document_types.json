@@ -50,6 +50,10 @@
   },
   "default": "4000-000",
   "combine_entries_default": true,
+  "consignee_match": {
+    "min_single_word_alias_chars": 4,
+    "_notes": "Minimum length for a single-word alias to be matched as a word in invoice OCR text. Below this, false positives become likely (e.g. 'bm' inside 'submarine'). Multi-word aliases ignore this constraint."
+  },
   "consignee_rules": [
     {
       "match": "budget marine",

@@ -47,7 +47,7 @@ COST_LINE_ITEMS = {
 }
 
 
-def parse_bl_pdf(pdf_path: str) -> Dict:
+def _parse_bl_pdf_impl(pdf_path: str) -> Dict:
     """
     Parse a Tropical Shipping BL PDF and return structured data.
 
@@ -105,6 +105,41 @@ def parse_bl_pdf(pdf_path: str) -> Dict:
         'shipments': shipments,
         'grand_total': grand_total,
     }
+
+
+def parse_bl_pdf(pdf_path: str) -> Dict:
+    """Public wrapper that times :func:`_parse_bl_pdf_impl` via ``perf_log``."""
+    try:
+        import perf_log as _perf
+    except Exception:
+        _perf = None
+    import os as _os
+    import time as _time
+    t0 = _time.monotonic()
+    base = _os.path.basename(pdf_path) if pdf_path else ""
+    err = None
+    n_shipments = 0
+    try:
+        result = _parse_bl_pdf_impl(pdf_path)
+        try:
+            n_shipments = len((result or {}).get('shipments', []) or [])
+        except Exception:
+            pass
+        return result
+    except BaseException as e:  # noqa: BLE001
+        err = type(e).__name__
+        raise
+    finally:
+        dur = _time.monotonic() - t0
+        if _perf is not None:
+            try:
+                _perf.event(
+                    "bl_parser.parse_bl_pdf", dur,
+                    pdf=base, n_shipments=n_shipments,
+                    error=err if err else None,
+                )
+            except Exception:
+                pass
 
 
 def match_invoice_to_bl(invoice_num: str, po_refs: List[str],

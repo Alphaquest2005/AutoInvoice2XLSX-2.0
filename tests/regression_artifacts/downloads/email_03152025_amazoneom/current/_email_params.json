@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9557813",
+  "consignee_name": "TRAVIS JOHN",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "1.0",
+  "country_origin": "US",
+  "freight": "3.00",
+  "man_reg": "2024 27",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0353/out/111-1857051-8425001.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0353/out/111-1857051-8425001.xlsx",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0353/out/HAWB9557813-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

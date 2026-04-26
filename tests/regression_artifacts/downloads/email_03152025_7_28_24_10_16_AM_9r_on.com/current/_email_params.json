@@ -1,0 +1,21 @@
+{
+  "waybill": "HAWB9605543",
+  "consignee_name": "LESLIE ANN JOHNSON",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 2,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "4.0",
+  "country_origin": "US",
+  "freight": "3.00",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0323/out/114-1708026-9220253.pdf",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0323/out/114-1708026-9220253_2.pdf",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0323/out/HAWB9605543_combined.xlsx",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0323/out/HAWB9605543-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

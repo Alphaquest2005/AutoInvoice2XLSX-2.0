@@ -99,6 +99,32 @@ styles:
     detail_font_color: "808080"
     font_size: 10
 
+  # Single-invoice xlsx_generator header / group / detail styling.
+  # added by Wave 1 for pipeline/xlsx_generator.py
+  single_invoice_header:
+    fill_color: "1F4E79"
+    font_color: "FFFFFF"
+    font_bold: true
+    font_size: 11
+  single_invoice_group:
+    fill_color: "2E75B6"
+    font_color: "FFFFFF"
+    font_bold: true
+    font_size: 11
+  single_invoice_detail:
+    font_size: 10
+  # Bold + blue for verification / totals sections.
+  verify:
+    font_color: "0000FF"
+    font_bold: true
+  # Bold + red for out-of-tolerance variance rows.
+  variance:
+    font_color: "FF0000"
+    font_bold: true
+  # Fill for the totals/summary band at the bottom of a single-invoice sheet.
+  totals_section:
+    fill_color: "D6E4F0"
+
 # Comment author attribution for openpyxl cell comments on recovered values.
 # added by Wave 1 for pipeline/bl_xlsx_generator.py
 comment_author: "AutoInvoice"

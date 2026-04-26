@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "24.0",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten mark '24/.48' in the left margin (vertical, bottom-to-top)"
+  },
+  "printed": {
+    "consignee": "SHERECA LEWIS",
+    "freight": 11.0,
+    "waybill": "HAWB9592421",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": 5.0,
+    "packages": 1
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

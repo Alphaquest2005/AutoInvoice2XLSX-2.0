@@ -1,0 +1,179 @@
+{
+  "session_start": "2026-04-25T14:57:22.029241+00:00",
+  "total_folders": 1,
+  "processed": 1,
+  "elapsed_s": 47.3,
+  "results": [
+    {
+      "folder": "03152025_5_27_25_6_57_PM_anmzon.com",
+      "staged": 4,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "112-7624326-9358635",
+            "supplier": "Amazon.com",
+            "format": "amazon",
+            "items": 1,
+            "matched": 0,
+            "classified": 0,
+            "total": 136.95,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_5_27_25_6_57_PM_anmzon.com.out/112-7624326-9358635.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_5_27_25_6_57_PM_anmzon.com.out/112-7624326-9358635.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_5_27_25_6_57_PM_anmzon.com.out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_5_27_25_6_57_PM_anmzon.com.out/_email_params.json",
+        "validation": {
+          "total_issues": 4,
+          "fixed": 3,
+          "unfixed": 1,
+          "per_file": [
+            {
+              "file": "112-7624326-9358635.xlsx",
+              "supplier": "Amazon.com",
+              "issues": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "current": "00000000",
+                  "description": "Amazon.com Purchase",
+                  "qty": 1,
+                  "total_cost": 127.99,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"Amazon.com Purchase\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 18,
+                  "current": "",
+                  "description": "IMPLIED CIF (from declared duty @ 20% CET, XCD)",
+                  "qty": 0,
+                  "total_cost": 4.45,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"IMPLIED CIF (from declared duty @ 20% CET, XCD)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 19,
+                  "current": "",
+                  "description": "IMPLIED ITEMS VALUE (USD, net of freight/insurance)",
+                  "qty": 0,
+                  "total_cost": 0,
+                  "why": "No tariff code assigned. Customs requires a valid 8-digit HS code.",
+                  "how": "Classify \"IMPLIED ITEMS VALUE (USD, net of freight/insurance)\" using CARICOM CET schedule based on material and function."
+                },
+                {
+                  "type": "VARIANCE",
+                  "variance": -4.45,
+                  "invoice_total": 136.95,
+                  "sum_items": 132.44,
+                  "freight": 0.0,
+                  "insurance": 0.0,
+                  "tax": 8.96,
+                  "deduction": 0.0,
+                  "why": "Variance $-4.45. InvoiceTotal($136.95) != NetTotal($141.40).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixes": [
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 2,
+                  "old": "00000000",
+                  "new": "63062200",
+                  "method": "LLM: CAMPROS 8-Person Camping Tent - classified as tents of synth",
+                  "description": "Amazon.com Purchase"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 18,
+                  "old": "",
+                  "new": "63062200",
+                  "method": "LLM: Implied CIF calculation line directly related to Row 2 item ",
+                  "description": "IMPLIED CIF (from declared duty @ 20% CET, XCD)"
+                },
+                {
+                  "type": "MISSING_TARIFF",
+                  "row": 19,
+                  "old": "",
+                  "new": "63062200",
+                  "method": "LLM: Implied items value calculation line directly related to Row",
+                  "description": "IMPLIED ITEMS VALUE (USD, net of freight/insurance"
+                }
+              ],
+              "remaining": [
+                {
+                  "type": "VARIANCE",
+                  "variance": -4.45,
+                  "invoice_total": 136.95,
+                  "sum_items": 132.44,
+                  "freight": 0.0,
+                  "insurance": 0.0,
+                  "tax": 8.96,
+                  "deduction": 0.0,
+                  "why": "Variance $-4.45. InvoiceTotal($136.95) != NetTotal($141.40).",
+                  "how": "Check invoice text for unextracted freight, tax, fees, or misread item prices."
+                }
+              ],
+              "fixed": 3,
+              "unfixed": 1
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "112-7624326-9358635.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": false,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            },
+            {
+              "check": "unfixed_variance",
+              "severity": "block",
+              "message": "1 block(s)/file(s) have unresolved variance.",
+              "field": "validation.variance",
+              "value": "1",
+              "fix_hint": "For each file: read_file the XLSX to see line items and totals (row 2 cols S=InvoiceTotal, T=Freight, U=Insurance, V=Tax, W=Deduction). Read the source invoice PDF to find unextracted charges. Use edit_file to correct values. Variance = InvoiceTotal - (SumItems + Freight + Insurance + Tax - Deduction). After fixing, run validate_xlsx to confirm.\n  112-7624326-9358635.xlsx: Variance $-4.45. InvoiceTotal($136.95) != NetTotal($141.40)."
+            }
+          ],
+          "blocker_count": 1,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 47.3
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9596861",
+  "consignee_name": "MAKEDA GIBBON",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 2,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "1.0",
+  "country_origin": "US",
+  "freight": "19.98",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_033/out/114-9178653-9365066.pdf",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_033/out/114-9178653-9365066.xlsx",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_033/out/HAWB9596861-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

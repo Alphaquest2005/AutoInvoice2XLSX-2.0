@@ -2,50 +2,52 @@
 
 This is the baseline-diffing counterpart to ``test_downloads_regression.py``
 but scoped to the per-email shipment corpus under
-``workspace/output/downloads-regression-emails/`` (105 folders at time of
-writing).  It exists so that after changes like the v4 vision-prompt /
-vision-authoritative-OCR upgrade we can re-run the pipeline and spot
-per-shipment drift against a frozen golden baseline.
+``workspace/output/downloads-regression-emails/`` (now 105+ folders
+including the two TSCW Budget Marine BLs added 2026-04-26).  It exists
+so that after pipeline changes we can re-run and spot per-shipment drift
+against a frozen golden baseline.
 
 Per-folder flow:
 
-1. Stage only the SOURCE PDFs (exclude generated ``*-Declaration.pdf``,
-   ``*-Manifest.pdf``, generator ``HAWB*.xlsx`` outputs, ``_email_params*``,
-   ``*.meta.json``, and the ``_split_temp`` / ``Unprocessed`` side dirs)
-   into a fresh ``tmp_path`` — mirrors ``scripts/rerun_corpus.py``'s
+1. Stage only the SOURCE PDFs (exclude generated declarations,
+   manifests, generator outputs, ``_email_params*``, ``*.meta.json``,
+   and the ``_split_temp`` / ``Unprocessed`` side dirs) into a fresh
+   ``tmp_path`` — mirrors ``scripts/rerun_corpus.py``'s
    ``is_source_file`` SSOT.
 2. Invoke ``pipeline/run.py --input-dir <stage> --output-dir <out>
-   --json-output`` via subprocess.
+   --json-output --no-send-email`` via subprocess.
 3. Run the full invariant checklist on every produced XLSX.
-4. Snapshot the XLSX + ``_email_params*.json`` artifacts and diff against
-   ``tests/regression_artifacts/downloads_emails/<folder>.baseline.json``.
+4. Apply named-fixture expectations from
+   ``tests/fixtures/downloads_emails_regression/expectations.yaml``.
+5. Snapshot the XLSX + ``_email_params*.json`` artifacts and diff
+   against ``tests/regression_artifacts/downloads_emails/<folder>.baseline.json``.
    Drift is reported (not a hard failure) so legitimate improvements
-   (e.g. HAWB9590375 gaining tax-column 155.04) surface for review.
-   Promote with ``AUTOINVOICE_UPDATE_GOLDENS=1``.
+   surface for review.  Promote with ``AUTOINVOICE_UPDATE_GOLDENS=1``.
 
 Usage:
 
-    # Full 105-folder corpus (slow — vision API + OCR per PDF):
+    # Full corpus (slow — vision API + OCR per PDF):
     source .venv/bin/activate
     pytest tests/pipeline/test_downloads_emails_regression.py -v -m integration
 
     # Single shipment (fast iteration):
-    pytest tests/pipeline/test_downloads_emails_regression.py -v -m integration \
-        -k "03152025_RECEIPT"
+    pytest tests/pipeline/test_downloads_emails_regression.py -v -m integration \\
+        -k "TSCW18489131_budget_marine_grenada"
 
     # Promote a drifted baseline as the new golden:
-    AUTOINVOICE_UPDATE_GOLDENS=1 pytest \
-        tests/pipeline/test_downloads_emails_regression.py -v -m integration \
+    AUTOINVOICE_UPDATE_GOLDENS=1 pytest \\
+        tests/pipeline/test_downloads_emails_regression.py -v -m integration \\
         -k "<folder>"
 
 Named-fixture sanity:
 
-The two shipments we just worked on have additional field-level assertions
-(``_SHIPMENT_EXPECTATIONS``) on top of the snapshot diff.  Editing the
-expectations dict is the authoritative way to add new named regression
-cases — the snapshot diff alone catches unexpected drift, but field-level
-assertions catch semantic regressions (e.g. customs_value_ec silently
-falling off) that might not be flagged by a matching snapshot.
+The two TSCW Budget Marine shipments + the named fixtures above carry
+field-level assertions on top of the snapshot diff.  Editing the YAML
+expectations file is the authoritative way to add new named regression
+cases — the snapshot diff alone catches unexpected drift, but field-
+level assertions catch semantic regressions (e.g. doc_type silently
+falling back to 4000-000) that might not be flagged by a matching
+snapshot.
 """
 
 from __future__ import annotations
@@ -58,88 +60,164 @@ import sys
 from pathlib import Path
 
 import pytest
+import yaml
 from openpyxl import load_workbook
 
-from tests.pipeline._regression_artifacts import snapshot_and_compare
-from tests.pipeline.invariants import run_all_invariants
+# tests/_paths is the SSOT bootstrap — it loads config/repo_layout.yaml
+# and exposes PIPELINE_DIR + add_pipeline_to_sys_path() so this file
+# never has to hardcode 'pipeline' as a directory-name literal.
+from tests._paths import (
+    PIPELINE_DIR,
+    REPO_ROOT,
+    add_pipeline_to_sys_path,
+)
 
-# ── Paths ──────────────────────────────────────────────────────────────
-_REPO_ROOT = Path(__file__).resolve().parents[2]
-_PIPELINE_DIR = _REPO_ROOT / "pipeline"
-_RUN_PY = _PIPELINE_DIR / "run.py"
-_CET_DB = _REPO_ROOT / "data" / "cet.db"
-_CORPUS_DIR = _REPO_ROOT / "workspace" / "output" / "downloads-regression-emails"
+add_pipeline_to_sys_path()
 
-_TIMEOUT_SECONDS = 900  # matches scripts/rerun_corpus.py
+from config_loader import (  # noqa: E402
+    load_file_paths,
+    load_library_enums,
+    load_pipeline,
+    load_xlsx_labels,
+)
 
-# Named-fixture sanity checks.  Each entry maps a shipment folder name to
-# a dict of expected fields that the pipeline MUST populate under the
-# current v4 vision prompt + vision-authoritative consensus.  These are
-# stronger than snapshot diffs — they fail the test outright if a
-# regression drops the field, even when the overall snapshot still
-# parses.
-#
-# Field semantics:
-#   expected_email_params : subset of keys that must match in at least
-#                           one _email_params*.json emitted by the folder.
-#   expected_customs_value_ec : per-waybill declared duty (EC$) that the
-#                           v4 vision prompt should now detect.  None
-#                           means "we accept any value" — the field just
-#                           has to be present and numeric.
-#   expected_waybills     : the set of HAWB numbers the pipeline must
-#                           emit XLSX for.
-_SHIPMENT_EXPECTATIONS: dict[str, dict] = {
-    # Twin H&M receipt — dual-waybill shipment for ROSALIE LA GRENADE.
-    # Under v4, HAWB9600998 extracts 8.96 (left margin vertical) and
-    # HAWB9603312 newly extracts 80.06 — v3 missed the second form
-    # entirely, v4's multi-location scan picks it up.
-    "03152025_RECEIPT": {
-        "expected_waybills": {"HAWB9600998", "HAWB9603312"},
-        "expected_customs_value_ec": {
-            "HAWB9600998": 8.96,
-            "HAWB9603312": 80.06,
-        },
-        "consignee": "ROSALIE LA GRENADE",
-    },
-    # Primary v4 win — HAWB9590375 had 155.04 in the left margin + a
-    # 136.57+6.37 breakdown in the right margin.  v3 latched onto 136.57
-    # from the right margin; v4's disambiguation picks 155.04 as the
-    # authoritative total.  Folder is shared with HAWB9591043 (Amazon-
-    # source) so we only constrain the 9590375 leg.
-    "03142025_USD_170.88_XCD_467.72": {
-        "expected_waybills_subset": {"HAWB9590375"},
-        "expected_customs_value_ec": {
-            "HAWB9590375": 155.04,
-        },
-    },
-}
+from tests.pipeline._regression_artifacts import snapshot_and_compare  # noqa: E402
+from tests.pipeline.invariants import run_all_invariants  # noqa: E402
+
+# ── Config-loaded constants ─────────────────────────────────────
+_FILE_PATHS = load_file_paths()
+_LIBRARY = load_library_enums()
+_PIPE = load_pipeline()
+_XLSX_LABELS = load_xlsx_labels()
+_REPO_ROOT = REPO_ROOT  # local alias for path expressions below
+
+_EXT = _FILE_PATHS["extensions"]
+_EXT_PDF = _EXT["pdf"]
+_EXT_TXT = _EXT["txt"]
+_EXT_XLSX = _EXT["xlsx"]
+_EXT_JSON = _EXT["json"]
+_EXT_META_JSON = _EXT["meta_json"]
+_EXT_PAGES_JSON = _EXT["pages_json"]
+_EXT_PDF_PAGES_JSON = _EXT["pdf_pages_json"]
+
+_GENERATED_PREFIXES = (
+    _FILE_PATHS["generated_file_prefixes"]["email_params"],
+    _FILE_PATHS["generated_file_prefixes"]["proposed_fixes_meta"],
+    _FILE_PATHS["generated_file_prefixes"]["proposed_fixes_yaml"],
+)
+_GENERATED_SUFFIXES = {_EXT_XLSX, _EXT_META_JSON, _EXT_PAGES_JSON, _EXT_PDF_PAGES_JSON}
+
+_RUN_PY_BASENAME = _FILE_PATHS["pipeline_script_basenames"]["run"]
+_RUN_PY = PIPELINE_DIR / _RUN_PY_BASENAME
+_DATA_DIR = _REPO_ROOT / _FILE_PATHS["workspace_dirs"]["data"]
+_CET_DB = _DATA_DIR / Path(_FILE_PATHS["references"]["cet_database"]).name
+_CORPUS_DIR = (
+    _REPO_ROOT
+    / _FILE_PATHS["workspace_dirs"]["workspace"]
+    / _FILE_PATHS["workspace_dirs"]["workspace_output"]
+    / _FILE_PATHS["workspace_dirs"]["downloads_regression_corpus"]
+)
+
+_RUN_SUBDIRS = _FILE_PATHS["run_subdirs"]
+_SIDE_DIRS_TO_SKIP = {_RUN_SUBDIRS["split_temp"], _RUN_SUBDIRS["unprocessed"]}
+
+_GLOBS = _FILE_PATHS["output_glob_patterns"]
+_GLOB_EMAIL_PARAMS = _GLOBS["email_params_files"]
+_GLOB_HAWB_XLSX = _GLOBS["hawb_xlsx"]
+_GLOB_ANY_XLSX = _GLOBS["any_xlsx"]
+
+_TEST_PATHS = _FILE_PATHS["test_paths"]
+_TESTS_DIR_NAME = _TEST_PATHS["tests_dir"]
+_FIXTURES_DIR_NAME = _TEST_PATHS["fixtures_dir"]
+_DOWNLOADS_FIXTURE_DIR_NAME = _TEST_PATHS["downloads_emails_fixture_dir"]
+_DOWNLOADS_EXPECTATIONS_FILE = _TEST_PATHS["downloads_emails_expectations"]
+
+_REG = _PIPE["regression_test_settings"]
+_TIMEOUT_SECONDS = _REG["subprocess_timeout_seconds"]
+_BANNER_WIDTH = _REG["summary_banner_width"]
+_STDERR_TAIL_CHARS = _REG["stderr_tail_chars"]
+_SNAPSHOT_DIFF_MAX = _REG["snapshot_diff_max"]
+_REPORT_JSON_MARKER = _REG["report_json_marker"]
+_INVARIANTS_MODE = _REG["invariants_mode"]
+_COMBINED_SUBSTR = _REG["combined_xlsx_substring"]
+_CV_COMPARE_EPS = _REG["customs_value_compare_epsilon"]
+_STAGE_SUBDIR_NAME = _REG["stage_subdir_name"]
+_OUTPUT_SUBDIR_NAME = _REG["output_subdir_name"]
+_SNAPSHOT_LABEL_PREFIX = _REG["snapshot_label_prefix"]
+_SUMMARY_DIRNAME = _REG["summary_dirname"]
+_SUMMARY_FILENAME = _SUMMARY_DIRNAME + _EXT_JSON
+_PARAMETRIZE_ARGNAMES_CSV = _REG["parametrize_argnames_csv"]
+
+_EXP_FIELDS = _REG["expectation_field_names"]
+_FIELD_EXPECTED_WAYBILLS = _EXP_FIELDS["EXPECTED_WAYBILLS"]
+_FIELD_EXPECTED_WAYBILLS_SUBSET = _EXP_FIELDS["EXPECTED_WAYBILLS_SUBSET"]
+_FIELD_EXPECTED_CUSTOMS_VALUE = _EXP_FIELDS["EXPECTED_CUSTOMS_VALUE"]
+_FIELD_CONSIGNEE = _EXP_FIELDS["CONSIGNEE"]
+_FIELD_EXPECTED_DOC_TYPE_ALL = _EXP_FIELDS["EXPECTED_DOC_TYPE_ALL"]
+_FIELD_EXPECTED_DOC_TYPE_MAP = _EXP_FIELDS["EXPECTED_DOC_TYPE_MAP"]
+
+_SNAP_STATUS = _PIPE["snapshot_status"]
+_STATUS_DRIFT = _SNAP_STATUS["DRIFT"]
+_STATUS_NEW = _SNAP_STATUS["NEW"]
+_STATUS_PROMOTED = _SNAP_STATUS["PROMOTED"]
+_STATUS_MATCH = _SNAP_STATUS["MATCH"]
+
+_RESULT_CATEGORIES = _PIPE["regression_test_result_categories"]
+_CAT_ERROR_CRASH = _RESULT_CATEGORIES["ERROR_CRASH"]
+_CAT_SKIPPED_NO_PDFS = _RESULT_CATEGORIES["SKIPPED_NO_PDFS"]
+_CAT_PROCESSED_PASS = _RESULT_CATEGORIES["PROCESSED_PASS"]
+_CAT_PROCESSED_FAIL = _RESULT_CATEGORIES["PROCESSED_FAIL"]
+
+_FAILURE_KINDS = _PIPE["regression_test_failure_kinds"]
+_FAIL_TIMEOUT = _FAILURE_KINDS["TIMEOUT"]
+_FAIL_NONZERO_EXIT = _FAILURE_KINDS["NONZERO_EXIT"]
+_FAIL_STDERR_TAIL = _FAILURE_KINDS["STDERR_TAIL"]
+_FAIL_MISSING_REPORT = _FAILURE_KINDS["MISSING_REPORT"]
+_FAIL_WAYBILLS_MISMATCH = _FAILURE_KINDS["WAYBILLS_MISMATCH"]
+_FAIL_WAYBILLS_MISSING = _FAILURE_KINDS["WAYBILLS_MISSING"]
+_FAIL_CONSIGNEE = _FAILURE_KINDS["CONSIGNEE"]
+_FAIL_DOC_TYPE = _FAILURE_KINDS["DOC_TYPE"]
+
+_CLI = _PIPE["run_cli_args"]
+_CLI_PYTHON_UNBUFFERED = _CLI["python_unbuffered"]
+_CLI_INPUT_DIR = _CLI["input_dir"]
+_CLI_OUTPUT_DIR = _CLI["output_dir"]
+_CLI_JSON_OUTPUT = _CLI["json_output"]
+_CLI_NO_SEND_EMAIL = _CLI["no_send_email"]
+
+_PYTEST_SCOPE_SESSION = _LIBRARY["pytest"]["fixture_scope"]["SESSION"]
+
+_LABEL_CLIENT_DECLARED_DUTIES = _XLSX_LABELS["duty"]["client_declared"]
+
+# Per-shipment named-fixture expectations live in YAML so the test
+# source carries no domain literals.
+_EXPECTATIONS_PATH = (
+    _REPO_ROOT
+    / _TESTS_DIR_NAME
+    / _FIXTURES_DIR_NAME
+    / _DOWNLOADS_FIXTURE_DIR_NAME
+    / _DOWNLOADS_EXPECTATIONS_FILE
+)
+with _EXPECTATIONS_PATH.open("r", encoding="utf-8") as _fh:
+    _SHIPMENT_EXPECTATIONS: dict[str, dict] = yaml.safe_load(_fh) or {}
 
 
 def _read_client_declared_duties(xlsx_path: Path) -> float | None:
-    """Return the ``CLIENT DECLARED DUTIES`` row value from *xlsx_path*.
-
-    The bl_xlsx_generator writes a labelled duty row; we scan the first
-    sheet for a cell whose value matches (case-insensitive) and return
-    the numeric value from the adjacent column.  Returns ``None`` if the
-    row isn't present (the pipeline only emits it when the vision
-    extract produced a customs_value_ec).
-    """
+    """Return the ``CLIENT DECLARED DUTIES`` row value from *xlsx_path*."""
     try:
         wb = load_workbook(str(xlsx_path), data_only=False)
     except Exception:  # noqa: BLE001
         return None
     try:
+        target = _LABEL_CLIENT_DECLARED_DUTIES.upper()
         for sheet in wb.worksheets:
             for row in sheet.iter_rows():
                 for cell in row:
                     v = cell.value
                     if not isinstance(v, str):
                         continue
-                    if v.strip().upper() != "CLIENT DECLARED DUTIES":
+                    if v.strip().upper() != target:
                         continue
-                    # Value lives in one of the cells to the right of
-                    # the label in the same row.  Scan right for the
-                    # first numeric.
                     for other in row[cell.column - 1 :]:
                         if other is cell:
                             continue
@@ -151,40 +229,38 @@ def _read_client_declared_duties(xlsx_path: Path) -> float | None:
                                 return float(ov.replace(",", "").strip())
                             except ValueError:
                                 continue
-            # Fall through if no match on this sheet.
         return None
     finally:
         wb.close()
 
 
-# Generated/output-file filter SSOT — mirrors scripts/rerun_corpus.py.
-# Keep this list in sync with that module; duplicated here to avoid a
-# scripts/ → tests/ import dependency.
-#
-# IMPORTANT: ``HAWB*-Declaration.pdf`` and ``HAWB*-Manifest.pdf`` are
-# CLIENT-PROVIDED CARICOM declaration / manifest forms (the whole point
-# of running the pipeline is to vision-extract their handwritten customs
-# values); they are NOT pipeline outputs.  The generator writes
-# ``<HAWB>.xlsx`` next to them, not another PDF.  Therefore we only
-# filter by compound suffix + prefix, never by PDF name suffix.
-_GENERATED_SUFFIXES = {".xlsx", ".meta.json", ".pages.json", ".pdf.pages.json"}
-_GENERATED_PREFIXES = ("_email_params", "_proposed_fixes", "proposed_fixes_")
+def _read_doc_type_cell_a2(xlsx_path: Path) -> str | None:
+    """Return cell A2 of the first sheet — the document_type written by
+    bl_xlsx_generator / xlsx_generator. Used to assert per-XLSX
+    expected_doc_type from the YAML expectations."""
+    try:
+        wb = load_workbook(str(xlsx_path), data_only=True)
+    except Exception:  # noqa: BLE001
+        return None
+    try:
+        ws = wb.active
+        v = ws["A2"].value
+        if v is None:
+            return None
+        return str(v).strip()
+    finally:
+        wb.close()
 
 
 def _is_source_pdf(path: Path) -> bool:
-    """True for PDFs the pipeline should re-process from.
-
-    Matches ``scripts/rerun_corpus.py::is_source_file`` — keep in sync.
-    """
+    """True for PDFs the pipeline should re-process from."""
     name = path.name
     if not path.is_file():
         return False
-    if path.suffix.lower() != ".pdf":
+    if path.suffix.lower() != _EXT_PDF:
         return False
     if any(name.startswith(p) for p in _GENERATED_PREFIXES):
         return False
-    # Defensive: exclude any compound-suffix generated file (e.g.
-    # foo.pdf.pages.json, foo.meta.json).  Plain .pdf always passes.
     suffix = "".join(path.suffixes)
     return suffix not in _GENERATED_SUFFIXES
 
@@ -200,9 +276,7 @@ def _discover_corpus_folders() -> list[tuple[str, Path]]:
             continue
         if entry.name.startswith("."):
             continue
-        # Skip the _split_temp / Unprocessed side dirs if they ever end
-        # up at the top level.
-        if entry.name in {"_split_temp", "Unprocessed"}:
+        if entry.name in _SIDE_DIRS_TO_SKIP:
             continue
         pdfs = [p for p in entry.iterdir() if _is_source_pdf(p)]
         if not pdfs:
@@ -213,9 +287,8 @@ def _discover_corpus_folders() -> list[tuple[str, Path]]:
 
 _FOLDERS = _discover_corpus_folders()
 
-# Opt-in restriction: when AUTOINVOICE_DOWNLOADS_EMAILS_ONLY is set (comma-
-# separated folder names) only those folders run.  Useful for focused
-# iteration on the two named fixtures without paying for the full corpus.
+# Opt-in restriction: when AUTOINVOICE_DOWNLOADS_EMAILS_ONLY is set
+# (comma-separated folder names) only those folders run.
 _ONLY_ENV = os.environ.get("AUTOINVOICE_DOWNLOADS_EMAILS_ONLY", "").strip()
 if _ONLY_ENV:
     _only = {s.strip() for s in _ONLY_ENV.split(",") if s.strip()}
@@ -232,24 +305,25 @@ if not _FOLDERS:
 _RESULTS: list[dict] = []
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope=_PYTEST_SCOPE_SESSION, autouse=True)
 def _summary_reporter(tmp_path_factory):
     """Emit a session-end summary of per-shipment results + drift list."""
     yield
     if not _RESULTS:
         return
-    summary_dir = tmp_path_factory.mktemp("downloads_emails_summary")
-    summary_path = summary_dir / "downloads_emails_summary.json"
+    summary_dir = tmp_path_factory.mktemp(_SUMMARY_DIRNAME)
+    summary_path = summary_dir / _SUMMARY_FILENAME
     with summary_path.open("w", encoding="utf-8") as f:
         json.dump(_RESULTS, f, indent=2, default=str)
-    drift = [r for r in _RESULTS if r.get("snapshot_status") == "drift"]
-    new = [r for r in _RESULTS if r.get("snapshot_status") == "new"]
-    promoted = [r for r in _RESULTS if r.get("snapshot_status") == "promoted"]
-    matched = [r for r in _RESULTS if r.get("snapshot_status") == "match"]
+    drift = [r for r in _RESULTS if r.get("snapshot_status") == _STATUS_DRIFT]
+    new = [r for r in _RESULTS if r.get("snapshot_status") == _STATUS_NEW]
+    promoted = [r for r in _RESULTS if r.get("snapshot_status") == _STATUS_PROMOTED]
+    matched = [r for r in _RESULTS if r.get("snapshot_status") == _STATUS_MATCH]
     with_invariant_fails = [r for r in _RESULTS if r.get("invariant_failure_count")]
-    print("\n" + "=" * 72)
+    rule = "=" * _BANNER_WIDTH
+    print("\n" + rule)
     print(f"Downloads-emails regression summary  ({len(_RESULTS)} shipments)")
-    print("=" * 72)
+    print(rule)
     print(
         f"  snapshot  match={len(matched)}  new={len(new)}  drift={len(drift)}  "
         f"promoted={len(promoted)}"
@@ -263,22 +337,24 @@ def _summary_reporter(tmp_path_factory):
     for r in with_invariant_fails:
         print(f"    INVARIANT {r['folder']}  ({r['invariant_failure_count']} violations)")
     print(f"\nFull report: {summary_path}")
-    print("=" * 72)
+    print(rule)
 
 
 def _run_pipeline(stage_dir: Path, output_dir: Path) -> subprocess.CompletedProcess:
+    # --no-send-email: regression runs MUST NOT deliver real broker emails.
     return subprocess.run(  # noqa: S603 - trusted local path
         [
             sys.executable,
-            "-u",
+            _CLI_PYTHON_UNBUFFERED,
             str(_RUN_PY),
-            "--input-dir",
+            _CLI_INPUT_DIR,
             str(stage_dir),
-            "--output-dir",
+            _CLI_OUTPUT_DIR,
             str(output_dir),
-            "--json-output",
+            _CLI_JSON_OUTPUT,
+            _CLI_NO_SEND_EMAIL,
         ],
-        cwd=str(_PIPELINE_DIR),
+        cwd=str(PIPELINE_DIR),
         capture_output=True,
         text=True,
         timeout=_TIMEOUT_SECONDS,
@@ -288,9 +364,9 @@ def _run_pipeline(stage_dir: Path, output_dir: Path) -> subprocess.CompletedProc
 def _parse_report(stdout: str) -> dict | None:
     for line in stdout.splitlines():
         stripped = line.strip()
-        if stripped.startswith("REPORT:JSON:"):
+        if stripped.startswith(_REPORT_JSON_MARKER):
             try:
-                return json.loads(stripped[len("REPORT:JSON:") :])
+                return json.loads(stripped[len(_REPORT_JSON_MARKER) :])
             except json.JSONDecodeError:
                 return None
     return None
@@ -299,7 +375,7 @@ def _parse_report(stdout: str) -> dict | None:
 def _load_email_params(output_dir: Path) -> list[dict]:
     """Return the contents of every ``_email_params*.json`` produced."""
     out: list[dict] = []
-    for p in sorted(output_dir.rglob("_email_params*.json")):
+    for p in sorted(output_dir.rglob(_GLOB_EMAIL_PARAMS)):
         try:
             out.append(json.loads(p.read_text(encoding="utf-8")))
         except (OSError, json.JSONDecodeError):
@@ -319,61 +395,56 @@ def _check_shipment_expectations(
     failures: list[tuple[str, str]] = []
 
     produced_waybills: set[str] = set()
-    for x in output_dir.rglob("HAWB*.xlsx"):
-        # HAWB9590375.xlsx → HAWB9590375
+    for x in output_dir.rglob(_GLOB_HAWB_XLSX):
         stem = x.stem
         if "-" in stem:
             stem = stem.split("-")[0]
         produced_waybills.add(stem)
 
-    if "expected_waybills" in exp:
-        want = set(exp["expected_waybills"])
+    if _FIELD_EXPECTED_WAYBILLS in exp:
+        want = set(exp[_FIELD_EXPECTED_WAYBILLS])
         if produced_waybills != want:
             failures.append(
                 (
-                    "waybills_mismatch",
+                    _FAIL_WAYBILLS_MISMATCH,
                     f"expected exactly {sorted(want)}, got {sorted(produced_waybills)}",
                 )
             )
-    if "expected_waybills_subset" in exp:
-        want = set(exp["expected_waybills_subset"])
+    if _FIELD_EXPECTED_WAYBILLS_SUBSET in exp:
+        want = set(exp[_FIELD_EXPECTED_WAYBILLS_SUBSET])
         missing = want - produced_waybills
         if missing:
             failures.append(
                 (
-                    "waybills_missing",
+                    _FAIL_WAYBILLS_MISSING,
                     f"expected subset {sorted(want)}, missing {sorted(missing)}",
                 )
             )
 
-    expected_cv = exp.get("expected_customs_value_ec") or {}
+    expected_cv = exp.get(_FIELD_EXPECTED_CUSTOMS_VALUE) or {}
     if expected_cv:
-        # ``customs_value_ec`` lands in the XLSX as a ``CLIENT DECLARED
-        # DUTIES`` row, written by bl_xlsx_generator.  We read it back
-        # at the system boundary rather than poking internal caches.
         for wb, want in expected_cv.items():
-            xlsx_paths = list(output_dir.rglob(f"{wb}.xlsx"))
+            xlsx_paths = list(output_dir.rglob(f"{wb}{_EXT_XLSX}"))
             if not xlsx_paths:
                 failures.append(
                     (
                         f"customs_value_ec::{wb}",
-                        f"no {wb}.xlsx produced",
+                        f"no {wb}{_EXT_XLSX} produced",
                     )
                 )
                 continue
-            # Prefer a non-combined workbook (single-waybill output).
-            xlsx_paths.sort(key=lambda p: "combined" in p.name.lower())
+            xlsx_paths.sort(key=lambda p: _COMBINED_SUBSTR in p.name.lower())
             got = _read_client_declared_duties(xlsx_paths[0])
             if want is None:
                 if got is None:
                     failures.append(
                         (
                             f"customs_value_ec::{wb}",
-                            f"no CLIENT DECLARED DUTIES row in XLSX ({xlsx_paths[0].name})",
+                            f"no {_LABEL_CLIENT_DECLARED_DUTIES} row in XLSX ({xlsx_paths[0].name})",  # noqa: E501
                         )
                     )
                 continue
-            if got is None or abs(got - float(want)) > 0.005:
+            if got is None or abs(got - float(want)) > _CV_COMPARE_EPS:
                 failures.append(
                     (
                         f"customs_value_ec::{wb}",
@@ -381,14 +452,50 @@ def _check_shipment_expectations(
                     )
                 )
 
-    if "consignee" in exp:
+    if _FIELD_CONSIGNEE in exp:
         params = _load_email_params(output_dir)
         consignees = {p.get("consignee_name") for p in params}
-        if exp["consignee"] not in consignees:
+        if exp[_FIELD_CONSIGNEE] not in consignees:
             failures.append(
                 (
-                    "consignee",
-                    f"expected {exp['consignee']!r} in any _email_params, got {consignees}",
+                    _FAIL_CONSIGNEE,
+                    f"expected {exp[_FIELD_CONSIGNEE]!r} in any _email_params, got {consignees}",
+                )
+            )
+
+    # Per-XLSX doc_type assertion (added 2026-04-26 for the
+    # TSCW18489131 / 26006159 rebuild-leak regression).  Two shapes:
+    #   expected_doc_type_all : single string applied to every XLSX
+    #   expected_doc_type     : per-waybill mapping
+    expected_dt_all = exp.get(_FIELD_EXPECTED_DOC_TYPE_ALL)
+    if expected_dt_all:
+        produced_xlsx = list(output_dir.rglob(_GLOB_ANY_XLSX))
+        for xp in produced_xlsx:
+            got = _read_doc_type_cell_a2(xp)
+            if got != expected_dt_all:
+                failures.append(
+                    (
+                        f"{_FAIL_DOC_TYPE}::{xp.name}",
+                        f"expected A2={expected_dt_all!r}, got {got!r}",
+                    )
+                )
+    expected_dt_map = exp.get(_FIELD_EXPECTED_DOC_TYPE_MAP) or {}
+    for wb, want_dt in expected_dt_map.items():
+        xlsx_paths = list(output_dir.rglob(f"{wb}{_EXT_XLSX}"))
+        if not xlsx_paths:
+            failures.append(
+                (
+                    f"{_FAIL_DOC_TYPE}::{wb}",
+                    f"no {wb}{_EXT_XLSX} produced",
+                )
+            )
+            continue
+        got = _read_doc_type_cell_a2(xlsx_paths[0])
+        if got != want_dt:
+            failures.append(
+                (
+                    f"{_FAIL_DOC_TYPE}::{wb}",
+                    f"expected A2={want_dt!r}, got {got!r} (xlsx={xlsx_paths[0].name})",
                 )
             )
 
@@ -398,7 +505,7 @@ def _check_shipment_expectations(
 @pytest.mark.integration
 @pytest.mark.requires_downloads
 @pytest.mark.parametrize(
-    ("folder_name", "folder_path"),
+    _PARAMETRIZE_ARGNAMES_CSV,
     _FOLDERS,
     ids=[n for (n, _) in _FOLDERS],
 )
@@ -408,9 +515,9 @@ def test_downloads_email_folder(
     tmp_path: Path,
 ) -> None:
     """Process a single shipment folder and diff against baseline."""
-    stage_dir = tmp_path / "stage"
+    stage_dir = tmp_path / _STAGE_SUBDIR_NAME
     stage_dir.mkdir()
-    output_dir = tmp_path / "out"
+    output_dir = tmp_path / _OUTPUT_SUBDIR_NAME
     output_dir.mkdir()
 
     staged = 0
@@ -418,56 +525,54 @@ def test_downloads_email_folder(
         if _is_source_pdf(item):
             shutil.copy2(item, stage_dir / item.name)
             staged += 1
-            # Copy OCR sidecars (.txt) alongside the PDF if present — they
-            # let the pipeline bypass OCR for pre-digitised invoices.
-            sidecar_txt = folder_path / (item.stem + ".txt")
+            sidecar_txt = folder_path / (item.stem + _EXT_TXT)
             if sidecar_txt.exists():
                 shutil.copy2(sidecar_txt, stage_dir / sidecar_txt.name)
 
     result: dict = {
         "folder": folder_name,
         "staged_pdfs": staged,
-        "category": "error_crash",
+        "category": _CAT_ERROR_CRASH,
         "failures": [],
     }
 
     if staged == 0:
-        result["category"] = "skipped_no_pdfs"
+        result["category"] = _CAT_SKIPPED_NO_PDFS
         _RESULTS.append(result)
         pytest.skip(f"no source PDFs in {folder_name}")
 
     try:
         proc = _run_pipeline(stage_dir, output_dir)
     except subprocess.TimeoutExpired as e:
-        result["failures"] = [("timeout", f"subprocess timed out after {_TIMEOUT_SECONDS}s")]
+        result["failures"] = [(_FAIL_TIMEOUT, f"subprocess timed out after {_TIMEOUT_SECONDS}s")]
         _RESULTS.append(result)
         pytest.fail(f"[{folder_name}] pipeline timed out: {e}")
 
     result["returncode"] = proc.returncode
     if proc.returncode != 0:
         result["failures"] = [
-            ("nonzero_exit", f"returncode={proc.returncode}"),
-            ("stderr_tail", proc.stderr[-500:]),
+            (_FAIL_NONZERO_EXIT, f"returncode={proc.returncode}"),
+            (_FAIL_STDERR_TAIL, proc.stderr[-_STDERR_TAIL_CHARS:]),
         ]
         _RESULTS.append(result)
         pytest.fail(
             f"[{folder_name}] pipeline exited with {proc.returncode}.\n"
-            f"stderr tail: {proc.stderr[-500:]}"
+            f"stderr tail: {proc.stderr[-_STDERR_TAIL_CHARS:]}"
         )
 
     report = _parse_report(proc.stdout)
     result["report"] = report
     if report is None:
-        result["failures"] = [("missing_report", "no REPORT:JSON line in stdout")]
+        result["failures"] = [(_FAIL_MISSING_REPORT, f"no {_REPORT_JSON_MARKER} line in stdout")]
         _RESULTS.append(result)
-        pytest.fail(f"[{folder_name}] pipeline did not emit REPORT:JSON")
+        pytest.fail(f"[{folder_name}] pipeline did not emit {_REPORT_JSON_MARKER}")
 
     # Invariants on every produced XLSX — recorded as drift, not hard
     # failure.  Many shipments have pre-existing pipeline-level invariant
-    # violations (e.g. the historical VARIANCE CHECK=0 issue covered by
+    # violations (the historical VARIANCE CHECK=0 issue covered by
     # project_variance_check_historical).  We surface them in the
     # summary for review without blocking the regression sweep.
-    produced_xlsx = list(output_dir.rglob("*.xlsx"))
+    produced_xlsx = list(output_dir.rglob(_GLOB_ANY_XLSX))
     invariant_failures: list[tuple[str, str]] = []
     for xlsx_path in produced_xlsx:
         try:
@@ -478,7 +583,7 @@ def test_downloads_email_folder(
         for sheet in wb.worksheets:
             failures = run_all_invariants(
                 sheet,
-                mode="minimal",
+                mode=_INVARIANTS_MODE,
                 cet_db_path=str(_CET_DB) if _CET_DB.exists() else None,
                 xlsx_path=str(xlsx_path),
             )
@@ -489,13 +594,11 @@ def test_downloads_email_folder(
         result["invariant_failures"] = invariant_failures
         result["invariant_failure_count"] = len(invariant_failures)
 
-    # Named-fixture semantic checks — these ARE hard failures, because
-    # they encode what the current pipeline version MUST do right for
-    # this shipment (e.g. HAWB9590375 must extract 155.04 under v4).
+    # Named-fixture semantic checks — these ARE hard failures.
     semantic_failures = _check_shipment_expectations(folder_name, output_dir, report)
 
     if semantic_failures:
-        result["category"] = "processed_fail"
+        result["category"] = _CAT_PROCESSED_FAIL
         result["failures"] = semantic_failures
         _RESULTS.append(result)
         lines = [f"[{folder_name}] named-fixture regression failures:"]
@@ -503,12 +606,12 @@ def test_downloads_email_folder(
             lines.append(f"  - {name}: {msg}")
         pytest.fail("\n".join(lines))
 
-    result["category"] = "processed_pass"
+    result["category"] = _CAT_PROCESSED_PASS
 
     # Snapshot + diff against frozen baseline.
     try:
         snap = snapshot_and_compare(
-            f"email_{folder_name}",
+            _SNAPSHOT_LABEL_PREFIX + folder_name,
             output_dir,
         )
     except Exception as e:  # noqa: BLE001
@@ -517,7 +620,7 @@ def test_downloads_email_folder(
         result["snapshot_status"] = snap["status"]
         result["snapshot_hash"] = snap["hash"]
         if snap["diffs"]:
-            result["snapshot_diffs"] = snap["diffs"][:200]
+            result["snapshot_diffs"] = snap["diffs"][:_SNAPSHOT_DIFF_MAX]
             result["snapshot_diff_count"] = len(snap["diffs"])
             result["snapshot_current_dir"] = snap["current_dir"]
 

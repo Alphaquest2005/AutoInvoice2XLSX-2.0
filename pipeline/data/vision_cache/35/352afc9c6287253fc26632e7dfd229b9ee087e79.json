@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "13.44",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "13.44 written vertically in the left margin beside the header"
+  },
+  "printed": {
+    "consignee": "TRE AUGUSTINE",
+    "freight": 3.0,
+    "waybill": "HAWB9687863",
+    "man_reg": "2024/31",
+    "office": "GDWBS",
+    "weight": 1.0,
+    "packages": 1
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

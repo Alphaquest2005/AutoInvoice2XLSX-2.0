@@ -1,0 +1,28 @@
+{
+  "waybill": "HAWB9592152",
+  "consignee_name": "ARIEL LAPOMPE",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 5,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "5.0",
+  "country_origin": "US",
+  "freight": "11.00",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_077/out/INVUS20240716000340946.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_077/out/INVUS20240716000344494.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_077/out/INVUS20240716000334173.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_077/out/INVUS20240716000349010.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_077/out/INVUS20240716000344492.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_077/out/INVUS20240716000340946_combined.xlsx",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_077/out/HAWB9592152-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS",
+  "ocr_warnings": [
+    "INVUS20240716000340946.pdf: OCR quality POOR (score 35/100)"
+  ],
+  "notes": "WARNING: Some pages have poor OCR quality. Check the \"OCR Notes\" sheet in the combined XLSX for details. Consider asking sender to rescan and resubmit."
+}

@@ -9,8 +9,9 @@ Batch-aware: generates once per supplier, caches for reuse.
 
 import logging
 import os
+import re
 import sys
-from typing import Dict, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 logger = logging.getLogger(__name__)
 
@@ -22,6 +23,56 @@ if PIPELINE_DIR not in sys.path:
 # In-memory cache: supplier_name -> spec_path (or None = failed, don't retry)
 # Prevents duplicate LLM calls for same supplier within one batch run.
 _batch_spec_cache: Dict[str, Optional[str]] = {}
+
+
+# Phrases that appear in invoice payment / totals footers, NOT in real
+# product descriptions.  When an LLM-generated spec extracts items whose
+# descriptions match these labels, the spec almost certainly grabbed the
+# totals section instead of the actual line items (HAWB9421183 incident:
+# "Order Total", "Item(s) Subtotal", "Estimated tax", "Grand Total" all
+# emitted as bogus item rows).  Used by `_items_look_bogus` to reject the
+# spec before it pollutes the XLSX.
+_FOOTER_LABEL_RE = re.compile(
+    r'(?i)\b('
+    r'grand\s*tot(?:al|ak)'        # "Grand Total" / OCR variant "Grand Totak"
+    r'|sub.?total'                 # subtotal / sub-total
+    r'|estimated\s*tax'            # "Estimated tax to be collected"
+    r'|order\s*total'              # "Order Total"
+    r'|total\s*before\s*tax'       # "Total before tax"
+    r'|item\s*\(\s*s\s*\)\s*subtotal'  # "Item(s) Subtotal"
+    r'|payment\s*method'           # "Payment Method"
+    r'|shipping\s*(?:&|and)\s*handling'  # "Shipping & Handling"
+    r')\b'
+)
+
+
+def _items_look_bogus(items: List[Dict]) -> Optional[str]:
+    """Return a reason string if items look like extracted footer junk,
+    or None if they look like real products.
+
+    Heuristics (any one triggers rejection):
+      - 50%+ of descriptions match a known totals/footer label
+      - 50%+ of items have quantity == 0 AND price > 0 (real items have qty)
+    """
+    if not items:
+        return None
+    n = len(items)
+    footer_hits = sum(
+        1 for it in items
+        if _FOOTER_LABEL_RE.search(str(it.get('description') or it.get('supplier_item_desc') or ''))
+    )
+    if footer_hits and footer_hits >= max(1, (n + 1) // 2):
+        return f"{footer_hits}/{n} item descriptions match totals-section labels"
+
+    zero_qty_priced = sum(
+        1 for it in items
+        if (it.get('quantity') or 0) == 0
+        and ((it.get('total_cost') or 0) > 0 or (it.get('unit_price') or 0) > 0)
+    )
+    if zero_qty_priced and zero_qty_priced >= max(1, (n + 1) // 2):
+        return f"{zero_qty_priced}/{n} items have quantity=0 with a price (footer values, not items)"
+
+    return None
 
 
 def reset_batch_cache():
@@ -118,6 +169,14 @@ def try_auto_generate(
 
     if len(items) == 0:
         print(f"    Auto-generated spec produced 0 items — discarding")
+        discard_spec(spec_path)
+        if cache_key:
+            _batch_spec_cache[cache_key] = None
+        return None
+
+    bogus_reason = _items_look_bogus(items)
+    if bogus_reason:
+        print(f"    Auto-generated spec rejected: {bogus_reason}")
         discard_spec(spec_path)
         if cache_key:
             _batch_spec_cache[cache_key] = None
@@ -223,6 +282,14 @@ def _try_parse_with_spec_file(
     invoice_data = normalize_parse_result(raw_result)
     items = invoice_data.get('items', [])
     if len(items) == 0:
+        return None
+
+    bogus_reason = _items_look_bogus(items)
+    if bogus_reason:
+        logger.info(
+            f"Cached auto-spec rejected ({os.path.basename(spec_path)}): "
+            f"{bogus_reason}"
+        )
         return None
 
     invoice_data['_auto_spec_path'] = spec_path

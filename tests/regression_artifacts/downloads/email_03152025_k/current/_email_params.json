@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9557912",
+  "consignee_name": "SHEMROCK FORTUNE",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "1.0",
+  "country_origin": "US",
+  "freight": "3.00",
+  "man_reg": "2024 27",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0359/out/114-8204840-5125866.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0359/out/HAWB9557912.xlsx",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0359/out/HAWB9557912-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

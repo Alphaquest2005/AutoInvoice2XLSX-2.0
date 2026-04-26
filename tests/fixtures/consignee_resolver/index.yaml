@@ -1,0 +1,51 @@
+# Per-fixture manifest for tests/pipeline/test_consignee_resolver.py.
+# Loaded via tests/_fixtures.py::load_test_manifest("consignee_resolver").
+#
+# Pins the regression for invoice 26006159 (Victron Energy) inside
+# shipment TSCW18489131 (Budget Marine Grenada).
+#
+# Layout symptom: the invoice uses non-standard column headers
+# "INVOICE ADDRESS / INVOICE DETAILS / DELIVERY ADDRESS" instead of the
+# usual Bill-To/Ship-To/Sold-To labels. The label-based extractors miss
+# it entirely.
+#
+# What the rule-substring scanner must do: find the literal text
+# "Budget Marine Grenada" anywhere in the invoice OCR and route to the
+# 7400-000 Warehouse Entry rule from document_types.json — independent
+# of label layout, so any future invoice from any vendor that ships to
+# Budget Marine resolves correctly without per-vendor pattern changes.
+#
+# Without this regression, the per-invoice rebuild path silently
+# defaults to 4000-000 (Standard Import) and customs paperwork has to
+# be re-filed (the historical incident the user described).
+
+format_name: consignee_resolver
+
+victron_ocr_fixture: 26006159_victron_ocr.txt
+
+victron_expected:
+  consignee_name: Budget Marine Grenada
+  doc_type: 7400-000
+  source: rule_scan_invoice
+
+word_boundary_negative_text: |
+  These are reefer containers shipped on a submarine.
+  Standard freight terms apply.
+word_boundary_negative_expected_source: default
+
+word_boundary_positive_text: |
+  Sold To: Reef Distribution
+  P.O. Box 123, St Georges, Grenada
+word_boundary_positive_expected_doc_type: 4000-000
+word_boundary_positive_expected_source: rule_scan_invoice
+
+bl_fallback_consignee: BUDGET MARINE GRENADA
+bl_fallback_expected_doc_type: 7400-000
+bl_fallback_expected_source: bl_rule_match
+
+bl_free_text_consignee: ACME GLOBAL IMPORTERS LTD
+bl_free_text_expected_doc_type: 4000-000
+bl_free_text_expected_source: bl
+
+empty_expected_source: default
+empty_expected_doc_type: 4000-000

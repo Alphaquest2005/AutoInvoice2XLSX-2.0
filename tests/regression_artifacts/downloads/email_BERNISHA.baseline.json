@@ -1,0 +1,443 @@
+{
+  "INVUS2024080600.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'SHEIN US Services, LLC'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'777 S. Alameda St., Second Floor, Los Angeles, CA 90021'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'62034290'"
+        },
+        "AK4": {
+          "value": "'61034290'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'INVUS2024080600'"
+        },
+        "C4": {
+          "value": "'INVUS2024080600'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'CLOTHING'"
+        },
+        "E4": {
+          "value": "'CLOTHING'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'62034290'"
+        },
+        "F3": {
+          "value": "'62034290'"
+        },
+        "F4": {
+          "value": "'61034290'"
+        },
+        "F5": {
+          "value": "'61034290'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'62034290'"
+        },
+        "I3": {
+          "value": "'SHEIN-1'"
+        },
+        "I4": {
+          "value": "'61034290'"
+        },
+        "I5": {
+          "value": "'SHEIN-2'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J11": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J12": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J13": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J14": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J16": {
+          "value": "'NET TOTAL'"
+        },
+        "J17": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J19": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J2": {
+          "value": "'SHEIN SXY Plus Size Casual High-Waisted Slim-Fit Denim Jeans, Water Washing T... (1 items)'"
+        },
+        "J21": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J22": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J23": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J24": {
+          "value": "'CET (weighted avg 20.0%)'"
+        },
+        "J25": {
+          "value": "'  \u2514 61034290: 20% CET (46% of value)'"
+        },
+        "J26": {
+          "value": "'  \u2514 62034290: 20% CET (54% of value)'"
+        },
+        "J27": {
+          "value": "'CSC (6%)'"
+        },
+        "J28": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J29": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J3": {
+          "value": "'SHEIN SXY Plus Size Casual High-Waisted Slim-Fit Denim Jeans, Water Washing T...'"
+        },
+        "J30": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J4": {
+          "value": "'yarns SXY Plus Size Solid Color Denim Shorts With Pockets And Buttons, 3/4 Le... (1 items)'"
+        },
+        "J5": {
+          "value": "'yarns SXY Plus Size Solid Color Denim Shorts With Pockets And Buttons, 3/4 Le...'"
+        },
+        "J6": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J7": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J8": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "K5": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "9.62"
+        },
+        "O3": {
+          "value": "9.62"
+        },
+        "O4": {
+          "value": "8.06"
+        },
+        "O5": {
+          "value": "8.06"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "0"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "value": "0"
+        },
+        "P13": {
+          "value": "0"
+        },
+        "P14": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P16": {
+          "formula": "=P6+P14"
+        },
+        "P17": {
+          "formula": "=S2"
+        },
+        "P19": {
+          "formula": "=S2-P16"
+        },
+        "P2": {
+          "value": "9.62"
+        },
+        "P22": {
+          "value": "17.68"
+        },
+        "P23": {
+          "value": "48.03"
+        },
+        "P24": {
+          "value": "9.61"
+        },
+        "P25": {
+          "value": "4.38"
+        },
+        "P26": {
+          "value": "5.23"
+        },
+        "P27": {
+          "value": "2.88"
+        },
+        "P28": {
+          "value": "9.08"
+        },
+        "P29": {
+          "value": "21.57"
+        },
+        "P3": {
+          "value": "9.62"
+        },
+        "P30": {
+          "value": "0.4490943160524672"
+        },
+        "P4": {
+          "value": "8.06"
+        },
+        "P5": {
+          "value": "8.06"
+        },
+        "P6": {
+          "formula": "=P2+P4"
+        },
+        "P7": {
+          "formula": "=SUM(P2:P5)-P6"
+        },
+        "P8": {
+          "formula": "=P6-P7"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q14": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q16": {
+          "formula": "=Q6+Q14"
+        },
+        "Q19": {
+          "formula": "=S2-Q16"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q6": {
+          "formula": "=Q2+Q4"
+        },
+        "Q7": {
+          "formula": "=SUM(Q2:Q5)-Q6"
+        },
+        "Q8": {
+          "formula": "=Q6-Q7"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "17.68"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'SHEIN'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "HAWB9675842-Declaration.pdf",
+        "INVUS2024080600.pdf",
+        "INVUS2024080600.xlsx"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "BERNISHA FRANCIS",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "5.00",
+      "location": "WebSource",
+      "man_reg": "2024 30",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 1,
+      "waybill": "HAWB9675842",
+      "weight": "2.0"
+    }
+  }
+}

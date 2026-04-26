@@ -11,9 +11,10 @@
   "freight": "11.00",
   "man_reg": "2024 28",
   "attachment_paths": [
-    "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_031/out/112-9925042-2903468.pdf",
-    "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_031/out/HAWB9590375.xlsx",
-    "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_031/out/HAWB9590375-Declaration.pdf"
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_030/out/112-9925042-2903468.pdf",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_030/out/112-9925042-2903468_2.pdf",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_030/out/HAWB9590375.xlsx",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_030/out/HAWB9590375-Declaration.pdf"
   ],
   "location": "WebSource",
   "office": "GDWBS",

@@ -1,0 +1,21 @@
+{
+  "waybill": "HAWB9333496",
+  "consignee_name": "REBA CALLISTE",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 2,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "19.0",
+  "country_origin": "US",
+  "freight": "39.00",
+  "man_reg": "2024 19",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0318/out/112-7624326-9358635.pdf",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0318/out/112-7624326-9358635_2.pdf",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0318/out/HAWB9333496_combined.xlsx",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0318/out/HAWB9333496-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

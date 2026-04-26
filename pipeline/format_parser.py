@@ -708,6 +708,45 @@ class FormatParser:
                 if value is not None:
                     metadata[field_name] = value
 
+        # ─── Store credit / gift card neutralization ──────────────────────
+        # When customer-induced credits (Amazon gift card, store credit, etc.)
+        # cover the full invoice — i.e. credit ≥ goods value — the pipeline
+        # must NOT treat the credit as a price reduction.  For customs the
+        # CIF must equal the value of the goods (subtotal), regardless of
+        # how the customer paid.
+        #
+        # Without this neutralization (HAWB9671027):
+        #   - `credits` flows into Column U (-credits) as negative Insurance
+        #   - VARIANCE CHECK breaks (invoice_total $0 vs net_total $-credit)
+        #   - OCR text that repeats the gift-card line doubles credits via
+        #     aggregate:sum, making the noise even worse (-$31.70)
+        #   - Downstream OCR-correction routines mangle tax/total trying
+        #     to balance items_sum + tax = invoice_total which is unsolvable
+        #     while credits is non-zero
+        #
+        # Trigger: subtotal > 0  AND  credits ≥ subtotal − $0.50.
+        # Action:  zero out credits, anchor total on subtotal so downstream
+        #          variance balances and CIF equals goods value.
+        _gross = metadata.get('subtotal', 0) or 0
+        _credits = metadata.get('credits', 0) or 0
+        if _gross > 0 and _credits >= (_gross - 0.50):
+            # Anchor total on (subtotal + tax + shipping - discount) so the
+            # downstream variance check balances: net_total = items + tax +
+            # shipping - discount must equal invoice_total.
+            _tax = metadata.get('tax', 0) or 0
+            _ship = metadata.get('shipping', 0) or 0
+            _disc = metadata.get('discount', 0) or 0
+            _new_total = round(_gross + _tax + _ship - _disc, 2)
+            logger.info(
+                f"Store-credit neutralization: credits ${_credits:.2f} fully "
+                f"cover subtotal ${_gross:.2f}; zeroing credits and anchoring "
+                f"invoice_total on ${_new_total:.2f} = subtotal + tax + "
+                f"shipping − discount (credit treated as payment, not deduction)"
+            )
+            metadata['credits'] = 0
+            metadata['total'] = _new_total
+            metadata['_store_credit_neutralized'] = round(_credits, 2)
+
         return metadata
 
     def extract_items(self, text: str) -> List[Dict[str, Any]]:
@@ -2285,27 +2324,39 @@ class FormatParser:
                     }]
                     logger.info(f"Balance: created placeholder item ${expected_sub:.2f} for {supplier}")
                 elif abs(items_sum - expected_sub) > 0.02:
-                    # Items exist but sum is wrong — adjust last item
-                    others_sum = sum(
-                        (it.get('total_cost', 0) or it.get('unit_cost', 0) or 0)
-                        for it in items[:-1]
+                    # Items exist but sum is wrong — adjust last item.
+                    # SKIP this branch if any item is honestly orphan-recovered:
+                    # the orphan-price scan has already reconciled within its
+                    # tolerance and the residual is intentional (recorded in
+                    # data_quality_notes).  Mutating the recovered item's
+                    # value would violate the "no fabrication" contract.
+                    has_orphan = any(
+                        it.get('data_quality') == 'orphan_price_recovered'
+                        for it in items
                     )
-                    adjusted_price = round(expected_sub - others_sum, 2)
-                    if adjusted_price > 0:
-                        items[-1]['unit_cost'] = adjusted_price
-                        items[-1]['total_cost'] = adjusted_price
-                        items[-1]['quantity'] = 1
-                        logger.info(f"Balance: adjusted last item ${items_sum - others_sum:.2f} -> ${adjusted_price:.2f} to match subtotal ${expected_sub:.2f}")
+                    if has_orphan:
+                        pass
                     else:
-                        # Can't balance by adjusting last — replace all with placeholder
-                        items = [{
-                            'sku': f'{supplier[:3].upper()}-1',
-                            'description': f'{supplier} Purchase',
-                            'quantity': 1,
-                            'unit_cost': expected_sub,
-                            'total_cost': expected_sub,
-                        }]
-                        logger.info(f"Balance: replaced items with placeholder ${expected_sub:.2f}")
+                        others_sum = sum(
+                            (it.get('total_cost', 0) or it.get('unit_cost', 0) or 0)
+                            for it in items[:-1]
+                        )
+                        adjusted_price = round(expected_sub - others_sum, 2)
+                        if adjusted_price > 0:
+                            items[-1]['unit_cost'] = adjusted_price
+                            items[-1]['total_cost'] = adjusted_price
+                            items[-1]['quantity'] = 1
+                            logger.info(f"Balance: adjusted last item ${items_sum - others_sum:.2f} -> ${adjusted_price:.2f} to match subtotal ${expected_sub:.2f}")
+                        else:
+                            # Can't balance by adjusting last — replace all with placeholder
+                            items = [{
+                                'sku': f'{supplier[:3].upper()}-1',
+                                'description': f'{supplier} Purchase',
+                                'quantity': 1,
+                                'unit_cost': expected_sub,
+                                'total_cost': expected_sub,
+                            }]
+                            logger.info(f"Balance: replaced items with placeholder ${expected_sub:.2f}")
 
                 # Clean garbled OCR descriptions — replace with readable placeholders
                 for idx, it in enumerate(items, 1):

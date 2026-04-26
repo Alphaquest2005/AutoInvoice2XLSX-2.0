@@ -1,0 +1,21 @@
+{
+  "waybill": "HAWB9671284",
+  "consignee_name": "ANKITA MOORE",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 2,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "1.0",
+  "country_origin": "US",
+  "freight": "10.75",
+  "man_reg": "2024 30",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0321/out/DYI5VCW2Tremeretrue_2.pdf",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0321/out/DYI5VCW2Tremeretrue.pdf",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0321/out/DYI5VCW2Tremeretrue_combined.xlsx",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0321/out/HAWB9671284-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

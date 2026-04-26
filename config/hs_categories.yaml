@@ -1,0 +1,62 @@
+# HS / CET tariff-code → human-readable category display label.
+# Used by pipeline/xlsx_generator.py when populating column E (Category)
+# on group rows. The display label is the cosmetic name shown to the
+# customs broker in the XLSX; the canonical CARICOM CET description is
+# loaded separately from data/caricom_cet.xlsx via
+# bl_xlsx_generator.get_cet_category() and serves as the fallback.
+#
+# Created by Wave 1 for pipeline/xlsx_generator.py — migrated from the
+# CATEGORY_NAMES dict that previously lived at the top of that module.
+
+_meta:
+  purpose: "HS/tariff-code → human-readable XLSX category label"
+  covers:
+    - "Mapping from 8-digit HS code to broker-friendly category name"
+  match_patterns:
+    - "category"
+    - "hs_code"
+    - "tariff"
+  loader: "pipeline.config_loader:load_hs_categories"
+  examples:
+    - "load_hs_categories()['33041000']  -> 'LIP PRODUCTS'"
+    - "load_hs_categories()['67042000']  -> 'HUMAN HAIR'"
+  update_checklist:
+    - "Keep keys as 8-digit HS codes (string, not int)"
+    - "If you add a new tariff code ensure it also exists in data/caricom_cet.xlsx"
+
+version: "1.0.0"
+
+# Display labels per HS 8-digit code. Keys must be strings (not ints) so
+# dict lookups with group['tariff_code'] work without casting.
+# Note: code 33049990 historically had two entries (SUNSCREEN and
+# SKINCARE & OTHER COSMETICS); Python dict semantics kept the second,
+# so SKINCARE & OTHER COSMETICS is the intentional label.
+categories:
+  "33030090": "PERFUMES"
+  "33041000": "LIP PRODUCTS"
+  "33042000": "EYE MAKEUP"
+  "33043000": "NAIL PRODUCTS"
+  "33049100": "FACE MAKEUP"
+  "33049990": "SKINCARE & OTHER COSMETICS"
+  "33051000": "SHAMPOO & CONDITIONER"
+  "33059010": "HAIR COLOR"
+  "33059090": "HAIR STYLING"
+  "33072000": "BODY SPRAYS & DEODORANTS"
+  "33074100": "INCENSE"
+  "33074900": "ROOM PERFUMING PREPARATIONS"
+  "34011910": "SOAP & BODY WASH"
+  "34022090": "CLEANING PREPARATIONS"
+  "38089490": "DISINFECTANTS"
+  "48191000": "CARDBOARD DISPLAYS"
+  "67041100": "WIGS"
+  "67041900": "SYNTHETIC HAIR"
+  "67042000": "HUMAN HAIR"
+  "71171910": "IMITATION JEWELRY"
+  "73269090": "METAL ARTICLES"
+  "84145110": "TABLE FANS"
+  "85167900": "ELECTRO-THERMIC APPLIANCES"
+  "85437090": "ULTRASONIC DIFFUSERS"
+  "96039000": "BRUSHES"
+  "96151110": "COMBS"
+  "96159010": "HAIR PINS"
+  "96159090": "OTHER HAIR ACCESSORIES"

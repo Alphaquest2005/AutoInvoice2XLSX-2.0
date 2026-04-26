@@ -42,6 +42,14 @@ EXEMPT_STRINGS = frozenset({
     # File-mode strings (open() contract)
     "r", "w", "a", "rb", "wb", "ab", "rt", "wt", "at",
     "r+", "w+", "a+", "rb+", "wb+", "ab+", "x", "xb", "xt",
+    # Canonical float literals — args to float(); no policy meaning
+    "inf", "-inf", "nan", "-nan", "Infinity", "-Infinity", "NaN",
+    # argparse action= canonical enum values
+    "store", "store_const", "store_true", "store_false",
+    "append", "append_const", "count", "help", "version", "extend",
+    # open()/str.encode()/str.decode() errors= canonical enum values
+    "strict", "ignore", "replace", "backslashreplace", "xmlcharrefreplace",
+    "namereplace", "surrogateescape", "surrogatepass",
 })
 DUNDER_RE = re.compile(r"^__[a-zA-Z_]+__$")
 MAGIC_OK_RE = re.compile(r"#\s*magic-ok:\s*(\S.*?)\s*$")
@@ -55,7 +63,23 @@ LOG_METHOD_NAMES = frozenset({
     "exception", "log", "fatal", "trace",
 })
 DICT_LOOKUP_METHODS = frozenset({"get", "pop", "setdefault"})
+# Builtin attribute-lookup functions where the first string arg is an
+# attribute identifier, not a policy value.
+ATTR_LOOKUP_BUILTINS = frozenset({"getattr", "setattr", "hasattr", "delattr"})
 EXCEPTION_NAME_SUFFIXES = ("Error", "Exception", "Warning")
+# argparse parser-construction methods. Literal args are CLI-contract
+# shape (flag names, help text, metavar) rather than policy values.
+# default= values ARE policy-bearing, so they are NOT exempted here.
+ARGPARSE_METHODS = frozenset({
+    "add_argument", "add_mutually_exclusive_group",
+    "add_argument_group", "add_subparsers",
+    "ArgumentParser",  # argparse.ArgumentParser(description=..., prog=...)
+})
+# argparse kwargs that are CLI-contract documentation (not policy).
+ARGPARSE_DOC_KWARGS = frozenset({
+    "help", "metavar", "dest", "description", "prog", "usage",
+    "epilog", "title",
+})
 
 
 def is_exempt(value):
@@ -194,9 +218,34 @@ def _is_role_exempt(node):
                 return True
             if func.attr.endswith(EXCEPTION_NAME_SUFFIXES):
                 return True
+            # re match-object .group(N) — the integer is a capture-group
+            # index, not a policy value. Only exempt small non-negative ints.
+            if func.attr == "group":
+                if (enclosing.args and enclosing.args[0] is node
+                        and isinstance(node.value, int)
+                        and not isinstance(node.value, bool)
+                        and 0 <= node.value <= 20):
+                    return True
+            # argparse: parser.add_argument("--foo", help="...", metavar="FOO")
+            # Positional args (flag names) and doc kwargs are CLI-contract
+            # shape, not policy values. default=/const=/choices= are NOT
+            # covered here — those remain flagged.
+            if func.attr in ARGPARSE_METHODS:
+                # Positional args = flag names / subparser names
+                if any(a is node for a in enclosing.args):
+                    return True
+                # Doc kwargs (help=, metavar=, dest=, description=, ...)
+                parent = getattr(node, "parent", None)
+                if isinstance(parent, ast.keyword) and parent.arg in ARGPARSE_DOC_KWARGS:
+                    return True
         elif isinstance(func, ast.Name):
             if func.id.endswith(EXCEPTION_NAME_SUFFIXES):
                 return True
+            # getattr(obj, "attr"), setattr(obj, "attr", val), etc.
+            # Second positional arg is an attribute identifier, not policy.
+            if func.id in ATTR_LOOKUP_BUILTINS:
+                if len(enclosing.args) >= 2 and enclosing.args[1] is node:
+                    return True
 
     # (7) Short punctuation
     if isinstance(node.value, str):

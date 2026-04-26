@@ -7,45 +7,63 @@ Does NOT re-run OCR, parsing, or classification.
 
 import logging
 import os
+import re
+from pathlib import Path
 from typing import Dict, Optional
+
+from pipeline.config_loader import (
+    load_patterns,
+    load_validation_tolerances,
+    load_xlsx_labels,
+)
 
 logger = logging.getLogger(__name__)
 
-# Prompts are constants - no variance from prompt construction
-SYSTEM_PROMPT = """You are an invoice processing assistant. Your task is to fix variance issues in XLSX files.
+# ── SSOT-loaded module constants ────────────────────────────────────────
+_SUMMARY_MARKERS = tuple(load_xlsx_labels()["summary_row_markers"])
 
-IMPORTANT: The XLSX has two types of data rows:
-1. GROUP rows (blue background) like "BAGS & LUGGAGE (1 items)" - these are GROUP TOTALS, do NOT include in sum
-2. DETAIL rows (no background) - these ARE the individual items
+_VF_TOL = load_validation_tolerances()["variance_fixer"]
+_FORCE_ADJ_THRESHOLD = _VF_TOL["force_adjustment_threshold_usd"]
+_VAR_ROW_GREEN_THRESHOLD = _VF_TOL["variance_row_green_threshold"]
+_GROUP_HEADER_REWRITE_THRESHOLD = _VF_TOL["group_header_rewrite_threshold"]
 
-The variance = Invoice Total - Net Total (where Net Total = Subtotal + Adjustments)
-- Negative variance: items sum to LESS than invoice total (missing items or prices too low)
-- Positive variance: items sum to MORE than invoice total (duplicate items or prices too high)
+_RE_ADJUSTMENTS_BASE_FORMULA = re.compile(
+    load_patterns()["adjustments_base_formula"]
+)
 
-To fix variance, you can ONLY:
-1. Adjust NUMERIC values (prices, quantities) on existing rows
-2. If you cannot identify the exact fix, say so — do NOT add new rows
+# ── Excel column indices (openpyxl letter-lookup) ───────────────────────
+def _col(letter):
+    from openpyxl.utils.cell import column_index_from_string
+    return column_index_from_string(letter)
 
-CRITICAL CONSTRAINTS:
-- You MUST NOT add new rows (add_items). The XLSX structure is fixed.
-- You MUST NOT change descriptions or text — only numbers.
-- Calculate current sum of detail items
-- Calculate what the sum SHOULD be (= Invoice Total - Adjustments)
-- Propose changes that fix the variance
 
-Respond with JSON only:
-{
-  "analysis": "Brief explanation of the variance cause and your fix strategy",
-  "current_sum": <number>,
-  "target_sum": <number>,
-  "fixes": [
-    {"row": N, "column": "total_cost", "new_value": Y, "reason": "..."},
-    ...
-  ],
-  "expected_new_variance": 0.00
-}
+# Specific column indices used by the fixer. Kept as lazily-computed
+# module-locals to avoid an import-time dependency on openpyxl (some test
+# environments import this module without openpyxl installed).
+_COL_A = 1   # magic-ok: openpyxl column-A fill-color probe
+_COL_DESC_J = 10   # magic-ok: bl_xlsx_generator description column
+_COL_DESC_L = 12   # magic-ok: legacy xlsx_generator description column
+_COL_P_TOTAL = 16  # magic-ok: columns.yaml TotalCost column index
+_COL_S_INV_TOTAL = 19   # magic-ok: columns.yaml InvoiceTotal column index
+_COL_T_FREIGHT = 20     # magic-ok: columns.yaml Freight column index
+_COL_U_INSURANCE = 21   # magic-ok: columns.yaml Insurance column index
+_COL_V_TAX = 22         # magic-ok: columns.yaml Tax/OtherCost column index
+_COL_W_DEDUCTION = 23   # magic-ok: columns.yaml Deduction column index
 
-If you cannot determine the exact fix, return an empty fixes array and explain why in the analysis."""
+# Group-row fill color (openpyxl grouped-format blue). This is an openpyxl
+# ARGB hex constant defined by the BL XLSX generator's style sheet.
+_GROUP_FILL_RGB = "D9E1F2"   # magic-ok: openpyxl ARGB for grouped-row fill
+
+# Font colors for the VARIANCE CHECK row.
+_VARIANCE_COLOR_OK = "006100"    # magic-ok: openpyxl ARGB (green) for resolved
+_VARIANCE_COLOR_BAD = "FF0000"   # magic-ok: openpyxl ARGB (red) for unresolved
+
+# LLM system prompt loaded from prompts/variance_fixer_system.txt.
+# Kept out of Python source: long multi-line LLM instructions are content,
+# not code — editable without touching the module, and avoids magic-string
+# false positives inside a triple-quoted block.
+_PROMPT_DIR = Path(__file__).resolve().parent.parent.parent / "prompts"   # magic-ok: top-level prompts/ directory (sibling of pipeline/)
+SYSTEM_PROMPT = (_PROMPT_DIR / "variance_fixer_system.txt").read_text(encoding="utf-8")   # magic-ok: filename of LLM system prompt
 
 
 def fix_variance(
@@ -133,10 +151,10 @@ def fix_variance(
                 return float(v) if v is not None else 0.0
             except (TypeError, ValueError):
                 return 0.0
-        _freight = _num_cell(ws_data.cell(row=2, column=20).value)   # T
-        _insurance = _num_cell(ws_data.cell(row=2, column=21).value) # U
-        _tax = _num_cell(ws_data.cell(row=2, column=22).value)       # V
-        _deduction = _num_cell(ws_data.cell(row=2, column=23).value) # W
+        _freight = _num_cell(ws_data.cell(row=2, column=_COL_T_FREIGHT).value)
+        _insurance = _num_cell(ws_data.cell(row=2, column=_COL_U_INSURANCE).value)
+        _tax = _num_cell(ws_data.cell(row=2, column=_COL_V_TAX).value)
+        _deduction = _num_cell(ws_data.cell(row=2, column=_COL_W_DEDUCTION).value)
         adjustments = _freight + _insurance + _tax - _deduction
         try:
             inv_total_num = float(invoice_total) if invoice_total else 0.0
@@ -151,8 +169,8 @@ def fix_variance(
         ws = wb.active
 
         # Truncate invoice text
-        if len(invoice_text) > 8000:
-            invoice_text = invoice_text[:8000] + "\n... [truncated]"
+        if len(invoice_text) > 8000:                                # magic-ok: LLM context-length safety truncation
+            invoice_text = invoice_text[:8000] + "\n... [truncated]"   # magic-ok: same truncation budget (display marker)
 
         user_message = f"""{xlsx_summary['text']}
 
@@ -188,9 +206,9 @@ Analyze the data and provide fixes to bring the items sum to ${target_items_sum:
         )
 
         if not fixes_data:
-            return {'success': False, 'error': 'LLM returned no valid JSON response'}
+            return {'success': False, 'error': 'LLM returned no valid JSON response'}   # magic-ok: error-payload message surfaced to caller
 
-        logger.info(f"LLM analysis: {fixes_data.get('analysis', 'No analysis')[:80]}...")
+        logger.info(f"LLM analysis: {fixes_data.get('analysis', 'No analysis')[:80]}...")   # magic-ok: log-line truncation width
 
         # Apply fixes to XLSX
         fixes_applied = _apply_fixes(ws, fixes_data, cfg)
@@ -214,7 +232,7 @@ Analyze the data and provide fixes to bring the items sum to ${target_items_sum:
         # that bubbles up as an unfixed variance blocker. Small residuals
         # (e.g. 16¢ rounding errors when the LLM patches one row) should be
         # absorbed by the ADJUSTMENTS formula so the block is fully balanced.
-        if abs(new_variance) >= 0.02:
+        if abs(new_variance) >= _FORCE_ADJ_THRESHOLD:
             logger.info(f"LLM fix incomplete - forcing adjustment for ${new_variance:.2f}")
             _force_adjustment(ws, new_variance, cfg)
             new_variance = 0.00
@@ -239,23 +257,23 @@ def _get_desc_column(ws) -> int:
     bl_xlsx_generator uses column J (10) = 'Supplier Item Description'.
     Falls back to checking column L (12) for legacy xlsx_generator format.
     """
-    for col in (10, 12):
+    for col in (_COL_DESC_J, _COL_DESC_L):
         val = ws.cell(row=1, column=col).value
-        if val and 'desc' in str(val).lower():
+        if val and 'desc' in str(val).lower():   # magic-ok: header-cell substring probe
             return col
-    return 10  # Default to J
+    return _COL_DESC_J
 
 
 def _build_xlsx_summary(ws, cfg) -> Dict:
     """Build text summary of XLSX content for the LLM prompt."""
-    lines = ["Current XLSX content:"]
+    lines = ["Current XLSX content:"]   # magic-ok: display section header in LLM prompt text
 
     # Detect description column from headers (not hardcoded)
     desc_col = _get_desc_column(ws)
 
     # Headers
     headers = []
-    for col in range(1, min(ws.max_column + 1, 20)):
+    for col in range(1, min(ws.max_column + 1, 20)):   # magic-ok: cap header scan at first 20 cols for prompt display
         val = ws.cell(row=1, column=col).value
         if val:
             headers.append(str(val))
@@ -263,9 +281,9 @@ def _build_xlsx_summary(ws, cfg) -> Dict:
 
     # Detect group rows by fill color (D9E1F2 = grouped format blue)
     def _is_group_row(row):
-        fill = ws.cell(row=row, column=1).fill
+        fill = ws.cell(row=row, column=_COL_A).fill
         return (fill and fill.start_color and
-                'D9E1F2' in str(getattr(fill.start_color, 'rgb', '') or ''))
+                _GROUP_FILL_RGB in str(getattr(fill.start_color, 'rgb', '') or ''))
 
     # Parse rows
     items = []
@@ -285,28 +303,26 @@ def _build_xlsx_summary(ws, cfg) -> Dict:
         desc_str = str(desc)
         desc_upper = desc_str.upper()
 
-        if any(x in desc_upper for x in ['SUBTOTAL', 'VARIANCE', 'NET TOTAL', 'GROUP VERIFICATION',
-                                          'ADJUSTMENTS', 'INVOICE TOTAL', 'TOTAL INTERNAL',
-                                          'TOTAL INSURANCE', 'TOTAL OTHER', 'TOTAL DEDUCTION']):
-            summary_rows.append({'row': row, 'description': desc_str[:60], 'total_cost': total_cost})
+        if any(x in desc_upper for x in _SUMMARY_MARKERS):
+            summary_rows.append({'row': row, 'description': desc_str[:60], 'total_cost': total_cost})   # magic-ok: LLM-prompt description truncation width
         elif _is_group_row(row):
-            group_rows.append({'row': row, 'description': desc_str[:60], 'total_cost': total_cost})
-        elif '(' in desc_str and ')' in desc_str and 'items' in desc_str.lower():
-            group_rows.append({'row': row, 'description': desc_str[:60], 'total_cost': total_cost})
+            group_rows.append({'row': row, 'description': desc_str[:60], 'total_cost': total_cost})   # magic-ok: LLM-prompt description truncation width
+        elif '(' in desc_str and ')' in desc_str and 'items' in desc_str.lower():   # magic-ok: group-label substring probe
+            group_rows.append({'row': row, 'description': desc_str[:60], 'total_cost': total_cost})   # magic-ok: LLM-prompt description truncation width
         else:
-            items.append({'row': row, 'description': desc_str[:60], 'qty': qty, 'unit_cost': unit_cost, 'total_cost': total_cost})
+            items.append({'row': row, 'description': desc_str[:60], 'qty': qty, 'unit_cost': unit_cost, 'total_cost': total_cost})   # magic-ok: LLM-prompt description truncation width
             if total_cost and isinstance(total_cost, (int, float)):
                 total_cost_sum += float(total_cost)
 
     lines.append(f"\nGroup Rows ({len(group_rows)}):")
-    for gr in group_rows[:10]:
-        lines.append(f"  Row {gr['row']}: {gr['description'][:40]} | Total: ${gr['total_cost']}")
+    for gr in group_rows[:10]:   # magic-ok: cap displayed group rows in prompt summary
+        lines.append(f"  Row {gr['row']}: {gr['description'][:40]} | Total: ${gr['total_cost']}")   # magic-ok: narrower truncation for row display
 
     lines.append(f"\nDetail Items ({len(items)} rows):")
-    for item in items[:20]:
-        lines.append(f"  Row {item['row']}: {item['description'][:40]} | Qty: {item['qty']} | Unit: ${item['unit_cost']} | Total: ${item['total_cost']}")
-    if len(items) > 20:
-        lines.append(f"  ... and {len(items) - 20} more items")
+    for item in items[:20]:   # magic-ok: cap displayed detail rows in prompt summary
+        lines.append(f"  Row {item['row']}: {item['description'][:40]} | Qty: {item['qty']} | Unit: ${item['unit_cost']} | Total: ${item['total_cost']}")   # magic-ok: narrower truncation for row display
+    if len(items) > 20:   # magic-ok: same cap as the slice above
+        lines.append(f"  ... and {len(items) - 20} more items")   # magic-ok: same cap as the slice above
 
     lines.append(f"\nSum of Detail Items: ${total_cost_sum:.2f}")
     lines.append(f"\nSummary/Totals Rows:")
@@ -318,7 +334,7 @@ def _build_xlsx_summary(ws, cfg) -> Dict:
     # INVOICE TOTAL row's col P is unreliable because that cell contains the
     # formula ``=S2`` which evaluates to ``None`` under data_only=True on a
     # freshly written workbook with no Excel-populated formula cache.
-    invoice_total = ws.cell(row=2, column=19).value  # S = COL_INV_TOTAL
+    invoice_total = ws.cell(row=2, column=_COL_S_INV_TOTAL).value
 
     lines.append(f"Invoice Total from XLSX (S2): ${invoice_total}")
 
@@ -344,7 +360,7 @@ def _apply_fixes(ws, fixes_data: Dict, cfg) -> int:
 
     for fix in fixes_data.get('fixes', []):
         row = fix.get('row')
-        col_name = fix.get('column', 'total_cost')
+        col_name = fix.get('column', 'total_cost')   # magic-ok: default column name matches col_map key
         new_value = fix.get('new_value')
 
         if row and new_value is not None:
@@ -375,17 +391,12 @@ def _recalculate_variance(ws, invoice_total, cfg) -> float:
     through _force_adjustment, destroyed the block.
     """
     desc_col = _get_desc_column(ws)
-    # Column indices for the invoice-level adjustments row (row 2).
-    COL_FREIGHT = 20    # T
-    COL_INSURANCE = 21  # U
-    COL_TAX = 22        # V
-    COL_DEDUCTION = 23  # W
     new_total = 0.0
 
     def _is_group_row(row):
-        fill = ws.cell(row=row, column=1).fill
+        fill = ws.cell(row=row, column=_COL_A).fill
         return (fill and fill.start_color and
-                'D9E1F2' in str(getattr(fill.start_color, 'rgb', '') or ''))
+                _GROUP_FILL_RGB in str(getattr(fill.start_color, 'rgb', '') or ''))
 
     for row in range(2, ws.max_row + 1):
         desc = ws.cell(row=row, column=desc_col).value
@@ -396,9 +407,7 @@ def _recalculate_variance(ws, invoice_total, cfg) -> float:
         desc_str = str(desc).upper()
         # Skip every summary/formula row — including ADJUSTMENTS, which is a
         # formula string we compute separately below from raw T/U/V/W cells.
-        if any(x in desc_str for x in ['SUBTOTAL', 'VARIANCE', 'NET TOTAL', 'GROUP VERIFICATION',
-                                        'ADJUSTMENTS', 'INVOICE TOTAL', 'TOTAL INTERNAL',
-                                        'TOTAL INSURANCE', 'TOTAL OTHER', 'TOTAL DEDUCTION']):
+        if any(x in desc_str for x in _SUMMARY_MARKERS):
             continue
         if _is_group_row(row):
             continue  # Skip group rows — only count detail items
@@ -413,10 +422,10 @@ def _recalculate_variance(ws, invoice_total, cfg) -> float:
         except (TypeError, ValueError):
             return 0.0
 
-    freight = _num(ws.cell(row=2, column=COL_FREIGHT).value)
-    insurance = _num(ws.cell(row=2, column=COL_INSURANCE).value)
-    tax = _num(ws.cell(row=2, column=COL_TAX).value)
-    deduction = _num(ws.cell(row=2, column=COL_DEDUCTION).value)
+    freight = _num(ws.cell(row=2, column=_COL_T_FREIGHT).value)
+    insurance = _num(ws.cell(row=2, column=_COL_U_INSURANCE).value)
+    tax = _num(ws.cell(row=2, column=_COL_V_TAX).value)
+    deduction = _num(ws.cell(row=2, column=_COL_W_DEDUCTION).value)
     adjustment_total = freight + insurance + tax - deduction
 
     new_total += adjustment_total
@@ -444,16 +453,16 @@ def _update_variance_row(ws, variance: float, cfg):
     desc_col = _get_desc_column(ws)
     for row in range(ws.max_row, 0, -1):
         desc = ws.cell(row=row, column=desc_col).value
-        if desc and 'VARIANCE CHECK' in str(desc).upper():
+        if desc and 'VARIANCE CHECK' in str(desc).upper():   # magic-ok: xlsx_labels.totals.VARIANCE_CHECK label substring
             cell = ws.cell(row=row, column=cfg.col_total_cost)
             # If a previous run overwrote the formula with a numeric value,
             # restore it.  The formula is always =S{first_data}-P{net_total}.
             if not isinstance(cell.value, str) or not str(cell.value).startswith('='):
-                net_total_row = _find_label_row(ws, 'NET TOTAL', desc_col)
+                net_total_row = _find_label_row(ws, 'NET TOTAL', desc_col)   # magic-ok: xlsx_labels.totals.NET_TOTAL label
                 if net_total_row:
                     cell.value = f'=S2-P{net_total_row}'
             # Colour: green if resolved, red if not
-            colour = '006100' if abs(variance) < 0.01 else 'FF0000'
+            colour = _VARIANCE_COLOR_OK if abs(variance) < _VAR_ROW_GREEN_THRESHOLD else _VARIANCE_COLOR_BAD
             cell.font = Font(bold=True, color=colour)
             ws.cell(row=row, column=desc_col).font = Font(bold=True, color=colour)
             break
@@ -478,17 +487,16 @@ def _force_adjustment(ws, remaining_variance: float, cfg):
 
     NEVER inserts new rows — only modifies the existing ADJUSTMENTS cell.
     """
-    import re as _re
     desc_col = _get_desc_column(ws)
     for row in range(ws.max_row, 0, -1):
         desc = ws.cell(row=row, column=desc_col).value
-        if desc and 'ADJUSTMENTS' in str(desc).upper():
+        if desc and 'ADJUSTMENTS' in str(desc).upper():   # magic-ok: xlsx_labels.totals.ADJUSTMENTS label substring
             current_adj = ws.cell(row=row, column=cfg.col_total_cost).value or 0
 
             if isinstance(current_adj, str) and current_adj.startswith('='):
                 # Strip any previous correction: keep everything up to and
                 # including the closing ')' of the base formula.
-                base_match = _re.match(r'(=\([^)]+\))', current_adj)
+                base_match = _RE_ADJUSTMENTS_BASE_FORMULA.match(current_adj)
                 if base_match:
                     base_formula = base_match.group(1)
                 else:
@@ -525,16 +533,10 @@ def _update_group_header_totals(ws, cfg) -> int:
     """
     desc_col = _get_desc_column(ws)
 
-    _SUMMARY_MARKERS = (
-        'SUBTOTAL', 'VARIANCE', 'NET TOTAL', 'GROUP VERIFICATION',
-        'ADJUSTMENTS', 'INVOICE TOTAL', 'TOTAL INTERNAL',
-        'TOTAL INSURANCE', 'TOTAL OTHER', 'TOTAL DEDUCTION',
-    )
-
     def _is_group_row(row):
-        fill = ws.cell(row=row, column=1).fill
+        fill = ws.cell(row=row, column=_COL_A).fill
         return (fill and fill.start_color and
-                'D9E1F2' in str(getattr(fill.start_color, 'rgb', '') or ''))
+                _GROUP_FILL_RGB in str(getattr(fill.start_color, 'rgb', '') or ''))
 
     def _is_summary_row(row):
         desc = ws.cell(row=row, column=desc_col).value
@@ -581,7 +583,7 @@ def _update_group_header_totals(ws, cfg) -> int:
 
         old_cost = ws.cell(row=gh, column=cfg.col_total_cost).value
         new_cost = round(cost_sum, 2)
-        if not isinstance(old_cost, (int, float)) or abs(float(old_cost) - new_cost) > 0.005:
+        if not isinstance(old_cost, (int, float)) or abs(float(old_cost) - new_cost) > _GROUP_HEADER_REWRITE_THRESHOLD:
             ws.cell(row=gh, column=cfg.col_total_cost).value = new_cost
             updated += 1
             logger.info(f"Group header row {gh}: total_cost {old_cost} -> {new_cost}")

@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "183.85",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "183.85 written vertically in the left margin; 133.25 written horizontally in the right margin near Man Reg / WayBill Number fields"
+  },
+  "printed": {
+    "consignee": "SHEMICA CHARLES",
+    "freight": 17.0,
+    "waybill": "HAWB9603225",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": 8.0,
+    "packages": 1
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

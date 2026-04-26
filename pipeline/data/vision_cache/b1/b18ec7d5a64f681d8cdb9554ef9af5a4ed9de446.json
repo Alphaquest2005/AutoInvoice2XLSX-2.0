@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "566.0",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten '566' in the left margin, written vertically (bottom-to-top)"
+  },
+  "printed": {
+    "consignee": "TANISHA ANDREW BARTHOLOMEW",
+    "freight": 3.0,
+    "waybill": "HAWB9591220",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": 1.0,
+    "packages": 1
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

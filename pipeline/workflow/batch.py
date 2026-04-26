@@ -6,6 +6,10 @@ Key architectural changes:
 - State checkpoints: intermediate results are persisted and reused
 - Deterministic email: subject/body composed from frozen metadata
 - Format spec lifecycle: auto-gen specs promoted on success, discarded on failure
+- Per-invoice consignee + doc_type resolution: each invoice's resolved
+  doc_type is plumbed through the pipeline_runner via a thread-local
+  shim on xlsx_generator.run so the rebuild path no longer silently
+  defaults to 4000-000 when the resolver picked Budget Marine -> 7400-000.
 """
 
 import json
@@ -13,11 +17,147 @@ import logging
 import os
 import re
 import shutil
+import threading
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional
 
+# Bootstrap pipeline/ onto sys.path so config_loader resolves before
+# any other pipeline import below relies on it.
+import sys as _sys
+_PIPELINE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _PIPELINE_DIR not in _sys.path:
+    _sys.path.insert(0, _PIPELINE_DIR)
+
+from config_loader import (
+    load_file_paths,
+    load_issue_types,
+    load_library_enums,
+    load_patterns,
+    load_pipeline,
+)
+
 logger = logging.getLogger(__name__)
+
+# ── Config-loaded constants (every literal lives in config/*.yaml|json) ──
+_FILE_PATHS = load_file_paths()
+_ISSUE = load_issue_types()
+_LIBRARY = load_library_enums()
+_PATTERNS = load_patterns()
+_PIPE = load_pipeline()
+
+# Stage names (PipelineState contract).
+_STAGES = _PIPE["batch_stages"]
+_STAGE_EXTRACT       = _STAGES["EXTRACT"]
+_STAGE_PARSE         = _STAGES["PARSE"]
+_STAGE_GENERATE_XLSX = _STAGES["GENERATE_XLSX"]
+_STAGE_UNKNOWN       = _STAGES["UNKNOWN"]
+
+# Status enum values (granular per-invoice statuses).
+_BATCH_STATUS = _ISSUE["batch_run_status"]
+_STATUS_PENDING               = _BATCH_STATUS["PENDING"]
+_STATUS_COMPLETED             = _BATCH_STATUS["COMPLETED"]
+_STATUS_EXTRACT_FAILED        = _BATCH_STATUS["EXTRACT_FAILED"]
+_STATUS_PIPELINE_FAILED       = _BATCH_STATUS["PIPELINE_FAILED"]
+_STATUS_SPLIT_FAILED          = _BATCH_STATUS["SPLIT_FAILED"]
+_STATUS_COMPLETED_WITH_ERRORS = _BATCH_STATUS["COMPLETED_WITH_ERRORS"]
+_STATUS_SUCCESS = _ISSUE["status"]["SUCCESS"]
+_STATUS_ERROR   = _ISSUE["status"]["ERROR"]
+
+# Default values injected into compose_email() when upstream missing.
+_EMAIL_DEFAULTS = _PIPE["batch_compose_email_defaults"]
+_DEFAULT_CONSIGNEE_NAME = _EMAIL_DEFAULTS["consignee_name"]
+_DEFAULT_PACKAGES       = _EMAIL_DEFAULTS["packages"]
+_DEFAULT_WEIGHT         = _EMAIL_DEFAULTS["weight"]
+_DEFAULT_FREIGHT        = _EMAIL_DEFAULTS["freight"]
+_DEFAULT_COUNTRY_ORIGIN = _EMAIL_DEFAULTS["country_origin"]
+
+# OCR method tag recorded on PipelineState for traceability.
+_OCR_METHOD_PDFPLUMBER_OCR = _PIPE["batch_ocr_method_tags"]["PDFPLUMBER_OCR"]
+
+# pdf_splitter doc_type values (per-page kind).
+_SPLIT_DOC_DECLARATION = _PIPE["pdf_split_doc_types"]["DECLARATION"]
+_SPLIT_DOC_INVOICE     = _PIPE["pdf_split_doc_types"]["INVOICE"]
+
+# UI / formatting constants.
+_BANNER_WIDTH                = _PIPE["batch_banner_width"]
+_EXTRACT_TEXT_TRUNCATE_CHARS = _PIPE["batch_extract_text_truncation_chars"]
+
+# File extensions / paths.
+_EXT_PDF  = _FILE_PATHS["extensions"]["pdf"]
+_EXT_XLSX = _FILE_PATHS["extensions"]["xlsx"]
+_PIPELINE_DIR_NAME    = _FILE_PATHS["source_dirs"]["pipeline"]
+_PIPELINE_CONFIG_NAME = _FILE_PATHS["config_basenames"]["pipeline"]
+_WORK_EXTRACTED_JSON  = _FILE_PATHS["pipeline_work_files"]["extracted_json"]
+
+# Email/MIME library values.
+_MIME_TEXT_SUBTYPE       = _LIBRARY["email_mime"]["text_subtype"]
+_MIME_BASE_MAIN_TYPE     = _LIBRARY["email_mime"]["base_main_type"]
+_MIME_BASE_PDF_TYPE      = _LIBRARY["email_mime"]["base_pdf_subtype"]
+_MIME_HEADER_DISPOSITION = _LIBRARY["email_mime"]["header_disposition"]
+
+# Invoice-number recovery patterns from OCR text (first match wins).
+_INVOICE_NUMBER_PATTERNS = _PATTERNS["batch_invoice_number_patterns"]
+
+# User-visible failure messages.
+_BATCH_MSG = _PIPE["batch_messages"]
+_MSG_NO_TEXT_EXTRACTED         = _BATCH_MSG["no_text_extracted_short"]
+_MSG_NO_TEXT_USER              = _BATCH_MSG["no_text_extracted_user"]
+_MSG_OCR_EXTRACT_FAILED        = _BATCH_MSG["ocr_extract_failed_reason"]
+_MSG_PIPELINE_FAILED_WITH_SPEC = _BATCH_MSG["pipeline_failed_with_spec"]
+_MSG_ITEM_EXTRACTION_FAILED    = _BATCH_MSG["item_extraction_failed"]
+_MSG_EMAIL_SEND_FAILED         = _BATCH_MSG["email_send_failed"]
+_NO_TEXT_PLACEHOLDER           = _BATCH_MSG["no_text_placeholder"]
+
+# ── Document-type plumbing shim ──────────────────────────────────────
+# pipeline_runner.PipelineRunner.run() rebuilds self.context from the
+# argv it receives, clobbering any document_type a caller might pre-set.
+# Until that file is refactored to accept an extra_context kwarg, we
+# inject document_type by monkey-patching xlsx_generator.run (the only
+# downstream consumer) to read from a thread-local set by _run_pipeline.
+# Per-thread so concurrent worker threads don't bleed values into each
+# other. Idempotent — applied at most once per process.
+_doc_type_thread_local = threading.local()
+_xlsx_patch_applied = False
+
+
+def _apply_xlsx_doc_type_shim() -> None:
+    """Wrap xlsx_generator.run so it reads document_type from our
+    thread-local when the caller's context dict didn't supply one.
+    Safe to call multiple times — only the first call patches."""
+    global _xlsx_patch_applied
+    if _xlsx_patch_applied:
+        return
+    import xlsx_generator
+    _original_run = xlsx_generator.run
+
+    def _patched_run(input_path, output_path, config=None, context=None):
+        ctx = dict(context or {})
+        if not ctx.get("document_type"):
+            injected = getattr(_doc_type_thread_local, "value", None)
+            if injected:
+                ctx["document_type"] = injected
+        return _original_run(input_path, output_path, config=config, context=ctx)
+
+    xlsx_generator.run = _patched_run
+    _xlsx_patch_applied = True
+
+
+def _resolve_doc_type_for_invoice(extracted_text: str,
+                                  declaration_metadata: dict) -> dict:
+    """Per-invoice consignee + doc_type via the SSOT resolver.
+
+    Returns the full resolver dict (consignee_name / doc_type / source /
+    matched_rule) so callers can record provenance for downstream
+    grouping and the consignee_unrecognised checklist finding.
+    """
+    from consignee_resolver import resolve_invoice_consignee
+    decl = declaration_metadata or {}
+    return resolve_invoice_consignee(
+        invoice_text=extracted_text or "",
+        bl_consignee=(decl.get("consignee") or ""),
+        manifest_consignee=(decl.get("manifest_consignee") or ""),
+    )
 
 
 def process_single_invoice(
@@ -37,7 +177,7 @@ def process_single_invoice(
     1. Extract text (OCR) - cached, never re-run on retry
     2. Parse items (format spec) - re-run only if format spec changes
     3. Classify items - re-run only if parsed items change
-    4. Generate XLSX
+    4. Generate XLSX (with per-invoice doc_type from consignee resolver)
     5. Variance check + LLM fix if needed
     6. Send email (deterministic from frozen metadata)
     """
@@ -45,7 +185,7 @@ def process_single_invoice(
     pipeline_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     if pipeline_dir not in sys.path:
         sys.path.insert(0, pipeline_dir)
-    pipe_dir = os.path.join(pipeline_dir, 'pipeline')
+    pipe_dir = os.path.join(pipeline_dir, _PIPELINE_DIR_NAME)
     if pipe_dir not in sys.path:
         sys.path.insert(0, pipe_dir)
 
@@ -60,109 +200,119 @@ def process_single_invoice(
     invoice_name = os.path.basename(invoice_path)
     print(f"    Processing invoice {invoice_index}/{total_invoices}: {invoice_name}")
 
-    # Load or create pipeline state (checkpoint/resume)
     state = PipelineState.load_or_create(file_output_dir, invoice_path)
 
     result = {
-        'invoice_path': invoice_path,
-        'invoice_index': invoice_index,
-        'status': 'pending',
-        'xlsx_path': None,
-        'invoice_number': None,
-        'email_sent': False,
-        'errors': [],
+        "invoice_path": invoice_path,
+        "invoice_index": invoice_index,
+        "status": _STATUS_PENDING,
+        "xlsx_path": None,
+        "invoice_number": None,
+        "email_sent": False,
+        "errors": [],
     }
 
     try:
         # ─── Stage 1: Extract text (cached) ─────────────────
-        if not state.is_stage_complete('extract') or not state.extracted_text:
+        if not state.is_stage_complete(_STAGE_EXTRACT) or not state.extracted_text:
             print(f"      [1/5] Extracting text...")
             state.extracted_text = _extract_text(invoice_path)
-            state.ocr_method = 'pdfplumber+ocr'
+            state.ocr_method = _OCR_METHOD_PDFPLUMBER_OCR
             if state.extracted_text:
-                state.mark_stage_complete('extract')
+                state.mark_stage_complete(_STAGE_EXTRACT)
                 state.save()
             else:
-                state.mark_stage_failed('extract', 'No text extracted')
-                result['errors'].append('No text could be extracted from invoice')
-                result['status'] = 'extract_failed'
+                state.mark_stage_failed(_STAGE_EXTRACT, _MSG_NO_TEXT_EXTRACTED)
+                result["errors"].append(_MSG_NO_TEXT_USER)
+                result["status"] = _STATUS_EXTRACT_FAILED
                 notify_failed_import(
                     invoice_path=invoice_path,
-                    reason="OCR extraction failed — no text could be extracted",
+                    reason=_MSG_OCR_EXTRACT_FAILED,
                     base_dir=base_dir,
                 )
                 return result
         else:
             print(f"      [1/5] Using cached extracted text")
 
-        # ─── Stage 2: Parse items ───────────────────────────
-        if not state.is_stage_complete('parse') or not state.parsed_data:
-            print(f"      [2/5] Parsing items...")
-            parse_result = _run_pipeline(invoice_path, file_output_dir, base_dir)
+        # ── Resolve consignee + doc_type from invoice text + BL fallback ──
+        # This is the per-invoice resolution that closes the rebuild-path
+        # leak documented in project_consignee_resolver_ssot.md. The
+        # resolved doc_type flows into _run_pipeline -> xlsx_generator
+        # via the thread-local shim above.
+        consignee_resolution = _resolve_doc_type_for_invoice(
+            state.extracted_text, declaration_metadata
+        )
+        result["consignee_resolution"] = consignee_resolution
 
-            if parse_result.get('status') in ('success', 'completed'):
+        # ─── Stage 2: Parse items ───────────────────────────
+        if not state.is_stage_complete(_STAGE_PARSE) or not state.parsed_data:
+            print(f"      [2/5] Parsing items...")
+            parse_result = _run_pipeline(
+                invoice_path, file_output_dir, base_dir,
+                document_type=consignee_resolution.get("doc_type"),
+            )
+
+            if parse_result.get("status") in (_STATUS_SUCCESS, _STATUS_COMPLETED):
                 state.parsed_data = parse_result
                 state.format_name = _get_format_name(parse_result)
 
-                # Freeze invoice number on first successful extraction
                 if not state.invoice_number:
                     state.invoice_number = _extract_invoice_number(parse_result, invoice_path, state.extracted_text)
                 if not state.invoice_total:
                     state.invoice_total = _extract_invoice_total(parse_result)
 
-                state.mark_stage_complete('parse')
+                state.mark_stage_complete(_STAGE_PARSE)
 
-                # Find generated XLSX
                 xlsx_path = _find_xlsx(parse_result, file_output_dir, invoice_name)
                 if xlsx_path:
                     state.xlsx_path = xlsx_path
                     state.variance = _extract_variance(parse_result)
-                    state.mark_stage_complete('generate_xlsx')
+                    state.mark_stage_complete(_STAGE_GENERATE_XLSX)
 
                 state.save()
             else:
-                # Parse failed - try generating format spec
                 print(f"      [2/5] Parse failed - generating format spec...")
                 spec_result = generate_format_spec(
                     invoice_text=state.extracted_text,
                     detected_supplier=state.supplier_name,
                 )
 
-                if spec_result.get('success'):
-                    state.auto_format_spec_path = spec_result['spec_path']
+                if spec_result.get("success"):
+                    state.auto_format_spec_path = spec_result["spec_path"]
                     print(f"      Generated: {spec_result['format_name']}")
 
-                    # Reload format registry and retry parse ONLY
                     from format_registry import FormatRegistry
                     FormatRegistry._instance = None
 
-                    retry_result = _run_pipeline(invoice_path, file_output_dir, base_dir)
+                    retry_result = _run_pipeline(
+                        invoice_path, file_output_dir, base_dir,
+                        document_type=consignee_resolution.get("doc_type"),
+                    )
 
-                    if retry_result.get('status') in ('success', 'completed'):
+                    if retry_result.get("status") in (_STATUS_SUCCESS, _STATUS_COMPLETED):
                         state.parsed_data = retry_result
                         state.format_name = _get_format_name(retry_result)
 
                         if not state.invoice_number:
                             state.invoice_number = _extract_invoice_number(retry_result, invoice_path, state.extracted_text)
 
-                        state.mark_stage_complete('parse')
+                        state.mark_stage_complete(_STAGE_PARSE)
 
                         xlsx_path = _find_xlsx(retry_result, file_output_dir, invoice_name)
                         if xlsx_path:
                             state.xlsx_path = xlsx_path
                             state.variance = _extract_variance(retry_result)
-                            state.mark_stage_complete('generate_xlsx')
+                            state.mark_stage_complete(_STAGE_GENERATE_XLSX)
 
                         state.save()
                     else:
-                        # Retry failed too - discard the auto-generated spec
                         discard_spec(state.auto_format_spec_path)
                         state.auto_format_spec_path = None
-                        state.mark_stage_failed('parse', 'Pipeline failed even with generated format spec')
-                        result['status'] = 'pipeline_failed'
+                        state.mark_stage_failed(_STAGE_PARSE, _MSG_PIPELINE_FAILED_WITH_SPEC)
+                        result["status"] = _STATUS_PIPELINE_FAILED
                         notify_failed_import(
                             invoice_path=invoice_path,
-                            reason="Item extraction failed — no items could be parsed from invoice",
+                            reason=_MSG_ITEM_EXTRACTION_FAILED,
                             extracted_text=state.extracted_text,
                             format_name=state.format_name,
                             base_dir=base_dir,
@@ -170,8 +320,8 @@ def process_single_invoice(
                         state.save()
                         return result
                 else:
-                    state.mark_stage_failed('parse', f"Format spec generation failed: {spec_result.get('error')}")
-                    result['status'] = 'pipeline_failed'
+                    state.mark_stage_failed(_STAGE_PARSE, f"Format spec generation failed: {spec_result.get('error')}")
+                    result["status"] = _STATUS_PIPELINE_FAILED
                     notify_failed_import(
                         invoice_path=invoice_path,
                         reason=f"Format spec generation failed: {spec_result.get('error')}",
@@ -185,21 +335,19 @@ def process_single_invoice(
         if state.invoice_number and state.xlsx_path:
             clean_num = _safe_filename(state.invoice_number)
 
-            # Rename invoice PDF
-            new_inv_path = _rename_file(invoice_path, f"{clean_num}.pdf")
+            new_inv_path = _rename_file(invoice_path, f"{clean_num}{_EXT_PDF}")
             if new_inv_path != invoice_path:
-                result['invoice_path'] = new_inv_path
+                result["invoice_path"] = new_inv_path
                 invoice_path = new_inv_path
-                print(f"      Renamed invoice: {clean_num}.pdf")
+                print(f"      Renamed invoice: {clean_num}{_EXT_PDF}")
 
-            # Rename XLSX
-            new_xlsx_path = _rename_file(state.xlsx_path, f"{clean_num}.xlsx")
+            new_xlsx_path = _rename_file(state.xlsx_path, f"{clean_num}{_EXT_XLSX}")
             if new_xlsx_path != state.xlsx_path:
                 state.xlsx_path = new_xlsx_path
-                print(f"      Renamed XLSX: {clean_num}.xlsx")
+                print(f"      Renamed XLSX: {clean_num}{_EXT_XLSX}")
 
-        result['invoice_number'] = state.invoice_number
-        result['xlsx_path'] = state.xlsx_path
+        result["invoice_number"] = state.invoice_number
+        result["xlsx_path"] = state.xlsx_path
 
         # ─── Stage 4: Variance check + fix ──────────────────
         if state.xlsx_path:
@@ -214,20 +362,19 @@ def process_single_invoice(
                     current_variance=float(variance),
                 )
 
-                if fix_result.get('success'):
-                    state.variance = fix_result.get('new_variance', variance)
+                if fix_result.get("success"):
+                    state.variance = fix_result.get("new_variance", variance)
                     variance_ok = abs(float(state.variance)) < cfg.variance_threshold
-                    result['llm_fix'] = fix_result
+                    result["llm_fix"] = fix_result
                     print(f"      Variance fixed: ${state.variance:.2f}")
                 else:
                     print(f"      Variance fix failed: {fix_result.get('error')}")
-                    result['errors'].append(f"Variance fix failed: {fix_result.get('error')}")
+                    result["errors"].append(f"Variance fix failed: {fix_result.get('error')}")
             else:
                 print(f"      [4/5] Variance OK: ${variance:.2f}")
 
-            result['variance_check'] = state.variance
+            result["variance_check"] = state.variance
 
-            # ─── Promote or discard auto-generated format spec ──
             if state.auto_format_spec_path:
                 if variance_ok:
                     promoted = promote_spec(state.auto_format_spec_path)
@@ -244,18 +391,17 @@ def process_single_invoice(
         if send_email and state.xlsx_path and variance_ok:
             print(f"      [5/5] Sending email...")
 
-            # Compose from FROZEN metadata - no LLM involvement
             email_draft = compose_email(
-                waybill=declaration_metadata.get('waybill'),
-                consignee_name=declaration_metadata.get('consignee', 'Consignee Name Not Found'),
-                invoice_number=state.invoice_number,  # Frozen from first extraction
+                waybill=declaration_metadata.get("waybill"),
+                consignee_name=declaration_metadata.get("consignee", _DEFAULT_CONSIGNEE_NAME),
+                invoice_number=state.invoice_number,
                 invoice_index=invoice_index,
                 total_invoices=total_invoices,
-                packages=declaration_metadata.get('packages', '1'),
-                weight=declaration_metadata.get('weight', '0'),
-                country_origin=declaration_metadata.get('country_origin', 'US'),
-                freight=declaration_metadata.get('freight', '0'),
-                man_reg=declaration_metadata.get('man_reg'),
+                packages=declaration_metadata.get("packages", _DEFAULT_PACKAGES),
+                weight=declaration_metadata.get("weight", _DEFAULT_WEIGHT),
+                country_origin=declaration_metadata.get("country_origin", _DEFAULT_COUNTRY_ORIGIN),
+                freight=declaration_metadata.get("freight", _DEFAULT_FREIGHT),
+                man_reg=declaration_metadata.get("man_reg"),
                 attachment_paths=[
                     declaration_path,
                     invoice_path,
@@ -264,21 +410,21 @@ def process_single_invoice(
             )
 
             email_sent = do_send_email(
-                subject=email_draft['subject'],
-                body=email_draft['body'],
-                attachments=email_draft['attachments'],
+                subject=email_draft["subject"],
+                body=email_draft["body"],
+                attachments=email_draft["attachments"],
             )
 
-            result['email_sent'] = email_sent
-            result['email_draft'] = email_draft
+            result["email_sent"] = email_sent
+            result["email_draft"] = email_draft
 
             if email_sent:
                 print(f"      Email sent: {email_draft['subject']}")
             else:
-                result['errors'].append("Email sending failed")
+                result["errors"].append(_MSG_EMAIL_SEND_FAILED)
         elif send_email and state.xlsx_path and not variance_ok:
-            result['email_skipped'] = True
-            result['skip_reason'] = f"Variance ${variance:.2f} - needs manual correction"
+            result["email_skipped"] = True
+            result["skip_reason"] = f"Variance ${variance:.2f} - needs manual correction"
             print(f"      [5/5] Email skipped: variance ${variance:.2f}")
             notify_failed_import(
                 invoice_path=invoice_path,
@@ -291,15 +437,15 @@ def process_single_invoice(
         else:
             print(f"      [5/5] No XLSX to email")
 
-        result['status'] = 'success'
-        state.status = 'success'
+        result["status"] = _STATUS_SUCCESS
+        state.status = _STATUS_SUCCESS
         state.save()
 
     except Exception as e:
         logger.error(f"Invoice processing error: {e}", exc_info=True)
-        result['errors'].append(str(e))
-        result['status'] = 'error'
-        state.mark_stage_failed('unknown', str(e))
+        result["errors"].append(str(e))
+        result["status"] = _STATUS_ERROR
+        state.mark_stage_failed(_STAGE_UNKNOWN, str(e))
         state.save()
 
     return result
@@ -311,83 +457,78 @@ def process_pdf(pdf_path: str, output_dir: str, base_dir: str, index: int, send_
     Handles splitting, multi-invoice support, and email sending.
     """
     import sys
-    pipeline_dir = os.path.join(base_dir, 'pipeline')
+    pipeline_dir = os.path.join(base_dir, _PIPELINE_DIR_NAME)
     if pipeline_dir not in sys.path:
         sys.path.insert(0, pipeline_dir)
 
     from pdf_splitter import run as split_pdf
 
     filename = os.path.basename(pdf_path)
-    print(f"\n{'='*60}")
+    print(f"\n{'='*_BANNER_WIDTH}")
     print(f"[{index}] Processing: {filename}")
-    print(f"{'='*60}")
+    print(f"{'='*_BANNER_WIDTH}")
 
     result = {
-        'input_file': pdf_path,
-        'filename': filename,
-        'status': 'pending',
-        'output_files': [],
-        'emails_sent': 0,
-        'errors': [],
+        "input_file": pdf_path,
+        "filename": filename,
+        "status": _STATUS_PENDING,
+        "output_files": [],
+        "emails_sent": 0,
+        "errors": [],
     }
 
-    # Output directory for this file
-    safe_name = _safe_filename(filename).replace('.pdf', '')
+    safe_name = _safe_filename(filename).replace(_EXT_PDF, "")
     file_output_dir = os.path.join(output_dir, safe_name)
     os.makedirs(file_output_dir, exist_ok=True)
 
-    # Copy original
     original_copy = os.path.join(file_output_dir, filename)
     if not os.path.exists(original_copy):
         shutil.copy2(pdf_path, original_copy)
-    result['output_files'].append(original_copy)
+    result["output_files"].append(original_copy)
 
-    # Step 1: Split PDF
     print(f"  [1/3] Splitting PDF...")
     try:
         split_result = split_pdf(pdf_path, output_dir=file_output_dir, split_invoices=True)
 
-        if split_result.get('status') != 'success':
-            result['errors'].append(f"Split failed: {split_result.get('error')}")
-            result['status'] = 'split_failed'
+        if split_result.get("status") != _STATUS_SUCCESS:
+            result["errors"].append(f"Split failed: {split_result.get('error')}")
+            result["status"] = _STATUS_SPLIT_FAILED
             return result
 
-        pages_info = split_result.get('pages', [])
-        decl_pages = sum(1 for p in pages_info if p['doc_type'] == 'declaration')
-        inv_pages = sum(1 for p in pages_info if p['doc_type'] == 'invoice')
-        invoice_count = split_result.get('invoice_count', 1)
+        pages_info = split_result.get("pages", [])
+        decl_pages = sum(1 for p in pages_info if p["doc_type"] == _SPLIT_DOC_DECLARATION)
+        inv_pages  = sum(1 for p in pages_info if p["doc_type"] == _SPLIT_DOC_INVOICE)
+        invoice_count = split_result.get("invoice_count", 1)
         print(f"       Split: {decl_pages} declaration, {inv_pages} invoice pages")
         print(f"       Detected {invoice_count} separate invoice(s)")
 
-        # Rename declaration
-        declaration_metadata = split_result.get('declaration_metadata', {}) or {}
-        bl_number = declaration_metadata.get('waybill')
-        output_files = split_result.get('output_files', {})
+        declaration_metadata = split_result.get("declaration_metadata", {}) or {}
+        bl_number = declaration_metadata.get("waybill")
+        output_files = split_result.get("output_files", {})
 
-        if bl_number and 'declaration' in output_files:
-            old_path = output_files['declaration']
-            new_path = _rename_file(old_path, f"{bl_number}-Manifest.pdf")
-            output_files['declaration'] = new_path
-            print(f"       Renamed declaration: {bl_number}-Manifest.pdf")
+        if bl_number and _SPLIT_DOC_DECLARATION in output_files:
+            old_path = output_files[_SPLIT_DOC_DECLARATION]
+            new_path = _rename_file(old_path, f"{bl_number}-Manifest{_EXT_PDF}")
+            output_files[_SPLIT_DOC_DECLARATION] = new_path
+            print(f"       Renamed declaration: {bl_number}-Manifest{_EXT_PDF}")
 
-        if 'declaration' in output_files and os.path.exists(output_files['declaration']):
-            result['output_files'].append(output_files['declaration'])
+        if _SPLIT_DOC_DECLARATION in output_files and os.path.exists(output_files[_SPLIT_DOC_DECLARATION]):
+            result["output_files"].append(output_files[_SPLIT_DOC_DECLARATION])
 
-        for inv_path in split_result.get('invoices', []):
+        for inv_path in split_result.get("invoices", []):
             if os.path.exists(inv_path):
-                result['output_files'].append(inv_path)
+                result["output_files"].append(inv_path)
 
     except Exception as e:
-        result['errors'].append(f"Split exception: {str(e)}")
-        result['status'] = 'split_failed'
+        result["errors"].append(f"Split exception: {str(e)}")
+        result["status"] = _STATUS_SPLIT_FAILED
         return result
 
-    # Step 2 & 3: Process each invoice
-    invoices = split_result.get('invoices', [])
-    declaration_path = output_files.get('declaration')
+    invoices = split_result.get("invoices", [])
+    declaration_path = output_files.get(_SPLIT_DOC_DECLARATION)
 
     if not invoices:
-        legacy = output_files.get('invoice')
+        legacy = output_files.get(_SPLIT_DOC_INVOICE)
         if legacy:
             invoices = [legacy]
 
@@ -411,16 +552,16 @@ def process_pdf(pdf_path: str, output_dir: str, base_dir: str, index: int, send_
                 send_email=send_email,
             )
 
-            if inv_result.get('xlsx_path'):
-                result['output_files'].append(inv_result['xlsx_path'])
-            if inv_result.get('email_sent'):
-                result['emails_sent'] += 1
-            if inv_result.get('errors'):
-                result['errors'].extend(inv_result['errors'])
+            if inv_result.get("xlsx_path"):
+                result["output_files"].append(inv_result["xlsx_path"])
+            if inv_result.get("email_sent"):
+                result["emails_sent"] += 1
+            if inv_result.get("errors"):
+                result["errors"].extend(inv_result["errors"])
 
         print(f"  [3/3] Completed: {result['emails_sent']}/{total_invoices} emails sent")
 
-    result['status'] = 'completed_with_errors' if result['errors'] else 'success'
+    result["status"] = _STATUS_COMPLETED_WITH_ERRORS if result["errors"] else _STATUS_SUCCESS
     print(f"\n  Status: {result['status']}")
     print(f"  Output files: {len(result['output_files'])}")
     print(f"  Emails sent: {result['emails_sent']}/{total_invoices}")
@@ -453,8 +594,15 @@ def _extract_text(invoice_path: str) -> str:
         return ""
 
 
-def _run_pipeline(invoice_path: str, output_dir: str, base_dir: str) -> dict:
-    """Run the core pipeline stages."""
+def _run_pipeline(invoice_path: str, output_dir: str, base_dir: str,
+                  document_type: Optional[str] = None) -> dict:
+    """Run the core pipeline stages.
+
+    When ``document_type`` is provided, it is injected into
+    xlsx_generator.run via the thread-local shim so the rebuild path
+    no longer silently defaults to 4000-000. The shim is applied on
+    first call (idempotent).
+    """
     from pipeline_runner import PipelineRunner
 
     invoice_path = os.path.abspath(invoice_path)
@@ -462,55 +610,51 @@ def _run_pipeline(invoice_path: str, output_dir: str, base_dir: str) -> dict:
     base_dir = os.path.abspath(base_dir)
 
     safe_name = _safe_filename(os.path.basename(invoice_path))
-    xlsx_path = os.path.join(output_dir, safe_name.replace('.pdf', '.xlsx'))
+    xlsx_path = os.path.join(output_dir, safe_name.replace(_EXT_PDF, _EXT_XLSX))
 
-    config_path = os.path.join(base_dir, 'pipeline.yaml')
+    config_path = os.path.join(base_dir, _PIPELINE_CONFIG_NAME)
     runner = PipelineRunner(config_path=config_path)
     runner.base_dir = Path(base_dir)
 
-    return runner.run(input_file=invoice_path, output_file=xlsx_path)
+    _apply_xlsx_doc_type_shim()
+    _doc_type_thread_local.value = document_type
+    try:
+        return runner.run(input_file=invoice_path, output_file=xlsx_path)
+    finally:
+        _doc_type_thread_local.value = None
 
 
 def _extract_invoice_number(pipeline_result: dict, invoice_path: str, extracted_text: str) -> Optional[str]:
-    """Extract invoice number from pipeline result, with fallbacks. Result is frozen after first call."""
-    # From pipeline stages
-    for stage in pipeline_result.get('stages', []):
-        if stage.get('name') == 'extract':
-            invoices = stage.get('invoices', [])
+    """Extract invoice number from pipeline result, with fallbacks.
+    Result is frozen after first call."""
+    for stage in pipeline_result.get("stages", []):
+        if stage.get("name") == _STAGE_EXTRACT:
+            invoices = stage.get("invoices", [])
             if invoices:
-                inv_num = invoices[0].get('invoice_number')
+                inv_num = invoices[0].get("invoice_number")
                 if inv_num:
                     return inv_num
 
-    # From extracted data
-    inv_num = pipeline_result.get('extracted', {}).get('invoice_number')
+    inv_num = pipeline_result.get("extracted", {}).get("invoice_number")
     if inv_num:
         return inv_num
 
-    # From work directory
-    work_dir = pipeline_result.get('work_dir', '')
+    work_dir = pipeline_result.get("work_dir", "")
     if work_dir:
-        for fname in ['extracted.json']:
+        for fname in [_WORK_EXTRACTED_JSON]:
             fpath = os.path.join(work_dir, fname)
             if os.path.exists(fpath):
                 try:
-                    with open(fpath, 'r') as f:
+                    with open(fpath, "r") as f:
                         data = json.load(f)
-                    inv_num = data.get('invoice_number')
+                    inv_num = data.get("invoice_number")
                     if inv_num:
                         return inv_num
                 except Exception:
                     pass
 
-    # From text with regex
     if extracted_text:
-        patterns = [
-            r'ORDER\s*#?\s*(\d{3}-\d{7}-\d{7})',
-            r'(\d{3}-\d{7}-\d{7})',
-            r'ORDER\s*ID[:\s]*(PO-\d{3}-\d+)',
-            r'(?:INVOICE|ORDER)\s*(?:#|NO\.?|NUMBER)[:\s]*([A-Z0-9][A-Z0-9-]{3,})',
-        ]
-        for pattern in patterns:
+        for pattern in _INVOICE_NUMBER_PATTERNS:
             match = re.search(pattern, extracted_text, re.IGNORECASE)
             if match:
                 candidate = match.group(1).strip()
@@ -522,11 +666,11 @@ def _extract_invoice_number(pipeline_result: dict, invoice_path: str, extracted_
 
 def _extract_invoice_total(pipeline_result: dict) -> Optional[float]:
     """Extract invoice total from pipeline result."""
-    for stage in pipeline_result.get('stages', []):
-        if stage.get('name') == 'extract':
-            invoices = stage.get('invoices', [])
+    for stage in pipeline_result.get("stages", []):
+        if stage.get("name") == _STAGE_EXTRACT:
+            invoices = stage.get("invoices", [])
             if invoices:
-                total = invoices[0].get('total')
+                total = invoices[0].get("total")
                 if total:
                     try:
                         return float(total)
@@ -537,33 +681,33 @@ def _extract_invoice_total(pipeline_result: dict) -> Optional[float]:
 
 def _extract_variance(pipeline_result: dict) -> Optional[float]:
     """Extract variance from pipeline result."""
-    for stage in pipeline_result.get('stages', []):
-        if stage.get('name') == 'generate_xlsx':
-            return stage.get('variance_check', 0)
+    for stage in pipeline_result.get("stages", []):
+        if stage.get("name") == _STAGE_GENERATE_XLSX:
+            return stage.get("variance_check", 0)
     return None
 
 
 def _get_format_name(pipeline_result: dict) -> str:
     """Get format name used by pipeline."""
-    for stage in pipeline_result.get('stages', []):
-        if stage.get('name') == 'extract':
-            return stage.get('format_name', 'unknown')
-    return 'unknown'
+    for stage in pipeline_result.get("stages", []):
+        if stage.get("name") == _STAGE_EXTRACT:
+            return stage.get("format_name", _STAGE_UNKNOWN)
+    return _STAGE_UNKNOWN
 
 
 def _find_xlsx(pipeline_result: dict, output_dir: str, invoice_name: str) -> Optional[str]:
     """Find generated XLSX from pipeline result."""
-    actual = pipeline_result.get('output')
+    actual = pipeline_result.get("output")
     if actual and os.path.exists(actual):
         return actual
 
     safe_name = _safe_filename(invoice_name)
-    xlsx_path = os.path.join(output_dir, safe_name.replace('.pdf', '.xlsx'))
+    xlsx_path = os.path.join(output_dir, safe_name.replace(_EXT_PDF, _EXT_XLSX))
     if os.path.exists(xlsx_path):
         return xlsx_path
 
     for f in os.listdir(output_dir):
-        if f.endswith('.xlsx'):
+        if f.endswith(_EXT_XLSX):
             return os.path.join(output_dir, f)
 
     return None
@@ -582,7 +726,7 @@ def _rename_file(old_path: str, new_name: str) -> str:
 
 def _safe_filename(name: str) -> str:
     """Make filename filesystem-safe."""
-    return ''.join(c if c.isalnum() or c in '._-' else '_' for c in name)
+    return "".join(c if c.isalnum() or c in "._-" else "_" for c in name)
 
 
 def notify_failed_import(
@@ -619,7 +763,6 @@ def notify_failed_import(
 
     filename = os.path.basename(invoice_path)
 
-    # Build body
     lines = [
         f"Failed Import Notification",
         f"",
@@ -632,24 +775,23 @@ def notify_failed_import(
         lines.append(f"Unresolved Variance: ${variance:.2f}")
     lines.append(f"")
     lines.append(f"--- Extracted OCR Text ---")
-    lines.append(extracted_text[:10000] if extracted_text else "(no text extracted)")
+    lines.append(extracted_text[:_EXTRACT_TEXT_TRUNCATE_CHARS] if extracted_text else _NO_TEXT_PLACEHOLDER)
 
     body = "\n".join(lines)
 
     try:
         msg = MIMEMultipart()
-        msg['From'] = f"{cfg.email_sender_name} <{cfg.email_sender}>"
-        msg['To'] = cfg.email_recipient
-        msg['Subject'] = f"Failed Import: {filename}"
-        msg.attach(MIMEText(body, 'plain'))
+        msg["From"] = f"{cfg.email_sender_name} <{cfg.email_sender}>"
+        msg["To"] = cfg.email_recipient
+        msg["Subject"] = f"Failed Import: {filename}"
+        msg.attach(MIMEText(body, _MIME_TEXT_SUBTYPE))
 
-        # Attach source PDF
         if os.path.exists(invoice_path):
-            with open(invoice_path, 'rb') as f:
-                part = MIMEBase('application', 'pdf')
+            with open(invoice_path, "rb") as f:
+                part = MIMEBase(_MIME_BASE_MAIN_TYPE, _MIME_BASE_PDF_TYPE)
                 part.set_payload(f.read())
                 encoders.encode_base64(part)
-                part.add_header('Content-Disposition', f'attachment; filename="{filename}"')
+                part.add_header(_MIME_HEADER_DISPOSITION, f'attachment; filename="{filename}"')
                 msg.attach(part)
 
         context = ssl.create_default_context()
@@ -662,4 +804,3 @@ def notify_failed_import(
 
     except Exception as e:
         logger.warning(f"Failed to send import notification for {filename}: {e}")
-        return False

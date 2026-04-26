@@ -1,0 +1,21 @@
+{
+  "waybill": "HAWB9622064",
+  "consignee_name": "RHONOSHA REDHEAD",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 2,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "1.0",
+  "country_origin": "US",
+  "freight": "3.00",
+  "man_reg": "2024 29",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_031/out/111-5908955-5240243_2.pdf",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_031/out/111-5908955-5240243.pdf",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_031/out/HAWB9622064_combined.xlsx",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_031/out/HAWB9622064-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

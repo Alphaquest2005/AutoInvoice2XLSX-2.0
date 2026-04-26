@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "This image shows a Temu e-receipt, not a Grenada Simplified Declaration Form. No handwritten customs declaration elements were found matching the specified form structure."
+  },
+  "printed": {
+    "consignee": "",
+    "freight": 0,
+    "waybill": "",
+    "man_reg": "",
+    "office": "",
+    "weight": 0,
+    "packages": 0
+  },
+  "has_handwriting": false,
+  "_cache_version": 4
+}

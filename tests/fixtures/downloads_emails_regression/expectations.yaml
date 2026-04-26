@@ -1,0 +1,53 @@
+# Per-shipment named-fixture expectations consumed by
+# tests/pipeline/test_downloads_emails_regression.py.
+#
+# Each top-level key is a folder name under
+# workspace/output/downloads-regression-emails/. The value dict declares
+# what the pipeline MUST produce for that shipment under the current
+# code version. Field semantics:
+#
+#   expected_waybills          : exact set of HAWB/BL stems that the
+#                                pipeline must emit XLSX files for.
+#   expected_waybills_subset   : subset that MUST be present (other
+#                                waybills are tolerated).
+#   expected_customs_value_ec  : per-waybill declared duty (EC$) read
+#                                back from the CLIENT DECLARED DUTIES
+#                                row in the XLSX. Use null to assert
+#                                "any numeric value, just present".
+#   consignee                  : consignee name that must appear in at
+#                                least one _email_params*.json file.
+#   expected_doc_type          : per-waybill doc_type code that must be
+#                                written to cell A2 of the XLSX (or just
+#                                a single string "7400-000" applied to
+#                                every produced XLSX in the folder).
+#                                Catches the TSCW18489131 / 26006159
+#                                rebuild-leak regression — see
+#                                project_consignee_resolver_ssot.md.
+
+"03152025_RECEIPT":
+  expected_waybills:
+    - "HAWB9600998"
+    - "HAWB9603312"
+  expected_customs_value_ec:
+    HAWB9600998: 8.96
+    HAWB9603312: 80.06
+  consignee: "ROSALIE LA GRENADE"
+
+"03142025_USD_170.88_XCD_467.72":
+  expected_waybills_subset:
+    - "HAWB9590375"
+  expected_customs_value_ec:
+    HAWB9590375: 155.04
+
+# Budget Marine BL TSCW18489131 — 15 invoices including the Victron
+# (26006159) layout that triggered the 4000-000 rebuild-leak incident.
+# Every produced XLSX must show 7400-000 in cell A2.
+"TSCW18489131_budget_marine_grenada":
+  consignee: "BUDGET MARINE GRENADA"
+  expected_doc_type_all: "7400-000"
+
+# Budget Marine BL TSCW18629902 — second container shipment (March
+# bmgrn invoices). Same rule: every XLSX is Warehouse Entry 7400-000.
+"TSCW18629902_budget_marine_grenada":
+  consignee: "BUDGET MARINE GRENADA"
+  expected_doc_type_all: "7400-000"

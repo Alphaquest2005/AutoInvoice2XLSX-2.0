@@ -1,0 +1,24 @@
+# Per-format fixture manifest for tests/pipeline/test_ebay_format.py.
+# Loaded via tests/_fixtures.py:load_test_manifest("ebay").
+# All policy values that the test asserts on live here, not in the .py file.
+
+format_name: ebay
+min_version: "1.1"
+
+# _meta block fields the YAML must populate (validated by check_config_meta).
+required_meta_keys:
+  - purpose
+  - covers
+  - match_patterns
+
+# Substrings that MUST appear in at least one items.multiline.skip_patterns
+# entry after v1.1. Pinned by HAWB9758348 (Buyer/Seller/Placed-on receipt
+# header lines were misclassified as items when OCR collapsed tab columns).
+required_skip_needles:
+  - Buyer
+  - Seller
+  - Placed
+
+# Fixture text files in this same directory.
+problem_line_fixture: HAWB9758348_problem_line.txt
+detect_sample_fixture: registry_detect_sample.txt

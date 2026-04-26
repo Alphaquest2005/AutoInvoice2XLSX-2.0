@@ -1,0 +1,28 @@
+{
+  "waybill": "HAWB9592421",
+  "consignee_name": "SHERECA LEWIS",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 5,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "5.0",
+  "country_origin": "US",
+  "freight": "11.00",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_078/out/INVUS20240716000316024.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_078/out/INVUS20240716000316022.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_078/out/INVUS20240716000319345.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_078/out/INVUS20240716000320275.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_078/out/INVUS20240716000326689.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_078/out/INBOX_combined.xlsx",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_078/out/HAWB9592421-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS",
+  "ocr_warnings": [
+    "INVUS20240716000316024.pdf: OCR quality POOR (score 35/100)"
+  ],
+  "notes": "WARNING: Some pages have poor OCR quality. Check the \"OCR Notes\" sheet in the combined XLSX for details. Consider asking sender to rescan and resubmit."
+}

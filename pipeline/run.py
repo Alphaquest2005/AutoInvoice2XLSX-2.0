@@ -32,15 +32,19 @@ from typing import Optional
 # Setup logging
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(levelname)s - %(message)s'  # magic-ok: stdlib logging format (runs before config load)
 )
 logger = logging.getLogger(__name__)
 
-# Add pipeline directory to path
+# Add pipeline directory AND repo root to path so both `from stages.foo import ...`
+# (needs SCRIPT_DIR) and `from pipeline.config_loader import ...` (needs BASE_DIR)
+# resolve when this file is executed directly as a script.
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(SCRIPT_DIR)
 if SCRIPT_DIR not in sys.path:
     sys.path.insert(0, SCRIPT_DIR)
+if BASE_DIR not in sys.path:
+    sys.path.insert(0, BASE_DIR)
 
 from stages.supplier_resolver import (
     init as init_resolver,
@@ -58,6 +62,263 @@ from stages.supplier_resolver import (
 from stages.invoice_processor import process_single_invoice, InvoiceResult
 from stages.bl_allocator import allocate_bl_packages, BLAllocation
 import send_history
+from _diag import Stage
+
+# SSOT config access — every policy literal (mode tokens, doc_type codes,
+# classification bucket names, file sentinels, regex patterns, etc.) is
+# loaded through these helpers rather than hardcoded.
+from pipeline.config_loader import (
+    load_columns,
+    load_document_types,
+    load_file_paths,
+    load_financial_constants,
+    load_issue_types,
+    load_patterns,
+    load_pipeline,
+    load_validation_tolerances,
+)
+
+# Module-level cached config views (policy lookups are O(1) dict accesses).
+_PIPE = load_pipeline()
+_FP = load_file_paths()
+_DT_CFG = load_document_types()
+_ISSUE = load_issue_types()
+_FIN = load_financial_constants()
+_TOL = load_validation_tolerances()
+_COLS_CFG = load_columns()
+
+# Column letter → 1-based index (e.g. _COL_INDEX["X"] == 24 = Packages).
+_COL_INDEX = {letter: meta["index"] for letter, meta in _COLS_CFG["columns"].items()}
+
+# Pipeline modes (auto / bl / batch / single / combined).
+_MODE_AUTO = _PIPE["modes"]["AUTO"]
+_MODE_BL = _PIPE["modes"]["BL"]
+_MODE_BATCH = _PIPE["modes"]["BATCH"]
+_MODE_SINGLE = _PIPE["modes"]["SINGLE"]
+_MODE_COMBINED = _PIPE["modes"]["COMBINED"]
+
+# Classification-bucket keys used on args._classification dict.
+_CLASS_INVOICE = _PIPE["classification_buckets"]["INVOICE"]
+_CLASS_MANIFEST = _PIPE["classification_buckets"]["MANIFEST"]
+_CLASS_DECLARATION = _PIPE["classification_buckets"]["DECLARATION"]
+_CLASS_BL = _PIPE["classification_buckets"]["BILL_OF_LADING"]
+_CLASS_PACKING = _PIPE["classification_buckets"]["PACKING_LIST"]
+_CLASS_FREIGHT = _PIPE["classification_buckets"]["FREIGHT_INVOICE"]
+_CLASS_SIMPLIFIED = _PIPE["classification_buckets"]["SIMPLIFIED"]
+_CLASS_UNUSABLE = _PIPE["classification_buckets"]["UNUSABLE"]
+_CLASS_UNKNOWN = _PIPE["classification_buckets"]["UNKNOWN"]
+
+# Status tokens (controlled vocabulary).
+_STATUS_SUCCESS = _ISSUE["status"]["SUCCESS"]
+_STATUS_ERROR = _ISSUE["status"]["ERROR"]
+_STATUS_WARNING = _ISSUE["status"]["WARNING"]
+
+# Document-type default (e.g. "4000-000" IM4 Standard).
+_DOC_TYPE_DEFAULT = _DT_CFG["default"]
+
+# Per-shipment sentinel filenames written under each output dir.
+_SENT = _FP["run_sentinels"]
+_SUBDIRS = _FP["run_subdirs"]
+
+# Canonical directory tokens (workspace/shipments, data/, config/, ...).
+_DIRS = _FP["dirs"]
+
+# Config-directory basenames (joined against _DIRS["config"] at use sites).
+_CFG_SHIPMENT_RULES = _FP["config_basenames"]["shipment_rules"]
+_CFG_DOCUMENT_TYPES = _FP["config_basenames"]["document_types"]
+
+# Email-body sentinel (persisted alongside the output XLSX for reviewer replay).
+_EMAIL_BODY_TXT    = _FP["email_artifacts"]["body_txt"]
+_BACKUP_SUFFIX     = _FP["email_artifacts"]["backup_suffix"]
+
+# File-extension tokens (.pdf, .xlsx, ...).
+_EXT_PDF  = _FP["extensions"]["pdf"]
+_EXT_XLSX = _FP["extensions"]["xlsx"]
+_EXT_JSON = _FP["extensions"]["json"]
+_EXT_TXT  = _FP["extensions"]["txt"]
+
+# Financial / tolerance SSOT aliases.
+_VARIANCE_EPSILON = _TOL["variance_display_epsilon"]
+_DEFAULT_CET_RATE = _FIN["default_cet_rate"]           # 0.20 fallback CET
+_PCT_CONVERSION = _FIN["pct_conversion"]               # 100 (percent of 1)
+_CET_COEFF = _FIN["composite_duty"]["cet_coefficient"] # 1.15 composite duty
+_BASE_COEFF = _FIN["composite_duty"]["base_coefficient"] # 0.219 composite duty
+_FALLBACK_TAX_RATIO = _FIN["fallback_tax_ratio"]       # 0.07 fallback tax ratio
+
+# Column positions (1-based, e.g. column "X" = 24 = Packages).
+_COL_PACKAGES = _COL_INDEX["X"]
+
+# First detail-row number in the emitted XLSX layout. Rows 1-2 are the
+# header; detail items start on row 3 in the consolidated/BL layout
+# scanned by verify/variance code.
+_XLSX_DETAIL_START_ROW = 3  # magic-ok: XLSX layout (rows 1-2 are header)
+
+# Default send-history sender location when --location not given.
+_DEFAULT_SEND_LOCATION = _PIPE["send_defaults"]["location"]
+
+# Rule-match discriminator recorded on args._consignee_match_type.
+_MATCH_CONSIGNEE = _PIPE["match_types"]["CONSIGNEE"]
+_MATCH_SUPPLIER  = _PIPE["match_types"]["SUPPLIER"]
+
+# Sentinel BL/invoice numbers for "no proper value" states.
+_BL_COMBINED       = _PIPE["bl_number_sentinels"]["combined"]
+_BL_NEXT_SHIPMENT  = _PIPE["bl_number_sentinels"]["next_shipment"]
+_BL_UNKNOWN        = _PIPE["bl_number_sentinels"]["unknown"]
+_BL_UNKNOWN_UPPER  = _PIPE["bl_number_sentinels"]["unknown_upper"]
+
+# Run-defaults: user-visible fallback strings.
+_DEFAULT_COUNTRY_ORIGIN = _PIPE["run_defaults"]["country_origin"]
+_UNKNOWN_LABEL          = _PIPE["run_defaults"]["unknown_label"]
+
+# Extraction/format_registry sentinels.
+_FMT_DEFAULT = _PIPE["extraction_sentinels"]["default_format"]
+_TEXT_EXTRACTION_FAIL = _PIPE["extraction_sentinels"]["text_extraction_fail"]
+
+# Regex patterns (SSOT in config/patterns.yaml).
+_PATTERNS = load_patterns()
+_RE_FILENAME_RESERVED = _PATTERNS["filename_reserved_chars"]
+_RE_NAME_LEADING_DIGIT = _PATTERNS["name_leading_digit_or_hash"]
+_RE_MANIFEST_REGISTRY = _PATTERNS["manifest_registry"]
+_BL_TEXT_KEYWORDS = tuple(_PATTERNS["bl_text_keywords"])
+_BL_NUMBER_CARRIER_PATTERNS = tuple(_PATTERNS["bl_number_carrier_patterns"])
+_RE_BL_TSCW_SEARCH      = _PATTERNS["bl_tscw_search"]
+_RE_BL_HBL_SEARCH       = _PATTERNS["bl_hbl_search"]
+_RE_BL_TRAILING_SUFFIX  = _PATTERNS["bl_trailing_suffix"]
+_RE_BL_HEADER_PREFIX    = _PATTERNS["bl_header_prefix"]
+_CONSIGNEE_EXTRACT = _PATTERNS["consignee_extraction"]
+_RE_CONSIGNEE_INVOICE_MULTI_COL = _CONSIGNEE_EXTRACT["invoice_multi_column"]
+_RE_CONSIGNEE_INVOICE_SOLD_TO   = _CONSIGNEE_EXTRACT["invoice_sold_to"]
+_RE_CONSIGNEE_INVOICE_SHIP_TO   = _CONSIGNEE_EXTRACT["invoice_ship_to"]
+_RE_CONSIGNEE_INVOICE_SHIP_BLOCK = _CONSIGNEE_EXTRACT["invoice_ship_to_block"]
+_RE_CONSIGNEE_BL_NOT_NEGOTIABLE = _CONSIGNEE_EXTRACT["bl_not_negotiable"]
+_RE_CONSIGNEE_BL_BARE_HEADER    = _CONSIGNEE_EXTRACT["bl_bare_header"]
+_RE_CONSIGNEE_FREIGHT_PAREN    = _PATTERNS["consignee_cleanup"]["freight_parenthetical"]
+_RE_CONSIGNEE_FREIGHT_TRAIL    = _PATTERNS["consignee_cleanup"]["freight_trailing"]
+_RE_CONSIGNEE_TRAIL_PUNCT      = _PATTERNS["consignee_cleanup"]["trailing_punct"]
+_RE_CONSIGNEE_TRAIL_DOC_TOKENS = _PATTERNS["consignee_cleanup"]["trailing_doc_tokens"]
+_RE_CONSIGNEE_NOTIFY_LINE      = _PATTERNS["consignee_cleanup"]["notify_line_start"]
+_RE_CONSIGNEE_FIELD_LABEL_LINE = _PATTERNS["consignee_cleanup"]["field_label_line_start"]
+_RE_CODE_IDENTIFIER            = _PATTERNS["code_identifier"]
+_RE_PORT_OF_DISCHARGE          = _PATTERNS["port_of_discharge"]
+_RE_CREDIT_CARD_LINE           = _PATTERNS["credit_card_line"]
+_RE_AMAZON_RECAP_LINE          = _PATTERNS["amazon_recap_line"]
+_RE_BL_TOTALS_WR_LINE          = _PATTERNS["bl_totals_wr_line"]
+
+# Config-basename / run-subdir constants for path-joining sites.
+_CFG_PIPELINE          = _FP["config_basenames"]["pipeline"]
+_CFG_OFFICE_LOCATIONS  = _FP["config_basenames"]["office_locations"]
+_SUBDIR_UNPROCESSED    = _FP["run_subdirs"]["unprocessed"]
+
+# Pipeline-scope constants (declaration splits, OCR quality, etc.).
+_INVOICE_ADJUSTMENT_KEYS = tuple(_PIPE["invoice_adjustment_keys"])
+_CUSTOMS_VALUE_FIELDS    = _PIPE["customs_value_fields"]
+_CUSTOMS_VALUE_EC        = _CUSTOMS_VALUE_FIELDS["ec"]
+_CUSTOMS_VALUE_USD       = _CUSTOMS_VALUE_FIELDS["usd"]
+_OCR_FAIL_RATINGS        = frozenset(_PIPE["ocr_quality_failure_ratings"])
+_WORKSHEET_HINTS_CFG     = tuple(_PIPE["worksheet_hints"])
+_TARIFF_CODE_DEFAULT     = _PIPE["tariff_code_default"]
+_NUMERIC_NONE_SENTINEL   = _PIPE["numeric_none_sentinel"]
+_RULE_TEXT_SMOKE_EXAMPLES = tuple(_PIPE["rule_text_smoke_examples"])
+_EMAIL_MIME              = _PIPE["email_mime"]
+_EMAIL_MIME_MAIN         = _EMAIL_MIME["main_type"]
+_EMAIL_MIME_SUB          = _EMAIL_MIME["sub_type"]
+_EMAIL_MIME_DISPOSITION  = _EMAIL_MIME["disposition_header"]
+_EMAIL_MIME_BODY_SUBTYPE = _EMAIL_MIME["body_subtype"]
+_LOGGING_FORMAT          = _PIPE["logging_format"]
+
+# Numeric-string defaults (stored as strings for JSON/email-field compat).
+# Email params are serialized through JSON; numeric fields carry their
+# canonical "0"/"1" string form for downstream templating.
+_STR_ZERO = "0"  # magic-ok: string numeric default
+_STR_ONE  = "1"  # magic-ok: string numeric default
+
+# Terminal banner widths used for console separators.
+# 80 = standard terminal width; 108/104 are wider for the tabular
+# variance-detail dump. Changing these only affects visual layout.
+_BANNER_WIDTH         = 80   # magic-ok: terminal banner width
+_BANNER_WIDTH_WIDE    = 108  # magic-ok: terminal banner width (wide)
+_BANNER_WIDTH_INDENT  = 104  # magic-ok: terminal banner width (indented)
+
+# Consignee placeholder sets (BL/manifest sentinels that mean "no consignee").
+# Primary set covers self-reference / to-order bearer shipments.
+# Notify set is only used at resolve_doc_type where OCR may grab the
+# NOTIFY PARTY label instead of the content.
+_CONSIGNEE_PLACEHOLDERS = frozenset(
+    _PIPE["consignee_normalise"]["placeholders"]
+)
+_CONSIGNEE_NOTIFY_PLACEHOLDERS = frozenset(
+    _PIPE["consignee_normalise"]["notify_placeholders"]
+)
+_CONSIGNEE_ALL_PLACEHOLDERS = _CONSIGNEE_PLACEHOLDERS | _CONSIGNEE_NOTIFY_PLACEHOLDERS
+_CONSIGNEE_STOPWORDS = frozenset(_PIPE["consignee_normalise"]["stopwords"])
+_BL_FIELD_LABELS = frozenset(_PIPE["consignee_normalise"]["field_labels"])
+
+# Manifest-metadata dict field names (contract with stages.manifest_extractor).
+_MF = _PIPE["manifest_fields"]
+_MF_PACKAGES    = _MF["PACKAGES"]
+_MF_WEIGHT      = _MF["WEIGHT"]
+_MF_FREIGHT     = _MF["FREIGHT"]
+_MF_CONSIGNEE   = _MF["CONSIGNEE"]
+_MF_OFFICE      = _MF["OFFICE"]
+_MF_FOB_VALUE   = _MF["FOB_VALUE"]
+_MF_MAN_REG     = _MF["MAN_REG"]
+_MF_INVOICE_NUM = _MF["INVOICE_NUM"]
+_MF_WAYBILL     = _MF["WAYBILL"]
+
+# added by Wave 2 for pipeline/run.py
+# Stage names emitted by the Stage() context manager for BL workflow phases.
+_SN = _PIPE["stage_names"]
+_SN_BL_PHASE1_LOAD_PO                     = _SN["bl_phase1_load_po"]
+_SN_BL_PHASE2_FORMAT_REGISTRY             = _SN["bl_phase2_format_registry"]
+_SN_BL_PHASE4_PREPARE_INVOICE_PDFS        = _SN["bl_phase4_prepare_invoice_pdfs"]
+_SN_BL_PHASE6_ALLOCATE_BL_PACKAGES        = _SN["bl_phase6_allocate_bl_packages"]
+_SN_BL_PHASE7_COMBINE_ENTRIES             = _SN["bl_phase7_combine_entries"]
+_SN_BL_PHASE8_MANIFEST_METADATA           = _SN["bl_phase8_manifest_metadata"]
+_SN_BL_PHASE9_PACKAGE_CAP                 = _SN["bl_phase9_package_cap"]
+_SN_BL_PHASE10_XLSX_VALIDATION            = _SN["bl_phase10_xlsx_validation"]
+_SN_BL_PHASE11_CLASSIFICATION_CROSS_CHECK = _SN["bl_phase11_classification_cross_check"]
+_SN_BL_PHASE11_VERIFY_ONE                 = _SN["bl_phase11_verify_one"]
+
+# Perf-event keys emitted via _perf.event() / _perf.phase() and at pipeline start.
+_PE = _PIPE["perf_event_keys"]
+_PE_PDF_LOOP_ITER_BEGIN     = _PE["pdf_loop_iter_begin"]
+_PE_PDF_LOOP_ITER_END       = _PE["pdf_loop_iter_end"]
+_PE_PDF_LOOP_COMPLETE       = _PE["pdf_loop_complete"]
+_PE_PIPELINE_START          = _PE["pipeline_start"]
+_PE_ANALYZE_PDF             = _PE["analyze_pdf"]
+_PE_SPLIT_PDF_MULTI_INVOICE = _PE["split_pdf_multi_invoice"]
+_PE_SPLIT_RESULT            = _PE["split_result"]
+
+# Route-tag values stamped onto perf events in the per-PDF loop.
+_RT = _PIPE["route_tags"]
+_RT_SINGLE_PAGE_PASSTHROUGH = _RT["single_page_passthrough"]
+_RT_PASSTHROUGH_NO_SPLIT    = _RT["passthrough_no_split"]
+
+# Field-value sentinel for perf events when contextual value is absent.
+_PFS_NO_BL = _PIPE["perf_field_sentinels"]["no_bl"]
+
+# Fallback string for checklist-failure 'check' key when the producer omitted it.
+_CS_UNKNOWN_CHECK = _PIPE["checklist_sentinels"]["unknown_check"]
+
+# Reserved email-params dict keys consulted by run.py outside the normal
+# serialization path.
+_EPK = _PIPE["email_param_keys"]
+_EPK_ATTACHMENT_PATHS = _EPK["attachment_paths"]
+_EPK_NOTES            = _EPK["notes"]
+
+# Per-shipment perf-log artifact paths (subdir + JSONL filename).
+_PA = _FP["perf_artifacts"]
+_PA_DIR      = _PA["dir"]
+_PA_LOG_NAME = _PA["log_name"]
+
+# Document-type suffix tokens stripped from BL filenames when the
+# surrogate-BL fallback derives a waybill number from a non-BL PDF.
+_RE_FILENAME_DOC_TYPE_SUFFIX = _PATTERNS["filename_doc_type_suffix"]
+
+# Multi-column "name-after" fallback pattern for invoice consignee
+# extraction — captures the line BELOW "BILL TO: SHIP TO:" when the
+# line ABOVE turns out to be the doc title (West-Marine layout, HAWB451185).
+_RE_CONSIGNEE_INVOICE_MULTI_COL_AFTER = _CONSIGNEE_EXTRACT["invoice_multi_column_name_after"]
 
 
 def _lookup_consignee_code(consignee_name: str) -> tuple:
@@ -70,7 +331,7 @@ def _lookup_consignee_code(consignee_name: str) -> tuple:
     if not consignee_name:
         return ('', '')
 
-    rules_path = os.path.join(BASE_DIR, 'config', 'shipment_rules.yaml')
+    rules_path = os.path.join(BASE_DIR, _DIRS["config"], _CFG_SHIPMENT_RULES)
     try:
         import yaml
         with open(rules_path, 'r') as f:
@@ -84,13 +345,13 @@ def _lookup_consignee_code(consignee_name: str) -> tuple:
 
     def _normalise(s):
         s = s.lower().strip()
-        s = s.replace('&', ' and ').replace('.', ' ').replace("'", '')
+        s = s.replace('&', ' and ').replace('.', ' ').replace("'", '')  # magic-ok: name normaliser punctuation substitutions
         # collapse whitespace
         return ' '.join(s.split())
 
     query = _normalise(consignee_name)
     # Split into significant words for partial matching
-    query_words = set(query.split()) - {'and', 'the', 'of', 'inc', 'ltd', 'co'}
+    query_words = set(query.split()) - _CONSIGNEE_STOPWORDS
 
     best_code = ''
     best_address = ''
@@ -99,7 +360,7 @@ def _lookup_consignee_code(consignee_name: str) -> tuple:
     for code, info in consignees.items():
         name = info.get('name', '')
         norm = _normalise(name)
-        norm_words = set(norm.split()) - {'and', 'the', 'of', 'inc', 'ltd', 'co'}
+        norm_words = set(norm.split()) - _CONSIGNEE_STOPWORDS
 
         # Exact normalised match
         if query == norm:
@@ -109,7 +370,7 @@ def _lookup_consignee_code(consignee_name: str) -> tuple:
         if query_words and norm_words:
             overlap = query_words & norm_words
             score = len(overlap) / max(len(query_words), len(norm_words))
-            if score > best_score and score >= 0.5:
+            if score > best_score and score >= 0.5:  # magic-ok: 50% word-overlap match threshold
                 best_score = score
                 best_code = str(code)
                 best_address = info.get('address', '')
@@ -128,7 +389,7 @@ def _iso_to_caricom_country(iso_code: str) -> str:
     """
     if not iso_code:
         return iso_code
-    rules_path = os.path.join(BASE_DIR, 'config', 'shipment_rules.yaml')
+    rules_path = os.path.join(BASE_DIR, _DIRS["config"], _CFG_SHIPMENT_RULES)
     try:
         import yaml
         with open(rules_path, 'r') as f:
@@ -152,13 +413,8 @@ def _extract_cc_charges(text: str) -> list:
     Returns a list of floats (the charge amounts) in the order they appear.
     """
     import re
-    pattern = (
-        r'(?:Visa|Mastercard|Amex|Discover|Credit\s+Card)'
-        r'[^$\n]*'
-        r'\$\s*([\d,]+\.\d{2})'
-    )
     charges = []
-    for m in re.finditer(pattern, text, re.IGNORECASE):
+    for m in re.finditer(_RE_CREDIT_CARD_LINE, text, re.IGNORECASE):
         try:
             val = float(m.group(1).replace(',', ''))
             if val > 0:
@@ -179,7 +435,7 @@ def _extract_cc_charges(text: str) -> list:
 # Used by _split_items_per_declaration to turn a handwritten per-decl duty
 # into the *items* subset-sum target. This is the authoritative allocation
 # signal for multi-waybill shipments per feedback_reverse_calc_allocation.
-_XCD_RATE = 2.7169
+_XCD_RATE = _FIN["xcd_rate"]
 
 
 def _implied_items_usd_from_duty(
@@ -188,7 +444,7 @@ def _implied_items_usd_from_duty(
     freight_usd: float = 0.0,
     insurance_usd: float = 0.0,
 ) -> float:
-    composite = 1.15 * avg_cet_rate + 0.219
+    composite = _CET_COEFF * avg_cet_rate + _BASE_COEFF
     if composite <= 0 or declared_duty_xcd <= 0:
         return 0.0
     cif_xcd = declared_duty_xcd / composite
@@ -202,25 +458,25 @@ def _avg_cet_rate_for_items(items: list) -> float:
     try:
         from bl_xlsx_generator import get_cet_rate  # lazy import to avoid cycles
     except Exception:
-        return 0.20
+        return _DEFAULT_CET_RATE
     total = 0.0
     weighted = 0.0
     for it in items or []:
-        tc = str(it.get('tariff_code', '00000000'))
+        tc = str(it.get('tariff_code', _TARIFF_CODE_DEFAULT))
         cost = float(it.get('total_cost', 0) or 0)
         rate = get_cet_rate(tc)
         if rate is None:
-            rate = 0.20
+            rate = _DEFAULT_CET_RATE
         total += cost
         weighted += cost * rate
-    return (weighted / total) if total > 0 else 0.20
+    return (weighted / total) if total > 0 else _DEFAULT_CET_RATE
 
 
 # ---------------------------------------------------------------------------
 # Partition scoring helpers (minimax-relative objective + pathological guard).
 # Used by Strategy 1 / 1b / 1c in _split_items_per_declaration.
 # ---------------------------------------------------------------------------
-_PARTITION_EPS = 1e-6
+_PARTITION_EPS = 1e-6  # magic-ok: float equality tolerance for partition scoring
 
 
 def _partition_score(sum0: float, sum1: float, t0: float, t1: float) -> tuple:
@@ -274,7 +530,7 @@ def _best_2way_partition(
 
 
 def _best_nway_partition(
-    item_costs: list, targets: list, exhaustive_limit: int = 15
+    item_costs: list, targets: list, exhaustive_limit: int = 15  # magic-ok: item-count cap for brute-force enumeration
 ) -> tuple:
     """N-way partition using minimax-relative scoring.
 
@@ -286,7 +542,7 @@ def _best_nway_partition(
     n_items = len(item_costs)
     n_decl = len(targets)
 
-    if n_items <= exhaustive_limit and n_decl <= 4 and n_items >= n_decl:
+    if n_items <= exhaustive_limit and n_decl <= 4 and n_items >= n_decl:  # magic-ok: declaration-count cap for brute-force
         best_assignment = None
         best_score = (float('inf'), float('inf'))
         total = n_decl ** n_items
@@ -344,7 +600,7 @@ def _partition_is_pathological(best_score: tuple, targets: list) -> bool:
     """
     if not targets or min(targets) < 1.0:
         return True
-    if best_score[0] > 5.0:
+    if best_score[0] > 5.0:  # magic-ok: 500% worst-side deviation threshold (see docstring)
         return True
     return False
 
@@ -353,7 +609,7 @@ def _split_items_per_declaration(
     all_declarations: list,
     results: list,
     output_dir: str,
-    document_type: str = 'auto',
+    document_type: str = _MODE_AUTO,
     invoice_text: str = '',
 ) -> list:
     """Split invoice items across declarations and generate per-declaration XLSX files.
@@ -386,7 +642,7 @@ def _split_items_per_declaration(
     template_result = results[0]
     invoice_data = template_result.invoice_data or {}
     supplier_info = template_result.supplier_info or {}
-    supplier_name = supplier_info.get('name', 'Unknown')
+    supplier_name = supplier_info.get('name', _UNKNOWN_LABEL)
 
     # ── Item distribution across declarations ──
     import math
@@ -460,7 +716,7 @@ def _split_items_per_declaration(
             except (ValueError, TypeError):
                 pass
         hw = decl_meta.get('_handwritten', {}) or {}
-        for field, is_usd in (('customs_value_ec', False), ('customs_value_usd', True)):
+        for field, is_usd in ((_CUSTOMS_VALUE_EC, False), (_CUSTOMS_VALUE_USD, True)):
             raw = hw.get(field)
             if raw:
                 try:
@@ -504,7 +760,7 @@ def _split_items_per_declaration(
         logger.info(
             f"Reverse-calc item targets: {[round(t, 2) for t in customs_targets]} "
             f"(sum ${target_sum:.2f} vs items ${all_items_total:.2f}, "
-            f"avg CET {avg_cet_rate*100:.0f}%)"
+            f"avg CET {avg_cet_rate*_PCT_CONVERSION:.0f}%)"
         )
 
     if all(t is not None for t in customs_targets) and len(customs_targets) == n_decl:
@@ -557,7 +813,7 @@ def _split_items_per_declaration(
     if decl_items is None and cc_charges and len(cc_charges) == n_decl:
         orig_tax_val = float(invoice_data.get('tax', 0) or 0)
         inv_total_val = float(invoice_data.get('invoice_total', 0) or 0)
-        tax_ratio_est = (orig_tax_val / inv_total_val) if inv_total_val > 0 else 0.07
+        tax_ratio_est = (orig_tax_val / inv_total_val) if inv_total_val > 0 else _FALLBACK_TAX_RATIO
 
         # CC charges map to declarations but order may differ.
         # Try all permutations to find the best assignment.
@@ -620,7 +876,7 @@ def _split_items_per_declaration(
             # Estimate tax ratio from invoice
             orig_tax_val = float(invoice_data.get('tax', 0) or 0)
             inv_total_val = float(invoice_data.get('invoice_total', 0) or 0)
-            tax_ratio_est = (orig_tax_val / inv_total_val) if inv_total_val > 0 else 0.07
+            tax_ratio_est = (orig_tax_val / inv_total_val) if inv_total_val > 0 else _FALLBACK_TAX_RATIO
 
             best_perm = None
             best_perm_gap = float('inf')
@@ -730,7 +986,7 @@ def _split_items_per_declaration(
         sum(float(it.get('total_cost', 0) or 0) for it in items)
         for items in decl_items
     )
-    if abs(assigned_cost - all_items_total) > 0.02:
+    if abs(assigned_cost - all_items_total) > 0.02:  # magic-ok: 2-cent float reconciliation tolerance
         logger.error(
             f"ITEM SPLIT ERROR: assigned cost ${assigned_cost:.2f} != "
             f"extracted total ${all_items_total:.2f}"
@@ -771,7 +1027,7 @@ def _split_items_per_declaration(
     full_invoice_total = invoice_data.get('invoice_total', 0)
     total_decl_freight = 0
     for decl_meta, _ in all_declarations:
-        raw_f = decl_meta.get('freight')
+        raw_f = decl_meta.get(_MF_FREIGHT)
         if raw_f:
             try:
                 total_decl_freight += float(str(raw_f).replace(',', '').strip())
@@ -827,7 +1083,7 @@ def _split_items_per_declaration(
 
         # Use declaration freight from metadata (customs freight per declaration)
         decl_freight_val = 0
-        decl_freight_raw = decl_meta.get('freight')
+        decl_freight_raw = decl_meta.get(_MF_FREIGHT)
         if decl_freight_raw:
             try:
                 decl_freight_val = float(str(decl_freight_raw).replace(',', '').strip())
@@ -855,7 +1111,7 @@ def _split_items_per_declaration(
             decl_inv_data['_customs_freight'] = 0
 
         # Prorate other adjustments by item value ratio
-        for key in ('insurance', 'other_cost', 'deduction', 'tax', 'discount', 'free_shipping', 'credits'):
+        for key in _INVOICE_ADJUSTMENT_KEYS:
             orig = invoice_data.get(key, 0)
             if orig:
                 decl_inv_data[key] = round(orig * ratio, 2)
@@ -872,7 +1128,7 @@ def _split_items_per_declaration(
         if client_duties is None and raw_usd:
             try:
                 usd_val = float(str(raw_usd).replace(',', '').replace('$', '').strip())
-                client_duties = round(usd_val * 2.7169, 2)
+                client_duties = round(usd_val * _XCD_RATE, 2)
             except (ValueError, TypeError):
                 pass
         if client_duties and client_duties > 0:
@@ -904,9 +1160,9 @@ def _split_items_per_declaration(
             ref_adjustments['deduction'] = round(ref_ded_val * ref_ratio, 2)
         # Use actual freight values from other declarations when available
         def _safe_float(raw: object) -> float:
-            s = str(raw).replace(',', '').strip() if raw is not None else '0'
+            s = str(raw).replace(',', '').strip() if raw is not None else _STR_ZERO
             try:
-                return float(s) if s and s != 'None' else 0.0
+                return float(s) if s and s != _NUMERIC_NONE_SENTINEL else 0.0
             except (ValueError, TypeError):
                 return 0.0
 
@@ -937,11 +1193,11 @@ def _split_items_per_declaration(
             + effective_other - effective_deduction, 2
         )
         current_inv_total = decl_inv_data.get('invoice_total', 0) or 0
-        if abs(current_inv_total - exact_invoice_total) > 0.005:
+        if abs(current_inv_total - exact_invoice_total) > 0.005:  # magic-ok: half-cent float equality tolerance
             logger.info(
                 f"Split-decl: setting invoice_total ${current_inv_total:.2f} → "
                 f"${exact_invoice_total:.2f} (items+adjustments) for "
-                f"{decl_meta.get('waybill', 'Declaration')}"
+                f"{decl_meta.get('waybill', 'Declaration')}"  # magic-ok: diagnostic fallback label
             )
         decl_inv_data['invoice_total'] = exact_invoice_total
 
@@ -1042,7 +1298,7 @@ def _inject_handwritten_duties(decl_meta_or_list, results: list) -> bool:
         try:
             usd_val = float(str(raw_usd).replace(',', '').replace('$', '').strip())
             # XCD_RATE = 2.7169 (Eastern Caribbean Dollar per USD)
-            client_duties = round(usd_val * 2.7169, 2)
+            client_duties = round(usd_val * _XCD_RATE, 2)
             logger.info(f"Converted handwritten USD ${usd_val} to EC$ {client_duties}")
         except (ValueError, TypeError):
             pass
@@ -1052,7 +1308,7 @@ def _inject_handwritten_duties(decl_meta_or_list, results: list) -> bool:
 
     # Extract freight from declaration metadata for CIF calculation
     decl_freight = None
-    raw_freight = decl_meta.get('freight')
+    raw_freight = decl_meta.get(_MF_FREIGHT)
     if raw_freight:
         try:
             decl_freight = float(str(raw_freight).replace(',', '').strip())
@@ -1087,21 +1343,14 @@ def _extract_consignee(args) -> str:
     """
     decl_meta = getattr(args, '_declaration_metadata', {})
 
-    # Placeholder values that mean "no consignee" — skip these
-    _PLACEHOLDER_CONSIGNEES = {'SAME AS CONSIGNEE', 'SAME AS SHIPPER', 'SAME AS ABOVE',
-                               'AS PER SHIPPER', 'TO ORDER', 'TO THE ORDER OF',
-                               'NOTIFY', 'NOTIFY:', 'NOTIFY PARTY', 'NOTIFY PARTY:'}
-    # Field labels that may be grabbed by OCR when extraction fails
-    _FIELD_LABELS = {'DESCRIPTION OF GOODS', 'DESCRIPTION OF PACKAGES', 'DESCRIPTION',
-                     'CONSIGNEE', 'SHIPPER', 'SHIP TO', 'BILL TO', 'SOLD TO',
-                     'MARKS & NUMBERS', 'GROSS WEIGHT', 'MEASUREMENT',
-                     'PARTICULARS FURNISHED BY SHIPPER', 'FORWARDING AGENT',
-                     'EXPORTING CARRIER', 'PORT OF LOADING', 'PORT OF DISCHARGE',
-                     'PLACE OF DELIVERY', 'NOTIFY PARTY ALSO NOTIFY'}
+    # Placeholder values that mean "no consignee" — skip these (config SSOT)
+    _PLACEHOLDER_CONSIGNEES = _CONSIGNEE_ALL_PLACEHOLDERS
+    # Field labels that may be grabbed by OCR when extraction fails (config SSOT)
+    _FIELD_LABELS = _BL_FIELD_LABELS
 
     def _is_valid_consignee(name: str) -> bool:
         """Reject names that are clearly not consignee names."""
-        if not name or len(name) < 3:
+        if not name or len(name) < 3:  # magic-ok: min consignee-name length
             return False
         upper = name.upper().strip()
         if upper in _PLACEHOLDER_CONSIGNEES:
@@ -1109,10 +1358,10 @@ def _extract_consignee(args) -> str:
         if upper in _FIELD_LABELS:
             return False
         # Reject if it starts with "Notify" — OCR artifact from manifest
-        if re.match(r'^NOTIFY\b', upper):
+        if re.match(_RE_CONSIGNEE_NOTIFY_LINE, upper):
             return False
         # Reject if it looks like a BL field header (all caps + generic terms)
-        if re.match(r'^(DESCRIPTION|PARTICULARS|MARKS|GROSS|MEASUREMENT)\b', upper):
+        if re.match(_RE_CONSIGNEE_FIELD_LABEL_LINE, upper):
             return False
         return True
 
@@ -1128,7 +1377,7 @@ def _extract_consignee(args) -> str:
         if not name:
             return name
         cleaned = re.sub(
-            r'\s*[\(\[\{]\s*FREIGHT\b.*?(?:[\)\]\}]|$)',
+            _RE_CONSIGNEE_FREIGHT_PAREN,
             '',
             name,
             flags=re.IGNORECASE,
@@ -1136,13 +1385,13 @@ def _extract_consignee(args) -> str:
         # Also strip trailing bare "FREIGHT X.XX US" without parens
         # (OCR sometimes drops the brackets entirely).
         cleaned = re.sub(
-            r'\s+FREIGHT\s+[\d.]+\s*(?:US|USD)?\s*$',
+            _RE_CONSIGNEE_FREIGHT_TRAIL,
             '',
             cleaned,
             flags=re.IGNORECASE,
         ).strip()
         # Tidy residual whitespace/punctuation
-        cleaned = re.sub(r'[\s,;:\-]+$', '', cleaned).strip()
+        cleaned = re.sub(_RE_CONSIGNEE_TRAIL_PUNCT, '', cleaned).strip()
         return cleaned
 
     # 1. Manifest metadata (set by extract_manifest_metadata in _prepare_invoice_pdfs)
@@ -1152,14 +1401,14 @@ def _extract_consignee(args) -> str:
         return consignee
 
     # 2. Declaration metadata (set by extract_declaration_metadata in _prepare_invoice_pdfs)
-    consignee = _normalize_consignee((decl_meta.get('consignee') or '').strip())
+    consignee = _normalize_consignee((decl_meta.get(_MF_CONSIGNEE) or '').strip())
     if _is_valid_consignee(consignee):
         logger.info(f"Consignee from declaration: {consignee}")
         return consignee
 
     # 3. Bill of Lading PDF — parse it for consignee (try ALL BL files, not just first)
     classification = getattr(args, '_classification', {})
-    bl_files = classification.get('bill_of_lading', [])
+    bl_files = classification.get(_CLASS_BL, [])
     if bl_files and hasattr(args, 'input_dir'):
         for bl_file in bl_files:
             bl_path = os.path.join(args.input_dir, bl_file)
@@ -1168,7 +1417,7 @@ def _extract_consignee(args) -> str:
             try:
                 from bl_parser import parse_bl_pdf
                 bl_data = parse_bl_pdf(bl_path)
-                consignee = _normalize_consignee((bl_data.get('consignee') or '').strip())
+                consignee = _normalize_consignee((bl_data.get(_MF_CONSIGNEE) or '').strip())
                 if _is_valid_consignee(consignee):
                     logger.info(f"Consignee from Bill of Lading ({bl_file}): {consignee}")
                     return consignee
@@ -1182,13 +1431,13 @@ def _extract_consignee(args) -> str:
                 if bl_text:
                     # Match "CONSIGNEE(NOT NEGOTIABLE...)\nNAME" — the header section only
                     consignee_match = re.search(
-                        r'CONSIGNEE\s*\(NOT NEGOTIABLE[^)]*\)[^\n]*\n\s*(.+)',
+                        _RE_CONSIGNEE_BL_NOT_NEGOTIABLE,
                         bl_text, re.IGNORECASE
                     )
                     if not consignee_match:
                         # Simpler: "CONSIGNEE\nNAME" (header on its own line)
                         consignee_match = re.search(
-                            r'^CONSIGNEE\s*$[^\S\n]*\n\s*(.+)',
+                            _RE_CONSIGNEE_BL_BARE_HEADER,
                             bl_text, re.IGNORECASE | re.MULTILINE
                         )
                     if consignee_match:
@@ -1201,7 +1450,7 @@ def _extract_consignee(args) -> str:
                 logger.debug(f"BL text consignee extraction failed for {bl_file}: {e}")
 
     # 4. Declaration PDFs not yet parsed via pdf_splitter — try them
-    decl_files = classification.get('declaration', [])
+    decl_files = classification.get(_CLASS_DECLARATION, [])
     if decl_files and hasattr(args, 'input_dir'):
         try:
             from pdf_splitter import extract_declaration_metadata
@@ -1209,7 +1458,7 @@ def _extract_consignee(args) -> str:
                 decl_path = os.path.join(args.input_dir, df)
                 if os.path.exists(decl_path):
                     meta = extract_declaration_metadata(decl_path)
-                    consignee = _normalize_consignee((meta.get('consignee') or '').strip())
+                    consignee = _normalize_consignee((meta.get(_MF_CONSIGNEE) or '').strip())
                     if consignee:
                         logger.info(f"Consignee from declaration PDF ({df}): {consignee}")
                         return consignee
@@ -1220,11 +1469,11 @@ def _extract_consignee(args) -> str:
     #    Handles two common layouts:
     #    (a) "Ship To:\n  Company Name\n  Address" — name is AFTER the label
     #    (b) "Company Name\n  BILL TO:  SHIP TO:\n  City" — name is BEFORE the label (multi-column)
-    invoice_files = classification.get('invoice', [])
+    invoice_files = classification.get(_CLASS_INVOICE, [])
     if invoice_files and hasattr(args, 'input_dir'):
         try:
             from stages.supplier_resolver import extract_pdf_text
-            for inv_file in invoice_files[:3]:  # Check first 3 invoices max
+            for inv_file in invoice_files[:3]:  # magic-ok: sampling cap for consignee probe
                 inv_path = os.path.join(args.input_dir, inv_file)
                 if not os.path.exists(inv_path):
                     continue
@@ -1238,7 +1487,7 @@ def _extract_consignee(args) -> str:
                 #   BILL TO: SHIP TO:
                 #   ST. GEORGE'S ST. GEORGE'S
                 multi_col = re.search(
-                    r'^(.+)\n\s*BILL\s*TO\s*:\s+SHIP\s*TO\s*:',
+                    _RE_CONSIGNEE_INVOICE_MULTI_COL,
                     text, re.IGNORECASE | re.MULTILINE
                 )
                 if multi_col:
@@ -1249,28 +1498,49 @@ def _extract_consignee(args) -> str:
                     half = len(words) // 2
                     if half > 0 and words[:half] == words[half:]:
                         raw = ' '.join(words[:half])
-                    if raw and not re.match(r'^[\d#]', raw) and len(raw) > 2:
+                    raw = _normalize_consignee(raw)
+                    if (raw and not re.match(_RE_NAME_LEADING_DIGIT, raw)
+                            and len(raw) > 2 and _is_valid_consignee(raw)):
                         logger.info(f"Consignee from invoice multi-column Ship-To ({inv_file}): {raw}")
+                        return raw
+
+                # Pattern (b-after): name BELOW the "BILL TO: SHIP TO:" labels
+                # (West-Marine layout, pinned by HAWB451185). Activated when
+                # the name-above capture above is rejected (e.g. the line
+                # above turned out to be the doc title "Invoice").
+                multi_col_after = re.search(
+                    _RE_CONSIGNEE_INVOICE_MULTI_COL_AFTER,
+                    text, re.IGNORECASE | re.MULTILINE
+                )
+                if multi_col_after:
+                    raw = multi_col_after.group(1).strip()
+                    words = raw.split()
+                    half = len(words) // 2
+                    if half > 0 and words[:half] == words[half:]:
+                        raw = ' '.join(words[:half])
+                    raw = _normalize_consignee(raw)
+                    if (raw and not re.match(_RE_NAME_LEADING_DIGIT, raw)
+                            and len(raw) > 2 and _is_valid_consignee(raw)):
+                        logger.info(f"Consignee from invoice multi-column name-after ({inv_file}): {raw}")
                         return raw
 
                 # Pattern (a-sold): "SOLD TO:" or "BILL TO:" followed by name on next line
                 # Handles: "SOLD TO:\nBEAUTY EXPO INVOICE NUMBER 91005"
                 sold_to_match = re.search(
-                    r'(?:SOLD\s+TO|BILL\s+TO)\s*[:\-]?\s*\n\s*(.+)',
+                    _RE_CONSIGNEE_INVOICE_SOLD_TO,
                     text, re.IGNORECASE
                 )
                 if sold_to_match:
                     name = sold_to_match.group(1).strip()
                     # Strip trailing metadata on same line (e.g. "BEAUTY EXPO INVOICE NUMBER 91005")
-                    name = re.split(r'\s+(?:INVOICE|ORDER|DATE|ACCOUNT|PO\s*#|REF)', name, flags=re.IGNORECASE)[0].strip()
-                    if name and not re.match(r'^[\d#]', name) and len(name) > 2:
+                    name = re.split(_RE_CONSIGNEE_TRAIL_DOC_TOKENS, name, flags=re.IGNORECASE)[0].strip()
+                    if name and not re.match(_RE_NAME_LEADING_DIGIT, name) and len(name) > 2:
                         logger.info(f"Consignee from invoice Sold-To ({inv_file}): {name}")
                         return name
 
                 # Pattern (a): "Ship To:", "Deliver To:", etc. followed by name on the next line
                 ship_to_match = re.search(
-                    r'(?:Ship\s*(?:ped\s+)?To|Deliver(?:y)?\s*(?:To|Address)|'
-                    r'Shipping\s+Address|Consignee)\s*[:\-]?\s*\n\s*(.+)',
+                    _RE_CONSIGNEE_INVOICE_SHIP_TO,
                     text, re.IGNORECASE
                 )
                 if ship_to_match:
@@ -1278,14 +1548,11 @@ def _extract_consignee(args) -> str:
                     # Clean up: take first line only, strip c/o suffix for cleaner matching
                     name = name.split('\n')[0].strip()
                     # Skip if it's just a number/PO Box/street (not a name)
-                    if name and not re.match(r'^[\d#]', name) and len(name) > 2:
+                    if name and not re.match(_RE_NAME_LEADING_DIGIT, name) and len(name) > 2:
                         logger.info(f"Consignee from invoice Ship-To ({inv_file}): {name}")
                         # Extract address from subsequent lines of Ship To block
                         full_block = re.search(
-                            r'(?:Ship\s*(?:ped\s+)?To|Deliver(?:y)?\s*(?:To|Address)|'
-                            r'Shipping\s+Address|Consignee)\s*[:\-]?\s*\n'
-                            r'\s*(.+(?:\n.+)*?)'
-                            r'\n\s*(?:PRO|Article|BOL|Item|Weight|Carrier|$)',
+                            _RE_CONSIGNEE_INVOICE_SHIP_BLOCK,
                             text, re.IGNORECASE
                         )
                         if full_block:
@@ -1304,7 +1571,7 @@ def _extract_consignee(args) -> str:
 def _extract_supplier_for_doc_type(args) -> str:
     """Extract supplier name from invoice PDFs for doc-type rule matching."""
     classification = getattr(args, '_classification', {})
-    invoice_files = classification.get('invoice', [])
+    invoice_files = classification.get(_CLASS_INVOICE, [])
     if not invoice_files or not hasattr(args, 'input_dir'):
         return ''
 
@@ -1315,11 +1582,14 @@ def _extract_supplier_for_doc_type(args) -> str:
         registry = FormatRegistry(BASE_DIR)
 
         # Prioritize actual invoice PDFs over packing lists, pallet lists, etc.
-        skip_patterns = ('packing', 'pallet', 'caricom', 'manifest', 'declaration')
+        # 'packing'/'pallet'/'caricom' are filename substrings, not classification
+        # buckets; 'manifest'/'declaration' overlap with _CLASS_* values.
+        skip_patterns = ('packing', 'pallet', 'caricom',  # magic-ok: filename substring hint
+                         _CLASS_MANIFEST, _CLASS_DECLARATION)
         actual_invoices = [f for f in invoice_files
                           if not any(p in f.lower() for p in skip_patterns)]
         # Fall back to all files if no actual invoices found
-        candidates = (actual_invoices or invoice_files)[:5]
+        candidates = (actual_invoices or invoice_files)[:5]  # magic-ok: sampling cap for supplier probe
 
         for inv_file in candidates:
             inv_path = os.path.join(args.input_dir, inv_file)
@@ -1342,8 +1612,7 @@ def _extract_supplier_for_doc_type(args) -> str:
                 return supplier_spec['fallback']
 
             # Fallback: check for known supplier patterns in text
-            for rule_text in ['Budget Marine', 'Amazon', 'Walmart', 'West Marine',
-                              'Reef Lifestyle', 'Flip Flop']:
+            for rule_text in _RULE_TEXT_SMOKE_EXAMPLES:
                 if rule_text.lower() in text.lower():
                     return rule_text
     except Exception as e:
@@ -1375,17 +1644,17 @@ def resolve_doc_type(args) -> str:
     Falls back to the config default (4000-000).
     """
     # User explicitly specified a doc type — honour it
-    if args.doc_type != 'auto':
+    if args.doc_type != _MODE_AUTO:
         return args.doc_type
 
-    config_path = os.path.join(BASE_DIR, 'config', 'document_types.json')
+    config_path = os.path.join(BASE_DIR, _DIRS["config"], _CFG_DOCUMENT_TYPES)
     try:
         with open(config_path, 'r') as f:
             config = json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
-        return '4000-000'
+        return _DOC_TYPE_DEFAULT
 
-    default_type = config.get('default', '4000-000')
+    default_type = config.get('default', _DOC_TYPE_DEFAULT)
     rules = config.get('consignee_rules', [])
 
     # Check consignee first
@@ -1397,7 +1666,7 @@ def resolve_doc_type(args) -> str:
             if _match_rule(rule, consignee_lower):
                 logger.info(f"Consignee '{consignee}' matched rule '{rule.get('match')}' → doc_type={rule['doc_type']}")
                 args._matched_consignee_rule = rule
-                args._consignee_match_type = 'consignee'
+                args._consignee_match_type = _MATCH_CONSIGNEE
                 return rule['doc_type']
 
     # Check supplier name from invoice PDFs as fallback.
@@ -1412,7 +1681,7 @@ def resolve_doc_type(args) -> str:
             if _match_rule(rule, supplier_lower):
                 logger.info(f"Supplier '{supplier}' matched rule '{rule.get('match')}' → doc_type={rule['doc_type']} (supplier-only match, consignee metadata NOT applied)")
                 args._matched_consignee_rule = rule
-                args._consignee_match_type = 'supplier'
+                args._consignee_match_type = _MATCH_SUPPLIER
                 return rule['doc_type']
 
     if not consignee_lower and not supplier_lower:
@@ -1432,7 +1701,7 @@ def _maybe_combine_entries(args, results, output_dir):
         return results
 
     # Check combine_entries from matched consignee rule or config default
-    config_path = os.path.join(BASE_DIR, 'config', 'document_types.json')
+    config_path = os.path.join(BASE_DIR, _DIRS["config"], _CFG_DOCUMENT_TYPES)
     try:
         with open(config_path, 'r') as f:
             config = json.load(f)
@@ -1466,9 +1735,9 @@ def _maybe_combine_entries(args, results, output_dir):
         bl_number = os.path.basename(bl_number.rstrip(os.path.sep))
     if not bl_number and results:
         # Use first invoice number when no BL number available
-        bl_number = re.sub(r'[<>:"/\\|?*]', '_', results[0].invoice_num)
+        bl_number = re.sub(_RE_FILENAME_RESERVED, '_', results[0].invoice_num)  # magic-ok: substitution char
     if not bl_number:
-        bl_number = 'combined'
+        bl_number = _BL_COMBINED
     combined_path = os.path.join(output_dir, f'{bl_number}_combined.xlsx')
 
     print(f"\n    Combining {len(xlsx_paths)} invoices into single XLSX...")
@@ -1482,22 +1751,22 @@ def _maybe_combine_entries(args, results, output_dir):
             ocr_notes.append({
                 'pdf_file': getattr(r, 'pdf_file', ''),
                 'score': ocr_q.get('score', 0),
-                'rating': ocr_q.get('rating', 'unknown'),
+                'rating': ocr_q.get('rating', 'unknown'),  # magic-ok: fallback OCR rating
                 'details': ocr_q.get('details', ''),
-                'raw_text': inv_data.get('raw_text', '')[:2000],
+                'raw_text': inv_data.get('raw_text', '')[:2000],  # magic-ok: OCR-notes raw_text truncation cap
             })
 
     from xlsx_combiner import combine_xlsx_files
     result = combine_xlsx_files(xlsx_paths, combined_path,
                                 ocr_notes=ocr_notes if ocr_notes else None)
 
-    if result.get('status') != 'success':
-        logger.warning(f"XLSX combine failed: {result.get('error', 'unknown')}")
+    if result.get('status') != _STATUS_SUCCESS:
+        logger.warning(f"XLSX combine failed: {result.get('error', 'unknown')}")  # magic-ok: fallback error text
         return results
 
     print(f"    Combined XLSX: {os.path.basename(combined_path)}")
     print(f"    Grand Total: ${result['grand_total']:.2f}")
-    if abs(result.get('grand_variance', 0)) > 0.01:
+    if abs(result.get('grand_variance', 0)) > _VARIANCE_EPSILON:
         print(f"    ⚠ Grand Variance: ${result['grand_variance']:.2f}")
     else:
         print(f"    Grand Variance: $0.00 ✓")
@@ -1524,7 +1793,7 @@ def _maybe_combine_entries(args, results, output_dir):
         from openpyxl import load_workbook as _lw
         wb = _lw(combined_path)
         ws = wb.active
-        ws.cell(row=2, column=24, value=total_packages)  # Col X = Packages
+        ws.cell(row=2, column=_COL_PACKAGES, value=total_packages)  # Col X = Packages
         wb.save(combined_path)
         wb.close()
     except Exception as e:
@@ -1553,7 +1822,7 @@ def detect_mode(args) -> str:
     if args.input and not args.input_dir:
         input_file = os.path.abspath(args.input)
         input_base = os.path.splitext(os.path.basename(input_file))[0]
-        temp_dir = os.path.join(BASE_DIR, 'workspace', 'shipments', f'Shipment_ {input_base}')
+        temp_dir = os.path.join(BASE_DIR, _DIRS["shipments"], f'Shipment_ {input_base}')
         os.makedirs(temp_dir, exist_ok=True)
         dest = os.path.join(temp_dir, os.path.basename(input_file))
         if not os.path.exists(dest):
@@ -1561,12 +1830,12 @@ def detect_mode(args) -> str:
             shutil.copy2(input_file, dest)
         args.input_dir = temp_dir
         args.input = None
-        if not args.output_dir or args.output_dir == os.path.join(BASE_DIR, 'workspace', 'shipments'):
+        if not args.output_dir or args.output_dir == os.path.join(BASE_DIR, _DIRS["shipments"]):
             args.output_dir = temp_dir
 
     if args.input_dir:
         # Classify all PDFs by content (single pass)
-        print("\n[0] Classifying documents by content...")
+        print("\n[0] Classifying documents by content...")  # magic-ok: console stage banner
         classification = classify_input_pdfs(args.input_dir)
 
         # Check for _bl_hint.json (written by createCombinedFolder in TypeScript)
@@ -1579,21 +1848,21 @@ def detect_mode(args) -> str:
                 # Move any misclassified BL files back to invoice if they're NOT in the hint
                 real_bls = []
                 reclassified = []
-                for f in classification.get('bill_of_lading', []):
+                for f in classification.get(_CLASS_BL, []):
                     if f in hint_bl_pdfs:
                         real_bls.append(f)
                     else:
                         reclassified.append(f)
-                        classification.setdefault('invoice', []).append(f)
-                classification['bill_of_lading'] = real_bls
+                        classification.setdefault(_CLASS_INVOICE, []).append(f)
+                classification[_CLASS_BL] = real_bls
 
                 # Also ensure hint BL files ARE in the BL list (even if classifier missed them)
                 existing_bls = set(real_bls)
                 for f in hint_bl_pdfs:
                     if f not in existing_bls and os.path.exists(os.path.join(args.input_dir, f)):
-                        classification['bill_of_lading'].append(f)
+                        classification[_CLASS_BL].append(f)
                         # Remove from other categories
-                        for cat in ('invoice', 'unknown', 'packing_list', 'declaration', 'manifest'):
+                        for cat in (_CLASS_INVOICE, _CLASS_UNKNOWN, _CLASS_PACKING, _CLASS_DECLARATION, _CLASS_MANIFEST):
                             if f in classification.get(cat, []):
                                 classification[cat].remove(f)
 
@@ -1609,19 +1878,19 @@ def detect_mode(args) -> str:
 
         # Filename-based rescue: scanned declarations/manifests with no extractable
         # text get classified as "unknown". Reclassify by filename before logging.
-        _DECL_HINTS = ('declaration', 'simplified')
-        _MANIFEST_HINTS = ('manifest',)
+        _DECL_HINTS = (_CLASS_DECLARATION, _CLASS_SIMPLIFIED)
+        _MANIFEST_HINTS = (_CLASS_MANIFEST,)
         rescued = []
-        for uf in list(classification.get('unknown', [])):
+        for uf in list(classification.get(_CLASS_UNKNOWN, [])):
             uf_lower = uf.lower()
             if any(h in uf_lower for h in _DECL_HINTS):
-                classification['unknown'].remove(uf)
-                classification.setdefault('declaration', []).append(uf)
-                rescued.append((uf, 'declaration'))
+                classification[_CLASS_UNKNOWN].remove(uf)
+                classification.setdefault(_CLASS_DECLARATION, []).append(uf)
+                rescued.append((uf, _CLASS_DECLARATION))
             elif any(h in uf_lower for h in _MANIFEST_HINTS):
-                classification['unknown'].remove(uf)
-                classification.setdefault('manifest', []).append(uf)
-                rescued.append((uf, 'manifest'))
+                classification[_CLASS_UNKNOWN].remove(uf)
+                classification.setdefault(_CLASS_MANIFEST, []).append(uf)
+                rescued.append((uf, _CLASS_MANIFEST))
         if rescued:
             for fname, cat in rescued:
                 logger.info(f"Reclassified {fname} → {cat} (filename-based)")
@@ -1629,12 +1898,11 @@ def detect_mode(args) -> str:
         # Worksheet exclusion: HAWB*-WorkSheet.pdf files are customs clearance
         # worksheets, not invoices. Move them out of invoice/unknown so they
         # are never processed as invoices.
-        _WORKSHEET_HINTS = ('-worksheet', 'worksheet')
         worksheet_moved = []
-        for cat in ('invoice', 'unknown'):
+        for cat in (_CLASS_INVOICE, _CLASS_UNKNOWN):
             for wf in list(classification.get(cat, [])):
                 wf_lower = wf.lower()
-                if any(h in wf_lower for h in _WORKSHEET_HINTS):
+                if any(h in wf_lower for h in _WORKSHEET_HINTS_CFG):
                     classification[cat].remove(wf)
                     classification.setdefault('worksheet', []).append(wf)
                     worksheet_moved.append((wf, cat))
@@ -1649,8 +1917,8 @@ def detect_mode(args) -> str:
             if files:
                 print(f"    {doc_type}: {len(files)} file(s)")
 
-        bl_files = classification.get('bill_of_lading', [])
-        decl_files = classification.get('declaration', [])
+        bl_files = classification.get(_CLASS_BL, [])
+        decl_files = classification.get(_CLASS_DECLARATION, [])
         bl_pdf = _select_best_bl_pdf(bl_files, args.input_dir) if bl_files else None
 
         # Simplified Declaration serves same role as BL for shipment identification
@@ -1664,18 +1932,18 @@ def detect_mode(args) -> str:
 
         po_file = find_po_file(args.input_dir, args.bl or '')
         if bl_pdf and po_file:
-            return 'bl'
+            return _MODE_BL
         if bl_pdf and not po_file:
             logger.warning("BL/Declaration found but no PO XLSX — running BL mode without PO matching")
-            return 'bl'
+            return _MODE_BL
         # No BL or declaration — still use BL mode (batch), pipeline handles gracefully
-        return 'bl'
-    return 'bl'
+        return _MODE_BL
+    return _MODE_BL
 
 
 def _load_bl_hint(input_dir: str) -> dict:
     """Load _bl_hint.json if present in the input directory."""
-    hint_path = os.path.join(input_dir, '_bl_hint.json')
+    hint_path = os.path.join(input_dir, _SENT["bl_hint"])
     if os.path.exists(hint_path):
         try:
             with open(hint_path, 'r') as f:
@@ -1690,13 +1958,13 @@ def _load_bl_hint(input_dir: str) -> dict:
 def _looks_like_bl_number(value: str) -> bool:
     """Return True if value looks like a real BL/waybill number, not a description."""
     import re
-    if not value or len(value) < 4:
+    if not value or len(value) < 4:  # magic-ok: min BL-number length heuristic
         return False
     # Descriptions have spaces, ampersands, or are too long — not BL numbers
-    if ' ' in value.strip() or '&' in value or len(value) > 25:
+    if ' ' in value.strip() or '&' in value or len(value) > 25:  # magic-ok: max BL-number length heuristic
         return False
     # Must be mostly alphanumeric (allow hyphens, underscores)
-    if not re.match(r'^[A-Za-z0-9_-]+$', value):
+    if not re.match(_RE_CODE_IDENTIFIER, value):
         return False
     return True
 
@@ -1721,13 +1989,7 @@ def _select_best_bl_pdf(bl_files: list, input_dir: str) -> str:
     except ImportError:
         return os.path.join(input_dir, bl_files[0])
 
-    _BL_KEYWORDS = [
-        r'BILL\s*OF\s*LADING', r'B/?L\s*N[Oo]', r'CONSIGNEE',
-        r'SHIPPER', r'NOTIFY\s*PARTY', r'PORT\s*OF\s*(LOADING|DISCHARGE)',
-        r'OCEAN\s*FREIGHT', r'FREIGHT\s*(PREPAID|COLLECT|CHARGES)',
-        r'CONTAINER\s*NO', r'SEAL\s*NO', r'VESSEL',
-        r'PLACE\s*OF\s*(DELIVERY|RECEIPT)', r'LADEN\s*ON\s*BOARD',
-    ]
+    _BL_KEYWORDS = _BL_TEXT_KEYWORDS
 
     best_path = None
     best_score = -1
@@ -1744,7 +2006,7 @@ def _select_best_bl_pdf(bl_files: list, input_dir: str) -> str:
             score = sum(1 for kw in _BL_KEYWORDS if re.search(kw, text_upper))
             # Bonus: filename contains "bill_of_lading" or "bl"
             fname_lower = f.lower()
-            if 'bill_of_lading' in fname_lower or fname_lower.startswith('bl'):
+            if _CLASS_BL in fname_lower or fname_lower.startswith(_MODE_BL):
                 score += 2
             logger.debug(f"BL score for {f}: {score} (text {len(text.strip())} chars)")
             if score > best_score:
@@ -1774,20 +2036,7 @@ def _auto_detect_bl_number(args, bl_pdf: str) -> None:
             pass
     if text:
         text_upper = text.upper()
-        # Common BL number patterns in content
-        # Carrier-specific patterns first (most reliable), then generic
-        bl_patterns = [
-            r'(TSCW\d+)',               # Tropical Shipping container
-            r'(TS\s*\d{7,})',           # Tropical Shipping (e.g. TS 0750206)
-            r'(HBL\d+)',                # Caribconex house BL
-            r'(MEDU\d+[A-Z]*\d*)',      # Mediterranean Shipping
-            r'(HDMU[A-Z0-9]+)',         # Hyundai
-            r'(MAEU\d+)',               # Maersk
-            r'(COSU\d+)',               # COSCO
-            r'B/L\s*(?:NO\.?|NUMBER|#)[:\s]*([A-Z0-9]+)',
-            r'BL\s*(?:NO\.?|NUMBER|#)[:\s]*([A-Z0-9]+)',
-        ]
-        for pattern in bl_patterns:
+        for pattern in _BL_NUMBER_CARRIER_PATTERNS:
             match = re.search(pattern, text_upper)
             if match:
                 args.bl = match.group(1).strip()
@@ -1796,15 +2045,26 @@ def _auto_detect_bl_number(args, bl_pdf: str) -> None:
 
     # Fallback: extract from filename
     bl_basename = os.path.splitext(os.path.basename(bl_pdf))[0]
-    bl_match = re.search(r'TSCW\d+', bl_basename, re.IGNORECASE)
+    bl_match = re.search(_RE_BL_TSCW_SEARCH, bl_basename, re.IGNORECASE)
     if bl_match:
         args.bl = bl_match.group(0)
         logger.info(f"Auto-detected BL number from filename: {args.bl}")
         return
 
-    bl_stripped = re.sub(r'[-_ ]*BL$', '', bl_basename, flags=re.IGNORECASE).strip()
+    bl_stripped = re.sub(_RE_BL_TRAILING_SUFFIX, '', bl_basename, flags=re.IGNORECASE).strip()
     if bl_stripped:
-        bl_stripped = re.sub(r'^.*BILL\s*OF\s*LADING\s*[-_ ]*', '', bl_stripped, flags=re.IGNORECASE).strip()
+        bl_stripped = re.sub(_RE_BL_HEADER_PREFIX, '', bl_stripped, flags=re.IGNORECASE).strip()
+    # Strip well-known document-type suffixes that get carried through when a
+    # declaration / manifest / worksheet PDF is used as the BL surrogate (no
+    # actual BL in the folder). Without this the combined XLSX ends up named
+    # like "HAWB9333496-Declaration_combined.xlsx" instead of just
+    # "HAWB9333496_combined.xlsx".
+    bl_stripped = re.sub(
+        _RE_FILENAME_DOC_TYPE_SUFFIX,
+        '',
+        bl_stripped,
+        flags=re.IGNORECASE,
+    ).strip()
     if bl_stripped and _looks_like_bl_number(bl_stripped):
         args.bl = bl_stripped
         logger.info(f"Auto-detected BL number from filename: {args.bl}")
@@ -1823,10 +2083,10 @@ def _prepare_invoice_pdfs(args, classification: dict) -> list:
     """
     import tempfile
 
-    invoice_files = classification.get('invoice', [])
-    declaration_files = classification.get('declaration', [])
-    unknown_files = classification.get('unknown', [])
-    freight_invoice_files = classification.get('freight_invoice', [])
+    invoice_files = classification.get(_CLASS_INVOICE, [])
+    declaration_files = classification.get(_CLASS_DECLARATION, [])
+    unknown_files = classification.get(_CLASS_UNKNOWN, [])
+    freight_invoice_files = classification.get(_CLASS_FREIGHT, [])
 
     args._declaration_metadata = {}
     args._all_declarations = []  # List of (metadata_dict, pdf_path) for multi-declaration support
@@ -1845,11 +2105,11 @@ def _prepare_invoice_pdfs(args, classification: dict) -> list:
     # Extract metadata from standalone declaration or manifest PDFs
     # Only used as fallback — split declarations (from combined PDFs) take priority
     # because standalone extraction from multi-page PDFs only finds the first waybill
-    metadata_candidates = declaration_files + classification.get('manifest', [])
+    metadata_candidates = declaration_files + classification.get(_CLASS_MANIFEST, [])
     # Filename-based fallback: scanned declaration PDFs often have no extractable text,
     # so the classifier marks them "unknown".  If the filename clearly contains
     # "Declaration" or "Manifest", treat it as a declaration metadata candidate too.
-    _DECL_FILENAME_HINTS = ('declaration', 'manifest', 'simplified')
+    _DECL_FILENAME_HINTS = (_CLASS_DECLARATION, _CLASS_MANIFEST, _CLASS_SIMPLIFIED)
     for uf in unknown_files:
         uf_lower = uf.lower()
         if any(hint in uf_lower for hint in _DECL_FILENAME_HINTS):
@@ -1886,7 +2146,7 @@ def _prepare_invoice_pdfs(args, classification: dict) -> list:
 
     # Also check declaration/manifest/unknown PDFs — they might be combined documents
     # containing invoice pages that need to be split out and processed
-    manifest_files = classification.get('manifest', [])
+    manifest_files = classification.get(_CLASS_MANIFEST, [])
     pdfs_to_process = invoice_files + declaration_files + unknown_files + manifest_files
 
     # Deduplicate by content hash — identical PDFs with different names should only be processed once
@@ -1907,16 +2167,21 @@ def _prepare_invoice_pdfs(args, classification: dict) -> list:
     pdfs_to_process = _unique_pdfs
 
     final_invoice_paths = []
-    split_dir = os.path.join(args.output_dir, '_split_temp')
+    split_dir = os.path.join(args.output_dir, _SUBDIRS["split_temp"])
 
     is_invoice_file = set(invoice_files)
     is_unknown_file = set(unknown_files)
     is_manifest_file = set(manifest_files)
 
+    import perf_log as _perf
+    import time as _time
     for f in pdfs_to_process:
         pdf_path = os.path.join(args.input_dir, f)
         originally_invoice = f in is_invoice_file
         originally_manifest = f in is_manifest_file
+
+        _iter_t0 = _time.monotonic()
+        _perf.event(_PE_PDF_LOOP_ITER_BEGIN, pdf=f)
 
         # Check if this PDF has multiple pages with mixed content
         # Skip page-level analysis for single-page PDFs (no splitting possible)
@@ -1930,9 +2195,12 @@ def _prepare_invoice_pdfs(args, classification: dict) -> list:
                 # Include if originally classified as invoice, unknown, or manifest
                 if originally_invoice or f in is_unknown_file or originally_manifest:
                     final_invoice_paths.append(pdf_path)
+                _perf.event(_PE_PDF_LOOP_ITER_END, _time.monotonic() - _iter_t0,
+                            pdf=f, pages=num_pages, route=_RT_SINGLE_PAGE_PASSTHROUGH)
                 continue
 
-            pages, used_ocr, used_heuristic, page_texts = analyze_pdf(pdf_path)
+            with _perf.phase(_PE_ANALYZE_PDF, pdf=f, pages=num_pages):
+                pages, used_ocr, used_heuristic, page_texts = analyze_pdf(pdf_path)
 
             # Auto-reorder scanned-out-of-order pages before splitting.
             # Reuses the page_texts we just extracted so this adds no extra
@@ -1968,17 +2236,23 @@ def _prepare_invoice_pdfs(args, classification: dict) -> list:
             except Exception as _e:
                 logger.warning(f"auto_reorder pre-pass (batch) failed for {f}: {_e}")
 
-            has_declaration = any(p.doc_type == 'declaration' for p in pages)
-            has_invoice = any(p.doc_type == 'invoice' for p in pages)
+            has_declaration = any(p.doc_type == _CLASS_DECLARATION for p in pages)
+            has_invoice = any(p.doc_type == _CLASS_INVOICE for p in pages)
 
             if has_declaration and has_invoice and len(pages) > 1:
                 # This is a combined PDF — split it
                 print(f"    Splitting combined PDF: {f} "
-                      f"({sum(1 for p in pages if p.doc_type == 'invoice')} invoice + "
-                      f"{sum(1 for p in pages if p.doc_type == 'declaration')} declaration pages)")
+                      f"({sum(1 for p in pages if p.doc_type == _CLASS_INVOICE)} invoice + "
+                      f"{sum(1 for p in pages if p.doc_type == _CLASS_DECLARATION)} declaration pages)")
 
                 os.makedirs(split_dir, exist_ok=True)
-                split_result = split_pdf_multi_invoice(pdf_path, pages, split_dir, page_texts=page_texts)
+                with _perf.phase(_PE_SPLIT_PDF_MULTI_INVOICE, pdf=f, pages=num_pages):
+                    split_result = split_pdf_multi_invoice(pdf_path, pages, split_dir, page_texts=page_texts)
+                _perf.event(
+                    _PE_SPLIT_RESULT, pdf=f,
+                    n_invoices=len(split_result.get("invoices", []) or []),
+                    n_declarations=len(split_result.get("declarations", []) or []),
+                )
 
                 # Extract declaration metadata from EACH split declaration PDF
                 # so we can send separate emails for each simplified declaration.
@@ -2058,6 +2332,38 @@ def _prepare_invoice_pdfs(args, classification: dict) -> list:
         # Not a combined PDF — add to invoice list
         # For declaration/unknown files that page analysis says have invoice content, include them
         final_invoice_paths.append(pdf_path)
+        _perf.event(_PE_PDF_LOOP_ITER_END, _time.monotonic() - _iter_t0,
+                    pdf=f, route=_RT_PASSTHROUGH_NO_SPLIT)
+
+    _perf.event(
+        _PE_PDF_LOOP_COMPLETE,
+        n_pdfs=len(pdfs_to_process),
+        n_final_invoices=len(final_invoice_paths),
+    )
+
+    # Post-split dedup: a manifest-style PDF that's actually a stapled
+    # "Amazon order receipt + Simplified Declaration" splits into an invoice
+    # page that is byte-identical to the standalone receipt PDF. Without this
+    # dedup the same item shows up twice in the combined XLSX.
+    if len(final_invoice_paths) > 1:
+        _seen_inv_hashes = set()
+        _unique_inv_paths = []
+        for _ip in final_invoice_paths:
+            try:
+                with open(_ip, 'rb') as _fh:
+                    _h = hashlib.md5(_fh.read()).hexdigest()
+            except OSError:
+                _unique_inv_paths.append(_ip)
+                continue
+            if _h in _seen_inv_hashes:
+                logger.info(
+                    f"Skipping duplicate invoice (same content as already-included PDF): "
+                    f"{os.path.basename(_ip)}"
+                )
+                continue
+            _seen_inv_hashes.add(_h)
+            _unique_inv_paths.append(_ip)
+        final_invoice_paths = _unique_inv_paths
 
     # Deduplicate declarations by waybill number (keep the split version which
     # has per-page metadata, discard standalone extractions of the same waybill)
@@ -2086,12 +2392,12 @@ def run_bl_mode(args) -> dict:
     This is the main workflow for documents.websource emails containing
     a Bill of Lading with multiple supplier invoices and a PO XLSX.
     """
-    print("=" * 80)
+    print("=" * _BANNER_WIDTH)
     print(f"Processing BL"
           f"{' #' + args.bl if args.bl else ''}"
-          f"  |  Document Type: {args.doc_type if args.doc_type != 'auto' else '(auto)'}"
+          f"  |  Document Type: {args.doc_type if args.doc_type != _MODE_AUTO else '(auto)'}"  # magic-ok: display-only parenthetical
           f"  |  Mode: BL Batch")
-    print("=" * 80)
+    print("=" * _BANNER_WIDTH)
 
     # Imports needed for BL mode
     try:
@@ -2105,20 +2411,22 @@ def run_bl_mode(args) -> dict:
     classification = getattr(args, '_classification', None)
 
     # 1. Find and load PO XLSX
-    po_file = args.po_file or find_po_file(args.input_dir, args.bl or '')
-    matcher = None
-    if po_file and os.path.exists(po_file):
-        print(f"\n[1] Loading PO data from {os.path.basename(po_file)}...")
-        po_items = POReader.read_po_xlsx(po_file)
-        print(f"    {len(po_items)} PO line items loaded")
-        matcher = POMatcher(po_items, base_dir=BASE_DIR)
-    else:
-        print(f"\n[1] No PO XLSX found — running without PO matching")
+    with Stage(_SN_BL_PHASE1_LOAD_PO):
+        po_file = args.po_file or find_po_file(args.input_dir, args.bl or '')
+        matcher = None
+        if po_file and os.path.exists(po_file):
+            print(f"\n[1] Loading PO data from {os.path.basename(po_file)}...")
+            po_items = POReader.read_po_xlsx(po_file)
+            print(f"    {len(po_items)} PO line items loaded")
+            matcher = POMatcher(po_items, base_dir=BASE_DIR)
+        else:
+            print(f"\n[1] No PO XLSX found — running without PO matching")
 
     # 2. Initialize format registry
-    print("\n[2] Initializing format registry...")
-    registry = FormatRegistry(BASE_DIR)
-    print(f"    {len(registry.list_formats())} format specs loaded")
+    with Stage(_SN_BL_PHASE2_FORMAT_REGISTRY):
+        print("\n[2] Initializing format registry...")  # magic-ok: console stage banner
+        registry = FormatRegistry(BASE_DIR)
+        print(f"    {len(registry.list_formats())} format specs loaded")
 
     # Reset auto-format batch cache for this run
     try:
@@ -2154,12 +2462,12 @@ def run_bl_mode(args) -> dict:
                     source_pdfs.update(cat_files)
             for f in os.listdir(output_dir):
                 fp = os.path.join(output_dir, f)
-                if os.path.isdir(fp) and f == '_split_temp':
+                if os.path.isdir(fp) and f == _SUBDIRS["split_temp"]:
                     # Preserve OCR sidecar .txt files (expensive to regenerate)
                     # but remove split PDFs so they get re-split fresh
                     for sf in os.listdir(fp):
                         sfp = os.path.join(fp, sf)
-                        if os.path.isfile(sfp) and not sf.endswith('.txt'):
+                        if os.path.isfile(sfp) and not sf.endswith(_EXT_TXT):
                             os.remove(sfp)
                 elif os.path.isfile(fp) and f not in source_pdfs:
                     # Remove generated files (.xlsx, .pdf copies, _email_params, etc.)
@@ -2167,7 +2475,9 @@ def run_bl_mode(args) -> dict:
     os.makedirs(output_dir, exist_ok=True)
 
     # 4. Pre-process: split combined PDFs, get invoice paths
-    invoice_paths = _prepare_invoice_pdfs(args, classification or {})
+    with Stage(_SN_BL_PHASE4_PREPARE_INVOICE_PDFS,
+               n_files=sum(len(v) for v in (classification or {}).values())):
+        invoice_paths = _prepare_invoice_pdfs(args, classification or {})
 
     # Auto-resolve document type from consignee
     args.doc_type = resolve_doc_type(args)
@@ -2182,7 +2492,7 @@ def run_bl_mode(args) -> dict:
 
     n_workers = getattr(args, 'workers', 0) or 0
     if n_workers == 0:
-        n_workers = min(4, os.cpu_count() or 1)
+        n_workers = min(4, os.cpu_count() or 1)  # magic-ok: thread pool cap
     n_workers = min(n_workers, len(invoice_paths)) if invoice_paths else 1
 
     if n_workers > 1 and len(invoice_paths) > 1:
@@ -2211,7 +2521,7 @@ def run_bl_mode(args) -> dict:
         for pdf_path, result in ordered_results:
             if result:
                 if len(result.matched_items) == 0:
-                    if result.format_name == '_default':
+                    if result.format_name == _FMT_DEFAULT:
                         print(f"    Skipping non-invoice: {os.path.basename(pdf_path)} (no format match)")
                     else:
                         failures.append({
@@ -2228,7 +2538,7 @@ def run_bl_mode(args) -> dict:
                 failures.append({
                     'pdf_path': pdf_path,
                     'pdf_file': os.path.basename(pdf_path),
-                    'reason': 'Text extraction failed',
+                    'reason': _TEXT_EXTRACTION_FAIL,
                 })
     else:
         for pdf_path in invoice_paths:
@@ -2245,7 +2555,7 @@ def run_bl_mode(args) -> dict:
             )
             if result:
                 if len(result.matched_items) == 0:
-                    if result.format_name == '_default':
+                    if result.format_name == _FMT_DEFAULT:
                         print(f"    Skipping non-invoice: {os.path.basename(pdf_path)} (no format match)")
                     else:
                         failures.append({
@@ -2262,7 +2572,7 @@ def run_bl_mode(args) -> dict:
                 failures.append({
                     'pdf_path': pdf_path,
                     'pdf_file': os.path.basename(pdf_path),
-                    'reason': 'Text extraction failed',
+                    'reason': _TEXT_EXTRACTION_FAIL,
                 })
 
     # Promote successful auto-generated format specs
@@ -2285,18 +2595,22 @@ def run_bl_mode(args) -> dict:
     # Build list of supplementary BL paths (all BL files except the primary)
     all_bl_paths = [os.path.join(args.input_dir, f) for f in bl_files] if bl_files else []
     sup_bl_paths = [p for p in all_bl_paths if p != bl_pdf_path]
-    bl_alloc = allocate_bl_packages(
-        bl_pdf_path=bl_pdf_path,
-        invoice_results=results,
-        output_dir=output_dir,
-        bl_number=args.bl or '',
-        supplementary_bl_paths=sup_bl_paths or None,
-    )
+    with Stage(_SN_BL_PHASE6_ALLOCATE_BL_PACKAGES,
+               n_invoices=len(results),
+               bl=os.path.basename(bl_pdf_path) if bl_pdf_path else _PFS_NO_BL):
+        bl_alloc = allocate_bl_packages(
+            bl_pdf_path=bl_pdf_path,
+            invoice_results=results,
+            output_dir=output_dir,
+            bl_number=args.bl or '',
+            supplementary_bl_paths=sup_bl_paths or None,
+        )
     args._bl_alloc = bl_alloc  # store for consolidation report cross-reference
 
     # ── Phase 2.5: Combine entries if configured ──
     args._pre_combine_results = list(results)  # preserve for consolidation cross-reference
-    results = _maybe_combine_entries(args, results, output_dir)
+    with Stage(_SN_BL_PHASE7_COMBINE_ENTRIES, n_invoices=len(results)):
+        results = _maybe_combine_entries(args, results, output_dir)
 
     # Rebuild attachments from (possibly combined) results
     all_attachments = []
@@ -2317,7 +2631,8 @@ def run_bl_mode(args) -> dict:
     _print_summary(_summary_results, bl_alloc)
 
     # ── Phase 2.5: Manifest metadata ──
-    manifest_meta = _apply_manifest_metadata(args, classification, output_dir, all_attachments)
+    with Stage(_SN_BL_PHASE8_MANIFEST_METADATA):
+        manifest_meta = _apply_manifest_metadata(args, classification, output_dir, all_attachments)
 
     # Fallback: if manifest metadata extraction failed (e.g. Simplified Declaration
     # without ASYCUDA format), use declaration metadata from pdf_splitter
@@ -2329,7 +2644,7 @@ def run_bl_mode(args) -> dict:
     elif decl_meta:
         # Merge missing fields from declaration metadata into manifest metadata
         # (e.g. weight from simplified declaration when manifest parser doesn't extract it)
-        for key in ('weight', 'packages', 'freight', 'consignee', 'office', 'fob_value'):
+        for key in (_MF_WEIGHT, _MF_PACKAGES, _MF_FREIGHT, _MF_CONSIGNEE, _MF_OFFICE, _MF_FOB_VALUE):
             if not manifest_meta.get(key) and decl_meta.get(key):
                 manifest_meta[key] = decl_meta[key]
                 logger.info(f"Supplemented manifest {key} from declaration: {decl_meta[key]}")
@@ -2357,18 +2672,18 @@ def run_bl_mode(args) -> dict:
                         os.path.basename(r.xlsx_path).rsplit('.', 1)[0],
                         r.supplier_info,
                         r.xlsx_path,
-                        document_type=getattr(args, 'doc_type', 'auto'),
+                        document_type=getattr(args, 'doc_type', _MODE_AUTO),
                     )
                     print(f"    {r.invoice_num}: XLSX regenerated with client duty comparison")
         except Exception as e:
             logger.warning(f"XLSX regeneration for duty comparison failed: {e}")
 
     # Apply manifest packages to XLSX when BL allocator didn't set them
-    if manifest_meta and manifest_meta.get('packages') and results:
+    if manifest_meta and manifest_meta.get(_MF_PACKAGES) and results:
         bl_has_packages = bl_alloc and getattr(bl_alloc, 'packages', None)
         if not bl_has_packages:
             try:
-                manifest_pkgs = int(manifest_meta['packages'])
+                manifest_pkgs = int(manifest_meta[_MF_PACKAGES])
                 for r in results:
                     if r.xlsx_path and os.path.exists(r.xlsx_path):
                         from openpyxl import load_workbook as _lw
@@ -2376,10 +2691,10 @@ def run_bl_mode(args) -> dict:
                         ws = wb.active
                         # Set manifest packages on row 2, clear all other rows
                         # (combined XLSX may have packages on multiple invoice header rows)
-                        ws.cell(row=2, column=24, value=manifest_pkgs)
-                        for row in range(3, ws.max_row + 1):
-                            if ws.cell(row, 24).value is not None:
-                                ws.cell(row, 24).value = None
+                        ws.cell(row=2, column=_COL_PACKAGES, value=manifest_pkgs)
+                        for row in range(_XLSX_DETAIL_START_ROW, ws.max_row + 1):
+                            if ws.cell(row, _COL_PACKAGES).value is not None:
+                                ws.cell(row, _COL_PACKAGES).value = None
                         wb.save(r.xlsx_path)
                         wb.close()
                         r.packages = manifest_pkgs
@@ -2394,26 +2709,28 @@ def run_bl_mode(args) -> dict:
         # Consolidation packages override manifest packages (more granular)
         if not manifest_meta:
             manifest_meta = {}
-        if consolidation_meta.get('total_packages') and not manifest_meta.get('packages'):
-            manifest_meta['packages'] = str(consolidation_meta['total_packages'])
-        if consolidation_meta.get('total_weight') and not manifest_meta.get('weight'):
-            manifest_meta['weight'] = str(consolidation_meta['total_weight'])
-        if consolidation_meta.get('total_freight') and not manifest_meta.get('freight'):
-            manifest_meta['freight'] = str(consolidation_meta['total_freight'])
+        if consolidation_meta.get('total_packages') and not manifest_meta.get(_MF_PACKAGES):
+            manifest_meta[_MF_PACKAGES] = str(consolidation_meta['total_packages'])
+        if consolidation_meta.get('total_weight') and not manifest_meta.get(_MF_WEIGHT):
+            manifest_meta[_MF_WEIGHT] = str(consolidation_meta['total_weight'])
+        if consolidation_meta.get('total_freight') and not manifest_meta.get(_MF_FREIGHT):
+            manifest_meta[_MF_FREIGHT] = str(consolidation_meta['total_freight'])
         if consolidation_meta.get('waybill') and not manifest_meta.get('waybill'):
             manifest_meta['waybill'] = consolidation_meta['waybill']
 
     # ── Phase 2.8: Final package cap enforcement ──
     # After ALL package-writing stages (BL, combine, manifest, consolidation),
     # verify no XLSX has more packages than the authoritative source allows.
-    _enforce_package_cap(results, bl_alloc, manifest_meta)
+    with Stage(_SN_BL_PHASE9_PACKAGE_CAP):
+        _enforce_package_cap(results, bl_alloc, manifest_meta)
 
     # ── XLSX validation + auto-fix ──
     validation = None
     try:
         from xlsx_validator import validate_and_fix
-        validation = validate_and_fix(results, BASE_DIR, bl_alloc=bl_alloc,
-                                      manifest_meta=manifest_meta)
+        with Stage(_SN_BL_PHASE10_XLSX_VALIDATION, n_results=len(results)):
+            validation = validate_and_fix(results, BASE_DIR, bl_alloc=bl_alloc,
+                                          manifest_meta=manifest_meta)
     except Exception as e:
         logger.warning(f"XLSX validation failed: {e}")
         _validate_xlsx_variance(results)  # fallback to print-only
@@ -2423,12 +2740,15 @@ def run_bl_mode(args) -> dict:
     try:
         from classification_verifier import verify_and_fix as verify_class, print_verification_report
         class_results = {}
-        for r in results:
-            if r.xlsx_path and os.path.exists(r.xlsx_path):
-                result = verify_class(r.xlsx_path, BASE_DIR, auto_fix=True)
-                if result['flags']:
-                    class_results[os.path.basename(r.xlsx_path)] = result
-                    class_fixes_applied += len(result.get('fixed', []))
+        with Stage(_SN_BL_PHASE11_CLASSIFICATION_CROSS_CHECK, n_xlsx=len(results)):
+            for r in results:
+                if r.xlsx_path and os.path.exists(r.xlsx_path):
+                    with Stage(_SN_BL_PHASE11_VERIFY_ONE,
+                               file=os.path.basename(r.xlsx_path)):
+                        result = verify_class(r.xlsx_path, BASE_DIR, auto_fix=True)
+                    if result['flags']:
+                        class_results[os.path.basename(r.xlsx_path)] = result
+                        class_fixes_applied += len(result.get('fixed', []))
         if class_results:
             print_verification_report(class_results)
     except Exception as e:
@@ -2472,15 +2792,15 @@ def run_bl_mode(args) -> dict:
                     pass
             per_decl_xlsx = _split_items_per_declaration(
                 all_declarations, results, output_dir,
-                document_type=getattr(args, 'doc_type', 'auto'),
+                document_type=getattr(args, 'doc_type', _MODE_AUTO),
                 invoice_text=_inv_text_for_split,
             )
 
             # Separate non-declaration/manifest PDF attachments (invoice PDFs)
             invoice_pdf_attachments = [p for p in all_attachments
-                                       if p.lower().endswith('.pdf') and
+                                       if p.lower().endswith(_EXT_PDF) and
                                        not any(tag in os.path.basename(p).lower()
-                                               for tag in ('declaration', 'manifest'))]
+                                               for tag in (_CLASS_DECLARATION, _CLASS_MANIFEST))]
 
             for idx, (decl_meta, decl_pdf_path) in enumerate(all_declarations):
                 import shutil
@@ -2500,18 +2820,18 @@ def run_bl_mode(args) -> dict:
                     decl_attachments = list(invoice_pdf_attachments) + [decl_xlsx, decl_out_path]
                 else:
                     # Fallback: use original shared XLSX attachments
-                    xlsx_attachments = [p for p in all_attachments if p.lower().endswith('.xlsx')]
+                    xlsx_attachments = [p for p in all_attachments if p.lower().endswith(_EXT_XLSX)]
                     decl_attachments = list(invoice_pdf_attachments) + xlsx_attachments + [decl_out_path]
 
                 saved_bl = args.bl
                 saved_man_reg = getattr(args, 'man_reg', '')
                 args.bl = decl_waybill or saved_bl
-                args.man_reg = decl_meta.get('man_reg', '') or saved_man_reg
+                args.man_reg = decl_meta.get(_MF_MAN_REG, '') or saved_man_reg
 
                 decl_manifest_meta = dict(manifest_meta or {})
-                for key_src, key_dst in [('waybill', 'waybill'), ('consignee', 'consignee'),
-                                          ('freight', 'freight'), ('packages', 'packages'),
-                                          ('weight', 'weight'), ('man_reg', 'man_reg')]:
+                for key_src, key_dst in [(_MF_WAYBILL, _MF_WAYBILL), (_MF_CONSIGNEE, _MF_CONSIGNEE),
+                                          (_MF_FREIGHT, _MF_FREIGHT), (_MF_PACKAGES, _MF_PACKAGES),
+                                          (_MF_WEIGHT, _MF_WEIGHT), (_MF_MAN_REG, _MF_MAN_REG)]:
                     if decl_meta.get(key_src):
                         decl_manifest_meta[key_dst] = decl_meta[key_src]
 
@@ -2522,14 +2842,14 @@ def run_bl_mode(args) -> dict:
                                                   total_invoices=decl_total_invoices)
                 if idx == 0:
                     import shutil as _sh
-                    _sh.copy2(params_path, params_path + '.bak')
+                    _sh.copy2(params_path, params_path + _BACKUP_SUFFIX)
                 else:
-                    indexed_path = os.path.join(output_dir, f'_email_params_{idx + 1}.json')
+                    indexed_path = os.path.join(output_dir, f'{_SENT["email_params_prefix"]}{idx + 1}.json')
                     os.replace(params_path, indexed_path)
                     params_path = indexed_path
-                    bak = os.path.join(output_dir, '_email_params.json.bak')
+                    bak = os.path.join(output_dir, _SENT["email_params_backup"])
                     if os.path.exists(bak):
-                        _sh.copy2(bak, os.path.join(output_dir, '_email_params.json'))
+                        _sh.copy2(bak, os.path.join(output_dir, _SENT["email_params"]))
 
                 all_email_params_paths.append(params_path)
                 waybill_label = decl_meta.get('waybill', f'Declaration {idx+1}')
@@ -2541,7 +2861,7 @@ def run_bl_mode(args) -> dict:
             email_params_path = all_email_params_paths[0]
 
             # Clean up backup file
-            bak = os.path.join(output_dir, '_email_params.json.bak')
+            bak = os.path.join(output_dir, _SENT["email_params_backup"])
             if os.path.exists(bak):
                 os.remove(bak)
 
@@ -2550,22 +2870,32 @@ def run_bl_mode(args) -> dict:
             # whole waybill).
             _maybe_save_proposed_fixes(results, email_params_path, output_dir)
 
-            # Auto-send emails when checklist passes
+            # Fix-then-flag-then-send: per-declaration checklist, mechanical
+            # auto-fix where possible, ALWAYS send the broker email, and
+            # surface residual issues inline via the PRE-SEND ISSUES banner.
+            checklist_per_decl = []
+            no_send = bool(getattr(args, 'no_send_email', False))
             for pp in all_email_params_paths:
-                try:
-                    from xlsx_validator import shipment_checklist
-                    with open(pp) as f:
-                        ep = json.load(f)
-                    cl = shipment_checklist(ep, validation)
-                    if cl and not cl['passed']:
-                        print(f"    Email BLOCKED for {os.path.basename(pp)}: {cl['blocker_count']} blocker(s)")
-                        continue
-                except Exception:
-                    pass
-                _send_email_from_params(pp, args)
+                cl, pre_send_notes = _run_checklist_with_fix(
+                    pp, results, validation, output_dir, args,
+                )
+                checklist_per_decl.append(cl)
+                warn_n = len(cl.get('failures') or [])
+                if no_send:
+                    print(f"    Send SUPPRESSED (--no-send-email) for {os.path.basename(pp)} ({warn_n} warning(s))")
+                    continue
+                if pre_send_notes:
+                    print(f"    Email sent with {warn_n} pre-send warning(s) for {os.path.basename(pp)}")
+                else:
+                    print(f"    Email sent (clean) for {os.path.basename(pp)}")
+                _send_email_from_params(pp, args, extra_notes=pre_send_notes)
                 email_sent = True
+            # Stash per-declaration checklist + applied fixes in the report.
+            checklist = checklist_per_decl[0] if checklist_per_decl else None
+            if checklist_per_decl:
+                args._checklist_per_decl = checklist_per_decl   # consumed by _build_report
             # Send the Proposed Fixes sidecar once per shipment (not per declaration)
-            if email_sent:
+            if email_sent and not no_send:
                 _send_proposed_fixes_sidecar(output_dir)
         else:
             # Single declaration (or none) — original flow
@@ -2573,8 +2903,8 @@ def run_bl_mode(args) -> dict:
             if decl_meta:
                 if decl_meta.get('waybill') and not args.bl:
                     args.bl = decl_meta['waybill']
-                if decl_meta.get('man_reg') and not args.man_reg:
-                    args.man_reg = decl_meta['man_reg']
+                if decl_meta.get(_MF_MAN_REG) and not args.man_reg:
+                    args.man_reg = decl_meta[_MF_MAN_REG]
                 # Merge OCR-extracted declaration fields into manifest_meta so
                 # _save_email_params can apply consignee, freight, weight,
                 # packages, office from scanned Simplified Declaration forms.
@@ -2582,11 +2912,11 @@ def run_bl_mode(args) -> dict:
                 # extract_manifest_metadata (no OCR) returns empty for them.
                 if manifest_meta is None:
                     manifest_meta = {}
-                for key_src, key_dst in [('consignee', 'consignee'),
-                                          ('freight', 'freight'),
-                                          ('packages', 'packages'),
-                                          ('weight', 'weight'),
-                                          ('office', 'office')]:
+                for key_src, key_dst in [(_MF_CONSIGNEE, _MF_CONSIGNEE),
+                                          (_MF_FREIGHT, _MF_FREIGHT),
+                                          (_MF_PACKAGES, _MF_PACKAGES),
+                                          (_MF_WEIGHT, _MF_WEIGHT),
+                                          (_MF_OFFICE, _MF_OFFICE)]:
                     if decl_meta.get(key_src) and not manifest_meta.get(key_dst):
                         manifest_meta[key_dst] = decl_meta[key_src]
             # Attach the single declaration PDF (renamed {waybill}-Declaration.pdf)
@@ -2611,22 +2941,21 @@ def run_bl_mode(args) -> dict:
             all_email_params_paths = [email_params_path]
             # Save Proposed Fixes sidecar if any invoice carries uncertainty.
             _maybe_save_proposed_fixes(results, email_params_path, output_dir)
-            # ── Shipment pre-send checklist ──
-            checklist = None
-            try:
-                from xlsx_validator import shipment_checklist
-                with open(email_params_path) as f:
-                    email_params = json.load(f)
-                checklist = shipment_checklist(email_params, validation)
-            except Exception as e:
-                logger.warning(f"Shipment checklist failed: {e}")
-
-            # Auto-send email when checklist passes
-            if checklist and not checklist['passed']:
-                print(f"    Email BLOCKED by checklist: {checklist['blocker_count']} blocker(s). Fix issues first.")
+            # ── Shipment pre-send checklist (fix-then-flag-then-send) ──
+            checklist, pre_send_notes = _run_checklist_with_fix(
+                email_params_path, results, validation, output_dir, args,
+            )
+            warn_n = len(checklist.get('failures') or [])
+            if getattr(args, 'no_send_email', False):
+                print(f"    Send SUPPRESSED (--no-send-email) ({warn_n} warning(s))")
             else:
+                if pre_send_notes:
+                    print(f"    Email sent with {warn_n} pre-send warning(s)")
+                else:
+                    print(f"    Email sent (clean)")
                 email_sent = _send_bl_email(args, results, bl_alloc, all_attachments, manifest_meta,
-                                            total_invoices=original_invoice_count)
+                                            total_invoices=original_invoice_count,
+                                            extra_notes=pre_send_notes)
 
     # Archive any reviewer-edited Proposed Fixes YAML that was applied this run
     _maybe_archive_applied_fixes(args, args.bl or args.waybill or '')
@@ -2641,6 +2970,11 @@ def run_bl_mode(args) -> dict:
         report['validation'] = validation
     if checklist:
         report['checklist'] = checklist
+        report['checklist_residual'] = checklist.get('failures') or []
+        if checklist.get('fixes_applied'):
+            report['checklist_fixes_applied'] = checklist['fixes_applied']
+    if getattr(args, '_checklist_per_decl', None):
+        report['checklist_per_declaration'] = args._checklist_per_decl
     if getattr(args, '_fixes_reports', None):
         report['fixes_applied'] = args._fixes_reports
     if args.json_output:
@@ -2656,16 +2990,16 @@ def run_single_mode(args) -> dict:
     try:
         from pipeline_runner import PipelineRunner
     except ImportError:
-        print("ERROR: pipeline_runner module not found")
+        print("ERROR: pipeline_runner module not found")  # magic-ok: human-readable error
         sys.exit(1)
 
-    config_path = args.config or os.path.join(BASE_DIR, 'config', 'pipeline.yaml')
+    config_path = args.config or os.path.join(BASE_DIR, _DIRS["config"], _CFG_PIPELINE)
     runner = PipelineRunner(config_path)
 
     output_path = args.output
     if not output_path:
         input_base = os.path.splitext(os.path.basename(args.input))[0]
-        output_dir = args.output_dir or os.path.join(BASE_DIR, 'workspace', 'shipments')
+        output_dir = args.output_dir or os.path.join(BASE_DIR, _DIRS["shipments"])
         os.makedirs(output_dir, exist_ok=True)
         output_path = os.path.join(output_dir, f"{input_base}.xlsx")
 
@@ -2685,9 +3019,9 @@ def run_batch_mode(args) -> dict:
     shipping documents — invoices are parsed, matched, classified, converted
     to XLSX, and emailed as a single shipment.
     """
-    print("=" * 80)
-    print(f"Processing Batch Shipment  |  Document Type: {args.doc_type if args.doc_type != 'auto' else '(auto)'}  |  Mode: Batch")
-    print("=" * 80)
+    print("=" * _BANNER_WIDTH)
+    print(f"Processing Batch Shipment  |  Document Type: {args.doc_type if args.doc_type != _MODE_AUTO else '(auto)'}  |  Mode: Batch")  # magic-ok: display-only parenthetical
+    print("=" * _BANNER_WIDTH)
 
     try:
         from format_registry import FormatRegistry
@@ -2711,7 +3045,7 @@ def run_batch_mode(args) -> dict:
         print(f"\n[1] No PO XLSX found — running without PO matching")
 
     # 2. Initialize format registry
-    print("\n[2] Initializing format registry...")
+    print("\n[2] Initializing format registry...")  # magic-ok: console stage banner
     registry = FormatRegistry(BASE_DIR)
     print(f"    {len(registry.list_formats())} format specs loaded")
 
@@ -2738,10 +3072,12 @@ def run_batch_mode(args) -> dict:
     os.makedirs(output_dir, exist_ok=True)
 
     # 4. Pre-process: split combined PDFs, get invoice paths
-    invoice_paths = _prepare_invoice_pdfs(args, classification or {})
+    with Stage(_SN_BL_PHASE4_PREPARE_INVOICE_PDFS,
+               n_files=sum(len(v) for v in (classification or {}).values())):
+        invoice_paths = _prepare_invoice_pdfs(args, classification or {})
     if not invoice_paths:
         print(f"No invoice PDFs found in {args.input_dir}")
-        return {'status': 'error', 'error': 'No invoice PDFs found'}
+        return {'status': _STATUS_ERROR, 'error': 'No invoice PDFs found'}  # magic-ok: human-readable error
 
     # Auto-resolve document type from consignee
     args.doc_type = resolve_doc_type(args)
@@ -2756,7 +3092,7 @@ def run_batch_mode(args) -> dict:
 
     n_workers = getattr(args, 'workers', 0) or 0
     if n_workers == 0:
-        n_workers = min(4, os.cpu_count() or 1)
+        n_workers = min(4, os.cpu_count() or 1)  # magic-ok: thread pool cap
     n_workers = min(n_workers, len(invoice_paths)) if invoice_paths else 1
 
     if n_workers > 1 and len(invoice_paths) > 1:
@@ -2785,7 +3121,7 @@ def run_batch_mode(args) -> dict:
         for pdf_path, result in ordered_results:
             if result:
                 if len(result.matched_items) == 0:
-                    if result.format_name == '_default':
+                    if result.format_name == _FMT_DEFAULT:
                         print(f"    Skipping non-invoice: {os.path.basename(pdf_path)} (no format match)")
                     else:
                         failures.append({
@@ -2802,7 +3138,7 @@ def run_batch_mode(args) -> dict:
                 failures.append({
                     'pdf_path': pdf_path,
                     'pdf_file': os.path.basename(pdf_path),
-                    'reason': 'Text extraction failed',
+                    'reason': _TEXT_EXTRACTION_FAIL,
                 })
     else:
         for pdf_path in invoice_paths:
@@ -2819,7 +3155,7 @@ def run_batch_mode(args) -> dict:
             )
             if result:
                 if len(result.matched_items) == 0:
-                    if result.format_name == '_default':
+                    if result.format_name == _FMT_DEFAULT:
                         print(f"    Skipping non-invoice: {os.path.basename(pdf_path)} (no format match)")
                     else:
                         failures.append({
@@ -2836,7 +3172,7 @@ def run_batch_mode(args) -> dict:
                 failures.append({
                     'pdf_path': pdf_path,
                     'pdf_file': os.path.basename(pdf_path),
-                    'reason': 'Text extraction failed',
+                    'reason': _TEXT_EXTRACTION_FAIL,
                 })
 
     # Promote successful auto-generated format specs
@@ -2867,7 +3203,7 @@ def run_batch_mode(args) -> dict:
             manifest_meta = decl_meta
             logger.info(f"Using declaration metadata as manifest fallback: {decl_meta}")
     elif decl_meta:
-        for key in ('office', 'weight', 'packages', 'freight', 'consignee', 'fob_value'):
+        for key in (_MF_OFFICE, _MF_WEIGHT, _MF_PACKAGES, _MF_FREIGHT, _MF_CONSIGNEE, _MF_FOB_VALUE):
             if not manifest_meta.get(key) and decl_meta.get(key):
                 manifest_meta[key] = decl_meta[key]
                 logger.info(f"Supplemented manifest {key} from declaration: {decl_meta[key]}")
@@ -2886,26 +3222,26 @@ def run_batch_mode(args) -> dict:
                         os.path.basename(r.xlsx_path).rsplit('.', 1)[0],
                         r.supplier_info,
                         r.xlsx_path,
-                        document_type=getattr(args, 'doc_type', 'auto'),
+                        document_type=getattr(args, 'doc_type', _MODE_AUTO),
                     )
                     print(f"    {r.invoice_num}: XLSX regenerated with client duty comparison")
         except Exception as e:
             logger.warning(f"XLSX regeneration for duty comparison failed: {e}")
 
     # Apply manifest packages to XLSX (batch mode has no BL allocator)
-    if manifest_meta and manifest_meta.get('packages') and results:
+    if manifest_meta and manifest_meta.get(_MF_PACKAGES) and results:
         try:
-            manifest_pkgs = int(manifest_meta['packages'])
+            manifest_pkgs = int(manifest_meta[_MF_PACKAGES])
             for r in results:
                 if r.xlsx_path and os.path.exists(r.xlsx_path):
                     from openpyxl import load_workbook as _lw
                     wb = _lw(r.xlsx_path)
                     ws = wb.active
                     # Set manifest packages on row 2, clear all other rows
-                    ws.cell(row=2, column=24, value=manifest_pkgs)
-                    for row in range(3, ws.max_row + 1):
-                        if ws.cell(row, 24).value is not None:
-                            ws.cell(row, 24).value = None
+                    ws.cell(row=2, column=_COL_PACKAGES, value=manifest_pkgs)
+                    for row in range(_XLSX_DETAIL_START_ROW, ws.max_row + 1):
+                        if ws.cell(row, _COL_PACKAGES).value is not None:
+                            ws.cell(row, _COL_PACKAGES).value = None
                     wb.save(r.xlsx_path)
                     wb.close()
                     r.packages = manifest_pkgs
@@ -2919,12 +3255,12 @@ def run_batch_mode(args) -> dict:
     if consolidation_meta:
         if not manifest_meta:
             manifest_meta = {}
-        if consolidation_meta.get('total_packages') and not manifest_meta.get('packages'):
-            manifest_meta['packages'] = str(consolidation_meta['total_packages'])
-        if consolidation_meta.get('total_weight') and not manifest_meta.get('weight'):
-            manifest_meta['weight'] = str(consolidation_meta['total_weight'])
-        if consolidation_meta.get('total_freight') and not manifest_meta.get('freight'):
-            manifest_meta['freight'] = str(consolidation_meta['total_freight'])
+        if consolidation_meta.get('total_packages') and not manifest_meta.get(_MF_PACKAGES):
+            manifest_meta[_MF_PACKAGES] = str(consolidation_meta['total_packages'])
+        if consolidation_meta.get('total_weight') and not manifest_meta.get(_MF_WEIGHT):
+            manifest_meta[_MF_WEIGHT] = str(consolidation_meta['total_weight'])
+        if consolidation_meta.get('total_freight') and not manifest_meta.get(_MF_FREIGHT):
+            manifest_meta[_MF_FREIGHT] = str(consolidation_meta['total_freight'])
         if consolidation_meta.get('waybill') and not manifest_meta.get('waybill'):
             manifest_meta['waybill'] = consolidation_meta['waybill']
 
@@ -2994,15 +3330,15 @@ def run_batch_mode(args) -> dict:
                     pass
             per_decl_xlsx = _split_items_per_declaration(
                 all_declarations, results, output_dir,
-                document_type=getattr(args, 'doc_type', 'auto'),
+                document_type=getattr(args, 'doc_type', _MODE_AUTO),
                 invoice_text=_inv_text_for_split,
             )
 
             # Separate non-declaration/manifest PDF attachments (invoice PDFs)
             invoice_pdf_attachments = [p for p in all_attachments
-                                       if p.lower().endswith('.pdf') and
+                                       if p.lower().endswith(_EXT_PDF) and
                                        not any(tag in os.path.basename(p).lower()
-                                               for tag in ('declaration', 'manifest'))]
+                                               for tag in (_CLASS_DECLARATION, _CLASS_MANIFEST))]
 
             for idx, (decl_meta, decl_pdf_path) in enumerate(all_declarations):
                 # Copy declaration PDF to output dir with {waybill}-Declaration.pdf naming
@@ -3022,7 +3358,7 @@ def run_batch_mode(args) -> dict:
                     decl_attachments = list(invoice_pdf_attachments) + [decl_xlsx, decl_out_path]
                 else:
                     # Fallback: use original shared XLSX attachments
-                    xlsx_attachments = [p for p in all_attachments if p.lower().endswith('.xlsx')]
+                    xlsx_attachments = [p for p in all_attachments if p.lower().endswith(_EXT_XLSX)]
                     decl_attachments = list(invoice_pdf_attachments) + xlsx_attachments + [decl_out_path]
 
                 # Override args with this declaration's metadata
@@ -3030,23 +3366,23 @@ def run_batch_mode(args) -> dict:
                 saved_man_reg = getattr(args, 'man_reg', '')
                 saved_bl = getattr(args, 'bl', '')
                 args.waybill = decl_waybill or saved_waybill
-                args.man_reg = decl_meta.get('man_reg', '') or saved_man_reg
+                args.man_reg = decl_meta.get(_MF_MAN_REG, '') or saved_man_reg
                 args.bl = decl_waybill or saved_bl
 
                 # Build manifest_meta override from this declaration
                 decl_manifest_meta = dict(manifest_meta or {})
                 if decl_meta.get('waybill'):
                     decl_manifest_meta['waybill'] = decl_meta['waybill']
-                if decl_meta.get('consignee'):
-                    decl_manifest_meta['consignee_name'] = decl_meta['consignee']
-                if decl_meta.get('freight'):
-                    decl_manifest_meta['freight'] = decl_meta['freight']
-                if decl_meta.get('packages'):
-                    decl_manifest_meta['packages'] = decl_meta['packages']
-                if decl_meta.get('weight'):
-                    decl_manifest_meta['weight'] = decl_meta['weight']
-                if decl_meta.get('man_reg'):
-                    decl_manifest_meta['man_reg'] = decl_meta['man_reg']
+                if decl_meta.get(_MF_CONSIGNEE):
+                    decl_manifest_meta['consignee_name'] = decl_meta[_MF_CONSIGNEE]
+                if decl_meta.get(_MF_FREIGHT):
+                    decl_manifest_meta[_MF_FREIGHT] = decl_meta[_MF_FREIGHT]
+                if decl_meta.get(_MF_PACKAGES):
+                    decl_manifest_meta[_MF_PACKAGES] = decl_meta[_MF_PACKAGES]
+                if decl_meta.get(_MF_WEIGHT):
+                    decl_manifest_meta[_MF_WEIGHT] = decl_meta[_MF_WEIGHT]
+                if decl_meta.get(_MF_MAN_REG):
+                    decl_manifest_meta[_MF_MAN_REG] = decl_meta[_MF_MAN_REG]
 
                 # Save email params: _email_params.json for first, _email_params_2.json etc
                 # _save_batch_email_params always writes to _email_params.json,
@@ -3059,15 +3395,15 @@ def run_batch_mode(args) -> dict:
                     # First declaration keeps _email_params.json (backward compat)
                     # but save a copy since next iteration will overwrite it
                     import shutil as _sh
-                    _sh.copy2(params_path, params_path + '.bak')
+                    _sh.copy2(params_path, params_path + _BACKUP_SUFFIX)
                 else:
-                    indexed_path = os.path.join(output_dir, f'_email_params_{idx + 1}.json')
+                    indexed_path = os.path.join(output_dir, f'{_SENT["email_params_prefix"]}{idx + 1}.json')
                     os.replace(params_path, indexed_path)
                     params_path = indexed_path
                     # Restore first declaration's params file if it was overwritten
-                    bak = os.path.join(output_dir, '_email_params.json.bak')
+                    bak = os.path.join(output_dir, _SENT["email_params_backup"])
                     if os.path.exists(bak):
-                        _sh.copy2(bak, os.path.join(output_dir, '_email_params.json'))
+                        _sh.copy2(bak, os.path.join(output_dir, _SENT["email_params"]))
 
 
                 all_email_params_paths.append(params_path)
@@ -3082,42 +3418,50 @@ def run_batch_mode(args) -> dict:
             email_params_path = all_email_params_paths[0]
 
             # Clean up backup file
-            bak = os.path.join(output_dir, '_email_params.json.bak')
+            bak = os.path.join(output_dir, _SENT["email_params_backup"])
             if os.path.exists(bak):
                 os.remove(bak)
 
-            # Auto-send emails when checklist passes
+            # Fix-then-flag-then-send: per-declaration checklist, mechanical
+            # auto-fix where possible, ALWAYS send the broker email.
+            checklist_per_decl = []
+            no_send = bool(getattr(args, 'no_send_email', False))
             for params_path in all_email_params_paths:
-                try:
-                    from xlsx_validator import shipment_checklist
-                    with open(params_path) as f:
-                        ep = json.load(f)
-                    cl = shipment_checklist(ep, validation)
-                    if cl and not cl['passed']:
-                        print(f"    Email BLOCKED for {os.path.basename(params_path)}: {cl['blocker_count']} blocker(s)")
-                        continue
-                except Exception:
-                    pass
-                _send_email_from_params(params_path, args)
+                cl, pre_send_notes = _run_checklist_with_fix(
+                    params_path, results, validation, output_dir, args,
+                )
+                checklist_per_decl.append(cl)
+                warn_n = len(cl.get('failures') or [])
+                if no_send:
+                    print(f"    Send SUPPRESSED (--no-send-email) for {os.path.basename(params_path)} ({warn_n} warning(s))")
+                    continue
+                if pre_send_notes:
+                    print(f"    Email sent with {warn_n} pre-send warning(s) for {os.path.basename(params_path)}")
+                else:
+                    print(f"    Email sent (clean) for {os.path.basename(params_path)}")
+                _send_email_from_params(params_path, args, extra_notes=pre_send_notes)
                 email_sent = True
+            checklist = checklist_per_decl[0] if checklist_per_decl else None
+            if checklist_per_decl:
+                args._checklist_per_decl = checklist_per_decl
         else:
             # Single declaration (or none) — original flow
             decl_meta = getattr(args, '_declaration_metadata', {})
             if decl_meta:
                 if decl_meta.get('waybill') and not args.waybill:
                     args.waybill = decl_meta['waybill']
-                if decl_meta.get('man_reg') and not args.man_reg:
-                    args.man_reg = decl_meta['man_reg']
+                if decl_meta.get(_MF_MAN_REG) and not args.man_reg:
+                    args.man_reg = decl_meta[_MF_MAN_REG]
                 # Merge OCR-extracted declaration fields into manifest_meta so
                 # _save_batch_email_params can apply consignee, freight, weight,
                 # packages, office from scanned Simplified Declaration forms.
                 if manifest_meta is None:
                     manifest_meta = {}
-                for key_src, key_dst in [('consignee', 'consignee'),
-                                          ('freight', 'freight'),
-                                          ('packages', 'packages'),
-                                          ('weight', 'weight'),
-                                          ('office', 'office')]:
+                for key_src, key_dst in [(_MF_CONSIGNEE, _MF_CONSIGNEE),
+                                          (_MF_FREIGHT, _MF_FREIGHT),
+                                          (_MF_PACKAGES, _MF_PACKAGES),
+                                          (_MF_WEIGHT, _MF_WEIGHT),
+                                          (_MF_OFFICE, _MF_OFFICE)]:
                     if decl_meta.get(key_src) and not manifest_meta.get(key_dst):
                         manifest_meta[key_dst] = decl_meta[key_src]
             # Attach the single declaration PDF (renamed {waybill}-Declaration.pdf)
@@ -3140,21 +3484,20 @@ def run_batch_mode(args) -> dict:
                                                           manifest_meta, output_dir)
             all_email_params_paths = [email_params_path]
             _maybe_save_proposed_fixes(results, email_params_path, output_dir)
-            # ── Shipment pre-send checklist ──
-            checklist = None
-            try:
-                from xlsx_validator import shipment_checklist
-                with open(email_params_path) as f:
-                    email_params = json.load(f)
-                checklist = shipment_checklist(email_params, validation)
-            except Exception as e:
-                logger.warning(f"Shipment checklist failed: {e}")
-
-            # Auto-send email when checklist passes
-            if checklist and not checklist['passed']:
-                print(f"    Email BLOCKED by checklist: {checklist['blocker_count']} blocker(s). Fix issues first.")
+            # ── Shipment pre-send checklist (fix-then-flag-then-send) ──
+            checklist, pre_send_notes = _run_checklist_with_fix(
+                email_params_path, results, validation, output_dir, args,
+            )
+            warn_n = len(checklist.get('failures') or [])
+            if getattr(args, 'no_send_email', False):
+                print(f"    Send SUPPRESSED (--no-send-email) ({warn_n} warning(s))")
             else:
-                email_sent = _send_batch_email(args, results, all_attachments, manifest_meta)
+                if pre_send_notes:
+                    print(f"    Email sent with {warn_n} pre-send warning(s)")
+                else:
+                    print(f"    Email sent (clean)")
+                email_sent = _send_batch_email(args, results, all_attachments, manifest_meta,
+                                               extra_notes=pre_send_notes)
 
     # Archive any reviewer-edited Proposed Fixes YAML that was applied this run
     _maybe_archive_applied_fixes(args, args.waybill or args.bl or '')
@@ -3169,6 +3512,11 @@ def run_batch_mode(args) -> dict:
         report['validation'] = validation
     if checklist:
         report['checklist'] = checklist
+        report['checklist_residual'] = checklist.get('failures') or []
+        if checklist.get('fixes_applied'):
+            report['checklist_fixes_applied'] = checklist['fixes_applied']
+    if getattr(args, '_checklist_per_decl', None):
+        report['checklist_per_declaration'] = args._checklist_per_decl
     if getattr(args, '_fixes_reports', None):
         report['fixes_applied'] = args._fixes_reports
     if args.json_output:
@@ -3179,23 +3527,23 @@ def run_batch_mode(args) -> dict:
 
 def _print_summary(results: list, bl_alloc) -> None:
     """Print processing summary table."""
-    print("\n" + "=" * 80)
-    print("SUMMARY")
-    print("=" * 80)
-    print(f"{'PDF File':<30} {'Supplier':<30} {'Format':<12} "
-          f"{'Items':>6} {'Match':>6} {'Class':>6} {'Total':>12}")
-    print("-" * 108)
+    print("\n" + "=" * _BANNER_WIDTH)
+    print("SUMMARY")  # magic-ok: console section header
+    print("=" * _BANNER_WIDTH)
+    print(f"{'PDF File':<30} {'Supplier':<30} {'Format':<12} "  # magic-ok: table column labels
+          f"{'Items':>6} {'Match':>6} {'Class':>6} {'Total':>12}")  # magic-ok: table column labels
+    print("-" * _BANNER_WIDTH_WIDE)
     for r in results:
         print(f"{r.pdf_file:<30} {r.supplier_info.get('name', ''):<30} "
               f"{r.format_name:<12} "
               f"{len(r.matched_items):>6} {r.matched_count:>6} "
               f"{r.classified_count:>6} ${r.invoice_data.get('invoice_total', 0):>10.2f}")
-    print("-" * 108)
+    print("-" * _BANNER_WIDTH_WIDE)
     total_items = sum(len(r.matched_items) for r in results)
     total_matched = sum(r.matched_count for r in results)
     total_classified = sum(r.classified_count for r in results)
     grand_total = sum(r.invoice_data.get('invoice_total', 0) for r in results)
-    print(f"{'TOTAL':<30} {'':<30} {'':<12} "
+    print(f"{'TOTAL':<30} {'':<30} {'':<12} "  # magic-ok: console summary row label
           f"{total_items:>6} {total_matched:>6} {total_classified:>6}")
 
     if bl_alloc:
@@ -3209,27 +3557,31 @@ def _print_xlsx_variance_detail(ws, inv_total: float, sum_items: float,
                                 variance: float) -> None:
     """Print detailed line-by-line item dump from XLSX when variance is detected."""
     try:
-        # Detect description column from header row
-        desc_col = 10  # Default to J
-        for col in (10, 12):
+        # Detect description column from header row.
+        # Column J (10) = Description in most layouts; column L (12) is the
+        # fallback used by the consolidated BL-style layout.
+        _COL_J = _COL_INDEX["J"]
+        _COL_L = _COL_INDEX["L"]
+        desc_col = _COL_J
+        for col in (_COL_J, _COL_L):
             val = ws.cell(row=1, column=col).value
-            if val and 'desc' in str(val).lower():
+            if val and 'desc' in str(val).lower():  # magic-ok: Description-column header substring match
                 desc_col = col
                 break
 
-        w = 100
+        w = 100  # magic-ok: console rule width
         print("  " + "-" * w)
         print(f"  DETAILED ITEM BREAKDOWN (from XLSX):")
-        print(f"  {'#':>3} | {'Description':<48} | {'Qty':>5} | {'Unit':>8} | {'Total':>10}")
+        print(f"  {'#':>3} | {'Description':<48} | {'Qty':>5} | {'Unit':>8} | {'Total':>10}")  # magic-ok: table column labels
         print("  " + "-" * w)
 
         item_idx = 0
         running_sum = 0.0
         for row in range(2, ws.max_row + 1):
-            tc = ws.cell(row, 16).value  # Column P = TotalCost
+            tc = ws.cell(row, _COL_INDEX["P"]).value  # TotalCost
             desc = ws.cell(row, desc_col).value
-            qty = ws.cell(row, 11).value   # Column K = Quantity
-            unit = ws.cell(row, 15).value  # Column O = UnitCost
+            qty = ws.cell(row, _COL_INDEX["K"]).value  # Quantity
+            unit = ws.cell(row, _COL_INDEX["O"]).value  # UnitCost
 
             # Stop at formula rows (totals section)
             if isinstance(tc, str) and tc.startswith('='):
@@ -3242,7 +3594,7 @@ def _print_xlsx_variance_detail(ws, inv_total: float, sum_items: float,
             # Skip group rows (blue background)
             fill = ws.cell(row, 1).fill
             is_group = (fill and fill.start_color and
-                        'D9E1F2' in str(getattr(fill.start_color, 'rgb', '') or ''))
+                        'D9E1F2' in str(getattr(fill.start_color, 'rgb', '') or ''))  # magic-ok: openpyxl group-row fill RGB
             if is_group:
                 continue
 
@@ -3250,16 +3602,16 @@ def _print_xlsx_variance_detail(ws, inv_total: float, sum_items: float,
             running_sum += float(tc)
             qty_str = str(qty) if qty else ''
             unit_val = float(unit) if isinstance(unit, (int, float)) else 0
-            print(f"  {item_idx:>3} | {str(desc)[:48]:<48} | {qty_str:>5} | "
+            print(f"  {item_idx:>3} | {str(desc)[:48]:<48} | {qty_str:>5} | "  # magic-ok: console column truncation width
                   f"${unit_val:>7.2f} | ${float(tc):>9.2f}")
 
         print("  " + "-" * w)
-        print(f"  {'':>3} | {'ITEMS SUM':<48} | {'':>5} | {'':>8} | ${running_sum:>9.2f}")
-        if abs(adjustments) > 0.001:
-            print(f"  {'':>3} | {'ADJUSTMENTS':<48} | {'':>5} | {'':>8} | ${adjustments:>9.2f}")
-        print(f"  {'':>3} | {'NET TOTAL':<48} | {'':>5} | {'':>8} | ${net_total:>9.2f}")
-        print(f"  {'':>3} | {'INVOICE TOTAL':<48} | {'':>5} | {'':>8} | ${inv_total:>9.2f}")
-        print(f"  {'':>3} | {'VARIANCE':<48} | {'':>5} | {'':>8} | ${variance:>9.2f}")
+        print(f"  {'':>3} | {'ITEMS SUM':<48} | {'':>5} | {'':>8} | ${running_sum:>9.2f}")  # magic-ok: console summary row label
+        if abs(adjustments) > 0.001:  # magic-ok: cents-level float tolerance
+            print(f"  {'':>3} | {'ADJUSTMENTS':<48} | {'':>5} | {'':>8} | ${adjustments:>9.2f}")  # magic-ok: console summary row label
+        print(f"  {'':>3} | {'NET TOTAL':<48} | {'':>5} | {'':>8} | ${net_total:>9.2f}")  # magic-ok: console summary row label
+        print(f"  {'':>3} | {'INVOICE TOTAL':<48} | {'':>5} | {'':>8} | ${inv_total:>9.2f}")  # magic-ok: console summary row label
+        print(f"  {'':>3} | {'VARIANCE':<48} | {'':>5} | {'':>8} | ${variance:>9.2f}")  # magic-ok: console summary row label
         print("  " + "-" * w)
     except Exception as e:
         print(f"  (variance detail failed: {e})")
@@ -3286,11 +3638,11 @@ def _validate_xlsx_variance(results: list) -> None:
 
     fail_count = 0
     print()
-    print("VARIANCE CHECK")
-    print("-" * 108)
-    print(f"  {'File':<30} {'InvTotal':>10} {'Items':>10} {'Freight':>8} "
-          f"{'Tax':>8} {'Insur':>8} {'Deduct':>8} {'Net':>10} {'Result':>8}")
-    print("  " + "-" * 104)
+    print("VARIANCE CHECK")  # magic-ok: console section header
+    print("-" * _BANNER_WIDTH_WIDE)
+    print(f"  {'File':<30} {'InvTotal':>10} {'Items':>10} {'Freight':>8} "  # magic-ok: table column labels
+          f"{'Tax':>8} {'Insur':>8} {'Deduct':>8} {'Net':>10} {'Result':>8}")  # magic-ok: table column labels
+    print("  " + "-" * _BANNER_WIDTH_INDENT)
 
     for r in results:
         xlsx_path = r.xlsx_path
@@ -3307,16 +3659,16 @@ def _validate_xlsx_variance(results: list) -> None:
         def _num(v):
             return v if isinstance(v, (int, float)) else 0
 
-        inv_total = _num(ws.cell(2, 19).value)   # S = InvoiceTotal
-        freight = _num(ws.cell(2, 20).value)      # T = Total Internal Freight
-        insurance = _num(ws.cell(2, 21).value)    # U = Total Insurance (or -credits)
-        tax = _num(ws.cell(2, 22).value)          # V = Total Other Cost (tax)
-        deduction = _num(ws.cell(2, 23).value)    # W = Total Deduction
+        inv_total = _num(ws.cell(2, _COL_INDEX["S"]).value)   # InvoiceTotal
+        freight = _num(ws.cell(2, _COL_INDEX["T"]).value)     # Total Internal Freight
+        insurance = _num(ws.cell(2, _COL_INDEX["U"]).value)   # Total Insurance (or -credits)
+        tax = _num(ws.cell(2, _COL_INDEX["V"]).value)         # Total Other Cost (tax)
+        deduction = _num(ws.cell(2, _COL_INDEX["W"]).value)   # Total Deduction
 
-        # Sum item TotalCost (column P = 16), stop at formula rows
+        # Sum item TotalCost (column P), stop at formula rows
         sum_items = 0.0
         for row in range(2, ws.max_row + 1):
-            tc = ws.cell(row, 16).value
+            tc = ws.cell(row, _COL_INDEX["P"]).value
             if isinstance(tc, (int, float)):
                 sum_items += tc
             elif isinstance(tc, str) and tc.startswith('='):
@@ -3327,24 +3679,24 @@ def _validate_xlsx_variance(results: list) -> None:
         variance = round(inv_total - net_total, 2)
 
         fname = os.path.basename(xlsx_path)
-        if abs(variance) > 0.01:
+        if abs(variance) > _VARIANCE_EPSILON:
             fail_count += 1
             status = f"FAIL ${variance:+.2f}"
         else:
-            status = "PASS"
+            status = "PASS"  # magic-ok: console status label
 
         print(f"  {fname:<30} {inv_total:>10.2f} {sum_items:>10.2f} "
               f"{freight:>8.2f} {tax:>8.2f} {insurance:>8.2f} "
               f"{deduction:>8.2f} {net_total:>10.2f} {status:>8}")
 
         # Detailed line-by-line XLSX item dump when variance detected
-        if abs(variance) > 0.01:
+        if abs(variance) > _VARIANCE_EPSILON:
             _print_xlsx_variance_detail(ws, inv_total, sum_items, adjustments,
                                        net_total, variance)
 
         wb.close()
 
-    print("  " + "-" * 104)
+    print("  " + "-" * _BANNER_WIDTH_INDENT)
     if fail_count == 0:
         print(f"  All {len(results)} invoices PASS — variance = $0.00")
     else:
@@ -3381,7 +3733,7 @@ def _handle_failures(failures: list, output_dir: str, input_dir: str,
         return
 
     import shutil
-    unprocessed_dir = os.path.join(output_dir, 'Unprocessed')
+    unprocessed_dir = os.path.join(output_dir, _SUBDIR_UNPROCESSED)
     os.makedirs(unprocessed_dir, exist_ok=True)
 
     manifest_lines = [f"Source: {input_dir}", ""]
@@ -3391,7 +3743,7 @@ def _handle_failures(failures: list, output_dir: str, input_dir: str,
             shutil.copy2(src, os.path.join(unprocessed_dir, f['pdf_file']))
         manifest_lines.append(f"{f['pdf_file']}: {f['reason']}")
 
-    manifest_path = os.path.join(unprocessed_dir, '_failures.txt')
+    manifest_path = os.path.join(unprocessed_dir, _SENT["failures_report"])
     with open(manifest_path, 'w') as mf:
         mf.write('\n'.join(manifest_lines))
 
@@ -3423,7 +3775,7 @@ def _email_failed_pdfs(failures: list, input_dir: str) -> bool:
         logger.warning("Could not load config for failed-PDF email notification")
         return False
 
-    folder_name = os.path.basename(input_dir) if input_dir else "Unknown"
+    folder_name = os.path.basename(input_dir) if input_dir else _UNKNOWN_LABEL
     n = len(failures)
 
     # Build body
@@ -3432,10 +3784,10 @@ def _email_failed_pdfs(failures: list, input_dir: str) -> bool:
         "",
         f"Source folder: {folder_name}",
         "",
-        "The following PDFs could not be processed automatically and",
-        "require manual review. They are attached to this email.",
+        "The following PDFs could not be processed automatically and",  # magic-ok: email body copy
+        "require manual review. They are attached to this email.",  # magic-ok: email body copy
         "",
-        "─" * 50,
+        "─" * 50,  # magic-ok: email rule width
     ]
     for f in failures:
         body_lines.append(f"  {f['pdf_file']}")
@@ -3451,18 +3803,18 @@ def _email_failed_pdfs(failures: list, input_dir: str) -> bool:
         msg['From'] = f"{cfg.email_sender_name} <{cfg.email_sender}>"
         msg['To'] = cfg.email_recipient
         msg['Subject'] = f"Failed Import: {n} invoice(s) from {folder_name}"
-        msg.attach(MIMEText(body, 'plain'))
+        msg.attach(MIMEText(body, _EMAIL_MIME_BODY_SUBTYPE))
 
         # Attach each failed PDF
         for f in failures:
             pdf_path = f['pdf_path']
             if os.path.exists(pdf_path):
                 with open(pdf_path, 'rb') as fh:
-                    part = MIMEBase('application', 'pdf')
+                    part = MIMEBase(_EMAIL_MIME_MAIN, _EMAIL_MIME_SUB)
                     part.set_payload(fh.read())
                     encoders.encode_base64(part)
                     part.add_header(
-                        'Content-Disposition',
+                        _EMAIL_MIME_DISPOSITION,
                         f'attachment; filename="{f["pdf_file"]}"',
                     )
                     msg.attach(part)
@@ -3491,7 +3843,7 @@ def _apply_manifest_metadata(args, classification: dict, output_dir: str,
     """
     import shutil
 
-    manifest_files = (classification or {}).get('manifest', [])
+    manifest_files = (classification or {}).get(_CLASS_MANIFEST, [])
     if not manifest_files:
         return {}
 
@@ -3558,17 +3910,7 @@ def _apply_consolidation_report(args, classification: dict, results: list,
             continue
 
         # Match detail lines: 6-digit tracking + invoice ref pattern
-        m = re.match(
-            r'(\d{6})\s+\w+.*?(?:CENTER|CENTRE)\s+'
-            r'(\d{3}-\d{7}-\d{3,7})\s+'
-            r'(\d+)\s+\w+\s+'
-            r'([\d.]+)\s+'          # weight
-            r'([\d.]+)'             # volume
-            r'(?:\s+([\d,.]+))?'    # optional declared value
-            r'\s+P\s+'
-            r'([\d,.]+)',           # freight
-            line
-        )
+        m = re.match(_RE_AMAZON_RECAP_LINE, line)
         if m:
             invoice_ref = m.group(2)
             packages = int(m.group(3))
@@ -3593,7 +3935,7 @@ def _apply_consolidation_report(args, classification: dict, results: list,
             continue
 
         # Match totals line: NW/R total_packages total_weight ...
-        m_total = re.match(r'(\d+)W/R\s+(\d+)\s+([\d.]+)\s+([\d.]+)', line)
+        m_total = re.match(_RE_BL_TOTALS_WR_LINE, line)
         if m_total:
             total_packages = int(m_total.group(2))
             total_weight = float(m_total.group(3))
@@ -3603,7 +3945,7 @@ def _apply_consolidation_report(args, classification: dict, results: list,
         return {}
 
     # Extract waybill from recap
-    waybill_match = re.search(r'HBL(\d+)', recap_text)
+    waybill_match = re.search(_RE_BL_HBL_SEARCH, recap_text)
     waybill = waybill_match.group(1) if waybill_match else ''
 
     print(f"    Waybill: HBL{waybill}")
@@ -3641,7 +3983,7 @@ def _apply_consolidation_report(args, classification: dict, results: list,
             all_invoice_nums.add(inv_num)
             # Also index by truncated form (RECAP often truncates order numbers)
             # e.g. "113-7797988-8941842" → "113-7797988-894"
-            for trunc_len in (15, 14, 13):
+            for trunc_len in (15, 14, 13):  # magic-ok: RECAP order-number truncation widths
                 if len(inv_num) > trunc_len:
                     result_by_invoice[inv_num[:trunc_len]] = r
 
@@ -3657,9 +3999,9 @@ def _apply_consolidation_report(args, classification: dict, results: list,
     if bl_pkg_cap is None:
         # Try manifest
         manifest_meta_check = getattr(args, '_manifest_meta', None) or {}
-        if manifest_meta_check.get('packages'):
+        if manifest_meta_check.get(_MF_PACKAGES):
             try:
-                bl_pkg_cap = int(manifest_meta_check['packages'])
+                bl_pkg_cap = int(manifest_meta_check[_MF_PACKAGES])
             except (ValueError, TypeError):
                 pass
 
@@ -3716,11 +4058,11 @@ def _apply_consolidation_report(args, classification: dict, results: list,
                     from openpyxl import load_workbook as _lw
                     wb = _lw(matched_result.xlsx_path)
                     ws = wb.active
-                    ws.cell(row=2, column=24, value=pkgs)
+                    ws.cell(row=2, column=_COL_PACKAGES, value=pkgs)
                     # Clear packages from other rows
-                    for row in range(3, ws.max_row + 1):
-                        if ws.cell(row, 24).value is not None:
-                            ws.cell(row, 24).value = None
+                    for row in range(_XLSX_DETAIL_START_ROW, ws.max_row + 1):
+                        if ws.cell(row, _COL_PACKAGES).value is not None:
+                            ws.cell(row, _COL_PACKAGES).value = None
                     wb.save(matched_result.xlsx_path)
                     wb.close()
                 except Exception as e:
@@ -3796,14 +4138,14 @@ def _enforce_package_cap(results: list, bl_alloc, manifest_meta: dict) -> None:
     if bl_alloc and getattr(bl_alloc, 'packages', None):
         try:
             pkg_cap = int(bl_alloc.packages)
-            cap_source = 'BL'
+            cap_source = 'BL'  # magic-ok: diagnostic label for package-count source
         except (ValueError, TypeError):
             pass
 
-    if pkg_cap is None and manifest_meta and manifest_meta.get('packages'):
+    if pkg_cap is None and manifest_meta and manifest_meta.get(_MF_PACKAGES):
         try:
-            pkg_cap = int(manifest_meta['packages'])
-            cap_source = 'manifest'
+            pkg_cap = int(manifest_meta[_MF_PACKAGES])
+            cap_source = _CLASS_MANIFEST
         except (ValueError, TypeError):
             pass
 
@@ -3860,11 +4202,11 @@ def _enforce_package_cap(results: list, bl_alloc, manifest_meta: dict) -> None:
                     from openpyxl import load_workbook as _lw
                     wb = _lw(xlsx_path)
                     ws = wb.active
-                    ws.cell(row=2, column=24, value=new_pkg)
+                    ws.cell(row=2, column=_COL_PACKAGES, value=new_pkg)
                     # Clear stale package values from other rows
-                    for row in range(3, ws.max_row + 1):
-                        if ws.cell(row, 24).value is not None:
-                            ws.cell(row, 24).value = None
+                    for row in range(_XLSX_DETAIL_START_ROW, ws.max_row + 1):
+                        if ws.cell(row, _COL_PACKAGES).value is not None:
+                            ws.cell(row, _COL_PACKAGES).value = None
                     wb.save(xlsx_path)
                     wb.close()
                 except Exception as e:
@@ -3916,7 +4258,7 @@ def _load_office_location_map() -> tuple:
     try:
         import yaml
         path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                            'config', 'office_locations.yaml')
+                            _DIRS["config"], _CFG_OFFICE_LOCATIONS)
         with open(path) as f:
             data = yaml.safe_load(f) or {}
         _OFFICE_LOCATION_MAP = {str(k).upper(): str(v)
@@ -3933,7 +4275,7 @@ def _load_office_location_map() -> tuple:
 def _extract_office_from_bl(args) -> str:
     """Extract office/port from BL port of discharge when no manifest/declaration."""
     classification = getattr(args, '_classification', {})
-    bl_files = classification.get('bill_of_lading', [])
+    bl_files = classification.get(_CLASS_BL, [])
     if not bl_files or not hasattr(args, 'input_dir'):
         return ''
     try:
@@ -3945,7 +4287,7 @@ def _extract_office_from_bl(args) -> str:
         if not bl_text:
             return ''
         # "PORT OF DISCHARGE\nST GEORGES SEAPORT (GRENADA)"
-        m = re.search(r'PORT\s+OF\s+DISCHARGE[^\n]*\n\s*([A-Z][A-Z ]+?)(?:\s+SEAPORT|\s+PORT|\s*\()', bl_text, re.IGNORECASE)
+        m = re.search(_RE_PORT_OF_DISCHARGE, bl_text, re.IGNORECASE)
         if m:
             port = m.group(1).strip()
             logger.info(f"Office from BL port of discharge: {port}")
@@ -3980,7 +4322,7 @@ def _resolve_location_office(args, manifest_meta: dict) -> tuple:
 
     # Look up location by (possibly resolved) office code
     mapped = offices_map.get(office_key) if office_key else None
-    location = mapped or getattr(args, 'location', '') or 'WebSource'
+    location = mapped or getattr(args, 'location', '') or _DEFAULT_SEND_LOCATION
 
     # Return the canonical code (not the raw full name)
     office = office_key if office_key in offices_map else raw_office
@@ -4038,7 +4380,7 @@ def _maybe_apply_fixes(args, results: list) -> None:
                         os.path.basename(r.xlsx_path).rsplit('.', 1)[0],
                         r.supplier_info,
                         r.xlsx_path,
-                        document_type=getattr(args, 'doc_type', 'auto'),
+                        document_type=getattr(args, 'doc_type', _MODE_AUTO),
                     )
                     print(f"    {r.invoice_num}: XLSX regenerated with fixes")
                 except Exception as e:
@@ -4083,11 +4425,11 @@ def _maybe_save_proposed_fixes(results: list, email_params_path: str, output_dir
     """
     try:
         import proposed_fixes
-        waybill = 'UNKNOWN'
+        waybill = _BL_UNKNOWN_UPPER
         if email_params_path and os.path.exists(email_params_path):
             try:
                 with open(email_params_path) as f:
-                    waybill = json.load(f).get('waybill', 'UNKNOWN')
+                    waybill = json.load(f).get('waybill', _BL_UNKNOWN_UPPER)
             except Exception:
                 pass
         uncertain = proposed_fixes.detect_uncertain_invoices(results)
@@ -4112,7 +4454,7 @@ def _save_email_params(args, results: list, bl_alloc, all_attachments: list,
     Returns the path to the saved params file.
     """
     # Determine predominant country of origin (translate ISO → CARICOM)
-    countries = [r.supplier_info.get('country', 'US') for r in results]
+    countries = [r.supplier_info.get('country', _DEFAULT_COUNTRY_ORIGIN) for r in results]
     country_origin = _iso_to_caricom_country(max(set(countries), key=countries.count))
 
     # Use BL freight if available, else sum of invoice freight
@@ -4121,27 +4463,27 @@ def _save_email_params(args, results: list, bl_alloc, all_attachments: list,
         email_packages = bl_alloc.packages
         email_weight = bl_alloc.weight
         # Fallback when BL doesn't provide packages/weight
-        if not email_packages or email_packages == '0':
+        if not email_packages or email_packages == _STR_ZERO:
             email_packages = str(len(results))
-        if not email_weight or email_weight == '0':
+        if not email_weight or email_weight == _STR_ZERO:
             total_qty = sum(
                 sum(int(m.get('quantity', 0) or 0) for m in r.matched_items)
                 for r in results
             )
-            email_weight = str(round(total_qty * 0.01, 2)) if total_qty > 0 else '1'
+            email_weight = str(round(total_qty * 0.01, 2)) if total_qty > 0 else _STR_ONE  # magic-ok: qty→kg conversion factor
     else:
         email_freight = sum(r.freight for r in results)
         email_packages = str(len(results))
-        email_weight = '0'
+        email_weight = _STR_ZERO
 
     bl_number = args.bl or (bl_alloc.bl_data.get('bl_number', '') if bl_alloc else '') or ''
     # Fallback: use invoice number from first result as waybill (for PDFs without declarations)
     if not bl_number and results:
         first_inv_num = getattr(results[0], 'invoice_num', '') or ''
-        if first_inv_num and first_inv_num not in ('unknown', 'combined'):
-            bl_number = re.sub(r'[<>:"/\\|?*]', '_', first_inv_num)
+        if first_inv_num and first_inv_num not in (_BL_UNKNOWN, _BL_COMBINED):
+            bl_number = re.sub(_RE_FILENAME_RESERVED, '_', first_inv_num)  # magic-ok: substitution char
     if not bl_number:
-        bl_number = 'Next Shipment'
+        bl_number = _BL_NEXT_SHIPMENT
     consignee_address = ''
     consignee_name = _extract_consignee(args) or args.consignee
 
@@ -4151,12 +4493,12 @@ def _save_email_params(args, results: list, bl_alloc, all_attachments: list,
     matched_rule = getattr(args, '_matched_consignee_rule', None)
     match_type = getattr(args, '_consignee_match_type', None)
 
-    if match_type == 'consignee' and matched_rule:
+    if match_type == _MATCH_CONSIGNEE and matched_rule:
         # Direct consignee match — use rule's code + address
         consignee_code = matched_rule.get('consignee_code', '') or args.consignee_code
         if matched_rule.get('consignee_address'):
             consignee_address = matched_rule['consignee_address']
-    elif match_type == 'supplier' and matched_rule and not consignee_name:
+    elif match_type == _MATCH_SUPPLIER and matched_rule and not consignee_name:
         # Supplier match with no consignee extracted — use rule's consignee data
         # as fallback (e.g. Budget Marine St. Maarten ships to Budget Marine Grenada,
         # and the BL OCR was too poor to extract the consignee)
@@ -4186,22 +4528,21 @@ def _save_email_params(args, results: list, bl_alloc, all_attachments: list,
     if manifest_meta:
         if manifest_meta.get('waybill') and _looks_like_bl_number(manifest_meta['waybill']):
             bl_number = manifest_meta['waybill']
-        if manifest_meta.get('man_reg'):
-            args.man_reg = manifest_meta['man_reg']
+        if manifest_meta.get(_MF_MAN_REG):
+            args.man_reg = manifest_meta[_MF_MAN_REG]
         if manifest_meta.get('consignee_address'):
             consignee_address = manifest_meta['consignee_address']
-        _placeholders = {'SAME AS CONSIGNEE', 'SAME AS SHIPPER', 'SAME AS ABOVE',
-                         'AS PER SHIPPER', 'TO ORDER', 'TO THE ORDER OF'}
-        manifest_consignee = (manifest_meta.get('consignee') or '').strip()
+        _placeholders = _CONSIGNEE_PLACEHOLDERS
+        manifest_consignee = (manifest_meta.get(_MF_CONSIGNEE) or '').strip()
         if manifest_consignee and manifest_consignee.upper() not in _placeholders and not consignee_name:
             consignee_name = manifest_consignee
-        if manifest_meta.get('packages'):
-            email_packages = manifest_meta['packages']
-        if manifest_meta.get('weight'):
-            email_weight = manifest_meta['weight']
+        if manifest_meta.get(_MF_PACKAGES):
+            email_packages = manifest_meta[_MF_PACKAGES]
+        if manifest_meta.get(_MF_WEIGHT):
+            email_weight = manifest_meta[_MF_WEIGHT]
         # Use manifest freight when no BL freight is available
-        if manifest_meta.get('freight') and (not email_freight or float(email_freight) == 0):
-            email_freight = manifest_meta['freight']
+        if manifest_meta.get(_MF_FREIGHT) and (not email_freight or float(email_freight) == 0):
+            email_freight = manifest_meta[_MF_FREIGHT]
 
     # Freight invoice takes precedence over all other freight sources
     # Use the freight line item (excludes landing charges), fall back to total
@@ -4211,21 +4552,21 @@ def _save_email_params(args, results: list, bl_alloc, all_attachments: list,
             email_freight = freight_inv['freight']
         elif freight_inv.get('total'):
             email_freight = freight_inv['total']
-        if freight_inv.get('packages'):
-            email_packages = freight_inv['packages']
+        if freight_inv.get(_MF_PACKAGES):
+            email_packages = freight_inv[_MF_PACKAGES]
         # Freight invoice origin (e.g. "FROM ST. MARTIN TO GRENADA") overrides country_origin
         if freight_inv.get('origin_country'):
             country_origin = freight_inv['origin_country']
 
     # Fallback: extract man_reg from email.txt if not found in BL/declaration
     if not getattr(args, 'man_reg', ''):
-        email_txt = os.path.join(output_dir, 'email.txt')
+        email_txt = os.path.join(output_dir, _EMAIL_BODY_TXT)
         if os.path.isfile(email_txt):
             try:
                 with open(email_txt, 'r', encoding='utf-8', errors='replace') as f:
                     email_body = f.read()
                 mr = re.search(
-                    r'(?:MNF|MAN(?:IFEST)?)\s*(?:(?:REG(?:ISTRY)?|NUM(?:BER)?))?\s*#?\s*:?\s*(\d{4})\s*[-/\s]\s*(\d+)',
+                    _RE_MANIFEST_REGISTRY,
                     email_body, re.IGNORECASE)
                 if mr:
                     args.man_reg = f"{mr.group(1)} {mr.group(2)}"
@@ -4238,7 +4579,7 @@ def _save_email_params(args, results: list, bl_alloc, all_attachments: list,
     for r in results:
         inv_data = getattr(r, 'invoice_data', {}) or {}
         ocr_q = inv_data.get('ocr_quality', {})
-        if ocr_q and ocr_q.get('rating') in ('poor', 'unusable'):
+        if ocr_q and ocr_q.get('rating') in _OCR_FAIL_RATINGS:
             ocr_warnings.append(
                 f"{getattr(r, 'pdf_file', '?')}: OCR quality {ocr_q.get('rating').upper()} "
                 f"(score {ocr_q.get('score', 0)}/100)"
@@ -4265,12 +4606,12 @@ def _save_email_params(args, results: list, bl_alloc, all_attachments: list,
     if ocr_warnings:
         params['ocr_warnings'] = ocr_warnings
         params['notes'] = (
-            'WARNING: Some pages have poor OCR quality. '
+            'WARNING: Some pages have poor OCR quality. '  # magic-ok: email notes copy
             'Check the "OCR Notes" sheet in the combined XLSX for details. '
             'Consider asking sender to rescan and resubmit.'
         )
 
-    params_path = os.path.join(output_dir, '_email_params.json')
+    params_path = os.path.join(output_dir, _SENT["email_params"])
     with open(params_path, 'w') as f:
         json.dump(params, f, indent=2)
     print(f"    Email params saved: {params_path}")
@@ -4308,7 +4649,7 @@ def _send_proposed_fixes_sidecar(output_dir: str) -> bool:
     """
     if not output_dir:
         return True
-    fixes_params_path = os.path.join(output_dir, '_proposed_fixes_params.json')
+    fixes_params_path = os.path.join(output_dir, _SENT["proposed_fixes_params"])
     if not os.path.exists(fixes_params_path):
         return True
     try:
@@ -4317,7 +4658,7 @@ def _send_proposed_fixes_sidecar(output_dir: str) -> bool:
         with open(fixes_params_path) as f:
             fparams = json.load(f)
         draft = compose_proposed_fixes_email(
-            waybill=fparams.get('waybill', 'UNKNOWN'),
+            waybill=fparams.get('waybill', _BL_UNKNOWN_UPPER),
             subject=fparams.get('subject', ''),
             body=fparams.get('body', ''),
             attachment_paths=fparams.get('attachment_paths', []),
@@ -4343,8 +4684,89 @@ def _send_proposed_fixes_sidecar(output_dir: str) -> bool:
         return False
 
 
+def _format_pre_send_warnings(failures) -> str:
+    """Render residual checklist failures into a sentinel-prefixed banner.
+
+    Returns ``''`` when there is nothing to flag. Otherwise returns a string
+    that begins with ``workflow.email.PRE_SEND_SENTINEL`` so ``compose_email``
+    routes it to the top-of-body banner instead of the legacy bottom notes.
+
+    Per Joseph (2026-04-25): residual issues stay visible in the broker
+    email so they can be corrected in app — never silently dropped.
+    """
+    if not failures:
+        return ''
+    from workflow.email import PRE_SEND_SENTINEL
+    lines = [PRE_SEND_SENTINEL]
+    for f in failures:
+        sev = (f.get('severity') or '').lower()
+        check = f.get('check') or _CS_UNKNOWN_CHECK
+        msg = f.get('message') or ''
+        lines.append(f"  - [{sev}] {check}: {msg}")
+        hint = f.get('fix_hint') or ''
+        if hint:
+            lines.append(f"        Hint: {hint}")
+    return '\n'.join(lines)
+
+
+def _run_checklist_with_fix(email_params_path: str, results: list,
+                            validation: dict, output_dir: str,
+                            args=None) -> tuple:
+    """Fix-then-flag wrapper around ``shipment_checklist``.
+
+    Loads ``_email_params.json`` from disk, runs the checklist, calls
+    ``checklist_fixer.attempt_fixes`` to mutate in-place where possible,
+    re-saves the params file when anything changed, then re-runs the
+    checklist on the mutated state. Returns
+    ``(final_checklist_dict, pre_send_notes_str)``. The notes string is
+    sentinel-prefixed (or empty) and ready to thread into the send helpers
+    as ``extra_notes=...``.
+
+    The caller always proceeds to send the broker email — residual
+    failures are reported inline via the notes, not as a hard gate.
+    """
+    try:
+        from xlsx_validator import shipment_checklist
+    except Exception as e:
+        logger.warning(f"shipment_checklist import failed: {e}")
+        return ({'passed': True, 'failures': [], 'blocker_count': 0}, '')
+
+    try:
+        with open(email_params_path) as f:
+            ep = json.load(f)
+    except Exception as e:
+        logger.warning(f"could not load {email_params_path}: {e}")
+        return ({'passed': True, 'failures': [], 'blocker_count': 0}, '')
+
+    cl = shipment_checklist(ep, validation) or {
+        'passed': True, 'failures': [], 'blocker_count': 0,
+    }
+
+    fixed_kinds: list = []
+    if cl.get('failures'):
+        try:
+            from checklist_fixer import attempt_fixes
+            report = attempt_fixes(
+                ep, cl['failures'],
+                output_dir=output_dir, results=results, args=args,
+            )
+            fixed_kinds = report.get('fixed', []) or []
+            if fixed_kinds:
+                with open(email_params_path, 'w') as f:
+                    json.dump(ep, f, indent=2)
+                cl = shipment_checklist(ep, validation) or cl
+        except Exception as e:
+            logger.warning(f"checklist_fixer.attempt_fixes failed: {e}")
+
+    notes = _format_pre_send_warnings(cl.get('failures') or [])
+    if fixed_kinds:
+        cl['fixes_applied'] = fixed_kinds
+    return (cl, notes)
+
+
 def _send_bl_email(args, results: list, bl_alloc, all_attachments: list,
-                   manifest_meta: dict = None, total_invoices: int = 0) -> bool:
+                   manifest_meta: dict = None, total_invoices: int = 0,
+                   *, extra_notes: str = '') -> bool:
     """Legacy: send BL email directly (used when --send-email is passed from CLI)."""
     from workflow.email import compose_email, send_email as do_send_email
 
@@ -4370,6 +4792,7 @@ def _send_bl_email(args, results: list, bl_alloc, all_attachments: list,
         location=params['location'],
         office=params['office'],
         expected_entries=params.get('expected_entries', 0),
+        notes=extra_notes,
     )
 
     email_sent = do_send_email(
@@ -4395,7 +4818,7 @@ def _save_batch_email_params(args, results: list, all_attachments: list,
                              manifest_meta: dict = None, output_dir: str = '',
                              total_invoices: int = 0) -> str:
     """Compute batch email params and save to _email_params.json. Returns path."""
-    countries = [r.supplier_info.get('country', 'US') for r in results]
+    countries = [r.supplier_info.get('country', _DEFAULT_COUNTRY_ORIGIN) for r in results]
     country_origin = _iso_to_caricom_country(max(set(countries), key=countries.count))
 
     email_freight = sum(r.freight for r in results)
@@ -4405,7 +4828,7 @@ def _save_batch_email_params(args, results: list, all_attachments: list,
         sum(int(m.get('quantity', 0) or 0) for m in r.matched_items)
         for r in results
     )
-    email_weight = str(round(total_qty * 0.01, 2)) if total_qty > 0 else '0'
+    email_weight = str(round(total_qty * 0.01, 2)) if total_qty > 0 else _STR_ZERO  # magic-ok: qty→kg conversion factor
     consignee_address = ''
     consignee_name = _extract_consignee(args) or args.consignee
 
@@ -4434,29 +4857,28 @@ def _save_batch_email_params(args, results: list, all_attachments: list,
     if not waybill and results:
         # Fallback: use invoice number as waybill (for PDFs without declarations)
         first_inv_num = getattr(results[0], 'invoice_num', '') or ''
-        if first_inv_num and first_inv_num not in ('unknown', 'combined'):
-            waybill = _re_wb.sub(r'[<>:"/\\|?*]', '_', first_inv_num)
+        if first_inv_num and first_inv_num not in (_BL_UNKNOWN, _BL_COMBINED):
+            waybill = _re_wb.sub(_RE_FILENAME_RESERVED, '_', first_inv_num)  # magic-ok: substitution char
     if not waybill:
-        waybill = 'Next Shipment'
+        waybill = _BL_NEXT_SHIPMENT
 
     if manifest_meta:
         if manifest_meta.get('waybill') and _looks_like_bl_number(manifest_meta['waybill']):
             waybill = manifest_meta['waybill']
-        if manifest_meta.get('man_reg'):
-            args.man_reg = manifest_meta['man_reg']
-        _placeholders = {'SAME AS CONSIGNEE', 'SAME AS SHIPPER', 'SAME AS ABOVE',
-                         'AS PER SHIPPER', 'TO ORDER', 'TO THE ORDER OF'}
+        if manifest_meta.get(_MF_MAN_REG):
+            args.man_reg = manifest_meta[_MF_MAN_REG]
+        _placeholders = _CONSIGNEE_PLACEHOLDERS
         manifest_consignee = (manifest_meta.get('consignee_name') or '').strip()
         if manifest_consignee and manifest_consignee.upper() not in _placeholders:
             consignee_name = manifest_consignee
         if manifest_meta.get('consignee_address'):
             consignee_address = manifest_meta['consignee_address']
-        if manifest_meta.get('packages'):
-            email_packages = manifest_meta['packages']
-        if manifest_meta.get('weight'):
-            email_weight = manifest_meta['weight']
-        if manifest_meta.get('freight'):
-            email_freight = float(manifest_meta['freight'])
+        if manifest_meta.get(_MF_PACKAGES):
+            email_packages = manifest_meta[_MF_PACKAGES]
+        if manifest_meta.get(_MF_WEIGHT):
+            email_weight = manifest_meta[_MF_WEIGHT]
+        if manifest_meta.get(_MF_FREIGHT):
+            email_freight = float(manifest_meta[_MF_FREIGHT])
 
     # Freight invoice takes precedence over all other freight sources
     # Use the freight line item (excludes landing charges), fall back to total
@@ -4466,20 +4888,20 @@ def _save_batch_email_params(args, results: list, all_attachments: list,
             email_freight = float(freight_inv['freight'])
         elif freight_inv.get('total'):
             email_freight = float(freight_inv['total'])
-        if freight_inv.get('packages'):
-            email_packages = freight_inv['packages']
+        if freight_inv.get(_MF_PACKAGES):
+            email_packages = freight_inv[_MF_PACKAGES]
         if freight_inv.get('origin_country'):
             country_origin = freight_inv['origin_country']
 
     # Fallback: extract man_reg from email.txt if not found in BL/declaration
     if not getattr(args, 'man_reg', ''):
-        email_txt = os.path.join(output_dir, 'email.txt')
+        email_txt = os.path.join(output_dir, _EMAIL_BODY_TXT)
         if os.path.isfile(email_txt):
             try:
                 with open(email_txt, 'r', encoding='utf-8', errors='replace') as f:
                     email_body = f.read()
                 mr = re.search(
-                    r'(?:MNF|MAN(?:IFEST)?)\s*(?:(?:REG(?:ISTRY)?|NUM(?:BER)?))?\s*#?\s*:?\s*(\d{4})\s*[-/\s]\s*(\d+)',
+                    _RE_MANIFEST_REGISTRY,
                     email_body, re.IGNORECASE)
                 if mr:
                     args.man_reg = f"{mr.group(1)} {mr.group(2)}"
@@ -4504,7 +4926,7 @@ def _save_batch_email_params(args, results: list, all_attachments: list,
         'office': _resolve_location_office(args, manifest_meta)[1],
     }
 
-    params_path = os.path.join(output_dir, '_email_params.json')
+    params_path = os.path.join(output_dir, _SENT["email_params"])
     with open(params_path, 'w') as f:
         json.dump(params, f, indent=2)
     print(f"    Email params saved: {params_path}")
@@ -4512,7 +4934,8 @@ def _save_batch_email_params(args, results: list, all_attachments: list,
 
 
 def _send_batch_email(args, results: list, all_attachments: list,
-                      manifest_meta: dict = None) -> bool:
+                      manifest_meta: dict = None,
+                      *, extra_notes: str = '') -> bool:
     """Legacy: send batch email directly (used when --send-email is passed from CLI)."""
     from workflow.email import compose_email, send_email as do_send_email
 
@@ -4523,8 +4946,9 @@ def _send_batch_email(args, results: list, all_attachments: list,
         params = json.load(f)
 
     email_draft = compose_email(**{k: v for k, v in params.items()
-                                   if k != 'attachment_paths'},
-                                attachment_paths=params['attachment_paths'])
+                                   if k != 'attachment_paths'},  # magic-ok: compose_email kwarg name
+                                attachment_paths=params['attachment_paths'],
+                                notes=extra_notes)
 
     email_sent = do_send_email(
         subject=email_draft['subject'],
@@ -4545,16 +4969,25 @@ def _send_batch_email(args, results: list, all_attachments: list,
     return email_sent
 
 
-def _send_email_from_params(params_path: str, args=None) -> bool:
+def _send_email_from_params(params_path: str, args=None,
+                            *, extra_notes: str = '') -> bool:
     """Send email from a saved _email_params.json file."""
     from workflow.email import compose_email, send_email as do_send_email
 
     with open(params_path) as f:
         params = json.load(f)
 
-    email_draft = compose_email(**{k: v for k, v in params.items()
-                                   if k != 'attachment_paths'},
-                                attachment_paths=params['attachment_paths'])
+    # If params already carry a notes string, prepend the extra notes so
+    # both survive (the sentinel-prefixed extra_notes routes to the top
+    # banner; existing notes stay at the bottom). Sentinel-aware callers
+    # always pass extra_notes only when there are pre-send issues.
+    merged_notes = extra_notes or params.get('notes', '') or ''
+
+    params_for_compose = {k: v for k, v in params.items()
+                          if k not in (_EPK_ATTACHMENT_PATHS, _EPK_NOTES)}
+    email_draft = compose_email(**params_for_compose,
+                                attachment_paths=params['attachment_paths'],
+                                notes=merged_notes)
 
     email_sent = do_send_email(
         subject=email_draft['subject'],
@@ -4592,8 +5025,8 @@ def _build_report(results: list, bl_alloc, email_sent: bool, failures: list = No
         })
 
     report = {
-        'status': 'success',
-        'mode': 'bl' if bl_alloc else 'batch',
+        'status': _STATUS_SUCCESS,
+        'mode': _MODE_BL if bl_alloc else _MODE_BATCH,
         'invoice_count': len(results),
         'invoices': invoices,
         'email_sent': email_sent,
@@ -4631,14 +5064,14 @@ def run_send_email(args) -> dict:
         attachment_paths = [p.strip() for p in args.attachments.split(',') if p.strip()]
 
     email_draft = compose_email(
-        waybill=args.waybill or 'Next Shipment',
+        waybill=args.waybill or _BL_NEXT_SHIPMENT,
         consignee_name=args.consignee,
         consignee_code=args.consignee_code,
         total_invoices=args.total_invoices,
-        packages=args.packages or '1',
-        weight=args.weight or '0',
-        country_origin=args.country_origin or 'US',
-        freight=args.freight or '0',
+        packages=args.packages or _STR_ONE,
+        weight=args.weight or _STR_ZERO,
+        country_origin=args.country_origin or _DEFAULT_COUNTRY_ORIGIN,
+        freight=args.freight or _STR_ZERO,
         man_reg=args.man_reg,
         attachment_paths=attachment_paths,
         location=args.location,
@@ -4658,7 +5091,7 @@ def run_send_email(args) -> dict:
         print(f"Email FAILED to send")
 
     report = {
-        'status': 'success' if email_sent else 'error',
+        'status': _STATUS_SUCCESS if email_sent else _STATUS_ERROR,
         'email_sent': email_sent,
         'subject': email_draft['subject'],
         'attachments': len(email_draft['attachments']),
@@ -4694,17 +5127,17 @@ def _reprocess_history_entry(entry: dict) -> Optional[dict]:
         input_dir=None,
         input=None,
         send_email_only=False,
-        output_dir=output_dir or os.path.join(BASE_DIR, 'workspace', 'shipments'),
+        output_dir=output_dir or os.path.join(BASE_DIR, _DIRS["shipments"]),
         output=None,
         bl=None,
         po_file=None,
-        doc_type='auto',
+        doc_type=_MODE_AUTO,
         send_email=False,         # do NOT send during the dry re-run
         waybill=None,
         consignee='',
         consignee_code='',
         man_reg=None,
-        location='WebSource',
+        location=_DEFAULT_SEND_LOCATION,
         office='',
         attachments=None,
         total_invoices=1,
@@ -4727,9 +5160,9 @@ def _reprocess_history_entry(entry: dict) -> Optional[dict]:
     mode = detect_mode(fake)
     fake._source_input = source_input
     fake._source_mode = mode
-    if mode == 'bl':
+    if mode == _MODE_BL:
         run_bl_mode(fake)
-    elif mode == 'batch':
+    elif mode == _MODE_BATCH:
         run_batch_mode(fake)
     else:
         run_single_mode(fake)
@@ -4741,12 +5174,12 @@ def _reprocess_history_entry(entry: dict) -> Optional[dict]:
     # one when the pipeline split order changes between runs.
     out_dir = getattr(fake, '_output_dir', '') or fake.output_dir
     candidates = []
-    primary = os.path.join(out_dir, '_email_params.json')
+    primary = os.path.join(out_dir, _SENT["email_params"])
     if os.path.isfile(primary):
         candidates.append(primary)
     try:
         for name in sorted(os.listdir(out_dir)):
-            if name.startswith('_email_params_') and name.endswith('.json'):
+            if name.startswith(_SENT["email_params_prefix"]) and name.endswith(_EXT_JSON):
                 p = os.path.join(out_dir, name)
                 if p not in candidates:
                     candidates.append(p)
@@ -4787,26 +5220,30 @@ def run_resend(args) -> dict:
     """
     from workflow.email import compose_email, send_email as do_send_email
 
+    # Local resend-reason tokens — enum-like labels used only for log prefix.
+    _RESEND_FORCE = 'force'  # magic-ok: local enum token
+    _RESEND_STALE = 'stale'  # magic-ok: local enum token
+
     targets: list = []
     if args.resend:
         entry = send_history.find_by_waybill(args.resend)
         if not entry:
             print(f"ERROR: no send history entry for waybill {args.resend!r}")
-            return {'status': 'error', 'resent': 0}
-        targets.append(('force', entry))
+            return {'status': _STATUS_ERROR, 'resent': 0}
+        targets.append((_RESEND_FORCE, entry))
     else:
         for entry in send_history.all_entries():
-            targets.append(('stale', entry))
+            targets.append((_RESEND_STALE, entry))
 
     if not targets:
-        print("No history entries to consider.")
-        return {'status': 'success', 'resent': 0, 'checked': 0}
+        print("No history entries to consider.")  # magic-ok: human-readable status
+        return {'status': _STATUS_SUCCESS, 'resent': 0, 'checked': 0}
 
     resent = 0
     unchanged = 0
     skipped = 0
     for reason, entry in targets:
-        waybill = entry.get('waybill', '(unknown)')
+        waybill = entry.get('waybill', '(unknown)')  # magic-ok: diagnostic fallback label
         print(f"\n[resend:{reason}] {waybill}  source={entry.get('source_input','')}")
         new_params = _reprocess_history_entry(entry)
         if new_params is None:
@@ -4815,15 +5252,21 @@ def run_resend(args) -> dict:
 
         new_hash = send_history.params_hash(new_params)
         old_hash = entry.get('params_hash', '')
-        if reason == 'stale' and new_hash == old_hash:
+        if reason == _RESEND_STALE and new_hash == old_hash:
             print(f"    unchanged (params_hash match) — not resending")
             unchanged += 1
             continue
 
-        _COMPOSE_KEYS = {
-            'waybill', 'consignee_name', 'consignee_code', 'consignee_address',
-            'total_invoices', 'packages', 'weight', 'country_origin', 'freight',
-            'man_reg', 'location', 'office', 'expected_entries',
+        # Whitelist of compose_email kwargs — these are the keyword argument
+        # names compose_email() accepts, used to filter entry params. Names
+        # here are a Python API contract, not policy values.
+        _COMPOSE_KEYS = {                            # magic-ok: compose_email kwarg name
+            'waybill', 'consignee_name',             # magic-ok: compose_email kwarg name
+            'consignee_code', 'consignee_address',   # magic-ok: compose_email kwarg name
+            'total_invoices', 'packages',            # magic-ok: compose_email kwarg name
+            'weight', 'country_origin', 'freight',   # magic-ok: compose_email kwarg name
+            'man_reg', 'location', 'office',         # magic-ok: compose_email kwarg name
+            'expected_entries',                      # magic-ok: compose_email kwarg name
         }
         email_draft = compose_email(
             **{k: v for k, v in new_params.items() if k in _COMPOSE_KEYS},
@@ -4852,7 +5295,7 @@ def run_resend(args) -> dict:
     print(f"\nResend summary: resent={resent}, unchanged={unchanged}, "
           f"skipped={skipped}, total={len(targets)}")
     report = {
-        'status': 'success',
+        'status': _STATUS_SUCCESS,
         'resent': resent,
         'unchanged': unchanged,
         'skipped': skipped,
@@ -4887,7 +5330,7 @@ def parse_args():
 
     # Output
     parser.add_argument('--output-dir',
-                        default=os.path.join(BASE_DIR, 'workspace', 'shipments'),
+                        default=os.path.join(BASE_DIR, _DIRS["shipments"]),
                         help='Directory for output XLSX files')
     parser.add_argument('--output', '-o',
                         help='Output XLSX path (single mode only)')
@@ -4897,7 +5340,7 @@ def parse_args():
                         help='Bill of Lading number (auto-detected from PDF if not specified)')
     parser.add_argument('--po-file',
                         help='Path to PO XLSX file (auto-detected if not specified)')
-    parser.add_argument('--doc-type', default='auto',
+    parser.add_argument('--doc-type', default=_MODE_AUTO,
                         help='CARICOM document type (e.g., 7400-000, 4000-000). '
                              'Default: auto (resolved from consignee via config/document_types.json)')
 
@@ -4909,6 +5352,13 @@ def parse_args():
     # Email parameters (used by all modes when --send-email or --send-email-only)
     parser.add_argument('--send-email', action='store_true',
                         help='Send email after processing')
+    # Suppress all auto-send paths in the multi-decl / single-decl flows.
+    # Joseph 2026-04-25: regression reruns must not deliver real broker
+    # emails to ``shipments.websource@auto-brokerage.com``. The pipeline
+    # still runs the checklist + auto-fixers + writes _email_params.json,
+    # so the user can review and send manually later.
+    parser.add_argument('--no-send-email', action='store_true',
+                        help='Suppress auto-send (still writes _email_params.json)')
     parser.add_argument('--waybill',
                         help='Waybill/BL number for email subject')
     parser.add_argument('--consignee', default='',
@@ -4917,7 +5367,7 @@ def parse_args():
                         help='Consignee code')
     parser.add_argument('--man-reg',
                         help='Manifest registration (e.g. "2026 148")')
-    parser.add_argument('--location', default='WebSource',
+    parser.add_argument('--location', default=_DEFAULT_SEND_LOCATION,
                         help='Location of goods code')
     parser.add_argument('--office', default='',
                         help='Office code (defaults to Customs Office from Simplified Declaration)')
@@ -4951,6 +5401,25 @@ def main():
     if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
 
+    # Initialise per-run perf log under <output_dir>/.perf/run.jsonl so we
+    # can diagnose which phases dominate runtime (regression timeouts, etc.).
+    # NOTE: ``run_bl_mode`` purges top-level files from output_dir before
+    # processing (run.py:2375) — putting the log under a hidden subdir keeps
+    # it alive across that cleanup. Cheap no-ops when path can't be created.
+    try:
+        import perf_log
+        if args.output_dir:
+            perf_dir = os.path.join(args.output_dir, _PA_DIR)
+            os.makedirs(perf_dir, exist_ok=True)
+            perf_log.init(os.path.join(perf_dir, _PA_LOG_NAME))
+            perf_log.event(
+                _PE_PIPELINE_START,
+                input_dir=args.input_dir or args.input or "",
+                no_send_email=bool(getattr(args, "no_send_email", False)),
+            )
+    except Exception:
+        pass
+
     # Send-email-only mode — no pipeline processing
     if args.send_email_only:
         run_send_email(args)
@@ -4971,9 +5440,9 @@ def main():
     args._source_mode = mode
     logger.info(f"Detected mode: {mode}")
 
-    if mode == 'bl':
+    if mode == _MODE_BL:
         run_bl_mode(args)
-    elif mode == 'batch':
+    elif mode == _MODE_BATCH:
         run_batch_mode(args)
     else:
         run_single_mode(args)

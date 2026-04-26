@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "193.99",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "193.99 written vertically in the left margin beside the header"
+  },
+  "printed": {
+    "consignee": "ONIESHA NOEL",
+    "freight": 19.0,
+    "waybill": "HAWB9586893",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": 8.0,
+    "packages": 1
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

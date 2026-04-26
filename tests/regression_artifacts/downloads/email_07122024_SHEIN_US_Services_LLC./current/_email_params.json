@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9565711",
+  "consignee_name": "ROLANDA JULIEN",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "1.0",
+  "country_origin": "US",
+  "freight": "3.00",
+  "man_reg": "2024 27",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_074/out/INVUS20240712001532356.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_074/out/INVUS20240712001532356.xlsx",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_074/out/HAWB9565711-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

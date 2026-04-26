@@ -1,0 +1,464 @@
+{
+  "06-11844-17746.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Invoice Data": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA2": {
+          "value": "'06-11844-17746'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB2": {
+          "value": "'2025 Hamilton Avenue, San Jose, CA 95125'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK2": {
+          "value": "'76090000'"
+        },
+        "AK3": {
+          "value": "'76090000'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C2": {
+          "value": "'06-11844-17746'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "D2": {
+          "value": "'2024-07-19'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E2": {
+          "value": "'Unclassifiable / Non-physical'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F2": {
+          "value": "'76090000'"
+        },
+        "F3": {
+          "value": "'76090000'"
+        },
+        "F4": {
+          "value": "'00000000'"
+        },
+        "F5": {
+          "value": "'00000000'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I2": {
+          "value": "'00000000'"
+        },
+        "I3": {
+          "value": "'EBAY-1'"
+        },
+        "I4": {
+          "value": "'EBAY-2'"
+        },
+        "I5": {
+          "value": "'EBAY-3'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'TOTAL INTERNAL FREIGHT'"
+        },
+        "J11": {
+          "value": "'TOTAL INSURANCE'"
+        },
+        "J12": {
+          "value": "'TOTAL OTHER COST'"
+        },
+        "J13": {
+          "value": "'TOTAL DEDUCTION'"
+        },
+        "J14": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J16": {
+          "value": "'NET TOTAL'"
+        },
+        "J17": {
+          "value": "'INVOICE TOTAL'"
+        },
+        "J19": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J2": {
+          "value": "'Jul 19, 2024, 16:23 Order details | eBay Buyer rotrixx Racquel Antoine Seller... (+2 more) (3 items)'"
+        },
+        "J21": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J22": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J23": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J24": {
+          "value": "'CET (20%) \u2014 Tariff 00000000'"
+        },
+        "J25": {
+          "value": "'CSC (6%)'"
+        },
+        "J26": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J27": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J28": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J29": {
+          "value": "'CLIENT DECLARED DUTIES'"
+        },
+        "J3": {
+          "value": "'Jul 19, 2024, 16:23 Order details | eBay Buyer rotrixx Racquel Antoine Seller...'"
+        },
+        "J30": {
+          "value": "'DUTY VARIANCE (Client \u2212 Estimated)'"
+        },
+        "J31": {
+          "value": "'IMPLIED CET RATE (from client value)'"
+        },
+        "J32": {
+          "value": "'\u26a0 CET MISMATCH: System=20% vs Client\u22485% \u2014 review classification'"
+        },
+        "J33": {
+          "value": "'IMPLIED CIF (from declared duty @ 20% CET, XCD)'"
+        },
+        "J34": {
+          "value": "'IMPLIED ITEMS VALUE (USD, net of freight/insurance)'"
+        },
+        "J35": {
+          "value": "'\u26a0 ITEM ALLOCATION CHECK: actual $96.28 USD vs implied $48.92 USD \u2014 OVER-ALLOCATED (items should move to another waybill)'"
+        },
+        "J4": {
+          "value": "'Shipping Free Tax*'"
+        },
+        "J5": {
+          "value": "\"*We're required by law to collect sales tax and applicable fees for certain t...\""
+        },
+        "J6": {
+          "value": "'SUBTOTAL (GROUPED)'"
+        },
+        "J7": {
+          "value": "'SUBTOTAL (DETAILS)'"
+        },
+        "J8": {
+          "value": "'GROUP VERIFICATION'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K2": {
+          "value": "3"
+        },
+        "K3": {
+          "value": "1"
+        },
+        "K4": {
+          "value": "1"
+        },
+        "K5": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N3": {
+          "value": "'USD'"
+        },
+        "N4": {
+          "value": "'USD'"
+        },
+        "N5": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O2": {
+          "value": "32.09333333333333"
+        },
+        "O3": {
+          "value": "9.99"
+        },
+        "O4": {
+          "value": "6.3"
+        },
+        "O5": {
+          "value": "79.99"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "0"
+        },
+        "P11": {
+          "value": "0"
+        },
+        "P12": {
+          "value": "0.3"
+        },
+        "P13": {
+          "value": "0"
+        },
+        "P14": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P16": {
+          "formula": "=P6+P14"
+        },
+        "P17": {
+          "formula": "=S2"
+        },
+        "P19": {
+          "formula": "=S2-P16"
+        },
+        "P2": {
+          "value": "96.28"
+        },
+        "P22": {
+          "value": "123.59"
+        },
+        "P23": {
+          "value": "335.78"
+        },
+        "P24": {
+          "value": "67.16"
+        },
+        "P25": {
+          "value": "20.15"
+        },
+        "P26": {
+          "value": "63.46"
+        },
+        "P27": {
+          "value": "150.77"
+        },
+        "P28": {
+          "value": "0.4490142355113468"
+        },
+        "P29": {
+          "value": "92.62"
+        },
+        "P3": {
+          "value": "9.99"
+        },
+        "P30": {
+          "value": "-58.15"
+        },
+        "P31": {
+          "value": "0.04942205947475967"
+        },
+        "P33": {
+          "value": "206.28"
+        },
+        "P34": {
+          "value": "48.92"
+        },
+        "P4": {
+          "value": "6.3"
+        },
+        "P5": {
+          "value": "79.99"
+        },
+        "P6": {
+          "formula": "=P2"
+        },
+        "P7": {
+          "formula": "=SUM(P2:P5)-P6"
+        },
+        "P8": {
+          "formula": "=P6-P7"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q14": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "Q16": {
+          "formula": "=Q6+Q14"
+        },
+        "Q19": {
+          "formula": "=S2-Q16"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q3": {
+          "formula": "=O3*K3"
+        },
+        "Q4": {
+          "formula": "=O4*K4"
+        },
+        "Q5": {
+          "formula": "=O5*K5"
+        },
+        "Q6": {
+          "formula": "=Q2"
+        },
+        "Q7": {
+          "formula": "=SUM(Q2:Q5)-Q6"
+        },
+        "Q8": {
+          "formula": "=Q6-Q7"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R3": {
+          "formula": "=P3-Q3"
+        },
+        "R4": {
+          "formula": "=P4-Q4"
+        },
+        "R5": {
+          "formula": "=P5-Q5"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S2": {
+          "value": "96.59"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V2": {
+          "value": "0.3"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z2": {
+          "value": "'EBAY'"
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "06-11844-17746.pdf",
+        "06-11844-17746.xlsx",
+        "HAWB9596970-Declaration.pdf"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "RACQUEL ANTOINE",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "27.00",
+      "location": "WebSource",
+      "man_reg": "2024 28",
+      "office": "GDWBS",
+      "packages": "1",
+      "total_invoices": 1,
+      "waybill": "HAWB9596970",
+      "weight": "13.0"
+    }
+  }
+}

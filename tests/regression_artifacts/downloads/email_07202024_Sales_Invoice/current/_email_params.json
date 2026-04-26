@@ -1,0 +1,23 @@
+{
+  "waybill": "HAWB9603295",
+  "consignee_name": "SHANICE ST. BERNARD",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 4,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "2.0",
+  "country_origin": "US",
+  "freight": "1.53",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0712/out/INVUS20240720002247856.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0712/out/INVUS20240720002267824.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0712/out/INVUS20240720002262855.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0712/out/INVUS20240720002267822.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0712/out/HAWB9603295_combined.xlsx",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0712/out/HAWB9603295-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

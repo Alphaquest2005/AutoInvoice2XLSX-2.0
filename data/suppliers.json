@@ -892,7 +892,27 @@
       "country": "China",
       "currency": "USD",
       "notes": "Auto-added from invoice pipeline"
+    },
+    "SA": {
+      "code": "SA",
+      "name": "Sa Sa",
+      "full_name": "Sa Sa",
+      "address": "RM 1601-1606, 16/F., GOOD HOPE BUILDING, 5 SAI YEUNG CHOI STREET SOUTH, MONGKOK, KOWLOON, HONG KONG",
+      "country_code": "HK",
+      "country": "",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
+    },
+    "ISW": {
+      "code": "ISW",
+      "name": "ISW Trading Pty. Ltd.",
+      "full_name": "ISW Trading Pty. Ltd.",
+      "address": "",
+      "country_code": "AU",
+      "country": "Australia",
+      "currency": "USD",
+      "notes": "Auto-added from invoice pipeline"
     }
   },
-  "last_updated": "2026-04-24"
+  "last_updated": "2026-04-26"
 }

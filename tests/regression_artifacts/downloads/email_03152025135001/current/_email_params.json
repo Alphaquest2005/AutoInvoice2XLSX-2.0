@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9597711",
+  "consignee_name": "REGINA DECOTEAU",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "7.0",
+  "country_origin": "US",
+  "freight": "15.00",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_039/out/111-7220046-1575437.pdf",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_039/out/HAWB9597711.xlsx",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_039/out/HAWB9597711-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

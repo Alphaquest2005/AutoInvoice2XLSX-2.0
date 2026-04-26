@@ -896,1025 +896,6 @@
       "sent_at": "2026-04-23T19:33:44Z"
     },
     {
-      "waybill": "HAWB9573874",
-      "subject": "Shipment: HAWB9573874",
-      "source_input": "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0314/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0314/out",
-      "params_hash": "39e93320850095f22afe3f76b4fae84f0abec3a66d4f0c1062687ca306cbab2d",
-      "suppliers_hash": "aabb0b32fc77524811ed253b8ac925beee32cf3acf46e511b4889ba7e3ba943a",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0314/out/114-5494833-4517814.pdf",
-        "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0314/out/HAWB9573874.xlsx",
-        "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0314/out/HAWB9573874-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9573874",
-        "consignee_name": "REGINALD ANDALL",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "1.0",
-        "country_origin": "CN",
-        "freight": "3.00",
-        "man_reg": "2024 27",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0314/out/114-5494833-4517814.pdf",
-          "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0314/out/HAWB9573874.xlsx",
-          "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0314/out/HAWB9573874-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T00:48:54Z"
-    },
-    {
-      "waybill": "HAWB9579794",
-      "subject": "Shipment: HAWB9579794",
-      "source_input": "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0314/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0314/out",
-      "params_hash": "a96878813beb82ab1f8317ec14484dd3c0a97f5cb709309b9d0974a73a555f95",
-      "suppliers_hash": "aabb0b32fc77524811ed253b8ac925beee32cf3acf46e511b4889ba7e3ba943a",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0314/out/114-5494833-4517814.pdf",
-        "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0314/out/HAWB9579794.xlsx",
-        "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0314/out/HAWB9579794-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9579794",
-        "consignee_name": "REGINALD ANDALL",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "3.0",
-        "country_origin": "CN",
-        "freight": "7.00",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0314/out/114-5494833-4517814.pdf",
-          "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0314/out/HAWB9579794.xlsx",
-          "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0314/out/HAWB9579794-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T00:49:06Z"
-    },
-    {
-      "waybill": "HAWB9671027",
-      "subject": "Shipment: HAWB9671027",
-      "source_input": "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0328/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0328/out",
-      "params_hash": "53861d7a3c5a2ac0bbefccf38b5aea67c7a36af57d699049b2279248f24444d5",
-      "suppliers_hash": "aabb0b32fc77524811ed253b8ac925beee32cf3acf46e511b4889ba7e3ba943a",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0328/out/112-1892394-4362604_2.pdf",
-        "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0328/out/HAWB9671027-Declaration_combined.xlsx",
-        "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0328/out/HAWB9671027-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9671027",
-        "consignee_name": "DESEAN EMERY",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 2,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "1.0",
-        "country_origin": "US",
-        "freight": "3.00",
-        "man_reg": "2024 30",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0328/out/112-1892394-4362604_2.pdf",
-          "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0328/out/HAWB9671027-Declaration_combined.xlsx",
-          "/tmp/pytest-of-joseph/pytest-78/test_downloads_email_folder_0328/out/HAWB9671027-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T02:22:15Z"
-    },
-    {
-      "waybill": "HAWB9595459",
-      "subject": "Shipment: HAWB9595459",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/out",
-      "params_hash": "09c48f9be7837c31265a45d11069bdaef4992a61b9e196f141d42c45830c22bc",
-      "suppliers_hash": "8985d092738248bd68ae5e9a6d56884ac6392ef3d95dc0da7b9556d37478273e",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/out/111-8019845-2302666_2.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/out/HAWB9595459.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/out/HAWB9595459-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9595459",
-        "consignee_name": "AARON WILSON",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "8.0",
-        "country_origin": "US",
-        "freight": "43.0",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/out/111-8019845-2302666_2.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/out/HAWB9595459.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/out/HAWB9595459-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T05:04:04Z"
-    },
-    {
-      "waybill": "HAWB9596948",
-      "subject": "Shipment: HAWB9596948",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/out",
-      "params_hash": "2b5dffb4709632a09a80b5719608ee552f230269ecda6667afe0eb886755eaf3",
-      "suppliers_hash": "8985d092738248bd68ae5e9a6d56884ac6392ef3d95dc0da7b9556d37478273e",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/out/111-8019845-2302666_2.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/out/HAWB9596948.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/out/HAWB9596948-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9596948",
-        "consignee_name": "AARON WILSON",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "8.0",
-        "country_origin": "US",
-        "freight": "43.0",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/out/111-8019845-2302666_2.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/out/HAWB9596948.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/out/HAWB9596948-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T05:04:12Z"
-    },
-    {
-      "waybill": "HAWB9595443",
-      "subject": "Shipment: HAWB9595443",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/out",
-      "params_hash": "cd1b926270a79c0ebec6b8d77d7955c7fcf6f410d64e9d7ef61d6c7b9f691659",
-      "suppliers_hash": "8985d092738248bd68ae5e9a6d56884ac6392ef3d95dc0da7b9556d37478273e",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/out/111-8019845-2302666_2.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/out/HAWB9595443.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/out/HAWB9595443-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9595443",
-        "consignee_name": "AARON WILSON",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "8.0",
-        "country_origin": "US",
-        "freight": "43.0",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/out/111-8019845-2302666_2.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/out/HAWB9595443.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_030/out/HAWB9595443-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T05:04:17Z"
-    },
-    {
-      "waybill": "HAWB9622064",
-      "subject": "Shipment: HAWB9622064",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_034/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_034/out",
-      "params_hash": "4a713ae0d917c329ce39ebff32e767fcd059cdc906e741b0ac786f6b1bb84d20",
-      "suppliers_hash": "8985d092738248bd68ae5e9a6d56884ac6392ef3d95dc0da7b9556d37478273e",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_034/out/111-5908955-5240243.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_034/out/HAWB9622064-Declaration_combined.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_034/out/HAWB9622064-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9622064",
-        "consignee_name": "RHONOSHA REDHEAD",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 2,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "1.0",
-        "country_origin": "US",
-        "freight": "3.00",
-        "man_reg": "2024 29",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_034/out/111-5908955-5240243.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_034/out/HAWB9622064-Declaration_combined.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_034/out/HAWB9622064-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T05:09:48Z"
-    },
-    {
-      "waybill": "HAWB9597711",
-      "subject": "Shipment: HAWB9597711",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_039/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_039/out",
-      "params_hash": "54594df1b6f011b0ed67976790e6c0ebc33364f597a0ede391182b22a1656587",
-      "suppliers_hash": "8985d092738248bd68ae5e9a6d56884ac6392ef3d95dc0da7b9556d37478273e",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_039/out/111-7220046-1575437.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_039/out/HAWB9597711.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_039/out/HAWB9597711-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9597711",
-        "consignee_name": "REGINA DECOTEAU",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "7.0",
-        "country_origin": "US",
-        "freight": "15.00",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_039/out/111-7220046-1575437.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_039/out/HAWB9597711.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_039/out/HAWB9597711-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T05:27:34Z"
-    },
-    {
-      "waybill": "HAWBS9605575",
-      "subject": "Shipment: HAWBS9605575",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_039/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_039/out",
-      "params_hash": "840711e12414ee26dd2fc857b2fbb1ced67100fe5fe31e4c81c4411fbf8c1c96",
-      "suppliers_hash": "8985d092738248bd68ae5e9a6d56884ac6392ef3d95dc0da7b9556d37478273e",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_039/out/111-7220046-1575437.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_039/out/HAWBS9605575.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_039/out/HAWBS9605575-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWBS9605575",
-        "consignee_name": "REGINA DECOTEAU",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "2.0",
-        "country_origin": "US",
-        "freight": "5.00",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_039/out/111-7220046-1575437.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_039/out/HAWBS9605575.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_039/out/HAWBS9605575-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T05:27:39Z"
-    },
-    {
-      "waybill": "HAWB9600960",
-      "subject": "Shipment: HAWB9600960",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0311/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0311/out",
-      "params_hash": "5a085da64d6de4f0cae3a2ec383c5d82a3f6781d2363aa3196035b28146365b2",
-      "suppliers_hash": "8985d092738248bd68ae5e9a6d56884ac6392ef3d95dc0da7b9556d37478273e",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0311/out/PO-211-06504032894070385.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0311/out/HAWB9600960-Declaration_combined.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0311/out/HAWB9600960-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9600960",
-        "consignee_name": "SAMANTHA MC QUEEN",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 2,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "2.0",
-        "country_origin": "CN",
-        "freight": "2.99",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0311/out/PO-211-06504032894070385.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0311/out/HAWB9600960-Declaration_combined.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0311/out/HAWB9600960-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T05:42:50Z"
-    },
-    {
-      "waybill": "HAW639600873",
-      "subject": "Shipment: HAW639600873",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0313/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0313/out",
-      "params_hash": "6ae487a8338e1a62051fd920e8327cc3ed15ff237706b5567e48f896ae42daae",
-      "suppliers_hash": "8985d092738248bd68ae5e9a6d56884ac6392ef3d95dc0da7b9556d37478273e",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0313/out/113-0728579-9633009_2.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0313/out/113-0728579-9633009_Invoice_1.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0313/out/HAW639600873.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0313/out/HAW639600873-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAW639600873",
-        "consignee_name": "SHANICE ST . BERNARD",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "10.0",
-        "country_origin": "US",
-        "freight": "21.00",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0313/out/113-0728579-9633009_2.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0313/out/113-0728579-9633009_Invoice_1.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0313/out/HAW639600873.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0313/out/HAW639600873-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T05:45:41Z"
-    },
-    {
-      "waybill": "HAWB9606117",
-      "subject": "Shipment: HAWB9606117",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0313/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0313/out",
-      "params_hash": "591b127aaba9ded7f0cda9cfa6c3df1dcd4295a614d2271e90135114e36f64d8",
-      "suppliers_hash": "8985d092738248bd68ae5e9a6d56884ac6392ef3d95dc0da7b9556d37478273e",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0313/out/113-0728579-9633009_2.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0313/out/113-0728579-9633009_Invoice_1.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0313/out/HAWB9606117.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0313/out/HAWB9606117-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9606117",
-        "consignee_name": "SHANICE ST . BERNARD",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "7.0",
-        "country_origin": "US",
-        "freight": "15.0",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0313/out/113-0728579-9633009_2.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0313/out/113-0728579-9633009_Invoice_1.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0313/out/HAWB9606117.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0313/out/HAWB9606117-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T05:45:45Z"
-    },
-    {
-      "waybill": "HAWB9662041",
-      "subject": "Shipment: HAWB9662041",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0315/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0315/out",
-      "params_hash": "9470a5e8d81f27523d5b19b84e7d36358a2296094ecdbabac3abddd4f6bf7ce1",
-      "suppliers_hash": "8985d092738248bd68ae5e9a6d56884ac6392ef3d95dc0da7b9556d37478273e",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0315/out/AU236542.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0315/out/HAWB39662041-Declaration_combined.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0315/out/HAWB9662041-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9662041",
-        "consignee_name": "NOAMI COUTAIN",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 2,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "3.0",
-        "country_origin": "US",
-        "freight": "7.00",
-        "man_reg": "2024 30",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0315/out/AU236542.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0315/out/HAWB39662041-Declaration_combined.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0315/out/HAWB9662041-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T05:48:49Z"
-    },
-    {
-      "waybill": "HAWB9671243",
-      "subject": "Shipment: HAWB9671243",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0316/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0316/out",
-      "params_hash": "9a463ac7923b0c75b8229ea88ec89937e8af9548de42947223e7a6c4e34d1a9b",
-      "suppliers_hash": "8985d092738248bd68ae5e9a6d56884ac6392ef3d95dc0da7b9556d37478273e",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0316/out/112-1169077-3817042.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0316/out/HAWBS671243-Declaration_combined.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0316/out/HAWB9671243-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9671243",
-        "consignee_name": "JARRON SIMMONS",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 2,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "1.0",
-        "country_origin": "US",
-        "freight": "3.00",
-        "man_reg": "2024 30",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0316/out/112-1169077-3817042.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0316/out/HAWBS671243-Declaration_combined.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0316/out/HAWB9671243-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T05:50:03Z"
-    },
-    {
-      "waybill": "HAWB9333496",
-      "subject": "Shipment: HAWB9333496",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0318/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0318/out",
-      "params_hash": "93483791b0b77aa0705253df824d1a73ab035fd6ed629b718a0f47be08cc5400",
-      "suppliers_hash": "8985d092738248bd68ae5e9a6d56884ac6392ef3d95dc0da7b9556d37478273e",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0318/out/112-7624326-9358635.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0318/out/HAWB9333496-Declaration_combined.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0318/out/HAWB9333496-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9333496",
-        "consignee_name": "REBA CALLISTE",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 2,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "19.0",
-        "country_origin": "US",
-        "freight": "39.00",
-        "man_reg": "2024 19",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0318/out/112-7624326-9358635.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0318/out/HAWB9333496-Declaration_combined.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0318/out/HAWB9333496-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T05:53:00Z"
-    },
-    {
-      "waybill": "HAWB9438625",
-      "subject": "Shipment: HAWB9438625",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0319/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0319/out",
-      "params_hash": "3c227821fcbae7925aeb3ccce286c994a25534088cf180be824eb5a53f07a898",
-      "suppliers_hash": "8985d092738248bd68ae5e9a6d56884ac6392ef3d95dc0da7b9556d37478273e",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0319/out/112-9428156-0802636.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0319/out/HAWB9438625-Declaration_combined.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0319/out/HAWB9438625-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9438625",
-        "consignee_name": "DONNICA LEWIS",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 2,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "2.0",
-        "country_origin": "US",
-        "freight": "5.00",
-        "man_reg": "2024 23",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0319/out/112-9428156-0802636.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0319/out/HAWB9438625-Declaration_combined.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0319/out/HAWB9438625-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T05:54:42Z"
-    },
-    {
-      "waybill": "HAWB9421183",
-      "subject": "Shipment: HAWB9421183",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0320/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0320/out",
-      "params_hash": "787457b7c0ca00fc8a942c0684a7b0f758e2eeeb5d9d39f66a77ffbe5a151346",
-      "suppliers_hash": "8985d092738248bd68ae5e9a6d56884ac6392ef3d95dc0da7b9556d37478273e",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0320/out/113-3799251-0582608_Invoice.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0320/out/113-3799251-0582608_Invoice.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0320/out/HAWB9421183-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9421183",
-        "consignee_name": "LESLIE ANN JOHNSON",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "1.0",
-        "country_origin": "US",
-        "freight": "3.00",
-        "man_reg": "2024 22",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0320/out/113-3799251-0582608_Invoice.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0320/out/113-3799251-0582608_Invoice.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0320/out/HAWB9421183-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T05:57:37Z"
-    },
-    {
-      "waybill": "HAWB9605543",
-      "subject": "Shipment: HAWB9605543",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0323/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0323/out",
-      "params_hash": "a3a2767047906d1e50ae0d77ebe97eb2a5250badcc6a0f30e10b4b5b68b2e76a",
-      "suppliers_hash": "8985d092738248bd68ae5e9a6d56884ac6392ef3d95dc0da7b9556d37478273e",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0323/out/114-1708026-9220253_2.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0323/out/HAWB9605543-Declaration_combined.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0323/out/HAWB9605543-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9605543",
-        "consignee_name": "LESLIE ANN JOHNSON",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 2,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "4.0",
-        "country_origin": "US",
-        "freight": "3.00",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0323/out/114-1708026-9220253_2.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0323/out/HAWB9605543-Declaration_combined.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0323/out/HAWB9605543-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T06:02:29Z"
-    },
-    {
-      "waybill": "HAWB9579071",
-      "subject": "Shipment: HAWB9579071",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0325/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0325/out",
-      "params_hash": "d89d42dd623e1deacee3ed83969120fc71c078d0d6eb8449722627c8aad63941",
-      "suppliers_hash": "8985d092738248bd68ae5e9a6d56884ac6392ef3d95dc0da7b9556d37478273e",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0325/out/114-1133554-2261051_2.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0325/out/HAWB9579071-Declaration_combined.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0325/out/HAWB9579071-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9579071",
-        "consignee_name": "MAURINE WILSON",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 2,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "6.0",
-        "country_origin": "US",
-        "freight": "13.00",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0325/out/114-1133554-2261051_2.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0325/out/HAWB9579071-Declaration_combined.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0325/out/HAWB9579071-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T06:05:55Z"
-    },
-    {
-      "waybill": "HAWB9591765",
-      "subject": "Shipment: HAWB9591765",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0326/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0326/out",
-      "params_hash": "6d4407cc716ccfe33fdb70402b6216eb241535fead6a641f9ead41d6de878064",
-      "suppliers_hash": "8985d092738248bd68ae5e9a6d56884ac6392ef3d95dc0da7b9556d37478273e",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0326/out/112-0219979-8477833.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0326/out/HAWB9591765-Declaration_combined.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0326/out/HAWB9591765-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9591765",
-        "consignee_name": "RICHARD AYLIFFE",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 2,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "19.0",
-        "country_origin": "US",
-        "freight": "39.00",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0326/out/112-0219979-8477833.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0326/out/HAWB9591765-Declaration_combined.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0326/out/HAWB9591765-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T06:07:07Z"
-    },
-    {
-      "waybill": "HAWB9728292",
-      "subject": "Shipment: HAWB9728292",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0329/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0329/out",
-      "params_hash": "4a1cdd50969352679ba4185634530f5b11198315d461c57bd523839653fef883",
-      "suppliers_hash": "be1cbd7ce0001bc713934dea34a9d1ae76a9c01194636a19e0e5a7abc7729567",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0329/out/00190-US68077350.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0329/out/HAWB9728292.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0329/out/HAWB9728292-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9728292",
-        "consignee_name": "DAWSEANNE WILLIAMS",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "9.0",
-        "country_origin": "US",
-        "freight": "19.00",
-        "man_reg": "2024 32",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0329/out/00190-US68077350.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0329/out/HAWB9728292.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0329/out/HAWB9728292-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T06:16:57Z"
-    },
-    {
-      "waybill": "HAWB9748223",
-      "subject": "Shipment: HAWB9748223",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0329/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0329/out",
-      "params_hash": "560a4ae30b24e972700e77e42fe3d30bc83ae36e3ffcae7dca6fb6257944a99c",
-      "suppliers_hash": "be1cbd7ce0001bc713934dea34a9d1ae76a9c01194636a19e0e5a7abc7729567",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0329/out/00190-US68077350.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0329/out/HAWB9748223.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0329/out/HAWB9748223-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9748223",
-        "consignee_name": "DAWSEANNE WILLIAMS",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "2.0",
-        "country_origin": "US",
-        "freight": "5.00",
-        "man_reg": "2024 33",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0329/out/00190-US68077350.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0329/out/HAWB9748223.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0329/out/HAWB9748223-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T06:17:12Z"
-    },
-    {
-      "waybill": "HAWB9676008",
-      "subject": "Shipment: HAWB9676008",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0330/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0330/out",
-      "params_hash": "d89916ccbe4745a786de21e7e261efd569c26bceedb3c5ef4020c64888654598",
-      "suppliers_hash": "be1cbd7ce0001bc713934dea34a9d1ae76a9c01194636a19e0e5a7abc7729567",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0330/out/140070017.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0330/out/140070017.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0330/out/HAWB9676008-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9676008",
-        "consignee_name": "CARREMA LEWIS",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "3.0",
-        "country_origin": "US",
-        "freight": "7.00",
-        "man_reg": "2024 30",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0330/out/140070017.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0330/out/140070017.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0330/out/HAWB9676008-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T06:18:40Z"
-    },
-    {
-      "waybill": "HAWB9584275",
-      "subject": "Shipment: HAWB9584275",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/out",
-      "params_hash": "3e033f0a3fbf43621646490278ac2026472894e8621d3a3eec550cee7347a700",
-      "suppliers_hash": "be1cbd7ce0001bc713934dea34a9d1ae76a9c01194636a19e0e5a7abc7729567",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/out/111-1616806-9805016.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/out/HAWB9584275.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/out/HAWB9584275-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9584275",
-        "consignee_name": "ROCHELLE RAGBASINGH",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "5.0",
-        "country_origin": "US",
-        "freight": "11.00",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/out/111-1616806-9805016.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/out/HAWB9584275.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/out/HAWB9584275-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T06:23:57Z"
-    },
-    {
-      "waybill": "HAWB9586702",
-      "subject": "Shipment: HAWB9586702",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/out",
-      "params_hash": "a73b4f10feda1e082c60127434155a33154b8dabc98f95e4180f82f266a3d0c0",
-      "suppliers_hash": "be1cbd7ce0001bc713934dea34a9d1ae76a9c01194636a19e0e5a7abc7729567",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/out/111-1616806-9805016.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/out/HAWB9586702.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/out/HAWB9586702-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9586702",
-        "consignee_name": "ROCHELLE RAGBASINGH",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "3.0",
-        "country_origin": "US",
-        "freight": "7.0",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/out/111-1616806-9805016.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/out/HAWB9586702.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/out/HAWB9586702-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T06:24:08Z"
-    },
-    {
-      "waybill": "HAWB9591668",
-      "subject": "Shipment: HAWB9591668",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/out",
-      "params_hash": "f17d1b816b14131a8fa4ccb3bb2f073a0ed4893f0b8557776cadfa1d61e0209e",
-      "suppliers_hash": "be1cbd7ce0001bc713934dea34a9d1ae76a9c01194636a19e0e5a7abc7729567",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/out/111-1616806-9805016.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/out/HAWB9591668.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/out/HAWB9591668-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9591668",
-        "consignee_name": "ROCHELLE RAGBASINGH",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "1.0",
-        "country_origin": "US",
-        "freight": "3.0",
-        "man_reg": "2024/28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/out/111-1616806-9805016.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/out/HAWB9591668.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0331/out/HAWB9591668-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T06:24:17Z"
-    },
-    {
-      "waybill": "HAWB9597280",
-      "subject": "Shipment: HAWB9597280",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0333/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0333/out",
-      "params_hash": "6f0a64d0cfbc96343057dab303bdf54cb9ac3136d8d836049bb0a68234e29523",
-      "suppliers_hash": "b3d0f976bd0007617afd4dcf72ef5f51dc4b2bc1fe3749cf4a1082531190dffc",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0333/out/138984731.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0333/out/138984731.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0333/out/HAWB9597280-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9597280",
-        "consignee_name": "SHELLEY THOMAS",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "3.0",
-        "country_origin": "US",
-        "freight": "7.00",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0333/out/138984731.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0333/out/138984731.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0333/out/HAWB9597280-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T06:30:46Z"
-    },
-    {
-      "waybill": "HAWB9580080",
-      "subject": "Shipment: HAWB9580080",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0336/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0336/out",
-      "params_hash": "74bbe05d332890126e4d6cc1f8a9d555727c5d6f71a6500780bdc105a3c3c658",
-      "suppliers_hash": "b3d0f976bd0007617afd4dcf72ef5f51dc4b2bc1fe3749cf4a1082531190dffc",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0336/out/113-5845714-9327456_2.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0336/out/HAWB29580080-Manifest_combined.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0336/out/HAWB9580080-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9580080",
-        "consignee_name": "KERRY FRANK",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 2,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "3.0",
-        "country_origin": "US",
-        "freight": "7.00",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0336/out/113-5845714-9327456_2.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0336/out/HAWB29580080-Manifest_combined.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0336/out/HAWB9580080-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T06:36:19Z"
-    },
-    {
-      "waybill": "HAWB9595151",
-      "subject": "Shipment: HAWB9595151",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0337/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0337/out",
-      "params_hash": "419ca770dd6107c2aa4fdc4cb717971031e0f54d03fb83d30dd0571d5e77c89b",
-      "suppliers_hash": "b3d0f976bd0007617afd4dcf72ef5f51dc4b2bc1fe3749cf4a1082531190dffc",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0337/out/114-5488418-4405037_2.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0337/out/HAWB9595151-Declaration_combined.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0337/out/HAWB9595151-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9595151",
-        "consignee_name": "VICTORIA AYLIFFE",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 2,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "5.0",
-        "country_origin": "US",
-        "freight": "11.00",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0337/out/114-5488418-4405037_2.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0337/out/HAWB9595151-Declaration_combined.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0337/out/HAWB9595151-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T06:37:52Z"
-    },
-    {
       "waybill": "HAWB9551129",
       "subject": "Shipment: HAWB9551129",
       "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0342/stage",
@@ -1950,76 +931,6 @@
         "office": "GDWBS"
       },
       "sent_at": "2026-04-24T06:47:59Z"
-    },
-    {
-      "waybill": "HAWB9600998",
-      "subject": "Shipment: HAWB9600998",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0345/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0345/out",
-      "params_hash": "b96e7c07600a293087a26aa7d2e257bed3636a3e6d1e199fcbf7fbfba2777eb1",
-      "suppliers_hash": "b3d0f976bd0007617afd4dcf72ef5f51dc4b2bc1fe3749cf4a1082531190dffc",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0345/out/1504495444.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0345/out/HAWB9600998.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0345/out/HAWB9600998-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9600998",
-        "consignee_name": "ROSALIE LA GRENADE",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "2.0",
-        "country_origin": "US",
-        "freight": "5.0",
-        "man_reg": "2024/28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0345/out/1504495444.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0345/out/HAWB9600998.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0345/out/HAWB9600998-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T06:53:34Z"
-    },
-    {
-      "waybill": "HAWB9603312",
-      "subject": "Shipment: HAWB9603312",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0345/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0345/out",
-      "params_hash": "e65f2e36602e7fab68da2180ca5d5530f489ce38110fa1a5d69ea82ebf35a600",
-      "suppliers_hash": "b3d0f976bd0007617afd4dcf72ef5f51dc4b2bc1fe3749cf4a1082531190dffc",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0345/out/1504495444.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0345/out/HAWB9603312.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0345/out/HAWB9603312-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9603312",
-        "consignee_name": "ROSALIE LA GRENADE",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "4.0",
-        "country_origin": "US",
-        "freight": "9.00",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0345/out/1504495444.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0345/out/HAWB9603312.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0345/out/HAWB9603312-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T06:53:44Z"
     },
     {
       "waybill": "HAWB9685992",
@@ -2308,76 +1219,6 @@
       "sent_at": "2026-04-24T08:04:44Z"
     },
     {
-      "waybill": "HAWB9539650",
-      "subject": "Shipment: HAWB9539650",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0358/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0358/out",
-      "params_hash": "fdf92eabc649fa996a2726726c83262f596620edaf8b6721e944cdf704c93503",
-      "suppliers_hash": "b3d0f976bd0007617afd4dcf72ef5f51dc4b2bc1fe3749cf4a1082531190dffc",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0358/out/112-5648240-5713059.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0358/out/112-5648240-5713059.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0358/out/HAWB9539650-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9539650",
-        "consignee_name": "STEVON PETERS",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "1.0",
-        "country_origin": "US",
-        "freight": "3.00",
-        "man_reg": "2024 26",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0358/out/112-5648240-5713059.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0358/out/112-5648240-5713059.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0358/out/HAWB9539650-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T08:24:10Z"
-    },
-    {
-      "waybill": "HAWB9586947",
-      "subject": "Shipment: HAWB9586947",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0359/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0359/out",
-      "params_hash": "d7f80130b4c99f65cdef0c251d2b437f08242c6698a1e6c9e9fec52541a80d6a",
-      "suppliers_hash": "b3d0f976bd0007617afd4dcf72ef5f51dc4b2bc1fe3749cf4a1082531190dffc",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0359/out/113-6780887-3785049.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0359/out/113-6780887-3785049.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0359/out/HAWB9586947-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9586947",
-        "consignee_name": "LORIC DICK",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "1.0",
-        "country_origin": "US",
-        "freight": "3.00",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0359/out/113-6780887-3785049.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0359/out/113-6780887-3785049.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0359/out/HAWB9586947-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T08:32:12Z"
-    },
-    {
       "waybill": "HAWB9605901",
       "subject": "Shipment: HAWB9605901",
       "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0361/stage",
@@ -2530,17 +1371,1526 @@
       "sent_at": "2026-04-24T11:24:24Z"
     },
     {
-      "waybill": "HAWB9584450",
-      "subject": "Shipment: HAWB9584450",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0711/stage",
+      "waybill": "HAWB9671284",
+      "subject": "Shipment: HAWB9671284",
+      "source_input": "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0321/stage",
       "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0711/out",
-      "params_hash": "63aeb6ec9ee1e4e4f92e7a917bb45168a7c4676261e55ba6b2ba29e4b141bed4",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0321/out",
+      "params_hash": "0ee3a1c95b466e55b305d6e7c760ff8556d490bd2a0bf9a974640a102d392b89",
       "suppliers_hash": "0c8f61744ad865f8a0305384db2955bf4a07ea18c0270840f8a4aa82bd7a7ef1",
       "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0711/out/9213.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0711/out/9213.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0711/out/HAWB9584450-Declaration.pdf"
+        "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0321/out/DYI5VCW2Tremeretrue.pdf",
+        "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0321/out/DYI5VCW2Tremeretrue_2.pdf",
+        "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0321/out/DYI5VCW2Tremeretrue_combined.xlsx",
+        "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0321/out/HAWB9671284-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9671284",
+        "consignee_name": "ANKITA MOORE",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 2,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "1.0",
+        "country_origin": "US",
+        "freight": "10.75",
+        "man_reg": "2024 30",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0321/out/DYI5VCW2Tremeretrue.pdf",
+          "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0321/out/DYI5VCW2Tremeretrue_2.pdf",
+          "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0321/out/DYI5VCW2Tremeretrue_combined.xlsx",
+          "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0321/out/HAWB9671284-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-24T20:28:20Z"
+    },
+    {
+      "waybill": "HAWB9580080",
+      "subject": "Shipment: HAWB9580080",
+      "source_input": "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0336/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0336/out",
+      "params_hash": "c36b52df7fd6f671ad706f46ea77ae33d21eafdcc15c129cca1d2f3ce4ad8cda",
+      "suppliers_hash": "cb63ddf874e6d5a590570ec330a8afd244c3c939af015d61334475665a785738",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0336/out/113-5845714-9327456_2.pdf",
+        "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0336/out/113-5845714-9327456.pdf",
+        "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0336/out/HAWB29580080-Manifest_combined.xlsx",
+        "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0336/out/HAWB9580080-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9580080",
+        "consignee_name": "KERRY FRANK",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 2,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "3.0",
+        "country_origin": "US",
+        "freight": "7.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0336/out/113-5845714-9327456_2.pdf",
+          "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0336/out/113-5845714-9327456.pdf",
+          "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0336/out/HAWB29580080-Manifest_combined.xlsx",
+          "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0336/out/HAWB9580080-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-24T21:20:20Z"
+    },
+    {
+      "waybill": "HAWB9600998",
+      "subject": "Shipment: HAWB9600998",
+      "source_input": "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0345/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0345/out",
+      "params_hash": "e927a04a949805345e776b75e9bb46b5df40059f995c44ccde503b6f32f34a7a",
+      "suppliers_hash": "cb63ddf874e6d5a590570ec330a8afd244c3c939af015d61334475665a785738",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0345/out/1504495444.pdf",
+        "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0345/out/15046495444.pdf",
+        "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0345/out/HAWB9600998.xlsx",
+        "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0345/out/HAWB9600998-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9600998",
+        "consignee_name": "ROSALIE LA GRENADE",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "2.0",
+        "country_origin": "US",
+        "freight": "5.0",
+        "man_reg": "2024/28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0345/out/1504495444.pdf",
+          "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0345/out/15046495444.pdf",
+          "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0345/out/HAWB9600998.xlsx",
+          "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0345/out/HAWB9600998-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-24T21:48:23Z"
+    },
+    {
+      "waybill": "HAWB9603312",
+      "subject": "Shipment: HAWB9603312",
+      "source_input": "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0345/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0345/out",
+      "params_hash": "e497c5f46072ec54e75a9254b3fd4e87ac7890c0d2ef452fc0794cc8b6b258f9",
+      "suppliers_hash": "cb63ddf874e6d5a590570ec330a8afd244c3c939af015d61334475665a785738",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0345/out/1504495444.pdf",
+        "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0345/out/15046495444.pdf",
+        "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0345/out/HAWB9603312.xlsx",
+        "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0345/out/HAWB9603312-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9603312",
+        "consignee_name": "ROSALIE LA GRENADE",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "4.0",
+        "country_origin": "US",
+        "freight": "9.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0345/out/1504495444.pdf",
+          "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0345/out/15046495444.pdf",
+          "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0345/out/HAWB9603312.xlsx",
+          "/tmp/pytest-of-joseph/pytest-116/test_downloads_email_folder_0345/out/HAWB9603312-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-24T21:48:30Z"
+    },
+    {
+      "waybill": "HAWB9605543",
+      "subject": "Shipment: HAWB9605543",
+      "source_input": "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0323/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0323/out",
+      "params_hash": "5d58d1f00ca91b8b21400f2645e1103aab9548aece084f69512dda562669adc5",
+      "suppliers_hash": "cb63ddf874e6d5a590570ec330a8afd244c3c939af015d61334475665a785738",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0323/out/114-1708026-9220253_2.pdf",
+        "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0323/out/114-1708026-9220253.pdf",
+        "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0323/out/HAWB9605543-Declaration_combined.xlsx",
+        "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0323/out/HAWB9605543-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9605543",
+        "consignee_name": "LESLIE ANN JOHNSON",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 2,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "4.0",
+        "country_origin": "US",
+        "freight": "3.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0323/out/114-1708026-9220253_2.pdf",
+          "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0323/out/114-1708026-9220253.pdf",
+          "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0323/out/HAWB9605543-Declaration_combined.xlsx",
+          "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0323/out/HAWB9605543-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-24T23:15:42Z"
+    },
+    {
+      "waybill": "HAWB9591765",
+      "subject": "Shipment: HAWB9591765",
+      "source_input": "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0326/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0326/out",
+      "params_hash": "6ce5a2a851edc065cbd55ae67a22366b624e6cd59e1c24c97c5cc37370720e7a",
+      "suppliers_hash": "cb63ddf874e6d5a590570ec330a8afd244c3c939af015d61334475665a785738",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0326/out/112-0219979-8477833_2.pdf",
+        "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0326/out/112-0219979-8477833.pdf",
+        "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0326/out/HAWB9591765-Declaration_combined.xlsx",
+        "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0326/out/HAWB9591765-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9591765",
+        "consignee_name": "RICHARD AYLIFFE",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 2,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "19.0",
+        "country_origin": "US",
+        "freight": "39.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0326/out/112-0219979-8477833_2.pdf",
+          "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0326/out/112-0219979-8477833.pdf",
+          "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0326/out/HAWB9591765-Declaration_combined.xlsx",
+          "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0326/out/HAWB9591765-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-24T23:18:25Z"
+    },
+    {
+      "waybill": "HAWB9676008",
+      "subject": "Shipment: HAWB9676008",
+      "source_input": "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0330/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0330/out",
+      "params_hash": "d89916ccbe4745a786de21e7e261efd569c26bceedb3c5ef4020c64888654598",
+      "suppliers_hash": "cb63ddf874e6d5a590570ec330a8afd244c3c939af015d61334475665a785738",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0330/out/140070017.pdf",
+        "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0330/out/140070017.xlsx",
+        "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0330/out/HAWB9676008-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9676008",
+        "consignee_name": "CARREMA LEWIS",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "3.0",
+        "country_origin": "US",
+        "freight": "7.00",
+        "man_reg": "2024 30",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0330/out/140070017.pdf",
+          "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0330/out/140070017.xlsx",
+          "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0330/out/HAWB9676008-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-24T23:24:03Z"
+    },
+    {
+      "waybill": "HAWB9597280",
+      "subject": "Shipment: HAWB9597280",
+      "source_input": "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0333/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0333/out",
+      "params_hash": "830553819a1f75cfbf86d50d1fb2d9530ab5743861c79935acee13927288eec5",
+      "suppliers_hash": "cb63ddf874e6d5a590570ec330a8afd244c3c939af015d61334475665a785738",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0333/out/138984731.pdf",
+        "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0333/out/HAWB9597280.xlsx",
+        "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0333/out/HAWB9597280-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9597280",
+        "consignee_name": "SHELLEY THOMAS",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "3.0",
+        "country_origin": "US",
+        "freight": "7.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0333/out/138984731.pdf",
+          "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0333/out/HAWB9597280.xlsx",
+          "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0333/out/HAWB9597280-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-24T23:31:14Z"
+    },
+    {
+      "waybill": "HAWB9597290",
+      "subject": "Shipment: HAWB9597290",
+      "source_input": "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0333/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0333/out",
+      "params_hash": "149076fce30a0b60f7ea9af3c951fe58d55f60727c00774e38e20ffeff805639",
+      "suppliers_hash": "cb63ddf874e6d5a590570ec330a8afd244c3c939af015d61334475665a785738",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0333/out/138984731.pdf",
+        "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0333/out/HAWB9597290.xlsx",
+        "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0333/out/HAWB9597290-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9597290",
+        "consignee_name": "SHELLEY THOMAS",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "3.0",
+        "country_origin": "US",
+        "freight": "7.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0333/out/138984731.pdf",
+          "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0333/out/HAWB9597290.xlsx",
+          "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0333/out/HAWB9597290-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-24T23:31:18Z"
+    },
+    {
+      "waybill": "HAWB9595151",
+      "subject": "Shipment: HAWB9595151",
+      "source_input": "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0337/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0337/out",
+      "params_hash": "dd46094ee97924d06dc19d438af0b37a44346c48e5c2d1d98df225842be2b766",
+      "suppliers_hash": "cb63ddf874e6d5a590570ec330a8afd244c3c939af015d61334475665a785738",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0337/out/114-5488418-4405037_2.pdf",
+        "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0337/out/114-5488418-4405037.pdf",
+        "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0337/out/HAWB9595151-Declaration_combined.xlsx",
+        "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0337/out/HAWB9595151-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9595151",
+        "consignee_name": "VICTORIA AYLIFFE",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 2,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "5.0",
+        "country_origin": "US",
+        "freight": "11.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0337/out/114-5488418-4405037_2.pdf",
+          "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0337/out/114-5488418-4405037.pdf",
+          "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0337/out/HAWB9595151-Declaration_combined.xlsx",
+          "/tmp/pytest-of-joseph/pytest-143/test_downloads_email_folder_0337/out/HAWB9595151-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-24T23:35:57Z"
+    },
+    {
+      "waybill": "HAWB9595459",
+      "subject": "Shipment: HAWB9595459",
+      "source_input": "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out",
+      "params_hash": "10d2d492ee12174e6f9d8a99403c854a1e653b7ec09d54e162a37f46cd0c57e4",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/111-8019845-2302666.pdf",
+        "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/111-8019845-2302666_2.pdf",
+        "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/HAWB9595459.xlsx",
+        "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/HAWB9595459-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9595459",
+        "consignee_name": "AARON WILSON",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "8.0",
+        "country_origin": "US",
+        "freight": "43.0",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/111-8019845-2302666.pdf",
+          "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/111-8019845-2302666_2.pdf",
+          "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/HAWB9595459.xlsx",
+          "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/HAWB9595459-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T03:08:29Z"
+    },
+    {
+      "waybill": "HAWB9596948",
+      "subject": "Shipment: HAWB9596948",
+      "source_input": "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out",
+      "params_hash": "c1e9ee573e26c3f4f2b1f7590eac9fd58611cc9607048d4b8e942332a5ac9df1",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/111-8019845-2302666.pdf",
+        "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/111-8019845-2302666_2.pdf",
+        "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/HAWB9596948.xlsx",
+        "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/HAWB9596948-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9596948",
+        "consignee_name": "AARON WILSON",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "8.0",
+        "country_origin": "US",
+        "freight": "43.0",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/111-8019845-2302666.pdf",
+          "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/111-8019845-2302666_2.pdf",
+          "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/HAWB9596948.xlsx",
+          "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/HAWB9596948-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T03:08:34Z"
+    },
+    {
+      "waybill": "HAWB9595443",
+      "subject": "Shipment: HAWB9595443",
+      "source_input": "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out",
+      "params_hash": "0cf03f46ebc5075024ecddc7d5b375409d3ee17282bdd998a0ee094525963c43",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/111-8019845-2302666.pdf",
+        "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/111-8019845-2302666_2.pdf",
+        "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/HAWB9595443.xlsx",
+        "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/HAWB9595443-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9595443",
+        "consignee_name": "AARON WILSON",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "8.0",
+        "country_origin": "US",
+        "freight": "43.0",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/111-8019845-2302666.pdf",
+          "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/111-8019845-2302666_2.pdf",
+          "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/HAWB9595443.xlsx",
+          "/tmp/pytest-of-joseph/pytest-154/test_downloads_email_folder_030/out/HAWB9595443-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T03:08:38Z"
+    },
+    {
+      "waybill": "HAWB9421183",
+      "subject": "Shipment: HAWB9421183",
+      "source_input": "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_031/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_031/out",
+      "params_hash": "7bc6061c064328b1f07f74beb695b542279ab9430b4ac5ae544748021092d6ee",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_031/out/113-3799251-0582608.pdf",
+        "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_031/out/113-3799251-0582608.xlsx",
+        "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_031/out/HAWB9421183-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9421183",
+        "consignee_name": "LESLIE ANN JOHNSON",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "1.0",
+        "country_origin": "US",
+        "freight": "3.00",
+        "man_reg": "2024 22",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_031/out/113-3799251-0582608.pdf",
+          "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_031/out/113-3799251-0582608.xlsx",
+          "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_031/out/HAWB9421183-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T06:02:51Z"
+    },
+    {
+      "waybill": "HAWB9579071",
+      "subject": "Shipment: HAWB9579071",
+      "source_input": "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_033/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_033/out",
+      "params_hash": "93cc0ad4895746c78c648993be933f3eccc5c37a58f500ba221097800666a243",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_033/out/114-1133554-2261051_2.pdf",
+        "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_033/out/114-1133554-2261051.pdf",
+        "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_033/out/HAWB9579071-Declaration_combined.xlsx",
+        "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_033/out/HAWB9579071-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9579071",
+        "consignee_name": "MAURINE WILSON",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 2,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "6.0",
+        "country_origin": "US",
+        "freight": "13.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_033/out/114-1133554-2261051_2.pdf",
+          "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_033/out/114-1133554-2261051.pdf",
+          "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_033/out/HAWB9579071-Declaration_combined.xlsx",
+          "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_033/out/HAWB9579071-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T06:04:25Z"
+    },
+    {
+      "waybill": "HAWB9539650",
+      "subject": "Shipment: HAWB9539650",
+      "source_input": "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_035/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_035/out",
+      "params_hash": "fdf92eabc649fa996a2726726c83262f596620edaf8b6721e944cdf704c93503",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_035/out/112-5648240-5713059.pdf",
+        "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_035/out/112-5648240-5713059.xlsx",
+        "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_035/out/HAWB9539650-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9539650",
+        "consignee_name": "STEVON PETERS",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "1.0",
+        "country_origin": "US",
+        "freight": "3.00",
+        "man_reg": "2024 26",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_035/out/112-5648240-5713059.pdf",
+          "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_035/out/112-5648240-5713059.xlsx",
+          "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_035/out/HAWB9539650-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T06:06:38Z"
+    },
+    {
+      "waybill": "HAWB9586947",
+      "subject": "Shipment: HAWB9586947",
+      "source_input": "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_036/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_036/out",
+      "params_hash": "d7f80130b4c99f65cdef0c251d2b437f08242c6698a1e6c9e9fec52541a80d6a",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_036/out/113-6780887-3785049.pdf",
+        "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_036/out/113-6780887-3785049.xlsx",
+        "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_036/out/HAWB9586947-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9586947",
+        "consignee_name": "LORIC DICK",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "1.0",
+        "country_origin": "US",
+        "freight": "3.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_036/out/113-6780887-3785049.pdf",
+          "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_036/out/113-6780887-3785049.xlsx",
+          "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_036/out/HAWB9586947-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T06:08:52Z"
+    },
+    {
+      "waybill": "HAWB9622064",
+      "subject": "Shipment: HAWB9622064",
+      "source_input": "/tmp/pytest-of-joseph/pytest-166/test_downloads_email_folder_034/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-166/test_downloads_email_folder_034/out",
+      "params_hash": "e339982af8fb5a51cfd1b0e84ccaf7ed4384044d75697da10c82deddfcb7c1b4",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-166/test_downloads_email_folder_034/out/111-5908955-5240243.pdf",
+        "/tmp/pytest-of-joseph/pytest-166/test_downloads_email_folder_034/out/111-5908955-5240243_2.pdf",
+        "/tmp/pytest-of-joseph/pytest-166/test_downloads_email_folder_034/out/HAWB9622064-Declaration_combined.xlsx",
+        "/tmp/pytest-of-joseph/pytest-166/test_downloads_email_folder_034/out/HAWB9622064-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9622064",
+        "consignee_name": "RHONOSHA REDHEAD",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 2,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "1.0",
+        "country_origin": "US",
+        "freight": "3.00",
+        "man_reg": "2024 29",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-166/test_downloads_email_folder_034/out/111-5908955-5240243.pdf",
+          "/tmp/pytest-of-joseph/pytest-166/test_downloads_email_folder_034/out/111-5908955-5240243_2.pdf",
+          "/tmp/pytest-of-joseph/pytest-166/test_downloads_email_folder_034/out/HAWB9622064-Declaration_combined.xlsx",
+          "/tmp/pytest-of-joseph/pytest-166/test_downloads_email_folder_034/out/HAWB9622064-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T07:11:02Z"
+    },
+    {
+      "waybill": "HAWB9596861",
+      "subject": "Shipment: HAWB9596861",
+      "source_input": "/tmp/pytest-of-joseph/pytest-166/test_downloads_email_folder_037/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-166/test_downloads_email_folder_037/out",
+      "params_hash": "82b897b93420f87829be0f47fa7813c5e326defb089db28cb28f8878827a1619",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-166/test_downloads_email_folder_037/out/114-9178653-9365066_2.pdf",
+        "/tmp/pytest-of-joseph/pytest-166/test_downloads_email_folder_037/out/114-9178653-9365066.pdf",
+        "/tmp/pytest-of-joseph/pytest-166/test_downloads_email_folder_037/out/HAWB9596861-Declaration_combined.xlsx",
+        "/tmp/pytest-of-joseph/pytest-166/test_downloads_email_folder_037/out/HAWB9596861-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9596861",
+        "consignee_name": "MAKEDA GIBBON",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 2,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "1.0",
+        "country_origin": "US",
+        "freight": "9.99",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-166/test_downloads_email_folder_037/out/114-9178653-9365066_2.pdf",
+          "/tmp/pytest-of-joseph/pytest-166/test_downloads_email_folder_037/out/114-9178653-9365066.pdf",
+          "/tmp/pytest-of-joseph/pytest-166/test_downloads_email_folder_037/out/HAWB9596861-Declaration_combined.xlsx",
+          "/tmp/pytest-of-joseph/pytest-166/test_downloads_email_folder_037/out/HAWB9596861-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T07:14:10Z"
+    },
+    {
+      "waybill": "HAWB9728292",
+      "subject": "Shipment: HAWB9728292",
+      "source_input": "/tmp/pytest-of-joseph/pytest-169/test_downloads_email_folder_030/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-169/test_downloads_email_folder_030/out",
+      "params_hash": "6b68b1e35ab747f649965366d2ef0932f93121fa732da62225fc5531fed5a09c",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-169/test_downloads_email_folder_030/out/00190-US68077350.pdf",
+        "/tmp/pytest-of-joseph/pytest-169/test_downloads_email_folder_030/out/00190.pdf",
+        "/tmp/pytest-of-joseph/pytest-169/test_downloads_email_folder_030/out/HAWB9728292.xlsx",
+        "/tmp/pytest-of-joseph/pytest-169/test_downloads_email_folder_030/out/HAWB9728292-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9728292",
+        "consignee_name": "DAWSEANNE WILLIAMS",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "9.0",
+        "country_origin": "US",
+        "freight": "19.00",
+        "man_reg": "2024 32",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-169/test_downloads_email_folder_030/out/00190-US68077350.pdf",
+          "/tmp/pytest-of-joseph/pytest-169/test_downloads_email_folder_030/out/00190.pdf",
+          "/tmp/pytest-of-joseph/pytest-169/test_downloads_email_folder_030/out/HAWB9728292.xlsx",
+          "/tmp/pytest-of-joseph/pytest-169/test_downloads_email_folder_030/out/HAWB9728292-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T07:50:16Z"
+    },
+    {
+      "waybill": "HAWB9748223",
+      "subject": "Shipment: HAWB9748223",
+      "source_input": "/tmp/pytest-of-joseph/pytest-169/test_downloads_email_folder_030/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-169/test_downloads_email_folder_030/out",
+      "params_hash": "c6bfa04d956aebfb139843b87969a7cf38239efd7e00086745dd7c6cefa4f2b8",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-169/test_downloads_email_folder_030/out/00190-US68077350.pdf",
+        "/tmp/pytest-of-joseph/pytest-169/test_downloads_email_folder_030/out/00190.pdf",
+        "/tmp/pytest-of-joseph/pytest-169/test_downloads_email_folder_030/out/HAWB9748223.xlsx",
+        "/tmp/pytest-of-joseph/pytest-169/test_downloads_email_folder_030/out/HAWB9748223-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9748223",
+        "consignee_name": "DAWSEANNE WILLIAMS",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "2.0",
+        "country_origin": "US",
+        "freight": "5.00",
+        "man_reg": "2024 33",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-169/test_downloads_email_folder_030/out/00190-US68077350.pdf",
+          "/tmp/pytest-of-joseph/pytest-169/test_downloads_email_folder_030/out/00190.pdf",
+          "/tmp/pytest-of-joseph/pytest-169/test_downloads_email_folder_030/out/HAWB9748223.xlsx",
+          "/tmp/pytest-of-joseph/pytest-169/test_downloads_email_folder_030/out/HAWB9748223-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T07:50:24Z"
+    },
+    {
+      "waybill": "HAWB9597711",
+      "subject": "Shipment: HAWB9597711",
+      "source_input": "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_030/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_030/out",
+      "params_hash": "e8b7d0f4ca4d44c6b4d4c440e87c45e4192931ffc044818324730fade7945bef",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_030/out/111-7220046-1575437_2.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_030/out/HAWB9597711.xlsx",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_030/out/HAWB9597711-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9597711",
+        "consignee_name": "REGINA DECOTEAU",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "7.0",
+        "country_origin": "US",
+        "freight": "15.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_030/out/111-7220046-1575437_2.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_030/out/HAWB9597711.xlsx",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_030/out/HAWB9597711-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T07:52:43Z"
+    },
+    {
+      "waybill": "HAWBS9605575",
+      "subject": "Shipment: HAWBS9605575",
+      "source_input": "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_030/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_030/out",
+      "params_hash": "5e362a529930f7979ccc3b0478a8428210b2a7099b69b4d7baf3950f1093c7a3",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_030/out/111-7220046-1575437_2.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_030/out/HAWBS9605575.xlsx",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_030/out/HAWBS9605575-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWBS9605575",
+        "consignee_name": "REGINA DECOTEAU",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "2.0",
+        "country_origin": "US",
+        "freight": "5.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_030/out/111-7220046-1575437_2.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_030/out/HAWBS9605575.xlsx",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_030/out/HAWBS9605575-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T07:52:48Z"
+    },
+    {
+      "waybill": "HAWB9600960",
+      "subject": "Shipment: HAWB9600960",
+      "source_input": "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_032/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_032/out",
+      "params_hash": "8227e9e09dea9cc51e4f2b8cdb9f3ed2683af3ef4d64b21de48863419518c108",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_032/out/PO-211-06504032894070385.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_032/out/PO-211-06504032894070385_2.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_032/out/HAWB9600960-Declaration_combined.xlsx",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_032/out/HAWB9600960-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9600960",
+        "consignee_name": "SAMANTHA MC QUEEN",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 2,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "2.0",
+        "country_origin": "CN",
+        "freight": "2.99",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_032/out/PO-211-06504032894070385.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_032/out/PO-211-06504032894070385_2.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_032/out/HAWB9600960-Declaration_combined.xlsx",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_032/out/HAWB9600960-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T07:55:56Z"
+    },
+    {
+      "waybill": "HAWB9603225",
+      "subject": "Shipment: HAWB9603225",
+      "source_input": "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out",
+      "params_hash": "ba76da3cf5620442bec168ecedd4b9766cd870723a9050b42ba6400b6057bacf",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGXE.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGXD.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGXG.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGXJ.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGXL.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGY1.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGXV.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGY2.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGXK.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/INVUS20240717003609843.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGYN.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGXP.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGXH.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/HAWB9603225-Declaration_combined.xlsx",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/HAWBS9603225CH-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9603225",
+        "consignee_name": "SHEMICA CHARLES",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 13,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "8.0",
+        "country_origin": "US",
+        "freight": "17.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGXE.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGXD.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGXG.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGXJ.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGXL.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGY1.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGXV.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGY2.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGXK.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/INVUS20240717003609843.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGYN.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGXP.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/GSUNJY57B00NGXH.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/HAWB9603225-Declaration_combined.xlsx",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_033/out/HAWBS9603225CH-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T07:58:11Z"
+    },
+    {
+      "waybill": "HAWB9600873",
+      "subject": "Shipment: HAWB9600873",
+      "source_input": "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_034/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_034/out",
+      "params_hash": "acbb38f142cbd92b16b902fe01fc518ab2e8162aaeb22efa5f8dfd46306af4ef",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_034/out/113-0728579-9633009.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_034/out/113-0728579-9633009_Invoice_1.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_034/out/113-0728579-9633009_2.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_034/out/HAWB9600873.xlsx",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_034/out/HAWB9600873-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9600873",
+        "consignee_name": "SHANICE ST . BERNARD",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "10.0",
+        "country_origin": "US",
+        "freight": "21.0",
+        "man_reg": "2024/28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_034/out/113-0728579-9633009.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_034/out/113-0728579-9633009_Invoice_1.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_034/out/113-0728579-9633009_2.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_034/out/HAWB9600873.xlsx",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_034/out/HAWB9600873-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T07:59:06Z"
+    },
+    {
+      "waybill": "HAWB9662041",
+      "subject": "Shipment: HAWB9662041",
+      "source_input": "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_035/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_035/out",
+      "params_hash": "35798e852d3e87426550247968f7f5db84a17f55ce34bc00ea386c6393f1cb80",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_035/out/AU236542_2.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_035/out/AU236542.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_035/out/HAWB39662041-Declaration_combined.xlsx",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_035/out/HAWB9662041-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9662041",
+        "consignee_name": "NOAMI COUTAIN",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 2,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "3.0",
+        "country_origin": "US",
+        "freight": "7.00",
+        "man_reg": "2024 30",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_035/out/AU236542_2.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_035/out/AU236542.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_035/out/HAWB39662041-Declaration_combined.xlsx",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_035/out/HAWB9662041-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T07:59:57Z"
+    },
+    {
+      "waybill": "HAWB9671243",
+      "subject": "Shipment: HAWB9671243",
+      "source_input": "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_036/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_036/out",
+      "params_hash": "c5d2cbc56ca1f84ed89a7c402111820b2c76dd6c0dbcfa61e2e83a874cd43ced",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_036/out/112-1169077-3817042_2.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_036/out/112-1169077-3817042.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_036/out/HAWBS671243-Declaration_combined.xlsx",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_036/out/HAWB9671243-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9671243",
+        "consignee_name": "JARRON SIMMONS",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 2,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "1.0",
+        "country_origin": "US",
+        "freight": "3.00",
+        "man_reg": "2024 30",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_036/out/112-1169077-3817042_2.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_036/out/112-1169077-3817042.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_036/out/HAWBS671243-Declaration_combined.xlsx",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_036/out/HAWB9671243-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T08:00:24Z"
+    },
+    {
+      "waybill": "HAWB9438625",
+      "subject": "Shipment: HAWB9438625",
+      "source_input": "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_039/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_039/out",
+      "params_hash": "42fe370218040fae88c6f5941333c183266029d131fd29d74b7c587f0252415c",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_039/out/112-9428156-0802636_2.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_039/out/112-9428156-0802636.pdf",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_039/out/HAWB9438625-Declaration_combined.xlsx",
+        "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_039/out/HAWB9438625-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9438625",
+        "consignee_name": "DONNICA LEWIS",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 2,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "2.0",
+        "country_origin": "US",
+        "freight": "5.00",
+        "man_reg": "2024 23",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_039/out/112-9428156-0802636_2.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_039/out/112-9428156-0802636.pdf",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_039/out/HAWB9438625-Declaration_combined.xlsx",
+          "/tmp/pytest-of-joseph/pytest-170/test_downloads_email_folder_039/out/HAWB9438625-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T08:04:21Z"
+    },
+    {
+      "waybill": "HAWB9333496",
+      "subject": "Shipment: HAWB9333496",
+      "source_input": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_5_27_25_6_57_PM_anmzon.com.stage",
+      "source_mode": "bl",
+      "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_5_27_25_6_57_PM_anmzon.com.out",
+      "params_hash": "870865ac01df9f53b7c6202db4cc16caff0bce6ebc5d1b4b6f56d23e05420bcb",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_5_27_25_6_57_PM_anmzon.com.out/112-7624326-9358635_2.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_5_27_25_6_57_PM_anmzon.com.out/HAWB9333496-Declaration_combined.xlsx",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_5_27_25_6_57_PM_anmzon.com.out/HAWB9333496-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9333496",
+        "consignee_name": "REBA CALLISTE",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 2,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "19.0",
+        "country_origin": "US",
+        "freight": "39.00",
+        "man_reg": "2024 19",
+        "attachment_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_5_27_25_6_57_PM_anmzon.com.out/112-7624326-9358635_2.pdf",
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_5_27_25_6_57_PM_anmzon.com.out/HAWB9333496-Declaration_combined.xlsx",
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp/03152025_5_27_25_6_57_PM_anmzon.com.out/HAWB9333496-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T13:27:22Z"
+    },
+    {
+      "waybill": "HAW639600873",
+      "subject": "Shipment: HAW639600873",
+      "source_input": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_031/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_031/out",
+      "params_hash": "e5c847c6032634e93ea438e8d7c145b4ceff9213b8ac2db3837a7ba92c595efb",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_031/out/113-0728579-9633009.pdf",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_031/out/113-0728579-9633009_Invoice_1.pdf",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_031/out/HAW639600873.xlsx",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_031/out/HAW639600873-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAW639600873",
+        "consignee_name": "SHANICE ST . BERNARD",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "10.0",
+        "country_origin": "US",
+        "freight": "21.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_031/out/113-0728579-9633009.pdf",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_031/out/113-0728579-9633009_Invoice_1.pdf",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_031/out/HAW639600873.xlsx",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_031/out/HAW639600873-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T20:21:02Z"
+    },
+    {
+      "waybill": "HAWB9606117",
+      "subject": "Shipment: HAWB9606117",
+      "source_input": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_031/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_031/out",
+      "params_hash": "be16c71215ced334e27eb90e69d0f0dba6b4f5d5400a83289700133a9b309ec5",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_031/out/113-0728579-9633009.pdf",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_031/out/113-0728579-9633009_Invoice_1.pdf",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_031/out/HAWB9606117.xlsx",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_031/out/HAWB9606117-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9606117",
+        "consignee_name": "SHANICE ST . BERNARD",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "7.0",
+        "country_origin": "US",
+        "freight": "15.0",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_031/out/113-0728579-9633009.pdf",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_031/out/113-0728579-9633009_Invoice_1.pdf",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_031/out/HAWB9606117.xlsx",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_031/out/HAWB9606117-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T20:21:07Z"
+    },
+    {
+      "waybill": "HAWB9573874",
+      "subject": "Shipment: HAWB9573874",
+      "source_input": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_032/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_032/out",
+      "params_hash": "39e93320850095f22afe3f76b4fae84f0abec3a66d4f0c1062687ca306cbab2d",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_032/out/114-5494833-4517814.pdf",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_032/out/HAWB9573874.xlsx",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_032/out/HAWB9573874-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9573874",
+        "consignee_name": "REGINALD ANDALL",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "1.0",
+        "country_origin": "CN",
+        "freight": "3.00",
+        "man_reg": "2024 27",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_032/out/114-5494833-4517814.pdf",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_032/out/HAWB9573874.xlsx",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_032/out/HAWB9573874-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T20:22:27Z"
+    },
+    {
+      "waybill": "HAWB9579794",
+      "subject": "Shipment: HAWB9579794",
+      "source_input": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_032/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_032/out",
+      "params_hash": "a96878813beb82ab1f8317ec14484dd3c0a97f5cb709309b9d0974a73a555f95",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_032/out/114-5494833-4517814.pdf",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_032/out/HAWB9579794.xlsx",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_032/out/HAWB9579794-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9579794",
+        "consignee_name": "REGINALD ANDALL",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "3.0",
+        "country_origin": "CN",
+        "freight": "7.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_032/out/114-5494833-4517814.pdf",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_032/out/HAWB9579794.xlsx",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_032/out/HAWB9579794-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T20:22:37Z"
+    },
+    {
+      "waybill": "HAWB9579167",
+      "subject": "Shipment: HAWB9579167",
+      "source_input": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_033/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_033/out",
+      "params_hash": "176073ba87ae799324abb3183e410557055d6d0cfa69968c7f08d07774b81689",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_033/out/113-8373453-4570669.pdf",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_033/out/HAWB9579167.xlsx",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_033/out/HAWB9579167-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9579167",
+        "consignee_name": "TIMOTHY WALKER",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "1.0",
+        "country_origin": "CN",
+        "freight": "3.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_033/out/113-8373453-4570669.pdf",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_033/out/HAWB9579167.xlsx",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_033/out/HAWB9579167-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T20:23:35Z"
+    },
+    {
+      "waybill": "HAWB9579469",
+      "subject": "Shipment: HAWB9579469",
+      "source_input": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_033/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_033/out",
+      "params_hash": "97ef5a1ad0b1c50827e0ec8c5fc0e8885f6484e0a16f6966f5dba28137dcbda5",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_033/out/113-8373453-4570669.pdf",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_033/out/HAWB9579469.xlsx",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_033/out/HAWB9579469-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9579469",
+        "consignee_name": "TIMOTHY WALKER",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "1.0",
+        "country_origin": "CN",
+        "freight": "3.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_033/out/113-8373453-4570669.pdf",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_033/out/HAWB9579469.xlsx",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_033/out/HAWB9579469-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T20:23:40Z"
+    },
+    {
+      "waybill": "HAWB9671027",
+      "subject": "Shipment: HAWB9671027",
+      "source_input": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_034/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_034/out",
+      "params_hash": "9c168cdf7b4124f11dcdd19e58bdeee0acc4757b85a442e211d4af62130ac476",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_034/out/112-1892394-4362604.pdf",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_034/out/112-1892394-4362604.xlsx",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_034/out/HAWB9671027-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9671027",
+        "consignee_name": "DESEAN EMERY",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "1.0",
+        "country_origin": "US",
+        "freight": "3.00",
+        "man_reg": "2024 30",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_034/out/112-1892394-4362604.pdf",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_034/out/112-1892394-4362604.xlsx",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_034/out/HAWB9671027-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T20:24:12Z"
+    },
+    {
+      "waybill": "HAWB9584275",
+      "subject": "Shipment: HAWB9584275",
+      "source_input": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/out",
+      "params_hash": "3e033f0a3fbf43621646490278ac2026472894e8621d3a3eec550cee7347a700",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/out/111-1616806-9805016.pdf",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/out/HAWB9584275.xlsx",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/out/HAWB9584275-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9584275",
+        "consignee_name": "ROCHELLE RAGBASINGH",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "5.0",
+        "country_origin": "US",
+        "freight": "11.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/out/111-1616806-9805016.pdf",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/out/HAWB9584275.xlsx",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/out/HAWB9584275-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T20:27:23Z"
+    },
+    {
+      "waybill": "HAWB9586702",
+      "subject": "Shipment: HAWB9586702",
+      "source_input": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/out",
+      "params_hash": "a73b4f10feda1e082c60127434155a33154b8dabc98f95e4180f82f266a3d0c0",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/out/111-1616806-9805016.pdf",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/out/HAWB9586702.xlsx",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/out/HAWB9586702-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9586702",
+        "consignee_name": "ROCHELLE RAGBASINGH",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "3.0",
+        "country_origin": "US",
+        "freight": "7.0",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/out/111-1616806-9805016.pdf",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/out/HAWB9586702.xlsx",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/out/HAWB9586702-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T20:27:29Z"
+    },
+    {
+      "waybill": "HAWB9591668",
+      "subject": "Shipment: HAWB9591668",
+      "source_input": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/out",
+      "params_hash": "f17d1b816b14131a8fa4ccb3bb2f073a0ed4893f0b8557776cadfa1d61e0209e",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/out/111-1616806-9805016.pdf",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/out/HAWB9591668.xlsx",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/out/HAWB9591668-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9591668",
+        "consignee_name": "ROCHELLE RAGBASINGH",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "1.0",
+        "country_origin": "US",
+        "freight": "3.0",
+        "man_reg": "2024/28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/out/111-1616806-9805016.pdf",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/out/HAWB9591668.xlsx",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_035/out/HAWB9591668-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T20:27:35Z"
+    },
+    {
+      "waybill": "HAWB9600432",
+      "subject": "Shipment: HAWB9600432",
+      "source_input": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_036/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_036/out",
+      "params_hash": "94e919ea726b97a49f283e80e2b31eb1778b062a866bdbc19ad30bc26d6ca1e4",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_036/out/03152025_Free_returns_within_90_days_Invoice_1.pdf",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_036/out/CKETS_Invoice.pdf",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_036/out/PO-211-071185147948703851.pdf",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_036/out/03152025_Free_returns_within_90_days_Invoice.pdf",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_036/out/None.xlsx"
+      ],
+      "params": {
+        "waybill": "HAWB9600432",
+        "consignee_name": "UTILLIA MICTHELL",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "3.0",
+        "country_origin": "CN",
+        "freight": "7.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_036/out/03152025_Free_returns_within_90_days_Invoice_1.pdf",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_036/out/CKETS_Invoice.pdf",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_036/out/PO-211-071185147948703851.pdf",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_036/out/03152025_Free_returns_within_90_days_Invoice.pdf",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_036/out/None.xlsx"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T20:29:07Z"
+    },
+    {
+      "waybill": "HAWB9584450",
+      "subject": "Shipment: HAWB9584450",
+      "source_input": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_070/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_070/out",
+      "params_hash": "63aeb6ec9ee1e4e4f92e7a917bb45168a7c4676261e55ba6b2ba29e4b141bed4",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_070/out/9213.pdf",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_070/out/9213.xlsx",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_070/out/HAWB9584450-Declaration.pdf"
       ],
       "params": {
         "waybill": "HAWB9584450",
@@ -2555,14 +2905,216 @@
         "freight": "33.00",
         "man_reg": "2024 28",
         "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0711/out/9213.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0711/out/9213.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0711/out/HAWB9584450-Declaration.pdf"
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_070/out/9213.pdf",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_070/out/9213.xlsx",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_070/out/HAWB9584450-Declaration.pdf"
         ],
         "location": "WebSource",
         "office": "GDWBS"
       },
-      "sent_at": "2026-04-24T11:52:13Z"
+      "sent_at": "2026-04-25T20:29:59Z"
+    },
+    {
+      "waybill": "HAWB9605526",
+      "subject": "Shipment: HAWB9605526",
+      "source_input": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_071/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_071/out",
+      "params_hash": "1f5a2e3b9cf741f3d7d4e37763410875b143dfb5478b30a34105f9e1cd52fb1d",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_071/out/112-4898145-5081001.pdf",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_071/out/112-4898145-5081001.xlsx",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_071/out/HAWBS3605526-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9605526",
+        "consignee_name": "ROYAN GEORGE",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "2.0",
+        "country_origin": "US",
+        "freight": "5.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_071/out/112-4898145-5081001.pdf",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_071/out/112-4898145-5081001.xlsx",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_071/out/HAWBS3605526-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T20:37:00Z"
+    },
+    {
+      "waybill": "HAWB9758348",
+      "subject": "Shipment: HAWB9758348",
+      "source_input": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_080/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_080/out",
+      "params_hash": "0623f64c959394a9505f6c8518ff16c8e657fb3194d2c01c0d45806d74a1f5ce",
+      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_080/out/05-11975-88257.pdf",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_080/out/05-11975-88257.xlsx",
+        "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_080/out/HAWB9758348-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9758348",
+        "consignee_name": "DAVID BOATSWAIN",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "3.0",
+        "country_origin": "US",
+        "freight": "7.00",
+        "man_reg": "2024 33",
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_080/out/05-11975-88257.pdf",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_080/out/05-11975-88257.xlsx",
+          "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_080/out/HAWB9758348-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-25T20:43:16Z"
+    },
+    {
+      "waybill": "26609",
+      "subject": "Shipment: 26609",
+      "source_input": "/tmp/pytest-of-joseph/pytest-186/test_auto_brokerage_golden_2660/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-186/test_auto_brokerage_golden_2660/out",
+      "params_hash": "a056602bc0ea601f70581563e919f2ae7b0cdeb0850f13be42349aa444aac2ff",
+      "suppliers_hash": "1949e958a0d8a21e022d345dc6678689ae3bcab19c560ca62725b8e32d7e475e",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-186/test_auto_brokerage_golden_2660/out/26609.pdf",
+        "/tmp/pytest-of-joseph/pytest-186/test_auto_brokerage_golden_2660/out/26609.xlsx"
+      ],
+      "params": {
+        "waybill": "26609",
+        "consignee_name": "Budget Marine Grenada Tropical Shipping Grenada",
+        "consignee_code": "07290940003049",
+        "consignee_address": "True Blue Bay, St Georges, PO Box 3618, Grenada",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "0",
+        "country_origin": "US",
+        "freight": "18.26",
+        "man_reg": null,
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-186/test_auto_brokerage_golden_2660/out/26609.pdf",
+          "/tmp/pytest-of-joseph/pytest-186/test_auto_brokerage_golden_2660/out/26609.xlsx"
+        ],
+        "location": "WebSource",
+        "office": ""
+      },
+      "sent_at": "2026-04-26T14:20:43Z"
+    },
+    {
+      "waybill": "26610",
+      "subject": "Shipment: 26610",
+      "source_input": "/tmp/pytest-of-joseph/pytest-186/test_auto_brokerage_golden_2661/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-186/test_auto_brokerage_golden_2661/out",
+      "params_hash": "853bc0b56e1737ccb06dff59dfefa12d15009720637900674c2dbda17960a84f",
+      "suppliers_hash": "1949e958a0d8a21e022d345dc6678689ae3bcab19c560ca62725b8e32d7e475e",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-186/test_auto_brokerage_golden_2661/out/26610.pdf",
+        "/tmp/pytest-of-joseph/pytest-186/test_auto_brokerage_golden_2661/out/26610.xlsx"
+      ],
+      "params": {
+        "waybill": "26610",
+        "consignee_name": "Budget Marine Grenada Tropical Shipping Grenada",
+        "consignee_code": "07290940003049",
+        "consignee_address": "True Blue Bay, St Georges, PO Box 3618, Grenada",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "0",
+        "country_origin": "US",
+        "freight": "0",
+        "man_reg": null,
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-186/test_auto_brokerage_golden_2661/out/26610.pdf",
+          "/tmp/pytest-of-joseph/pytest-186/test_auto_brokerage_golden_2661/out/26610.xlsx"
+        ],
+        "location": "WebSource",
+        "office": ""
+      },
+      "sent_at": "2026-04-26T14:21:16Z"
+    },
+    {
+      "waybill": "451185",
+      "subject": "Shipment: 451185",
+      "source_input": "/tmp/pytest-of-joseph/pytest-186/test_auto_brokerage_golden_4000/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-186/test_auto_brokerage_golden_4000/out",
+      "params_hash": "5d20886d8b027ec89bdc6d1920bc91a08ba80f1ba58df089f36f00e7af8a90fb",
+      "suppliers_hash": "1949e958a0d8a21e022d345dc6678689ae3bcab19c560ca62725b8e32d7e475e",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-186/test_auto_brokerage_golden_4000/out/451185.pdf",
+        "/tmp/pytest-of-joseph/pytest-186/test_auto_brokerage_golden_4000/out/451185.xlsx"
+      ],
+      "params": {
+        "waybill": "451185",
+        "consignee_name": "Invoice",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "0",
+        "country_origin": "US",
+        "freight": "0",
+        "man_reg": null,
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-186/test_auto_brokerage_golden_4000/out/451185.pdf",
+          "/tmp/pytest-of-joseph/pytest-186/test_auto_brokerage_golden_4000/out/451185.xlsx"
+        ],
+        "location": "WebSource",
+        "office": ""
+      },
+      "sent_at": "2026-04-26T14:22:29Z"
+    },
+    {
+      "waybill": "26006159",
+      "subject": "Shipment: 26006159",
+      "source_input": "/tmp/pytest-of-joseph/pytest-192/test_auto_brokerage_golden_2600/stage",
+      "source_mode": "bl",
+      "output_dir": "/tmp/pytest-of-joseph/pytest-192/test_auto_brokerage_golden_2600/out",
+      "params_hash": "9cc0fa3992565ccddf460d209139cb844535d5b76a50c3f1fb31b6454270cf47",
+      "suppliers_hash": "1949e958a0d8a21e022d345dc6678689ae3bcab19c560ca62725b8e32d7e475e",
+      "attachments": [
+        "/tmp/pytest-of-joseph/pytest-192/test_auto_brokerage_golden_2600/out/26006159.pdf",
+        "/tmp/pytest-of-joseph/pytest-192/test_auto_brokerage_golden_2600/out/26006159.xlsx"
+      ],
+      "params": {
+        "waybill": "26006159",
+        "consignee_name": "",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "0",
+        "country_origin": "NL",
+        "freight": "65.0",
+        "man_reg": null,
+        "attachment_paths": [
+          "/tmp/pytest-of-joseph/pytest-192/test_auto_brokerage_golden_2600/out/26006159.pdf",
+          "/tmp/pytest-of-joseph/pytest-192/test_auto_brokerage_golden_2600/out/26006159.xlsx"
+        ],
+        "location": "WebSource",
+        "office": ""
+      },
+      "sent_at": "2026-04-26T17:52:09Z"
     }
   ]
 }

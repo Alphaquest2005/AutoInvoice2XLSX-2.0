@@ -6,16 +6,17 @@
     "duty_rate": "",
     "weight": "",
     "description": "",
-    "other_notes": "Handwritten marks '3404' (near item price) and '8016' (near shipping address) visible on the form"
+    "other_notes": "Handwritten marks '3404' near the 'Items Ordered' section and '8016' near the 'Shipping Address' section"
   },
   "printed": {
-    "consignee": "Jason James",
-    "freight": "",
+    "consignee": "",
+    "freight": null,
     "waybill": "",
     "man_reg": "",
     "office": "",
-    "weight": "",
-    "packages": "1"
+    "weight": null,
+    "packages": null
   },
-  "has_handwriting": true
+  "has_handwriting": true,
+  "_cache_version": 4
 }

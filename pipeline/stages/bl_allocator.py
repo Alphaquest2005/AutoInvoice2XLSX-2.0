@@ -15,7 +15,17 @@ import sys
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Set
 
+from pipeline.config_loader import load_patterns, load_xlsx_labels
+
 logger = logging.getLogger(__name__)
+
+# ── SSOT-loaded module constants ────────────────────────────────────────
+_COMBINER_LABELS = load_xlsx_labels()["combiner"]
+_UNKNOWN_BL_NUMBER = _COMBINER_LABELS["unknown_bl_number"]
+
+_RE_FILENAME_PAREN_NUMBER = re.compile(
+    load_patterns()["filename_paren_number_suffix"]
+)
 
 # Ensure pipeline directory is on path for imports
 PIPELINE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -65,7 +75,7 @@ def allocate_bl_packages(
         BLAllocation with all allocation data, or None if no BL PDF
     """
     if not bl_pdf_path:
-        print("\n[BL] No Bill of Lading PDF found — Packages remain at default (1)")
+        print("\n[BL] No Bill of Lading PDF found — Packages remain at default (1)")  # magic-ok: CLI progress banner
         return None
 
     print(f"\n[BL] Parsing Bill of Lading: {os.path.basename(bl_pdf_path)}")
@@ -114,7 +124,7 @@ def allocate_bl_packages(
 
     # Auto-detect BL number from parsed data if not provided
     if not bl_number:
-        bl_number = bl_data.get('bl_number', 'UNKNOWN')
+        bl_number = bl_data.get('bl_number', _UNKNOWN_BL_NUMBER)
 
     print(f"    Shipments: {len(bl_data.get('shipments', []))}")
     print(f"    Total USD: ${cost.get('total_usd', 0):.2f}  "
@@ -128,7 +138,7 @@ def allocate_bl_packages(
     for result in invoice_results:
         invoice_num = result.invoice_num
         file_ref = os.path.splitext(result.pdf_file)[0]
-        file_ref = re.sub(r'\s*\(\d+\)$', '', file_ref)
+        file_ref = _RE_FILENAME_PAREN_NUMBER.sub('', file_ref)
 
         fallback_refs = []
         if file_ref != invoice_num:
@@ -251,7 +261,7 @@ def allocate_bl_packages(
 
     # ── Copy BL PDF to output with standardized name ──
     bl_output_path = None
-    if bl_number and bl_number != 'UNKNOWN':
+    if bl_number and bl_number != _UNKNOWN_BL_NUMBER:
         bl_output_name = f"{bl_number}-BL.pdf"
         bl_output_path = os.path.join(output_dir, bl_output_name)
         if os.path.abspath(bl_pdf_path) != os.path.abspath(bl_output_path):
@@ -543,17 +553,26 @@ def _combine_xlsx_with_formulas(file_paths: List[str], output_path: str) -> None
     import openpyxl
     from copy import copy as copy_style
 
-    COL_P = 16       # TotalCost
-    COL_S = 19       # InvoiceTotal
-    COL_T = 20       # Freight
-    COL_U = 21       # Insurance
-    COL_V = 22       # Tax/OtherCost
-    COL_W = 23       # Deduction
+    # Column indices for the combined XLSX layout. These match the
+    # columns.yaml production schema (P=TotalCost, S=InvoiceTotal,
+    # T=Freight, U=Insurance, V=Tax/OtherCost, W=Deduction). Kept here
+    # as module-locals so the label-column number (12 = L) is also named.
+    COL_L = openpyxl.utils.cell.column_index_from_string("L")  # magic-ok: openpyxl stdlib letter-lookup contract
+    COL_P = openpyxl.utils.cell.column_index_from_string("P")  # magic-ok: openpyxl stdlib letter-lookup contract
+    COL_S = openpyxl.utils.cell.column_index_from_string("S")  # magic-ok: openpyxl stdlib letter-lookup contract
+    COL_T = openpyxl.utils.cell.column_index_from_string("T")  # magic-ok: openpyxl stdlib letter-lookup contract
+    COL_U = openpyxl.utils.cell.column_index_from_string("U")  # magic-ok: openpyxl stdlib letter-lookup contract
+    COL_V = openpyxl.utils.cell.column_index_from_string("V")  # magic-ok: openpyxl stdlib letter-lookup contract
+    COL_W = openpyxl.utils.cell.column_index_from_string("W")  # magic-ok: openpyxl stdlib letter-lookup contract
+    COL_X = openpyxl.utils.cell.column_index_from_string("X")  # magic-ok: openpyxl stdlib letter-lookup contract
 
-    FORMULA_LABELS = {'Subtotal', 'Adjustments', 'Net Total', 'Variance Check',
-                      'Subtotal Grouped', 'Subtotal Details', 'Group Verification',
-                      'Grand Subtotal', 'Grand Adjustments', 'Grand Net Total',
-                      'Grand Invoice Total', 'Grand Variance'}
+    L = _COMBINER_LABELS
+    FORMULA_LABELS = {
+        L["subtotal"], L["adjustments"], L["net_total"], L["variance_check"],
+        L["subtotal_grouped"], L["subtotal_details"], L["group_verification"],
+        L["grand_subtotal"], L["grand_adjustments"], L["grand_net_total"],
+        L["grand_invoice_total"], L["grand_variance"],
+    }
 
     # Load all source workbooks (with formulas, not data_only)
     sources = []
@@ -588,7 +607,7 @@ def _combine_xlsx_with_formulas(file_paths: List[str], output_path: str) -> None
 
     out_row = 2  # start writing data at row 2
     bold_font = openpyxl.styles.Font(bold=True)
-    currency_fmt = '#,##0.00'
+    currency_fmt = '#,##0.00'  # magic-ok: openpyxl number_format string contract
 
     # Track per-invoice rows for grand total formulas
     invoice_sections = []  # [{first_data_row, sub_row, net_row}]
@@ -609,7 +628,7 @@ def _combine_xlsx_with_formulas(file_paths: List[str], output_path: str) -> None
             if isinstance(tc, str) and tc.startswith('='):
                 break
             # Also stop at label rows
-            label = ws.cell(r, 12).value
+            label = ws.cell(r, COL_L).value
             if isinstance(label, str) and label.strip() in FORMULA_LABELS:
                 break
 
@@ -624,10 +643,10 @@ def _combine_xlsx_with_formulas(file_paths: List[str], output_path: str) -> None
                     dst.number_format = src.number_format
                     dst.alignment = copy_style(src.alignment)
 
-            # Clear packages (col X=24) for non-first invoices — the combined
+            # Clear packages (col X) for non-first invoices — the combined
             # entry's packages are set once on row 2 by update_xlsx_packages()
             if file_idx > 0:
-                out_ws.cell(out_row, 24).value = None
+                out_ws.cell(out_row, COL_X).value = None
 
             out_row += 1
 
@@ -641,15 +660,15 @@ def _combine_xlsx_with_formulas(file_paths: List[str], output_path: str) -> None
         p_refs = '+'.join(f'P{r}' for r in range(first_data_row, last_data_row + 1))
 
         sub_row = out_row
-        out_ws.cell(sub_row, 12).value = 'Subtotal'
-        out_ws.cell(sub_row, 12).font = bold_font
+        out_ws.cell(sub_row, COL_L).value = L["subtotal"]
+        out_ws.cell(sub_row, COL_L).font = bold_font
         out_ws.cell(sub_row, COL_P).value = f'={p_refs}'
         out_ws.cell(sub_row, COL_P).number_format = currency_fmt
 
         # Adjustments: T+U+V-W from this invoice's first data row
         adj_row = sub_row + 1
-        out_ws.cell(adj_row, 12).value = 'Adjustments'
-        out_ws.cell(adj_row, 12).font = bold_font
+        out_ws.cell(adj_row, COL_L).value = L["adjustments"]
+        out_ws.cell(adj_row, COL_L).font = bold_font
         out_ws.cell(adj_row, COL_P).value = (
             f'=(T{first_data_row}+U{first_data_row}'
             f'+V{first_data_row}-W{first_data_row})')
@@ -657,15 +676,15 @@ def _combine_xlsx_with_formulas(file_paths: List[str], output_path: str) -> None
 
         # Net Total: Subtotal + Adjustments
         net_row = adj_row + 1
-        out_ws.cell(net_row, 12).value = 'Net Total'
-        out_ws.cell(net_row, 12).font = bold_font
+        out_ws.cell(net_row, COL_L).value = L["net_total"]
+        out_ws.cell(net_row, COL_L).font = bold_font
         out_ws.cell(net_row, COL_P).value = f'=(P{sub_row}+P{adj_row})'
         out_ws.cell(net_row, COL_P).number_format = currency_fmt
 
         # Variance Check: InvoiceTotal(S) - Net Total
         var_row = net_row + 1
-        out_ws.cell(var_row, 12).value = 'Variance Check'
-        out_ws.cell(var_row, 12).font = bold_font
+        out_ws.cell(var_row, COL_L).value = L["variance_check"]
+        out_ws.cell(var_row, COL_L).font = bold_font
         out_ws.cell(var_row, COL_P).value = f'=(S{first_data_row}-P{net_row})'
         out_ws.cell(var_row, COL_P).number_format = currency_fmt
 
@@ -684,8 +703,8 @@ def _combine_xlsx_with_formulas(file_paths: List[str], output_path: str) -> None
         # Grand Subtotal: sum of all per-invoice Subtotal rows
         grand_sub_refs = '+'.join(f'P{s["sub_row"]}' for s in invoice_sections)
         grand_sub_row = out_row
-        out_ws.cell(grand_sub_row, 12).value = 'Grand Subtotal'
-        out_ws.cell(grand_sub_row, 12).font = bold_font
+        out_ws.cell(grand_sub_row, COL_L).value = L["grand_subtotal"]
+        out_ws.cell(grand_sub_row, COL_L).font = bold_font
         out_ws.cell(grand_sub_row, COL_P).value = f'={grand_sub_refs}'
         out_ws.cell(grand_sub_row, COL_P).number_format = currency_fmt
 
@@ -695,30 +714,30 @@ def _combine_xlsx_with_formulas(file_paths: List[str], output_path: str) -> None
             r = s['first_data_row']
             adj_parts.append(f'(T{r}+U{r}+V{r}-W{r})')
         grand_adj_row = grand_sub_row + 1
-        out_ws.cell(grand_adj_row, 12).value = 'Grand Adjustments'
-        out_ws.cell(grand_adj_row, 12).font = bold_font
+        out_ws.cell(grand_adj_row, COL_L).value = L["grand_adjustments"]
+        out_ws.cell(grand_adj_row, COL_L).font = bold_font
         out_ws.cell(grand_adj_row, COL_P).value = f'={"+".join(adj_parts)}'
         out_ws.cell(grand_adj_row, COL_P).number_format = currency_fmt
 
         # Grand Net Total
         grand_net_row = grand_adj_row + 1
-        out_ws.cell(grand_net_row, 12).value = 'Grand Net Total'
-        out_ws.cell(grand_net_row, 12).font = bold_font
+        out_ws.cell(grand_net_row, COL_L).value = L["grand_net_total"]
+        out_ws.cell(grand_net_row, COL_L).font = bold_font
         out_ws.cell(grand_net_row, COL_P).value = f'=(P{grand_sub_row}+P{grand_adj_row})'
         out_ws.cell(grand_net_row, COL_P).number_format = currency_fmt
 
         # Grand Invoice Total: sum of all S values
         s_refs = '+'.join(f'S{s["first_data_row"]}' for s in invoice_sections)
         grand_inv_row = grand_net_row + 1
-        out_ws.cell(grand_inv_row, 12).value = 'Grand Invoice Total'
-        out_ws.cell(grand_inv_row, 12).font = bold_font
+        out_ws.cell(grand_inv_row, COL_L).value = L["grand_invoice_total"]
+        out_ws.cell(grand_inv_row, COL_L).font = bold_font
         out_ws.cell(grand_inv_row, COL_P).value = f'={s_refs}'
         out_ws.cell(grand_inv_row, COL_P).number_format = currency_fmt
 
         # Grand Variance Check: Grand Invoice Total - Grand Net Total
         grand_var_row = grand_inv_row + 1
-        out_ws.cell(grand_var_row, 12).value = 'Grand Variance'
-        out_ws.cell(grand_var_row, 12).font = bold_font
+        out_ws.cell(grand_var_row, COL_L).value = L["grand_variance"]
+        out_ws.cell(grand_var_row, COL_L).font = bold_font
         out_ws.cell(grand_var_row, COL_P).value = f'=(P{grand_inv_row}-P{grand_net_row})'
         out_ws.cell(grand_var_row, COL_P).number_format = currency_fmt
 

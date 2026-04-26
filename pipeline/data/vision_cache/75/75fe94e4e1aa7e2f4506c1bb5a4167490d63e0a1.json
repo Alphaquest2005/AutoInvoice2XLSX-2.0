@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "112.22",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten '112.22' in the right margin near the Man Reg / WayBill Number fields"
+  },
+  "printed": {
+    "consignee": "MARGARET NOEL",
+    "freight": 19.0,
+    "waybill": "HAWB9539710",
+    "man_reg": "2024/26",
+    "office": "GDWBS",
+    "weight": 9.0,
+    "packages": 1
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

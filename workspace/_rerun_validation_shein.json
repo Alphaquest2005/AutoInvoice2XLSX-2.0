@@ -1,0 +1,97 @@
+{
+  "session_start": "2026-04-25T15:42:00.548424+00:00",
+  "total_folders": 1,
+  "processed": 1,
+  "elapsed_s": 159.1,
+  "results": [
+    {
+      "folder": "05292024_SHEIN_US_Services_LLC.",
+      "staged": 2,
+      "rc": 0,
+      "status": "ok",
+      "report": {
+        "status": "success",
+        "mode": "batch",
+        "invoice_count": 1,
+        "invoices": [
+          {
+            "invoice_num": "INVUS20240529001460693",
+            "supplier": "SHEIN US Services, LLC",
+            "format": "shein_us_invoice",
+            "items": 2,
+            "matched": 0,
+            "classified": 2,
+            "total": 19.62,
+            "freight": 0,
+            "packages": 1,
+            "xlsx_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp_d/05292024_SHEIN_US_Services_LLC..out/INVUS20240529001460693_combined.xlsx",
+            "pdf_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp_d/05292024_SHEIN_US_Services_LLC..out/INVUS20240529001460693.pdf"
+          }
+        ],
+        "email_sent": false,
+        "email_params_paths": [
+          "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp_d/05292024_SHEIN_US_Services_LLC..out/_email_params.json"
+        ],
+        "email_params_path": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/_rerun_tmp_d/05292024_SHEIN_US_Services_LLC..out/_email_params.json",
+        "validation": {
+          "total_issues": 0,
+          "fixed": 0,
+          "unfixed": 0,
+          "per_file": [
+            {
+              "file": "INVUS20240529001460693_combined.xlsx",
+              "supplier": "SHEIN US Services, LLC",
+              "issues": [],
+              "fixes": [],
+              "fixed": 0,
+              "unfixed": 0
+            }
+          ],
+          "package_check": {
+            "expected": 1,
+            "actual": 1,
+            "source": "manifest",
+            "per_file": [
+              {
+                "file": "INVUS20240529001460693_combined.xlsx",
+                "packages": 1
+              }
+            ],
+            "mismatch": false
+          },
+          "duplicate_check": {
+            "duplicates": [],
+            "content_duplicates": [],
+            "stale": [],
+            "has_issues": false
+          }
+        },
+        "checklist": {
+          "passed": false,
+          "failures": [
+            {
+              "check": "consignee_code_missing",
+              "severity": "warn",
+              "message": "Consignee code is empty.",
+              "field": "consignee_code",
+              "value": "",
+              "fix_hint": "Check config/document_types.json for the consignee code matching this consignee."
+            },
+            {
+              "check": "stale_tmp_path",
+              "severity": "block",
+              "message": "6 attachment path(s) point at a temp / rerun directory.",
+              "field": "attachment_paths",
+              "value": "INVUS20240529001460693.pdf",
+              "fix_hint": "Re-resolve attachment paths to point at the real output directory."
+            }
+          ],
+          "blocker_count": 1,
+          "warning_count": 1
+        }
+      },
+      "error": null,
+      "elapsed_s": 159.1
+    }
+  ]
+}

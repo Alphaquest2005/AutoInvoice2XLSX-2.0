@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9601033",
+  "consignee_name": "LA TOYA VICTOR",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "11.0",
+  "country_origin": "US",
+  "freight": "0",
+  "man_reg": null,
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0356/out/114-1382832-1146642.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0356/out/114-1382832-1146642.xlsx",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0356/out/HAWB9601033-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": ""
+}

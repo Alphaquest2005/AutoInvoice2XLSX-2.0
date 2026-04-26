@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "84.85",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten '84.85' appears vertically (rotated 90\u00b0 counter-clockwise) in the left margin beside the header"
+  },
+  "printed": {
+    "consignee": "ABIEL ELAHIE",
+    "freight": 9.0,
+    "waybill": "HAWB9658544",
+    "man_reg": "2024/30",
+    "office": "GDWBS",
+    "weight": 4.0,
+    "packages": 1
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

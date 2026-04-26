@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "8.24",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten number \"8.24\" appears vertically in the left margin beside the \"Grenada Simplified Declaration Form\" header (read bottom-to-top)"
+  },
+  "printed": {
+    "consignee": "SHERECA LEWIS",
+    "freight": 3.0,
+    "waybill": "HAWB9916326",
+    "man_reg": "2024/38",
+    "office": "GDWBS",
+    "weight": 1.0,
+    "packages": 1
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

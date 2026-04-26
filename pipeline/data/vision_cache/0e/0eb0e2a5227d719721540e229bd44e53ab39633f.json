@@ -6,7 +6,7 @@
     "duty_rate": "",
     "weight": "",
     "description": "",
-    "other_notes": "27.02 written vertically on the left margin beside the header"
+    "other_notes": "Handwritten '27.02' appears vertically in the left margin beside the header (rotated 90\u00b0 counter-clockwise, read bottom-to-top)"
   },
   "printed": {
     "consignee": "SANASHA JOHN",
@@ -18,5 +18,5 @@
     "packages": 1
   },
   "has_handwriting": true,
-  "_cache_version": 3
+  "_cache_version": 4
 }

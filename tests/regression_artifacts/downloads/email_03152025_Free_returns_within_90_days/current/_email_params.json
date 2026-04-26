@@ -11,12 +11,12 @@
   "freight": "7.00",
   "man_reg": "2024 28",
   "attachment_paths": [
-    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0335/out/03152025_Free_returns_within_90_days_Invoice_1.pdf",
-    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0335/out/CKETS_Invoice.pdf",
-    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0335/out/PO-211-071185147948703851.pdf",
-    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0335/out/03152025_Free_returns_within_90_days_Invoice.pdf",
-    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0335/out/HAWB9600432.xlsx",
-    "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0335/out/HAWB9600432-Declaration.pdf"
+    "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_036/out/03152025_Free_returns_within_90_days_Invoice_1.pdf",
+    "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_036/out/CKETS_Invoice.pdf",
+    "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_036/out/PO-211-071185147948703851.pdf",
+    "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_036/out/03152025_Free_returns_within_90_days_Invoice.pdf",
+    "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_036/out/HAWB9600432.xlsx",
+    "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_036/out/HAWB9600432-Declaration.pdf"
   ],
   "location": "WebSource",
   "office": "GDWBS"

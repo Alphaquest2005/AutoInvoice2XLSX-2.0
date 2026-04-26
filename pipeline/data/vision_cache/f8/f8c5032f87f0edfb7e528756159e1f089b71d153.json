@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": ""
+  },
+  "printed": {
+    "consignee": "Amin Import and Export",
+    "freight": 0,
+    "waybill": "1Z0168RA0397695087",
+    "man_reg": "",
+    "office": "",
+    "weight": null,
+    "packages": 1
+  },
+  "has_handwriting": false,
+  "_cache_version": 4
+}

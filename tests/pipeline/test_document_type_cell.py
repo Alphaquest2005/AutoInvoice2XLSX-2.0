@@ -15,7 +15,6 @@ both paths against re-introduction of the bug.
 """
 
 import sys
-import os
 from pathlib import Path
 
 import pytest
@@ -37,19 +36,21 @@ def _minimal_invoice():
         "invoice_total": 100.00,
         "items": [],
     }
-    matched = [{
-        "supplier_item": "TEST-1",
-        "supplier_item_desc": "Test item",
-        "quantity": 1,
-        "unit_price": 100.0,
-        "total_cost": 100.0,
-        "uom": "Each",
-        "tariff_code": "90318000",
-        "category": "MARINE ELECTRONICS",
-        "po_item_ref": "",
-        "po_item_desc": "",
-        "po_number": "",
-    }]
+    matched = [
+        {
+            "supplier_item": "TEST-1",
+            "supplier_item_desc": "Test item",
+            "quantity": 1,
+            "unit_price": 100.0,
+            "total_cost": 100.0,
+            "uom": "Each",
+            "tariff_code": "90318000",
+            "category": "MARINE ELECTRONICS",
+            "po_item_ref": "",
+            "po_item_desc": "",
+            "po_number": "",
+        }
+    ]
     supplier_info = {
         "code": "BUD",
         "name": "Budget Marine",
@@ -68,8 +69,11 @@ def test_bl_xlsx_writes_resolved_document_type(doc_type, tmp_path):
     invoice_data, matched, supplier_info = _minimal_invoice()
     out = tmp_path / f"inv_{doc_type}.xlsx"
     generate_bl_xlsx(
-        invoice_data, matched, "Budget Marine",
-        supplier_info, str(out),
+        invoice_data,
+        matched,
+        "Budget Marine",
+        supplier_info,
+        str(out),
         document_type=doc_type,
     )
 
@@ -93,6 +97,7 @@ def test_single_xlsx_writes_resolved_document_type(doc_type, tmp_path):
     """xlsx_generator.run (single-invoice path) must write the resolved
     doc_type from context into A2, not the hardcoded '4000-000'."""
     import json
+
     import xlsx_generator
 
     grouped = {
@@ -101,28 +106,33 @@ def test_single_xlsx_writes_resolved_document_type(doc_type, tmp_path):
             "date": "2026-03-31",
             "document_type": doc_type,
         },
-        "groups": [{
-            "tariff_code": "90318000",
-            "category": "MARINE ELECTRONICS",
-            "item_count": 1,
-            "sum_quantity": 1,
-            "sum_total_cost": 100.0,
-            "average_unit_cost": 100.0,
-            "items": [{
-                "supplier_item": "TEST-1",
-                "description": "Test item",
-                "quantity": 1,
-                "unit_price": 100.0,
-                "total_cost": 100.0,
-            }],
-        }],
+        "groups": [
+            {
+                "tariff_code": "90318000",
+                "category": "MARINE ELECTRONICS",
+                "item_count": 1,
+                "sum_quantity": 1,
+                "sum_total_cost": 100.0,
+                "average_unit_cost": 100.0,
+                "items": [
+                    {
+                        "supplier_item": "TEST-1",
+                        "description": "Test item",
+                        "quantity": 1,
+                        "unit_price": 100.0,
+                        "total_cost": 100.0,
+                    }
+                ],
+            }
+        ],
     }
     grouped_path = tmp_path / "grouped.json"
     grouped_path.write_text(json.dumps(grouped))
     out = tmp_path / "inv.xlsx"
 
     result = xlsx_generator.run(
-        str(grouped_path), str(out),
+        str(grouped_path),
+        str(out),
         context={"document_type": doc_type, "input_file": str(grouped_path)},
     )
     assert result.get("status") != "error", f"xlsx_generator error: {result}"

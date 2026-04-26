@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9605901",
+  "consignee_name": "MICHELE MARELLI",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "3.0",
+  "country_origin": "US",
+  "freight": "7.00",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0354/out/112-2894545-9421810.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0354/out/112-2894545-9421810.xlsx",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0354/out/HAWB9605901-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

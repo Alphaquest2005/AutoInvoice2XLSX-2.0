@@ -23,8 +23,10 @@ from __future__ import annotations
 import argparse
 import ast
 import hashlib
+import io
 import re
 import sys
+import tokenize
 from pathlib import Path
 
 _HOOKS_DIR = Path(__file__).resolve().parent
@@ -37,7 +39,8 @@ REPO_ROOT = _HOOKS_DIR.parent.parent
 DRAFT_PATH = REPO_ROOT / ".claude" / "magic-ok-approvals.draft.yaml"
 LIVE_PATH = REPO_ROOT / ".claude" / "magic-ok-approvals.yaml"
 EXCLUDE_PARTS = {".git", ".venv", "venv", "node_modules",
-                 "__pycache__", "workspace", "memory"}
+                 "__pycache__", "workspace", "memory",
+                 ".claude"}
 POLICY_EXEMPT_RELATIVE = Path("scripts") / "hooks"
 MAGIC_OK_RE = re.compile(r"#\s*magic-ok:\s*(\S.*?)\s*$")
 
@@ -87,10 +90,21 @@ def _extract_bypasses(file_path):
         if line and line not in constants_by_line:
             constants_by_line[line] = node
 
+    # Extract real Python comments (tokenize-based, not regex over source
+    # text) so that fixture strings containing "# magic-ok:" don't produce
+    # false positives in test files.
+    comment_by_line = {}
+    try:
+        for tok in tokenize.generate_tokens(io.StringIO(text).readline):
+            if tok.type == tokenize.COMMENT:
+                comment_by_line.setdefault(tok.start[0], tok.string)
+    except (tokenize.TokenizeError, IndentationError, SyntaxError):
+        return []
+
     rel = str(file_path.relative_to(REPO_ROOT))
     out = []
-    for idx, line in enumerate(text.splitlines(), start=1):
-        m = MAGIC_OK_RE.search(line)
+    for idx, comment in comment_by_line.items():
+        m = MAGIC_OK_RE.search(comment)
         if not m:
             continue
         reason = m.group(1).strip()
@@ -132,10 +146,22 @@ def _format_draft(all_bypasses):
             f"  - fingerprint: \"{b['fingerprint']}\"",
             f"    path: \"{b['path']}\"",
             f"    line: {b['line']}",
-            f"    literal: {b['literal_repr']}",
-            f"    reason: \"{b['reason']}\"",
+            f"    literal: {_yaml_dq(b['literal_repr'])}",
+            f"    reason: {_yaml_dq(b['reason'])}",
         ])
     return "\n".join(lines) + "\n"
+
+
+def _yaml_dq(value):
+    """Render a Python string as a YAML double-quoted scalar.
+
+    _truncate() already returns a string with Python-style repr
+    (wrapped in single quotes). For the reason + literal fields we
+    emit a proper double-quoted YAML scalar with escapes so embedded
+    quotes / backslashes don't break the draft."""
+    s = str(value)
+    escaped = s.replace("\\", "\\\\").replace("\"", "\\\"")
+    return f"\"{escaped}\""
 
 
 def main():

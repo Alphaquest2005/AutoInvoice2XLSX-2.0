@@ -195,6 +195,11 @@ def load_xlsx_labels() -> dict:
     return _load_yaml("xlsx_labels.yaml")
 
 
+def load_hs_categories() -> dict:
+    """config/hs_categories.yaml — HS/tariff-code → XLSX category label."""
+    return _load_yaml("hs_categories.yaml")
+
+
 # --------------------------------------------------------------- derived
 
 # Helpers that do common one-line transforms on top of the raw loaders so

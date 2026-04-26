@@ -18,6 +18,14 @@ from typing import Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
+# Sentinel that the checklist auto-fixer prepends to the ``notes`` argument
+# of ``compose_email`` to opt-in to the PRE-SEND ISSUES banner rendering at
+# the top of the email body. Plain (non-sentinel) notes keep the legacy
+# bottom-of-body placement so unrelated callers are unaffected.
+PRE_SEND_SENTINEL = "\u27eaPRE-SEND ISSUES\u27eb"   # magic-ok: in-band marker for top-banner rendering
+_PRE_SEND_HEADING = "\u26a0 PRE-SEND ISSUES \u2014 please review and correct in app:"   # magic-ok: banner heading
+_PRE_SEND_RULE = "\u2500" * 60   # magic-ok: banner separator width
+
 
 def compose_email(
     waybill: str,
@@ -62,7 +70,23 @@ def compose_email(
     except (ValueError, TypeError):
         freight_display = freight
 
+    # Detect the checklist-fixer sentinel and split off the banner content so
+    # it can be rendered at the TOP of the body instead of the legacy bottom
+    # placement. The sentinel itself is internal and never leaks into the body.
+    pre_send_block_lines: List[str] = []
+    notes_remainder = notes or ""
+    if notes_remainder.startswith(PRE_SEND_SENTINEL):
+        banner_payload = notes_remainder[len(PRE_SEND_SENTINEL):].lstrip("\n")
+        pre_send_block_lines = [
+            _PRE_SEND_HEADING,
+            *[ln for ln in banner_payload.splitlines() if ln.strip() != ""],
+            _PRE_SEND_RULE,
+            "",
+        ]
+        notes_remainder = ""   # consumed — do NOT also render at the bottom
+
     lines = [
+        *pre_send_block_lines,
         f"Expected Entries: {expected_entries or total_invoices}",
         f"Manifest: {man_reg}",
         "",
@@ -93,9 +117,9 @@ def compose_email(
         f"Office: {office}",
     ]
 
-    if notes:
+    if notes_remainder:
         lines.append("")
-        lines.append(f"Notes: {notes}")
+        lines.append(f"Notes: {notes_remainder}")
 
     # Filter attachments to only existing files
     attachments = [p for p in (attachment_paths or []) if p and os.path.exists(p)]

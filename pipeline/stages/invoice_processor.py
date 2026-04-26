@@ -31,6 +31,7 @@ from stages.supplier_resolver import (
     get_supplier_info,
     update_supplier_entry,
 )
+from _diag import Stage
 
 
 @dataclass
@@ -199,6 +200,23 @@ def process_single_invoice(
     pdf_file = os.path.basename(pdf_path)
     print(f"  Processing: {pdf_file}")
 
+    with Stage("invoice.process_single", file=pdf_file) as _outer:
+        return _process_single_invoice_impl(
+            pdf_path, registry, matcher, rules, noise_words,
+            supplier_db, output_dir, document_type, verbose, _outer,
+        )
+
+
+def _process_single_invoice_impl(
+    pdf_path, registry, matcher, rules, noise_words, supplier_db,
+    output_dir, document_type, verbose, _outer,
+):
+    """Implementation body of process_single_invoice (kept separate so the
+    outer Stage context manager wraps the entire flow including early
+    returns). _outer.mark() is used to log step boundaries inline so the
+    [DIAG] trace shows where time is spent for each invoice."""
+    pdf_file = os.path.basename(pdf_path)
+
     # 0. Auto-reorder pages if the invoice was scanned out of order.
     # We only run this when there is no cached .txt sidecar yet — otherwise
     # the reorder helper would trigger a fresh OCR pass just to read the
@@ -208,28 +226,34 @@ def process_single_invoice(
     # order; this branch only catches standalone --input PDFs.
     # Also skip single-page PDFs where reorder is impossible — avoids
     # paying the OCR cost just to confirm there's nothing to reorder.
+    _outer.mark("step-0-auto-reorder")
     txt_sidecar = pdf_path.rsplit('.', 1)[0] + '.txt'
     if not os.path.exists(txt_sidecar):
         try:
-            import pdfplumber as _pb
-            with _pb.open(pdf_path) as _p:
-                _npages = len(_p.pages)
-            if _npages > 1:
-                from pdf_splitter import auto_reorder_if_scanned
-                _r = auto_reorder_if_scanned(pdf_path)
-                if _r.get('reordered'):
-                    print(f"    Auto-reordered scanned pages: {_r['new_order']}")
+            with Stage("invoice.step0.auto_reorder", file=pdf_file):
+                import pdfplumber as _pb
+                with _pb.open(pdf_path) as _p:
+                    _npages = len(_p.pages)
+                if _npages > 1:
+                    from pdf_splitter import auto_reorder_if_scanned
+                    _r = auto_reorder_if_scanned(pdf_path)
+                    if _r.get('reordered'):
+                        print(f"    Auto-reordered scanned pages: {_r['new_order']}")
         except Exception as _e:
             logger.debug(f"auto_reorder skipped for {pdf_file}: {_e}")
 
     # 1. Extract text from PDF
-    text = extract_pdf_text(pdf_path)
+    _outer.mark("step-1-extract-text")
+    with Stage("invoice.step1.extract_pdf_text", file=pdf_file):
+        text = extract_pdf_text(pdf_path)
     if not text.strip():
         print(f"    WARNING: No text extracted from {pdf_file}")
         return None
 
     # 2. Detect format and parse using FormatRegistry
-    format_spec = registry.detect_format(text)
+    _outer.mark("step-2-detect-and-parse")
+    with Stage("invoice.step2.detect_format", file=pdf_file):
+        format_spec = registry.detect_format(text)
     fmt_parser = None
     format_source = 'unmatched'  # tracks how format was determined: yaml_spec, llm_auto, unmatched
     if format_spec:
@@ -239,21 +263,25 @@ def process_single_invoice(
         # Two-pass OCR: if format has ocr_config and initial parse yields few/no items,
         # re-extract text with format-specific OCR settings and re-parse
         ocr_cfg = format_spec.get('ocr_config')
-        fmt_parser = create_parser(format_spec)
-        raw_result = fmt_parser.parse(text)
-        invoice_data = normalize_parse_result(raw_result)
+        with Stage("invoice.step2.parse", file=pdf_file,
+                   format=format_spec.get('name', '?')):
+            fmt_parser = create_parser(format_spec)
+            raw_result = fmt_parser.parse(text)
+            invoice_data = normalize_parse_result(raw_result)
 
         if ocr_cfg and not invoice_data.get('items'):
             logger.info(f"Re-OCR with format config: {ocr_cfg}")
-            better_text = extract_pdf_text(pdf_path, ocr_config=ocr_cfg)
+            with Stage("invoice.step2.re_ocr", file=pdf_file):
+                better_text = extract_pdf_text(pdf_path, ocr_config=ocr_cfg)
             if better_text and better_text != text:
                 digit_new = sum(c.isdigit() for c in better_text)
                 digit_old = sum(c.isdigit() for c in text)
                 if digit_new > digit_old:
                     text = better_text
-                    fmt_parser = create_parser(format_spec)
-                    raw_result = fmt_parser.parse(text)
-                    invoice_data = normalize_parse_result(raw_result)
+                    with Stage("invoice.step2.reparse", file=pdf_file):
+                        fmt_parser = create_parser(format_spec)
+                        raw_result = fmt_parser.parse(text)
+                        invoice_data = normalize_parse_result(raw_result)
                     logger.info(f"Re-OCR improved: {digit_old}→{digit_new} digits, {len(invoice_data.get('items',[]))} items")
     else:
         logger.warning(f"No format matched for {pdf_file}")
@@ -261,13 +289,14 @@ def process_single_invoice(
         # Attempt LLM-based auto-generation of format spec
         auto_result = None
         try:
-            from stages.auto_format import try_auto_generate
-            auto_result = try_auto_generate(
-                text=text,
-                registry=registry,
-                supplier_name='',
-                pdf_file=pdf_file,
-            )
+            with Stage("invoice.step2.auto_generate_spec", file=pdf_file):
+                from stages.auto_format import try_auto_generate
+                auto_result = try_auto_generate(
+                    text=text,
+                    registry=registry,
+                    supplier_name='',
+                    pdf_file=pdf_file,
+                )
         except Exception as e:
             logger.warning(f"Auto format generation failed: {e}")
 
@@ -312,8 +341,11 @@ def process_single_invoice(
           f"{' (from invoice)' if invoice_supplier else ' (from PO)'}")
 
     # 4. Match items against PO (if matcher provided)
+    _outer.mark("step-4-po-match")
     if matcher:
-        matched = matcher.match_invoice(invoice_data, pdf_file)
+        with Stage("invoice.step4.po_match", file=pdf_file,
+                   n_items=len(invoice_data.get('items', []))):
+            matched = matcher.match_invoice(invoice_data, pdf_file)
     else:
         # No PO matching — convert items to matched format
         matched = _items_without_po(invoice_data)
@@ -321,15 +353,22 @@ def process_single_invoice(
     # Filter out zero-value items (back orders with no price)
     # Skip filter when the entire invoice is $0.00 — these are legitimate
     # free/promotional items (common in SHEIN) that still need declaration.
+    #
+    # Also drop items with quantity==0 AND no PO match: a real line item
+    # always has at least a quantity OR a PO reference.  Zero-quantity
+    # un-matched rows with a price are footer/totals fields mis-extracted
+    # by the parser (HAWB9421183: "Order Total", "Estimated tax", etc.
+    # all surfaced as quantity=0 priced rows).
     invoice_total = invoice_data.get('invoice_total', 0) or 0
     before_filter = len(matched)
     if invoice_total > 0:
         matched = [
             m for m in matched
-            if (m.get('total_cost') or 0) != 0 or (m.get('unit_price') or 0) != 0
+            if ((m.get('total_cost') or 0) != 0 or (m.get('unit_price') or 0) != 0)
+            and ((m.get('quantity') or 0) != 0 or m.get('po_item_ref'))
         ]
     if len(matched) < before_filter:
-        print(f"    Filtered {before_filter - len(matched)} zero-value back-order items")
+        print(f"    Filtered {before_filter - len(matched)} zero-value/zero-qty items")
 
     matched_count = sum(1 for m in matched
                         if m.get('match_score', 0) > 0 or m.get('po_item_ref'))
@@ -366,7 +405,9 @@ def process_single_invoice(
         'web_verify': {'enabled': True},
         'llm_classification': {'enabled': True},
     }
-    classified_count = classify_matched_items(matched, rules, noise_words, config=classification_config)
+    _outer.mark("step-5-classify")
+    with Stage("invoice.step5.classify", file=pdf_file, n_items=len(matched)):
+        classified_count = classify_matched_items(matched, rules, noise_words, config=classification_config)
 
     # 5b. Apply default classification from format spec for unclassified items
     default_code = fmt_classification.get('default_code', '')
@@ -386,9 +427,12 @@ def process_single_invoice(
           f"{f' (unclassified: {unclassified})' if unclassified else ''}")
 
     # 6. Build supplier info: invoice PDF → suppliers.json → vision logo → web search
-    supplier_info = get_supplier_info(
-        supplier_name, supplier_db, invoice_data, pdf_path=pdf_path
-    )
+    _outer.mark("step-6-supplier-info")
+    with Stage("invoice.step6.supplier_info", file=pdf_file,
+               supplier=supplier_name or "?"):
+        supplier_info = get_supplier_info(
+            supplier_name, supplier_db, invoice_data, pdf_path=pdf_path
+        )
     display_name = supplier_info.get('name', '') or supplier_name
 
     # Persist resolved supplier data back to suppliers.json (in-memory)
@@ -532,11 +576,14 @@ def process_single_invoice(
                 "cannot synthesise; downstream variance check will flag"
             )
 
-    generate_bl_xlsx(
-        invoice_data, matched, display_name,
-        supplier_info, xlsx_path,
-        document_type=document_type,
-    )
+    _outer.mark("step-7-generate-xlsx")
+    with Stage("invoice.step7.generate_bl_xlsx", file=pdf_file,
+               n_items=len(matched)):
+        generate_bl_xlsx(
+            invoice_data, matched, display_name,
+            supplier_info, xlsx_path,
+            document_type=document_type,
+        )
 
     # 7c. Write .meta.json sidecar for regression testing
     #     Persists classification_source per item and format provenance so the
@@ -609,12 +656,14 @@ def process_single_invoice(
             try:
                 from workflow.variance_fixer import fix_variance
                 variance_before_fix = float(variance)
-                fix_result = fix_variance(
-                    xlsx_path=xlsx_path,
-                    invoice_text=text,
-                    current_variance=variance_before_fix,
-                    honest_mode=False,
-                )
+                with Stage("invoice.step9.variance_fix_llm", file=pdf_file,
+                           variance=f"{variance_before_fix:.2f}"):
+                    fix_result = fix_variance(
+                        xlsx_path=xlsx_path,
+                        invoice_text=text,
+                        current_variance=variance_before_fix,
+                        honest_mode=False,
+                    )
                 if fix_result.get('success'):
                     new_variance = fix_result.get('new_variance', variance)
                     print(f"    Variance fix (llm): ${variance:.2f} -> ${new_variance:.2f}")

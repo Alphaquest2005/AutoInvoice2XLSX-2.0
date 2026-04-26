@@ -1,0 +1,32 @@
+{
+  "waybill": "HAWB9603225",
+  "consignee_name": "SHEMICA CHARLES",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 13,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "8.0",
+  "country_origin": "US",
+  "freight": "17.00",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_034/out/GSUNJY57B00NGXE.pdf",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_034/out/GSUNJY57B00NGXD.pdf",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_034/out/GSUNJY57B00NGXG.pdf",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_034/out/GSUNJY57B00NGXJ.pdf",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_034/out/GSUNJY57B00NGXL.pdf",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_034/out/GSUNJY57B00NGY1.pdf",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_034/out/GSUNJY57B00NGXV.pdf",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_034/out/GSUNJY57B00NGY2.pdf",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_034/out/GSUNJY57B00NGXK.pdf",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_034/out/INVUS20240717003609843.pdf",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_034/out/GSUNJY57B00NGYN.pdf",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_034/out/GSUNJY57B00NGXP.pdf",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_034/out/GSUNJY57B00NGXH.pdf",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_034/out/HAWB9603225_combined.xlsx",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_034/out/HAWBS9603225CH-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

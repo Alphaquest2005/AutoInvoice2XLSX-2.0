@@ -1,0 +1,1647 @@
+{
+  "HAWB9580506_combined.xlsx": {
+    "__type__": "xlsx",
+    "sheets": {
+      "Combined Invoices": {
+        "A1": {
+          "value": "'Document Type'"
+        },
+        "A107": {
+          "value": "'4000-000'"
+        },
+        "A122": {
+          "value": "'4000-000'"
+        },
+        "A17": {
+          "value": "'4000-000'"
+        },
+        "A2": {
+          "value": "'4000-000'"
+        },
+        "A32": {
+          "value": "'4000-000'"
+        },
+        "A47": {
+          "value": "'4000-000'"
+        },
+        "A62": {
+          "value": "'4000-000'"
+        },
+        "A77": {
+          "value": "'4000-000'"
+        },
+        "A92": {
+          "value": "'4000-000'"
+        },
+        "AA1": {
+          "value": "'Supplier Name'"
+        },
+        "AA107": {
+          "value": "'SHEIN US Services, LLC'"
+        },
+        "AA122": {
+          "value": "'SHEIN US Services, LLC'"
+        },
+        "AA17": {
+          "value": "'SHEIN US Services, LLC'"
+        },
+        "AA2": {
+          "value": "'SHEIN US Services, LLC'"
+        },
+        "AA32": {
+          "value": "'SHEIN US Services, LLC'"
+        },
+        "AA47": {
+          "value": "'SHEIN US Services, LLC'"
+        },
+        "AA62": {
+          "value": "'SHEIN US Services, LLC'"
+        },
+        "AA77": {
+          "value": "'SHEIN US Services, LLC'"
+        },
+        "AA92": {
+          "value": "'SHEIN US Services, LLC'"
+        },
+        "AB1": {
+          "value": "'Supplier Address'"
+        },
+        "AB107": {
+          "value": "'777 S. Alameda St., Second Floor, Los Angeles, CA 90021'"
+        },
+        "AB122": {
+          "value": "'777 S. Alameda St., Second Floor, Los Angeles, CA 90021'"
+        },
+        "AB17": {
+          "value": "'777 S. Alameda St., Second Floor, Los Angeles, CA 90021'"
+        },
+        "AB2": {
+          "value": "'777 S. Alameda St., Second Floor, Los Angeles, CA 90021'"
+        },
+        "AB32": {
+          "value": "'777 S. Alameda St., Second Floor, Los Angeles, CA 90021'"
+        },
+        "AB47": {
+          "value": "'777 S. Alameda St., Second Floor, Los Angeles, CA 90021'"
+        },
+        "AB62": {
+          "value": "'777 S. Alameda St., Second Floor, Los Angeles, CA 90021'"
+        },
+        "AB77": {
+          "value": "'777 S. Alameda St., Second Floor, Los Angeles, CA 90021'"
+        },
+        "AB92": {
+          "value": "'777 S. Alameda St., Second Floor, Los Angeles, CA 90021'"
+        },
+        "AC1": {
+          "value": "'Country Code'"
+        },
+        "AC107": {
+          "value": "'US'"
+        },
+        "AC122": {
+          "value": "'US'"
+        },
+        "AC17": {
+          "value": "'US'"
+        },
+        "AC2": {
+          "value": "'US'"
+        },
+        "AC32": {
+          "value": "'US'"
+        },
+        "AC47": {
+          "value": "'US'"
+        },
+        "AC62": {
+          "value": "'US'"
+        },
+        "AC77": {
+          "value": "'US'"
+        },
+        "AC92": {
+          "value": "'US'"
+        },
+        "AD1": {
+          "value": "'Instructions'"
+        },
+        "AE1": {
+          "value": "'Previous Declaration'"
+        },
+        "AF1": {
+          "value": "'Financial Information'"
+        },
+        "AG1": {
+          "value": "'Gallons'"
+        },
+        "AH1": {
+          "value": "'Liters'"
+        },
+        "AI1": {
+          "value": "'INVTotalCost'"
+        },
+        "AJ1": {
+          "value": "'POTotalCost'"
+        },
+        "AK1": {
+          "value": "'GroupBy'"
+        },
+        "AK107": {
+          "value": "'71171900'"
+        },
+        "AK122": {
+          "value": "'64029910'"
+        },
+        "AK17": {
+          "value": "'71171900'"
+        },
+        "AK2": {
+          "value": "'62044400'"
+        },
+        "AK32": {
+          "value": "'42022200'"
+        },
+        "AK47": {
+          "value": "'71171900'"
+        },
+        "AK62": {
+          "value": "'62044400'"
+        },
+        "AK77": {
+          "value": "'62044900'"
+        },
+        "AK92": {
+          "value": "'62041300'"
+        },
+        "B1": {
+          "value": "'PO Number'"
+        },
+        "C1": {
+          "value": "'Supplier Invoice#'"
+        },
+        "C107": {
+          "value": "'INVUS20240711002806785'"
+        },
+        "C122": {
+          "value": "'INVUS20240711002786912'"
+        },
+        "C17": {
+          "value": "'INVUS20240711002786486'"
+        },
+        "C2": {
+          "value": "'INVUS20240711002806788'"
+        },
+        "C32": {
+          "value": "'INVUS20240711002801285'"
+        },
+        "C47": {
+          "value": "'INVUS20240711002786908'"
+        },
+        "C62": {
+          "value": "'INVUS20240711002812933'"
+        },
+        "C77": {
+          "value": "'INVUS20240711002795457'"
+        },
+        "C92": {
+          "value": "'INVUS20240711002812931'"
+        },
+        "D1": {
+          "value": "'Date'"
+        },
+        "D107": {
+          "value": "'2024-07-11'"
+        },
+        "D122": {
+          "value": "'2024-07-11'"
+        },
+        "D17": {
+          "value": "'2024-07-11'"
+        },
+        "D2": {
+          "value": "'2024-07-11'"
+        },
+        "D32": {
+          "value": "'2024-07-11'"
+        },
+        "D47": {
+          "value": "'2024-07-11'"
+        },
+        "D62": {
+          "value": "'2024-07-11'"
+        },
+        "D77": {
+          "value": "'2024-07-11'"
+        },
+        "D92": {
+          "value": "'2024-07-11'"
+        },
+        "E1": {
+          "value": "'Category'"
+        },
+        "E107": {
+          "value": "'IMITATION JEWELRY'"
+        },
+        "E122": {
+          "value": "'FOOTWEAR'"
+        },
+        "E17": {
+          "value": "'IMITATION JEWELRY'"
+        },
+        "E2": {
+          "value": "'Of artificial fibres'"
+        },
+        "E32": {
+          "value": "'BAGS & LUGGAGE'"
+        },
+        "E47": {
+          "value": "'IMITATION JEWELRY'"
+        },
+        "E62": {
+          "value": "'Of artificial fibres'"
+        },
+        "E77": {
+          "value": "'Of other textile materials'"
+        },
+        "E92": {
+          "value": "'Shirt-jacs'"
+        },
+        "F1": {
+          "value": "'TariffCode'"
+        },
+        "F107": {
+          "value": "'71171900'"
+        },
+        "F122": {
+          "value": "'64029910'"
+        },
+        "F17": {
+          "value": "'71171900'"
+        },
+        "F2": {
+          "value": "'62044400'"
+        },
+        "F32": {
+          "value": "'42022200'"
+        },
+        "F47": {
+          "value": "'71171900'"
+        },
+        "F62": {
+          "value": "'62044400'"
+        },
+        "F77": {
+          "value": "'62044900'"
+        },
+        "F92": {
+          "value": "'62041300'"
+        },
+        "G1": {
+          "value": "'PO Item Number'"
+        },
+        "H1": {
+          "value": "'PO Item Description'"
+        },
+        "I1": {
+          "value": "'Supplier Item Number'"
+        },
+        "I107": {
+          "value": "'SHEIN-1'"
+        },
+        "I122": {
+          "value": "'SHEIN-1'"
+        },
+        "I17": {
+          "value": "'SHEIN-1'"
+        },
+        "I2": {
+          "value": "'SHEIN-1'"
+        },
+        "I32": {
+          "value": "'SHEIN-1'"
+        },
+        "I47": {
+          "value": "'SHEIN-1'"
+        },
+        "I62": {
+          "value": "'SHEIN-1'"
+        },
+        "I77": {
+          "value": "'SHEIN-1'"
+        },
+        "I92": {
+          "value": "'SHEIN-1'"
+        },
+        "J1": {
+          "value": "'Supplier Item Description'"
+        },
+        "J10": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J100": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J101": {
+          "value": "'CET (20%) \u2014 Tariff 62043310'"
+        },
+        "J102": {
+          "value": "'CSC (6%)'"
+        },
+        "J103": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J104": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J105": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J107": {
+          "value": "'(3pcs/Set) Punk Style Exaggerated Glossy Round Opening Ring, Geometric Curved...'"
+        },
+        "J108": {
+          "value": "'SUBTOTAL'"
+        },
+        "J109": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J11": {
+          "value": "'CET (20%) \u2014 Tariff 62044400'"
+        },
+        "J110": {
+          "value": "'NET TOTAL'"
+        },
+        "J111": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J113": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J114": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J115": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J116": {
+          "value": "'CET (20%) \u2014 Tariff 71171900'"
+        },
+        "J117": {
+          "value": "'CSC (6%)'"
+        },
+        "J118": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J119": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J12": {
+          "value": "'CSC (6%)'"
+        },
+        "J120": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J122": {
+          "value": "'Fashionable Women High Heel Sandals, Mid-Heel Sandals, Mid-Heel Slippers, Chu...'"
+        },
+        "J123": {
+          "value": "'SUBTOTAL'"
+        },
+        "J124": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J125": {
+          "value": "'NET TOTAL'"
+        },
+        "J126": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J128": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J129": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J13": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J130": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J131": {
+          "value": "'CET (20%) \u2014 Tariff 64029910'"
+        },
+        "J132": {
+          "value": "'CSC (6%)'"
+        },
+        "J133": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J134": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J135": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J14": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J15": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J17": {
+          "value": "'Textured Cuff Hoop Earrings'"
+        },
+        "J18": {
+          "value": "'SUBTOTAL'"
+        },
+        "J19": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J2": {
+          "value": "'SHEIN MOD Plus Size Summer Casual Solid Color Sleeveless Cinching Waist Dress'"
+        },
+        "J20": {
+          "value": "'NET TOTAL'"
+        },
+        "J21": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J23": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J24": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J25": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J26": {
+          "value": "'CET (20%) \u2014 Tariff 71171900'"
+        },
+        "J27": {
+          "value": "'CSC (6%)'"
+        },
+        "J28": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J29": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J3": {
+          "value": "'SUBTOTAL'"
+        },
+        "J30": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J32": {
+          "value": "'Mini Chain Flap Saddle Bag,Trendy Business Casual Bag For Women, Pefect For O...'"
+        },
+        "J33": {
+          "value": "'SUBTOTAL'"
+        },
+        "J34": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J35": {
+          "value": "'NET TOTAL'"
+        },
+        "J36": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J38": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J39": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J4": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J40": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J41": {
+          "value": "'CET (20%) \u2014 Tariff 42022200'"
+        },
+        "J42": {
+          "value": "'CSC (6%)'"
+        },
+        "J43": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J44": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J45": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J47": {
+          "value": "'1pair Geometric Texture Oval Pearl Inlay Pendant Vintage Elegant Women Earrings'"
+        },
+        "J48": {
+          "value": "'SUBTOTAL'"
+        },
+        "J49": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J5": {
+          "value": "'NET TOTAL'"
+        },
+        "J50": {
+          "value": "'NET TOTAL'"
+        },
+        "J51": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J53": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J54": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J55": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J56": {
+          "value": "'CET (20%) \u2014 Tariff 71171900'"
+        },
+        "J57": {
+          "value": "'CSC (6%)'"
+        },
+        "J58": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J59": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J6": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J60": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J62": {
+          "value": "'SHEIN Priv\u00e9 Plus Crisscross Backless Cami Dress For Summer'"
+        },
+        "J63": {
+          "value": "'SUBTOTAL'"
+        },
+        "J64": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J65": {
+          "value": "'NET TOTAL'"
+        },
+        "J66": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J68": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J69": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J70": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J71": {
+          "value": "'CET (20%) \u2014 Tariff 62044400'"
+        },
+        "J72": {
+          "value": "'CSC (6%)'"
+        },
+        "J73": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J74": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J75": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J77": {
+          "value": "'Baby Girl Butterfly Appliques Contrast Mesh Cami Dress'"
+        },
+        "J78": {
+          "value": "'SUBTOTAL'"
+        },
+        "J79": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J8": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J80": {
+          "value": "'NET TOTAL'"
+        },
+        "J81": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J83": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J84": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J85": {
+          "value": "'CIF (XCD) = CIF \u00d7 2.7169'"
+        },
+        "J86": {
+          "value": "'CET (20%) \u2014 Tariff 62044900'"
+        },
+        "J87": {
+          "value": "'CSC (6%)'"
+        },
+        "J88": {
+          "value": "'VAT (15%) on CIF+CET+CSC'"
+        },
+        "J89": {
+          "value": "'ESTIMATED TOTAL DUTIES'"
+        },
+        "J9": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "J90": {
+          "value": "'Effective Duty Rate'"
+        },
+        "J92": {
+          "value": "'SHEIN Frenchy Plus Size Casual Suit Vest 2pcs/Set'"
+        },
+        "J93": {
+          "value": "'SUBTOTAL'"
+        },
+        "J94": {
+          "value": "'ADJUSTMENTS'"
+        },
+        "J95": {
+          "value": "'NET TOTAL'"
+        },
+        "J96": {
+          "value": "'VARIANCE CHECK'"
+        },
+        "J98": {
+          "value": "'DUTY ESTIMATION (Classification Cross-Check)'"
+        },
+        "J99": {
+          "value": "'CIF (USD) = InvTotal + Freight + Insurance'"
+        },
+        "K1": {
+          "value": "'Quantity'"
+        },
+        "K107": {
+          "value": "1"
+        },
+        "K122": {
+          "value": "1"
+        },
+        "K17": {
+          "value": "1"
+        },
+        "K2": {
+          "value": "1"
+        },
+        "K32": {
+          "value": "1"
+        },
+        "K47": {
+          "value": "1"
+        },
+        "K62": {
+          "value": "1"
+        },
+        "K77": {
+          "value": "1"
+        },
+        "K92": {
+          "value": "1"
+        },
+        "L1": {
+          "value": "'Per Unit'"
+        },
+        "L138": {
+          "value": "'\u2550\u2550\u2550 COMBINED GRAND SUMMARY \u2550\u2550\u2550'"
+        },
+        "L139": {
+          "value": "'Invoice INVUS20240711002806788'"
+        },
+        "L140": {
+          "value": "'Invoice INVUS20240711002786486'"
+        },
+        "L141": {
+          "value": "'Invoice INVUS20240711002801285'"
+        },
+        "L142": {
+          "value": "'Invoice INVUS20240711002786908'"
+        },
+        "L143": {
+          "value": "'Invoice INVUS20240711002812933'"
+        },
+        "L144": {
+          "value": "'Invoice INVUS20240711002795457'"
+        },
+        "L145": {
+          "value": "'Invoice INVUS20240711002812931'"
+        },
+        "L146": {
+          "value": "'Invoice INVUS20240711002806785'"
+        },
+        "L147": {
+          "value": "'Invoice INVUS20240711002786912'"
+        },
+        "L149": {
+          "value": "'GRAND TOTAL'"
+        },
+        "L150": {
+          "value": "'GRAND VARIANCE CHECK'"
+        },
+        "L151": {
+          "value": "'Combined 9 invoice files'"
+        },
+        "M1": {
+          "value": "'UNITS'"
+        },
+        "N1": {
+          "value": "'Currency'"
+        },
+        "N107": {
+          "value": "'USD'"
+        },
+        "N122": {
+          "value": "'USD'"
+        },
+        "N17": {
+          "value": "'USD'"
+        },
+        "N2": {
+          "value": "'USD'"
+        },
+        "N32": {
+          "value": "'USD'"
+        },
+        "N47": {
+          "value": "'USD'"
+        },
+        "N62": {
+          "value": "'USD'"
+        },
+        "N77": {
+          "value": "'USD'"
+        },
+        "N92": {
+          "value": "'USD'"
+        },
+        "O1": {
+          "value": "'Cost'"
+        },
+        "O107": {
+          "value": "1.43"
+        },
+        "O122": {
+          "value": "7.49"
+        },
+        "O17": {
+          "value": "0.58"
+        },
+        "O2": {
+          "value": "10.36"
+        },
+        "O32": {
+          "value": "7.34"
+        },
+        "O47": {
+          "value": "1.53"
+        },
+        "O62": {
+          "value": "14.61"
+        },
+        "O77": {
+          "value": "5.78"
+        },
+        "O92": {
+          "value": "16.24"
+        },
+        "P1": {
+          "value": "'Total Cost'"
+        },
+        "P10": {
+          "value": "30.1"
+        },
+        "P100": {
+          "value": "47.19"
+        },
+        "P101": {
+          "value": "9.44"
+        },
+        "P102": {
+          "value": "2.83"
+        },
+        "P103": {
+          "value": "8.92"
+        },
+        "P104": {
+          "value": "21.19"
+        },
+        "P105": {
+          "value": "0.4490358126721763"
+        },
+        "P107": {
+          "value": "1.43"
+        },
+        "P108": {
+          "formula": "=P107"
+        },
+        "P109": {
+          "formula": "=(T107+U107+V107-W107)"
+        },
+        "P11": {
+          "value": "6.02"
+        },
+        "P110": {
+          "formula": "=(P108+P109)"
+        },
+        "P111": {
+          "formula": "=(S107-P110)"
+        },
+        "P114": {
+          "value": "1.53"
+        },
+        "P115": {
+          "value": "4.16"
+        },
+        "P116": {
+          "value": "0.83"
+        },
+        "P117": {
+          "value": "0.25"
+        },
+        "P118": {
+          "value": "0.79"
+        },
+        "P119": {
+          "value": "1.87"
+        },
+        "P12": {
+          "value": "1.81"
+        },
+        "P120": {
+          "value": "0.4495192307692308"
+        },
+        "P122": {
+          "value": "7.49"
+        },
+        "P123": {
+          "formula": "=P122"
+        },
+        "P124": {
+          "formula": "=(T122+U122+V122-W122)"
+        },
+        "P125": {
+          "formula": "=(P123+P124)"
+        },
+        "P126": {
+          "formula": "=(S122-P125)"
+        },
+        "P129": {
+          "value": "8.02"
+        },
+        "P13": {
+          "value": "5.69"
+        },
+        "P130": {
+          "value": "21.79"
+        },
+        "P131": {
+          "value": "4.36"
+        },
+        "P132": {
+          "value": "1.31"
+        },
+        "P133": {
+          "value": "4.12"
+        },
+        "P134": {
+          "value": "9.79"
+        },
+        "P135": {
+          "value": "0.4492886645250114"
+        },
+        "P139": {
+          "value": "79.75"
+        },
+        "P14": {
+          "value": "13.52"
+        },
+        "P140": {
+          "value": "4.89"
+        },
+        "P141": {
+          "value": "56.64"
+        },
+        "P142": {
+          "value": "12.19"
+        },
+        "P143": {
+          "value": "112.38"
+        },
+        "P144": {
+          "value": "41.81"
+        },
+        "P145": {
+          "value": "124.76"
+        },
+        "P146": {
+          "value": "11.41"
+        },
+        "P147": {
+          "value": "57.86"
+        },
+        "P149": {
+          "value": "501.6900000000001"
+        },
+        "P15": {
+          "value": "0.4491694352159468"
+        },
+        "P150": {
+          "value": "-432.16"
+        },
+        "P17": {
+          "value": "0.58"
+        },
+        "P18": {
+          "formula": "=P17"
+        },
+        "P19": {
+          "formula": "=(T17+U17+V17-W17)"
+        },
+        "P2": {
+          "value": "10.36"
+        },
+        "P20": {
+          "formula": "=(P18+P19)"
+        },
+        "P21": {
+          "formula": "=(S17-P20)"
+        },
+        "P24": {
+          "value": "0.62"
+        },
+        "P25": {
+          "value": "1.68"
+        },
+        "P26": {
+          "value": "0.34"
+        },
+        "P27": {
+          "value": "0.1"
+        },
+        "P28": {
+          "value": "0.32"
+        },
+        "P29": {
+          "value": "0.76"
+        },
+        "P3": {
+          "formula": "=P2"
+        },
+        "P30": {
+          "value": "0.4523809523809524"
+        },
+        "P32": {
+          "value": "7.34"
+        },
+        "P33": {
+          "formula": "=P32"
+        },
+        "P34": {
+          "formula": "=(T32+U32+V32-W32)"
+        },
+        "P35": {
+          "formula": "=(P33+P34)"
+        },
+        "P36": {
+          "formula": "=(S32-P35)"
+        },
+        "P39": {
+          "value": "7.85"
+        },
+        "P4": {
+          "formula": "=(T2+U2+V2-W2)"
+        },
+        "P40": {
+          "value": "21.33"
+        },
+        "P41": {
+          "value": "4.27"
+        },
+        "P42": {
+          "value": "1.28"
+        },
+        "P43": {
+          "value": "4.03"
+        },
+        "P44": {
+          "value": "9.58"
+        },
+        "P45": {
+          "value": "0.4491326769807783"
+        },
+        "P47": {
+          "value": "1.53"
+        },
+        "P48": {
+          "formula": "=P47"
+        },
+        "P49": {
+          "formula": "=(T47+U47+V47-W47)"
+        },
+        "P5": {
+          "formula": "=(P3+P4)"
+        },
+        "P50": {
+          "formula": "=(P48+P49)"
+        },
+        "P51": {
+          "formula": "=(S47-P50)"
+        },
+        "P54": {
+          "value": "1.64"
+        },
+        "P55": {
+          "value": "4.46"
+        },
+        "P56": {
+          "value": "0.89"
+        },
+        "P57": {
+          "value": "0.27"
+        },
+        "P58": {
+          "value": "0.84"
+        },
+        "P59": {
+          "value": "2"
+        },
+        "P6": {
+          "formula": "=(S2-P5)"
+        },
+        "P60": {
+          "value": "0.4484304932735426"
+        },
+        "P62": {
+          "value": "14.61"
+        },
+        "P63": {
+          "formula": "=P62"
+        },
+        "P64": {
+          "formula": "=(T62+U62+V62-W62)"
+        },
+        "P65": {
+          "formula": "=(P63+P64)"
+        },
+        "P66": {
+          "formula": "=(S62-P65)"
+        },
+        "P69": {
+          "value": "15.64"
+        },
+        "P70": {
+          "value": "42.49"
+        },
+        "P71": {
+          "value": "8.5"
+        },
+        "P72": {
+          "value": "2.55"
+        },
+        "P73": {
+          "value": "8.03"
+        },
+        "P74": {
+          "value": "19.08"
+        },
+        "P75": {
+          "value": "0.4490468345493057"
+        },
+        "P77": {
+          "value": "5.78"
+        },
+        "P78": {
+          "formula": "=P77"
+        },
+        "P79": {
+          "formula": "=(T77+U77+V77-W77)"
+        },
+        "P80": {
+          "formula": "=(P78+P79)"
+        },
+        "P81": {
+          "formula": "=(S77-P80)"
+        },
+        "P84": {
+          "value": "5.78"
+        },
+        "P85": {
+          "value": "15.7"
+        },
+        "P86": {
+          "value": "3.14"
+        },
+        "P87": {
+          "value": "0.94"
+        },
+        "P88": {
+          "value": "2.97"
+        },
+        "P89": {
+          "value": "7.05"
+        },
+        "P9": {
+          "value": "11.08"
+        },
+        "P90": {
+          "value": "0.4490445859872612"
+        },
+        "P92": {
+          "value": "16.24"
+        },
+        "P93": {
+          "formula": "=P92"
+        },
+        "P94": {
+          "formula": "=(T92+U92+V92-W92)"
+        },
+        "P95": {
+          "formula": "=(P93+P94)"
+        },
+        "P96": {
+          "formula": "=(S92-P95)"
+        },
+        "P99": {
+          "value": "17.37"
+        },
+        "Q1": {
+          "value": "'Total'"
+        },
+        "Q107": {
+          "formula": "=O107*K107"
+        },
+        "Q122": {
+          "formula": "=O122*K122"
+        },
+        "Q139": {
+          "value": "-68.67"
+        },
+        "Q140": {
+          "value": "-4.27"
+        },
+        "Q141": {
+          "value": "-48.79"
+        },
+        "Q142": {
+          "value": "-10.55"
+        },
+        "Q143": {
+          "value": "-96.74"
+        },
+        "Q144": {
+          "value": "-36.03"
+        },
+        "Q145": {
+          "value": "-107.39"
+        },
+        "Q146": {
+          "value": "-9.88"
+        },
+        "Q147": {
+          "value": "-49.84"
+        },
+        "Q17": {
+          "formula": "=O17*K17"
+        },
+        "Q2": {
+          "formula": "=O2*K2"
+        },
+        "Q32": {
+          "formula": "=O32*K32"
+        },
+        "Q47": {
+          "formula": "=O47*K47"
+        },
+        "Q62": {
+          "formula": "=O62*K62"
+        },
+        "Q77": {
+          "formula": "=O77*K77"
+        },
+        "Q92": {
+          "formula": "=O92*K92"
+        },
+        "R1": {
+          "value": "'TotalCost Vs Total'"
+        },
+        "R107": {
+          "formula": "=P107-Q107"
+        },
+        "R122": {
+          "formula": "=P122-Q122"
+        },
+        "R17": {
+          "formula": "=P17-Q17"
+        },
+        "R2": {
+          "formula": "=P2-Q2"
+        },
+        "R32": {
+          "formula": "=P32-Q32"
+        },
+        "R47": {
+          "formula": "=P47-Q47"
+        },
+        "R62": {
+          "formula": "=P62-Q62"
+        },
+        "R77": {
+          "formula": "=P77-Q77"
+        },
+        "R92": {
+          "formula": "=P92-Q92"
+        },
+        "S1": {
+          "value": "'InvoiceTotal'"
+        },
+        "S107": {
+          "value": "1.53"
+        },
+        "S122": {
+          "value": "8.02"
+        },
+        "S17": {
+          "value": "0.62"
+        },
+        "S2": {
+          "value": "11.08"
+        },
+        "S32": {
+          "value": "7.85"
+        },
+        "S47": {
+          "value": "1.64"
+        },
+        "S62": {
+          "value": "15.64"
+        },
+        "S77": {
+          "value": "5.78"
+        },
+        "S92": {
+          "value": "17.37"
+        },
+        "T1": {
+          "value": "'Total Internal Freight'"
+        },
+        "T107": {
+          "value": "0"
+        },
+        "T122": {
+          "value": "0"
+        },
+        "T17": {
+          "value": "0"
+        },
+        "T2": {
+          "value": "0"
+        },
+        "T32": {
+          "value": "0"
+        },
+        "T47": {
+          "value": "0"
+        },
+        "T62": {
+          "value": "0"
+        },
+        "T77": {
+          "value": "0"
+        },
+        "T92": {
+          "value": "0"
+        },
+        "U1": {
+          "value": "'Total Insurance'"
+        },
+        "U107": {
+          "value": "0"
+        },
+        "U122": {
+          "value": "0"
+        },
+        "U17": {
+          "value": "0"
+        },
+        "U2": {
+          "value": "0"
+        },
+        "U32": {
+          "value": "0"
+        },
+        "U47": {
+          "value": "0"
+        },
+        "U62": {
+          "value": "0"
+        },
+        "U77": {
+          "value": "0"
+        },
+        "U92": {
+          "value": "0"
+        },
+        "V1": {
+          "value": "'Total Other Cost'"
+        },
+        "V107": {
+          "value": "0.1"
+        },
+        "V122": {
+          "value": "0.53"
+        },
+        "V17": {
+          "value": "0.04"
+        },
+        "V2": {
+          "value": "0.72"
+        },
+        "V32": {
+          "value": "0.51"
+        },
+        "V47": {
+          "value": "0.11"
+        },
+        "V62": {
+          "value": "1.03"
+        },
+        "V77": {
+          "value": "0"
+        },
+        "V92": {
+          "value": "1.13"
+        },
+        "W1": {
+          "value": "'Total Deduction'"
+        },
+        "W107": {
+          "value": "0"
+        },
+        "W122": {
+          "value": "0"
+        },
+        "W17": {
+          "value": "0"
+        },
+        "W2": {
+          "value": "0"
+        },
+        "W32": {
+          "value": "0"
+        },
+        "W47": {
+          "value": "0"
+        },
+        "W62": {
+          "value": "0"
+        },
+        "W77": {
+          "value": "0"
+        },
+        "W92": {
+          "value": "0"
+        },
+        "X1": {
+          "value": "'Packages'"
+        },
+        "X2": {
+          "value": "1"
+        },
+        "Y1": {
+          "value": "'Warehouse'"
+        },
+        "Z1": {
+          "value": "'Supplier Code'"
+        },
+        "Z107": {
+          "value": "'SHEIN'"
+        },
+        "Z122": {
+          "value": "'SHEIN'"
+        },
+        "Z17": {
+          "value": "'SHEIN'"
+        },
+        "Z2": {
+          "value": "'SHEIN'"
+        },
+        "Z32": {
+          "value": "'SHEIN'"
+        },
+        "Z47": {
+          "value": "'SHEIN'"
+        },
+        "Z62": {
+          "value": "'SHEIN'"
+        },
+        "Z77": {
+          "value": "'SHEIN'"
+        },
+        "Z92": {
+          "value": "'SHEIN'"
+        }
+      },
+      "OCR Notes": {
+        "A1": {
+          "value": "'PDF File'"
+        },
+        "A10": {
+          "value": "'INVUS20240711002786912.pdf'"
+        },
+        "A2": {
+          "value": "'INVUS20240711002806788.pdf'"
+        },
+        "A3": {
+          "value": "'INVUS20240711002786486.pdf'"
+        },
+        "A4": {
+          "value": "'INVUS20240711002801285.pdf'"
+        },
+        "A5": {
+          "value": "'INVUS20240711002786908.pdf'"
+        },
+        "A6": {
+          "value": "'INVUS20240711002812933.pdf'"
+        },
+        "A7": {
+          "value": "'INVUS20240711002795457.pdf'"
+        },
+        "A8": {
+          "value": "'INVUS20240711002812931.pdf'"
+        },
+        "A9": {
+          "value": "'INVUS20240711002806785.pdf'"
+        },
+        "B1": {
+          "value": "'Quality Score'"
+        },
+        "B10": {
+          "value": "'65/100'"
+        },
+        "B2": {
+          "value": "'73/100'"
+        },
+        "B3": {
+          "value": "'48/100'"
+        },
+        "B4": {
+          "value": "'65/100'"
+        },
+        "B5": {
+          "value": "'65/100'"
+        },
+        "B6": {
+          "value": "'73/100'"
+        },
+        "B7": {
+          "value": "'65/100'"
+        },
+        "B8": {
+          "value": "'73/100'"
+        },
+        "B9": {
+          "value": "'65/100'"
+        },
+        "C1": {
+          "value": "'Rating'"
+        },
+        "C10": {
+          "value": "'FAIR'"
+        },
+        "C2": {
+          "value": "'GOOD'"
+        },
+        "C3": {
+          "value": "'FAIR'"
+        },
+        "C4": {
+          "value": "'FAIR'"
+        },
+        "C5": {
+          "value": "'FAIR'"
+        },
+        "C6": {
+          "value": "'GOOD'"
+        },
+        "C7": {
+          "value": "'FAIR'"
+        },
+        "C8": {
+          "value": "'GOOD'"
+        },
+        "C9": {
+          "value": "'FAIR'"
+        },
+        "D1": {
+          "value": "'Details'"
+        },
+        "D10": {
+          "value": "'Text: 812 chars; Prices: 0 ($-sign), 0 (decimal); Total: $8.02; Invoice#: INVUS20240711002786912; Real items: 1/1; Structure words: 10/12'"
+        },
+        "D2": {
+          "value": "'Text: 763 chars; Prices: 0 ($-sign), 3 (decimal); Total: $11.08; Invoice#: INVUS20240711002806788; Real items: 1/1; Structure words: 10/12'"
+        },
+        "D3": {
+          "value": "'Text: 721 chars; Prices: 0 ($-sign), 0 (decimal); Total: $0.62 (placeholder); Invoice#: INVUS20240711002786486; Real items: 1/1; Structure words: 10/12'"
+        },
+        "D4": {
+          "value": "'Text: 838 chars; Prices: 0 ($-sign), 0 (decimal); Total: $7.85; Invoice#: INVUS20240711002801285; Real items: 1/1; Structure words: 10/12'"
+        },
+        "D5": {
+          "value": "'Text: 745 chars; Prices: 0 ($-sign), 0 (decimal); Total: $1.64; Invoice#: INVUS20240711002786908; Real items: 1/1; Structure words: 10/12'"
+        },
+        "D6": {
+          "value": "'Text: 758 chars; Prices: 0 ($-sign), 3 (decimal); Total: $15.64; Invoice#: INVUS20240711002812933; Real items: 1/1; Structure words: 10/12'"
+        },
+        "D7": {
+          "value": "'Text: 740 chars; Prices: 0 ($-sign), 0 (decimal); Total: $5.78; Invoice#: INVUS20240711002795457; Real items: 1/1; Structure words: 10/12'"
+        },
+        "D8": {
+          "value": "'Text: 725 chars; Prices: 0 ($-sign), 3 (decimal); Total: $17.37; Invoice#: INVUS20240711002812931; Real items: 1/1; Structure words: 10/12'"
+        },
+        "D9": {
+          "value": "'Text: 1035 chars; Prices: 0 ($-sign), 0 (decimal); Total: $1.53; Invoice#: INVUS20240711002806785; Real items: 1/1; Structure words: 10/12'"
+        },
+        "E1": {
+          "value": "'OCR Text (first 2000 chars)'"
+        },
+        "E10": {
+          "value": "'OHILIN OO OGIVICES, LLO.\\n777 S Alameda St Fl 2, Los Angeles, CA 90021-1633\\nSales Invoice\\nTerrie-Ann\\nCharles\\nSold To:\\nDaron Charles\\nInvoice No.:\\nINVUS20240711002786912\\nBilling Address:\\n10813 NW 30TH ST STE 115 GRE Miami, FLORIDA 33192\\nInvoice Date:\\n2024-07-11\\nDelivery Address:\\n10813 NW 30TH ST STE 115 GRE Miami, FLORIDA 33192\\nOrder Information\\nOrder Number:\\nGSUNJ435T00MQPK\\nOrder Date:\\n2024-07-11\\nSeller Information\\nSold By:\\nBebsh Shoes Shop\\nAddress:\\nRoom 4018, 4th Floor, No. 3 Liugui Road, Hetian, Houjie Town,\\nDongguan City, China\\nInvoice Detail\\nDescription\\nQuantity\\nAmount(USD)\\nFashionable Women High Heel Sandals, Mid-Heel Sandals, Mid-Heel Slippers, Chunky Heel Sandals And\\nChunky Heel Slippers For Parties And Events 1 7.49\\nItem(s) Subtotal:\\n7.49\\nShipping/Handling:\\n0.00\\nSales Tax:\\n0.53\\nGrand Total:\\n8.02'"
+        },
+        "E2": {
+          "value": "'SHEIN US SERVICES, LLC.\\n777 S Alameda St Fl 2, Los Angeles, CA 90021-1633\\nSales Invoice\\n\\nSold to:\\nDaron Charles\\n\\nInvoice No.:\\nINVUS20240711002806788\\n\\nBilling Address:\\n10813 NW 30TH ST STE 115 GRE Miami, FLORIDA 33192\\n\\nInvoice Date:\\n2024-07-11\\n\\nDelivery Address:\\n10813 NW 30TH ST STE 115 GRE Miami, FLORIDA 33192\\n\\nOrder Information\\nOrder Number:\\nGSUNJ435T00MQPL\\n\\nOrder Date:\\n2024-07-11\\n\\nSeller Information\\nSold By:\\nSHEIN DISTRIBUTION CORPORATION\\n\\nAddress:\\nUnited StatesCALIFORNIALos Angeles777 S. Alamaeda St.\\nSuite 340, Los Angeles, CA 90021\\n\\nInvoice Detail\\nDescription\\tQuantity\\tAmount(USD)\\nSHEIN MOD Plus Size Summer Casual Solid Color Sleeveless Cinching Waist Dress\\t1\\t10.36\\n\\nItem(s) Subtotal:\\n10.36\\n\\nShipping/Handling:\\n0.00\\n\\nSales Tax:\\n0.72\\n\\nGrand Total:\\n11.08'"
+        },
+        "E3": {
+          "value": "'OHILIN OO OOIVICES, LLO.\\n777 S Alameda St Fl 2, Los Angeles, CA 90021-1633\\nSales Invoice\\n\\nSold To:\\nDaron Charles\\n\\nInvoice No.:\\nINVUS20240711002786486\\n\\nBilling Address:\\n10813 NW 30TH ST STE 115 GRE Miami, FLORIDA 33192\\n\\nInvoice Date:\\n2024-07-11\\n\\nDelivery Address:\\n10813 NW 30TH ST STE 115 GRE Miami, FLORIDA 33192\\n\\nOrder Information\\n\\nOrder Number:\\nGSUNJ435T00MQPG\\n\\nOrder Date:\\n2024-07-11\\n\\nSeller Information\\n\\nSold By:\\nAella\\n\\nAddress:\\nChinaRoom 502, Unit 3, Building 7, Anle Community, Liuting\\nStreet, Chengyang District, Qingdao City, Shandong Province\\n\\nInvoice Detail\\n\\nDescription\\nQuantity\\nAmount(USD)\\n\\nTextured Cuff Hoop Earrings 1 0.58\\nItem(s) Subtotal:\\n0.58\\n\\nShipping/Handling:\\n0.00\\n\\nSales Tax:\\n0.04\\n\\nGrand Total:\\n0.62'"
+        },
+        "E4": {
+          "value": "'OHILIN OO OGIVICES, LLV.  \\n777 S Alameda St Fl 2, Los Angeles, CA 90021-1633  \\n\\nSales Invoice  \\n\\nSold To:  \\nDaron Charles  \\n\\nBilling Address:  \\n10813 NW 30TH ST STE 115 GRE Miami, FLORIDA 33192  \\n\\nInvoice No.:  \\nINVUS20240711002801285  \\n\\nInvoice Date:  \\n2024-07-11  \\n\\nDelivery Address:  \\n10813 NW 30TH ST STE 115 GRE Miami, FLORIDA 33192  \\n\\nOrder Information  \\nOrder Number:  \\nGSUNJ435T00MQPV  \\n\\nOrder Date:  \\n2024-07-11  \\n\\nSeller Information  \\nSold By:  \\nBotai Canvas  \\n\\nAddress:  \\nChina Hebei Baoding Gaobeidian Guozhuang Village, Xincheng  \\nTown, Gaobeidian City  \\n\\nInvoice Detail  \\nDescription | Quantity | Amount(USD)  \\nMini Chain Flap Saddle Bag,Trendy Business Casual Bag For Women, Pefect For Office, Business And Work | 1 | 7.34  \\n\\nItem(s) Subtotal:  \\n7.34  \\n\\nShipping/Handling:  \\n0.00  \\n\\nSales Tax:  \\n0.51  \\n\\nGrand Total:  \\n7.85'"
+        },
+        "E5": {
+          "value": "'OHILIN OO OOIVICES, LLO.\\n777 S Alameda St Fl 2, Los Angeles, CA 90021-1633\\nSales Invoice\\n\\nBill to:\\nDaron Charles\\nInvoice No.:\\nINVUS20240711002786908\\nBilling Address:\\n10813 NW 30TH ST STE 115 GRE Miami, FLORIDA 33192\\nInvoice Date:\\n2024-07-11\\nDelivery Address:\\n10813 NW 30TH ST STE 115 GRE Miami, FLORIDA 33192\\n\\nOrder Information\\nOrder Number:\\nGSUNJ435T00MQPH\\nOrder Date:\\n2024-07-11\\n\\nSeller Information\\nSold By:\\nQDJINLINGDANG\\nAddress:\\nChinaCentury Mercure 2-763, Liuting Street, Chengyang District,\\nQingdao City, Shandong Province\\n\\nInvoice Detail\\nDescription\\nQuantity\\nAmount(USD)\\n1pair Geometric Texture Oval Pearl Inlay Pendant Vintage Elegant Women Earrings 1 1.53\\nItem(s) Subtotal:\\n1.53\\nShipping/Handling:\\n0.00\\nSales Tax:\\n0.11\\nGrand Total:\\n1.64'"
+        },
+        "E6": {
+          "value": "'SHEIN DISTRIBUTION SERVICES, LLC.\\n777 S Alameda St Fl 2, Los Angeles, CA 90021-1633\\n\\nSales Invoice\\n\\nBill to:\\nDaron Charles\\n\\nInvoice No.:\\nINVUS20240711002812933\\n\\nBilling Address:\\n10813 NW 30TH ST STE 115 GRE Miami, FLORIDA 33192\\n\\nInvoice Date:\\n2024-07-11\\n\\nDelivery Address:\\n10813 NW 30TH ST STE 115 GRE Miami, FLORIDA 33192\\n\\nOrder Information\\n\\nOrder Number:\\nGSUNJ435T00MQPD\\n\\nOrder Date:\\n2024-07-11\\n\\nSeller Information\\n\\nSold By:\\nSHEIN DISTRIBUTION CORPORATION\\n\\nAddress:\\nUnited StatesCALIFORNIALos Angeles777 S. Alamaeda St.\\nSuite 340, Los Angeles, CA 90021\\n\\nInvoice Detail\\n\\nDescription\\nQuantity\\nAmount(USD)\\n\\nSHEIN Priv\u00e9 Plus Crisscross Backless Cami Dress For Summer 1 14.61\\nItem(s) Subtotal:\\n14.61\\n\\nShipping/Handling:\\n0.00\\n\\nSales Tax:\\n1.03\\n\\nGrand Total:\\n15.64'"
+        },
+        "E7": {
+          "value": "'SHEIN US SERVICES, LLC.\\n777 S Alameda St Fl 2, Los Angeles, CA 90021-1633\\nSales Invoice\\n\\nBill to:\\nDaron Charles\\n\\nInvoice No.:\\nINVUS20240711002795457\\n\\nBilling Address:\\n10813 NW 30TH ST STE 115 GRE Miami, FLORIDA 33192\\n\\nInvoice Date:\\n2024-07-11\\n\\nDelivery Address:\\n10813 NW 30TH ST STE 115 GRE Miami, FLORIDA 33192\\n\\nOrder Information\\n\\nOrder Number:\\nGSUNJ435T00MQPJ\\n\\nOrder Date:\\n2024-07-11\\n\\nSeller Information\\n\\nSold By:\\nSHEIN DISTRIBUTION CORPORATION\\n\\nAddress:\\nUnited StatesCALIFORNIALos Angeles777 S. Alamaeda St.\\nSuite 340, Los Angeles, CA 90021\\n\\nInvoice Detail\\n\\nDescription\\nQuantity\\nAmount(USD)\\n\\nBaby Girl Butterfly Appliques Contrast Mesh Cami Dress 1 5.78\\nItem(s) Subtotal:\\n5.78\\n\\nShipping/Handling:\\n0.00\\n\\nSales Tax:\\n0.00\\n\\nGrand Total:\\n5.78'"
+        },
+        "E8": {
+          "value": "'SHEIN US SERVICES, LLC.\\n777 S Alameda St Fl 2, Los Angeles, CA 90021-1633\\nSales Invoice\\n\\nBill To:\\nDaron Charles\\nInvoice No.:\\nINVUS20240711002812931\\nBilling Address:\\n10813 NW 30TH ST STE 115 GRE Miami, FLORIDA 33192\\nInvoice Date:\\n2024-07-11\\nDelivery Address:\\n10813 NW 30TH ST STE 115 GRE Miami, FLORIDA 33192\\n\\nOrder Information\\nOrder Number:\\nGSUNJ435T00MQPP\\nOrder Date:\\n2024-07-11\\n\\nSeller Information\\nSold By:\\nSHEIN DISTRIBUTION CORPORATION\\nAddress:\\nUnited StatesCALIFORNIALos Angeles777 S. Alamaeda St.\\nSuite 340, Los Angeles, CA 90021\\n\\nInvoice Detail\\nDescription Quantity Amount(USD)\\nSHEIN Frenchy Plus Size Casual Suit Vest 2pcs/Set 1 16.24\\nItem(s) Subtotal: 16.24\\nShipping/Handling: 0.00\\nSales Tax: 1.13\\nGrand Total: 17.37'"
+        },
+        "E9": {
+          "value": "\"OHILIN OO OGIVICES, LLO.\\n777 S Alameda St Fl 2, Los Angeles, CA 90021-1633\\nSales Invoice\\n\\nSold To:\\nDaron Charles\\n\\nInvoice No.:\\nINVUS20240711002806785\\n\\nBilling Address:\\n10813 NW 30TH ST STE 115 GRE Miami, FLORIDA 33192\\n\\nInvoice Date:\\n2024-07-11\\n\\nDelivery Address:\\n10813 NW 30TH ST STE 115 GRE Miami, FLORIDA 33192\\n\\nOrder Information\\n\\nOrder Number:\\nGSUNJ435T00MQPE\\n\\nOrder Date:\\n2024-07-11\\n\\nSeller Information\\n\\nSold By:\\nXINDUOCHENG\\n\\nAddress:\\nNo. 667, Jingkou Community, Chengyang District, Qingdao City,\\nShandong Province, China\\n\\nInvoice Detail\\n\\nDescription\\nQuantity\\nAmount(USD)\\n\\n(3pcs/Set) Punk Style Exaggerated Glossy Round Opening Ring, Geometric Curved Surface Ring, And\\nGeometric Glossy Cross Ring. European And American INS Niche Design Geometric Ring Set (3 Rings).\\nColor-Preserving And Thick Rings Jewelry, Suitable For Women's Daily Wear, Various Holiday Gifts,\\nGraduation Season, Student Gifts, Back-To-School Gifts, Gifts For Teachers. 1 1.43\\nItem(s) Subtotal:\\n1.43\\n\\nShipping/Handling:\\n0.00\\n\\nSales Tax:\\n0.10\\n\\nGrand Total:\\n1.53\""
+        }
+      }
+    }
+  },
+  "_email_params.json": {
+    "__type__": "email_params",
+    "data": {
+      "attachment_paths": [
+        "HAWB9580506-Declaration.pdf",
+        "HAWB9580506_combined.xlsx",
+        "INVUS20240711002786486.pdf",
+        "INVUS20240711002786908.pdf",
+        "INVUS20240711002786912.pdf",
+        "INVUS20240711002795457.pdf",
+        "INVUS20240711002801285.pdf",
+        "INVUS20240711002806785.pdf",
+        "INVUS20240711002806788.pdf",
+        "INVUS20240711002812931.pdf",
+        "INVUS20240711002812933.pdf"
+      ],
+      "consignee_address": "",
+      "consignee_code": "",
+      "consignee_name": "TERRIEANN CHARLES",
+      "country_origin": "US",
+      "expected_entries": 1,
+      "freight": "0",
+      "location": "WebSource",
+      "man_reg": null,
+      "office": "",
+      "packages": "1",
+      "total_invoices": 9,
+      "waybill": "HAWB9580506",
+      "weight": "5.0"
+    }
+  }
+}

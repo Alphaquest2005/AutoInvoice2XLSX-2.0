@@ -1,0 +1,27 @@
+{
+  "waybill": "HAWB9383720",
+  "consignee_name": "VERNICA CHARLES",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 8,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "4.0",
+  "country_origin": "US",
+  "freight": "9.0",
+  "man_reg": "2024 21",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_050/out/INVUS20240529001460693.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_050/out/INVUS20240529001456248.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_050/out/INVUS20240529001451111_2.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_050/out/INVUS20240529001456251.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_050/out/INVUS20240529001451111.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_050/out/INVUS20240529001456248_2.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_050/out/INVUS20240529001456251_2.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_050/out/INVUS20240529001460693_2.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_050/out/HAWB9383720_combined.xlsx",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_050/out/HAWB9383720-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "592.66",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "592.66 written vertically in the left margin beside the header"
+  },
+  "printed": {
+    "consignee": "WENDY TAMAR ASHBY",
+    "freight": 21.0,
+    "waybill": "HAWB9591107",
+    "man_reg": "2024/28",
+    "office": "GDWBS",
+    "weight": 10.0,
+    "packages": 1
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

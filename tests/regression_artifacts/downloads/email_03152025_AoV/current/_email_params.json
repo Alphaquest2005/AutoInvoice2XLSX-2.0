@@ -1,0 +1,21 @@
+{
+  "waybill": "HAWB9584275",
+  "consignee_name": "ROCHELLE RAGBASINGH",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "5.0",
+  "country_origin": "US",
+  "freight": "11.00",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_036/out/111-1616806-9805016_2.pdf",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_036/out/111-1616806-9805016.pdf",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_036/out/HAWB9584275.xlsx",
+    "/tmp/pytest-of-joseph/pytest-200/test_downloads_email_folder_036/out/HAWB9584275-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

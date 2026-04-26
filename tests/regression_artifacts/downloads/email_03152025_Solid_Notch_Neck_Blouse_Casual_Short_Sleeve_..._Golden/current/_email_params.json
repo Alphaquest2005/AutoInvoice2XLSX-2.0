@@ -1,0 +1,21 @@
+{
+  "waybill": "HAWB9579495",
+  "consignee_name": "TANISHA ANDREW BARTHOLOMEW",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "0",
+  "country_origin": "US",
+  "freight": "0",
+  "man_reg": null,
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0343/out/PO-211-05886758334074065_Invoice_1.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0343/out/PO-211-05886758334074065.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0343/out/HAWB9579495.xlsx",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0343/out/HAWB9579495-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": ""
+}

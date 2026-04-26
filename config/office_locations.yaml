@@ -38,3 +38,10 @@ office_aliases:
   ST GEORGE'S: GDSGO
   ST. GEORGE'S: GDSGO
   WEBSOURCE: GDWBS
+
+# added by Wave 1 for pipeline/process_bl.py
+# CLI default fallbacks used by process_bl.py when no --office / --location
+# flag is provided. Matches the St George's ASYCUDA convention.
+cli_defaults:
+  office: "GDSGO"
+  location: "STG01"

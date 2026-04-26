@@ -84,3 +84,30 @@ logging:
     WARNING:  "WARNING"
     ERROR:    "ERROR"
     CRITICAL: "CRITICAL"
+
+# Excel error tokens rendered in cells when a formula fails.
+# added by Wave 1 for pipeline/variance_checker.py
+excel:
+  formula_errors:
+    - "#REF!"
+    - "#VALUE!"
+    - "#DIV/0!"
+    - "#NAME?"
+    - "#N/A"
+
+# Python email/MIME library values (email.mime.text.MIMEText subtype,
+# email.mime.base.MIMEBase main type/subtype, header names). These are
+# library-defined contract strings, not application policy.
+email_mime:
+  text_subtype:        "plain"
+  base_main_type:      "application"
+  base_pdf_subtype:    "pdf"
+  header_disposition:  "Content-Disposition"
+
+# pytest enum strings used as keyword args to pytest.fixture / decorators.
+pytest:
+  fixture_scope:
+    SESSION:  "session"
+    MODULE:   "module"
+    CLASS:    "class"
+    FUNCTION: "function"

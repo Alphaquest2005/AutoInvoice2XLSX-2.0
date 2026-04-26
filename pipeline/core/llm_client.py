@@ -68,6 +68,16 @@ class LLMClient:
         cache_key = self._cache_key(system_prompt, user_message, cache_key_extra)
         if use_cache and cache_key in _response_cache:
             logger.debug("LLM cache hit")
+            try:
+                import perf_log as _perf
+                _perf.event(
+                    "llm_client.call", 0.0,
+                    cache_hit=True,
+                    cache_key_extra=cache_key_extra,
+                    model=self.model,
+                )
+            except Exception:
+                pass
             return _response_cache[cache_key]
 
         # Build request
@@ -107,6 +117,18 @@ class LLMClient:
                         f"LLM call succeeded: attempt {attempt}, "
                         f"response {elapsed:.1f}s, total {total_elapsed:.1f}s"
                     )
+                    try:
+                        import perf_log as _perf
+                        _perf.event(
+                            "llm_client.call", total_elapsed,
+                            cache_hit=False,
+                            attempts=attempt,
+                            cache_key_extra=cache_key_extra,
+                            model=self.model,
+                            response_chars=len(text),
+                        )
+                    except Exception:
+                        pass
                     return text
 
                 logger.warning(f"LLM returned empty response on attempt {attempt}")
@@ -174,6 +196,18 @@ class LLMClient:
             f"LLM call failed after {self.max_retries} attempts "
             f"({total_elapsed:.1f}s total): {last_error}"
         )
+        try:
+            import perf_log as _perf
+            _perf.event(
+                "llm_client.call", total_elapsed,
+                cache_hit=False,
+                attempts=self.max_retries,
+                cache_key_extra=cache_key_extra,
+                model=self.model,
+                error="all_attempts_failed",
+            )
+        except Exception:
+            pass
         return None
 
     def call_json(

@@ -1,0 +1,21 @@
+{
+  "waybill": "HAWB9597697",
+  "consignee_name": "RIANNA ANTOINE",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 2,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "7.0",
+  "country_origin": "US",
+  "freight": "15.00",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0346/out/114-4890674-1042658_2.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0346/out/114-4890674-1042658.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0346/out/114-4890674-1042658_combined.xlsx",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0346/out/HAWB9597697-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

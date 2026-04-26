@@ -378,7 +378,7 @@ def apply_position_heuristic(pages: List[DocumentPage], total_pages: int) -> Lis
     return result
 
 
-def analyze_pdf(pdf_path: str, use_ocr: bool = True, use_heuristic: bool = True) -> Tuple[List[DocumentPage], bool, bool, List[str]]:
+def _analyze_pdf_impl(pdf_path: str, use_ocr: bool = True, use_heuristic: bool = True) -> Tuple[List[DocumentPage], bool, bool, List[str]]:
     """
     Analyze a PDF and classify each page by document type.
 
@@ -498,6 +498,52 @@ def analyze_pdf(pdf_path: str, use_ocr: bool = True, use_heuristic: bool = True)
                 used_heuristic = True
 
     return pages, used_ocr, used_heuristic, page_texts
+
+
+def analyze_pdf(pdf_path: str, use_ocr: bool = True, use_heuristic: bool = True) -> Tuple[List[DocumentPage], bool, bool, List[str]]:
+    """Public wrapper that times :func:`_analyze_pdf_impl` via ``perf_log``.
+
+    Records: pdf basename, page_count (from analysis result), used_ocr,
+    used_heuristic, dur_s. Page-classification + per-page OCR runs through
+    here, so this is the main hot-spot for combined-manifest documents.
+    """
+    try:
+        import perf_log as _perf
+    except Exception:
+        _perf = None
+    import os as _os
+    import time as _time
+    base = _os.path.basename(pdf_path) if pdf_path else ""
+    t0 = _time.monotonic()
+    err = None
+    pages_n = 0
+    used_ocr_flag = False
+    used_heuristic_flag = False
+    try:
+        result = _analyze_pdf_impl(pdf_path, use_ocr=use_ocr, use_heuristic=use_heuristic)
+        try:
+            pages_n = len(result[0])
+            used_ocr_flag = bool(result[1])
+            used_heuristic_flag = bool(result[2])
+        except Exception:
+            pass
+        return result
+    except BaseException as e:  # noqa: BLE001 - re-raise after logging
+        err = type(e).__name__
+        raise
+    finally:
+        dur = _time.monotonic() - t0
+        if _perf is not None:
+            try:
+                _perf.event(
+                    "pdf_splitter.analyze_pdf", dur,
+                    pdf=base, pages=pages_n,
+                    used_ocr=used_ocr_flag,
+                    used_heuristic=used_heuristic_flag,
+                    error=err if err else None,
+                )
+            except Exception:
+                pass
 
 
 def split_pdf(
@@ -1515,7 +1561,7 @@ def _vision_cache_path(pdf_path: str, base_dir: str) -> Optional[str]:
         return None
 
 
-def extract_declaration_handwriting(pdf_path: str, base_dir: str = '.') -> Dict[str, Optional[str]]:
+def _extract_declaration_handwriting_impl(pdf_path: str, base_dir: str = '.') -> Dict[str, Optional[str]]:
     """Extract handwritten/pencil annotations from a Simplified Declaration PDF using LLM vision.
 
     Scanned declaration forms often have customs values, tariff codes, and weights
@@ -1855,6 +1901,45 @@ CRITICAL RULES:
     return {}
 
 
+def extract_declaration_handwriting(pdf_path: str, base_dir: str = '.') -> Dict[str, Optional[str]]:
+    """Public wrapper that times :func:`_extract_declaration_handwriting_impl`.
+
+    Vision-LLM declaration extraction is the most expensive single op in the
+    pipeline (per-page render + base64 + 2x retry × 60-120s timeout). This
+    wrapper records dur so we can attribute timeouts to it.
+    """
+    try:
+        import perf_log as _perf
+    except Exception:
+        _perf = None
+    import time as _time
+    t0 = _time.monotonic()
+    base = os.path.basename(pdf_path) if pdf_path else ""
+    err = None
+    out_keys = 0
+    try:
+        result = _extract_declaration_handwriting_impl(pdf_path, base_dir=base_dir)
+        try:
+            out_keys = len([k for k, v in (result or {}).items() if v])
+        except Exception:
+            pass
+        return result
+    except BaseException as e:  # noqa: BLE001
+        err = type(e).__name__
+        raise
+    finally:
+        dur = _time.monotonic() - t0
+        if _perf is not None:
+            try:
+                _perf.event(
+                    "pdf_splitter.extract_declaration_handwriting", dur,
+                    pdf=base, fields_returned=out_keys,
+                    error=err if err else None,
+                )
+            except Exception:
+                pass
+
+
 def run(
     input_path: str,
     output_dir: Optional[str] = None,
@@ -2119,6 +2204,128 @@ def detect_logical_page_order(page_texts: List[str]) -> Optional[List[int]]:
     return new_order if changed else None
 
 
+# ── Reverse-scan fallback (no explicit page markers) ────────────
+#
+# Some scanned multi-page invoices carry NO "Page N of M" / "N / M"
+# footers at all (e.g. PUMA web-order printouts, where the only
+# identifying marker is "WEB ID: 987 105 384" and that token only
+# appears on the legal-footer page, not the invoice header).  When
+# such a stack is fed into the scanner upside-down, every page comes
+# out in reverse physical order and ``detect_logical_page_order``
+# above has nothing to grip on (it returns ``None``).
+#
+# This fallback uses the *content* of the first and last physical
+# pages to detect the reversal:
+#   * First-page signals  — order/invoice numbers, dates, status,
+#                           "ORDERED ITEMS" / "Order Summary" labels
+#   * Last-page signals   — marketing footer (sign-up, cookie policy,
+#                           "do not sell my info", legal imprint,
+#                           "all rights reserved")
+#
+# If the page that carries header signals is the *last* physical page
+# AND the page that carries footer signals is the *first* physical page,
+# we treat the entire stack as reversed and return a full reversal
+# permutation.  This is intentionally conservative: anything weaker
+# (mid-document misalignment, single signal, ambiguous classification)
+# yields ``None`` so the PDF is left untouched.
+#
+# Triggered for HAWB9728292 (PUMA, 4-page reversed scan).
+
+_HEADER_PAGE_SIGNALS = re.compile(
+    r'(?i)\b('
+    r'order\s*(?:number|num|no|#)\s*[:#]?\s*[A-Za-z0-9]'  # "Order Number 00190"
+    r'|invoice\s*(?:number|num|no|#)\s*[:#]?\s*[A-Za-z0-9]'  # "Invoice #..."
+    r'|date\s*ordered'                          # "Date ordered : 8 / 18 / 2024"
+    r'|date\s*issued'                           # "Date issued"
+    r'|order\s*date'                            # "Order Date:"
+    r'|order\s*status'                          # "Order Status: SHIPPED"
+    r'|ordered\s*items'                         # "ORDERED ITEMS"
+    r'|order\s*summary'                         # "Order Summary"
+    r'|order\s*confirmation'                    # "Order Confirmation"
+    r'|tax\s*invoice'                           # "Tax Invoice"
+    r')\b'
+)
+
+# Footer signals require a higher bar — single hits are common in
+# site navigation that may appear on every page.  Only the dense
+# marketing/legal-footer cluster (sign-up + cookies + legal imprint
+# + "do not sell" + "all rights reserved") strongly indicates the
+# tail page.  ``BACK TO ORDER HISTORY`` was deliberately excluded
+# because PUMA prints it on the shipping/billing page (mid-doc),
+# not on the legal footer page.
+_FOOTER_PAGE_SIGNALS = re.compile(
+    r'(?i)('
+    r'sign\s*up\s*for\s*(?:email|news|our)'     # "Sign Up for Email"
+    r'|stay\s*up\s*to\s*date'                   # "Stay Up To Date"
+    r'|cookie\s*(?:settings|polic)'             # "Cookie Settings/Policy"
+    r'|do\s*not\s*sell\s*(?:or\s*share\s*)?my'  # CCPA "Do Not Sell My..."
+    r'|imprint\s*and\s*legal'                   # "IMPRINT AND LEGAL DATA"
+    r'|all\s*rights\s*reserved'                 # "© ... All rights reserved"
+    r'|follow\s*us\s*on\b'                      # "Follow Us On"
+    r'|subscribe\s*to\s*our\s*newsletter'       # newsletter signup
+    r'|terms\s*(?:&|and)\s*conditions?'         # "Terms & Conditions"
+    r')'
+)
+
+
+def _classify_page_position(text: str) -> Optional[str]:
+    """Return ``'header'``, ``'footer'``, or ``None`` for one page.
+
+    A page is classified as ``'header'`` when it contains at least
+    one strong first-page signal (order/invoice number, date,
+    status, "ORDERED ITEMS" header) and no stronger footer signal.
+
+    A page is classified as ``'footer'`` only when it contains
+    **two or more** distinct marketing/legal-footer phrases — single
+    hits like "Privacy Policy" can appear in any page's site nav.
+    """
+    if not text or len(text) < 20:
+        return None
+
+    header_hits = len(_HEADER_PAGE_SIGNALS.findall(text))
+    # Use a set to count *distinct* footer phrases so a page that
+    # repeats "Cookie Settings" twice doesn't inflate the score.
+    footer_matches = {m.group(0).lower() for m in _FOOTER_PAGE_SIGNALS.finditer(text)}
+    footer_hits = len(footer_matches)
+
+    if header_hits >= 1 and header_hits >= footer_hits:
+        return 'header'
+    if footer_hits >= 2 and footer_hits > header_hits:
+        return 'footer'
+    return None
+
+
+def _detect_reverse_scan_order(page_texts: List[str]) -> Optional[List[int]]:
+    """Detect a fully-reversed scan via header/footer text positions.
+
+    Returns a reversal permutation ``[n-1, n-2, ..., 0]`` only when:
+      * the PDF has 3+ pages (a 2-page swap is too ambiguous to do
+        without an explicit page marker)
+      * exactly one page is classified as a 'header' page and that
+        page is the **last** physical page
+      * exactly one page is classified as a 'footer' page and that
+        page is the **first** physical page
+
+    Any weaker signal returns ``None`` — callers should treat the
+    PDF as already in logical order in that case.
+    """
+    n = len(page_texts)
+    if n < 3:
+        return None
+
+    classifications = [_classify_page_position(t or '') for t in page_texts]
+    headers = [i for i, c in enumerate(classifications) if c == 'header']
+    footers = [i for i, c in enumerate(classifications) if c == 'footer']
+
+    if len(headers) != 1 or len(footers) != 1:
+        return None
+
+    if headers[0] != n - 1 or footers[0] != 0:
+        return None
+
+    return list(range(n - 1, -1, -1))
+
+
 def auto_reorder_if_scanned(
     pdf_path: str,
     output_path: Optional[str] = None,
@@ -2152,6 +2359,15 @@ def auto_reorder_if_scanned(
             return {'reordered': False, 'reason': f'extract_failed:{e}', 'new_order': None}
 
     new_order = detect_logical_page_order(page_texts or [])
+    reorder_reason = 'pages_out_of_order'
+    if new_order is None:
+        # Fallback: marker-less reverse-scan detection (HAWB9728292 / PUMA).
+        # See ``_detect_reverse_scan_order`` for the heuristic — only fires
+        # when first/last physical pages cleanly carry footer/header signals.
+        new_order = _detect_reverse_scan_order(page_texts or [])
+        if new_order is not None:
+            reorder_reason = 'reverse_scan_detected'
+
     if new_order is None:
         return {'reordered': False, 'reason': 'order_already_correct_or_no_markers', 'new_order': None}
 
@@ -2199,11 +2415,11 @@ def auto_reorder_if_scanned(
 
     logger.info(
         f"auto_reorder: rewrote {os.path.basename(pdf_path)} "
-        f"physical→logical = {new_order}"
+        f"physical→logical = {new_order} ({reorder_reason})"
     )
     return {
         'reordered': True,
-        'reason': 'pages_out_of_order',
+        'reason': reorder_reason,
         'new_order': new_order,
         'output': target,
     }

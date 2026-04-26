@@ -6,7 +6,7 @@
     "duty_rate": "",
     "weight": "",
     "description": "",
-    "other_notes": "2/5/89 written vertically on left margin"
+    "other_notes": "Handwritten date '2/5/89' in the left margin (rotated vertically)"
   },
   "printed": {
     "consignee": "REBA CALLISTE",
@@ -17,5 +17,6 @@
     "weight": 19.0,
     "packages": 1
   },
-  "has_handwriting": true
+  "has_handwriting": true,
+  "_cache_version": 4
 }

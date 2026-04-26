@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9584450",
+  "consignee_name": "RONWRICK ANTOINE",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "16.0",
+  "country_origin": "US",
+  "freight": "33.00",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_070/out/9213.pdf",
+    "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_070/out/9213.xlsx",
+    "/tmp/pytest-of-joseph/pytest-181/test_downloads_email_folder_070/out/HAWB9584450-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

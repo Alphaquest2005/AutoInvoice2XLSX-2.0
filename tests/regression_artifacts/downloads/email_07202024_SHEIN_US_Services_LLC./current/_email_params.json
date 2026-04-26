@@ -1,0 +1,22 @@
+{
+  "waybill": "HAWB9621690",
+  "consignee_name": "SHORNEL ALBERT",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 3,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "8.0",
+  "country_origin": "US",
+  "freight": "17.00",
+  "man_reg": "2024 29",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0711/out/INVUS20240720003756965.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0711/out/INVUS20240720003762796.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0711/out/INVUS20240720003759507.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0711/out/HAWB9621690_combined.xlsx",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0711/out/HAWB9621690-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

@@ -34,22 +34,51 @@ def _open_values(src):
 # ---------------------------------------------------------------- exemptions
 
 
-@pytest.mark.parametrize("literal", [
-    "0", "1", "-1", "2", "-2",
-    "True", "False", "None",
-    "...",
-])
+@pytest.mark.parametrize(
+    "literal",
+    [
+        "0",
+        "1",
+        "-1",
+        "2",
+        "-2",
+        "True",
+        "False",
+        "None",
+        "...",
+    ],
+)
 def test_exempt_numeric_and_singletons(literal):
     assert _open_values(f"x = {literal}") == set()
 
 
-@pytest.mark.parametrize("literal", [
-    '""', "''", '" "', '"\\n"', '"\\t"', '"\\r"',
-    '"utf-8"', '"utf-16"', '"ascii"', '"latin-1"', '"cp1252"',
-    '"r"', '"w"', '"a"', '"rb"', '"wb"', '"wt"', '"r+"',
-    '"__main__"', '"__name__"', '"__init__"',
-    "b''",
-])
+@pytest.mark.parametrize(
+    "literal",
+    [
+        '""',
+        "''",
+        '" "',
+        '"\\n"',
+        '"\\t"',
+        '"\\r"',
+        '"utf-8"',
+        '"utf-16"',
+        '"ascii"',
+        '"latin-1"',
+        '"cp1252"',
+        '"r"',
+        '"w"',
+        '"a"',
+        '"rb"',
+        '"wb"',
+        '"wt"',
+        '"r+"',
+        '"__main__"',
+        '"__name__"',
+        '"__init__"',
+        "b''",
+    ],
+)
 def test_exempt_strings_and_dunders(literal):
     assert _open_values(f"x = {literal}") == set()
 
@@ -131,10 +160,7 @@ def test_dict_get_first_arg_is_exempt():
 
 
 def test_dict_pop_and_setdefault_are_exempt():
-    src = (
-        "a = d.pop('k1')\n"
-        "b = d.setdefault('k2', [])\n"
-    )
+    src = "a = d.pop('k1')\nb = d.setdefault('k2', [])\n"
     assert _open_values(src) == set()
 
 
@@ -153,11 +179,7 @@ def test_logger_kwarg_values_are_exempt():
 
 
 def test_exception_messages_are_exempt():
-    src = (
-        "raise ValueError('bad input')\n"
-        "raise RuntimeError('bang')\n"
-        "raise KeyError('missing')\n"
-    )
+    src = "raise ValueError('bad input')\nraise RuntimeError('bang')\nraise KeyError('missing')\n"
     assert _open_values(src) == set()
 
 
@@ -183,12 +205,7 @@ def test_fstring_format_spec_is_exempt():
 
 
 def test_short_punctuation_strings_are_exempt():
-    src = (
-        "a = ': '\n"
-        "b = ','\n"
-        "c = ')'\n"
-        "d = ' | '\n"
-    )
+    src = "a = ': '\nb = ','\nc = ')'\nd = ' | '\n"
     assert _open_values(src) == set()
 
 
@@ -208,10 +225,7 @@ def test_comparison_rhs_is_still_flagged():
 
 
 def test_return_string_is_still_flagged():
-    src = (
-        "def resolve():\n"
-        "    return '4000-000'\n"
-    )
+    src = "def resolve():\n    return '4000-000'\n"
     assert _open_values(src) == {"'4000-000'"}
 
 
@@ -246,10 +260,7 @@ def test_magic_ok_without_reason_does_not_bypass():
 
 
 def test_magic_ok_only_applies_to_its_own_line():
-    src = (
-        "x = 42  # magic-ok: rationale\n"
-        "y = 99\n"
-    )
+    src = "x = 42  # magic-ok: rationale\ny = 99\n"
     vs = _scan(src)
     bypassed = [v for v in vs if v["has_bypass"]]
     open_ = [v for v in vs if not v["has_bypass"]]

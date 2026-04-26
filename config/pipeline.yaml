@@ -214,3 +214,439 @@ notifications:
     enabled: false
   on_failure:
     enabled: false
+
+# added by Wave 1 for pipeline/run.py
+# Top-level processing modes selected by detect_mode(args). "auto" is the
+# sentinel that tells doc-type resolution to use consignee rules rather
+# than an explicit CLI override.
+modes:
+  AUTO:     "auto"
+  BL:       "bl"
+  BATCH:    "batch"
+  SINGLE:   "single"
+  COMBINED: "combined"
+
+# added by Wave 1 for pipeline/run.py
+# Stopwords stripped when normalising consignee names for fuzzy matching
+# against the shipment_rules.yaml consignee registry. Kept low-impact so
+# the legal form suffixes ("Inc", "Ltd") don't bias the match score.
+consignee_normalise:
+  stopwords:
+    - "and"
+    - "the"
+    - "of"
+    - "inc"
+    - "ltd"
+    - "co"
+  # Placeholder consignee strings that appear on manifests/BL documents
+  # when the consignee field is not meaningful (self-reference, blank, or
+  # to-order bearer shipments). When the consignee text matches any of
+  # these (case-insensitive), skip consignee-rule matching entirely.
+  placeholders:
+    - "SAME AS CONSIGNEE"
+    - "SAME AS SHIPPER"
+    - "SAME AS ABOVE"
+    - "AS PER SHIPPER"
+    - "TO ORDER"
+    - "TO THE ORDER OF"
+  # NOTIFY-party mis-OCR sentinels. When OCR grabs the label instead of
+  # the content, the consignee field ends up with these literal values.
+  # Only used at the BL-metadata resolution site (resolve_doc_type),
+  # not every consignee comparison.
+  notify_placeholders:
+    - "NOTIFY"
+    - "NOTIFY:"
+    - "NOTIFY PARTY"
+    - "NOTIFY PARTY:"
+  # BL / manifest / shipping-doc field-label strings that OCR may grab
+  # as consignee content when the document layout confuses the reader.
+  # Used by _is_valid_consignee() to reject mis-extracted label text.
+  field_labels:
+    - "DESCRIPTION OF GOODS"
+    - "DESCRIPTION OF PACKAGES"
+    - "DESCRIPTION"
+    - "CONSIGNEE"
+    - "SHIPPER"
+    - "SHIP TO"
+    - "BILL TO"
+    - "SOLD TO"
+    - "MARKS & NUMBERS"
+    - "GROSS WEIGHT"
+    - "MEASUREMENT"
+    - "PARTICULARS FURNISHED BY SHIPPER"
+    - "FORWARDING AGENT"
+    - "EXPORTING CARRIER"
+    - "PORT OF LOADING"
+    - "PORT OF DISCHARGE"
+    - "PLACE OF DELIVERY"
+    - "NOTIFY PARTY ALSO NOTIFY"
+    # Single-word document-title headings that OCR may grab when the
+    # invoice layout puts the doc title on its own line above the
+    # billing/shipping address block (e.g. West-Marine Print/Invoice).
+    # Pinned by HAWB451185 — _extract_consignee step-5 used to return
+    # "Invoice" verbatim because the multi-column regex captured the
+    # line above "Bill To: Ship To:" without re-validation.
+    - "INVOICE"
+    - "RECEIPT"
+    - "STATEMENT"
+    - "QUOTE"
+    - "ORDER"
+    - "PRINT"
+
+# added by Wave 1 for pipeline/run.py
+# Document-classification bucket labels produced by classify_input_pdfs.
+# Used as keys in args._classification dict and compared throughout
+# run.py for routing decisions.
+classification_buckets:
+  INVOICE:         "invoice"
+  MANIFEST:        "manifest"
+  DECLARATION:     "declaration"
+  BILL_OF_LADING:  "bill_of_lading"
+  PACKING_LIST:    "packing_list"
+  FREIGHT_INVOICE: "freight_invoice"
+  SIMPLIFIED:      "simplified"
+  UNUSABLE:        "unusable"
+  UNKNOWN:         "unknown"
+
+# Send-history default sender location code (used when --location is not
+# supplied on the command line).
+# added by Wave 1 for pipeline/run.py
+send_defaults:
+  location: "WebSource"
+
+# added by Wave 1 for pipeline/run.py
+# Consignee/supplier rule-match discriminator. Recorded on args._consignee_match_type
+# after a doc-type rule matches so downstream code can decide whether to apply
+# the rule's consignee metadata (only when the match was on the actual
+# consignee name, not a supplier-only match).
+match_types:
+  CONSIGNEE: "consignee"
+  SUPPLIER:  "supplier"
+
+# Per-invoice consignee resolution source tags. Returned by
+# pipeline.config_loader.resolve_invoice_consignee under the "source" key
+# so callers can apply per-source policies (e.g. surface a "consignee
+# from BL only" warning, distinguish rule-matched from free-text names).
+# Layered precedence is implemented in config_loader, not here.
+# Stage names emitted by pipeline.workflow.batch.process_single_invoice
+# via state.mark_stage_complete()/mark_stage_failed(). The names are
+# the contract between batch.py and PipelineState, so they live here as
+# a controlled vocabulary instead of being scattered as string literals.
+batch_stages:
+  EXTRACT:        "extract"
+  PARSE:          "parse"
+  GENERATE_XLSX:  "generate_xlsx"
+  UNKNOWN:        "unknown"
+
+# Defaults injected into compose_email() when the upstream
+# declaration/manifest didn't supply a value. Kept here so a customer
+# tweak ("default packages should be 2 for X") is a config edit, not
+# a Python edit.
+batch_compose_email_defaults:
+  consignee_name:  "Consignee Name Not Found"
+  packages:        "1"
+  weight:          "0"
+  freight:         "0"
+  country_origin:  "US"
+
+# OCR method tags written to PipelineState.ocr_method. These are
+# diagnostic labels — the actual method choice is made by multi_ocr;
+# batch.py just records which family was used for traceability.
+batch_ocr_method_tags:
+  PDFPLUMBER_OCR: "pdfplumber+ocr"
+
+# Doc-type values emitted by pdf_splitter (pages_info[].doc_type).
+# Used by batch._split_combined_pdf() to count pages per kind.
+pdf_split_doc_types:
+  DECLARATION: "declaration"
+  INVOICE:     "invoice"
+  UNKNOWN:     "unknown"
+
+# Banner-rule width used by batch.process_combined_pdf for console
+# output framing.
+batch_banner_width: 60
+
+# Cap on extracted_text bytes appended to a debug body block in
+# batch.compose_email_with_debug_extract.
+batch_extract_text_truncation_chars: 10000
+
+# Settings consumed by the downloads-emails regression harness
+# (tests/pipeline/test_downloads_emails_regression.py). Centralised
+# so changes to harness behaviour (timeout, banner width, stderr
+# tail size, etc.) are config edits, not test source edits.
+regression_test_settings:
+  subprocess_timeout_seconds:   900   # subprocess.run() timeout for run.py per shipment
+  summary_banner_width:         72    # console-banner ruler width
+  stderr_tail_chars:            500   # how many trailing stderr chars to surface on failure
+  snapshot_diff_max:            200   # cap on per-shipment diffs persisted to result dict
+  report_json_marker:           "REPORT:JSON:"   # stdout-line prefix the harness scans for the JSON report
+  invariants_mode:              "minimal"   # invariants.run_all_invariants mode
+  combined_xlsx_substring:      "combined"   # substring used to deprioritise combined workbooks during waybill matching
+  customs_value_compare_epsilon: 0.005   # |expected - actual| tolerance for CLIENT DECLARED DUTIES read-back
+  # Per-test scratch and artefact basenames (tmp_path subdirs, snapshot
+  # label prefix, summary file basenames). Test-internal but routed
+  # through config to keep the test source free of hardcoded literals.
+  stage_subdir_name:            "stage"        # tmp_path/<stage> — staged source PDFs
+  output_subdir_name:           "out"          # tmp_path/<out> — pipeline output dir
+  snapshot_label_prefix:        "email_"       # passed to snapshot_and_compare("<prefix><folder>")
+  summary_dirname:              "downloads_emails_summary"   # tmp_path_factory.mktemp(<name>)
+  # Field names defined by the YAML expectations schema. Listed here so
+  # the test source uses subscript / .get() access (role-exempt) instead
+  # of bare string literals in `if "..." in exp` checks.
+  expectation_field_names:
+    EXPECTED_WAYBILLS:        "expected_waybills"
+    EXPECTED_WAYBILLS_SUBSET: "expected_waybills_subset"
+    EXPECTED_CUSTOMS_VALUE:   "expected_customs_value_ec"
+    CONSIGNEE:                "consignee"
+    EXPECTED_DOC_TYPE_ALL:    "expected_doc_type_all"
+    EXPECTED_DOC_TYPE_MAP:    "expected_doc_type"
+  # pytest.parametrize argname spellings (must match the test function
+  # parameter names — kept here as the SSOT so a future param rename
+  # touches both sides via the same config). Comma-separated form
+  # avoids needing a tuple of literals in Python.
+  parametrize_argnames_csv: "folder_name,folder_path"
+
+# Snapshot status enum returned by tests/pipeline/_regression_artifacts.snapshot_and_compare.
+snapshot_status:
+  MATCH:    "match"
+  NEW:      "new"
+  DRIFT:    "drift"
+  PROMOTED: "promoted"
+
+# Test result categories tagged on each per-shipment dict in
+# the regression harness's _RESULTS list.
+regression_test_result_categories:
+  ERROR_CRASH:      "error_crash"
+  SKIPPED_NO_PDFS:  "skipped_no_pdfs"
+  PROCESSED_PASS:   "processed_pass"
+  PROCESSED_FAIL:   "processed_fail"
+
+# Failure-kind tags appended to the per-shipment ``failures`` list.
+regression_test_failure_kinds:
+  TIMEOUT:        "timeout"
+  NONZERO_EXIT:   "nonzero_exit"
+  STDERR_TAIL:    "stderr_tail"
+  MISSING_REPORT: "missing_report"
+  WAYBILLS_MISMATCH: "waybills_mismatch"
+  WAYBILLS_MISSING:  "waybills_missing"
+  CONSIGNEE:      "consignee"
+  DOC_TYPE:       "doc_type"
+
+# Run.py CLI flag spellings invoked from tests/scripts via subprocess.
+# Listed in dependency order — flag name first, value passed positionally
+# from the caller. Centralised so a future flag rename only touches
+# config + run.py argparse setup.
+run_cli_args:
+  python_unbuffered:  "-u"
+  input_dir:          "--input-dir"
+  output_dir:         "--output-dir"
+  json_output:        "--json-output"
+  no_send_email:      "--no-send-email"
+
+# User-visible failure messages emitted by pipeline.workflow.batch.
+# Kept in config so customer-facing wording can be tuned without a
+# Python edit (e.g. translating to French for new offices).
+batch_messages:
+  no_text_extracted_short:    "No text extracted"
+  no_text_extracted_user:     "No text could be extracted from invoice"
+  ocr_extract_failed_reason:  "OCR extraction failed — no text could be extracted"
+  pipeline_failed_with_spec:  "Pipeline failed even with generated format spec"
+  item_extraction_failed:     "Item extraction failed — no items could be parsed from invoice"
+  email_send_failed:          "Email sending failed"
+  no_text_placeholder:        "(no text extracted)"
+
+consignee_resolution_sources:
+  RULE_SCAN_INVOICE:    "rule_scan_invoice"     # invoice text matched a rule via substring/word scan
+  RULE_MATCH_LABEL:     "rule_match_label"      # label-extracted name mapped to a rule
+  LABEL_INVOICE:        "label_invoice"         # label-extracted name with no rule match (free text)
+  BL_RULE_MATCH:        "bl_rule_match"         # BL consignee mapped to a rule
+  BL:                   "bl"                    # BL consignee with no rule match (free text)
+  MANIFEST_RULE_MATCH:  "manifest_rule_match"   # manifest consignee mapped to a rule
+  MANIFEST:             "manifest"              # manifest consignee with no rule match
+  DEFAULT:              "default"               # nothing extracted — flagged downstream
+
+# added by Wave 1 for pipeline/run.py
+# Sentinel values used when no proper BL/invoice number can be derived.
+# These appear in filenames (combined XLSX, placeholder folder names) and
+# are checked for equality to detect "no value given" states.
+bl_number_sentinels:
+  combined:      "combined"
+  next_shipment: "Next Shipment"
+  unknown:       "unknown"
+  # Uppercase variant used when the waybill sentinel is written into
+  # a user-visible slot (folder name, email subject) rather than a
+  # lowercased classification bucket.
+  unknown_upper: "UNKNOWN"
+
+# added by Wave 1 for pipeline/run.py
+# Operational defaults for run.py-emitted declarations when upstream
+# metadata is missing.
+run_defaults:
+  # ISO country code stamped onto line items when the supplier record
+  # has no country_origin and --country-origin is not supplied.
+  country_origin: "US"
+  # Human-readable fallback used when the supplier/folder name is
+  # not resolvable (e.g. empty --input-dir basename).
+  unknown_label:  "Unknown"
+
+# added by Wave 1 for pipeline/run.py
+# Sentinels/reason strings emitted by the format_registry extraction path.
+extraction_sentinels:
+  default_format:       "_default"
+  text_extraction_fail: "Text extraction failed"
+
+# Manifest-metadata dict field names. These are the contractual keys that flow
+# between stages.manifest_extractor and downstream routing/XLSX stages in
+# pipeline/run.py. Typo-level bugs here would silently drop shipment-level
+# data from the emitted declarations.
+# added by Wave 1 for pipeline/run.py
+manifest_fields:
+  PACKAGES:    "packages"
+  WEIGHT:      "weight"
+  FREIGHT:     "freight"
+  CONSIGNEE:   "consignee"
+  OFFICE:      "office"
+  FOB_VALUE:   "fob_value"
+  MAN_REG:     "man_reg"
+  INVOICE_NUM: "invoice_num"
+  WAYBILL:     "waybill"
+
+# added by Wave 1 for pipeline/run.py
+# Invoice-level cost-adjustment field names used when pro-rating the
+# invoice across declaration splits. Matches the keys emitted by the
+# format extractors into the invoice_data dict.
+invoice_adjustment_keys:
+  - "insurance"
+  - "other_cost"
+  - "deduction"
+  - "tax"
+  - "discount"
+  - "free_shipping"
+  - "credits"
+
+# added by Wave 1 for pipeline/run.py
+# Handwritten-declaration customs_value field names. is_usd flag governs
+# whether the value is interpreted as USD (True) or EC (False).
+customs_value_fields:
+  ec:  "customs_value_ec"
+  usd: "customs_value_usd"
+
+# added by Wave 1 for pipeline/run.py
+# OCR quality rating labels that mark a page as failing quality checks.
+ocr_quality_failure_ratings:
+  - "poor"
+  - "unusable"
+
+# added by Wave 1 for pipeline/run.py
+# Filename hint tokens for worksheet-style XLSX inputs (vs invoice PDFs).
+worksheet_hints:
+  - "-worksheet"
+  - "worksheet"
+
+# added by Wave 1 for pipeline/run.py
+# Default sentinel for tariff_code when a line item has none set.
+# Eight zeros matches the HS-code 8-digit format expected by the CET lookup.
+tariff_code_default: "00000000"
+
+# added by Wave 1 for pipeline/run.py
+# Sentinel float value stored as string in extracted.json when a field
+# legitimately has no numeric value. Distinct from the Python None used
+# for "not extracted".
+numeric_none_sentinel: "None"
+
+# added by Wave 1 for pipeline/run.py
+# Rule-text examples exercised by the consignee normaliser smoke-check.
+# These are well-known supplier/consignee names that MUST round-trip
+# through the normaliser without being mangled.
+rule_text_smoke_examples:
+  - "Budget Marine"
+  - "Amazon"
+  - "Walmart"
+  - "West Marine"
+  - "Reef Lifestyle"
+  - "Flip Flop"
+
+# added by Wave 1 for pipeline/run.py
+# MIME type components for the email-attachment handler.
+email_mime:
+  main_type: "application"
+  sub_type:  "pdf"
+  disposition_header: "Content-Disposition"
+  body_subtype: "plain"
+
+# added by Wave 1 for pipeline/run.py
+# logging.basicConfig format string.
+logging_format: "%(asctime)s - %(levelname)s - %(message)s"
+
+# added by Wave 2 for pipeline/run.py
+# Stage names emitted by the Stage() context manager for the BL workflow
+# phases. These appear in the perf log and BL workflow logging.
+# Pinning them in config keeps the canonical phase taxonomy in one place
+# (tooling that reads .perf/run.jsonl can resolve known phase keys).
+stage_names:
+  bl_phase1_load_po:                     "bl.phase1.load_po"
+  bl_phase2_format_registry:             "bl.phase2.format_registry"
+  bl_phase4_prepare_invoice_pdfs:        "bl.phase4.prepare_invoice_pdfs"
+  bl_phase6_allocate_bl_packages:        "bl.phase6.allocate_bl_packages"
+  bl_phase7_combine_entries:             "bl.phase7.combine_entries"
+  bl_phase8_manifest_metadata:           "bl.phase8.manifest_metadata"
+  bl_phase9_package_cap:                 "bl.phase9.package_cap"
+  bl_phase10_xlsx_validation:            "bl.phase10.xlsx_validation"
+  bl_phase11_classification_cross_check: "bl.phase11.classification_cross_check"
+  bl_phase11_verify_one:                 "bl.phase11.verify_one"
+
+# added by Wave 2 for pipeline/run.py
+# Perf-event keys emitted via _perf.event() / _perf.phase() during the
+# main PDF-processing loop and at pipeline start.
+perf_event_keys:
+  pdf_loop_iter_begin:     "pdf_loop_iter_begin"
+  pdf_loop_iter_end:       "pdf_loop_iter_end"
+  pdf_loop_complete:       "pdf_loop_complete"
+  pipeline_start:          "pipeline_start"
+  analyze_pdf:             "analyze_pdf"
+  split_pdf_multi_invoice: "split_pdf_multi_invoice"
+  split_result:            "split_result"
+
+# added by Wave 2 for pipeline/run.py
+# Route-tag values stamped onto perf events to distinguish the two
+# branches of the per-PDF processing loop (single-page passthrough vs
+# fall-through after no split was performed).
+route_tags:
+  single_page_passthrough: "single_page_passthrough"
+  passthrough_no_split:    "passthrough_no_split"
+
+# added by Wave 2 for pipeline/run.py
+# Field-value sentinels emitted on perf events when a contextual value
+# is unavailable (kept distinct from bl_number_sentinels which govern
+# user-visible filename / waybill states).
+perf_field_sentinels:
+  no_bl: "none"
+
+# added by Wave 2 for pipeline/run.py
+# Fallback string written into checklist failure dicts when the upstream
+# producer didn't tag the failure with a 'check' key. Distinct semantic
+# from bl_number_sentinels.unknown (a waybill-number sentinel) — this one
+# is a checklist-record-shape default.
+checklist_sentinels:
+  unknown_check: "unknown"
+
+# added by Wave 2 for pipeline/run.py
+# Reserved email-params dict keys consulted directly by run.py when
+# filtering the params payload outside the normal serialization path.
+email_param_keys:
+  attachment_paths: "attachment_paths"
+  notes:            "notes"
+
+# added by Wave 1 for pipeline/process_bl.py
+# CLI fallback defaults used by process_bl.py. The production entry point is
+# run.py which does auto-detection; process_bl.py is a thin per-BL CLI kept
+# for manual re-runs. These strings are CLI convenience defaults, NOT
+# routing policy.
+process_bl_cli:
+  default_doc_type:       "7400-000"
+  default_consignee:      "BUDGET MARINE (GRENADA)"
+  default_consignee_code: "07290940003049"
+  default_country_origin: "US"
+  default_email_weight:   "0"
+  separator_wide:         80
+  separator_table:        108

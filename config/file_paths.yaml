@@ -33,6 +33,9 @@ version: "1.0.0"
 dirs:
   workspace:      "workspace"
   shipments:      "workspace/shipments"
+  # added by Wave 1 for pipeline/process_bl.py
+  documents:          "documents"
+  workspace_documents: "workspace/documents"
   data:           "data"
   config:         "config"
   prompts:        "prompts"
@@ -58,6 +61,12 @@ extensions:
   png:  ".png"
   jpg:  ".jpg"
   csv:  ".csv"
+  # Compound suffixes used by the regression harness to distinguish
+  # generated artefact PDFs from source PDFs (see
+  # tests/pipeline/test_downloads_emails_regression.py::_is_source_pdf).
+  meta_json:      ".meta.json"
+  pages_json:     ".pages.json"
+  pdf_pages_json: ".pdf.pages.json"
 
 # Per-shipment sentinel filenames.
 sentinels:
@@ -74,8 +83,103 @@ references:
   # Fallback read-write temp copy name (lives under tempfile.gettempdir()).
   cet_database_temp_name: "cet_readonly.db"
 
+# added by Wave 1 for pipeline/run.py
+# Config-directory basenames (joined against dirs.config at load sites).
+config_basenames:
+  shipment_rules: "shipment_rules.yaml"
+  document_types: "document_types.json"
+  pipeline:         "pipeline.yaml"
+  office_locations: "office_locations.yaml"
+
+# added by Wave 1 for pipeline/run.py
+# Email-body sentinel filename used to persist the rendered email text
+# alongside the output XLSX (for reviewer inspection / debug replay).
+email_artifacts:
+  body_txt: "email.txt"
+  backup_suffix: ".bak"
+
 # Top-level source code directory (relative to repo root).
 # added by Wave 1 for pipeline/bl_xlsx_generator.py
 source_dirs:
   src:  "src"
   pipeline: "pipeline"
+
+# added by Wave 1 for pipeline/xlsx_generator.py
+# Intermediate-stage suffixes stripped from input-file basenames when
+# deriving the final XLSX filename. Without this, a workspace like
+# INVOICE_grouped.json would produce INVOICE_grouped.xlsx instead of
+# INVOICE.xlsx.
+intermediate_suffixes:
+  - "_grouped"
+  - "_classified"
+  - "_parsed"
+  - "_extracted"
+
+# Pipeline-internal work-file basenames written by stages into the
+# tempfile work_dir (see pipeline.pipeline_runner.PipelineRunner.run).
+# These are the contractual exchange filenames between stages — not
+# user-visible paths but stable across releases.
+pipeline_work_files:
+  extracted_json:  "extracted.json"
+
+# Top-level workspace and data directories (relative to repo root).
+# Centralised here so test/script code that needs to walk into
+# workspace/output/<corpus> doesn't hardcode the path components.
+workspace_dirs:
+  data:                          "data"
+  workspace:                     "workspace"
+  workspace_output:              "output"   # subdir under workspace/
+  downloads_regression_corpus:   "downloads-regression-emails"   # subdir under workspace/output/
+
+# Pipeline-script basenames invoked from tests / scripts via subprocess
+# (rather than importing the module). Adding an entry here is the SSOT
+# for "what's the entry-point script" — change it once, callers follow.
+pipeline_script_basenames:
+  run:  "run.py"
+
+# File-name prefixes the regression harness uses to distinguish
+# pipeline-generated artefacts from source PDFs.
+generated_file_prefixes:
+  email_params:        "_email_params"
+  proposed_fixes_meta: "_proposed_fixes"
+  proposed_fixes_yaml: "proposed_fixes_"
+
+# Glob patterns used by the regression harness to discover pipeline
+# outputs in tmp working directories.
+output_glob_patterns:
+  email_params_files:  "_email_params*.json"
+  hawb_xlsx:           "HAWB*.xlsx"
+  any_xlsx:            "*.xlsx"
+
+# Test fixture / test infrastructure path components. Centralised so a
+# rename of tests/fixtures/<name>/ doesn't require a Python edit
+# (which would require approving more magic-ok bypasses).
+test_paths:
+  tests_dir:                       "tests"
+  fixtures_dir:                    "fixtures"
+  downloads_emails_fixture_dir:    "downloads_emails_regression"
+  downloads_emails_expectations:   "expectations.yaml"
+
+# added by Wave 1 for pipeline/run.py
+# Sentinel filenames written by run.py into per-shipment output dirs.
+run_sentinels:
+  bl_hint:                  "_bl_hint.json"
+  email_params:             "_email_params.json"
+  email_params_backup:      "_email_params.json.bak"
+  email_params_prefix:      "_email_params_"
+  failures_report:          "_failures.txt"
+  proposed_fixes_params:    "_proposed_fixes_params.json"
+
+# Subdirectory names used by run.py during staging / splitting.
+run_subdirs:
+  split_temp:          "_split_temp"
+  fixes_reports:       "_fixes_reports"
+  unprocessed:         "Unprocessed"
+
+# added by Wave 2 for pipeline/run.py
+# Per-shipment perf-log artifact paths. The .perf subdirectory is created
+# under the run output dir and the JSONL log captures Stage / event entries
+# (see pipeline.core.perf_log).
+perf_artifacts:
+  dir:      ".perf"
+  log_name: "run.jsonl"

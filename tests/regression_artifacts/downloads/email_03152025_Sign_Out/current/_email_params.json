@@ -1,0 +1,20 @@
+{
+  "waybill": "HAWB9389257",
+  "consignee_name": "ARIEL BARRY",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 1,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "2.0",
+  "country_origin": "CN",
+  "freight": "2.99",
+  "man_reg": "2024 21",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0342/out/PO-211-14158160568950843.pdf",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0342/out/PO-211-14158160568950843.xlsx",
+    "/tmp/pytest-of-joseph/pytest-182/test_downloads_email_folder_0342/out/HAWB9389257-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

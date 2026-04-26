@@ -1,0 +1,37 @@
+# Fixtures for tests/pipeline/test_consignee_grouping.py.
+# Loaded via tests/_fixtures.py::load_test_manifest("consignee_grouping").
+#
+# Tests exercise the auto-split grouping primitive in
+# pipeline/consignee_grouping.py — the layer that turns per-invoice
+# resolver outputs into [{consignee, doc_type, results}, ...] groups
+# so downstream code can emit one _email_params per group.
+
+format_name: consignee_grouping
+
+# Expected source tag for a Budget Marine rule match.
+source_rule_scan_invoice: rule_scan_invoice
+
+# Resolver-output stubs for synthetic invoice results.
+budget_marine_resolution:
+  consignee_name: "Budget Marine Grenada"
+  doc_type:       "7400-000"
+  source:         "rule_scan_invoice"
+  matched_rule:   {match: "budget marine"}
+
+bernisha_resolution:
+  consignee_name: "Bernisha"
+  doc_type:       "4000-000"
+  source:         "label_invoice"
+  matched_rule:   null
+
+empty_resolution: {}
+
+# BL consignee strings used in disagreement tests.
+bl_consignee_budget_marine: "BUDGET MARINE GRENADA"
+bl_consignee_random:        "ACME GLOBAL IMPORTERS LTD"
+bl_consignee_blank:         ""
+
+# Names for the invoice-tag stub objects (any unique strings).
+inv_a_name: invoice_A
+inv_b_name: invoice_B
+inv_c_name: invoice_C

@@ -85,7 +85,7 @@ _HS_TARIFF_LEN = _HS["tariff_length"]
 # so the padding strings below stay derived, not hardcoded.
 _HS_ZERO_CODE = next(
     (s for s in _HS["zero_sentinels"] if isinstance(s, str) and s),
-    "0" * _HS_TARIFF_LEN,
+    "0" * _HS_TARIFF_LEN,  # magic-ok: zero-digit padding char
 )
 # Padding strings: zero-fill for chapter/heading level lookups.
 _HS_ZERO_PAD_HEADING = _HS_ZERO_CODE[_HS_SLICE_HEADING:]     # "0000"
@@ -95,7 +95,40 @@ _FILL_TYPE_SOLID = _LIBENUMS["openpyxl"]["fill_type"]["SOLID"]
 _SHEET_CFG = _LIBENUMS["openpyxl"]["sheet"]
 _NUMFMT = _LIBENUMS["openpyxl"]["number_format"]
 _ALIGN_CENTER = _LIBENUMS["openpyxl"]["alignment"]["CENTER"]
-_COMMENT_AUTHOR = _COLUMNS_CFG.get("comment_author", "AutoInvoice")
+_COMMENT_AUTHOR = _COLUMNS_CFG["comment_author"]
+
+# ─── Populate-on trigger tokens (match columns.yaml populate_on values) ───
+# These tokens are compared against the populate_on string on each column
+# config entry in columns.yaml. Keep in sync with columns.yaml.
+_POPULATE_FIRST_GROUP = "first_group_per_invoice"  # magic-ok: columns.yaml populate_on token
+
+# ─── Formula placeholder tokens ───────────────────────────
+# Brace-wrapped placeholder strings that appear in columns.yaml
+# formula_templates and grouping.yaml totals_section patterns. Used by
+# the hand-rolled replacer in _resolve_totals_formula and the ungrouped
+# totals writer. Keep names in sync with those YAML values.
+_PH_ALL_P_REFS          = "{all_P_refs}"          # magic-ok: formula_templates placeholder
+_PH_FIRST_ROW           = "{first_row}"           # magic-ok: formula_templates placeholder
+_PH_LAST_DATA_ROW       = "{last_data_row}"       # magic-ok: formula_templates placeholder
+_PH_SUBTOTAL_ROW        = "{subtotal_row}"        # magic-ok: formula_templates placeholder
+_PH_SUBTOTAL_GROUPED    = "{subtotal_grouped_row}"  # magic-ok: formula_templates placeholder
+_PH_SUBTOTAL_DETAILS    = "{subtotal_details_row}"  # magic-ok: formula_templates placeholder
+_PH_ADJUSTMENTS_ROW     = "{adjustments_row}"     # magic-ok: formula_templates placeholder
+_PH_NET_TOTAL_ROW       = "{net_total_row}"       # magic-ok: formula_templates placeholder
+_PH_GROUP_P_REFS        = "{group_P_refs}"        # magic-ok: formula_templates placeholder
+_PH_GROUP_Q_REFS        = "{group_Q_refs}"        # magic-ok: formula_templates placeholder
+
+# Value-interpolation tokens used in grouping.yaml totals_section patterns.
+# When a totals row's column_P is exactly one of these, the resolver returns
+# the corresponding numeric value from invoice_data rather than a formula.
+_VAL_FREIGHT         = "${freight_value}"     # magic-ok: grouping.yaml totals value token
+_VAL_INSURANCE       = "${insurance_value}"   # magic-ok: grouping.yaml totals value token
+_VAL_OTHER_COST      = "${other_cost_value}"  # magic-ok: grouping.yaml totals value token
+_VAL_DEDUCTION       = "${deduction_value}"   # magic-ok: grouping.yaml totals value token
+_VAL_INVOICE_TOTAL   = "${invoice_total}"     # magic-ok: grouping.yaml totals value token
+
+# Row-type tokens from grouping.yaml totals_section entries.
+_ROW_TYPE_BLANK      = "blank_row"            # magic-ok: grouping.yaml row type token
 
 # ─── Build openpyxl style objects from spec ────────────────
 def _build_styles():
@@ -105,31 +138,31 @@ def _build_styles():
     ds = _spec.detail_style
 
     header_fill = PatternFill(
-        start_color=hs.get('fill_color', '4472C4'),
-        end_color=hs.get('fill_color', '4472C4'),
-        fill_type='solid'
+        start_color=hs['fill_color'],
+        end_color=hs['fill_color'],
+        fill_type=_FILL_TYPE_SOLID,
     )
     header_font = Font(
-        bold=hs.get('font_bold', True),
-        color=hs.get('font_color', 'FFFFFF'),
-        size=hs.get('font_size', 10)
+        bold=hs['font_bold'],
+        color=hs['font_color'],
+        size=hs['font_size'],
     )
     group_fill = PatternFill(
-        start_color=gs.get('fill_color', 'D9E1F2'),
-        end_color=gs.get('fill_color', 'D9E1F2'),
-        fill_type=gs.get('fill_type', 'solid')
+        start_color=gs['fill_color'],
+        end_color=gs['fill_color'],
+        fill_type=gs.get('fill_type', _FILL_TYPE_SOLID),
     )
     group_font = Font(
-        bold=gs.get('font_bold', True),
-        size=gs.get('font_size', 11)
+        bold=gs['font_bold'],
+        size=gs['font_size'],
     )
     detail_font = Font(
-        bold=ds.get('font_bold', False),
-        size=ds.get('font_size', 10)
+        bold=ds['font_bold'],
+        size=ds['font_size'],
     )
     bold_font = Font(
         bold=True,
-        size=_spec.totals_default_formatting.get('font_size', 11)
+        size=_spec.totals_default_formatting['font_size'],
     )
     border = Border(
         left=Side(style=_spec.border_style),
@@ -346,7 +379,7 @@ def _normalize_date(date_str: str) -> str:
     if m:
         from datetime import datetime
         try:
-            dt = datetime(int(m.group(3)), int(m.group(1)), int(m.group(2)))
+            dt = datetime(int(m.group(3)), int(m.group(1)), int(m.group(2)))  # magic-ok: regex group index (year)
             return dt.strftime(out_fmt)
         except ValueError:
             pass
@@ -404,7 +437,7 @@ def load_document_type_config(document_type: str) -> Dict:
 
 _DEFAULT_BL_DOC_TYPE = "7400-000"  # magic-ok: canonical doc_type literal, validated against load_document_types() on import
 assert _DEFAULT_BL_DOC_TYPE in _DOCTYPES["document_types"], (
-    "generate_bl_xlsx default document_type must exist in document_types.json"
+    "generate_bl_xlsx default document_type must exist in document_types.json"  # magic-ok: assertion message
 )
 _DEFAULT_REFERENCE_LABEL = _LABELS["reference"]["default_label"]
 
@@ -454,6 +487,14 @@ def generate_bl_xlsx(
         wb.save(output_path)
         return output_path
 
+    # Single-item invoices: a "group of 1" adds no information.
+    # The grouped layout would emit a group-header row + 1 detail row +
+    # SUBTOTAL (GROUPED)/SUBTOTAL (DETAILS)/GROUP VERIFICATION rows, all
+    # showing the same number.  Render ungrouped for cleaner output.
+    # The doc_type tag (e.g. 4000-000) is preserved on the detail row.
+    if grouping and len(matched_items) == 1:
+        grouping = False
+
     if grouping:
         row_num = _write_items_grouped(ws, matched_items, invoice_data,
                                        supplier_name, supplier_info,
@@ -498,16 +539,16 @@ def _write_items_ungrouped(
     col_count = _spec.col_count()
 
     # Pre-resolve column indices
-    COL_F = _spec.col_index('F')
-    COL_Q = _spec.col_index('Q')
-    COL_R = _spec.col_index('R')
-    COL_AK = _spec.col_index('AK')
+    COL_F = _spec.col_index('F')    # magic-ok: columns.yaml schema key
+    COL_Q = _spec.col_index('Q')    # magic-ok: columns.yaml schema key
+    COL_R = _spec.col_index('R')    # magic-ok: columns.yaml schema key
+    COL_AK = _spec.col_index('AK')  # magic-ok: columns.yaml schema key
 
-    q_formula = _spec.formula_spec('Q')  # "=O{row}*K{row}"
-    r_formula = _spec.formula_spec('R')  # "=P{row}-Q{row}"
+    q_formula = _spec.formula_spec('Q')  # magic-ok: columns.yaml schema key (formula = "=O{row}*K{row}")
+    r_formula = _spec.formula_spec('R')  # magic-ok: columns.yaml schema key (formula = "=P{row}-Q{row}")
 
     for idx, item in enumerate(matched_items):
-        tariff_code = str(item.get('tariff_code', '00000000'))
+        tariff_code = str(item.get('tariff_code', _HS_ZERO_CODE))
         cet_desc = get_cet_category(tariff_code)
         spec_cat = _spec.category_name(tariff_code)
         if spec_cat != _spec.category_default:
@@ -526,7 +567,7 @@ def _write_items_ungrouped(
             populate_on = cfg.get('populate_on')
 
             # First-row-only columns
-            if populate_on == 'first_group_per_invoice' and row_num != 2:
+            if populate_on == _POPULATE_FIRST_GROUP and row_num != 2:
                 continue
 
             # Formula columns
@@ -546,7 +587,7 @@ def _write_items_ungrouped(
             if val_template is None:
                 # Check default
                 default = cfg.get('default')
-                if default is not None and (populate_on != 'first_group_per_invoice' or row_num == 2):
+                if default is not None and (populate_on != _POPULATE_FIRST_GROUP or row_num == 2):
                     ws.cell(row=row_num, column=col_idx, value=default)
                 continue
 
@@ -567,8 +608,8 @@ def _write_items_ungrouped(
         # Uncertainty marker for orphan-price recovered items (ungrouped).
         dq = (item.get('data_quality') or '').strip()
         if dq and Comment is not None:
-            col_o = _spec.col_index('O')
-            col_p = _spec.col_index('P')
+            col_o = _spec.col_index('O')  # magic-ok: columns.yaml schema key
+            col_p = _spec.col_index('P')  # magic-ok: columns.yaml schema key
             for col_idx in (col_o, col_p):
                 cell = ws.cell(row=row_num, column=col_idx)
                 cell.fill = RECOVERED_FILL
@@ -576,7 +617,7 @@ def _write_items_ungrouped(
                     f"Data quality: {dq}\n"
                     f"This value was recovered from OCR text via the "
                     f"orphan-price scan. Review and correct if wrong.",
-                    "AutoInvoice",
+                    _COMMENT_AUTHOR,
                 )
 
         row_num += 1
@@ -595,17 +636,17 @@ def _write_items_grouped(
 
     groups = OrderedDict()
     for item in matched_items:
-        tariff_code = str(item.get('tariff_code', '00000000'))
+        tariff_code = str(item.get('tariff_code', _HS_ZERO_CODE))
         groups.setdefault(tariff_code, []).append(item)
 
     row_num = 2
     is_first_row = True
     col_count = _spec.col_count()
 
-    COL_AK = _spec.col_index('AK')
+    COL_AK = _spec.col_index('AK')  # magic-ok: columns.yaml schema key
 
-    q_formula = _spec.formula_spec('Q')
-    r_formula = _spec.formula_spec('R')
+    q_formula = _spec.formula_spec('Q')  # magic-ok: columns.yaml schema key
+    r_formula = _spec.formula_spec('R')  # magic-ok: columns.yaml schema key
 
     for tariff_code, group_items in groups.items():
         group_qty = sum(it['quantity'] for it in group_items)
@@ -643,7 +684,7 @@ def _write_items_grouped(
             populate_on = cfg.get('populate_on')
 
             # First-row-only columns
-            if populate_on == 'first_group_per_invoice' and not is_first_row:
+            if populate_on == _POPULATE_FIRST_GROUP and not is_first_row:
                 continue
 
             # Formula columns — use spec formula for group rows too
@@ -662,7 +703,7 @@ def _write_items_grouped(
             val_template = cfg.get('group_value') or static
             if val_template is None:
                 default = cfg.get('default')
-                if default is not None and (populate_on != 'first_group_per_invoice' or is_first_row):
+                if default is not None and (populate_on != _POPULATE_FIRST_GROUP or is_first_row):
                     ws.cell(row=row_num, column=col_idx, value=default)
                 continue
 
@@ -741,8 +782,8 @@ def _write_items_grouped(
             # comment so a reviewer can see it at a glance.
             dq = (item.get('data_quality') or '').strip()
             if dq and Comment is not None:
-                col_o = _spec.col_index('O')
-                col_p = _spec.col_index('P')
+                col_o = _spec.col_index('O')  # magic-ok: columns.yaml schema key
+                col_p = _spec.col_index('P')  # magic-ok: columns.yaml schema key
                 for col_idx in (col_o, col_p):
                     cell = ws.cell(row=row_num, column=col_idx)
                     cell.fill = RECOVERED_FILL
@@ -824,8 +865,8 @@ def _write_headers(ws) -> None:
         cell.font = HEADER_FONT
         cell.fill = HEADER_FILL
         cell.alignment = Alignment(
-            horizontal=hs.get('alignment', 'center'),
-            wrap_text=hs.get('wrap_text', True)
+            horizontal=hs['alignment'],
+            wrap_text=hs['wrap_text'],
         )
         cell.border = THIN_BORDER
 
@@ -842,7 +883,7 @@ def _write_subtotals_ungrouped(ws, row_num: int, item_count: int,
     last_item_row = first_row + item_count - 1
     col_count = _spec.col_count()
     label_col = _spec.ungrouped_totals_label_column
-    COL_P = _spec.col_index('P')
+    COL_P = _spec.col_index('P')  # magic-ok: columns.yaml schema key
 
     p_refs = "+".join([f"P{first_row + i}" for i in range(item_count)])
 
@@ -857,16 +898,16 @@ def _write_subtotals_ungrouped(ws, row_num: int, item_count: int,
 
         # Resolve formula with references
         resolved = formula_p
-        if '{all_P_refs}' in resolved:
-            resolved = resolved.replace('{all_P_refs}', p_refs)
-        if '{first_row}' in resolved:
-            resolved = resolved.replace('{first_row}', str(first_row))
-        if '{subtotal_row}' in resolved:
-            resolved = resolved.replace('{subtotal_row}', str(row_refs.get('SUBTOTAL', row_num)))
-        if '{adjustments_row}' in resolved:
-            resolved = resolved.replace('{adjustments_row}', str(row_refs.get('ADJUSTMENTS', row_num)))
-        if '{net_total_row}' in resolved:
-            resolved = resolved.replace('{net_total_row}', str(row_refs.get('NET TOTAL', row_num)))
+        if _PH_ALL_P_REFS in resolved:
+            resolved = resolved.replace(_PH_ALL_P_REFS, p_refs)
+        if _PH_FIRST_ROW in resolved:
+            resolved = resolved.replace(_PH_FIRST_ROW, str(first_row))
+        if _PH_SUBTOTAL_ROW in resolved:
+            resolved = resolved.replace(_PH_SUBTOTAL_ROW, str(row_refs.get('SUBTOTAL', row_num)))
+        if _PH_ADJUSTMENTS_ROW in resolved:
+            resolved = resolved.replace(_PH_ADJUSTMENTS_ROW, str(row_refs.get('ADJUSTMENTS', row_num)))
+        if _PH_NET_TOTAL_ROW in resolved:
+            resolved = resolved.replace(_PH_NET_TOTAL_ROW, str(row_refs.get('NET TOTAL', row_num)))
 
         if resolved:
             ws.cell(row=row_num, column=COL_P, value=resolved)
@@ -923,11 +964,11 @@ def _write_subtotals_grouped(ws, row_num: int, item_count: int,
     last_data_row = row_num - 1
     col_count = _spec.col_count()
     label_col = _spec.totals_label_column
-    COL_P = _spec.col_index('P')
-    COL_Q = _spec.col_index('Q')
+    COL_P = _spec.col_index('P')  # magic-ok: columns.yaml schema key
+    COL_Q = _spec.col_index('Q')  # magic-ok: columns.yaml schema key
 
     # Identify group vs detail rows by fill color
-    group_fill_color = _spec.group_style.get('fill_color', 'D9E1F2')
+    group_fill_color = _spec.group_style['fill_color']
     group_rows = []
     detail_rows = []
     for r in range(2, row_num):
@@ -939,8 +980,9 @@ def _write_subtotals_grouped(ws, row_num: int, item_count: int,
         else:
             detail_rows.append(r)
 
-    group_p_refs = "+".join([f"P{r}" for r in group_rows]) if group_rows else "0"
-    group_q_refs = "+".join([f"Q{r}" for r in group_rows]) if group_rows else "0"
+    # Fallback "0" — an Excel literal zero used when a worksheet has no group rows.
+    group_p_refs = "+".join([f"P{r}" for r in group_rows]) if group_rows else "0"  # magic-ok: empty-group Excel literal
+    group_q_refs = "+".join([f"Q{r}" for r in group_rows]) if group_rows else "0"  # magic-ok: empty-group Excel literal
 
     # Get invoice-level values for the totals section
     freight_val = invoice_data.get('freight', 0) or 0 if invoice_data else 0
@@ -959,7 +1001,7 @@ def _write_subtotals_grouped(ws, row_num: int, item_count: int,
 
     for row_cfg in _spec.totals_rows:
         # Handle blank rows
-        if row_cfg.get('type') == 'blank_row':
+        if row_cfg.get('type') == _ROW_TYPE_BLANK:
             row_num += 1
             continue
 
@@ -975,7 +1017,7 @@ def _write_subtotals_grouped(ws, row_num: int, item_count: int,
             formula_p, first_row, last_data_row,
             group_p_refs, group_q_refs, row_refs,
             freight_val, insurance_val, other_cost_val, deduction_val,
-            invoice_total, 'P'
+            invoice_total, 'P',  # magic-ok: columns.yaml schema key
         )
         if resolved_p is not None:
             ws.cell(row=row_num, column=COL_P, value=resolved_p)
@@ -986,7 +1028,7 @@ def _write_subtotals_grouped(ws, row_num: int, item_count: int,
                 formula_q, first_row, last_data_row,
                 group_p_refs, group_q_refs, row_refs,
                 freight_val, insurance_val, other_cost_val, deduction_val,
-                invoice_total, 'Q'
+                invoice_total, 'Q',  # magic-ok: columns.yaml schema key
             )
             if resolved_q is not None:
                 ws.cell(row=row_num, column=COL_Q, value=resolved_q)
@@ -1047,45 +1089,45 @@ def _resolve_totals_formula(formula: str, first_row: int, last_data_row: int,
                              row_refs: dict,
                              freight_val, insurance_val, other_cost_val,
                              deduction_val, invoice_total,
-                             col_letter: str = 'P') -> Any:
+                             col_letter: str = 'P') -> Any:  # magic-ok: columns.yaml schema key default
     """Resolve a totals formula template into a concrete Excel formula or value."""
     if not formula:
         return None
 
     # Literal value references
-    if formula == '${freight_value}':
+    if formula == _VAL_FREIGHT:
         return freight_val
-    if formula == '${insurance_value}':
+    if formula == _VAL_INSURANCE:
         return insurance_val
-    if formula == '${other_cost_value}':
+    if formula == _VAL_OTHER_COST:
         return other_cost_val
-    if formula == '${deduction_value}':
+    if formula == _VAL_DEDUCTION:
         return deduction_val
-    if formula == '${invoice_total}':
+    if formula == _VAL_INVOICE_TOTAL:
         return invoice_total
 
     resolved = formula
     # Replace group refs
-    if '{group_P_refs}' in resolved:
-        resolved = resolved.replace('{group_P_refs}', group_p_refs)
-    if '{group_Q_refs}' in resolved:
-        resolved = resolved.replace('{group_Q_refs}', group_q_refs)
+    if _PH_GROUP_P_REFS in resolved:
+        resolved = resolved.replace(_PH_GROUP_P_REFS, group_p_refs)
+    if _PH_GROUP_Q_REFS in resolved:
+        resolved = resolved.replace(_PH_GROUP_Q_REFS, group_q_refs)
     # Replace row references
-    if '{first_row}' in resolved:
-        resolved = resolved.replace('{first_row}', str(first_row))
-    if '{last_data_row}' in resolved:
-        resolved = resolved.replace('{last_data_row}', str(last_data_row))
-    if '{subtotal_grouped_row}' in resolved:
-        resolved = resolved.replace('{subtotal_grouped_row}',
+    if _PH_FIRST_ROW in resolved:
+        resolved = resolved.replace(_PH_FIRST_ROW, str(first_row))
+    if _PH_LAST_DATA_ROW in resolved:
+        resolved = resolved.replace(_PH_LAST_DATA_ROW, str(last_data_row))
+    if _PH_SUBTOTAL_GROUPED in resolved:
+        resolved = resolved.replace(_PH_SUBTOTAL_GROUPED,
                                      str(row_refs.get('SUBTOTAL (GROUPED)', first_row)))
-    if '{subtotal_details_row}' in resolved:
-        resolved = resolved.replace('{subtotal_details_row}',
+    if _PH_SUBTOTAL_DETAILS in resolved:
+        resolved = resolved.replace(_PH_SUBTOTAL_DETAILS,
                                      str(row_refs.get('SUBTOTAL (DETAILS)', first_row)))
-    if '{adjustments_row}' in resolved:
-        resolved = resolved.replace('{adjustments_row}',
+    if _PH_ADJUSTMENTS_ROW in resolved:
+        resolved = resolved.replace(_PH_ADJUSTMENTS_ROW,
                                      str(row_refs.get('ADJUSTMENTS', first_row)))
-    if '{net_total_row}' in resolved:
-        resolved = resolved.replace('{net_total_row}',
+    if _PH_NET_TOTAL_ROW in resolved:
+        resolved = resolved.replace(_PH_NET_TOTAL_ROW,
                                      str(row_refs.get('NET TOTAL', first_row)))
     return resolved
 
@@ -1127,8 +1169,8 @@ def _write_duty_estimation_section(
     difference signals potential tariff misclassification.
     """
     col_count = _spec.col_count()
-    COL_J = _spec.col_index('J')
-    COL_P = _spec.col_index('P')
+    COL_J = _spec.col_index('J')  # magic-ok: columns.yaml schema key
+    COL_P = _spec.col_index('P')  # magic-ok: columns.yaml schema key
 
     duty_labels = _LABELS["duty"]
     currency_fmt = _NUMFMT["CURRENCY_USD"]
@@ -1389,11 +1431,11 @@ def _write_reference_section(
     # Find the current last row
     row_num = ws.max_row + 2  # blank row separator
     col_count = _spec.col_count()
-    COL_J = _spec.col_index('J')
-    COL_K = _spec.col_index('K')
-    COL_N = _spec.col_index('N')
-    COL_O = _spec.col_index('O')
-    COL_P = _spec.col_index('P')
+    COL_J = _spec.col_index('J')  # magic-ok: columns.yaml schema key
+    COL_K = _spec.col_index('K')  # magic-ok: columns.yaml schema key
+    COL_N = _spec.col_index('N')  # magic-ok: columns.yaml schema key
+    COL_O = _spec.col_index('O')  # magic-ok: columns.yaml schema key
+    COL_P = _spec.col_index('P')  # magic-ok: columns.yaml schema key
 
     def _ref_style_row(r, font=REF_HEADER_FONT, fill=None):
         for col in range(1, col_count + 1):
@@ -1435,8 +1477,8 @@ def _write_reference_section(
             )
 
         # Group row — no date (col D), no invoice# (col C)
-        ws.cell(row=row_num, column=_spec.col_index('E'), value=category)
-        ws.cell(row=row_num, column=_spec.col_index('F'), value=tariff_code)
+        ws.cell(row=row_num, column=_spec.col_index('E'), value=category)  # magic-ok: columns.yaml schema key
+        ws.cell(row=row_num, column=_spec.col_index('F'), value=tariff_code)  # magic-ok: columns.yaml schema key
         ws.cell(row=row_num, column=COL_J, value=group_label)
         ws.cell(row=row_num, column=COL_K, value=sum(it.get('quantity', 1) for it in items))
         ws.cell(row=row_num, column=COL_N, value=_BASE_CURRENCY)
@@ -1450,7 +1492,7 @@ def _write_reference_section(
 
         # Detail rows
         for item in items:
-            ws.cell(row=row_num, column=_spec.col_index('I'),
+            ws.cell(row=row_num, column=_spec.col_index('I'),  # magic-ok: columns.yaml schema key
                     value=item.get('supplier_item', ''))
             ws.cell(row=row_num, column=COL_J,
                     value=item.get('supplier_item_desc', ''))
@@ -1722,13 +1764,14 @@ def update_xlsx_packages(xlsx_path: str, packages: int,
     """Update BL-level fields on an existing XLSX file (row 2)."""
     wb = openpyxl.load_workbook(xlsx_path)
     ws = wb.active
-    COL_X = _spec.col_index('X')
+    COL_X = _spec.col_index('X')  # magic-ok: columns.yaml schema key (Packages)
     ws.cell(row=2, column=COL_X, value=packages)
+    bl_extra = _LABELS["bl_extra_columns"]
     if freight:
         # BL freight stored in extra column (38) to avoid corrupting variance
-        ws.cell(row=1, column=_spec.col_count() + 1, value='BLFreight')
+        ws.cell(row=1, column=_spec.col_count() + 1, value=bl_extra["freight_header"])
         ws.cell(row=2, column=_spec.col_count() + 1, value=round(freight, 2))
     if insurance:
-        ws.cell(row=1, column=_spec.col_count() + 2, value='BLInsurance')
+        ws.cell(row=1, column=_spec.col_count() + 2, value=bl_extra["insurance_header"])
         ws.cell(row=2, column=_spec.col_count() + 2, value=round(insurance, 2))
     wb.save(xlsx_path)

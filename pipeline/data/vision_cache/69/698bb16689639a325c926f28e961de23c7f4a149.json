@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "35.54",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "35.54 written in the right margin near the Man Reg Number field"
+  },
+  "printed": {
+    "consignee": "DAWSEANN WILLIAMS",
+    "freight": 5.0,
+    "waybill": "HAWB9748223",
+    "man_reg": "2024/33",
+    "office": "GDWBS",
+    "weight": 2.0,
+    "packages": 1
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

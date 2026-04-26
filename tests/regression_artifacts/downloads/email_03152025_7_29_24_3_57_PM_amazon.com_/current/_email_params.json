@@ -1,0 +1,21 @@
+{
+  "waybill": "HAWB9591107",
+  "consignee_name": "WENDY TAMAR ASHBY",
+  "consignee_code": "",
+  "consignee_address": "",
+  "total_invoices": 2,
+  "expected_entries": 1,
+  "packages": "1",
+  "weight": "10.0",
+  "country_origin": "US",
+  "freight": "21.00",
+  "man_reg": "2024 28",
+  "attachment_paths": [
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0327/out/111-9341313-9838630_2.pdf",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0327/out/111-9341313-9838630.pdf",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0327/out/HAWB9591107_combined.xlsx",
+    "/tmp/pytest-of-joseph/pytest-193/test_downloads_email_folder_0327/out/HAWB9591107-Declaration.pdf"
+  ],
+  "location": "WebSource",
+  "office": "GDWBS"
+}

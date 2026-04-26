@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "1426.22",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": "Handwritten number '1426.22' in the left margin, rotated 90\u00b0 counter-clockwise (read bottom-to-top)"
+  },
+  "printed": {
+    "consignee": "ARLENA MITCHELL",
+    "freight": 43.0,
+    "waybill": "HAWB9686021",
+    "man_reg": "2024/31",
+    "office": "GDWBS",
+    "weight": 20.0,
+    "packages": 1
+  },
+  "has_handwriting": true,
+  "_cache_version": 4
+}

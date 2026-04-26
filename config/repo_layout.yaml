@@ -1,0 +1,55 @@
+_meta:
+  purpose: "Canonical repo directory layout — names of top-level subdirectories and well-known file suffixes used by SSOT path helpers."
+  covers:
+    - "pipeline/, config/, prompts/, scripts/, tests/ subdirectory names"
+    - "config/formats/ subdirectory name (relative to config/)"
+    - "tests/fixtures/, tests/regression_artifacts/ names (relative to tests/)"
+    - "Format-spec file suffix (.yaml)"
+    - "Read by pipeline/repo_layout.py and tests/_paths.py"
+  match_patterns:
+    - "repo_layout"
+    - "directory layout"
+    - "subdir"
+    - "fixtures dir"
+    - "yaml suffix"
+  loader: "pipeline.repo_layout:load_repo_layout"
+  examples:
+    - "tests/_paths.py: REPO_ROOT / load_repo_layout()['source_dirs']['pipeline']"
+  update_checklist:
+    - "If a top-level directory is renamed, update its entry here AND any hardcoded references in the codebase."
+    - "Add corresponding constant exports to tests/_paths.py."
+
+# Top-level source directories, relative to repo root.
+source_dirs:
+  pipeline: pipeline
+  config: config
+  prompts: prompts
+  scripts: scripts
+
+# Subdirectories of config/.
+config_subdirs:
+  formats: formats
+
+# Test-tree subdirectories, relative to tests/.
+test_subdirs:
+  fixtures: fixtures
+  regression_artifacts: regression_artifacts
+
+# Well-known file suffixes (kept here so call sites don't inline the literal).
+file_suffixes:
+  yaml: ".yaml"
+  json: ".json"
+
+# Test-tree filename conventions.
+test_files:
+  # Per-format fixture manifest: tests/fixtures/<format>/<fixture_manifest>
+  # — declares fixture filenames + per-format expected values consumed by
+  # tests/pipeline/test_<format>_format.py-style regression suites.
+  fixture_manifest: index.yaml
+  # Per-format test module filename convention: a test file named
+  # tests/pipeline/<format_test_prefix><format><format_test_suffix>.py
+  # targets the format spec at config/formats/<format>.yaml. The convention
+  # lets a test derive its own target format name from __file__ instead of
+  # hard-coding the format name as a string literal in the test source.
+  format_test_prefix: "test_"
+  format_test_suffix: "_format"
