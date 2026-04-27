@@ -115,3 +115,11 @@ variance_fixer:
   variance_row_green_threshold: 0.01
   # Group-header rewrite threshold (rounded to 2dp).
   group_header_rewrite_threshold: 0.005
+
+# ── Client-declared-duties variance check (added 2026-04-27) ──
+# When |declared - estimated| / max(estimated, 1) exceeds this ratio,
+# the xlsx_validator emits a block-severity finding. Threshold tuned
+# against HAWB9686021 (LLM-vision misread '$426.22' as '1426.22' →
+# 511% variance, well above the threshold) while letting routine
+# brokers' rounding (≤ 50%) through with no block.
+client_declared_duties_variance_max_ratio: 0.50

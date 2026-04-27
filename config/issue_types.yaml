@@ -148,6 +148,16 @@ xlsx_validator:
       severity:    "warn"
       cell_column: ""
       hint:        "No format YAML matched — pipeline auto-generated extraction via LLM. Promote the auto-generated spec into a real config/formats/*.yaml so future invoices use deterministic extraction."
+    client_declared_duties_missing:
+      kind:        "client_declared_duties_missing"
+      severity:    "block"
+      cell_column: "P"
+      hint:        "Client Declared Duties row is missing from the XLSX — declaration extraction failed. Re-run pdf_splitter.extract_declaration_handwriting on the source declaration PDF; if Tesseract captured a value with confusable characters (e.g. '7/.12'), pipeline.ocr_number_normalizer.normalize_ocr_number can recover it."
+    client_declared_duties_variance_excessive:
+      kind:        "client_declared_duties_variance_excessive"
+      severity:    "block"
+      cell_column: "P"
+      hint:        "Client Declared Duties differs from Estimated Duties by more than the configured tolerance — likely an OCR / LLM-vision extraction error. Re-extract the declared value from the source PDF and verify against the broker's handwritten figure."
 
   # Standalone messages used by email_params-level checks (not item-level).
   messages:

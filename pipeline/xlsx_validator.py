@@ -1228,6 +1228,8 @@ from config_loader import (   # noqa: E402
     load_file_paths,
     load_issue_types,
     load_patterns,
+    load_validation_tolerances,
+    load_xlsx_labels,
 )
 
 _VALIDATOR_CFG     = load_issue_types()["xlsx_validator"]
@@ -1237,6 +1239,8 @@ _VALIDATOR_MSG     = _VALIDATOR_CFG["messages"]
 _VALIDATOR_DISPLAY = _VALIDATOR_CFG["display"]
 _FILE_EXT          = load_file_paths()["extensions"]
 _PATTERNS          = load_patterns()
+_DUTY_LABELS       = load_xlsx_labels()["duty"]
+_TOLERANCES        = load_validation_tolerances()
 
 # Per-kind aliases — each subscript here is role-exempt.
 _KIND_NEG_INV     = _VALIDATOR_KINDS["negative_invoice_total"]
@@ -1249,6 +1253,8 @@ _KIND_DESC_GARB   = _VALIDATOR_KINDS["garbage_description_pattern"]
 _KIND_QTY_ZERO    = _VALIDATOR_KINDS["quantity_zero_with_cost"]
 _KIND_DUP         = _VALIDATOR_KINDS["duplicate_items_in_xlsx"]
 _KIND_LLM_AUTO    = _VALIDATOR_KINDS["llm_auto_format_used"]
+_KIND_DECL_MISSING = _VALIDATOR_KINDS["client_declared_duties_missing"]
+_KIND_DECL_VAR     = _VALIDATOR_KINDS["client_declared_duties_variance_excessive"]
 
 
 def _make_finding(kind_cfg: dict, row: int, *, detail: str, value: str) -> dict:
@@ -1578,6 +1584,90 @@ def _inspect_xlsx_items(xlsx_path: str) -> list:
     return findings
 
 
+
+def _check_declared_duties(xlsx_path: str, fail_fn) -> None:
+    """Compare CLIENT DECLARED DUTIES vs ESTIMATED TOTAL DUTIES on a per-invoice
+    XLSX. Emits two block-severity findings:
+
+      - ``client_declared_duties_missing``: estimated row exists but declared
+        row is absent. Catches HAWB9685992-class extraction failures where
+        Tesseract captured "7/.12" (an unparseable variant of "71.12") and
+        the LLM-vision returned has_handwriting=False.
+      - ``client_declared_duties_variance_excessive``: both rows are present
+        but |declared - estimated| / max(estimated, 1.0) exceeds the ratio
+        configured in ``config/validation_tolerances.yaml``. Catches
+        HAWB9686021-class errors (LLM-vision read 426.22 as 1426.22 → 511%
+        variance, well above the 50% default threshold).
+
+    The thresholds and labels live entirely in YAML; this function carries no
+    domain literals.
+    """
+    try:
+        import openpyxl
+    except ImportError:
+        return
+    try:
+        wb = openpyxl.load_workbook(xlsx_path, read_only=True, data_only=True)
+        ws = wb.active
+    except Exception:
+        return
+
+    label_estimated = _DUTY_LABELS["estimated_total"]
+    label_declared  = _DUTY_LABELS["client_declared"]
+    estimated = None
+    declared  = None
+    for r in range(1, ws.max_row + 1):
+        label = ws.cell(row=r, column=COL_SUPP_DESC).value
+        if label == label_estimated:
+            try:
+                estimated = float(ws.cell(row=r, column=COL_TOTAL_COST).value)
+            except (TypeError, ValueError):
+                pass
+        elif label == label_declared:
+            try:
+                declared = float(ws.cell(row=r, column=COL_TOTAL_COST).value)
+            except (TypeError, ValueError):
+                pass
+    try:
+        wb.close()
+    except Exception:
+        pass
+
+    if estimated is None:
+        # No estimated row → can't compute either check. Other validators
+        # (negative_invoice_total, item-level checks) cover the broken-invoice
+        # case; we bail silently.
+        return
+
+    base = os.path.basename(xlsx_path)
+
+    if declared is None:
+        fail_fn(
+            _KIND_DECL_MISSING["kind"],
+            _KIND_DECL_MISSING["severity"],
+            f"{base}: Client Declared Duties row is missing — extraction failed "
+            f"(only Estimated ${estimated:.2f} present).",
+            _KIND_DECL_MISSING["kind"],
+            base,
+            _KIND_DECL_MISSING["hint"],
+        )
+        return
+
+    threshold = _TOLERANCES["client_declared_duties_variance_max_ratio"]
+    variance_ratio = abs(declared - estimated) / max(estimated, 1.0)
+    if variance_ratio > threshold:
+        fail_fn(
+            _KIND_DECL_VAR["kind"],
+            _KIND_DECL_VAR["severity"],
+            f"{base}: Declared ${declared:.2f} differs from Estimated "
+            f"${estimated:.2f} by {variance_ratio:.0%} — exceeds "
+            f"{threshold:.0%} threshold.",
+            _KIND_DECL_VAR["kind"],
+            f"{declared:.2f} vs {estimated:.2f}",
+            _KIND_DECL_VAR["hint"],
+        )
+
+
 def _checklist_xlsx_inspection(email_params: dict, fail_fn) -> None:
     """Iterate XLSX attachments and surface item-level findings via fail_fn.
 
@@ -1618,6 +1708,10 @@ def _checklist_xlsx_inspection(email_params: dict, fail_fn) -> None:
             kind_counter.setdefault(f['kind'], []).append(
                 (base, f['row'], f['detail'])
             )
+
+        # Per-XLSX duty-row checks (added 2026-04-27 — closes HAWB9685992 +
+        # HAWB9686021 class declaration-extraction errors).
+        _check_declared_duties(xp, fail_fn)
 
     # Map kind -> (default severity, hint) is sourced from
     # config/issue_types.yaml::xlsx_validator.kinds.
