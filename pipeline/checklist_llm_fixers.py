@@ -323,6 +323,7 @@ def register_into(registry: Dict[str, Callable[..., bool]]) -> None:
         "packages_zero": fix_packages,
         "consignee_missing": fix_consignee_name,
         "consignee_name_garbage": fix_consignee_name,
+        "consignee_unrecognised": fix_consignee_name,
         "consignee_address_garbage": fix_consignee_address,
     }
     for key, fn in new_entries.items():

@@ -1255,6 +1255,7 @@ _KIND_DUP         = _VALIDATOR_KINDS["duplicate_items_in_xlsx"]
 _KIND_LLM_AUTO    = _VALIDATOR_KINDS["llm_auto_format_used"]
 _KIND_DECL_MISSING = _VALIDATOR_KINDS["client_declared_duties_missing"]
 _KIND_DECL_VAR     = _VALIDATOR_KINDS["client_declared_duties_variance_excessive"]
+_KIND_CONSIGNEE_UNRECOGNISED = _VALIDATOR_KINDS["consignee_unrecognised"]
 
 
 def _make_finding(kind_cfg: dict, row: int, *, detail: str, value: str) -> dict:
@@ -1406,6 +1407,7 @@ def _checklist_email_params_extra(email_params: dict, fail_fn) -> None:
                 f'man_reg "{man_reg}" does not match expected "YYYY NN" format.',
                 'man_reg', man_reg,   # magic-ok: email-params field key
                 'Use "YYYY NN" format (year + slot number).')   # magic-ok: remediation instruction
+    _check_consignee_recognition(email_params, fail_fn)
 
 
 def _inspect_xlsx_items(xlsx_path: str) -> list:
@@ -1665,6 +1667,32 @@ def _check_declared_duties(xlsx_path: str, fail_fn) -> None:
             _KIND_DECL_VAR["kind"],
             f"{declared:.2f} vs {estimated:.2f}",
             _KIND_DECL_VAR["hint"],
+        )
+
+
+
+def _check_consignee_recognition(email_params: dict, fail_fn) -> None:
+    """Block-severity check: consignee_name must match a rule in
+    document_types.json — otherwise either a new rule is needed or the
+    extraction is wrong. Closes Task #97 (A1).
+    """
+    consignee_name = (email_params.get("consignee_name") or "").strip()
+    if not consignee_name:
+        # ``consignee_missing`` is already covered by other checks.
+        return
+    try:
+        from consignee_resolver import _match_consignee_name_to_rule
+    except ImportError:
+        return
+    if _match_consignee_name_to_rule(consignee_name) is None:
+        fail_fn(
+            _KIND_CONSIGNEE_UNRECOGNISED["kind"],
+            _KIND_CONSIGNEE_UNRECOGNISED["severity"],
+            f"Consignee {consignee_name!r} matches no rule in "
+            f"config/document_types.json — review before send.",
+            _KIND_CONSIGNEE_UNRECOGNISED["kind"],
+            consignee_name,
+            _KIND_CONSIGNEE_UNRECOGNISED["hint"],
         )
 
 

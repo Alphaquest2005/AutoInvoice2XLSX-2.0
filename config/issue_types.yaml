@@ -158,6 +158,16 @@ xlsx_validator:
       severity:    "block"
       cell_column: "P"
       hint:        "Client Declared Duties differs from Estimated Duties by more than the configured tolerance — likely an OCR / LLM-vision extraction error. Re-extract the declared value from the source PDF and verify against the broker's handwritten figure."
+    consignee_unrecognised:
+      kind:        "consignee_unrecognised"
+      severity:    "block"
+      cell_column: ""
+      hint:        "The extracted consignee name does not match any rule in config/document_types.json. Either (a) the consignee is a first-time importer and a new rule should be added, or (b) the extraction is wrong and consignee_name needs manual correction in _email_params.json before send."
+    invoice_total_mismatch:
+      kind:        "invoice_total_mismatch"
+      severity:    "block"
+      cell_column: "S"
+      hint:        "Sum of line items + adjustments does not reconcile to the stated invoice / Total Payment Amount captured from the source PDF. Items are likely missing, incorrectly priced, or a discount was double-applied. Re-check the parser output against the source invoice — every dollar must be accounted for."
 
   # Standalone messages used by email_params-level checks (not item-level).
   messages:
