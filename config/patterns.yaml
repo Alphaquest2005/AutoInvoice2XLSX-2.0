@@ -226,3 +226,8 @@ bl_text_keywords:
   - 'VESSEL'
   - 'PLACE\s*OF\s*(DELIVERY|RECEIPT)'
   - 'LADEN\s*ON\s*BOARD'
+
+# ── xlsx_validator pre-send checklist patterns (added 2026-04-27 SSOT refactor) ──
+# Used by pipeline/xlsx_validator.py module-level regex compilation.
+xlsx_validator_bl_doc_suffix:        '[-_ ]+(Declaration|Manifest|WorkSheet|Invoice|Packing(?:\s*List)?)\s*$'
+xlsx_validator_marketplace_purchase: '^(amazon\.com|walmart|target|shein|temu|ebay|aliexpress|alibaba)[\s\.,]*purchase\s*$'

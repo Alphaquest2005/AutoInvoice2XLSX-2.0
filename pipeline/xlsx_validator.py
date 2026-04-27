@@ -1219,14 +1219,58 @@ def _print_report(all_results: list, pkg_check: dict = None,
 # being caught by the existing rule-based checks before email send.
 import re as _re
 
-_BL_DOC_SUFFIX_RE = _re.compile(   # magic-ok: BL/waybill document-type suffix detector
-    r'[-_ ]+(Declaration|Manifest|WorkSheet|Invoice|Packing(?:\s*List)?)\s*$',
+# ── SSOT loaders for xlsx_validator policy (refactored 2026-04-27) ──
+# All check kinds, severities, hints, file-extension strings, and threshold
+# values used by ``shipment_checklist`` live in config/issue_types.yaml,
+# config/patterns.yaml, and config/file_paths.yaml. Subscript access keeps
+# every domain literal in YAML, not Python.
+from config_loader import (   # noqa: E402
+    load_file_paths,
+    load_issue_types,
+    load_patterns,
+)
+
+_VALIDATOR_CFG     = load_issue_types()["xlsx_validator"]
+_VALIDATOR_KINDS   = _VALIDATOR_CFG["kinds"]
+_VALIDATOR_SEV     = _VALIDATOR_CFG["severities"]
+_VALIDATOR_MSG     = _VALIDATOR_CFG["messages"]
+_VALIDATOR_DISPLAY = _VALIDATOR_CFG["display"]
+_FILE_EXT          = load_file_paths()["extensions"]
+_PATTERNS          = load_patterns()
+
+# Per-kind aliases — each subscript here is role-exempt.
+_KIND_NEG_INV     = _VALIDATOR_KINDS["negative_invoice_total"]
+_KIND_PLACEHOLDER = _VALIDATOR_KINDS["placeholder_sku"]
+_KIND_DESC_TARIFF = _VALIDATOR_KINDS["description_starts_with_tariff"]
+_KIND_PAYMENT     = _VALIDATOR_KINDS["payment_line_as_item"]
+_KIND_GENERIC     = _VALIDATOR_KINDS["generic_purchase_description"]
+_KIND_DESC_SHORT  = _VALIDATOR_KINDS["description_too_short"]
+_KIND_DESC_GARB   = _VALIDATOR_KINDS["garbage_description_pattern"]
+_KIND_QTY_ZERO    = _VALIDATOR_KINDS["quantity_zero_with_cost"]
+_KIND_DUP         = _VALIDATOR_KINDS["duplicate_items_in_xlsx"]
+_KIND_LLM_AUTO    = _VALIDATOR_KINDS["llm_auto_format_used"]
+
+
+def _make_finding(kind_cfg: dict, row: int, *, detail: str, value: str) -> dict:
+    """Construct a per-row finding dict from a kinds[kind] config block."""
+    return {
+        "row":      row,
+        "col":      kind_cfg["cell_column"],
+        "kind":     kind_cfg["kind"],
+        "severity": kind_cfg["severity"],
+        "detail":   detail,
+        "value":    value,
+    }
+
+
+_BL_DOC_SUFFIX_RE = _re.compile(
+    _PATTERNS["xlsx_validator_bl_doc_suffix"],
     _re.IGNORECASE,
 )
 _PLACEHOLDER_SKU_RE = _re.compile(r'^ITEM-\d+$', _re.IGNORECASE)   # magic-ok: auto-generated sequential SKU pattern
 _TARIFF_PREFIX_RE = _re.compile(r'^\d{8}\s')   # magic-ok: 8-digit tariff prefix at start of description
-_GENERIC_PURCHASE_RE = _re.compile(   # magic-ok: placeholder-description sentinel pattern
-    r'^(amazon\.com|walmart|target|shein|temu|ebay|aliexpress|alibaba)[\s\.,]*purchase\s*$',
+_GENERIC_PURCHASE_RE = _re.compile(
+    _PATTERNS["xlsx_validator_marketplace_purchase"],
     _re.IGNORECASE,
 )
 _PAYMENT_KEYWORDS = ('paypal', 'credit card', 'payment method',                 # magic-ok: payment-method sentinel substrings
@@ -1238,6 +1282,7 @@ _COUNTRY_CODE_RE = _re.compile(r'^[A-Z]{2}$')   # magic-ok: ISO-3166 alpha-2 cou
 _DESC_MIN_CHARS = 5                       # magic-ok: shortest plausible item description
 _REPEATED_ITEM_PRICE_TOLERANCE = 0.01     # magic-ok: $0.01 unit-cost equality tolerance
 _GENERIC_TLD_PURCHASE_FALLBACK = 'amazon.com purchase'   # magic-ok: most common stub description string
+
 
 
 def _checklist_email_params_extra(email_params: dict, fail_fn) -> None:
@@ -1266,7 +1311,7 @@ def _checklist_email_params_extra(email_params: dict, fail_fn) -> None:
     basenames = [os.path.basename(p) for p in attachments]
 
     # XLSX attachment count vs expected_entries (per feedback_expected_entries.md)
-    xlsx_atts = [b for b in basenames if b.lower().endswith('.xlsx')]
+    xlsx_atts = [b for b in basenames if b.lower().endswith(_FILE_EXT["xlsx"])]
     expected_entries = email_params.get('expected_entries')
     try:
         ee_int = int(expected_entries) if expected_entries not in (None, '') else None
@@ -1280,10 +1325,10 @@ def _checklist_email_params_extra(email_params: dict, fail_fn) -> None:
                 'Set expected_entries to len([a for a in attachment_paths if a.endswith(".xlsx")]).')   # magic-ok: remediation instruction
 
     # WorkSheet PDFs as attachments — they're auto-generated, not source invoices.
-    ws_atts = [b for b in basenames if 'worksheet' in b.lower() and b.lower().endswith('.pdf')]
+    ws_atts = [b for b in basenames if _VALIDATOR_CFG["worksheet_filename_infix"] in b.lower() and b.lower().endswith(_FILE_EXT["pdf"])]
     if ws_atts:
         fail_fn('worksheet_pdf_in_attachments', 'warn',   # magic-ok: check key + severity
-                f'{len(ws_atts)} WorkSheet PDF(s) included as attachments: {", ".join(ws_atts[:3])}.',
+                f'{len(ws_atts)} WorkSheet PDF(s) included as attachments: {", ".join(ws_atts[:_VALIDATOR_CFG["worksheet_attachment_sample_cap"]])}.',
                 'attachment_paths', str(len(ws_atts)),   # magic-ok: email-params field key
                 'WorkSheet PDFs are auto-generated by send_shipment_email.py at send time. '   # magic-ok: remediation instruction
                 'They should not appear in attachment_paths during pipeline output.')   # magic-ok: remediation instruction
@@ -1307,7 +1352,7 @@ def _checklist_email_params_extra(email_params: dict, fail_fn) -> None:
             dupes.append(f'{b} ×{n}')
     if dupes:
         fail_fn('duplicate_attachment_basenames', 'block',   # magic-ok: check key + severity
-                f'{len(dupes)} duplicate attachment basename(s): {", ".join(dupes[:5])}.',
+                f'{len(dupes)} duplicate attachment basename(s): {", ".join(dupes[:_VALIDATOR_CFG["finding_sample_cap"]])}.',
                 'attachment_paths', dupes[0],   # magic-ok: email-params field key
                 'Remove duplicates from attachment_paths.')   # magic-ok: remediation instruction
 
@@ -1317,13 +1362,13 @@ def _checklist_email_params_extra(email_params: dict, fail_fn) -> None:
     #  - per-declaration {waybill}.xlsx (one source receipt PDF feeds N waybill
     #    XLSX via reverse-calc allocation; carrier-prefix HAWB/TSCW/HBL/MEDU
     #    is the signal)
-    pdf_stems = {os.path.splitext(b)[0] for b in basenames if b.lower().endswith('.pdf')}
+    pdf_stems = {os.path.splitext(b)[0] for b in basenames if b.lower().endswith(_FILE_EXT["pdf"])}
     _WAYBILL_STEM_RE = _re.compile(r'^(HAWB|TSCW|HBL|MEDU|MAEU|HDMU|COSU|TS)\d+',   # magic-ok: per-declaration XLSX-stem carrier prefixes
                                     _re.IGNORECASE)
     orphan_xlsx = []
     for x in xlsx_atts:
         stem = os.path.splitext(x)[0]
-        if stem.endswith('_combined') or stem.lower().endswith('-combined'):
+        if stem.endswith(_VALIDATOR_CFG["combined_marker_underscore"]) or stem.lower().endswith(_VALIDATOR_CFG["combined_marker_hyphen"]):
             continue
         if _WAYBILL_STEM_RE.match(stem):
             continue
@@ -1331,7 +1376,7 @@ def _checklist_email_params_extra(email_params: dict, fail_fn) -> None:
             orphan_xlsx.append(x)
     if orphan_xlsx:
         fail_fn('xlsx_without_source_pdf', 'warn',   # magic-ok: check key + severity
-                f'{len(orphan_xlsx)} XLSX attachment(s) have no matching source PDF: {", ".join(orphan_xlsx[:3])}.',
+                f'{len(orphan_xlsx)} XLSX attachment(s) have no matching source PDF: {", ".join(orphan_xlsx[:_VALIDATOR_CFG["worksheet_attachment_sample_cap"]])}.',
                 'attachment_paths', orphan_xlsx[0],   # magic-ok: email-params field key
                 'Each per-invoice XLSX should ship with the source PDF it was generated from.')   # magic-ok: remediation instruction
 
@@ -1347,7 +1392,7 @@ def _checklist_email_params_extra(email_params: dict, fail_fn) -> None:
     man_reg = str(email_params.get('man_reg', '')).strip()
     if not man_reg:
         fail_fn('man_reg_blank', 'warn',   # magic-ok: check key + severity
-                'man_reg is blank. Manifest registration is required for ASYCUDA filing.',
+                _VALIDATOR_MSG["man_reg_blank"],
                 'man_reg', '',   # magic-ok: email-params field key
                 'Set man_reg to "YYYY NN" (e.g. "2024 19").')   # magic-ok: remediation instruction
     elif not _MAN_REG_RE.match(man_reg):
@@ -1385,12 +1430,11 @@ def _inspect_xlsx_items(xlsx_path: str) -> list:
         if inv_total_cell is not None:
             try:
                 if float(inv_total_cell) <= 0:
-                    findings.append({
-                        'row': 2, 'col': 'S', 'kind': 'negative_invoice_total',
-                        'severity': 'block',   # magic-ok: severity label
-                        'detail': f'InvoiceTotal is {inv_total_cell} (must be > 0)',
-                        'value': str(inv_total_cell),
-                    })
+                    findings.append(_make_finding(
+                        _KIND_NEG_INV, 2,
+                        detail=f'InvoiceTotal is {inv_total_cell} (must be > 0)',
+                        value=str(inv_total_cell),
+                    ))
             except (TypeError, ValueError):
                 pass
     except Exception:
@@ -1454,67 +1498,62 @@ def _inspect_xlsx_items(xlsx_path: str) -> list:
 
         # ── Placeholder SKU (auto-generated ITEM-001 etc.)
         if sku and not sku_is_tariff and _PLACEHOLDER_SKU_RE.match(sku):
-            findings.append({
-                'row': row, 'col': 'I', 'kind': 'placeholder_sku',
-                'severity': 'warn',   # magic-ok: severity label
-                'detail': f'SKU "{sku}" looks auto-generated (format extraction likely failed)',
-                'value': sku,
-            })
+            findings.append(_make_finding(
+                _KIND_PLACEHOLDER, row,
+                detail=f'SKU "{sku}" looks auto-generated (format extraction likely failed)',
+                value=sku,
+            ))
 
         # ── Payment-method line ingested as an item
         desc_l = desc.lower()
-        if sku.upper() == 'PAYMENT' or any(kw in desc_l for kw in _PAYMENT_KEYWORDS):
-            findings.append({
-                'row': row, 'col': 'J', 'kind': 'payment_line_as_item',
-                'severity': 'block',   # magic-ok: severity label
-                'detail': f'Payment-method line treated as item: SKU="{sku}", desc="{desc[:60]}"',
-                'value': desc[:60],   # magic-ok: display truncation width
-            })
+        _trunc = _VALIDATOR_DISPLAY["detail_truncation_width"]
+        if sku.upper() == _VALIDATOR_CFG["payment_sku_sentinel"] or any(kw in desc_l for kw in _PAYMENT_KEYWORDS):
+            findings.append(_make_finding(
+                _KIND_PAYMENT, row,
+                detail=f'Payment-method line treated as item: SKU="{sku}", desc="{desc[:_trunc]}"',
+                value=desc[:_trunc],
+            ))
 
         # ── Description starts with 8-digit tariff prefix (e.g. WorkSheet ingest)
         if _TARIFF_PREFIX_RE.match(desc):
-            findings.append({
-                'row': row, 'col': 'J', 'kind': 'description_starts_with_tariff',
-                'severity': 'warn',   # magic-ok: severity label
-                'detail': f'Description begins with 8-digit tariff: "{desc[:60]}"',
-                'value': desc[:60],   # magic-ok: display truncation width
-            })
+            _trunc2 = _VALIDATOR_DISPLAY["detail_truncation_width"]
+            findings.append(_make_finding(
+                _KIND_DESC_TARIFF, row,
+                detail=f'Description begins with 8-digit tariff: "{desc[:_trunc2]}"',
+                value=desc[:_trunc2],
+            ))
 
         # ── Generic placeholder description
         if _GENERIC_PURCHASE_RE.match(desc) or desc.lower() == _GENERIC_TLD_PURCHASE_FALLBACK:
-            findings.append({
-                'row': row, 'col': 'J', 'kind': 'generic_purchase_description',
-                'severity': 'warn',   # magic-ok: severity label
-                'detail': f'Description is a generic placeholder ("{desc}") — real product name was not extracted',
-                'value': desc,
-            })
+            findings.append(_make_finding(
+                _KIND_GENERIC, row,
+                detail=f'Description is a generic placeholder ("{desc}") — real product name was not extracted',
+                value=desc,
+            ))
 
         # ── Description too short
         if desc and len(desc) < _DESC_MIN_CHARS:
-            findings.append({
-                'row': row, 'col': 'J', 'kind': 'description_too_short',
-                'severity': 'warn',   # magic-ok: severity label
-                'detail': f'Description "{desc}" is shorter than {_DESC_MIN_CHARS} chars',
-                'value': desc,
-            })
+            findings.append(_make_finding(
+                _KIND_DESC_SHORT, row,
+                detail=f'Description "{desc}" is shorter than {_DESC_MIN_CHARS} chars',
+                value=desc,
+            ))
 
         # ── Garbage description pattern
         if desc and _GARBAGE_REPEAT_RE.match(desc):
-            findings.append({
-                'row': row, 'col': 'J', 'kind': 'garbage_description_pattern',
-                'severity': 'warn',   # magic-ok: severity label
-                'detail': f'Description "{desc}" looks like keymash / OCR garbage',
-                'value': desc,
-            })
+            findings.append(_make_finding(
+                _KIND_DESC_GARB, row,
+                detail=f'Description "{desc}" looks like keymash / OCR garbage',
+                value=desc,
+            ))
 
         # ── Quantity zero but total_cost non-zero
         if qty == 0 and total_cost > 0:
-            findings.append({
-                'row': row, 'col': 'K', 'kind': 'quantity_zero_with_cost',
-                'severity': 'warn',   # magic-ok: severity label
-                'detail': f'Quantity=0 but TotalCost=${total_cost:.2f} — extraction broke',
-                'value': '0',
-            })
+            findings.append(_make_finding(
+                _KIND_QTY_ZERO, row,
+                detail=f'Quantity=0 but TotalCost=${total_cost:.2f} — extraction broke',
+                value=_VALIDATOR_CFG["qty_zero_value"],
+            ))
 
         # ── Track for in-XLSX dup detection
         if desc and unit_cost > 0:
@@ -1527,14 +1566,14 @@ def _inspect_xlsx_items(xlsx_path: str) -> list:
         pass
 
     # Same description + same unit_cost appearing 2+ times in one XLSX
+    _dup_w = _VALIDATOR_DISPLAY["duplicate_signature_desc_width"]
     for (desc_l, price), rows in item_signatures.items():
         if len(rows) > 1:
-            findings.append({
-                'row': rows[0], 'col': 'J', 'kind': 'duplicate_items_in_xlsx',
-                'severity': 'warn',   # magic-ok: severity label
-                'detail': f'Same description+price appears on rows {rows} (desc="{desc_l[:40]}" @ ${price})',
-                'value': f'{len(rows)} copies',
-            })
+            findings.append(_make_finding(
+                _KIND_DUP, rows[0],
+                detail=f'Same description+price appears on rows {rows} (desc="{desc_l[:_dup_w]}" @ ${price})',
+                value=f'{len(rows)} copies',
+            ))
 
     return findings
 
@@ -1546,7 +1585,7 @@ def _checklist_xlsx_inspection(email_params: dict, fail_fn) -> None:
     (no YAML format match — extraction is brittle).
     """
     attachments = email_params.get('attachment_paths', []) or []
-    xlsx_paths = [p for p in attachments if p.lower().endswith('.xlsx')]
+    xlsx_paths = [p for p in attachments if p.lower().endswith(_FILE_EXT["xlsx"])]
 
     # Aggregate findings by kind for compact reporting
     kind_counter = {}   # kind -> [(file, row, detail), ...]
@@ -1556,7 +1595,7 @@ def _checklist_xlsx_inspection(email_params: dict, fail_fn) -> None:
         # Only inspect per-invoice XLSX, skip the BL combined XLSX which has a
         # different layout (per-block totals, no single InvoiceTotal in row 2).
         base = os.path.basename(xp)
-        is_combined = base.lower().endswith('_combined.xlsx') or '-combined' in base.lower()
+        is_combined = base.lower().endswith(_VALIDATOR_CFG["combined_xlsx_suffix"]) or _VALIDATOR_CFG["combined_marker_hyphen"] in base.lower()
 
         # Sidecar .meta.json check — applies to per-invoice XLSX only
         meta_path = xp[:-5] + '.meta.json'   # magic-ok: replace .xlsx (5 chars) with .meta.json
@@ -1580,44 +1619,18 @@ def _checklist_xlsx_inspection(email_params: dict, fail_fn) -> None:
                 (base, f['row'], f['detail'])
             )
 
-    # Map kind -> (default severity, hint)
+    # Map kind -> (default severity, hint) is sourced from
+    # config/issue_types.yaml::xlsx_validator.kinds.
     KIND_DEFAULTS = {
-        'placeholder_sku': ('warn',
-            'Format YAML is not extracting real SKUs — fall-back assigned ITEM-NNN. '
-            'Check the format spec for this supplier (config/formats/<name>.yaml).'),
-        'description_starts_with_tariff': ('warn',
-            'A WorkSheet PDF was likely processed as a source invoice. WorkSheets '
-            'concatenate tariff codes and item descriptions; they are not invoice data.'),
-        'description_too_short': ('warn',
-            'Item description is too short to be a real product name. '
-            'Re-check the format YAML and source PDF text extraction.'),
-        'payment_line_as_item': ('block',
-            'Payment-method/Paypal lines must not be ingested as items. '
-            'Add the payment-line marker to the format YAML skip rules.'),
-        'generic_purchase_description': ('warn',
-            'Description is a marketplace-name placeholder, not the actual product. '
-            'Improve the format YAML so it captures the real product title from the PDF.'),
-        'quantity_zero_with_cost': ('warn',
-            'Quantity=0 with non-zero TotalCost indicates failed quantity extraction. '
-            'Check the format YAML quantity capture group.'),
-        'garbage_description_pattern': ('warn',
-            'Description is OCR garbage / keymash. '
-            'Try a higher-resolution OCR pass on this page or update the format YAML.'),
-        'duplicate_items_in_xlsx': ('warn',
-            'Same item appears multiple times in one XLSX. May be legitimate (two of the '
-            'same product) or duplicate extraction. Verify against source PDF.'),
-        'negative_invoice_total': ('block',
-            'InvoiceTotal must be > 0. Re-check the source invoice OCR.'),
-        'llm_auto_format_used': ('warn',
-            'No format YAML matched — pipeline auto-generated extraction via LLM. '
-            'Promote the auto-generated spec into a real config/formats/*.yaml so future '
-            'invoices use deterministic extraction.'),
+        kk: (kv["severity"], kv["hint"])
+        for kk, kv in _VALIDATOR_KINDS.items()
     }
+    _DEFAULT_FALLBACK = (_VALIDATOR_SEV["WARN"], "")
 
     for kind, rows in kind_counter.items():
-        sev, hint = KIND_DEFAULTS.get(kind, ('warn', ''))
+        sev, hint = KIND_DEFAULTS.get(kind, _DEFAULT_FALLBACK)
         # Deduplicate file/detail tuples to keep message terse
-        sample = rows[:5]   # magic-ok: max 5 examples in message body
+        sample = rows[:_VALIDATOR_CFG["finding_sample_cap"]]
         sample_str = '; '.join(
             f'{f}{":r" + str(r) if r else ""} — {d}'   # magic-ok: file:row separator
             for (f, r, d) in sample

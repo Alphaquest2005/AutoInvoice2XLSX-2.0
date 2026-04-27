@@ -82,3 +82,102 @@ unknown:
   LOWER: "unknown"
   NA:    "N/A"
   EMPTY: ""
+
+# Pre-send checklist findings emitted by pipeline/xlsx_validator.py.
+# Each entry maps a check kind to its severity, default hint, and any
+# cell-column metadata. The validator reads this in lieu of an inline
+# Python dict so behavior changes don't require code edits.
+xlsx_validator:
+  # Severity tag values reused across the validator's fail() invocations.
+  severities:
+    WARN:  "warn"
+    BLOCK: "block"
+
+  # Per-finding metadata. ``cell_column`` is the openpyxl column letter
+  # (where the offending value lives) for findings emitted from
+  # _inspect_xlsx_items. For findings without a single column origin
+  # (item_*, email-params-level), cell_column is "".
+  kinds:
+    negative_invoice_total:
+      kind:        "negative_invoice_total"
+      severity:    "block"
+      cell_column: "S"
+      hint:        "InvoiceTotal must be > 0. Re-check the source invoice OCR."
+    placeholder_sku:
+      kind:        "placeholder_sku"
+      severity:    "warn"
+      cell_column: "I"
+      hint:        "Format YAML is not extracting real SKUs — fall-back assigned ITEM-NNN. Check the format spec for this supplier (config/formats/<name>.yaml)."
+    description_starts_with_tariff:
+      kind:        "description_starts_with_tariff"
+      severity:    "warn"
+      cell_column: "J"
+      hint:        "A WorkSheet PDF was likely processed as a source invoice. WorkSheets concatenate tariff codes and item descriptions; they are not invoice data."
+    payment_line_as_item:
+      kind:        "payment_line_as_item"
+      severity:    "block"
+      cell_column: "J"
+      hint:        "Payment-method/Paypal lines must not be ingested as items. Add the payment-line marker to the format YAML skip rules."
+    generic_purchase_description:
+      kind:        "generic_purchase_description"
+      severity:    "warn"
+      cell_column: "J"
+      hint:        "Description is a marketplace-name placeholder, not the actual product. Improve the format YAML so it captures the real product title from the PDF."
+    description_too_short:
+      kind:        "description_too_short"
+      severity:    "warn"
+      cell_column: "J"
+      hint:        "Item description is too short to be a real product name. Re-check the format YAML and source PDF text extraction."
+    garbage_description_pattern:
+      kind:        "garbage_description_pattern"
+      severity:    "warn"
+      cell_column: "J"
+      hint:        "Description is OCR garbage / keymash. Try a higher-resolution OCR pass on this page or update the format YAML."
+    quantity_zero_with_cost:
+      kind:        "quantity_zero_with_cost"
+      severity:    "warn"
+      cell_column: "K"
+      hint:        "Quantity=0 with non-zero TotalCost indicates failed quantity extraction. Check the format YAML quantity capture group."
+    duplicate_items_in_xlsx:
+      kind:        "duplicate_items_in_xlsx"
+      severity:    "warn"
+      cell_column: "J"
+      hint:        "Same item appears multiple times in one XLSX. May be legitimate (two of the same product) or duplicate extraction. Verify against source PDF."
+    llm_auto_format_used:
+      kind:        "llm_auto_format_used"
+      severity:    "warn"
+      cell_column: ""
+      hint:        "No format YAML matched — pipeline auto-generated extraction via LLM. Promote the auto-generated spec into a real config/formats/*.yaml so future invoices use deterministic extraction."
+
+  # Standalone messages used by email_params-level checks (not item-level).
+  messages:
+    man_reg_blank: "man_reg is blank. Manifest registration is required for ASYCUDA filing."
+
+  # SKU sentinel: when the SKU column equals this string, treat the row
+  # as a payment line (covers the FashionNova/PayPal payment-line variant
+  # that doesn't trigger the keyword-substring check).
+  payment_sku_sentinel: "PAYMENT"
+
+  # Display widths used in finding-detail strings (NOT a tolerance —
+  # purely cosmetic truncation of long descriptions for human readers).
+  display:
+    detail_truncation_width:        60
+    duplicate_signature_desc_width: 40
+
+  # Filename markers for combined / worksheet attachment detection.
+  combined_xlsx_suffix:       "_combined.xlsx"
+  combined_marker_underscore: "_combined"
+  combined_marker_hyphen:     "-combined"
+  worksheet_filename_infix:   "worksheet"
+
+  # Sentinel "value" string for the quantity_zero_with_cost finding's
+  # ``value`` field (the offending qty literal).
+  qty_zero_value: "0"
+
+  # Sample-size cap used when truncating example-rows lists in finding
+  # detail messages (keeps the email body terse).
+  finding_sample_cap: 5
+
+  # Maximum number of WorkSheet-attachment basenames to inline in the
+  # warning message (see ``worksheet_pdf_in_attachments``).
+  worksheet_attachment_sample_cap: 3
