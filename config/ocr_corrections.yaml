@@ -22,20 +22,62 @@ _meta:
     - "Add new misreads to learned_fixes cache rather than here when"
     - "  they are invoice-specific rather than universal"
 
-version: "1.0.0"
+version: "1.1.0"
 
 # Character confusions in NUMERIC contexts only.
 # These apply when we know the surrounding context is a number (tariff
-# code, quantity, amount). Never apply blindly to text fields.
+# code, quantity, amount, declared duty). Never apply blindly to text fields.
 numeric_chars:
+  # Letter-shaped misreads of digits.
   O: "0"
   o: "0"
+  Q: "0"
+  D: "0"
   l: "1"
   I: "1"
   S: "5"      # sometimes; use with confidence check
+  s: "5"
   B: "8"
   Z: "2"
   G: "6"
+  # Punctuation-shaped misreads of "1" — observed in handwritten declaration
+  # extraction (e.g. "71.12" OCR'd as "7/.12" on HAWB9685992).
+  "/": "1"
+  "|": "1"
+  "(": "1"
+  ")": "1"
+  "{": "1"
+  "}": "1"
+  "[": "1"
+  "]": "1"
+  "!": "1"
+
+# Decimal-point confusables. Comma can mean decimal (European fmt, "84,48")
+# OR thousands separator ("1,234.56"). The normalizer disambiguates by:
+#   - 1-2 trailing digits after the comma  → treat as decimal point
+#   - 3 trailing digits + no other decimal → treat as thousands separator
+#   - any decimal already present in token → comma is thousands separator
+# The middle-dot "·" is unambiguously a decimal.
+decimal_chars:
+  ",": "."
+  "·": "."
+
+# Numeric-token recovery strategy used by
+# pipeline/ocr_number_normalizer.py::normalize_ocr_number().
+numeric_token_strategy:
+  # The digits that constitute a valid number after substitution.
+  digit_chars: "0123456789"
+  # Strip these surrounding characters before parsing.
+  strip_prefix_chars: "$€£¥ \t"
+  strip_suffix_chars: "$€£¥ \t.,;:"
+  # If first parse fails, attempt single-char substitutions from numeric_chars
+  # then retry. Multi-char substitution is bounded to avoid combinatorial blowup.
+  max_substitutions_per_token: 3
+  min_token_length: 1
+  max_token_length: 16
+  # When a comma appears with this many trailing digits, treat it as a
+  # thousands separator rather than a decimal point. (US fmt "1,234.56")
+  thousands_separator_digit_count: 3
 
 # Currency symbol recovery.
 currency_symbols:

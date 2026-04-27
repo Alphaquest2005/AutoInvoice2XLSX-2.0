@@ -1,0 +1,70 @@
+# Test fixtures for tests/pipeline/test_ocr_number_normalizer.py.
+# Loaded via tests/_fixtures.py::load_test_manifest("ocr_number_normalizer").
+
+format_name: ocr_number_normalizer
+
+# Tolerance for the floating-point comparison used by the test driver.
+test_tolerance: 1.0e-9
+
+# Each entry has just two keys: ``input`` (a heterogeneous YAML scalar
+# — string, int, float, or null) and ``expected`` (float or null).
+# ``why`` is a free-form note for humans reading test failures.
+recovery_cases:
+  # --- The motivating production cases ---
+  - input: "7/.12"
+    expected: 71.12
+    why: "HAWB9685992 declaration: handwritten 71.12, OCR misread middle 1 as /"
+  - input: "1l9.96"
+    expected: 119.96
+    why: "lowercase L confused with digit 1 inside number"
+  - input: "84,48"
+    expected: 84.48
+    why: "European decimal-comma — 1-2 trailing digits → decimal"
+  - input: "1,234.56"
+    expected: 1234.56
+    why: "US thousands-separator comma + explicit decimal point"
+  - input: "100,000"
+    expected: 100000.0
+    why: "comma with 3 trailing digits and no decimal → thousands separator"
+  - input: "$15.99"
+    expected: 15.99
+    why: "currency prefix gets stripped"
+  - input: "  $15.99 "
+    expected: 15.99
+    why: "leading and trailing whitespace stripped"
+  - input: "(2)1.50"
+    expected: 1211.50
+    why: "both parens substitute to 1 → '1211.50' (max_substitutions caps further changes)"
+  - input: "0·50"
+    expected: 0.50
+    why: "middle-dot is unambiguously a decimal"
+  # --- Pass-through cases (already valid) ---
+  - input: "0"
+    expected: 0.0
+    why: "single digit"
+  - input: "0.00"
+    expected: 0.0
+    why: "explicit zero amount"
+  - input: "12345.67"
+    expected: 12345.67
+    why: "already a clean number — should return as-is"
+  # --- Failure cases (must return null) ---
+  - input: ""
+    expected: null
+    why: "empty token returns null"
+  - input: "abc"
+    expected: null
+    why: "non-numeric letters with no digits"
+  - input: "1.2.3"
+    expected: null
+    why: "two decimal points cannot be resolved"
+  # --- Type coercion (heterogeneous YAML scalar in ``input``) ---
+  - input: 42
+    expected: 42.0
+    why: "int input passes through float() coercion"
+  - input: 3.14
+    expected: 3.14
+    why: "float input returned unchanged"
+  - input: null
+    expected: null
+    why: "None input returns None"
