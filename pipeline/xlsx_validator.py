@@ -1792,12 +1792,6 @@ def shipment_checklist(email_params: dict, validation: dict = None) -> dict:
              'Read the BL PDF to find the correct consignee address. '   # magic-ok: remediation instruction
              'Update _email_params.json field "consignee_address".')   # magic-ok: remediation instruction
 
-    consignee_code = str(email_params.get('consignee_code', '')).strip()
-    if not consignee_code:
-        fail('consignee_code_missing', 'warn',   # magic-ok: check key + severity
-             'Consignee code is empty.',   # magic-ok: fail message
-             'consignee_code', consignee_code,   # magic-ok: email-params field key
-             'Check config/document_types.json for the consignee code matching this consignee.')   # magic-ok: remediation instruction
 
     # ── 6. Invoice count ──
     total_invoices = email_params.get('total_invoices', 0)

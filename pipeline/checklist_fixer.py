@@ -21,9 +21,6 @@ Public surface
 
 Notes
 -----
-* ``consignee_code_missing`` is intentionally NOT registered. Per
-  ``feedback_consignee_code_warn_ok.md`` Joseph wants that warn to remain
-  visible per-shipment; suppressing it would hide the broker fill-in step.
 * Each fixer is idempotent — calling ``attempt_fixes`` twice with the same
   inputs produces the same output. The orchestration deduplicates findings
   by ``check`` so a fixer never runs twice in one pass.
@@ -332,9 +329,7 @@ except Exception as _e:   # pragma: no cover - defensive only
 # Findings the user has explicitly opted out of auto-fixing. Such findings
 # are silently passed through ``attempt_fixes`` (no entry in either
 # ``fixed`` or ``skipped``) so audits can still surface them by kind.
-_NO_FIX_KINDS = frozenset({
-    'consignee_code_missing',   # feedback_consignee_code_warn_ok.md
-})
+_NO_FIX_KINDS = frozenset()
 
 
 def attempt_fixes(

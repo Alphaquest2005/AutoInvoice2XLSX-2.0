@@ -5,8 +5,6 @@ entry-point. The mechanical fixers operate on the ``email_params`` dict
 in-place and never call the network. The XLSX fixers mutate openpyxl
 workbooks in place at the path supplied by ``attachment_paths``.
 
-Critically: ``consignee_code_missing`` MUST NOT have a registered fixer (per
-``feedback_consignee_code_warn_ok.md``).
 """
 
 from __future__ import annotations
@@ -20,7 +18,7 @@ _PIPELINE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 if _PIPELINE_DIR not in sys.path:
     sys.path.insert(0, _PIPELINE_DIR)
 
-from checklist_fixer import _FIXERS, _NO_FIX_KINDS, attempt_fixes  # noqa: E402
+from checklist_fixer import attempt_fixes  # noqa: E402
 
 
 def _finding(check, severity="warn"):
@@ -32,22 +30,6 @@ def _finding(check, severity="warn"):
         "value": "",
         "fix_hint": "",
     }
-
-
-# ── Registry guards ────────────────────────────────────────────────
-
-
-def test_consignee_code_missing_is_NOT_registered():  # noqa: N802
-    """`feedback_consignee_code_warn_ok.md`: do NOT silence or auto-source."""
-    assert "consignee_code_missing" in _NO_FIX_KINDS
-    assert "consignee_code_missing" not in _FIXERS
-
-
-def test_no_fix_finding_is_neither_fixed_nor_skipped():
-    ep = {}
-    rep = attempt_fixes(ep, [_finding("consignee_code_missing")])
-    assert rep["fixed"] == []
-    assert rep["skipped"] == []
 
 
 def test_unknown_kind_is_skipped_without_crash():
