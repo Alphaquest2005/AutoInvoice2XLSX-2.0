@@ -62,6 +62,15 @@ decimal_chars:
   ",": "."
   "·": "."
 
+# Internal-whitespace decimal recovery: when Tesseract captures
+# handwritten amounts as "18 02" (HAWB9565711) or "71 12" (similar),
+# a single internal space surrounded by digits is treated as the
+# decimal point IF the trailing chunk is 1-2 digits. Multi-space or
+# 3+ trailing digits leaves the token unchanged (and likely fails parse).
+internal_space_decimal:
+  enabled: true
+  max_trailing_digits: 2
+
 # Numeric-token recovery strategy used by
 # pipeline/ocr_number_normalizer.py::normalize_ocr_number().
 numeric_token_strategy:

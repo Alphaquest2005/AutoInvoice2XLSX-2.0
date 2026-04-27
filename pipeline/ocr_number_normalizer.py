@@ -59,9 +59,25 @@ def _resolve_decimal_separator(token: str) -> str:
     normalise the token accordingly. See ``ocr_corrections.yaml``
     section ``decimal_chars`` and ``numeric_token_strategy``.
     """
+    cfg = load_ocr_corrections()
     decimal_map = _decimal_chars()
     digits = _digits()
     thousands_n = _strategy()["thousands_separator_digit_count"]
+
+    # Internal-space-as-decimal recovery (HAWB9565711: "18 02" → "18.02").
+    isd = cfg.get("internal_space_decimal") or {}
+    if isd.get("enabled"):
+        max_trail = isd["max_trailing_digits"]
+        parts = token.split(" ")
+        if (
+            len(parts) == 2
+            and parts[0]
+            and parts[1]
+            and all(c in digits for c in parts[0])
+            and all(c in digits for c in parts[1])
+            and 1 <= len(parts[1]) <= max_trail
+        ):
+            token = parts[0] + decimal_map[","] + parts[1]
 
     if "·" in decimal_map:
         token = token.replace("·", decimal_map["·"])
