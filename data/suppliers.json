@@ -577,9 +577,9 @@
       "code": "MANGO",
       "name": "MANGO",
       "full_name": "MANGO",
-      "address": "",
-      "country_code": "ES",
-      "country": "Spain",
+      "address": "446 S Mall Dr #200, St George, UT 84790",
+      "country_code": "US",
+      "country": "United States",
       "currency": "USD",
       "notes": "Auto-added from invoice pipeline"
     },
@@ -914,5 +914,5 @@
       "notes": "Auto-added from invoice pipeline"
     }
   },
-  "last_updated": "2026-04-26"
+  "last_updated": "2026-04-27"
 }
