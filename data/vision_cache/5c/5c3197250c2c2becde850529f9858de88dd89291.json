@@ -1,20 +1,20 @@
 {
   "handwritten": {
-    "customs_value_ec": "249.33",
+    "customs_value_ec": "13.44",
     "customs_value_usd": "",
     "tariff_code": "",
     "duty_rate": "",
     "weight": "",
     "description": "",
-    "other_notes": "249.33 written vertically in the left margin beside the header"
+    "other_notes": "13.44 written vertically in the left margin beside the header"
   },
   "printed": {
-    "consignee": "ARLENA MITCHELL",
-    "freight": 57.0,
-    "waybill": "HAWB9686876",
+    "consignee": "TRE AUGUSTINE",
+    "freight": 3.0,
+    "waybill": "HAWB9687863",
     "man_reg": "2024/31",
     "office": "GDWBS",
-    "weight": 28.0,
+    "weight": 1.0,
     "packages": 1
   },
   "has_handwriting": true,

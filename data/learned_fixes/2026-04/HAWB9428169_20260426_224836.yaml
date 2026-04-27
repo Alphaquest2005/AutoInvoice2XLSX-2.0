@@ -1,0 +1,43 @@
+waybill: HAWB9428169
+replay_mode: true
+instructions: 'Edit the override block for any item. Leave fields null to keep current. Set delete: true
+  to remove an item. Append new items under add_items. Reply with this file attached to trigger pipeline
+  replay.'
+invoices:
+- invoice_num: PO-211-11245253311353900_Invoice
+  supplier: TEMU
+  pdf: PO-211-11245253311353900_Invoice.pdf
+  current:
+    sub_total: 56.08
+    items_sum: 42.31
+    invoice_total: 60.0
+    residual: 13.77
+  notes:
+  - 'Structural item count mismatch: 1 price lines found between section markers but 2 items extracted'
+  recovered_items: []
+  other_items:
+  - sku: TEMU-1
+    description: 'Item ( s ) discount : -'
+    current:
+      quantity: 1
+      unit_cost: 30.84
+      total_cost: 30.84
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  - sku: TEMU-2
+    description: Rose Golden Letter Print Backpack , Casual Daily Commuter Travel Storage Rucksack , Lightweight
+    current:
+      quantity: 0
+      unit_cost: 11.47
+      total_cost: 11.47
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  add_items: []

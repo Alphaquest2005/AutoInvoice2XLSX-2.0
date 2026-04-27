@@ -1,0 +1,22 @@
+{
+  "handwritten": {
+    "customs_value_ec": "",
+    "customs_value_usd": "",
+    "tariff_code": "",
+    "duty_rate": "",
+    "weight": "",
+    "description": "",
+    "other_notes": ""
+  },
+  "printed": {
+    "consignee": "",
+    "freight": null,
+    "waybill": "",
+    "man_reg": "",
+    "office": "",
+    "weight": null,
+    "packages": null
+  },
+  "has_handwriting": false,
+  "_cache_version": 4
+}

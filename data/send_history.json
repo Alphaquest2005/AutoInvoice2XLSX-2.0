@@ -933,146 +933,6 @@
       "sent_at": "2026-04-24T06:47:59Z"
     },
     {
-      "waybill": "HAWB9685992",
-      "subject": "Shipment: HAWB9685992",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/out",
-      "params_hash": "bfdf0eabbffaabfd3ea2a9a1eb62cc261782929dd250bdb7e872802f8c99020e",
-      "suppliers_hash": "b3d0f976bd0007617afd4dcf72ef5f51dc4b2bc1fe3749cf4a1082531190dffc",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/out/112-8635667-8526641_2.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/out/HAWB9685992.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/out/HAWB9685992-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9685992",
-        "consignee_name": "ARLENA MITCHELL",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "3.0",
-        "country_origin": "US",
-        "freight": "7.00",
-        "man_reg": "2024 31",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/out/112-8635667-8526641_2.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/out/HAWB9685992.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/out/HAWB9685992-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T07:07:33Z"
-    },
-    {
-      "waybill": "HAWB9686021",
-      "subject": "Shipment: HAWB9686021",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/out",
-      "params_hash": "9ebccffb2c91efcf980fbeec1acd69ff0bb1f6bfdc0c8dfd0132348f58f664f0",
-      "suppliers_hash": "b3d0f976bd0007617afd4dcf72ef5f51dc4b2bc1fe3749cf4a1082531190dffc",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/out/112-8635667-8526641_2.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/out/HAWB9686021.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/out/HAWB9686021-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9686021",
-        "consignee_name": "ARLENA MITCHELL",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "20.0",
-        "country_origin": "US",
-        "freight": "43.00",
-        "man_reg": "2024 31",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/out/112-8635667-8526641_2.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/out/HAWB9686021.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/out/HAWB9686021-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T07:07:49Z"
-    },
-    {
-      "waybill": "HAWB9686876",
-      "subject": "Shipment: HAWB9686876",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/out",
-      "params_hash": "44e9490c811a6053047bb78a061e825a5c17c346c5df093272fb6c37e0dc3e13",
-      "suppliers_hash": "b3d0f976bd0007617afd4dcf72ef5f51dc4b2bc1fe3749cf4a1082531190dffc",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/out/112-8635667-8526641_2.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/out/HAWB9686876.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/out/HAWB9686876-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9686876",
-        "consignee_name": "ARLENA MITCHELL",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "28.0",
-        "country_origin": "US",
-        "freight": "57.00",
-        "man_reg": "2024 31",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/out/112-8635667-8526641_2.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/out/HAWB9686876.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0347/out/HAWB9686876-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T07:08:13Z"
-    },
-    {
-      "waybill": "HAWB9557768",
-      "subject": "Shipment: HAWB9557768",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0348/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0348/out",
-      "params_hash": "ccc2ea19f2b0819c3c22f8ae9dc74ab12b790a2e873600b2d0846b3b3b6cae00",
-      "suppliers_hash": "b3d0f976bd0007617afd4dcf72ef5f51dc4b2bc1fe3749cf4a1082531190dffc",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0348/out/113-4349740-8141839_2.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0348/out/HAWB9557768-Declaration_combined.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0348/out/HAWB9557768-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9557768",
-        "consignee_name": "LORIC DICK",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 2,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "1.0",
-        "country_origin": "US",
-        "freight": "3.00",
-        "man_reg": "2024 27",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0348/out/113-4349740-8141839_2.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0348/out/HAWB9557768-Declaration_combined.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0348/out/HAWB9557768-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T07:10:51Z"
-    },
-    {
       "waybill": "HAWB9591220",
       "subject": "Shipment: HAWB9591220",
       "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0350/stage",
@@ -1219,41 +1079,6 @@
       "sent_at": "2026-04-24T08:04:44Z"
     },
     {
-      "waybill": "HAWB9605901",
-      "subject": "Shipment: HAWB9605901",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0361/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0361/out",
-      "params_hash": "dd882463ac87c0996d6a9ba6ae74784da2b27a929543a95f4668838938a42f9f",
-      "suppliers_hash": "b3d0f976bd0007617afd4dcf72ef5f51dc4b2bc1fe3749cf4a1082531190dffc",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0361/out/112-2894545-9421810.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0361/out/112-2894545-9421810.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0361/out/HAWB9605901-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9605901",
-        "consignee_name": "MICHELE MARELLI",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "3.0",
-        "country_origin": "US",
-        "freight": "7.00",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0361/out/112-2894545-9421810.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0361/out/112-2894545-9421810.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_0361/out/HAWB9605901-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T08:46:49Z"
-    },
-    {
       "waybill": "HAWB9580391",
       "subject": "Shipment: HAWB9580391",
       "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_072/stage",
@@ -1287,41 +1112,6 @@
         "office": "GDWBS"
       },
       "sent_at": "2026-04-24T10:32:42Z"
-    },
-    {
-      "waybill": "HAWB9565711",
-      "subject": "Shipment: HAWB9565711",
-      "source_input": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_074/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_074/out",
-      "params_hash": "bee65d8f3eb047a3190d7cbdc18f8f2acf620bade896a026f0b7d0253321b16c",
-      "suppliers_hash": "dd40e7f81e0fec5994eebf695fde481c1ddaca301c8d4f17fc22f820667e5b96",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_074/out/INVUS20240712001532356.pdf",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_074/out/INVUS20240712001532356.xlsx",
-        "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_074/out/HAWB9565711-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9565711",
-        "consignee_name": "ROLANDA JULIEN",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "1.0",
-        "country_origin": "US",
-        "freight": "3.00",
-        "man_reg": "2024 27",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_074/out/INVUS20240712001532356.pdf",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_074/out/INVUS20240712001532356.xlsx",
-          "/tmp/pytest-of-joseph/pytest-82/test_downloads_email_folder_074/out/HAWB9565711-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-24T10:50:09Z"
     },
     {
       "waybill": "HAWB9592421",
@@ -1881,43 +1671,6 @@
       "sent_at": "2026-04-25T06:02:51Z"
     },
     {
-      "waybill": "HAWB9579071",
-      "subject": "Shipment: HAWB9579071",
-      "source_input": "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_033/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_033/out",
-      "params_hash": "93cc0ad4895746c78c648993be933f3eccc5c37a58f500ba221097800666a243",
-      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_033/out/114-1133554-2261051_2.pdf",
-        "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_033/out/114-1133554-2261051.pdf",
-        "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_033/out/HAWB9579071-Declaration_combined.xlsx",
-        "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_033/out/HAWB9579071-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9579071",
-        "consignee_name": "MAURINE WILSON",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 2,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "6.0",
-        "country_origin": "US",
-        "freight": "13.00",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_033/out/114-1133554-2261051_2.pdf",
-          "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_033/out/114-1133554-2261051.pdf",
-          "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_033/out/HAWB9579071-Declaration_combined.xlsx",
-          "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_033/out/HAWB9579071-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-25T06:04:25Z"
-    },
-    {
       "waybill": "HAWB9539650",
       "subject": "Shipment: HAWB9539650",
       "source_input": "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_035/stage",
@@ -1951,41 +1704,6 @@
         "office": "GDWBS"
       },
       "sent_at": "2026-04-25T06:06:38Z"
-    },
-    {
-      "waybill": "HAWB9586947",
-      "subject": "Shipment: HAWB9586947",
-      "source_input": "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_036/stage",
-      "source_mode": "bl",
-      "output_dir": "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_036/out",
-      "params_hash": "d7f80130b4c99f65cdef0c251d2b437f08242c6698a1e6c9e9fec52541a80d6a",
-      "suppliers_hash": "7c4ac86fd5231fc74eee7ba4e06f7fc5f71c60c36ba08280950ea26db00cf5bd",
-      "attachments": [
-        "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_036/out/113-6780887-3785049.pdf",
-        "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_036/out/113-6780887-3785049.xlsx",
-        "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_036/out/HAWB9586947-Declaration.pdf"
-      ],
-      "params": {
-        "waybill": "HAWB9586947",
-        "consignee_name": "LORIC DICK",
-        "consignee_code": "",
-        "consignee_address": "",
-        "total_invoices": 1,
-        "expected_entries": 1,
-        "packages": "1",
-        "weight": "1.0",
-        "country_origin": "US",
-        "freight": "3.00",
-        "man_reg": "2024 28",
-        "attachment_paths": [
-          "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_036/out/113-6780887-3785049.pdf",
-          "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_036/out/113-6780887-3785049.xlsx",
-          "/tmp/pytest-of-joseph/pytest-159/test_downloads_email_folder_036/out/HAWB9586947-Declaration.pdf"
-        ],
-        "location": "WebSource",
-        "office": "GDWBS"
-      },
-      "sent_at": "2026-04-25T06:08:52Z"
     },
     {
       "waybill": "HAWB9622064",
@@ -3210,6 +2928,354 @@
         "office": "GDSGO"
       },
       "sent_at": "2026-04-27T01:10:27Z"
+    },
+    {
+      "waybill": "HAWB9579071",
+      "subject": "Shipment: HAWB9579071",
+      "source_input": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/03152025_7_29_24_2_33_PM_amazoncom",
+      "source_mode": "bl",
+      "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/2_03152025_7_29_24_2_33_PM_amazoncom",
+      "params_hash": "b56f07744ae461e939d64b4fd1ca5fdb533e7f8d9ea8d55ac7d7e8ab0d114619",
+      "suppliers_hash": "1949e958a0d8a21e022d345dc6678689ae3bcab19c560ca62725b8e32d7e475e",
+      "attachments": [
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/2_03152025_7_29_24_2_33_PM_amazoncom/114-1133554-2261051.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/2_03152025_7_29_24_2_33_PM_amazoncom/114-1133554-2261051.xlsx",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/2_03152025_7_29_24_2_33_PM_amazoncom/HAWB9579071-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9579071",
+        "consignee_name": "MAURINE WILSON",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "6.0",
+        "country_origin": "US",
+        "freight": "13.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "workspace/output/live_send_batch_20260426_224822/2_03152025_7_29_24_2_33_PM_amazoncom/114-1133554-2261051.pdf",
+          "workspace/output/live_send_batch_20260426_224822/2_03152025_7_29_24_2_33_PM_amazoncom/114-1133554-2261051.xlsx",
+          "workspace/output/live_send_batch_20260426_224822/2_03152025_7_29_24_2_33_PM_amazoncom/HAWB9579071-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-27T01:50:34Z"
+    },
+    {
+      "waybill": "138878183",
+      "subject": "Shipment: 138878183",
+      "source_input": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/03152025_FASHIOMiOVA",
+      "source_mode": "bl",
+      "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/3_03152025_FASHIOMiOVA",
+      "params_hash": "5bd3555ee47c8abfc374c73e7aaeb9a799f0fef40ce1da8d0ff94685cdf7f91d",
+      "suppliers_hash": "1949e958a0d8a21e022d345dc6678689ae3bcab19c560ca62725b8e32d7e475e",
+      "attachments": [
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/3_03152025_FASHIOMiOVA/138878183.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/3_03152025_FASHIOMiOVA/138878183.xlsx"
+      ],
+      "params": {
+        "waybill": "138878183",
+        "consignee_name": "",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "0",
+        "country_origin": "US",
+        "freight": "0",
+        "man_reg": null,
+        "attachment_paths": [
+          "workspace/output/live_send_batch_20260426_224822/3_03152025_FASHIOMiOVA/138878183.pdf",
+          "workspace/output/live_send_batch_20260426_224822/3_03152025_FASHIOMiOVA/138878183.xlsx"
+        ],
+        "location": "WebSource",
+        "office": ""
+      },
+      "sent_at": "2026-04-27T01:52:25Z"
+    },
+    {
+      "waybill": "HAWB9685992",
+      "subject": "Shipment: HAWB9685992",
+      "source_input": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/03152025_Shipped_on_August_7_2024",
+      "source_mode": "bl",
+      "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/4_03152025_Shipped_on_August_7_2024",
+      "params_hash": "0a76070e086cc2bd8987899faf5593a5aff7ab84a8e41a2b36490a73b40e9e95",
+      "suppliers_hash": "1949e958a0d8a21e022d345dc6678689ae3bcab19c560ca62725b8e32d7e475e",
+      "attachments": [
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/4_03152025_Shipped_on_August_7_2024/112-8635667-8526641.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/4_03152025_Shipped_on_August_7_2024/HAWB9685992.xlsx",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/4_03152025_Shipped_on_August_7_2024/HAWB9685992-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9685992",
+        "consignee_name": "ARLENA MITCHELL",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "3.0",
+        "country_origin": "US",
+        "freight": "7.00",
+        "man_reg": "2024 31",
+        "attachment_paths": [
+          "workspace/output/live_send_batch_20260426_224822/4_03152025_Shipped_on_August_7_2024/112-8635667-8526641.pdf",
+          "workspace/output/live_send_batch_20260426_224822/4_03152025_Shipped_on_August_7_2024/HAWB9685992.xlsx",
+          "workspace/output/live_send_batch_20260426_224822/4_03152025_Shipped_on_August_7_2024/HAWB9685992-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-27T01:57:54Z"
+    },
+    {
+      "waybill": "HAWB9686021",
+      "subject": "Shipment: HAWB9686021",
+      "source_input": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/03152025_Shipped_on_August_7_2024",
+      "source_mode": "bl",
+      "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/4_03152025_Shipped_on_August_7_2024",
+      "params_hash": "a0c17e58d4349e7df9cbf585b1557c470a0c58a7f2e876448c6687ffa7d95e99",
+      "suppliers_hash": "1949e958a0d8a21e022d345dc6678689ae3bcab19c560ca62725b8e32d7e475e",
+      "attachments": [
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/4_03152025_Shipped_on_August_7_2024/112-8635667-8526641.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/4_03152025_Shipped_on_August_7_2024/HAWB9686021.xlsx",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/4_03152025_Shipped_on_August_7_2024/HAWB9686021-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9686021",
+        "consignee_name": "ARLENA MITCHELL",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "20.0",
+        "country_origin": "US",
+        "freight": "43.00",
+        "man_reg": "2024 31",
+        "attachment_paths": [
+          "workspace/output/live_send_batch_20260426_224822/4_03152025_Shipped_on_August_7_2024/112-8635667-8526641.pdf",
+          "workspace/output/live_send_batch_20260426_224822/4_03152025_Shipped_on_August_7_2024/HAWB9686021.xlsx",
+          "workspace/output/live_send_batch_20260426_224822/4_03152025_Shipped_on_August_7_2024/HAWB9686021-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-27T01:58:04Z"
+    },
+    {
+      "waybill": "HAWB9686876",
+      "subject": "Shipment: HAWB9686876",
+      "source_input": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/03152025_Shipped_on_August_7_2024",
+      "source_mode": "bl",
+      "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/4_03152025_Shipped_on_August_7_2024",
+      "params_hash": "af0f45ecaa2c9f39db9cdbed73b3c2e4954d0deed9cacceb9ebe27bbc470da59",
+      "suppliers_hash": "1949e958a0d8a21e022d345dc6678689ae3bcab19c560ca62725b8e32d7e475e",
+      "attachments": [
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/4_03152025_Shipped_on_August_7_2024/112-8635667-8526641.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/4_03152025_Shipped_on_August_7_2024/HAWB9686876.xlsx",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/4_03152025_Shipped_on_August_7_2024/HAWB9686876-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9686876",
+        "consignee_name": "ARLENA MITCHELL",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "28.0",
+        "country_origin": "US",
+        "freight": "57.00",
+        "man_reg": "2024 31",
+        "attachment_paths": [
+          "workspace/output/live_send_batch_20260426_224822/4_03152025_Shipped_on_August_7_2024/112-8635667-8526641.pdf",
+          "workspace/output/live_send_batch_20260426_224822/4_03152025_Shipped_on_August_7_2024/HAWB9686876.xlsx",
+          "workspace/output/live_send_batch_20260426_224822/4_03152025_Shipped_on_August_7_2024/HAWB9686876-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-27T01:58:24Z"
+    },
+    {
+      "waybill": "HAWB9557768",
+      "subject": "Shipment: HAWB9557768",
+      "source_input": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/03152025_Shipped_on_July_11_2024",
+      "source_mode": "bl",
+      "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/5_03152025_Shipped_on_July_11_2024",
+      "params_hash": "9110d93c6c0e42d5f369b8eaf576db1bbb70a7303238be46f1c393a197a92664",
+      "suppliers_hash": "1949e958a0d8a21e022d345dc6678689ae3bcab19c560ca62725b8e32d7e475e",
+      "attachments": [
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/5_03152025_Shipped_on_July_11_2024/113-4349740-8141839.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/5_03152025_Shipped_on_July_11_2024/113-4349740-8141839.xlsx",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/5_03152025_Shipped_on_July_11_2024/HAWB9557768-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9557768",
+        "consignee_name": "LORIC DICK",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "1.0",
+        "country_origin": "US",
+        "freight": "3.00",
+        "man_reg": "2024 27",
+        "attachment_paths": [
+          "workspace/output/live_send_batch_20260426_224822/5_03152025_Shipped_on_July_11_2024/113-4349740-8141839.pdf",
+          "workspace/output/live_send_batch_20260426_224822/5_03152025_Shipped_on_July_11_2024/113-4349740-8141839.xlsx",
+          "workspace/output/live_send_batch_20260426_224822/5_03152025_Shipped_on_July_11_2024/HAWB9557768-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-27T01:59:59Z"
+    },
+    {
+      "waybill": "HAWB9586947",
+      "subject": "Shipment: HAWB9586947",
+      "source_input": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/03152025_amazon.com_001",
+      "source_mode": "bl",
+      "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/7_03152025_amazon.com_001",
+      "params_hash": "d7f80130b4c99f65cdef0c251d2b437f08242c6698a1e6c9e9fec52541a80d6a",
+      "suppliers_hash": "1949e958a0d8a21e022d345dc6678689ae3bcab19c560ca62725b8e32d7e475e",
+      "attachments": [
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/7_03152025_amazon.com_001/113-6780887-3785049.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/7_03152025_amazon.com_001/113-6780887-3785049.xlsx",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/7_03152025_amazon.com_001/HAWB9586947-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9586947",
+        "consignee_name": "LORIC DICK",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "1.0",
+        "country_origin": "US",
+        "freight": "3.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "workspace/output/live_send_batch_20260426_224822/7_03152025_amazon.com_001/113-6780887-3785049.pdf",
+          "workspace/output/live_send_batch_20260426_224822/7_03152025_amazon.com_001/113-6780887-3785049.xlsx",
+          "workspace/output/live_send_batch_20260426_224822/7_03152025_amazon.com_001/HAWB9586947-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-27T02:02:40Z"
+    },
+    {
+      "waybill": "HAWB9605901",
+      "subject": "Shipment: HAWB9605901",
+      "source_input": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/03152025_ami_zonjccpi",
+      "source_mode": "bl",
+      "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/8_03152025_ami_zonjccpi",
+      "params_hash": "dd882463ac87c0996d6a9ba6ae74784da2b27a929543a95f4668838938a42f9f",
+      "suppliers_hash": "1949e958a0d8a21e022d345dc6678689ae3bcab19c560ca62725b8e32d7e475e",
+      "attachments": [
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/8_03152025_ami_zonjccpi/112-2894545-9421810.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/8_03152025_ami_zonjccpi/112-2894545-9421810.xlsx",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/8_03152025_ami_zonjccpi/HAWB9605901-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9605901",
+        "consignee_name": "MICHELE MARELLI",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "3.0",
+        "country_origin": "US",
+        "freight": "7.00",
+        "man_reg": "2024 28",
+        "attachment_paths": [
+          "workspace/output/live_send_batch_20260426_224822/8_03152025_ami_zonjccpi/112-2894545-9421810.pdf",
+          "workspace/output/live_send_batch_20260426_224822/8_03152025_ami_zonjccpi/112-2894545-9421810.xlsx",
+          "workspace/output/live_send_batch_20260426_224822/8_03152025_ami_zonjccpi/HAWB9605901-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-27T02:04:56Z"
+    },
+    {
+      "waybill": "HAWB9565711",
+      "subject": "Shipment: HAWB9565711",
+      "source_input": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/07122024_SHEIN_US_Services_LLC.",
+      "source_mode": "bl",
+      "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/9_07122024_SHEIN_US_Services_LLC.",
+      "params_hash": "bee65d8f3eb047a3190d7cbdc18f8f2acf620bade896a026f0b7d0253321b16c",
+      "suppliers_hash": "1949e958a0d8a21e022d345dc6678689ae3bcab19c560ca62725b8e32d7e475e",
+      "attachments": [
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/9_07122024_SHEIN_US_Services_LLC./INVUS20240712001532356.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/9_07122024_SHEIN_US_Services_LLC./INVUS20240712001532356.xlsx",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/9_07122024_SHEIN_US_Services_LLC./HAWB9565711-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9565711",
+        "consignee_name": "ROLANDA JULIEN",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "1.0",
+        "country_origin": "US",
+        "freight": "3.00",
+        "man_reg": "2024 27",
+        "attachment_paths": [
+          "workspace/output/live_send_batch_20260426_224822/9_07122024_SHEIN_US_Services_LLC./INVUS20240712001532356.pdf",
+          "workspace/output/live_send_batch_20260426_224822/9_07122024_SHEIN_US_Services_LLC./INVUS20240712001532356.xlsx",
+          "workspace/output/live_send_batch_20260426_224822/9_07122024_SHEIN_US_Services_LLC./HAWB9565711-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-27T02:09:35Z"
+    },
+    {
+      "waybill": "HAWB9687863",
+      "subject": "Shipment: HAWB9687863",
+      "source_input": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/downloads-regression-emails/08062024_SHEIN_US_Services_LLC.",
+      "source_mode": "bl",
+      "output_dir": "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/10_08062024_SHEIN_US_Services_LLC.",
+      "params_hash": "328f64148e6c23957a455e2a7dbfcd0cd43e68a84f6ca277d27deaf62c08c96d",
+      "suppliers_hash": "1949e958a0d8a21e022d345dc6678689ae3bcab19c560ca62725b8e32d7e475e",
+      "attachments": [
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/10_08062024_SHEIN_US_Services_LLC./INVUS20240806001590619.pdf",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/10_08062024_SHEIN_US_Services_LLC./INVUS20240806001590619.xlsx",
+        "/mnt/c/Insight Software/AutoInvoice2XLSX.2.0/workspace/output/live_send_batch_20260426_224822/10_08062024_SHEIN_US_Services_LLC./HAWB9687863-Declaration.pdf"
+      ],
+      "params": {
+        "waybill": "HAWB9687863",
+        "consignee_name": "TRE AUGUSTINE",
+        "consignee_code": "",
+        "consignee_address": "",
+        "total_invoices": 1,
+        "expected_entries": 1,
+        "packages": "1",
+        "weight": "1.0",
+        "country_origin": "US",
+        "freight": "3.00",
+        "man_reg": "2024 31",
+        "attachment_paths": [
+          "workspace/output/live_send_batch_20260426_224822/10_08062024_SHEIN_US_Services_LLC./INVUS20240806001590619.pdf",
+          "workspace/output/live_send_batch_20260426_224822/10_08062024_SHEIN_US_Services_LLC./INVUS20240806001590619.xlsx",
+          "workspace/output/live_send_batch_20260426_224822/10_08062024_SHEIN_US_Services_LLC./HAWB9687863-Declaration.pdf"
+        ],
+        "location": "WebSource",
+        "office": "GDWBS"
+      },
+      "sent_at": "2026-04-27T02:13:18Z"
     }
   ]
 }

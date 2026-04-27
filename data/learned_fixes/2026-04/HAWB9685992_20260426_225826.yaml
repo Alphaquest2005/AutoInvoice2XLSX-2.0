@@ -1,0 +1,172 @@
+waybill: HAWB9686021
+replay_mode: true
+instructions: 'Edit the override block for any item. Leave fields null to keep current. Set delete: true
+  to remove an item. Append new items under add_items. Reply with this file attached to trigger pipeline
+  replay.'
+invoices:
+- invoice_num: 112-8635667-8526641
+  supplier: Amazon.com
+  pdf: 112-8635667-8526641.pdf
+  current:
+    sub_total: 502.74
+    items_sum: 339.67
+    invoice_total: 504.42
+    residual: 163.07
+  notes:
+  - 'Structural item count mismatch: 20 price lines found between section markers but 12 items extracted'
+  recovered_items: []
+  other_items:
+  - sku: AMZ-1
+    description: Onesies Brand Baby Boy ' s 8 - Pack Short Sleeve Mix & tdatch Bodysuits , Grey Dino ,
+      6 - 9 Months
+    current:
+      quantity: 1
+      unit_cost: 18.99
+      total_cost: 18.99
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  - sku: AMZ-2
+    description: Gerber Baby Boy ' s 8 - Pack Short Sleeve Onesies Bodysuits , Tiger Green , 3 - 6 Months
+    current:
+      quantity: 1
+      unit_cost: 21.99
+      total_cost: 21.99
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  - sku: AMZ-3
+    description: "Simple Joys by Carter ' s Baby Boys \u2019 6 - Pack Short - Sleeve Bodysuit , Multicolor\
+      \ / Dinosaur / Sports / Stripe , 0 - 3"
+    current:
+      quantity: 1
+      unit_cost: 15.98
+      total_cost: 15.98
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  - sku: AMZ-4
+    description: Wearable Breast Pump Hands Free Breast Pump 12 Levels 3 Modes Electric Breast Pump with
+      1200 mAh Battery , Leak - Proof
+    current:
+      quantity: 1
+      unit_cost: 62.99
+      total_cost: 62.99
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  - sku: AMZ-5
+    description: Onesies Brand Unisex Baby 12 - Piece Cap and Mitten Set , Sayings Board , 0 - 6 Months
+    current:
+      quantity: 1
+      unit_cost: 17.99
+      total_cost: 17.99
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  - sku: AMZ-6
+    description: 'Huggies Natural Care Sensitive Baby Wipes , Unscented , Hypoallergenic , 99 % Purified
+      Water , 8 Flip - Top Packs ( 448 '
+    current:
+      quantity: 1
+      unit_cost: 13.7
+      total_cost: 13.7
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  - sku: AMZ-7
+    description: Cute Castle Ultra - Soft Baby Washcloths , 16 Pack - 9 " by 9 " , Gentle on Sensitive
+      Skin for Face and Body , Plush , S
+    current:
+      quantity: 1
+      unit_cost: 9.99
+      total_cost: 9.99
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  - sku: AMZ-8
+    description: Onesies Brand Unisex Baby 12 - Piece Cap and Mitten Set , stripe , 0 - 6 Months
+    current:
+      quantity: 1
+      unit_cost: 16.99
+      total_cost: 16.99
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  - sku: AMZ-9
+    description: MUOCOBU Electric Breast Pump , Breast Pump Electric Breastfeeding Pump 3 Modes 10 Levels
+      Dual Rechargeable Nursing
+    current:
+      quantity: 1
+      unit_cost: 39.98
+      total_cost: 39.98
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  - sku: AMZ-10
+    description: Simple Joys Baby Boy ' s 6 piece Little Character sets Sleepwear , Green / Grey Rhino
+      , 3 - 6 Months
+    current:
+      quantity: 1
+      unit_cost: 19.96
+      total_cost: 19.96
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  - sku: AMZ-11
+    description: strom Large Diaper Bag , 29 L - 45 L Expandable Diaper Bag Backpack for 2 Kids / Twins
+      Baby Stuff , with Removable Cross
+    current:
+      quantity: 1
+      unit_cost: 48.04
+      total_cost: 48.04
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  - sku: AMZ-12
+    description: Huggies Size 1 Diapers , Snug & Dry Newborn Diapers , Size 1 ( 8 - 14 Ibs, 256 Count
+      ( 4 Packs of 64, Packaging May Vary
+    current:
+      quantity: 1
+      unit_cost: 53.07
+      total_cost: 53.07
+    override:
+      quantity: null
+      unit_cost: null
+      total_cost: null
+      description: null
+      delete: false
+  add_items: []

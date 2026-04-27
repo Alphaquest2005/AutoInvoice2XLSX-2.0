@@ -6,7 +6,7 @@
     "duty_rate": "",
     "weight": "",
     "description": "",
-    "other_notes": "1426.22 written on left margin"
+    "other_notes": "1426.22 written vertically in the left margin beside the header"
   },
   "printed": {
     "consignee": "ARLENA MITCHELL",
@@ -17,5 +17,6 @@
     "weight": 20.0,
     "packages": 1
   },
-  "has_handwriting": true
+  "has_handwriting": true,
+  "_cache_version": 4
 }

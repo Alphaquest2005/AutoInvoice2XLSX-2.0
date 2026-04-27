@@ -1,22 +1,22 @@
 {
   "handwritten": {
-    "customs_value_ec": "13.25",
+    "customs_value_ec": "",
     "customs_value_usd": "",
     "tariff_code": "",
     "duty_rate": "",
     "weight": "",
     "description": "",
-    "other_notes": "13.25 written vertically in the left margin beside the header"
+    "other_notes": ""
   },
   "printed": {
     "consignee": "LORIC DICK",
     "freight": 3.0,
-    "waybill": "HAWB9557768",
-    "man_reg": "2024/27",
+    "waybill": "HAWB9586947",
+    "man_reg": "2024/28",
     "office": "GDWBS",
     "weight": 1.0,
     "packages": 1
   },
-  "has_handwriting": true,
+  "has_handwriting": false,
   "_cache_version": 4
 }
